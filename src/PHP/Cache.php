@@ -23,6 +23,11 @@ class Cache
     }
     
     
+    /***************************************************************************
+    *                             CACHE OPERATIONS
+    ***************************************************************************/
+    
+    
     /**
      * Cache new item, overwriting previous key value
      *
@@ -39,6 +44,73 @@ class Cache
         return $key;
     }
     
+    
+    /**
+     * Set all the cache items
+     *
+     * @param array $items             Key => value item pairs
+     * @param bool  $markCacheComplete After setting items, mark the cache complete
+     */
+    public function set( array $items, bool $markCacheComplete = true )
+    {
+        $this->cache = [];
+        foreach ( $items as $key => $value) {
+            $this->update( $key, $value );
+        }
+        if ( $markCacheComplete ) {
+            $this->markComplete();
+        }
+        else {
+            $this->markIncomplete();
+        }
+    }
+    
+    
+    /***************************************************************************
+    *                                CACHE STATUS
+    ***************************************************************************/
+    
+    /**
+     * Has this cache been marked complete?
+     *
+     * Useful for flagging an interative cache as "complete", to prevent further
+     * lookups.
+     *
+     * @return bool
+     */
+    public function isComplete()
+    {
+        return $this->isComplete;
+    }
+    
+    
+    /**
+     * Mark cache as complete
+     *
+     * Useful for flagging an interative cache as "complete", to prevent further
+     * lookups.
+     */
+    public function markComplete()
+    {
+        $this->isComplete = true;
+    }
+    
+    
+    /**
+     * Mark cache as incomplete
+     *
+     * Useful for flagging an interative cache as "complete", to prevent further
+     * lookups.
+     */
+    public function markIncomplete()
+    {
+        $this->isComplete = false;
+    }
+    
+    
+    /***************************************************************************
+    *                                STATIC HELPERS
+    ***************************************************************************/
     
     /**
      * Sanitize the cache key
