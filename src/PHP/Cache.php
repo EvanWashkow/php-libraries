@@ -11,7 +11,7 @@ class Cache
      *
      * @var array
      */
-    private $cache;
+    protected $cache;
     
     
     /**
