@@ -13,13 +13,23 @@ class Cache
      */
     protected $cache;
     
+    /**
+     * Are the items in this cache complete?
+     *
+     * @var bool
+     */
+    protected $isComplete;
+    
     
     /**
      * Create new cache instance
+     *
+     * @param array $items Key => value item pairs
+     * @param bool  $markCacheComplete After setting items, mark the cache complete
      */
-    public function __construct()
+    public function __construct( array $items = [], bool $markCacheComplete = false )
     {
-        $this->cache = [];
+        $this->set( $items, $markCacheComplete );
     }
     
     
