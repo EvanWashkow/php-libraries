@@ -55,6 +55,18 @@ class Cache
     
     
     /**
+     * Clear the cache
+     *
+     * Restores cache to its initial, default state.
+     */
+    public function clear()
+    {
+        $this->cache = [];
+        $this->markIncomplete();
+    }
+    
+    
+    /**
      * Retrieve cached value(s)
      *
      * @param int|string $key Key the value is stored at
@@ -105,7 +117,7 @@ class Cache
      */
     public function set( array $items, bool $markCacheComplete = true )
     {
-        $this->cache = [];
+        $this->clear();
         foreach ( $items as $key => $value) {
             $this->update( $key, $value );
         }
