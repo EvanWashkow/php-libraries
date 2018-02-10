@@ -99,6 +99,8 @@ class Cache
     /**
      * Is the cache key set?
      *
+     * Does not check to see if $value is NULL: NULL is considered valid.
+     *
      * @param int|string $key Key to store the value at
      * @return bool
      */
