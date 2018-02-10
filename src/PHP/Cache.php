@@ -55,6 +55,32 @@ class Cache
     
     
     /**
+     * Retrieve cached value(s)
+     *
+     * @param int|string $key Key the value is stored at
+     * @return mixed Array if $key is NULL
+     */
+    public function get( $key = NULL )
+    {
+        // Variables
+        $value = NULL;
+        
+        // No key specified: return entire cache.
+        if ( !isset( $key )) {
+            $value = $this->cache;
+        }
+        
+        // Retrieve value from key
+        elseif ( $this->isSet( $key )) {
+            $key   = self::sanatizeKey( $key );
+            $value = $this->cache[ $key ];
+        }
+        
+        return $value;
+    }
+    
+    
+    /**
      * Add or replace cached value
      *
      * @param int|string $key   Key to store the value at
