@@ -38,7 +38,24 @@ class Cache
     ***************************************************************************/
     
     /**
-     * Cache new item, overwriting previous key value
+     * Add cached value; fails if key already exists
+     *
+     * @param int|string $key   Key to store the value at
+     * @param mixed      $value The value to store
+     * @return int|string Sanitized key. NULL on failure.
+     */
+    public function add( $key, $value )
+    {
+        $key = self::sanatizeKey( $key );
+        if ( !$this->isSet( $key )) {
+            $key = $this->update( $key, $value );
+        }
+        return $key;
+    }
+    
+    
+    /**
+     * Add or replace cached value
      *
      * @param int|string $key   Key to store the value at
      * @param mixed      $value The value to store
