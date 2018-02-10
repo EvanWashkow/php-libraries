@@ -37,7 +37,6 @@ class Cache
     *                             CACHE OPERATIONS
     ***************************************************************************/
     
-    
     /**
      * Cache new item, overwriting previous key value
      *
@@ -79,6 +78,19 @@ class Cache
     /***************************************************************************
     *                                CACHE STATUS
     ***************************************************************************/
+    
+    /**
+     * Is the cache key set?
+     *
+     * @param int|string $key Key to store the value at
+     * @return bool
+     */
+    public function isSet( $key )
+    {
+        $key = self::sanatizeKey( $key );
+        return ( isset( $key ) && array_key_exists( $key, $this->cache ));
+    }
+    
     
     /**
      * Has this cache been marked complete?
