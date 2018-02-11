@@ -1,7 +1,7 @@
 {
     "name":        "evanwashkow/php-cache",
     "description": "Simple caching tools for PHP",
-    "version":     "0.0.0",
+    "version":     "1.0.0",
     "autoload": {
         "psr-4": {
             "PHP\\": "src/PHP/"
