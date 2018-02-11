@@ -67,6 +67,25 @@ class Cache
     
     
     /**
+     * Remove an item from the cache
+     *
+     * @param int|string $key Key the value is stored at
+     * @return mixed Sanitized key. NULL on failure.
+     */
+    public function delete( $key )
+    {
+        if ( $this->isSet( $key )) {
+            $key = self::sanatizeKey( $key );
+            unset( $this->cache[ $key ] );
+        }
+        else {
+            $key = NULL;
+        }
+        return $key;
+    }
+    
+    
+    /**
      * Retrieve cached value(s)
      *
      * @param int|string $key Key the value is stored at
