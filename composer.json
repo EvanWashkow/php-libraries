@@ -1,6 +1,6 @@
 {
-    "name":        "evanwashkow/php-cache",
-    "description": "Simple caching tools for PHP",
+    "name":        "evanwashkow/php-libraries",
+    "description": "Foundational shared libraries for PHP",
     "version":     "1.0.0",
     "autoload": {
         "psr-4": {
