@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "deb41de8d73420087224185a89575f57",
+    "content-hash": "6e5459c09becefcadfab09d427779ff5",
+    "packages": [
+        {
+            "name": "evanwashkow/php-class-framework",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EvanWashkow/php-class-framework.git",
+                "reference": "dffae5abb15613dd689ae1a8b048ee2da7160362"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EvanWashkow/php-class-framework/zipball/dffae5abb15613dd689ae1a8b048ee2da7160362",
+                "reference": "dffae5abb15613dd689ae1a8b048ee2da7160362",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHP\\ClassFramework\\": "ClassFramework/"
+                }
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Evan Washkow",
+                    "email": "epwashkow@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple PHP class framework with autoloading capabilties",
+            "support": {
+                "source": "https://github.com/EvanWashkow/php-class-framework/tree/1.1.0",
+                "issues": "https://github.com/EvanWashkow/php-class-framework/issues"
+            },
+            "time": "2018-02-04 07:06:21"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4"
+    },
+    "platform-dev": []
+}
