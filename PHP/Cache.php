@@ -27,7 +27,7 @@ class Cache
      * @param array $items Key => value item pairs
      * @param bool  $markCacheComplete After setting items, mark the cache complete
      */
-    public function __construct( array $items = [], bool $markCacheComplete = false )
+    final public function __construct( array $items = [], bool $markCacheComplete = false )
     {
         $this->set( $items, $markCacheComplete );
     }
@@ -44,7 +44,7 @@ class Cache
      * @param mixed      $value The value to store
      * @return int|string Sanitized key. NULL on failure.
      */
-    public function add( $key, $value )
+    final public function add( $key, $value )
     {
         $key = self::sanatizeKey( $key );
         if ( !$this->isSet( $key )) {
@@ -59,7 +59,7 @@ class Cache
      *
      * Restores cache to its initial, default state.
      */
-    public function clear()
+    final public function clear()
     {
         $this->cache = [];
         $this->markIncomplete();
@@ -72,7 +72,7 @@ class Cache
      * @param int|string $key Key the value is stored at
      * @return mixed Sanitized key. NULL on failure.
      */
-    public function delete( $key )
+    final public function delete( $key )
     {
         if ( $this->isSet( $key )) {
             $key = self::sanatizeKey( $key );
@@ -91,7 +91,7 @@ class Cache
      * @param int|string $key Key the value is stored at
      * @return mixed Array if $key is NULL
      */
-    public function get( $key = NULL )
+    final public function get( $key = NULL )
     {
         // Variables
         $value = NULL;
@@ -118,7 +118,7 @@ class Cache
      * @param mixed      $value The value to store
      * @return int|string Sanitized key. NULL on failure.
      */
-    public function update( $key, $value )
+    final public function update( $key, $value )
     {
         $key = self::sanatizeKey( $key );
         if ( isset( $key )) {
@@ -134,7 +134,7 @@ class Cache
      * @param array $items             Key => value item pairs
      * @param bool  $markCacheComplete After setting items, mark the cache complete
      */
-    public function set( array $items, bool $markCacheComplete = true )
+    final public function set( array $items, bool $markCacheComplete = true )
     {
         $this->clear();
         foreach ( $items as $key => $value) {
@@ -161,7 +161,7 @@ class Cache
      * @param int|string $key Key to store the value at
      * @return bool
      */
-    public function isSet( $key )
+    final public function isSet( $key )
     {
         $key = self::sanatizeKey( $key );
         return ( isset( $key ) && array_key_exists( $key, $this->cache ));
@@ -176,7 +176,7 @@ class Cache
      *
      * @return bool
      */
-    public function isComplete()
+    final public function isComplete()
     {
         return $this->isComplete;
     }
@@ -188,7 +188,7 @@ class Cache
      * Useful for flagging an interative cache as "complete", to prevent further
      * lookups.
      */
-    public function markComplete()
+    final public function markComplete()
     {
         $this->isComplete = true;
     }
@@ -200,7 +200,7 @@ class Cache
      * Useful for flagging an interative cache as "complete", to prevent further
      * lookups.
      */
-    public function markIncomplete()
+    final public function markIncomplete()
     {
         $this->isComplete = false;
     }
