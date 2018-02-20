@@ -1,5 +1,5 @@
 <?php
-// INCLUDE THIS FIRST: loads this extension and it's dependencies
+// INCLUDE THIS FIRST: in charge of loading the extension with its dependencies
 
 // Include local vendor libraries if being built with composer locally
 if ( file_exists( __DIR__ . '/vendor/autoload.php' )) {
