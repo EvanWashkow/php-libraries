@@ -145,7 +145,7 @@ class Cache extends Cache\_Cache
      * @param mixed $key The cache key
      * @return mixed NULL will be returned if invalid
      */
-    final protected static function sanatizeKey( $key )
+    final protected static function sanitizeKey( $key )
     {
         $type = gettype( $key );
         
