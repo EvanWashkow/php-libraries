@@ -8,11 +8,8 @@ abstract class _Cache
 {
     /**
      * Create new cache instance
-     *
-     * @param array $items Key => value item pairs
-     * @param bool  $markCacheComplete After setting items, mark the cache complete
      */
-    abstract public function __construct( array $items = [], bool $markCacheComplete = false );
+    abstract public function __construct();
     
     
     /***************************************************************************
@@ -63,15 +60,6 @@ abstract class _Cache
      * @return int|string Sanitized key. NULL on failure.
      */
     abstract public function update( $key, $value );
-    
-    
-    /**
-     * Set all the cache items
-     *
-     * @param array $items             Key => value item pairs
-     * @param bool  $markCacheComplete After setting items, mark the cache complete
-     */
-    abstract public function set( array $items, bool $markCacheComplete = true );
     
     
     /***************************************************************************

@@ -21,9 +21,9 @@ class Cache extends Cache\_Cache
     protected $isComplete;
     
     
-    final public function __construct( array $items = [], bool $markCacheComplete = false )
+    final public function __construct()
     {
-        $this->set( $items, $markCacheComplete );
+        $this->cache = [];
     }
     
     
@@ -88,21 +88,6 @@ class Cache extends Cache\_Cache
             $this->cache[ $key ] = $value;
         }
         return $key;
-    }
-    
-    
-    final public function set( array $items, bool $markCacheComplete = true )
-    {
-        $this->clear();
-        foreach ( $items as $key => $value) {
-            $this->update( $key, $value );
-        }
-        if ( $markCacheComplete ) {
-            $this->markComplete();
-        }
-        else {
-            $this->markIncomplete();
-        }
     }
     
     
