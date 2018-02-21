@@ -4,7 +4,7 @@ namespace PHP;
 /**
  * Caches and retrieves items from system memory
  */
-class Cache extends Cache\_Cache
+class Cache
 {
     /**
      * Memory cache
@@ -21,7 +21,13 @@ class Cache extends Cache\_Cache
     protected $isComplete;
     
     
-    final public function __construct( array $items = [], bool $markCacheComplete = false )
+    /**
+     * Create new cache instance
+     *
+     * @param array $items Key => value item pairs
+     * @param bool  $markCacheComplete After setting items, mark the cache complete
+     */
+    public function __construct( array $items = [], bool $markCacheComplete = false )
     {
         $this->set( $items, $markCacheComplete );
     }
@@ -31,7 +37,14 @@ class Cache extends Cache\_Cache
     *                             CACHE OPERATIONS
     ***************************************************************************/
     
-    final public function add( $key, $value )
+    /**
+     * Add cached value; fails if key already exists
+     *
+     * @param int|string $key   Key to store the value at
+     * @param mixed      $value The value to store
+     * @return int|string Sanitized key. NULL on failure.
+     */
+    public function add( $key, $value )
     {
         $key = self::sanatizeKey( $key );
         if ( !$this->isSet( $key )) {
@@ -41,14 +54,25 @@ class Cache extends Cache\_Cache
     }
     
     
-    final public function clear()
+    /**
+     * Clear the cache
+     *
+     * Restores cache to its initial, default state.
+     */
+    public function clear()
     {
         $this->cache = [];
         $this->markIncomplete();
     }
     
     
-    final public function delete( $key )
+    /**
+     * Remove an item from the cache
+     *
+     * @param int|string $key Key the value is stored at
+     * @return mixed Sanitized key. NULL on failure.
+     */
+    public function delete( $key )
     {
         if ( $this->isSet( $key )) {
             $key = self::sanatizeKey( $key );
@@ -61,7 +85,13 @@ class Cache extends Cache\_Cache
     }
     
     
-    final public function get( $key = NULL )
+    /**
+     * Retrieve cached value(s)
+     *
+     * @param int|string $key Key the value is stored at
+     * @return mixed Array if $key is NULL
+     */
+    public function get( $key = NULL )
     {
         // Variables
         $value = NULL;
@@ -81,7 +111,14 @@ class Cache extends Cache\_Cache
     }
     
     
-    final public function update( $key, $value )
+    /**
+     * Add or replace cached value
+     *
+     * @param int|string $key   Key to store the value at
+     * @param mixed      $value The value to store
+     * @return int|string Sanitized key. NULL on failure.
+     */
+    public function update( $key, $value )
     {
         $key = self::sanatizeKey( $key );
         if ( isset( $key )) {
@@ -91,7 +128,13 @@ class Cache extends Cache\_Cache
     }
     
     
-    final public function set( array $items, bool $markCacheComplete = true )
+    /**
+     * Set all the cache items
+     *
+     * @param array $items             Key => value item pairs
+     * @param bool  $markCacheComplete After setting items, mark the cache complete
+     */
+    public function set( array $items, bool $markCacheComplete = true )
     {
         $this->clear();
         foreach ( $items as $key => $value) {
@@ -110,26 +153,54 @@ class Cache extends Cache\_Cache
     *                                CACHE STATUS
     ***************************************************************************/
     
-    final public function isSet( $key )
+    /**
+     * Is the cache key set?
+     *
+     * Does not check to see if $value is NULL: NULL is considered valid.
+     *
+     * @param int|string $key Key to store the value at
+     * @return bool
+     */
+    public function isSet( $key )
     {
         $key = self::sanatizeKey( $key );
         return ( isset( $key ) && array_key_exists( $key, $this->cache ));
     }
     
     
-    final public function isComplete()
+    /**
+     * Has this cache been marked complete?
+     *
+     * Useful for flagging an interative cache as "complete", to prevent further
+     * lookups.
+     *
+     * @return bool
+     */
+    public function isComplete()
     {
         return $this->isComplete;
     }
     
     
-    final public function markComplete()
+    /**
+     * Mark cache as complete
+     *
+     * Useful for flagging an interative cache as "complete", to prevent further
+     * lookups.
+     */
+    public function markComplete()
     {
         $this->isComplete = true;
     }
     
     
-    final public function markIncomplete()
+    /**
+     * Mark cache as incomplete
+     *
+     * Useful for flagging an interative cache as "complete", to prevent further
+     * lookups.
+     */
+    public function markIncomplete()
     {
         $this->isComplete = false;
     }
@@ -145,7 +216,7 @@ class Cache extends Cache\_Cache
      * @param mixed $key The cache key
      * @return mixed NULL will be returned if invalid
      */
-    final protected static function sanitizeKey( $key )
+    protected static function sanitizeKey( $key )
     {
         $type = gettype( $key );
         
