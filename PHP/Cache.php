@@ -46,7 +46,7 @@ class Cache
      */
     public function add( $key, $value )
     {
-        $key = self::sanatizeKey( $key );
+        $key = self::sanitizeKey( $key );
         if ( !$this->isSet( $key )) {
             $key = $this->update( $key, $value );
         }
@@ -75,7 +75,7 @@ class Cache
     public function delete( $key )
     {
         if ( $this->isSet( $key )) {
-            $key = self::sanatizeKey( $key );
+            $key = self::sanitizeKey( $key );
             unset( $this->cache[ $key ] );
         }
         else {
@@ -103,7 +103,7 @@ class Cache
         
         // Retrieve value from key
         elseif ( $this->isSet( $key )) {
-            $key   = self::sanatizeKey( $key );
+            $key   = self::sanitizeKey( $key );
             $value = $this->cache[ $key ];
         }
         
@@ -120,7 +120,7 @@ class Cache
      */
     public function update( $key, $value )
     {
-        $key = self::sanatizeKey( $key );
+        $key = self::sanitizeKey( $key );
         if ( isset( $key )) {
             $this->cache[ $key ] = $value;
         }
@@ -163,7 +163,7 @@ class Cache
      */
     public function isSet( $key )
     {
-        $key = self::sanatizeKey( $key );
+        $key = self::sanitizeKey( $key );
         return ( isset( $key ) && array_key_exists( $key, $this->cache ));
     }
     
