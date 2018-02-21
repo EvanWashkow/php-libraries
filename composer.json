@@ -3,10 +3,8 @@
     "description": "Foundational shared libraries for PHP",
     "version":     "0.1.1",
     "autoload": {
-        "autoload": {
-            "psr-4": {
-                "PHP\\": "PHP/"
-            }
+        "psr-4": {
+            "PHP\\": "PHP/"
         }
     },
     "repositories": [
