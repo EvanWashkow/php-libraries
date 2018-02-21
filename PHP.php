@@ -1,5 +1,6 @@
 <?php
-// IMPORTANT: include `load.php`, not this file
 
-// Set up class framework autoloader
-new \PHP\ClassFramework\Autoloader( 'PHP', __DIR__ . '/PHP' );
+// Include local vendor libraries if being built with composer locally
+if ( file_exists( __DIR__ . '/vendor/autoload.php' )) {
+    require_once( __DIR__ . '/vendor/autoload.php' );
+}

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "deb41de8d73420087224185a89575f57",
-    "content-hash": "6e5459c09becefcadfab09d427779ff5",
+    "hash": "b883d77f7b122beda234a0fb83238abf",
+    "content-hash": "75eb3662d2cdf8ce19c904db45bb8756",
     "packages": [
         {
             "name": "evanwashkow/php-class-framework",
