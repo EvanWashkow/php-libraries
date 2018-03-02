@@ -2,10 +2,29 @@
 namespace PHP;
 
 /**
- * Defines a helper utility for URLs
+ * Defines a URL string
  */
 class URL
 {
+    
+    /**
+     * The URL string
+     *
+     * @var string
+     */
+    protected $url;
+    
+    
+    /**
+     * Create new instance of a URL
+     *
+     * @param string $url The URL string
+     */
+    public function __construct( string $url )
+    {
+        $this->url = $url;
+    }
+    
     
     /**
      * Extract the URL into its various pieces
