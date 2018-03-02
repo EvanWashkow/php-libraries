@@ -1,5 +1,5 @@
 <?php
-namespace PHP;
+namespace PHP\Debug;
 
 /**
  * Defines a helper for logging debug messages to the system
