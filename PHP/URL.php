@@ -67,6 +67,21 @@ class URL
     }
     
     
+    /***************************************************************************
+    *                                   METHODS
+    ***************************************************************************/
+    
+    /**
+     * Convert to a string
+     *
+     * @return string
+     */
+    final public function ToString()
+    {
+        return $this->url;
+    }
+    
+    
     /**
      * Extract the URL into its various pieces
      *
