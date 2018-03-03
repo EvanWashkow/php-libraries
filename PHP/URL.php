@@ -58,6 +58,13 @@ class URL
      */
     private $protocol = null;
     
+    /**
+     * The URL domain ("www.example.com")
+     *
+     * @var string
+     */
+    private $domain = null;
+    
     
     /***************************************************************************
     *                                 CONSTRUCTOR
@@ -89,6 +96,23 @@ class URL
             $this->protocol = explode( '://', $this->url, 2 )[ 0 ];
         }
         return $this->protocol;
+    }
+    
+    
+    /**
+     * Retrive the domain for this URL ("www.example.com")
+     *
+     * @return string
+     */
+    final public function GetDomain()
+    {
+        if ( null === $this->domain ) {
+            $_url   = substr( $this->url, strlen( $this->GetProtocol() ) + 3 );
+            $pieces = explode( '?',   $_url,        2 );
+            $pieces = explode( '/',   $pieces[ 0 ], 2 );
+            $this->domain = $pieces[ 0 ];
+        }
+        return $this->domain;
     }
     
     
