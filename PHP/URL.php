@@ -85,14 +85,8 @@ class URL
      */
     final public function GetProtocol()
     {
-        // Extract the protocol
         if ( null === $this->protocol ) {
-            if ( '' === $this->url ) {
-                $this->protocol = '';
-            }
-            else {
-                $this->protocol = substr( $this->url, 0, strpos( $this->url, '://' ));
-            }
+            $this->protocol = explode( '://', $this->url, 2 )[ 0 ];
         }
         return $this->protocol;
     }
