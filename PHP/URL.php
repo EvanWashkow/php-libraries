@@ -65,6 +65,13 @@ class URL
      */
     private $domain = null;
     
+    /**
+     * The URL path, following the domain ("url/path")
+     *
+     * @var string
+     */
+    private $path = null;
+    
     
     /***************************************************************************
     *                                 CONSTRUCTOR
@@ -113,6 +120,24 @@ class URL
             $this->domain = $pieces[ 0 ];
         }
         return $this->domain;
+    }
+    
+    
+    /**
+     * Retrieve the path, following the domain, for this URL ("url/path")
+     *
+     * @return string
+     */
+    final public function GetPath()
+    {
+        if ( null === $this->path ) {
+            $_url   = substr( $this->url, strlen( $this->GetProtocol() ) + 3);
+            $pieces = explode( '?', $_url, 2 );
+            $pieces = explode( '/', $pieces[ 0 ] );
+            array_shift( $pieces );
+            $this->path = rtrim( implode( '/', $pieces ), '/' );
+        }
+        return $this->path;
     }
     
     
