@@ -7,6 +7,43 @@ namespace PHP;
 class URL
 {
     
+    /***************************************************************************
+    *                                STATIC METHODS
+    ***************************************************************************/
+    
+    /**
+     * Is the URL valid?
+     *
+     * @param string $url The URL to check
+     * @return bool
+     */
+    final public static function IsValid( string $url )
+    {
+        $url = filter_var( $url, FILTER_VALIDATE_URL );
+        return ( false !== $url );
+    }
+
+
+    /**
+     * Sanitize URL, returning an empty string if not a valid URL
+     *
+     * @param string $url The URL
+     * @return string Empty string on invalid URL
+     */
+    final public static function Sanitize( string $url )
+    {
+        $url = filter_var( $url, FILTER_SANITIZE_URL );
+        if ( !self::IsValid( $url )) {
+            $url = '';
+        }
+        return $url;
+    }
+    
+    
+    /***************************************************************************
+    *                                  PROPERTIES
+    ***************************************************************************/
+    
     /**
      * The URL string
      *
@@ -15,6 +52,10 @@ class URL
     protected $url;
     
     
+    /***************************************************************************
+    *                                 CONSTRUCTOR
+    ***************************************************************************/
+    
     /**
      * Create new instance of a URL
      *
@@ -22,7 +63,7 @@ class URL
      */
     public function __construct( string $url )
     {
-        $this->url = $url;
+        $this->url = self::Sanitize( $url );
     }
     
     
@@ -78,33 +119,5 @@ class URL
                 $parameters[ $key ] = $value;
             }
         }
-    }
-    
-    
-    /**
-     * Is the URL valid?
-     *
-     * @param string $url The URL to check
-     * @return bool
-     */
-    final public static function IsValid( string $url )
-    {
-        $url = filter_var( $url, FILTER_VALIDATE_URL );
-        return ( false !== $url );
-    }
-    
-    /**
-     * Sanitize URL, returning an empty string if not a valid URL
-     *
-     * @param string $url The URL
-     * @return string Empty string on invalid URL
-     */
-    final public static function Sanitize( string $url )
-    {
-        $url = filter_var( $url, FILTER_SANITIZE_URL );
-        if ( !self::IsValid( $url )) {
-            $url = '';
-        }
-        return $url;
     }
 }
