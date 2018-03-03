@@ -72,6 +72,13 @@ class URL
      */
     private $path = null;
     
+    /**
+     * The URL parameters ("?var_i=foo&var_2=bar")
+     *
+     * @var \stdClass;
+     */
+    private $parameters = null;
+    
     
     /***************************************************************************
     *                                 CONSTRUCTOR
@@ -138,6 +145,31 @@ class URL
             $this->path = rtrim( implode( '/', $pieces ), '/' );
         }
         return $this->path;
+    }
+    
+    
+    /**
+     * Retrieve the parameters for this URL ("?var_1=foo&var_2=bar")
+     *
+     * @return \stdClass;
+     */
+    final public function GetParameters()
+    {
+        if ( null === $this->parameters ) {
+            $this->parameters = new \stdClass();
+            $index = strpos( $this->url, '?' );
+            if ( false !== $index ) {
+                $_parameters = substr( $this->url, $index + 1 );
+                $_parameters = explode( '&', $_parameters );
+                foreach ( $_parameters as $_parameter ) {
+                    $pieces = explode( '=', $_parameter, 2 );
+                    $key    = array_shift( $pieces );
+                    $value  = array_shift( $pieces );
+                    $this->parameters->$key = $value;
+                }
+            }
+        }
+        return $this->parameters;
     }
     
     
