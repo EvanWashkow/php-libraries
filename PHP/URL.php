@@ -51,6 +51,13 @@ class URL
      */
     protected $url;
     
+    /**
+     * The URL protocol ("http")
+     *
+     * @var string
+     */
+    private $protocol = null;
+    
     
     /***************************************************************************
     *                                 CONSTRUCTOR
@@ -70,6 +77,21 @@ class URL
     /***************************************************************************
     *                                   METHODS
     ***************************************************************************/
+    
+    /**
+     * Retrieve the protocol for this URL ("http")
+     *
+     * @return string
+     */
+    final public function GetProtocol()
+    {
+        // Extract the protocol
+        if ( null === $this->protocol ) {
+            $this->protocol = substr( $this->url, 0, strpos( $this->url, '://' ));
+        }
+        return $this->protocol;
+    }
+    
     
     /**
      * Convert to a string
