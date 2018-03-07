@@ -63,4 +63,12 @@ abstract class _Enumerable extends Object
      * @return _Enumerable
      */
     abstract public function GetSubset( int $start, int $count = -1, int $step = 1 ): _Enumerable;
+    
+    
+    /**
+     * Convert the entries to an array
+     *
+     * @return array
+     */
+    abstract public function ToArray(): array;
 }
