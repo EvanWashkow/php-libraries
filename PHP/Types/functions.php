@@ -7,7 +7,7 @@
  * @param string $type     Type string to compare the variable's type with
  * @return bool
  */
-function is( $variable, string $type )
+function is( $variable, string $type ): bool
 {
     // Variables
     $isOfType    = false;
