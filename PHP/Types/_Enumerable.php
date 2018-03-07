@@ -41,4 +41,13 @@ abstract class _Enumerable extends Object
      * @param callable $function Callback function( $value, $index )
      */
     abstract public function ForEach( callable $function );
+    
+    
+    /**
+     * Retrieve the value from the corresponding index or null if the index does not exist.
+     *
+     * @param int $index Index to retrieve the value from
+     * @return mixed Value from the index; null if the index does not exist.
+     */
+    abstract public function Get( int $index );
 }
