@@ -66,6 +66,17 @@ abstract class _Enumerable extends Object
     
     
     /**
+     * Retrieve the index for the first entry with a matching value, or -1 if
+     * the item could not be found.
+     *
+     * @param mixed $value  Value to get the index for
+     * @param int   $offset Search starts at this index
+     * @return int
+     */
+    abstract public function IndexOf( $value, int $offset = 0 ): int;
+    
+    
+    /**
      * Convert the entries to an array
      *
      * @return array
