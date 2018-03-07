@@ -50,4 +50,17 @@ abstract class _Enumerable extends Object
      * @return mixed Value from the index; null if the index does not exist.
      */
     abstract public function Get( int $index );
+    
+    
+    /**
+     * Retrieves subset of entries starting from the given index
+     *
+     * Continues until the count or the last entry is reached, whichever is first.
+     *
+     * @param int $start Starting index
+     * @param int $count Number of items to retrieve; negative to retrieve all remaining entries.
+     * @param int $step  Rate at which to increment the index. Example: 2 "steps" to every other value, 3 every third, etc.
+     * @return _Enumerable
+     */
+    abstract public function GetSubset( int $start, int $count = -1, int $step = 1 ): _Enumerable;
 }
