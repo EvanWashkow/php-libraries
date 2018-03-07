@@ -3,6 +3,9 @@
     "description": "Foundational shared libraries for PHP",
     "version":     "0.2.0",
     "autoload": {
+        "files": [
+            "PHP/Types/functions.php"
+        ],
         "psr-4": {
             "PHP\\": "PHP/"
         }
