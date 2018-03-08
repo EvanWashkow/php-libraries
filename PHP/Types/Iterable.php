@@ -4,7 +4,7 @@ namespace PHP\Types;
 /**
  * Defines a set of items, with arbitrary indexes, that can be iterated over
  */
-class Iterable
+class Iterable extends Object
 {
     
     /**
