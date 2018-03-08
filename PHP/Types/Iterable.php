@@ -42,7 +42,7 @@ class Iterable extends Object
      *
      * @return int
      */
-    public function Count(): int
+    final public function Count(): int
     {
         return count( $this->items );
     }
