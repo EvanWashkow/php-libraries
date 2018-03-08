@@ -128,7 +128,7 @@ class Enumerable extends Iterable
         else {
             
             // Sanitize the starting index
-            if ( $start < self::GetFirstIndex() ) {
+            if ( $start < $this->GetFirstIndex() ) {
                 \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be less than the first index of the item list.' );
                 $start = $this->GetFirstIndex();
             }
