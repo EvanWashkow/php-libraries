@@ -171,36 +171,53 @@ class Enumerable extends Iterable
     /**
      * Chop these items into groups, using the given value as a delimiter
      *
-     * @param mixed $value Value to split this enumerable on
-     * @param int   $limit Maximum number of items to return; negative to return all.
+     * @param mixed $delimiter Value to split this enumerable on
+     * @param int   $limit     Maximum number of items to return; negative to return all.
      * @return Enumerable
      */
-    public function Split( $value, int $limit = -1 ): Enumerable
+    public function Split( $delimiter, int $limit = -1 ): Enumerable
     {
         // Variables
-        $groups = [];
-        $group  = [];
+        $start       = 0;
+        $groups      = [];
+        $canContinue = true;
         
-        // For each entry, either add it to the group, or, if the value matches,
-        // create a new group
-        foreach ( $this->items as $item ) {
-            if ( $limit === count( $groups )) {
-                break;
+        // While there are items left
+        do {
+            
+            // Halt loop if the limit has been reached.
+            if (( 0 <= $limit ) && ( $limit === count( $groups ))) {
+                $canContinue = false;
             }
-            elseif ( $value === $item ) {
-                $groups[] = new static( $this->type, $group );
-                $group    = [];
-            }
+            
             else {
-                $group[] = $item;
+                
+                // Get index of the next delimiter
+                $end = $this->GetIndexOf( $delimiter, $start );
+                
+                // Delimiter not found. Set end as the last index.
+                if ( $end < 0 ) {
+                    $end = $this->GetLastIndex() + 1;
+                    $canContinue = false;
+                }
+                
+                // Group the items between the start and end, excluding the delimiter
+                $group = $this->Slice( $start, $end - 1 );
+                if ( 0 !== $group->Count() ) {
+                    $groups[] = $group;
+                }
+                
+                // Move start index.
+                $start = $end + 1;
+                
+                // Halt loop if the last item was processed
+                if ( $this->GetLastIndex() <= $start ) {
+                    $canContinue = false;
+                }
             }
-        }
+        } while ( $canContinue );
         
-        // Add the last, non-empty group to the groups list
-        if ( 0 < count( $group )) {
-            $groups[] = new static( $this->type, $group );
-        }
-        
-        return new static( $this->GetType(), $groups );
+        // Return item groups as an immutable list
+        return new self( $this->GetType(), $groups );
     }
 }
