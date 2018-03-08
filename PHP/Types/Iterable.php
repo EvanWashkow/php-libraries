@@ -27,6 +27,17 @@ class Iterable
     
     
     /**
+     * Convert this iterable to a PHP array
+     *
+     * @return array
+     */
+    public function ConvertToArray(): array
+    {
+        return $this->items;
+    }
+    
+    
+    /**
      * Retrieve the number of items
      *
      * @return int
