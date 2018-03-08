@@ -135,7 +135,7 @@ class Enumerable extends Iterable
             
             // Sanitize the ending index
             if ( $this->GetLastIndex() < $end ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index surpasses the last index of the item list.' );
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot surpass the last index of the item list.' );
                 $end = $this->GetLastIndex();
             }
             
