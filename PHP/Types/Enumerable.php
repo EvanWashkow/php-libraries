@@ -119,23 +119,24 @@ class Enumerable extends Iterable
         // Variables
         $subset = [];
         
-        // Error. Start index cannot be negative.
-        if ( $start < 0 ) {
-            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be negative.' );
-        }
-        
         // Error. Ending index cannot be less than the starting index.
-        elseif ( $end < $start ) {
-            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot be smaller than the starting index.' );
+        if ( $end < $start ) {
+            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot be less than the starting index.' );
         }
         
         // Create subset
         else {
             
+            // Sanitize the starting index
+            if ( $start < self::GetFirstIndex() ) {
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be less than the first index.' );
+                $start = $this->GetFirstIndex();
+            }
+            
             // Sanitize the ending index
-            if ( $this->Count() <= $end ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot be smaller than the starting index.' );
-                $end = $this->Count() - 1;
+            if ( $this->GetLastIndex() < $end ) {
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index surpasses the end of the array.' );
+                $end = $this->GetLastIndex();
             }
             
             // For each entry in the index range, push them into the subset array
