@@ -53,19 +53,6 @@ abstract class _Enumerable extends Object
     
     
     /**
-     * Retrieves subset of entries starting from the given index
-     *
-     * Continues until the count or the last entry is reached, whichever is first.
-     *
-     * @param int $start Starting index
-     * @param int $count Number of items to retrieve; negative to retrieve all remaining entries.
-     * @param int $step  Rate at which to increment the index. Example: 2 "steps" to every other value, 3 every third, etc.
-     * @return _Enumerable
-     */
-    abstract public function GetSubset( int $start, int $count = -1, int $step = 1 ): _Enumerable;
-    
-    
-    /**
      * Retrieve the index for the first entry with a matching value, or -1 if
      * the item could not be found.
      *
@@ -74,6 +61,16 @@ abstract class _Enumerable extends Object
      * @return int
      */
     abstract public function IndexOf( $value, int $offset = 0 ): int;
+    
+    
+    /**
+     * Creates a subset of entries from the current entries
+     *
+     * @param int $start Starting index
+     * @param int $end   Ending index
+     * @return _Enumerable
+     */
+    abstract public function Slice( int $start, int $end ): _Enumerable;
     
     
     /**
