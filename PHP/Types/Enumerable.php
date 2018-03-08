@@ -2,17 +2,10 @@
 namespace PHP\Types;
 
 /**
- * Defines a non-mutable list of values
+ * Defines a non-mutible set of items with integer indexes
  */
-class Enumerable extends _Enumerable
+class Enumerable extends Iterable
 {
-    
-    /**
-     * Entries for this 
-     *
-     * @var array
-     */
-    protected $entries;
     
     /**
      * Defines type requirement for all entries
@@ -25,77 +18,81 @@ class Enumerable extends _Enumerable
     /**
      * Create a new enumerated instance
      *
-     * @param string $type    Establishes type requirement for all entries. See `is()`.
-     * @param array  $entries Values for this enumerable
+     * @param string $type  Establishes type requirement for all entries. See `is()`.
+     * @param array  $items Values for this enumerable
      */
-    public function __construct( string $type = '', array $entries = [] )
+    public function __construct( string $type = '', array $items = [] )
     {
         // For each entry, check it to make sure it is of the same type
         if ( '' !== $type ) {
-            foreach ( $entries as $i => $entry ) {
-                if ( !is( $entry, $type )) {
-                    unset( $entries[ $i ] );
+            foreach ( $items as $i => $item ) {
+                if ( !is( $item, $type )) {
+                    unset( $items[ $i ] );
                 }
             }
         }
         
         // Set entries, dropping non-numerical indexes
-        $this->type    = $type;
-        $this->entries = array_values( $entries );
+        $this->type = $type;
+        parent::__construct( array_values( $items ));
     }
     
     
-    public function Count(): int
-    {
-        return count( $this->entries );
-    }
-    
-    
-    public function ForEach( callable $function )
-    {
-        foreach ( $this->entries as $i => $entry ) {
-            $result = call_user_func_array( $function, [ $entry, $i ] );
-            if ( null !== $result ) {
-                break;
-            }
-        }
-    }
-    
-    
+    /**
+     * Retrieve the value from the corresponding index
+     *
+     * @param int $index Index to retrieve the value from
+     * @return mixed Value or NULL if the index does not exist.
+     */
     public function Get( int $index )
     {
         $value = null;
-        if ( array_key_exists( $index, $this->entries )) {
-            $value = $this->entries[ $index ];
+        if ( array_key_exists( $index, $this->items )) {
+            $value = $this->items[ $index ];
         }
         return $value;
     }
     
     
-    public function IndexOf( $value, int $offset = 0 ): int
+    /**
+     * Retrieve the index for the first entry with a matching value, or -1 if
+     * the item could not be found.
+     *
+     * @param mixed $value  Value to get the index for
+     * @param int   $offset Start search from this index
+     * @return int
+     */
+    public function GetIndexOf( $value, int $offset = 0 ): int
     {
         // Variables
         $index = -1;
-        
+    
         // Error. Offset cannot be negative.
         if ( $offset < 0 ) {
             \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Offset cannot be negative.' );
         }
-        
+    
         // Find index for the value
         else {
-            $array  = $this->Slice( $offset, $this->Count() - 1 )->ToArray();
+            $array  = $this->Slice( $offset, $this->Count() - 1 )->ConvertToArray();
             $_index = array_search( $value, $array );
             if ( false !== $_index ) {
                 $index = $_index + $offset;
             }
         }
-        
+    
         return $index;
     }
     
     
-    public function Slice( int $start, int $end ): _Enumerable
+    /**
+     * Creates a subset of entries from the current entries
+     *
+     * @param int $start Starting index
+     * @param int $end   Ending index
+     * @return Enumerable
+     */
+    public function Slice( int $start, int $end ): Enumerable
     {
         // Variables
         $subset = [];
@@ -121,7 +118,7 @@ class Enumerable extends _Enumerable
             
             // For each entry in the index range, push them into the subset array
             for ( $i = $start; $i <= $end; $i++ ) {
-                $subset[] = $this->entries[ $i ];
+                $subset[] = $this->items[ $i ];
             }
         }
         
@@ -129,7 +126,14 @@ class Enumerable extends _Enumerable
     }
     
     
-    public function Split( $value, int $limit = -1 ): _Enumerable
+    /**
+     * Splits entries around a particular value, grouping each set
+     *
+     * @param mixed $value Value to split this enumerable on
+     * @param int   $limit Maximum number of entries to return; negative to return all.
+     * @return Enumerable
+     */
+    public function Split( $value, int $limit = -1 ): Enumerable
     {
         // Variables
         $groups = [];
@@ -137,16 +141,16 @@ class Enumerable extends _Enumerable
         
         // For each entry, either add it to the group, or, if the value matches,
         // create a new group
-        foreach ( $this->entries as $entry ) {
+        foreach ( $this->items as $item ) {
             if ( $limit === count( $groups )) {
                 break;
             }
-            elseif ( $value === $entry ) {
+            elseif ( $value === $item ) {
                 $groups[] = new static( $this->type, $group );
                 $group    = [];
             }
             else {
-                $group[] = $entry;
+                $group[] = $item;
             }
         }
         
@@ -156,11 +160,5 @@ class Enumerable extends _Enumerable
         }
         
         return new static( $this->GetType(), $groups );
-    }
-    
-    
-    public function ToArray(): array
-    {
-        return $this->entries;
     }
 }
