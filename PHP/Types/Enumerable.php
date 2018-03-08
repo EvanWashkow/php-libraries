@@ -80,25 +80,44 @@ class Enumerable extends Iterable
      * Search items for a particular value, returning the index of the first one
      * found or -1 if none were found.
      *
-     * @param mixed $value  Value to get the index for
-     * @param int   $offset Start search from this index
+     * @param mixed $value           Value to get the index for
+     * @param int   $offset          Start search from this index
+     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
      * @return int
      */
-    public function GetIndexOf( $value, int $offset = 0 ): int
+    public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
         $index = -1;
     
-        // Error. Offset cannot be negative.
+        // Exit. Offset cannot be negative.
         if ( $offset < 0 ) {
             \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Offset cannot be negative.' );
+            return $index;
         }
-    
-        // Find index for the value
-        else {
-            $array  = $this->Slice( $offset, $this->Count() - 1 )->ConvertToArray();
-            $_index = array_search( $value, $array );
-            if ( false !== $_index ) {
+            
+        // Get the array, reversing it if performing a reverse search
+        $array = $this->ConvertToArray();
+        if ( $isReverseSearch ) {
+            $array = array_reverse( $array );
+        }
+        
+        // Get a subset of the array, starting at the offset
+        $enumerable    = new self( $this->type, $array );
+        $subEnumerable = $enumerable->Slice( $offset, $enumerable->GetLastIndex() );
+        
+        // Search the sub-array for the value
+        $_index = array_search( $value, $subEnumerable->ConvertToArray() );
+        if ( false !== $_index ) {
+            
+            // Invert index for reverse search. Keep in mind that the last
+            // index is actually the first in the original order.
+            if ( $isReverseSearch ) {
+                $index = $subEnumerable->GetLastIndex() - $_index;
+            }
+            
+            // Add the offset to forward searches
+            else {
                 $index = $_index + $offset;
             }
         }
