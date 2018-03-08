@@ -55,6 +55,28 @@ class Enumerable extends Iterable
     
     
     /**
+     * Retrieve the index for the first item
+     *
+     * @return int
+     */
+    public function GetFirstIndex(): int
+    {
+        return 0;
+    }
+    
+    
+    /**
+     * Retrieve the index for the last item
+     *
+     * @return int
+     */
+    public function GetLastIndex(): int
+    {
+        return $this->Count() - 1;
+    }
+    
+    
+    /**
      * Retrieve the index for the first entry with a matching value, or -1 if
      * the item could not be found.
      *
