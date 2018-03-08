@@ -12,7 +12,7 @@ class Object
      *
      * @return string
      */
-    final public function GetType()
+    final public function GetType(): string
     {
         return get_class( $this );
     }
