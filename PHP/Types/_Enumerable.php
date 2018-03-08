@@ -55,14 +55,6 @@ abstract class _Enumerable extends Object
     
     
     /**
-     * Convert the entries to an array
-     *
-     * @return array
-     */
-    abstract public function ToArray(): array;
-    
-    
-    /**
      * Splits entries around a particular value, grouping each set
      *
      * @param mixed $value Value to split this enumerable on
@@ -70,4 +62,12 @@ abstract class _Enumerable extends Object
      * @return _Enumerable
      */
     abstract public function Split( $value, int $limit = -1 ): _Enumerable;
+    
+    
+    /**
+     * Convert the entries to an array
+     *
+     * @return array
+     */
+    abstract public function ToArray(): array;
 }
