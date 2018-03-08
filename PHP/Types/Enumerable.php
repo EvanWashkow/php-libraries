@@ -129,13 +129,13 @@ class Enumerable extends Iterable
             
             // Sanitize the starting index
             if ( $start < self::GetFirstIndex() ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be less than the first index.' );
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be less than the first index of the item list.' );
                 $start = $this->GetFirstIndex();
             }
             
             // Sanitize the ending index
             if ( $this->GetLastIndex() < $end ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index surpasses the end of the array.' );
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index surpasses the last index of the item list.' );
                 $end = $this->GetLastIndex();
             }
             
