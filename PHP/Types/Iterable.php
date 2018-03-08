@@ -2,37 +2,37 @@
 namespace PHP\Types;
 
 /**
- * Defines a set of entries, with arbitrary indexes, that can be iterated over
+ * Defines a set of items, with arbitrary indexes, that can be iterated over
  */
 class Iterable
 {
     
     /**
-     * The indexed set of entries
+     * The indexed set of items
      *
      * @var array
      */
-    protected $entries;
+    protected $items;
     
     
     /**
-     * Creates a new Iterable instance for the entries
+     * Creates a new Iterable instance for the items
      *
-     * @param array $entries The indexed set of entries
+     * @param array $items The indexed set of items
      */
-    public function __construct( array $entries )
+    public function __construct( array $items )
     {
-        $this->entries = $entries;
+        $this->items = $items;
     }
     
     
     /**
-     * Retrieve the number of entries
+     * Retrieve the number of items
      *
      * @return int
      */
     public function Count(): int
     {
-        return count( $this->entries );
+        return count( $this->items );
     }
 }
