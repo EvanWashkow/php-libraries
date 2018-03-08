@@ -24,4 +24,15 @@ class Iterable
     {
         $this->entries = $entries;
     }
+    
+    
+    /**
+     * Retrieve the number of entries
+     *
+     * @return int
+     */
+    public function Count(): int
+    {
+        return count( $this->entries );
+    }
 }
