@@ -59,7 +59,7 @@ class Enumerable extends Iterable
      *
      * @return int
      */
-    public function GetFirstIndex(): int
+    final public function GetFirstIndex(): int
     {
         return 0;
     }
@@ -70,7 +70,7 @@ class Enumerable extends Iterable
      *
      * @return int
      */
-    public function GetLastIndex(): int
+    final public function GetLastIndex(): int
     {
         return $this->Count() - 1;
     }
