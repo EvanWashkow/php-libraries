@@ -16,7 +16,7 @@ abstract class _Enumerable extends Object
     
     
     /**
-     * Interates through each entry, until the end of the list is reached, or a
+     * Interates through each entry, until the last entry is reached or a
      * non-null value is returned from the callback function.
      *
      * @param callable $function Callback function( $value, $index )
@@ -25,10 +25,10 @@ abstract class _Enumerable extends Object
     
     
     /**
-     * Retrieve the value from the corresponding index or null if the index does not exist.
+     * Retrieve the value from the corresponding index
      *
      * @param int $index Index to retrieve the value from
-     * @return mixed Value from the index; null if the index does not exist.
+     * @return mixed Value or NULL if the index does not exist.
      */
     abstract public function Get( int $index );
     

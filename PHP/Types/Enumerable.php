@@ -92,7 +92,7 @@ class Enumerable extends _Enumerable
             
             // Sanitize the ending index
             if ( $this->Count() <= $end ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index should not surpass the starting index.' );
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot be smaller than the starting index.' );
                 $end = $this->Count() - 1;
             }
             
