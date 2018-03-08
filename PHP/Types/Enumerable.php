@@ -8,7 +8,7 @@ class Enumerable extends Iterable
 {
     
     /**
-     * Defines type requirement for all entries
+     * Defines type requirement for all items
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class Enumerable extends Iterable
     /**
      * Create a new enumerated instance
      *
-     * @param string $type  Establishes type requirement for all entries. See `is()`.
+     * @param string $type  Establishes type requirement for all items. See `is()`.
      * @param array  $items Values for this enumerable
      */
     public function __construct( string $type = '', array $items = [] )
@@ -32,7 +32,7 @@ class Enumerable extends Iterable
             }
         }
         
-        // Set entries, dropping non-numerical indexes
+        // Set items, dropping non-numerical indexes
         $this->type = $type;
         parent::__construct( array_values( $items ));
     }
@@ -108,7 +108,7 @@ class Enumerable extends Iterable
     
     
     /**
-     * Creates a subset of entries from the current entries
+     * Creates a subset of items from the current items
      *
      * @param int $start Starting index
      * @param int $end   Ending index
@@ -150,10 +150,10 @@ class Enumerable extends Iterable
     
     
     /**
-     * Splits entries around a particular value, grouping each set
+     * Splits items around a particular value, grouping each set
      *
      * @param mixed $value Value to split this enumerable on
-     * @param int   $limit Maximum number of entries to return; negative to return all.
+     * @param int   $limit Maximum number of items to return; negative to return all.
      * @return Enumerable
      */
     public function Split( $value, int $limit = -1 ): Enumerable
