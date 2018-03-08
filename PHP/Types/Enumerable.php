@@ -72,6 +72,29 @@ class Enumerable extends _Enumerable
     }
     
     
+    public function IndexOf( $value, int $offset = 0 ): int
+    {
+        // Variables
+        $index = -1;
+        
+        // Error. Offset cannot be negative.
+        if ( $offset < 0 ) {
+            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Offset cannot be negative.' );
+        }
+        
+        // Find index for the value
+        else {
+            $array  = $this->Slice( $offset, $this->Count() - 1 )->ToArray();
+            $_index = array_search( $value, $array );
+            if ( false !== $_index ) {
+                $index = $_index + $offset;
+            }
+        }
+        
+        return $index;
+    }
+    
+    
     public function Slice( int $start, int $end ): _Enumerable
     {
         // Variables
@@ -103,29 +126,6 @@ class Enumerable extends _Enumerable
         }
         
         return new static( $this->type, $subset );
-    }
-    
-    
-    public function IndexOf( $value, int $offset = 0 ): int
-    {
-        // Variables
-        $index = -1;
-        
-        // Error. Offset cannot be negative.
-        if ( $offset < 0 ) {
-            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Offset cannot be negative.' );
-        }
-        
-        // Find index for the value
-        else {
-            $array  = $this->Slice( $offset, $this->Count() - 1 )->ToArray();
-            $_index = array_search( $value, $array );
-            if ( false !== $_index ) {
-                $index = $_index + $offset;
-            }
-        }
-        
-        return $index;
     }
     
     
