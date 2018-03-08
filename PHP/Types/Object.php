@@ -22,7 +22,7 @@ class Object
     
     
     /**
-     * Retrieve namespaced string of this object's class type
+     * Retrieve namespaced class string for this type
      *
      * @return string
      */

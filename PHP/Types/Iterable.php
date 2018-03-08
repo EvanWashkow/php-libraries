@@ -27,7 +27,7 @@ class Iterable extends Object
     
     
     /**
-     * Convert this iterable to a PHP array
+     * Retrieve a native PHP array with these items
      *
      * @return array
      */
@@ -38,7 +38,7 @@ class Iterable extends Object
     
     
     /**
-     * Retrieve the number of items
+     * Count the number of items, returning the result
      *
      * @return int
      */
@@ -49,8 +49,8 @@ class Iterable extends Object
     
     
     /**
-     * For each item in the list, invoke the callback function with its index
-     * and value
+     * Iterate through every item, invoking the callback function with the item's
+     * index and value
      *
      * To exit, the loop early, return a non-NULL value. This value will be
      * returned by Loop().

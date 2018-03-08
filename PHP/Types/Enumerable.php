@@ -77,8 +77,8 @@ class Enumerable extends Iterable
     
     
     /**
-     * Retrieve the index for the first entry with a matching value, or -1 if
-     * the item could not be found.
+     * Search items for a particular value, returning the index of the first one
+     * found or -1 if none were found.
      *
      * @param mixed $value  Value to get the index for
      * @param int   $offset Start search from this index
@@ -108,7 +108,7 @@ class Enumerable extends Iterable
     
     
     /**
-     * Creates a subset of items from the current items
+     * Create a subset of items from this one
      *
      * @param int $start Starting index
      * @param int $end   Ending index
@@ -150,7 +150,7 @@ class Enumerable extends Iterable
     
     
     /**
-     * Splits items around a particular value, grouping each set
+     * Chop these items into groups, using the given value as a delimiter
      *
      * @param mixed $value Value to split this enumerable on
      * @param int   $limit Maximum number of items to return; negative to return all.
