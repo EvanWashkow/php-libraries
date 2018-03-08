@@ -129,6 +129,36 @@ class Enumerable extends _Enumerable
     }
     
     
+    public function Split( $value, int $limit = -1 ): _Enumerable
+    {
+        // Variables
+        $groups = [];
+        $group  = [];
+        
+        // For each entry, either add it to the group, or, if the value matches,
+        // create a new group
+        foreach ( $this->entries as $entry ) {
+            if ( $limit === count( $groups )) {
+                break;
+            }
+            elseif ( $value === $entry ) {
+                $groups[] = new static( $this->type, $group );
+                $group    = [];
+            }
+            else {
+                $group[] = $entry;
+            }
+        }
+        
+        // Add the last, non-empty group to the groups list
+        if ( 0 < count( $group )) {
+            $groups[] = new static( $this->type, $group );
+        }
+        
+        return new static( $this->GetType(), $groups );
+    }
+    
+    
     public function ToArray(): array
     {
         return $this->entries;
