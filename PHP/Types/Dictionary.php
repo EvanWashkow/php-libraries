@@ -82,4 +82,25 @@ class Dictionary extends Object
             array_key_exists( $index, $this->items )
         );
     }
+    
+    
+    /**
+     * Store the value at the index, overwriting any pre-existing values
+     *
+     * Fails if the index or value doesn't match its type requirement
+     *
+     * @param mixed $index The index to store the value at
+     * @param mixed $value The value to store
+     * @return mixed The index or NULL on failure.
+     */
+    public function Update( $index, $value )
+    {
+        if ( is( $index, $this->indexType ) && is( $value, $this->valueType )) {
+            $this->items[ $index ] = $value;
+        }
+        else {
+            $index = null;
+        }
+        return $index;
+    }
 }
