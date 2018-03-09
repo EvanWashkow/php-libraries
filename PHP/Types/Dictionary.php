@@ -53,14 +53,15 @@ class Dictionary extends Object
     
     
     /**
-     * Retrieve value stored at the given index
+     * Try to retrieve value stored at the given index
      *
-     * @param mixed $index The index to retrieve the value from
-     * @return mixed The value or NULL if the index does not exist
+     * @param mixed $index        The index to retrieve the value from
+     * @param mixed $defaultValue The value to return if the index does not exist
+     * @return mixed The value if the index exists. The default value otherwise.
      */
-    public function Get( $index )
+    public function Get( $index, $defaultValue = null )
     {
-        $value = null;
+        $value = $defaultValue;
         if ( $this->HasIndex( $index )) {
             $value = $this->items[ $index ];
         }
