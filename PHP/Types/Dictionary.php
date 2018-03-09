@@ -52,6 +52,10 @@ class Dictionary extends _IndexedValues
     }
     
     
+    /***************************************************************************
+    *                               _IndexedValues
+    ***************************************************************************/
+    
     /**
      * Store the value at the specified index
      *
@@ -79,6 +83,30 @@ class Dictionary extends _IndexedValues
         $this->items = [];
     }
     
+    
+    public function Remove( $index )
+    {
+        if ( $this->HasIndex( $index )) {
+            unset( $this->items[ $index ] );
+        }
+    }
+    
+    
+    public function Update( $index, $value )
+    {
+        if ( is( $index, $this->indexType ) && is( $value, $this->valueType )) {
+            $this->items[ $index ] = $value;
+        }
+        else {
+            $index = null;
+        }
+        return $index;
+    }
+    
+    
+    /***************************************************************************
+    *                         _IndexedValues\_ReadOnly
+    ***************************************************************************/
     
     public function ConvertToArray(): array
     {
@@ -137,25 +165,5 @@ class Dictionary extends _IndexedValues
                 return $result;
             }
         }
-    }
-    
-    
-    public function Remove( $index )
-    {
-        if ( $this->HasIndex( $index )) {
-            unset( $this->items[ $index ] );
-        }
-    }
-    
-    
-    public function Update( $index, $value )
-    {
-        if ( is( $index, $this->indexType ) && is( $value, $this->valueType )) {
-            $this->items[ $index ] = $value;
-        }
-        else {
-            $index = null;
-        }
-        return $index;
     }
 }
