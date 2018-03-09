@@ -46,7 +46,7 @@ class Dictionary extends Object
         }
         
         // Initialize properties
-        $this->items     = [];
+        $this->Clear();
         $this->indexType = $indexType;
         $this->valueType = $valueType;
     }
@@ -71,6 +71,15 @@ class Dictionary extends Object
             $index = $this->Update( $index, $value );
         }
         return $index;
+    }
+    
+    
+    /**
+     * Remove all stored items
+     */
+    public function Clear()
+    {
+        $this->items = [];
     }
     
     
