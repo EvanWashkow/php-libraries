@@ -84,6 +84,17 @@ class Dictionary extends Object
     
     
     /**
+     * Convert to a PHP-native array
+     *
+     * @return array
+     */
+    public function ConvertToArray(): array
+    {
+        return $this->items;
+    }
+    
+    
+    /**
      * Count all items, returning the result
      *
      * @return int
