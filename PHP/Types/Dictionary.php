@@ -53,7 +53,7 @@ class Dictionary extends Object
     
     
     /**
-     * Try to retrieve value stored at the given index
+     * Retrieve the value stored at the specified index
      *
      * @param mixed $index        The index to retrieve the value from
      * @param mixed $defaultValue The value to return if the index does not exist
