@@ -74,9 +74,6 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /**
-     * Remove all stored items
-     */
     public function Clear()
     {
         $this->items = [];
@@ -143,11 +140,6 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /**
-     * Remove the value from the index
-     *
-     * @param mixed $index The index to remove the value from
-     */
     public function Remove( $index )
     {
         if ( $this->HasIndex( $index )) {
@@ -156,15 +148,6 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /**
-     * Store the value at the index, overwriting any pre-existing values
-     *
-     * Fails if the index or value doesn't match its type requirement
-     *
-     * @param mixed $index The index to store the value at
-     * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure.
-     */
     public function Update( $index, $value )
     {
         if ( is( $index, $this->indexType ) && is( $value, $this->valueType )) {
