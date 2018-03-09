@@ -37,6 +37,15 @@ class Dictionary extends Object
      */
     public function __construct( string $indexType = '', string $valueType = '' )
     {
+        // Abort. Neither index nor value can be null.
+        if ( 'null' === strtolower( $indexType )) {
+            throw new \Exception( 'Dictionary indexes cannot be NULL' );
+        }
+        elseif ( 'null' === strtolower( $valueType )) {
+            throw new \Exception( 'Dictionary values cannot be NULL' );
+        }
+        
+        // Initialize properties
         $this->items     = [];
         $this->indexType = $indexType;
         $this->valueType = $valueType;
