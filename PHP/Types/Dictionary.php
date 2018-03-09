@@ -84,6 +84,17 @@ class Dictionary extends Object
     
     
     /**
+     * Count all items, returning the result
+     *
+     * @return int
+     */
+    public function Count(): int
+    {
+        return count( $this->items );
+    }
+    
+    
+    /**
      * Retrieve the value stored at the specified index
      *
      * @param mixed $index        The index to retrieve the value from
