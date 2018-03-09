@@ -53,6 +53,28 @@ class Dictionary extends Object
     
     
     /**
+     * Store the value at the specified index
+     *
+     * Fails if the index already exists or if the index or value doesn't match
+     * its type requirement.
+     *
+     * @param mixed $index The index to store the value at
+     * @param mixed $value The value to store
+     * @return mixed The index or NULL on failure.
+     */
+    public function Add( $index, $value )
+    {
+        if ( $this->HasIndex( $index )) {
+            $index = null;
+        }
+        else {
+            $index = $this->Update( $index, $value );
+        }
+        return $index;
+    }
+    
+    
+    /**
      * Retrieve the value stored at the specified index
      *
      * @param mixed $index        The index to retrieve the value from
