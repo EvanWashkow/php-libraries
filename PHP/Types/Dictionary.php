@@ -50,4 +50,19 @@ class Dictionary extends Object
         $this->indexType = $indexType;
         $this->valueType = $valueType;
     }
+    
+    
+    /**
+     * Determine if the index exists
+     *
+     * @param mixed $index The index to check
+     * @return bool
+     */
+    public function HasIndex( $index ): bool
+    {
+        return (
+            is( $index, $this->indexType ) &&
+            array_key_exists( $index, $this->items )
+        );
+    }
 }
