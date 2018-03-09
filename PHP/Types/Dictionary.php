@@ -83,22 +83,12 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /**
-     * Convert to a PHP-native array
-     *
-     * @return array
-     */
     public function ConvertToArray(): array
     {
         return $this->items;
     }
     
     
-    /**
-     * Count all items, returning the result
-     *
-     * @return int
-     */
     public function Count(): int
     {
         return count( $this->items );
@@ -122,12 +112,6 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /**
-     * Determine if the index exists
-     *
-     * @param mixed $index The index to check
-     * @return bool
-     */
     public function HasIndex( $index ): bool
     {
         return (
@@ -137,21 +121,6 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /**
-     * Iterate through every item, invoking the callback function with the
-     * item's index and value
-     *
-     * To exit the loop early, return a non-NULL value. This value will also be
-     * returned by Loop().
-     *
-     * Additional arguments can be passed to the callback function by adding
-     * them to Loop(), after the callback function definition. To make edits to
-     * them in the callback function, use the reference identifier `&`.
-     *
-     * @param callable $function Callback function to execute for each item
-     * @param mixed    ...$args  Additional arguments to be passed to the callback function (can be edited by the reference identifier `&` in the callback function)
-     * @return mixed   NULL or the value returned by the callback function
-     */
     public function Loop( callable $function, &...$args )
     {
         foreach ( $this->items as $index => $value ) {
