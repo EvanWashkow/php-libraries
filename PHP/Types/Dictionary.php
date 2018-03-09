@@ -175,6 +175,19 @@ class Dictionary extends Object
     
     
     /**
+     * Remove the value from the index
+     *
+     * @param mixed $index The index to remove the value from
+     */
+    public function Remove( $index )
+    {
+        if ( $this->HasIndex( $index )) {
+            unset( $this->items[ $index ] );
+        }
+    }
+    
+    
+    /**
      * Store the value at the index, overwriting any pre-existing values
      *
      * Fails if the index or value doesn't match its type requirement
