@@ -1,10 +1,12 @@
 <?php
 namespace PHP\Types;
 
+use PHP\Types\DictionaryDefinition\ReadOnlyDictionaryDefinition;
+
 /**
  * Define the type for a mutable, unordered set of indexed values
  */
-interface DictionaryDefinition extends CollectionDefinition
+interface DictionaryDefinition extends CollectionDefinition, ReadOnlyDictionaryDefinition
 {
     
     /**
