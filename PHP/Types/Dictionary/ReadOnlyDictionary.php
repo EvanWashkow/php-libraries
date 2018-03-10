@@ -2,7 +2,6 @@
 namespace PHP\Types\Dictionary;
 
 use \PHP\Types\Object;
-use PHP\Types\DictionaryDefinition\ReadOnlyDictionaryDefinition;
 
 /**
  * Defines a read only, unordered set of indexed values

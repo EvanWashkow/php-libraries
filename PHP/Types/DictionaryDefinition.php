@@ -1,7 +1,7 @@
 <?php
 namespace PHP\Types;
 
-use PHP\Types\DictionaryDefinition\ReadOnlyDictionaryDefinition;
+use PHP\Types\Dictionary\ReadOnlyDictionaryDefinition;
 
 /**
  * Define the type for a mutable, unordered set of indexed values
