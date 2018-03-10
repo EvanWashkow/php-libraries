@@ -4,7 +4,7 @@ namespace PHP\Types;
 /**
  * Defines a mutable, unordered set of indexed values
  */
-class Dictionary extends Object implements DictionaryDefinition
+class Dictionary extends Object implements Dictionary\DictionaryDefinition
 {
     
     /**
