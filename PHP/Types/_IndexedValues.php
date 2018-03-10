@@ -8,12 +8,16 @@ abstract class _IndexedValues extends _IndexedValues\_ReadOnly
 {
     
     /**
-     * Add the value to the list
+     * Store the value at the specified index
      *
+     * Fails if the index already exists or if the index or value doesn't match
+     * its type requirement.
+     *
+     * @param mixed $index The index to store the value at
      * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure
+     * @return mixed The index or NULL on failure.
      */
-    abstract public function Add( $value );
+    abstract public function Add( $index, $value );
     
     /**
      * Remove all stored values
