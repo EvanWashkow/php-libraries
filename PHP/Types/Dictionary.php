@@ -4,7 +4,7 @@ namespace PHP\Types;
 /**
  * Defines a mutable, unordered set of indexed values
  */
-class Dictionary extends _IndexedValues
+class Dictionary extends Object implements CollectionDefinition
 {
     
     /**
@@ -52,10 +52,16 @@ class Dictionary extends _IndexedValues
     }
     
     
-    /***************************************************************************
-    *                               _IndexedValues
-    ***************************************************************************/
-    
+    /**
+     * Store the value at the specified index
+     *
+     * Fails if the index already exists or if the index or value doesn't match
+     * its type requirement.
+     *
+     * @param mixed $index The index to store the value at
+     * @param mixed $value The value to store
+     * @return mixed The index or NULL on failure.
+     */
     public function Add( $index, $value )
     {
         if ( $this->HasIndex( $index )) {
@@ -67,6 +73,9 @@ class Dictionary extends _IndexedValues
         return $index;
     }
     
+    /***************************************************************************
+    *                            CollectionDefinition
+    ***************************************************************************/
     
     public function Clear()
     {
@@ -95,7 +104,7 @@ class Dictionary extends _IndexedValues
     
     
     /***************************************************************************
-    *                         _IndexedValues\_ReadOnly
+    *              CollectionDefinition\ReadOnlyCollectionDefinition
     ***************************************************************************/
     
     public function ConvertToArray(): array

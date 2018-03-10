@@ -1,10 +1,10 @@
 <?php
-namespace PHP\Types\_IndexedValues;
+namespace PHP\Types\CollectionDefinition;
 
 /**
- * Defines structure for a set of indexed, read-only values
+ * Defines the type for a set of indexed, read-only values
  */
-abstract class _ReadOnly extends \PHP\Types\Object
+interface ReadOnlyCollectionDefinition extends \PHP\Types\ObjectDefinition
 {
     
     /**
@@ -12,14 +12,14 @@ abstract class _ReadOnly extends \PHP\Types\Object
      *
      * @return array
      */
-    abstract public function ConvertToArray(): array;
+    public function ConvertToArray(): array;
     
     /**
      * Count all items, returning the result
      *
      * @return int
      */
-    abstract public function Count(): int;
+    public function Count(): int;
     
     /**
      * Retrieve the value stored at the specified index
@@ -27,7 +27,7 @@ abstract class _ReadOnly extends \PHP\Types\Object
      * @param mixed $index The index to retrieve the value from
      * @return mixed The value if the index exists. NULL otherwise.
      */
-    abstract public function Get( $index );
+    public function Get( $index );
     
     /**
      * Determine if the index exists
@@ -35,7 +35,7 @@ abstract class _ReadOnly extends \PHP\Types\Object
      * @param mixed $index The index to check
      * @return bool
      */
-    abstract public function HasIndex( $index ): bool;
+    public function HasIndex( $index ): bool;
     
     /**
      * Iterate through every item, invoking the callback function with the
@@ -52,5 +52,5 @@ abstract class _ReadOnly extends \PHP\Types\Object
      * @param mixed    ...$args  Additional arguments to be passed to the callback function (can be edited by the reference identifier `&` in the callback function)
      * @return mixed   NULL or the value returned by the callback function
      */
-    abstract public function Loop( callable $function, &...$args );
+    public function Loop( callable $function, &...$args );
 }
