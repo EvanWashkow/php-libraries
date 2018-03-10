@@ -24,10 +24,11 @@ interface ReadOnlyCollectionDefinition extends \PHP\Types\ObjectDefinition
     /**
      * Retrieve the value stored at the specified index
      *
-     * @param mixed $index The index to retrieve the value from
+     * @param mixed $index        The index to retrieve the value from
+     * @param mixed $defaultValue The value to return if the index does not exist
      * @return mixed The value if the index exists. NULL otherwise.
      */
-    public function Get( $index );
+    public function Get( $index, $defaultValue = null );
     
     /**
      * Determine if the index exists
