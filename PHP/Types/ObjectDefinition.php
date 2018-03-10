@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types\Object;
+namespace PHP\Types;
 
 /**
  * Defines the Object type
