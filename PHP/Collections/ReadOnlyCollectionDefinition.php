@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Collections\CollectionDefinition;
+namespace PHP\Collections;
 
 /**
  * Defines the type for a set of indexed, read-only values

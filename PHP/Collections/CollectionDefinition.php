@@ -4,7 +4,7 @@ namespace PHP\Collections;
 /**
  * Defines the type for a set of indexed, mutable values
  */
-interface CollectionDefinition extends CollectionDefinition\ReadOnlyCollectionDefinition
+interface CollectionDefinition extends ReadOnlyCollectionDefinition
 {
     
     /**
