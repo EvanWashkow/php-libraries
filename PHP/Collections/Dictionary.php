@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Collections;
 
 /**
  * Defines a mutable, unordered set of indexed values

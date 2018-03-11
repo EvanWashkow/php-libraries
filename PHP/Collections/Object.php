@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Collections;
 
 /**
  * Base definition for all Object instances

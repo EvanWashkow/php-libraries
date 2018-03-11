@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Collections;
 
 /**
  * Defines a non-mutible set of items with integer indexes

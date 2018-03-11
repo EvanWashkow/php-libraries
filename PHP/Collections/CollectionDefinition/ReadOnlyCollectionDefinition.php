@@ -1,10 +1,10 @@
 <?php
-namespace PHP\Types\CollectionDefinition;
+namespace PHP\Collections\CollectionDefinition;
 
 /**
  * Defines the type for a set of indexed, read-only values
  */
-interface ReadOnlyCollectionDefinition extends \PHP\Types\ObjectDefinition
+interface ReadOnlyCollectionDefinition extends \PHP\Collections\ObjectDefinition
 {
     
     /**

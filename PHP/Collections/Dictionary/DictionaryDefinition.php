@@ -1,7 +1,7 @@
 <?php
-namespace PHP\Types\Dictionary;
+namespace PHP\Collections\Dictionary;
 
-use PHP\Types\CollectionDefinition;
+use PHP\Collections\CollectionDefinition;
 
 /**
  * Define the type for a mutable, unordered set of indexed values

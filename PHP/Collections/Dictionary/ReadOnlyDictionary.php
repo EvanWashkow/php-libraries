@@ -1,7 +1,7 @@
 <?php
-namespace PHP\Types\Dictionary;
+namespace PHP\Collections\Dictionary;
 
-use \PHP\Types\Object;
+use \PHP\Collections\Object;
 
 /**
  * Defines a read only, unordered set of indexed values
@@ -12,7 +12,7 @@ class ReadOnlyDictionary extends Object implements ReadOnlyDictionaryDefinition
     /**
      * The dictionary instance
      *
-     * @var \PHP\Types\Dictionary
+     * @var \PHP\Collections\Dictionary
      */
     private $dictionary;
     
@@ -27,7 +27,7 @@ class ReadOnlyDictionary extends Object implements ReadOnlyDictionaryDefinition
                                  string $valueType = '',
                                  array  $items     = [] )
     {
-        $this->dictionary = new \PHP\Types\Dictionary( $indexType, $valueType );
+        $this->dictionary = new \PHP\Collections\Dictionary( $indexType, $valueType );
         foreach ( $items as $index => $value ) {
             $this->dictionary->Add( $index, $value );
         }
