@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Collections;
+namespace PHP\Object;
 
 /**
  * Defines the Object type

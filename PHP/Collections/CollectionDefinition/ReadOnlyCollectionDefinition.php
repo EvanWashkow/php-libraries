@@ -4,7 +4,7 @@ namespace PHP\Collections\CollectionDefinition;
 /**
  * Defines the type for a set of indexed, read-only values
  */
-interface ReadOnlyCollectionDefinition extends \PHP\Collections\ObjectDefinition
+interface ReadOnlyCollectionDefinition extends \PHP\Object\ObjectDefinition
 {
     
     /**

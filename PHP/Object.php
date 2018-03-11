@@ -1,10 +1,10 @@
 <?php
-namespace PHP\Collections;
+namespace PHP;
 
 /**
  * Base definition for all Object instances
  */
-class Object implements ObjectDefinition
+class Object implements Object\ObjectDefinition
 {
     
     final public function GetType(): string

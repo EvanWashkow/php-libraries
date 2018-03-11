@@ -4,7 +4,7 @@ namespace PHP\Collections;
 /**
  * Defines a set of items, with arbitrary indexes, that can be iterated over
  */
-class Iterable extends Object
+class Iterable extends \PHP\Object
 {
     
     /**
