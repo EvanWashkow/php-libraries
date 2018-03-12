@@ -6,7 +6,7 @@ use \PHP\Object;
 /**
  * Defines a read only, unordered set of indexed values
  */
-class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionaryDefinition
+class ReadOnlyDictionary extends \PHP\Object implements iReadOnlyDictionary
 {
     
     /**

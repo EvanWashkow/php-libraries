@@ -6,7 +6,7 @@ use PHP\Collections\iCollection;
 /**
  * Define the type for a mutable, unordered set of indexed values
  */
-interface DictionaryDefinition extends iCollection, ReadOnlyDictionaryDefinition
+interface iDictionary extends iCollection, iReadOnlyDictionary
 {
     
     /**
