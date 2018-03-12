@@ -8,4 +8,11 @@ use PHP\Object\iObject;
  */
 interface iReadOnlySequence extends iObject
 {
+    
+    /**
+     * Create a new enumerated instance
+     *
+     * @param string $type Establishes type requirement for all items. See `is()`.
+     */
+    public function __construct( string $type = '' );
 }

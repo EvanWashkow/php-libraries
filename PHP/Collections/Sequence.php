@@ -10,4 +10,17 @@ use PHP\Collections\Sequence\iSequence;
  */
 class Sequence extends \PHP\Object implements iSequence
 {
+    
+    /**
+     * The dictionary instance
+     *
+     * @var Dictionary
+     */
+    private $dictionary;
+    
+    
+    public function __construct( string $type = '' )
+    {
+        $this->dictionary = new Dictionary( 'integer', $type );
+    }
 }
