@@ -23,4 +23,31 @@ class Sequence extends \PHP\Object implements iSequence
     {
         $this->dictionary = new Dictionary( 'integer', $type );
     }
+    
+    
+    public function ConvertToArray(): array
+    {
+        return $this->dictionary->ConvertToArray();
+    }
+    
+    public function Count(): int
+    {
+        return $this->dictionary->Count();
+    }
+    
+    public function Get( $index, $defaultValue = null )
+    {
+        return $this->dictionary->Get( $index, $defaultValue );
+    }
+    
+    public function HasIndex( $index ): bool
+    {
+        return $this->dictionary->HasIndex( $index );
+    }
+    
+    public function Loop( callable $function, &...$args )
+    {
+        $parameters = array_merge( [ $function ], $args );
+        return call_user_func_array( [ $this->dictionary, 'Loop' ], $parameters );
+    }
 }
