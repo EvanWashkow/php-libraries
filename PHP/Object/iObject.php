@@ -4,7 +4,7 @@ namespace PHP\Object;
 /**
  * Defines the Object type
  */
-interface ObjectDefinition
+interface iObject
 {
     /**
      * Retrieve namespaced class string for this type

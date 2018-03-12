@@ -4,7 +4,7 @@ namespace PHP;
 /**
  * Base definition for all Object instances
  */
-class Object implements Object\ObjectDefinition
+class Object implements Object\iObject
 {
     
     final public function GetType(): string
