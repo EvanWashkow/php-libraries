@@ -127,7 +127,10 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
     
     public function Update( $index, $value )
     {
-        if ( is( $index, $this->indexType ) && is( $value, $this->valueType )) {
+        if (
+            (( '' === $this->indexType ) || is( $index, $this->indexType )) &&
+            (( '' === $this->valueType ) || is( $value, $this->valueType ))
+        ) {
             $this->items[ $index ] = $value;
         }
         else {
