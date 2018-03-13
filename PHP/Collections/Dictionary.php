@@ -64,6 +64,16 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
     }
     
     
+    public function Clone(): iReadOnlyCollection
+    {
+        $clone = new static( $this->indexType, $this->valueType );
+        $this->Loop( function( $index, $value, &$clone ) {
+            $clone->Add( $index, $value );
+        }, $clone );
+        return $clone;
+    }
+    
+    
     public function ConvertToArray(): array
     {
         return $this->items;

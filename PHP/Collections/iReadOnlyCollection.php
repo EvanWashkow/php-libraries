@@ -8,6 +8,13 @@ use PHP\Collections\Iterable\iIterable;
  */
 interface iReadOnlyCollection extends iIterable
 {
+
+    /**
+     * Duplicate every index and value into a new instance
+     *
+     * @return iReadOnlyCollection
+     */
+    public function Clone(): iReadOnlyCollection;
     
     /**
      * Convert to a native PHP array

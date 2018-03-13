@@ -54,6 +54,16 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function Clone(): iReadOnlyCollection
+    {
+        $clone = new static( $this->type );
+        $this->Loop( function( $index, $value, &$clone ) {
+            $clone->Add( $value );
+        }, $clone );
+        return $clone;
+    }
+    
+    
     public function ConvertToArray(): array
     {
         return $this->items;
