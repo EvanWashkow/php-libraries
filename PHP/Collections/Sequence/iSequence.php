@@ -13,9 +13,9 @@ interface iSequence extends iCollection, iReadOnlySequence
      * Store the value at the end of the sequence
      *
      * @param mixed $value The value to add
-     * @return mixed The index or NULL on failure
+     * @return int The index or -1 on failure
      */
-    public function Add( $value );
+    public function Add( $value ): int;
     
     /**
      * Insert the value at the index, shifting remaining values up

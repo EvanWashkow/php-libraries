@@ -34,9 +34,9 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
-    public function Add( $value )
+    public function Add( $value ): int
     {
-        $index = null;
+        $index = -1;
         if ( $this->isValueValidType( $value )) {
             $this->items[] = $value;
             $index         = $this->GetLastIndex();
