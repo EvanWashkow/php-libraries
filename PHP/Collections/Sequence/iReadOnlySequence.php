@@ -48,4 +48,13 @@ interface iReadOnlySequence extends iReadOnlyCollection
      * @return iReadOnlySequence
      */
     public function Slice( int $start, int $end ): iReadOnlySequence;
+    
+    /**
+     * Chop these items into groups, using the given value as a delimiter
+     *
+     * @param mixed $delimiter Value separating each group
+     * @param int   $limit     Maximum number of items to return; negative to return all.
+     * @return iReadOnlySequence
+     */
+    public function Split( $delimiter, int $limit = -1 ): iReadOnlySequence;
 }

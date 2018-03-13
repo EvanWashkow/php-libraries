@@ -210,6 +210,59 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function Split( $delimiter, int $limit = -1 ): iReadOnlySequence
+    {
+        // Variables
+        $start       = $this->GetFirstIndex();
+        $sequences   = [];
+        $canContinue = true;
+        
+        // While there are items left
+        do {
+            
+            // Halt loop if there are no entries
+            if ( 0 === $this->Count() ) {
+                $canContinue = false;
+            }
+            
+            // Halt loop if the limit has been reached.
+            elseif (( 0 <= $limit ) && ( $limit === count( $sequences ))) {
+                $canContinue = false;
+            }
+            
+            else {
+                
+                // Get index of the next delimiter
+                $end = $this->GetIndexOf( $delimiter, $start );
+                
+                // Delimiter not found. The end is the very last element.
+                if ( $end < 0 ) {
+                    $end = $this->GetLastIndex() + 1;
+                }
+                    
+                // Group the items between the start and end, excluding the delimiter
+                $sequence = $this->Slice( $start, $end - 1 );
+                if ( 1 <= $sequence->Count() ) {
+                    $sequences[] = $sequence;
+                }
+                
+                // Move start index and halt loop if at the end of the sequence
+                $start = $end + 1;
+                if ( $this->GetLastIndex() <= $start ) {
+                    $canContinue = false;
+                }
+            }
+        } while ( $canContinue );
+        
+        // Return sequence of sequences
+        $sequence = new static( $this->GetType() );
+        foreach ( $sequences as $_sequence ) {
+            $sequence->Add( $_sequence );
+        }
+        return $sequence;
+    }
+    
+    
     public function Update( $index, $value )
     {
         if ( !$this->HasIndex( $index )) {
