@@ -12,42 +12,59 @@ class Sequence extends \PHP\Object implements iSequence
 {
     
     /**
-     * The dictionary instance
+     * List of values
      *
-     * @var Dictionary
+     * @var array
      */
-    private $dictionary;
+    private $items;
+    
+    /**
+     * Type requirement for all values
+     *
+     * @var string
+     */
+    private $type;
     
     
     public function __construct( string $type = '' )
     {
-        $this->dictionary = new Dictionary( 'integer', $type );
+        $this->Clear();
+        $this->type = $type;
     }
     
     
     public function Add( $value )
     {
-        $this->dictionary->Add( $this->GetLastIndex() + 1, $value );
+        $index = null;
+        if ( $this->isValueValidType( $value )) {
+            $this->items[] = $value;
+            $index         = $this->GetLastIndex();
+        }
+        return $index;
     }
     
     public function Clear()
     {
-        return $this->dictionary->Clear();
+        return $this->items = [];
     }
     
     public function ConvertToArray(): array
     {
-        return $this->dictionary->ConvertToArray();
+        return $this->items;
     }
     
     public function Count(): int
     {
-        return $this->dictionary->Count();
+        return count( $this->items );
     }
     
     public function Get( $index, $defaultValue = null )
     {
-        return $this->dictionary->Get( $index, $defaultValue );
+        $value = $defaultValue;
+        if ( $this->HasIndex( $index )) {
+            $value = $this->items[ $index ];
+        }
+        return $value;
     }
     
     public function GetFirstIndex(): int
@@ -62,22 +79,42 @@ class Sequence extends \PHP\Object implements iSequence
     
     public function HasIndex( $index ): bool
     {
-        return $this->dictionary->HasIndex( $index );
+        return ( is( $index, 'integer' ) && array_key_exists( $index, $this->items ));
     }
     
     public function Loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $this->dictionary, 'Loop' ], $parameters );
+        $iterable   = new Iterable( $this->items );
+        return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
     }
     
     public function Remove( $index )
     {
-        return $this->dictionary->Remove( $index );
+        unset( $this->items[ $index ] );
+        $this->items = array_values( $this->items );
     }
     
     public function Update( $index, $value )
     {
-        return $this->dictionary->Update( $index, $value );
+        if ( $this->HasIndex( $index ) && $this->isValueValidType( $value )) {
+            $this->items[ $index ] = $value;
+        }
+        else {
+            $index = null;
+        }
+        return $index;
+    }
+    
+    
+    /**
+     * Determine if the value meets the type requirements
+     *
+     * @param mixed $value The value to check
+     * @return bool
+     */
+    private function isValueValidType( $value ): bool
+    {
+        return (( '' === $this->type ) || is( $value, $this->type ));
     }
 }
