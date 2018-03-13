@@ -25,6 +25,11 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function Add( $value )
+    {
+        $this->dictionary->Add( $this->GetLastIndex() + 1, $value );
+    }
+    
     public function Clear()
     {
         return $this->dictionary->Clear();

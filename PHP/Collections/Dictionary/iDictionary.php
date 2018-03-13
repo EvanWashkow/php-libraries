@@ -17,7 +17,7 @@ interface iDictionary extends iCollection, iReadOnlyDictionary
      *
      * @param mixed $index The index to store the value at
      * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure.
+     * @return mixed The index or NULL on failure
      */
     public function Add( $index, $value );
 }
