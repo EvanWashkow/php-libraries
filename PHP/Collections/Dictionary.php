@@ -105,9 +105,7 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
     
     public function Remove( $index )
     {
-        if ( $this->HasIndex( $index )) {
-            unset( $this->items[ $index ] );
-        }
+        unset( $this->items[ $index ] );
     }
     
     
@@ -134,14 +132,16 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
      */
     private function insert( $index, $value )
     {
-        if (
-            (( '' == $this->indexType ) || is( $index, $this->indexType )) &&
-            (( '' == $this->valueType ) || is( $value, $this->valueType ))
-        ) {
-            $this->items[ $index ] = $value;
+        if (( '' !== $this->indexType ) && !is( $index, $this->indexType )) {
+            trigger_error( 'The index does not match its type constraints' );
+            $index = null;
+        }
+        elseif (( '' !== $this->valueType ) && !is( $value, $this->valueType )) {
+            trigger_error( 'The value does not match its type constraints' );
+            $index = null;
         }
         else {
-            $index = null;
+            $this->items[ $index ] = $value;
         }
         return $index;
     }
