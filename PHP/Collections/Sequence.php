@@ -40,6 +40,16 @@ class Sequence extends \PHP\Object implements iSequence
         return $this->dictionary->Get( $index, $defaultValue );
     }
     
+    public function GetFirstIndex(): int
+    {
+        return 0;
+    }
+    
+    public function GetLastIndex(): int
+    {
+        return ( $this->Count() - 1 );
+    }
+    
     public function HasIndex( $index ): bool
     {
         return $this->dictionary->HasIndex( $index );

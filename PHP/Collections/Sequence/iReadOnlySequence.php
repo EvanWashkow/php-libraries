@@ -15,4 +15,18 @@ interface iReadOnlySequence extends iReadOnlyCollection
      * @param string $type Establishes type requirement for all values. See `is()`.
      */
     public function __construct( string $type = '' );
+    
+    /**
+     * Retrieve the index for the last item
+     *
+     * @return int
+     */
+    public function GetFirstIndex(): int;
+    
+    /**
+     * Retrieve the index for the last item
+     *
+     * @return int
+     */
+    public function GetLastIndex(): int;
 }
