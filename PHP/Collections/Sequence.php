@@ -150,22 +150,25 @@ class Sequence extends \PHP\Object implements iSequence
     
     public function Insert( int $index, $value ): int
     {
+        // Variables
+        $failure = -1;
+        
         // Index too small
         if ( $index < $this->GetFirstIndex() ) {
             trigger_error( 'Cannot insert value before the beginning' );
-            $index = -1;
+            $index = $failure;
         }
         
         // Index too large
         elseif (( $this->GetLastIndex() + 1 ) < $index ) {
             trigger_error( 'Cannot insert value after the end' );
-            $index = -1;
+            $index = $failure;
         }
         
         // Invalid value type
         elseif ( !$this->isValueValidType( $value )) {
             trigger_error( 'Cannot insert value that does not match the type constraints' );
-            $index = -1;
+            $index = $failure;
         }
         
         // Insert value at the index
