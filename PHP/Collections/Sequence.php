@@ -98,6 +98,50 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    {
+        // Variables
+        $index = -1;
+    
+        // Exit. Offset cannot be negative.
+        if ( $offset < $this->GetFirstIndex() ) {
+            trigger_error( 'Offset cannot be less than the first item\'s index' );
+            return $index;
+        }
+        
+        // Exit. Offset cannot surpass the end of the array.
+        elseif ( $this->GetLastIndex() < $offset ) {
+            trigger_error( 'Offset cannot be greater than the last item\'s index' );
+            return $index;
+        }
+            
+        // Get the sub-sequence to traverse
+        $sequence = $this->Clone();
+        if ( $isReverseSearch ) {
+            $sequence->Reverse();
+        }
+        $sequence = $sequence->Slice( $offset, $sequence->GetLastIndex() );
+        
+        // Search the sub-sequence for the value
+        $_index = array_search( $value, $sequence->ConvertToArray() );
+        if ( false !== $_index ) {
+            
+            // Invert index for reverse search. Keep in mind that the last
+            // index is actually the first in the original order.
+            if ( $isReverseSearch ) {
+                $index = $sequence->GetLastIndex() - $_index;
+            }
+            
+            // Add the offset to forward searches
+            else {
+                $index = $_index + $offset;
+            }
+        }
+    
+        return $index;
+    }
+    
+    
     public function HasIndex( $index ): bool
     {
         return ( is( $index, 'integer' ) && array_key_exists( $index, $this->items ));

@@ -31,6 +31,16 @@ interface iReadOnlySequence extends iReadOnlyCollection
     public function GetLastIndex(): int;
     
     /**
+     * Search and retrieve index for the first instance of the specified value
+     *
+     * @param mixed $value           Value to get the index for
+     * @param int   $offset          Start search from this index
+     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
+     * @return int The index of the value, or -1
+     */
+    public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
+    
+    /**
      * Create a subset of items from this one
      *
      * @param int $start Starting index
