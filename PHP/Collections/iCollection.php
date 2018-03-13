@@ -20,13 +20,13 @@ interface iCollection extends iReadOnlyCollection
     public function Remove( $index );
     
     /**
-     * Store the value at the index, overwriting any pre-existing values
+     * Overwrite the value at the index, if it exists
      *
      * Fails if the index or value doesn't match its type requirement
      *
      * @param mixed $index The index to store the value at
      * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure.
+     * @return mixed The index or NULL on failure
      */
     public function Update( $index, $value );
 }
