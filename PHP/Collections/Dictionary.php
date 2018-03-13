@@ -52,7 +52,7 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
             $index = null;
         }
         else {
-            $index = $this->Update( $index, $value );
+            $index = $this->insert( $index, $value );
         }
         return $index;
     }
@@ -128,6 +128,30 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
     public function Update( $index, $value )
     {
         if ( $this->HasIndex( $index )) {
+            $this->insert( $index, $value );
+        }
+        else {
+            $index = null;
+        }
+        return $index;
+    }
+    
+    
+    /**
+     * Store the value at the specified index
+     *
+     * Fails if the index or value doesn't match its type requirement
+     *
+     * @param mixed $index The index to store the value at
+     * @param mixed $value The value to store
+     * @return mixed The index or NULL on failure.
+     */
+    private function insert( $index, $value )
+    {
+        if (
+            (( '' == $this->indexType ) || is( $index, $this->indexType )) &&
+            (( '' == $this->valueType ) || is( $value, $this->valueType ))
+        ) {
             $this->items[ $index ] = $value;
         }
         else {
