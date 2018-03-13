@@ -18,4 +18,9 @@ interface iSequence extends iCollection, iReadOnlySequence
      * @return mixed The index or NULL on failure
      */
     public function Add( $value );
+    
+    /**
+     * Put all entries in reverse order
+     */
+    public function Reverse();
 }

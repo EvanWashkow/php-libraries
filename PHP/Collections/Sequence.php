@@ -119,6 +119,12 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function Reverse()
+    {
+        $this->items = array_reverse( $this->items, false );
+    }
+    
+    
     public function Slice( int $start, int $end ): iReadOnlySequence
     {
         // Variables
