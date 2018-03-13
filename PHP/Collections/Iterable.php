@@ -2,7 +2,7 @@
 namespace PHP\Collections;
 
 /**
- * Defines a set of items, with arbitrary indexes, that can be iterated over
+ * Defines a set of items that can be iterated over
  */
 class Iterable extends \PHP\Object
 {
@@ -12,7 +12,7 @@ class Iterable extends \PHP\Object
      *
      * @var array
      */
-    protected $items;
+    private $items;
     
     
     /**
@@ -23,28 +23,6 @@ class Iterable extends \PHP\Object
     public function __construct( array $items )
     {
         $this->items = $items;
-    }
-    
-    
-    /**
-     * Retrieve a native PHP array with these items
-     *
-     * @return array
-     */
-    public function ConvertToArray(): array
-    {
-        return $this->items;
-    }
-    
-    
-    /**
-     * Count the number of items, returning the result
-     *
-     * @return int
-     */
-    final public function Count(): int
-    {
-        return count( $this->items );
     }
     
     
