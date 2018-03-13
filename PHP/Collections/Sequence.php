@@ -25,6 +25,11 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function Clear()
+    {
+        return $this->dictionary->Clear();
+    }
+    
     public function ConvertToArray(): array
     {
         return $this->dictionary->ConvertToArray();
@@ -59,5 +64,15 @@ class Sequence extends \PHP\Object implements iSequence
     {
         $parameters = array_merge( [ $function ], $args );
         return call_user_func_array( [ $this->dictionary, 'Loop' ], $parameters );
+    }
+    
+    public function Remove( $index )
+    {
+        return $this->dictionary->Remove( $index );
+    }
+    
+    public function Update( $index, $value )
+    {
+        return $this->dictionary->Update( $index, $value );
     }
 }
