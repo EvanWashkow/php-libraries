@@ -29,4 +29,13 @@ interface iReadOnlySequence extends iReadOnlyCollection
      * @return int
      */
     public function GetLastIndex(): int;
+    
+    /**
+     * Create a subset of items from this one
+     *
+     * @param int $start Starting index
+     * @param int $end   Ending index
+     * @return iReadOnlySequence
+     */
+    public function Slice( int $start, int $end ): iReadOnlySequence;
 }

@@ -2,6 +2,7 @@
 namespace PHP\Collections;
 
 use PHP\Collections\Sequence\iSequence;
+use PHP\Collections\Sequence\iReadOnlySequence;
 
 /**
  * Defines a mutable, ordered set of indexed values
@@ -102,6 +103,47 @@ class Sequence extends \PHP\Object implements iSequence
     {
         unset( $this->items[ $index ] );
         $this->items = array_values( $this->items );
+    }
+    
+    
+    public function Slice( int $start, int $end ): iReadOnlySequence
+    {
+        // Variables
+        $subArray = [];
+        
+        // Error. Ending index cannot be less than the starting index.
+        if ( $end < $start ) {
+            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot be less than the starting index.' );
+        }
+        
+        // Create array subset
+        else {
+            
+            // Sanitize the starting index
+            if ( $start < $this->GetFirstIndex() ) {
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be less than the first index of the item list.' );
+                $start = $this->GetFirstIndex();
+            }
+            
+            // Sanitize the ending index
+            if ( $this->GetLastIndex() < $end ) {
+                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot surpass the last index of the item list.' );
+                $end = $this->GetLastIndex();
+            }
+            
+            // For each entry in the index range, push them into the subset array
+            for ( $i = $start; $i <= $end; $i++ ) {
+                $subArray[] = $this->items[ $i ];
+            }
+        }
+        
+        // Create Sequence subset
+        $subSequence = new static( $this->type );
+        foreach ( $subArray as $value ) {
+            $subSequence->Add( $value );
+        }
+        
+        return $subSequence;
     }
     
     
