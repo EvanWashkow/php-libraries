@@ -148,6 +148,35 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
+    public function Insert( int $index, $value ): int
+    {
+        // Index too small
+        if ( $index < $this->GetFirstIndex() ) {
+            trigger_error( 'Cannot insert value before the beginning' );
+            $index = -1;
+        }
+        
+        // Index too large
+        elseif (( $this->GetLastIndex() + 1 ) < $index ) {
+            trigger_error( 'Cannot insert value after the end' );
+            $index = -1;
+        }
+        
+        // Invalid value type
+        elseif ( !$this->isValueValidType( $value )) {
+            trigger_error( 'Cannot insert value that does not match the type constraints' );
+            $index = -1;
+        }
+        
+        // Insert value at the index
+        else {
+            array_splice( $this->items, $index, 0, $value );
+        }
+        
+        return $index;
+    }
+    
+    
     public function Loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
