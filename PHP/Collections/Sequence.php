@@ -295,19 +295,19 @@ class Sequence extends \PHP\Object implements iSequence
     }
     
     
-    public function Update( $index, $value )
+    public function Update( $index, $value ): int
     {
+        $failure = -1;
         if ( !$this->HasIndex( $index )) {
             trigger_error( 'Update index does not exist' );
-            $index = null;
+            $index = $failure;
         }
         elseif ( !$this->isValueValidType( $value )) {
             trigger_error( 'Cannot update value that does not match the type constraints' );
-            $index = null;
+            $index = $failure;
         }
         else {
             $this->items[ $index ] = $value;
-            $index = null;
         }
         return $index;
     }

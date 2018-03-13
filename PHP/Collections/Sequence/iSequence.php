@@ -30,4 +30,13 @@ interface iSequence extends iCollection, iReadOnlySequence
      * Put all entries in reverse order
      */
     public function Reverse();
+    
+    /**
+     * Overwrite the value at the index, if it exists
+     *
+     * @param mixed $index The index to store the value at
+     * @param mixed $value The value to store
+     * @return int The index or -1 on failure
+     */
+    public function Update( $index, $value ): int;
 }
