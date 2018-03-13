@@ -97,23 +97,9 @@ class Dictionary extends \PHP\Object implements Dictionary\iDictionary
     
     public function Loop( callable $function, &...$args )
     {
-        foreach ( $this->items as $index => $value ) {
-            
-            // Add index and value the callback function parameters
-            $parameters = array_merge(
-                [
-                    $index,
-                    $value
-                ],
-                $args
-            );
-            
-            // Execute the callback function, exiting when a non-null value is returned
-            $result = call_user_func_array( $function, $parameters );
-            if ( null !== $result ) {
-                return $result;
-            }
-        }
+        $iterable   = new Iterable( $this->items );
+        $parameters = array_merge( [ $function ], $args );
+        return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
     }
     
     
