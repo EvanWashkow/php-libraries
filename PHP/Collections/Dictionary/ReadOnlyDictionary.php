@@ -1,7 +1,8 @@
 <?php
 namespace PHP\Collections\Dictionary;
 
-use \PHP\Object;
+use \PHP\Collections\Dictionary;
+use \PHP\Collections\iReadOnlyCollection;
 
 /**
  * Defines a read only, unordered set of indexed values
@@ -16,21 +17,25 @@ class ReadOnlyDictionary extends \PHP\Object implements iReadOnlyDictionary
      */
     private $dictionary;
     
+    
     /**
      * Create a new read-only Dictionary instance
      *
-     * @param string $indexType Specifies the type requirement for all indexes (see `is()`). An empty string permits all types.
-     * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
-     * @param array  $items     Indexed array of values for this dictionary
+     * As items are added to / removed from the dictionary, the changes will
+     * be reflected here. To change that, simply Clone() this after creation.
+     *
+     * @param Dictionary $dictionary The dictionary to make read-only
      */
-    public function __construct( string $indexType = '',
-                                 string $valueType = '',
-                                 array  $items     = [] )
+    public function __construct( Dictionary $dictionary )
     {
-        $this->dictionary = new \PHP\Collections\Dictionary( $indexType, $valueType );
-        foreach ( $items as $index => $value ) {
-            $this->dictionary->Add( $index, $value );
-        }
+        $this->dictionary = $dictionary;
+    }
+    
+    
+    final public function Clone(): iReadOnlyCollection
+    {
+        $dictionaryClone = $this->dictionary->Clone();
+        return new static( $dictionaryClone );
     }
     
     
