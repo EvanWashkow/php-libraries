@@ -41,6 +41,9 @@ class Sequence extends \PHP\Object implements iSequence
             $this->items[] = $value;
             $index         = $this->GetLastIndex();
         }
+        else {
+            trigger_error( 'Cannot add value that does not match the type constraints' );
+        }
         return $index;
     }
     
@@ -113,7 +116,7 @@ class Sequence extends \PHP\Object implements iSequence
         
         // Error. Ending index cannot be less than the starting index.
         if ( $end < $start ) {
-            \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot be less than the starting index.' );
+            trigger_error( 'Ending index cannot be less than the starting index.' );
         }
         
         // Create array subset
@@ -121,13 +124,13 @@ class Sequence extends \PHP\Object implements iSequence
             
             // Sanitize the starting index
             if ( $start < $this->GetFirstIndex() ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Starting index cannot be less than the first index of the item list.' );
+                trigger_error( 'Starting index cannot be less than the first index of the item list.' );
                 $start = $this->GetFirstIndex();
             }
             
             // Sanitize the ending index
             if ( $this->GetLastIndex() < $end ) {
-                \PHP\Debug\Log::Write( __CLASS__ . '->' . __FUNCTION__ . '() Ending index cannot surpass the last index of the item list.' );
+                trigger_error( 'Ending index cannot surpass the last index of the item list.' );
                 $end = $this->GetLastIndex();
             }
             
@@ -149,10 +152,16 @@ class Sequence extends \PHP\Object implements iSequence
     
     public function Update( $index, $value )
     {
-        if ( $this->HasIndex( $index ) && $this->isValueValidType( $value )) {
-            $this->items[ $index ] = $value;
+        if ( !$this->HasIndex( $index )) {
+            trigger_error( 'Update index does not exist' );
+            $index = null;
+        }
+        elseif ( !$this->isValueValidType( $value )) {
+            trigger_error( 'Cannot update value that does not match the type constraints' );
+            $index = null;
         }
         else {
+            $this->items[ $index ] = $value;
             $index = null;
         }
         return $index;
