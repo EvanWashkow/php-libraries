@@ -43,20 +43,24 @@ class Sequence extends \PHP\Object implements iSequence
         return $index;
     }
     
+    
     public function Clear()
     {
         return $this->items = [];
     }
+    
     
     public function ConvertToArray(): array
     {
         return $this->items;
     }
     
+    
     public function Count(): int
     {
         return count( $this->items );
     }
+    
     
     public function Get( $index, $defaultValue = null )
     {
@@ -67,20 +71,24 @@ class Sequence extends \PHP\Object implements iSequence
         return $value;
     }
     
+    
     public function GetFirstIndex(): int
     {
         return 0;
     }
+    
     
     public function GetLastIndex(): int
     {
         return ( $this->Count() - 1 );
     }
     
+    
     public function HasIndex( $index ): bool
     {
         return ( is( $index, 'integer' ) && array_key_exists( $index, $this->items ));
     }
+    
     
     public function Loop( callable $function, &...$args )
     {
@@ -89,11 +97,13 @@ class Sequence extends \PHP\Object implements iSequence
         return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
     }
     
+    
     public function Remove( $index )
     {
         unset( $this->items[ $index ] );
         $this->items = array_values( $this->items );
     }
+    
     
     public function Update( $index, $value )
     {
