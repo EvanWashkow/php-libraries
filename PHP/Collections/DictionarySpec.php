@@ -2,6 +2,7 @@
 namespace PHP\Collections;
 
 use PHP\Collections\CollectionSpec;
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\Dictionary\ReadOnlyDictionarySpec;
 
 /**
@@ -21,4 +22,11 @@ interface DictionarySpec extends CollectionSpec, ReadOnlyDictionarySpec
      * @return mixed The index or NULL on failure
      */
     public function Add( $index, $value );
+    
+    /**
+     * Duplicate every index and value into a new instance
+     *
+     * @return DictionarySpec
+     */
+    public function Clone(): ReadOnlyCollectionSpec;
 }

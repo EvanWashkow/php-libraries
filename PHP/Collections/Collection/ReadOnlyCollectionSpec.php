@@ -8,7 +8,7 @@ use PHP\Collections\IterableSpec;
  */
 interface ReadOnlyCollectionSpec extends IterableSpec
 {
-
+    
     /**
      * Duplicate every index and value into a new instance
      *
