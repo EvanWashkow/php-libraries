@@ -21,7 +21,7 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
     /**
      * Create a new read-only Dictionary instance
      *
-     * As items are added to / removed from the dictionary, the changes will
+     * As entries are added to / removed from the dictionary, the changes will
      * be reflected here. To change that, simply Clone() this after creation.
      *
      * @param Dictionary $dictionary The dictionary to make read-only

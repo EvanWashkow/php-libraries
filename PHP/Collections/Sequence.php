@@ -17,7 +17,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
      *
      * @var array
      */
-    private $items;
+    private $entries;
     
     /**
      * Type requirement for all values
@@ -38,7 +38,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     {
         $index = -1;
         if ( $this->isValueValidType( $value )) {
-            $this->items[] = $value;
+            $this->entries[] = $value;
             $index         = $this->GetLastIndex();
         }
         else {
@@ -50,7 +50,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     
     public function Clear()
     {
-        return $this->items = [];
+        return $this->entries = [];
     }
     
     
@@ -66,13 +66,13 @@ class Sequence extends \PHP\Object implements SequenceSpec
     
     public function ConvertToArray(): array
     {
-        return $this->items;
+        return $this->entries;
     }
     
     
     public function Count(): int
     {
-        return count( $this->items );
+        return count( $this->entries );
     }
     
     
@@ -80,7 +80,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     {
         $value = $defaultValue;
         if ( $this->HasIndex( $index )) {
-            $value = $this->items[ $index ];
+            $value = $this->entries[ $index ];
         }
         return $value;
     }
@@ -105,13 +105,13 @@ class Sequence extends \PHP\Object implements SequenceSpec
     
         // Exit. Offset cannot be negative.
         if ( $offset < $this->GetFirstIndex() ) {
-            trigger_error( 'Offset cannot be less than the first item\'s index' );
+            trigger_error( 'Offset cannot be less than the first entry\'s index' );
             return $index;
         }
         
         // Exit. Offset cannot surpass the end of the array.
         elseif ( $this->GetLastIndex() < $offset ) {
-            trigger_error( 'Offset cannot be greater than the last item\'s index' );
+            trigger_error( 'Offset cannot be greater than the last entry\'s index' );
             return $index;
         }
             
@@ -144,7 +144,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     
     public function HasIndex( $index ): bool
     {
-        return ( is( $index, 'integer' ) && array_key_exists( $index, $this->items ));
+        return ( is( $index, 'integer' ) && array_key_exists( $index, $this->entries ));
     }
     
     
@@ -173,7 +173,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
         
         // Insert value at the index
         else {
-            array_splice( $this->items, $index, 0, $value );
+            array_splice( $this->entries, $index, 0, $value );
         }
         
         return $index;
@@ -183,21 +183,21 @@ class Sequence extends \PHP\Object implements SequenceSpec
     public function Loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
-        $iterable   = new Iterable( $this->items );
+        $iterable   = new Iterable( $this->entries );
         return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
     }
     
     
     public function Remove( $index )
     {
-        unset( $this->items[ $index ] );
-        $this->items = array_values( $this->items );
+        unset( $this->entries[ $index ] );
+        $this->entries = array_values( $this->entries );
     }
     
     
     public function Reverse()
     {
-        $this->items = array_reverse( $this->items, false );
+        $this->entries = array_reverse( $this->entries, false );
     }
     
     
@@ -216,19 +216,19 @@ class Sequence extends \PHP\Object implements SequenceSpec
             
             // Sanitize the starting index
             if ( $start < $this->GetFirstIndex() ) {
-                trigger_error( 'Starting index cannot be less than the first index of the item list.' );
+                trigger_error( 'Starting index cannot be less than the first index of the entry list.' );
                 $start = $this->GetFirstIndex();
             }
             
             // Sanitize the ending index
             if ( $this->GetLastIndex() < $end ) {
-                trigger_error( 'Ending index cannot surpass the last index of the item list.' );
+                trigger_error( 'Ending index cannot surpass the last index of the entry list.' );
                 $end = $this->GetLastIndex();
             }
             
             // For each entry in the index range, push them into the subset array
             for ( $i = $start; $i <= $end; $i++ ) {
-                $subArray[] = $this->items[ $i ];
+                $subArray[] = $this->entries[ $i ];
             }
         }
         
@@ -249,7 +249,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
         $sequences   = [];
         $canContinue = true;
         
-        // While there are items left
+        // While there are entries left
         do {
             
             // Halt loop if there are no entries
@@ -272,7 +272,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
                     $end = $this->GetLastIndex() + 1;
                 }
                     
-                // Group the items between the start and end, excluding the delimiter
+                // Group the entries between the start and end, excluding the delimiter
                 $sequence = $this->Slice( $start, $end - 1 );
                 if ( 1 <= $sequence->Count() ) {
                     $sequences[] = $sequence;
@@ -307,7 +307,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
             $index = $failure;
         }
         else {
-            $this->items[ $index ] = $value;
+            $this->entries[ $index ] = $value;
         }
         return $index;
     }

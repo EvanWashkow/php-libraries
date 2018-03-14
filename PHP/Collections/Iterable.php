@@ -4,33 +4,33 @@ namespace PHP\Collections;
 use PHP\Collections\IterableSpec;
 
 /**
- * Defines a set of items that can be iterated over
+ * Defines a set of entries that can be iterated over
  */
 class Iterable extends \PHP\Object implements IterableSpec
 {
     
     /**
-     * The indexed set of items
+     * The indexed set of entries
      *
      * @var array
      */
-    private $items;
+    private $entries;
     
     
     /**
-     * Creates a new Iterable instance for the items
+     * Creates a new Iterable instance for the entries
      *
-     * @param array $items The indexed set of items
+     * @param array $entries The indexed set of entries
      */
-    public function __construct( array $items )
+    public function __construct( array $entries )
     {
-        $this->items = $items;
+        $this->entries = $entries;
     }
     
     
     public function Loop( callable $function, &...$args )
     {
-        foreach ( $this->items as $index => $value ) {
+        foreach ( $this->entries as $index => $value ) {
             
             // Add index and value the callback function parameters
             $parameters = array_merge(

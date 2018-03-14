@@ -14,7 +14,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
      *
      * @var array
      */
-    private $items;
+    private $entries;
     
     /**
      * Specifies the type requirement for all indexes
@@ -68,7 +68,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     
     public function Clear()
     {
-        $this->items = [];
+        $this->entries = [];
     }
     
     
@@ -84,13 +84,13 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     
     public function ConvertToArray(): array
     {
-        return $this->items;
+        return $this->entries;
     }
     
     
     public function Count(): int
     {
-        return count( $this->items );
+        return count( $this->entries );
     }
     
     
@@ -98,7 +98,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     {
         $value = $defaultValue;
         if ( $this->HasIndex( $index )) {
-            $value = $this->items[ $index ];
+            $value = $this->entries[ $index ];
         }
         return $value;
     }
@@ -108,14 +108,14 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     {
         return (
             is( $index, $this->indexType ) &&
-            array_key_exists( $index, $this->items )
+            array_key_exists( $index, $this->entries )
         );
     }
     
     
     public function Loop( callable $function, &...$args )
     {
-        $iterable   = new Iterable( $this->items );
+        $iterable   = new Iterable( $this->entries );
         $parameters = array_merge( [ $function ], $args );
         return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
     }
@@ -123,7 +123,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     
     public function Remove( $index )
     {
-        unset( $this->items[ $index ] );
+        unset( $this->entries[ $index ] );
     }
     
     
@@ -159,7 +159,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             $index = null;
         }
         else {
-            $this->items[ $index ] = $value;
+            $this->entries[ $index ] = $value;
         }
         return $index;
     }

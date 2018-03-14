@@ -17,14 +17,14 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function __construct( string $type = '' );
     
     /**
-     * Retrieve the index for the last item
+     * Retrieve the index for the last entry
      *
      * @return int
      */
     public function GetFirstIndex(): int;
     
     /**
-     * Retrieve the index for the last item
+     * Retrieve the index for the last entry
      *
      * @return int
      */
@@ -41,7 +41,7 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
     
     /**
-     * Create a subset of items from this one
+     * Create a subset of entries from this one
      *
      * @param int $start Starting index
      * @param int $end   Ending index
@@ -50,10 +50,10 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function Slice( int $start, int $end ): ReadOnlySequenceSpec;
     
     /**
-     * Chop these items into groups, using the given value as a delimiter
+     * Chop these entries into groups, using the given value as a delimiter
      *
      * @param mixed $delimiter Value separating each group
-     * @param int   $limit     Maximum number of items to return; negative to return all.
+     * @param int   $limit     Maximum number of entries to return; negative to return all.
      * @return ReadOnlySequenceSpec
      */
     public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;

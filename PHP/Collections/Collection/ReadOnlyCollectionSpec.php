@@ -24,7 +24,7 @@ interface ReadOnlyCollectionSpec extends IterableSpec
     public function ConvertToArray(): array;
     
     /**
-     * Count all items, returning the result
+     * Count all entries, returning the result
      *
      * @return int
      */
