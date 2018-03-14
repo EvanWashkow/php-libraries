@@ -154,6 +154,18 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     
     
     /**
+     * Determine if the value type meets its type constraints
+     *
+     * @param mixed $value The value to check
+     * @return bool
+     */
+    final protected function isValidValueType( $value ): bool
+    {
+        return (( '' === $this->valueType ) || is( $value, $this->valueType ));
+    }
+    
+    
+    /**
      * Store the value at the specified index
      *
      * Fails if the index or value doesn't match its type requirement
@@ -168,7 +180,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             trigger_error( "The index \"{$index}\" does not match its type constraints" );
             $index = null;
         }
-        elseif (( '' !== $this->valueType ) && !is( $value, $this->valueType )) {
+        elseif ( !$this->isValidValueType( $value )) {
             trigger_error( 'The value does not match its type constraints' );
             $index = null;
         }
