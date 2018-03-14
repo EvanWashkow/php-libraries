@@ -29,6 +29,11 @@ class Sequence extends \PHP\Object implements SequenceSpec
     
     public function __construct( string $type = '' )
     {
+        // Throw error for NULL value types
+        if ( 'null' === strtolower( $type )) {
+            throw new \Exception( 'Sequence values cannot be NULL' );
+        }
+        
         $this->Clear();
         $this->type = $type;
     }
