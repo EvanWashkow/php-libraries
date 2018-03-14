@@ -39,13 +39,16 @@ class Dictionary extends \PHP\Object implements DictionarySpec
      */
     public function __construct( string $indexType = '', string $valueType = '' )
     {
-        // Abort. Neither index nor value can be null.
-        if ( 'null' === strtolower( $indexType )) {
-            throw new \Exception( 'Dictionary indexes cannot be NULL' );
+        // Abort. The index type must be either an integer or string.
+        if (( 'integer' !== $indexType ) && ( 'string' !== $indexType )) {
+            throw new \Exception( 'Dictionary indexes must either be integers or strings' );
         }
+        
+        // Abort. Value types cannot be null.
         elseif ( 'null' === strtolower( $valueType )) {
             throw new \Exception( 'Dictionary values cannot be NULL' );
         }
+        
         
         // Initialize properties
         $this->Clear();
