@@ -45,16 +45,16 @@ interface ReadOnlySequenceSpec extends iReadOnlyCollection
      *
      * @param int $start Starting index
      * @param int $end   Ending index
-     * @return iReadOnlySequence
+     * @return ReadOnlySequenceSpec
      */
-    public function Slice( int $start, int $end ): iReadOnlySequence;
+    public function Slice( int $start, int $end ): ReadOnlySequenceSpec;
     
     /**
      * Chop these items into groups, using the given value as a delimiter
      *
      * @param mixed $delimiter Value separating each group
      * @param int   $limit     Maximum number of items to return; negative to return all.
-     * @return iReadOnlySequence
+     * @return ReadOnlySequenceSpec
      */
-    public function Split( $delimiter, int $limit = -1 ): iReadOnlySequence;
+    public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
 }

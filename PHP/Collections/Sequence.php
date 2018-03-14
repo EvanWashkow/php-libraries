@@ -1,7 +1,7 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Sequence\iReadOnlySequence;
+use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a mutable, ordered set of indexed values
@@ -200,7 +200,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function Slice( int $start, int $end ): iReadOnlySequence
+    public function Slice( int $start, int $end ): ReadOnlySequenceSpec
     {
         // Variables
         $subArray = [];
@@ -241,7 +241,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function Split( $delimiter, int $limit = -1 ): iReadOnlySequence
+    public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
         // Variables
         $start       = $this->GetFirstIndex();
