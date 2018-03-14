@@ -127,7 +127,15 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     
     public function Remove( $index )
     {
-        unset( $this->entries[ $index ] );
+        if ( !$this->isValidIndexType( $index )) {
+            trigger_error( "Cannot remove entry at index \"{$index}\" since it does not meet its type constraints" );
+        }
+        elseif ( !$this->HasIndex( $index )) {
+            trigger_error( "Cannot remove entry at index \"{$index}\" since it does not exist" );
+        }
+        else {
+            unset( $this->entries[ $index ] );
+        }
     }
     
     
