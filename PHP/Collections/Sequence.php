@@ -1,7 +1,6 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Sequence\iSequence;
 use PHP\Collections\Sequence\iReadOnlySequence;
 
 /**
@@ -9,7 +8,7 @@ use PHP\Collections\Sequence\iReadOnlySequence;
  *
  * This would have been named "List" had that not been reserved by PHP
  */
-class Sequence extends \PHP\Object implements iSequence
+class Sequence extends \PHP\Object implements SequenceSpec
 {
     
     /**

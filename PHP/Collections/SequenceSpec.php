@@ -1,12 +1,12 @@
 <?php
-namespace PHP\Collections\Sequence;
+namespace PHP\Collections;
 
-use PHP\Collections\iCollection;
+use PHP\Collections\Sequence\iReadOnlySequence;
 
 /**
- * Define the type for a mutable, ordered set of indexed values
+ * Define the specifications for a mutable, ordered set of indexed values
  */
-interface iSequence extends iCollection, iReadOnlySequence
+interface SequenceSpec extends iCollection, iReadOnlySequence
 {
     
     /**
