@@ -98,7 +98,10 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     public function Get( $index, $defaultValue = null )
     {
         $value = $defaultValue;
-        if ( $this->HasIndex( $index )) {
+        if ( !$this->isValidIndexType( $index )) {
+            trigger_error( "Cannot get index \"{$index}\" since it does not meet type constraints" );
+        }
+        elseif ( $this->HasIndex( $index )) {
             $value = $this->entries[ $index ];
         }
         return $value;
