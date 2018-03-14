@@ -10,13 +10,6 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
 {
     
     /**
-     * Create a new enumerated instance
-     *
-     * @param string $type Establishes type requirement for all values. See `is()`.
-     */
-    public function __construct( string $type = '' );
-    
-    /**
      * Retrieve the index for the last entry
      *
      * @return int
