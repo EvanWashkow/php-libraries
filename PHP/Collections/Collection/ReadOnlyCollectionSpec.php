@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections\Collection;
 
-use PHP\Collections\Iterable\iIterable;
+use PHP\Collections\IterableSpec;
 
 /**
  * Defines the type for a set of indexed, read-only values
  */
-interface ReadOnlyCollectionSpec extends iIterable
+interface ReadOnlyCollectionSpec extends IterableSpec
 {
 
     /**

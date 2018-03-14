@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Iterable\iIterable;
+use PHP\Collections\IterableSpec;
 
 /**
  * Defines a set of items that can be iterated over
  */
-class Iterable extends \PHP\Object implements iIterable
+class Iterable extends \PHP\Object implements IterableSpec
 {
     
     /**
