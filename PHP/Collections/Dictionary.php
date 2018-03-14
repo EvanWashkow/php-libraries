@@ -51,15 +51,15 @@ class Dictionary extends \PHP\Object implements DictionarySpec
         
         
         // Initialize properties
-        $this->Clear();
+        $this->clear();
         $this->indexType = $indexType;
         $this->valueType = $valueType;
     }
     
     
-    public function Add( $index, $value )
+    public function add( $index, $value )
     {
-        if ( $this->HasIndex( $index )) {
+        if ( $this->hasIndex( $index )) {
             trigger_error( 'Cannot add value: index already exists' );
             $index = null;
         }
@@ -70,48 +70,48 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function Clear()
+    public function clear()
     {
         $this->entries = [];
     }
     
     
-    public function Clone(): ReadOnlyCollectionSpec
+    public function clone(): ReadOnlyCollectionSpec
     {
         $clone = new static( $this->indexType, $this->valueType );
-        $this->Loop( function( $index, $value, &$clone ) {
-            $clone->Add( $index, $value );
+        $this->loop( function( $index, $value, &$clone ) {
+            $clone->add( $index, $value );
         }, $clone );
         return $clone;
     }
     
     
-    public function ConvertToArray(): array
+    public function convertToArray(): array
     {
         return $this->entries;
     }
     
     
-    public function Count(): int
+    public function count(): int
     {
         return count( $this->entries );
     }
     
     
-    public function Get( $index, $defaultValue = null )
+    public function get( $index, $defaultValue = null )
     {
         $value = $defaultValue;
         if ( !$this->isValidIndexType( $index )) {
             trigger_error( "Cannot get value at non-{$this->indexType} index" );
         }
-        elseif ( $this->HasIndex( $index )) {
+        elseif ( $this->hasIndex( $index )) {
             $value = $this->entries[ $index ];
         }
         return $value;
     }
     
     
-    public function HasIndex( $index ): bool
+    public function hasIndex( $index ): bool
     {
         return (
             $this->isValidIndexType( $index ) &&
@@ -120,20 +120,20 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function Loop( callable $function, &...$args )
+    public function loop( callable $function, &...$args )
     {
         $iterable   = new Iterable( $this->entries );
         $parameters = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
+        return call_user_func_array( [ $iterable, 'loop' ], $parameters );
     }
     
     
-    public function Remove( $index )
+    public function remove( $index )
     {
         if ( !$this->isValidIndexType( $index )) {
             trigger_error( "Cannot remove entry with non-{$this->indexType} index" );
         }
-        elseif ( !$this->HasIndex( $index )) {
+        elseif ( !$this->hasIndex( $index )) {
             trigger_error( 'Cannot remove value from non-existing index' );
         }
         else {
@@ -142,9 +142,9 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function Update( $index, $value )
+    public function update( $index, $value )
     {
-        if ( $this->HasIndex( $index )) {
+        if ( $this->hasIndex( $index )) {
             $this->set( $index, $value );
         }
         else {

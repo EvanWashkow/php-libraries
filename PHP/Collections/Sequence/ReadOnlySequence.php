@@ -22,7 +22,7 @@ class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
      * Create a read-only sequence instance
      *
      * As entries are added to / removed from the sequence, the changes will
-     * be reflected here. To change that, simply Clone() this after creation.
+     * be reflected here. To change that, simply clone() this after creation.
      *
      * @param Sequence $sequence The sequence to make read-only
      */
@@ -32,70 +32,70 @@ class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
     }
     
     
-    final public function Clone(): ReadOnlyCollectionSpec
+    final public function clone(): ReadOnlyCollectionSpec
     {
-        $sequenceClone = $this->sequence->Clone();
+        $sequenceClone = $this->sequence->clone();
         return new static( $sequenceClone );
     }
     
     
-    final public function ConvertToArray(): array
+    final public function convertToArray(): array
     {
-        return $this->sequence->ConvertToArray();
+        return $this->sequence->convertToArray();
     }
     
     
-    final public function Count(): int
+    final public function count(): int
     {
-        return $this->sequence->Count();
+        return $this->sequence->count();
     }
     
     
-    final public function Get( $index, $defaultValue = null )
+    final public function get( $index, $defaultValue = null )
     {
-        return $this->sequence->Get( $index, $defaultValue );
+        return $this->sequence->get( $index, $defaultValue );
     }
     
     
-    final public function GetFirstIndex(): int
+    final public function getFirstIndex(): int
     {
-        return $this->sequence->GetFirstIndex();
+        return $this->sequence->getFirstIndex();
     }
     
     
-    final public function GetLastIndex(): int
+    final public function getLastIndex(): int
     {
-        return $this->sequence->GetLastIndex();
+        return $this->sequence->getLastIndex();
     }
     
     
-    final public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    final public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
-        return $this->sequence->GetIndexOf( $value, $offset, $isReverseSearch );
+        return $this->sequence->getIndexOf( $value, $offset, $isReverseSearch );
     }
     
     
-    final public function HasIndex( $index ): bool
+    final public function hasIndex( $index ): bool
     {
-        return $this->sequence->HasIndex( $index );
+        return $this->sequence->hasIndex( $index );
     }
     
     
-    final public function Loop( callable $function, &...$args )
+    final public function loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $this->sequence, 'Loop' ], $parameters );
+        return call_user_func_array( [ $this->sequence, 'loop' ], $parameters );
     }
     
     
-    final public function Slice( int $start, int $end ): ReadOnlySequenceSpec
+    final public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
-        return $this->sequence->Slice( $start, $end );
+        return $this->sequence->slice( $start, $end );
     }
     
     
-    final public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
+    final public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
-        return $this->sequence->Split( $delimiter, $limit );
+        return $this->sequence->split( $delimiter, $limit );
     }
 }

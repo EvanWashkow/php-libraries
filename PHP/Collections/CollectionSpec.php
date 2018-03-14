@@ -12,14 +12,14 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
     /**
      * Remove all stored values
      */
-    public function Clear();
+    public function clear();
     
     /**
      * Remove the value from the index
      *
      * @param mixed $index The index to remove the value from
      */
-    public function Remove( $index );
+    public function remove( $index );
     
     /**
      * Overwrite the value at the index, if it exists
@@ -30,5 +30,5 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
      * @param mixed $value The value to store
      * @return mixed The index or NULL on failure
      */
-    public function Update( $index, $value );
+    public function update( $index, $value );
 }

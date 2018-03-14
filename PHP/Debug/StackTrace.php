@@ -12,7 +12,7 @@ class StackTrace
      *
      * @return array
      */
-    final public static function Get()
+    final public static function get()
     {
         return debug_backtrace();
     }
@@ -27,7 +27,7 @@ class StackTrace
     {
         // Variables
         $output     = "\n";
-        $stackTrace = self::Get();
+        $stackTrace = self::get();
         
         // Pop StackTrace entries off
         array_shift( $stackTrace );

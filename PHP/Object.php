@@ -7,7 +7,7 @@ namespace PHP;
 class Object implements ObjectSpec
 {
     
-    final public function GetType(): string
+    final public function getType(): string
     {
         return get_class( $this );
     }

@@ -25,7 +25,7 @@ class Cache extends Dictionary implements CacheSpec
     public function __construct( string $type = '' )
     {
         parent::__construct( 'string', $type );
-        $this->MarkIncomplete();
+        $this->markIncomplete();
     }
     
     
@@ -34,19 +34,19 @@ class Cache extends Dictionary implements CacheSpec
     ***************************************************************************/
     
     
-    final public function IsComplete()
+    final public function isComplete()
     {
         return $this->isComplete;
     }
     
     
-    final public function MarkComplete()
+    final public function markComplete()
     {
         $this->isComplete = true;
     }
     
     
-    final public function MarkIncomplete()
+    final public function markIncomplete()
     {
         $this->isComplete = false;
     }

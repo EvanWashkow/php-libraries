@@ -14,21 +14,21 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      *
      * @return ReadOnlySequenceSpec
      */
-    public function Clone(): ReadOnlyCollectionSpec;
+    public function clone(): ReadOnlyCollectionSpec;
     
     /**
      * Retrieve the index for the last entry
      *
      * @return int
      */
-    public function GetFirstIndex(): int;
+    public function getFirstIndex(): int;
     
     /**
      * Retrieve the index for the last entry
      *
      * @return int
      */
-    public function GetLastIndex(): int;
+    public function getLastIndex(): int;
     
     /**
      * Search and retrieve index for the first instance of the specified value
@@ -38,7 +38,7 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
      * @return int The index of the value, or -1
      */
-    public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
+    public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
     
     /**
      * Create a subset of entries from this one
@@ -47,7 +47,7 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * @param int $end   Ending index
      * @return ReadOnlySequenceSpec
      */
-    public function Slice( int $start, int $end ): ReadOnlySequenceSpec;
+    public function slice( int $start, int $end ): ReadOnlySequenceSpec;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter
@@ -56,5 +56,5 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * @param int   $limit     Maximum number of entries to return; negative to return all.
      * @return ReadOnlySequenceSpec
      */
-    public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
 }

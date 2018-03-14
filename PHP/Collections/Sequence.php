@@ -39,17 +39,17 @@ class Sequence extends \PHP\Object implements SequenceSpec
             throw new \Exception( 'Sequence values cannot be NULL' );
         }
         
-        $this->Clear();
+        $this->clear();
         $this->type = $type;
     }
     
     
-    public function Add( $value ): int
+    public function add( $value ): int
     {
         $index = -1;
         if ( $this->isValueValidType( $value )) {
             $this->entries[] = $value;
-            $index           = $this->GetLastIndex();
+            $index           = $this->getLastIndex();
         }
         else {
             trigger_error( "Cannot add non-{$this->type} values" );
@@ -58,91 +58,91 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function Clear()
+    public function clear()
     {
         return $this->entries = [];
     }
     
     
-    public function Clone(): ReadOnlyCollectionSpec
+    public function clone(): ReadOnlyCollectionSpec
     {
         $clone = new static( $this->type );
-        $this->Loop( function( $index, $value, &$clone ) {
-            $clone->Add( $value );
+        $this->loop( function( $index, $value, &$clone ) {
+            $clone->add( $value );
         }, $clone );
         return $clone;
     }
     
     
-    public function ConvertToArray(): array
+    public function convertToArray(): array
     {
         return $this->entries;
     }
     
     
-    public function Count(): int
+    public function count(): int
     {
         return count( $this->entries );
     }
     
     
-    public function Get( $index, $defaultValue = null )
+    public function get( $index, $defaultValue = null )
     {
         $value = $defaultValue;
         if ( !is( $index, 'integer' )) {
             trigger_error( 'Index it is not an integer' );
         }
-        elseif ( $this->HasIndex( $index )) {
+        elseif ( $this->hasIndex( $index )) {
             $value = $this->entries[ $index ];
         }
         return $value;
     }
     
     
-    public function GetFirstIndex(): int
+    public function getFirstIndex(): int
     {
         return 0;
     }
     
     
-    public function GetLastIndex(): int
+    public function getLastIndex(): int
     {
-        return ( $this->Count() - 1 );
+        return ( $this->count() - 1 );
     }
     
     
-    public function GetIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
         $index = -1;
     
         // Exit. Offset cannot be negative.
-        if ( $offset < $this->GetFirstIndex() ) {
+        if ( $offset < $this->getFirstIndex() ) {
             trigger_error( 'Offset cannot be less than the first entry\'s index' );
             return $index;
         }
         
         // Exit. Offset cannot surpass the end of the array.
-        elseif ( $this->GetLastIndex() < $offset ) {
+        elseif ( $this->getLastIndex() < $offset ) {
             trigger_error( 'Offset cannot be greater than the last entry\'s index' );
             return $index;
         }
             
         // Get the sub-sequence to traverse
-        $sequence = $this->Clone();
+        $sequence = $this->clone();
         if ( $isReverseSearch ) {
-            $sequence->Reverse();
+            $sequence->reverse();
         }
-        $sequence = $sequence->Slice( $offset, $sequence->GetLastIndex() );
+        $sequence = $sequence->slice( $offset, $sequence->getLastIndex() );
         
         // Search the sub-sequence for the value
-        $_index = array_search( $value, $sequence->ConvertToArray() );
+        $_index = array_search( $value, $sequence->convertToArray() );
         if ( false !== $_index ) {
             
             // Invert index for reverse search. Keep in mind that the last
             // index is actually the first in the original order.
             if ( $isReverseSearch ) {
-                $index = $sequence->GetLastIndex() - $_index;
+                $index = $sequence->getLastIndex() - $_index;
             }
             
             // Add the offset to forward searches
@@ -155,25 +155,25 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function HasIndex( $index ): bool
+    public function hasIndex( $index ): bool
     {
         return ( is( $index, 'integer' ) && array_key_exists( $index, $this->entries ));
     }
     
     
-    public function Insert( int $index, $value ): int
+    public function insert( int $index, $value ): int
     {
         // Variables
         $failure = -1;
         
         // Index too small
-        if ( $index < $this->GetFirstIndex() ) {
+        if ( $index < $this->getFirstIndex() ) {
             trigger_error( 'Cannot insert value before the beginning' );
             $index = $failure;
         }
         
         // Index too large
-        elseif (( $this->GetLastIndex() + 1 ) < $index ) {
+        elseif (( $this->getLastIndex() + 1 ) < $index ) {
             trigger_error( 'Cannot insert value after the end' );
             $index = $failure;
         }
@@ -193,15 +193,15 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function Loop( callable $function, &...$args )
+    public function loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
         $iterable   = new Iterable( $this->entries );
-        return call_user_func_array( [ $iterable, 'Loop' ], $parameters );
+        return call_user_func_array( [ $iterable, 'loop' ], $parameters );
     }
     
     
-    public function Remove( $index )
+    public function remove( $index )
     {
         if ( is( $index, 'integer' )) {
             unset( $this->entries[ $index ] );
@@ -213,13 +213,13 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function Reverse()
+    public function reverse()
     {
         $this->entries = array_reverse( $this->entries, false );
     }
     
     
-    public function Slice( int $start, int $end ): ReadOnlySequenceSpec
+    public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
         // Variables
         $subArray = [];
@@ -233,15 +233,15 @@ class Sequence extends \PHP\Object implements SequenceSpec
         else {
             
             // Sanitize the starting index
-            if ( $start < $this->GetFirstIndex() ) {
+            if ( $start < $this->getFirstIndex() ) {
                 trigger_error( 'Starting index cannot be less than the first index of the entry list.' );
-                $start = $this->GetFirstIndex();
+                $start = $this->getFirstIndex();
             }
             
             // Sanitize the ending index
-            if ( $this->GetLastIndex() < $end ) {
+            if ( $this->getLastIndex() < $end ) {
                 trigger_error( 'Ending index cannot surpass the last index of the entry list.' );
-                $end = $this->GetLastIndex();
+                $end = $this->getLastIndex();
             }
             
             // For each entry in the index range, push them into the subset array
@@ -253,17 +253,17 @@ class Sequence extends \PHP\Object implements SequenceSpec
         // Create Sequence subset
         $subSequence = new static( $this->type );
         foreach ( $subArray as $value ) {
-            $subSequence->Add( $value );
+            $subSequence->add( $value );
         }
         
         return $subSequence;
     }
     
     
-    public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
+    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
         // Variables
-        $start       = $this->GetFirstIndex();
+        $start       = $this->getFirstIndex();
         $sequences   = [];
         $canContinue = true;
         
@@ -271,7 +271,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
         do {
             
             // Halt loop if there are no entries
-            if ( 0 === $this->Count() ) {
+            if ( 0 === $this->count() ) {
                 $canContinue = false;
             }
             
@@ -283,40 +283,40 @@ class Sequence extends \PHP\Object implements SequenceSpec
             else {
                 
                 // Get index of the next delimiter
-                $end = $this->GetIndexOf( $delimiter, $start );
+                $end = $this->getIndexOf( $delimiter, $start );
                 
                 // Delimiter not found. The end is the very last element.
                 if ( $end < 0 ) {
-                    $end = $this->GetLastIndex() + 1;
+                    $end = $this->getLastIndex() + 1;
                 }
                     
                 // Group the entries between the start and end, excluding the delimiter
-                $sequence = $this->Slice( $start, $end - 1 );
-                if ( 1 <= $sequence->Count() ) {
+                $sequence = $this->slice( $start, $end - 1 );
+                if ( 1 <= $sequence->count() ) {
                     $sequences[] = $sequence;
                 }
                 
                 // Move start index and halt loop if at the end of the sequence
                 $start = $end + 1;
-                if ( $this->GetLastIndex() <= $start ) {
+                if ( $this->getLastIndex() <= $start ) {
                     $canContinue = false;
                 }
             }
         } while ( $canContinue );
         
         // Return sequence of sequences
-        $sequence = new static( $this->GetType() );
+        $sequence = new static( $this->getType() );
         foreach ( $sequences as $_sequence ) {
-            $sequence->Add( $_sequence );
+            $sequence->add( $_sequence );
         }
         return $sequence;
     }
     
     
-    public function Update( $index, $value ): int
+    public function update( $index, $value ): int
     {
         $failure = -1;
-        if ( !$this->HasIndex( $index )) {
+        if ( !$this->hasIndex( $index )) {
             trigger_error( 'Update index does not exist' );
             $index = $failure;
         }

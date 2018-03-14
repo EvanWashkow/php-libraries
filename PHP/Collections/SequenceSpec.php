@@ -16,14 +16,14 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * @param mixed $value The value to add
      * @return int The index or -1 on failure
      */
-    public function Add( $value ): int;
+    public function add( $value ): int;
     
     /**
      * Duplicate every index and value into a new instance
      *
      * @return SequenceSpec
      */
-    public function Clone(): ReadOnlyCollectionSpec;
+    public function clone(): ReadOnlyCollectionSpec;
     
     /**
      * Insert the value at the index, shifting remaining values up
@@ -32,12 +32,12 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * @param mixed $value The value
      * @return int  The index or -1 on failure
      */
-    public function Insert( int $index, $value ): int;
+    public function insert( int $index, $value ): int;
     
     /**
      * Put all entries in reverse order
      */
-    public function Reverse();
+    public function reverse();
     
     /**
      * Create a subset of entries from this one
@@ -46,7 +46,7 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * @param int $end   Ending index
      * @return SequenceSpec
      */
-    public function Slice( int $start, int $end ): ReadOnlySequenceSpec;
+    public function slice( int $start, int $end ): ReadOnlySequenceSpec;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter
@@ -55,7 +55,7 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * @param int   $limit     Maximum number of entries to return; negative to return all.
      * @return SequenceSpec
      */
-    public function Split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
     
     /**
      * Overwrite the value at the index, if it exists
@@ -64,5 +64,5 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * @param mixed $value The value to store
      * @return int The index or -1 on failure
      */
-    public function Update( $index, $value ): int;
+    public function update( $index, $value ): int;
 }

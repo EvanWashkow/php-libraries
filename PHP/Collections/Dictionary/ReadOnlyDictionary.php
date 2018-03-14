@@ -22,7 +22,7 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
      * Create a new read-only Dictionary instance
      *
      * As entries are added to / removed from the dictionary, the changes will
-     * be reflected here. To change that, simply Clone() this after creation.
+     * be reflected here. To change that, simply clone() this after creation.
      *
      * @param Dictionary $dictionary The dictionary to make read-only
      */
@@ -32,36 +32,36 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
     }
     
     
-    final public function Clone(): ReadOnlyCollectionSpec
+    final public function clone(): ReadOnlyCollectionSpec
     {
-        $dictionaryClone = $this->dictionary->Clone();
+        $dictionaryClone = $this->dictionary->clone();
         return new static( $dictionaryClone );
     }
     
     
-    final public function ConvertToArray(): array
+    final public function convertToArray(): array
     {
-        return $this->dictionary->ConvertToArray();
+        return $this->dictionary->convertToArray();
     }
     
-    final public function Count(): int
+    final public function count(): int
     {
-        return $this->dictionary->Count();
+        return $this->dictionary->count();
     }
     
-    final public function Get( $index, $defaultValue = null )
+    final public function get( $index, $defaultValue = null )
     {
-        return $this->dictionary->Get( $index, $defaultValue );
+        return $this->dictionary->get( $index, $defaultValue );
     }
     
-    final public function HasIndex( $index ): bool
+    final public function hasIndex( $index ): bool
     {
-        return $this->dictionary->HasIndex( $index );
+        return $this->dictionary->hasIndex( $index );
     }
     
-    final public function Loop( callable $function, &...$args )
+    final public function loop( callable $function, &...$args )
     {
         $args = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $this->dictionary, 'Loop' ], $args );
+        return call_user_func_array( [ $this->dictionary, 'loop' ], $args );
     }
 }

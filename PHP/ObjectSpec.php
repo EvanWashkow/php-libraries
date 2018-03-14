@@ -11,5 +11,5 @@ interface ObjectSpec
      *
      * @return string
      */
-    public function GetType(): string;
+    public function getType(): string;
 }

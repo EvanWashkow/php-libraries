@@ -17,7 +17,7 @@ interface CacheSpec extends DictionarySpec
      *
      * @return bool
      */
-    public function IsComplete();
+    public function isComplete();
     
     /**
      * Mark cache as complete
@@ -25,7 +25,7 @@ interface CacheSpec extends DictionarySpec
      * Useful for flagging an interative cache as "complete", to prevent further
      * lookups.
      */
-    public function MarkComplete();
+    public function markComplete();
     
     /**
      * Mark cache as incomplete
@@ -33,5 +33,5 @@ interface CacheSpec extends DictionarySpec
      * Useful for flagging an interative cache as "incomplete", meaning there
      * are still items to fetch
      */
-    public function MarkIncomplete();
+    public function markIncomplete();
 }

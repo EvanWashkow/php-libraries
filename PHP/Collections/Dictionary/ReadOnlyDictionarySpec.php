@@ -14,5 +14,5 @@ interface ReadOnlyDictionarySpec extends ReadOnlyCollectionSpec
      *
      * @return ReadOnlyDictionarySpec
      */
-    public function Clone(): ReadOnlyCollectionSpec;
+    public function clone(): ReadOnlyCollectionSpec;
 }

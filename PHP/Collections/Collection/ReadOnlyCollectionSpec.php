@@ -14,21 +14,21 @@ interface ReadOnlyCollectionSpec extends IterableSpec
      *
      * @return ReadOnlyCollectionSpec
      */
-    public function Clone(): ReadOnlyCollectionSpec;
+    public function clone(): ReadOnlyCollectionSpec;
     
     /**
      * Convert to a native PHP array
      *
      * @return array
      */
-    public function ConvertToArray(): array;
+    public function convertToArray(): array;
     
     /**
      * Count all entries, returning the result
      *
      * @return int
      */
-    public function Count(): int;
+    public function count(): int;
     
     /**
      * Retrieve the value stored at the specified index
@@ -37,7 +37,7 @@ interface ReadOnlyCollectionSpec extends IterableSpec
      * @param mixed $defaultValue The value to return if the index does not exist
      * @return mixed The value if the index exists. NULL otherwise.
      */
-    public function Get( $index, $defaultValue = null );
+    public function get( $index, $defaultValue = null );
     
     /**
      * Determine if the index exists
@@ -45,5 +45,5 @@ interface ReadOnlyCollectionSpec extends IterableSpec
      * @param mixed $index The index to check
      * @return bool
      */
-    public function HasIndex( $index ): bool;
+    public function hasIndex( $index ): bool;
 }

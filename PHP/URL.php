@@ -104,7 +104,7 @@ class URL
      *
      * @return string
      */
-    final public function GetProtocol()
+    final public function getProtocol()
     {
         if ( null === $this->protocol ) {
             $this->protocol = explode( '://', $this->url, 2 )[ 0 ];
@@ -118,10 +118,10 @@ class URL
      *
      * @return string
      */
-    final public function GetDomain()
+    final public function getDomain()
     {
         if ( null === $this->domain ) {
-            $_url   = substr( $this->url, strlen( $this->GetProtocol() ) + 3 );
+            $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3 );
             $pieces = explode( '?',   $_url,        2 );
             $pieces = explode( '/',   $pieces[ 0 ], 2 );
             $this->domain = $pieces[ 0 ];
@@ -135,10 +135,10 @@ class URL
      *
      * @return string
      */
-    final public function GetPath()
+    final public function getPath()
     {
         if ( null === $this->path ) {
-            $_url   = substr( $this->url, strlen( $this->GetProtocol() ) + 3);
+            $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3);
             $pieces = explode( '?', $_url, 2 );
             $pieces = explode( '/', $pieces[ 0 ] );
             array_shift( $pieces );
@@ -153,7 +153,7 @@ class URL
      *
      * @return \stdClass;
      */
-    final public function GetParameters()
+    final public function getParameters()
     {
         if ( null === $this->parameters ) {
             $this->parameters = new \stdClass();
