@@ -108,7 +108,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     public function HasIndex( $index ): bool
     {
         return (
-            is( $index, $this->indexType ) &&
+            $this->isValidIndexType( $index ) &&
             array_key_exists( $index, $this->entries )
         );
     }
@@ -142,6 +142,18 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     
     
     /**
+     * Determine if the index type meets its type constraints
+     *
+     * @param mixed $index The index to check
+     * @return bool
+     */
+    final protected function isValidIndexType( $index ): bool
+    {
+        return (( '' === $this->indexType ) || is( $index, $this->indexType ));
+    }
+    
+    
+    /**
      * Store the value at the specified index
      *
      * Fails if the index or value doesn't match its type requirement
@@ -152,7 +164,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
      */
     private function insert( $index, $value )
     {
-        if (( '' !== $this->indexType ) && !is( $index, $this->indexType )) {
+        if ( !$this->isValidIndexType( $index )) {
             trigger_error( "The index \"{$index}\" does not match its type constraints" );
             $index = null;
         }
