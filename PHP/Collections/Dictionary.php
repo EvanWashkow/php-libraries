@@ -60,7 +60,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     public function Add( $index, $value )
     {
         if ( $this->HasIndex( $index )) {
-            trigger_error( "Cannot add entry since one already exists at the index \"{$index}\"" );
+            trigger_error( 'Cannot add value: index already exists' );
             $index = null;
         }
         else {
@@ -102,7 +102,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     {
         $value = $defaultValue;
         if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "Cannot get index \"{$index}\" since it does not meet type constraints" );
+            trigger_error( "Cannot get value at non-{$this->indexType} index" );
         }
         elseif ( $this->HasIndex( $index )) {
             $value = $this->entries[ $index ];
@@ -131,10 +131,10 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     public function Remove( $index )
     {
         if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "Cannot remove entry at index \"{$index}\" since it does not meet its type constraints" );
+            trigger_error( "Cannot remove entry with non-{$this->indexType} index" );
         }
         elseif ( !$this->HasIndex( $index )) {
-            trigger_error( "Cannot remove entry at index \"{$index}\" since it does not exist" );
+            trigger_error( 'Cannot remove value from non-existing index' );
         }
         else {
             unset( $this->entries[ $index ] );
@@ -148,7 +148,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             $this->set( $index, $value );
         }
         else {
-            trigger_error( "There is no entry at index \"{$index}\" to update" );
+            trigger_error( 'Cannot update value: the index does not exist' );
             $index = null;
         }
         return $index;
@@ -191,11 +191,11 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     private function set( $index, $value )
     {
         if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "The index \"{$index}\" does not match its type constraints" );
+            trigger_error( "Cannot set value at a non-{$this->indexType} index" );
             $index = null;
         }
         elseif ( !$this->isValidValueType( $value )) {
-            trigger_error( 'The value does not match its type constraints' );
+            trigger_error( "Cannot set non-{$this->valueType} values" );
             $index = null;
         }
         else {
