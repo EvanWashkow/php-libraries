@@ -145,7 +145,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             $this->set( $index, $value );
         }
         else {
-            trigger_error( "There is no entry at the index \"{$index}\" to update" );
+            trigger_error( "There is no entry at index \"{$index}\" to update" );
             $index = null;
         }
         return $index;
