@@ -1,10 +1,10 @@
 <?php
-namespace PHP\Object;
+namespace PHP;
 
 /**
- * Defines the Object type
+ * Specifications for an Object
  */
-interface iObject
+interface ObjectSpec
 {
     /**
      * Retrieve namespaced class string for this type
