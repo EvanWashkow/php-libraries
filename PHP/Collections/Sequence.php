@@ -89,7 +89,10 @@ class Sequence extends \PHP\Object implements SequenceSpec
     public function Get( $index, $defaultValue = null )
     {
         $value = $defaultValue;
-        if ( $this->HasIndex( $index )) {
+        if ( !is( $index, 'integer' )) {
+            trigger_error( "Cannot retrieve entry from index \"{$index}\" since it is not an integer" );
+        }
+        elseif ( $this->HasIndex( $index )) {
             $value = $this->entries[ $index ];
         }
         return $value;
