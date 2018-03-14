@@ -2,9 +2,9 @@
 namespace PHP\Collections;
 
 /**
- * Defines the type for a set of indexed, mutable values
+ * Specifications for a set of indexed, mutable values
  */
-interface iCollection extends iReadOnlyCollection
+interface CollectionSpec extends iReadOnlyCollection
 {
     
     /**

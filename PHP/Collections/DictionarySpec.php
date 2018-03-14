@@ -1,13 +1,13 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\iCollection;
+use PHP\Collections\CollectionSpec;
 use PHP\Collections\Dictionary\ReadOnlyDictionarySpec;
 
 /**
  * Specifications for a mutable, unordered set of indexed values
  */
-interface DictionarySpec extends iCollection, ReadOnlyDictionarySpec
+interface DictionarySpec extends CollectionSpec, ReadOnlyDictionarySpec
 {
     
     /**
