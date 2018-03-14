@@ -57,6 +57,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     public function Add( $index, $value )
     {
         if ( $this->HasIndex( $index )) {
+            trigger_error( "Cannot add entry since one already exists at the index \"{$index}\"" );
             $index = null;
         }
         else {
