@@ -153,7 +153,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     private function insert( $index, $value )
     {
         if (( '' !== $this->indexType ) && !is( $index, $this->indexType )) {
-            trigger_error( 'The index does not match its type constraints' );
+            trigger_error( "The index \"{$index}\" does not match its type constraints" );
             $index = null;
         }
         elseif (( '' !== $this->valueType ) && !is( $value, $this->valueType )) {
