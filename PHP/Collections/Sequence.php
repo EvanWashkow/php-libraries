@@ -52,7 +52,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
             $index           = $this->GetLastIndex();
         }
         else {
-            trigger_error( 'Cannot add value that does not match the type constraints' );
+            trigger_error( "Cannot add non-{$this->type} values" );
         }
         return $index;
     }
@@ -90,7 +90,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     {
         $value = $defaultValue;
         if ( !is( $index, 'integer' )) {
-            trigger_error( "Cannot retrieve entry from index \"{$index}\" since it is not an integer" );
+            trigger_error( 'Index it is not an integer' );
         }
         elseif ( $this->HasIndex( $index )) {
             $value = $this->entries[ $index ];
@@ -180,7 +180,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
         
         // Invalid value type
         elseif ( !$this->isValueValidType( $value )) {
-            trigger_error( 'Cannot insert value that does not match the type constraints' );
+            trigger_error( "Cannot insert non-{$this->type} values" );
             $index = $failure;
         }
         
@@ -208,7 +208,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
             $this->entries = array_values( $this->entries );
         }
         else {
-            trigger_error( "Cannot remove entry at index \"{$index}\" because it does not meet its type constraint" );
+            trigger_error( 'Index is not an integer' );
         }
     }
     
@@ -321,7 +321,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
             $index = $failure;
         }
         elseif ( !$this->isValueValidType( $value )) {
-            trigger_error( 'Cannot update value that does not match the type constraints' );
+            trigger_error( "Cannot update entry to a non-{$this->type} value" );
             $index = $failure;
         }
         else {
