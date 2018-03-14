@@ -4,9 +4,9 @@ namespace PHP\Collections\Sequence;
 use PHP\Collections\iReadOnlyCollection;
 
 /**
- * Define the type for a read-only, ordered set of indexed values
+ * Specifications for a read-only, ordered set of indexed values
  */
-interface iReadOnlySequence extends iReadOnlyCollection
+interface ReadOnlySequenceSpec extends iReadOnlyCollection
 {
     
     /**
