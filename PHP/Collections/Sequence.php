@@ -203,8 +203,13 @@ class Sequence extends \PHP\Object implements SequenceSpec
     
     public function Remove( $index )
     {
-        unset( $this->entries[ $index ] );
-        $this->entries = array_values( $this->entries );
+        if ( is( $index, 'integer' )) {
+            unset( $this->entries[ $index ] );
+            $this->entries = array_values( $this->entries );
+        }
+        else {
+            trigger_error( "Cannot remove entry at index \"{$index}\" because it does not meet its type constraint" );
+        }
     }
     
     
