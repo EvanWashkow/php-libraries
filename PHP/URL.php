@@ -151,26 +151,29 @@ class URL
     /**
      * Retrieve the parameters for this URL ("?var_1=foo&var_2=bar")
      *
-     * @return \stdClass;
+     * @return \PHP\Collections\Dictionary
      */
     final public function getParameters()
     {
         if ( null === $this->parameters ) {
-            $this->parameters = new \stdClass();
+            $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
             $index = strpos( $this->url, '?' );
             if ( false !== $index ) {
                 $_parameters = substr( $this->url, $index + 1 );
                 $_parameters = explode( '&', $_parameters );
                 foreach ( $_parameters as $_parameter ) {
                     $pieces = explode( '=', $_parameter, 2 );
-                    $key    = array_shift( $pieces );
+                    $index  = array_shift( $pieces );
                     $value  = array_shift( $pieces );
-                    $this->parameters->$key = $value;
+                    if ( null === $value ) {
+                        $value = '';
+                    }
+                    $this->parameters->add( $index, $value );
                 }
             }
         }
         return $this->parameters;
-    }     
+    }
     
     
     /**
