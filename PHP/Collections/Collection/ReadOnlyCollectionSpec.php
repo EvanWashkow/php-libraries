@@ -1,20 +1,20 @@
 <?php
-namespace PHP\Collections;
+namespace PHP\Collections\Collection;
 
 use PHP\Collections\Iterable\iIterable;
 
 /**
  * Defines the type for a set of indexed, read-only values
  */
-interface iReadOnlyCollection extends iIterable
+interface ReadOnlyCollectionSpec extends iIterable
 {
 
     /**
      * Duplicate every index and value into a new instance
      *
-     * @return iReadOnlyCollection
+     * @return ReadOnlyCollectionSpec
      */
-    public function Clone(): iReadOnlyCollection;
+    public function Clone(): ReadOnlyCollectionSpec;
     
     /**
      * Convert to a native PHP array

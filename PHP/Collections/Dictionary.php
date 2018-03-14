@@ -1,6 +1,8 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
+
 /**
  * Defines a mutable, unordered set of indexed values
  */
@@ -70,7 +72,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function Clone(): iReadOnlyCollection
+    public function Clone(): ReadOnlyCollectionSpec
     {
         $clone = new static( $this->indexType, $this->valueType );
         $this->Loop( function( $index, $value, &$clone ) {

@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections\Sequence;
 
-use PHP\Collections\iReadOnlyCollection;
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
  * Specifications for a read-only, ordered set of indexed values
  */
-interface ReadOnlySequenceSpec extends iReadOnlyCollection
+interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
 {
     
     /**

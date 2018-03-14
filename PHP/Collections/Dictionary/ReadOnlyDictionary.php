@@ -2,7 +2,7 @@
 namespace PHP\Collections\Dictionary;
 
 use \PHP\Collections\Dictionary;
-use \PHP\Collections\iReadOnlyCollection;
+use \PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
  * Defines a read only, unordered set of indexed values
@@ -32,7 +32,7 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
     }
     
     
-    final public function Clone(): iReadOnlyCollection
+    final public function Clone(): ReadOnlyCollectionSpec
     {
         $dictionaryClone = $this->dictionary->Clone();
         return new static( $dictionaryClone );

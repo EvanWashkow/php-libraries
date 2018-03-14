@@ -1,6 +1,7 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
@@ -53,7 +54,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function Clone(): iReadOnlyCollection
+    public function Clone(): ReadOnlyCollectionSpec
     {
         $clone = new static( $this->type );
         $this->Loop( function( $index, $value, &$clone ) {

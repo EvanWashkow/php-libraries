@@ -1,10 +1,12 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
+
 /**
  * Specifications for a set of indexed, mutable values
  */
-interface CollectionSpec extends iReadOnlyCollection
+interface CollectionSpec extends ReadOnlyCollectionSpec
 {
     
     /**
