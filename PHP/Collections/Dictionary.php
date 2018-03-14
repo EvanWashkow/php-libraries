@@ -133,6 +133,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             $this->insert( $index, $value );
         }
         else {
+            trigger_error( "There is no entry at the index \"{$index}\" to update" );
             $index = null;
         }
         return $index;
