@@ -39,7 +39,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
         $index = -1;
         if ( $this->isValueValidType( $value )) {
             $this->entries[] = $value;
-            $index         = $this->GetLastIndex();
+            $index           = $this->GetLastIndex();
         }
         else {
             trigger_error( 'Cannot add value that does not match the type constraints' );
