@@ -26,7 +26,7 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
      *
      * @param Dictionary $dictionary The dictionary to make read-only
      */
-    public function __construct( Dictionary $dictionary )
+    public function __construct( Dictionary &$dictionary )
     {
         $this->dictionary = $dictionary;
     }
