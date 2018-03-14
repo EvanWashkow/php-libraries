@@ -319,7 +319,7 @@ class Sequence extends \PHP\Object implements SequenceSpec
      * @param mixed $value The value to check
      * @return bool
      */
-    private function isValueValidType( $value ): bool
+    final protected function isValueValidType( $value ): bool
     {
         return (( '' === $this->type ) || is( $value, $this->type ));
     }
