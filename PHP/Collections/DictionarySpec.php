@@ -2,12 +2,12 @@
 namespace PHP\Collections;
 
 use PHP\Collections\iCollection;
-use PHP\Collections\Dictionary\iReadOnlyDictionary;
+use PHP\Collections\Dictionary\ReadOnlyDictionarySpec;
 
 /**
  * Specifications for a mutable, unordered set of indexed values
  */
-interface DictionarySpec extends iCollection, iReadOnlyDictionary
+interface DictionarySpec extends iCollection, ReadOnlyDictionarySpec
 {
     
     /**
