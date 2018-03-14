@@ -10,6 +10,13 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
 {
     
     /**
+     * Duplicate every index and value into a new instance
+     *
+     * @return ReadOnlySequenceSpec
+     */
+    public function Clone(): ReadOnlyCollectionSpec;
+    
+    /**
      * Retrieve the index for the last entry
      *
      * @return int
