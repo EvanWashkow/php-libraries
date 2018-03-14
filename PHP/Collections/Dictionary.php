@@ -61,7 +61,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             $index = null;
         }
         else {
-            $index = $this->insert( $index, $value );
+            $index = $this->set( $index, $value );
         }
         return $index;
     }
@@ -142,7 +142,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     public function Update( $index, $value )
     {
         if ( $this->HasIndex( $index )) {
-            $this->insert( $index, $value );
+            $this->set( $index, $value );
         }
         else {
             trigger_error( "There is no entry at the index \"{$index}\" to update" );
@@ -185,7 +185,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
      * @param mixed $value The value to store
      * @return mixed The index or NULL on failure.
      */
-    private function insert( $index, $value )
+    private function set( $index, $value )
     {
         if ( !$this->isValidIndexType( $index )) {
             trigger_error( "The index \"{$index}\" does not match its type constraints" );
