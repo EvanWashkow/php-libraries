@@ -4,7 +4,7 @@ namespace PHP\Collections;
 /**
  * Defines a mutable, unordered set of indexed values
  */
-class Dictionary extends \PHP\Object implements Dictionary\iDictionary
+class Dictionary extends \PHP\Object implements DictionarySpec
 {
     
     /**
