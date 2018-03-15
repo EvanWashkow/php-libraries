@@ -2,7 +2,6 @@
 namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\Sequence\ReadOnlySequence;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
@@ -153,22 +152,6 @@ class Sequence extends \PHP\Object implements SequenceSpec
         }
     
         return $index;
-    }
-    
-    
-    public function getIndices(): ReadOnlySequenceSpec
-    {
-        $indices = new self( 'integer' );
-        foreach ( array_keys( $this->entries ) as $index ) {
-            $indices->add( $index );
-        }
-        return new ReadOnlySequence( $indices );
-    }
-    
-    
-    public function getValues(): ReadOnlySequenceSpec
-    {
-        return new ReadOnlySequence( $this );
     }
     
     
