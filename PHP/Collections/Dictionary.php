@@ -2,6 +2,8 @@
 namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
+use PHP\Collections\Sequence\ReadOnlySequence;
+use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a mutable, unordered set of indexed values
@@ -108,6 +110,16 @@ class Dictionary extends \PHP\Object implements DictionarySpec
             $value = $this->entries[ $index ];
         }
         return $value;
+    }
+    
+    
+    public function getIndices(): ReadOnlySequenceSpec
+    {
+        $indices = new Sequence( $this->indexType );
+        foreach ( array_keys( $this->entries ) as $index ) {
+            $indices->add( $index );
+        }
+        return new ReadOnlySequence( $indices );
     }
     
     

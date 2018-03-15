@@ -74,6 +74,11 @@ class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
         return $this->sequence->getIndexOf( $value, $offset, $isReverseSearch );
     }
     
+    final public function getIndices(): ReadOnlySequenceSpec
+    {
+        return $this->sequence->getIndices();
+    }
+    
     
     final public function hasIndex( $index ): bool
     {

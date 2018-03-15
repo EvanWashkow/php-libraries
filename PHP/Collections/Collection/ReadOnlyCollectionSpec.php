@@ -2,6 +2,7 @@
 namespace PHP\Collections\Collection;
 
 use PHP\Collections\IterableSpec;
+use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines the type for a set of indexed, read-only values
@@ -38,6 +39,13 @@ interface ReadOnlyCollectionSpec extends IterableSpec
      * @return mixed The value if the index exists. NULL otherwise.
      */
     public function get( $index, $defaultValue = null );
+    
+    /**
+     * Retrieve all entry indices
+     *n
+     * @return ReadOnlySequenceSpec
+     */
+    public function getIndices(): ReadOnlySequenceSpec;
     
     /**
      * Determine if the index exists

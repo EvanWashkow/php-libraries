@@ -1,8 +1,9 @@
 <?php
 namespace PHP\Collections\Dictionary;
 
-use \PHP\Collections\Dictionary;
 use \PHP\Collections\Collection\ReadOnlyCollectionSpec;
+use \PHP\Collections\Dictionary;
+use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a read only, unordered set of indexed values
@@ -52,6 +53,11 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
     final public function get( $index, $defaultValue = null )
     {
         return $this->dictionary->get( $index, $defaultValue );
+    }
+    
+    final public function getIndices(): ReadOnlySequenceSpec
+    {
+        return $this->dictionary->getIndices();
     }
     
     final public function hasIndex( $index ): bool
