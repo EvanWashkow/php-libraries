@@ -12,7 +12,7 @@ class StackTrace
      *
      * @return array
      */
-    final public static function get()
+    final public static function Get()
     {
         return debug_backtrace();
     }
@@ -23,7 +23,7 @@ class StackTrace
      *
      * @return string
      */
-    public static function ToString()
+    public static function ConvertToString()
     {
         // Variables
         $output     = "\n";

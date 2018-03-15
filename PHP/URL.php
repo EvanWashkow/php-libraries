@@ -181,7 +181,7 @@ class URL
      *
      * @return string
      */
-    final public function ToString()
+    final public function convertToString()
     {
         return $this->url;
     }
