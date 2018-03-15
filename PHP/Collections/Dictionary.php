@@ -123,6 +123,16 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
+    public function getValues(): ReadOnlySequenceSpec
+    {
+        $values = new Sequence( $this->valueType );
+        $this->loop(function( $index, $value, &$values ) {
+            $values->add( $value );
+        }, $values );
+        return new ReadOnlySequence( $values );
+    }
+    
+    
     public function hasIndex( $index ): bool
     {
         return (

@@ -166,6 +166,12 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
+    public function getValues(): ReadOnlySequenceSpec
+    {
+        return new ReadOnlySequence( $this );
+    }
+    
+    
     public function hasIndex( $index ): bool
     {
         return ( is( $index, 'integer' ) && array_key_exists( $index, $this->entries ));

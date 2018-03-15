@@ -48,6 +48,13 @@ interface ReadOnlyCollectionSpec extends IterableSpec
     public function getIndices(): ReadOnlySequenceSpec;
     
     /**
+     * Retrieve all entry values
+     *n
+     * @return ReadOnlySequenceSpec
+     */
+    public function getValues(): ReadOnlySequenceSpec;
+    
+    /**
      * Determine if the index exists
      *
      * @param mixed $index The index to check

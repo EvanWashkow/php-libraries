@@ -60,6 +60,11 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
         return $this->dictionary->getIndices();
     }
     
+    final public function getValues(): ReadOnlySequenceSpec
+    {
+        return $this->dictionary->getValues();
+    }
+    
     final public function hasIndex( $index ): bool
     {
         return $this->dictionary->hasIndex( $index );
