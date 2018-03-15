@@ -28,7 +28,7 @@ class Iterable extends \PHP\Object implements IterableSpec
     }
     
     
-    public function loop( callable $function, &...$args )
+    final public function loop( callable $function, &...$args )
     {
         foreach ( $this->entries as $index => $value ) {
             
