@@ -36,7 +36,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     /**
      * Create a new Dictionary instance
      *
-     * @param string $indexType Specifies the type requirement for all indices (see `is()`). An empty string permits all types.
+     * @param string $indexType Specifies the type requirement for all indices (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
     public function __construct( string $indexType = '', string $valueType = '' )
