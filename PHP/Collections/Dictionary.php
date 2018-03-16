@@ -19,7 +19,7 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     private $entries;
     
     /**
-     * Specifies the type requirement for all indexes
+     * Specifies the type requirement for all indices
      *
      * @var string
      */
@@ -36,14 +36,14 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     /**
      * Create a new Dictionary instance
      *
-     * @param string $indexType Specifies the type requirement for all indexes (see `is()`). An empty string permits all types.
+     * @param string $indexType Specifies the type requirement for all indices (see `is()`). An empty string permits all types.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
     public function __construct( string $indexType = '', string $valueType = '' )
     {
         // Abort. The index type must be either an integer or string.
         if (( 'integer' !== $indexType ) && ( 'string' !== $indexType )) {
-            throw new \Exception( 'Dictionary indexes must either be integers or strings' );
+            throw new \Exception( 'Dictionary indices must either be integers or strings' );
         }
         
         // Abort. Value types cannot be null.
