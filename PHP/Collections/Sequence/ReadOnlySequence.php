@@ -2,7 +2,7 @@
 namespace PHP\Collections\Sequence;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\Sequence;
+use PHP\Collections\SequenceSpec;
 
 /**
  * Defines a read-only, ordered set of indexed values
@@ -13,7 +13,7 @@ class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
     /**
      * The sequence instance
      *
-     * @var Sequence
+     * @var SequenceSpec
      */
     private $sequence;
     
@@ -24,9 +24,9 @@ class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
      * As entries are added to / removed from the sequence, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param Sequence $sequence The sequence to make read-only
+     * @param SequenceSpec &$sequence The sequence to make read-only
      */
-    public function __construct( Sequence &$sequence )
+    public function __construct( SequenceSpec &$sequence )
     {
         $this->sequence = $sequence;
     }
