@@ -1,3 +1,3 @@
 # PHP Libraries
 
-Adds some foundational PHP Libraries (dynamically-instantiated shared code)
+Java-/C#-like libraries for PHP, allowing rapid, scalable development
