@@ -2,7 +2,7 @@
 namespace PHP\Collections\Dictionary;
 
 use \PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use \PHP\Collections\Dictionary;
+use \PHP\Collections\DictionarySpec;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
@@ -14,7 +14,7 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
     /**
      * The dictionary instance
      *
-     * @var \PHP\Collections\Dictionary
+     * @var DictionarySpec
      */
     private $dictionary;
     
@@ -25,9 +25,9 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
      * As entries are added to / removed from the dictionary, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param Dictionary $dictionary The dictionary to make read-only
+     * @param DictionarySpec &$dictionary The dictionary to make read-only
      */
-    public function __construct( Dictionary &$dictionary )
+    public function __construct( DictionarySpec &$dictionary )
     {
         $this->dictionary = $dictionary;
     }
