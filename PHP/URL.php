@@ -4,7 +4,7 @@ namespace PHP;
 /**
  * Defines a URL string
  */
-class URL
+class URL extends Object implements ObjectSpec
 {
     
     /***************************************************************************
@@ -104,7 +104,7 @@ class URL
      *
      * @return string
      */
-    final public function GetProtocol()
+    final public function getProtocol()
     {
         if ( null === $this->protocol ) {
             $this->protocol = explode( '://', $this->url, 2 )[ 0 ];
@@ -118,10 +118,10 @@ class URL
      *
      * @return string
      */
-    final public function GetDomain()
+    final public function getDomain()
     {
         if ( null === $this->domain ) {
-            $_url   = substr( $this->url, strlen( $this->GetProtocol() ) + 3 );
+            $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3 );
             $pieces = explode( '?',   $_url,        2 );
             $pieces = explode( '/',   $pieces[ 0 ], 2 );
             $this->domain = $pieces[ 0 ];
@@ -135,10 +135,10 @@ class URL
      *
      * @return string
      */
-    final public function GetPath()
+    final public function getPath()
     {
         if ( null === $this->path ) {
-            $_url   = substr( $this->url, strlen( $this->GetProtocol() ) + 3);
+            $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3);
             $pieces = explode( '?', $_url, 2 );
             $pieces = explode( '/', $pieces[ 0 ] );
             array_shift( $pieces );
@@ -151,26 +151,29 @@ class URL
     /**
      * Retrieve the parameters for this URL ("?var_1=foo&var_2=bar")
      *
-     * @return \stdClass;
+     * @return \PHP\Collections\Dictionary
      */
-    final public function GetParameters()
+    final public function getParameters()
     {
         if ( null === $this->parameters ) {
-            $this->parameters = new \stdClass();
+            $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
             $index = strpos( $this->url, '?' );
             if ( false !== $index ) {
                 $_parameters = substr( $this->url, $index + 1 );
                 $_parameters = explode( '&', $_parameters );
                 foreach ( $_parameters as $_parameter ) {
                     $pieces = explode( '=', $_parameter, 2 );
-                    $key    = array_shift( $pieces );
+                    $index  = array_shift( $pieces );
                     $value  = array_shift( $pieces );
-                    $this->parameters->$key = $value;
+                    if ( null === $value ) {
+                        $value = '';
+                    }
+                    $this->parameters->add( $index, $value );
                 }
             }
         }
         return $this->parameters;
-    }     
+    }
     
     
     /**
@@ -178,7 +181,7 @@ class URL
      *
      * @return string
      */
-    final public function ToString()
+    final public function convertToString()
     {
         return $this->url;
     }

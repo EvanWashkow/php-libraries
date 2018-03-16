@@ -23,11 +23,11 @@ class StackTrace
      *
      * @return string
      */
-    public static function ToString()
+    public static function ConvertToString()
     {
         // Variables
         $output     = "\n";
-        $stackTrace = self::Get();
+        $stackTrace = self::get();
         
         // Pop StackTrace entries off
         array_shift( $stackTrace );

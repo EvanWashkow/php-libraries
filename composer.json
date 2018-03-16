@@ -1,14 +1,17 @@
 {
     "name":        "evanwashkow/php-libraries",
     "description": "Foundational shared libraries for PHP",
-    "version":     "0.2.0",
+    "version":     "0.3.0",
     "autoload": {
+        "files": [
+            "PHP/functions.php"
+        ],
         "psr-4": {
             "PHP\\": "PHP/"
         }
     },
     "require": {
-        "php": ">=5.4"
+        "php": ">=7.0"
     },
     "authors": [
         {
