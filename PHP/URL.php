@@ -142,7 +142,7 @@ class URL extends Object implements ObjectSpec
             $pieces = explode( '?', $_url, 2 );
             $pieces = explode( '/', $pieces[ 0 ] );
             array_shift( $pieces );
-            $this->path = rtrim( implode( '/', $pieces ), '/' );
+            $this->path = '/' . trim( implode( '/', $pieces ), '/' );
         }
         return $this->path;
     }
