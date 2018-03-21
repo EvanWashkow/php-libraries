@@ -20,11 +20,12 @@ class Cache extends Dictionary implements CacheSpec
     /**
      * Create a new cache instance
      *
-     * @param string $type Specifies the type requirement for all values (see `is()`). An empty string permits all types.
+     * @param string $indexType Specifies the type requirement for all indices (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
+     * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $type = '' )
+    public function __construct( string $indexType = '', string $valueType = '' )
     {
-        parent::__construct( 'string', $type );
+        parent::__construct( $indexType, $valueType );
         $this->markIncomplete();
     }
     
