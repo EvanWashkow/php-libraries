@@ -50,9 +50,9 @@ class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
         return $this->dictionary->count();
     }
     
-    final public function get( $index, $defaultValue = null )
+    final public function get( $index )
     {
-        return $this->dictionary->get( $index, $defaultValue );
+        return $this->dictionary->get( $index );
     }
     
     final public function getIndices(): ReadOnlySequenceSpec

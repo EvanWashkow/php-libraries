@@ -18,8 +18,9 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
      * Remove the value from the index
      *
      * @param mixed $index The index to remove the value from
+     * @return bool Whether or not the operation was successful
      */
-    public function remove( $index );
+    public function remove( $index ): bool;
     
     /**
      * Overwrite the value at the index, if it exists
@@ -28,7 +29,7 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
      *
      * @param mixed $index The index to store the value at
      * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure
+     * @return bool Whether or not the operation was successful
      */
-    public function update( $index, $value );
+    public function update( $index, $value ): bool;
 }

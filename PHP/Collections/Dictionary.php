@@ -59,16 +59,16 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function add( $index, $value )
+    public function add( $index, $value ): bool
     {
+        $isSuccessful = false;
         if ( $this->hasIndex( $index )) {
             trigger_error( 'Cannot add value: index already exists' );
-            $index = null;
         }
         else {
-            $index = $this->set( $index, $value );
+            $isSuccessful = $this->set( $index, $value );
         }
-        return $index;
+        return $isSuccessful;
     }
     
     
@@ -100,16 +100,15 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function get( $index, $defaultValue = null )
+    public function get( $index )
     {
-        $value = $defaultValue;
         if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "Cannot get value at non-{$this->indexType} index" );
+            throw new \Exception( "Cannot get non-{$this->indexType} index" );
         }
-        elseif ( $this->hasIndex( $index )) {
-            $value = $this->entries[ $index ];
+        elseif ( !$this->hasIndex( $index )) {
+            throw new \Exception( "Cannot get value at non-existing index" );
         }
-        return $value;
+        return $this->entries[ $index ];
     }
     
     
@@ -150,8 +149,9 @@ class Dictionary extends \PHP\Object implements DictionarySpec
     }
     
     
-    public function remove( $index )
+    public function remove( $index ): bool
     {
+        $isSuccessful = false;
         if ( !$this->isValidIndexType( $index )) {
             trigger_error( "Cannot remove entry with non-{$this->indexType} index" );
         }
@@ -160,20 +160,22 @@ class Dictionary extends \PHP\Object implements DictionarySpec
         }
         else {
             unset( $this->entries[ $index ] );
+            $isSuccessful = true;
         }
+        return $isSuccessful;
     }
     
     
-    public function update( $index, $value )
+    public function update( $index, $value ): bool
     {
+        $isSuccessful = false;
         if ( $this->hasIndex( $index )) {
-            $this->set( $index, $value );
+            $isSuccessful = $this->set( $index, $value );
         }
         else {
             trigger_error( 'Cannot update value: the index does not exist' );
-            $index = null;
         }
-        return $index;
+        return $isSuccessful;
     }
     
     
@@ -208,21 +210,21 @@ class Dictionary extends \PHP\Object implements DictionarySpec
      *
      * @param mixed $index The index to store the value at
      * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure.
+     * @return bool Whether or not the operation was successful
      */
-    private function set( $index, $value )
+    private function set( $index, $value ): bool
     {
+        $isSuccessful = false;
         if ( !$this->isValidIndexType( $index )) {
             trigger_error( "Cannot set value at a non-{$this->indexType} index" );
-            $index = null;
         }
         elseif ( !$this->isValidValueType( $value )) {
             trigger_error( "Cannot set non-{$this->valueType} values" );
-            $index = null;
         }
         else {
             $this->entries[ $index ] = $value;
+            $isSuccessful = true;
         }
-        return $index;
+        return $isSuccessful;
     }
 }

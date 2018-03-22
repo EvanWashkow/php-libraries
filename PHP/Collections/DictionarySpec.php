@@ -19,9 +19,9 @@ interface DictionarySpec extends CollectionSpec, ReadOnlyDictionarySpec
      *
      * @param mixed $index The index to store the value at
      * @param mixed $value The value to store
-     * @return mixed The index or NULL on failure
+     * @return bool Whether or not the operation was successful
      */
-    public function add( $index, $value );
+    public function add( $index, $value ): bool;
     
     /**
      * Duplicate every index and value into a new instance
