@@ -35,7 +35,7 @@ class Cache extends Dictionary implements CacheSpec
     ***************************************************************************/
     
     
-    final public function isComplete()
+    final public function isComplete(): bool
     {
         return $this->isComplete;
     }

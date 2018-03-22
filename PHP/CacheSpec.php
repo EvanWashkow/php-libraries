@@ -17,7 +17,7 @@ interface CacheSpec extends DictionarySpec
      *
      * @return bool
      */
-    public function isComplete();
+    public function isComplete(): bool;
     
     /**
      * Mark cache as complete
