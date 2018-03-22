@@ -44,17 +44,17 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function add( $value ): int
+    public function add( $value ): bool
     {
-        $index = -1;
+        $isSuccessful = false;
         if ( $this->isValueValidType( $value )) {
             $this->entries[] = $value;
-            $index           = $this->getLastIndex();
+            $isSuccessful    = true;
         }
         else {
             trigger_error( "Cannot add non-{$this->type} values" );
         }
-        return $index;
+        return $isSuccessful;
     }
     
     
@@ -86,16 +86,15 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function get( $index, $defaultValue = null )
+    public function get( $index )
     {
-        $value = $defaultValue;
         if ( !is( $index, 'integer' )) {
-            trigger_error( 'Index it is not an integer' );
+            throw new \Exception( 'Cannot get value from non-integer index' );
         }
-        elseif ( $this->hasIndex( $index )) {
-            $value = $this->entries[ $index ];
+        elseif ( !$this->hasIndex( $index )) {
+            throw new \Exception( 'Cannot get value from index that does not exist' );
         }
-        return $value;
+        return $this->entries[ $index ];
     }
     
     
@@ -161,35 +160,33 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function insert( int $index, $value ): int
+    public function insert( int $index, $value ): bool
     {
         // Variables
-        $failure = -1;
+        $isSuccessful = false;
         
         // Index too small
         if ( $index < $this->getFirstIndex() ) {
             trigger_error( 'Cannot insert value before the beginning' );
-            $index = $failure;
         }
         
         // Index too large
         elseif (( $this->getLastIndex() + 1 ) < $index ) {
             trigger_error( 'Cannot insert value after the end' );
-            $index = $failure;
         }
         
         // Invalid value type
         elseif ( !$this->isValueValidType( $value )) {
             trigger_error( "Cannot insert non-{$this->type} values" );
-            $index = $failure;
         }
         
         // Insert value at the index
         else {
             array_splice( $this->entries, $index, 0, $value );
+            $isSuccessful = true;
         }
         
-        return $index;
+        return $isSuccessful;
     }
     
     
@@ -201,15 +198,21 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function remove( $index )
+    public function remove( $index ): bool
     {
-        if ( is( $index, 'integer' )) {
-            unset( $this->entries[ $index ] );
-            $this->entries = array_values( $this->entries );
-        }
-        else {
+        $isSuccessful = false;
+        if ( !is( $index, 'integer' )) {
             trigger_error( 'Index is not an integer' );
         }
+        elseif ( !$this->hasIndex( $index )) {
+            trigger_error( 'Cannot remove value: the index does not exist.' );
+        }
+        else {
+            unset( $this->entries[ $index ] );
+            $this->entries = array_values( $this->entries );
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
     }
     
     
@@ -313,21 +316,20 @@ class Sequence extends \PHP\Object implements SequenceSpec
     }
     
     
-    public function update( $index, $value ): int
+    public function update( $index, $value ): bool
     {
-        $failure = -1;
+        $isSuccessful = false;
         if ( !$this->hasIndex( $index )) {
             trigger_error( 'Update index does not exist' );
-            $index = $failure;
         }
         elseif ( !$this->isValueValidType( $value )) {
             trigger_error( "Cannot update entry to a non-{$this->type} value" );
-            $index = $failure;
         }
         else {
             $this->entries[ $index ] = $value;
+            $isSuccessful = true;
         }
-        return $index;
+        return $isSuccessful;
     }
     
     

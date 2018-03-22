@@ -51,9 +51,9 @@ class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
     }
     
     
-    final public function get( $index, $defaultValue = null )
+    final public function get( $index )
     {
-        return $this->sequence->get( $index, $defaultValue );
+        return $this->sequence->get( $index );
     }
     
     
