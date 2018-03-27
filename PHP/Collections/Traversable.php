@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\IterableSpec;
+use PHP\Collections\TraversableSpec;
 
 /**
  * Defines a set of entries that can be iterated over
  */
-class Iterable extends \PHP\PHPObject implements IterableSpec
+class Traversable extends \PHP\PHPObject implements TraversableSpec
 {
     
     /**
@@ -18,7 +18,7 @@ class Iterable extends \PHP\PHPObject implements IterableSpec
     
     
     /**
-     * Creates a new Iterable instance for the entries
+     * Creates a new Traversable instance for the entries
      *
      * @param array $entries The indexed set of entries
      */

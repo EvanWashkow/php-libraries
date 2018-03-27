@@ -143,7 +143,7 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     
     public function loop( callable $function, &...$args )
     {
-        $iterable   = new Iterable( $this->entries );
+        $iterable   = new Traversable( $this->entries );
         $parameters = array_merge( [ $function ], $args );
         return call_user_func_array( [ $iterable, 'loop' ], $parameters );
     }

@@ -193,7 +193,7 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     public function loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
-        $iterable   = new Iterable( $this->entries );
+        $iterable   = new Traversable( $this->entries );
         return call_user_func_array( [ $iterable, 'loop' ], $parameters );
     }
     
