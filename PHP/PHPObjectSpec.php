@@ -2,9 +2,9 @@
 namespace PHP;
 
 /**
- * Specifications for an Object
+ * Specifications for an PHPObject
  */
-interface ObjectSpec
+interface PHPObjectSpec
 {
     /**
      * Retrieve namespaced class string for this type

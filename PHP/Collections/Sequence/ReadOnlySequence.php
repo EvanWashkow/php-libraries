@@ -7,7 +7,7 @@ use PHP\Collections\SequenceSpec;
 /**
  * Defines a read-only, ordered set of indexed values
  */
-class ReadOnlySequence extends \PHP\Object implements ReadOnlySequenceSpec
+class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
 {
     
     /**

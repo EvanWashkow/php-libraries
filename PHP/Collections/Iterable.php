@@ -6,7 +6,7 @@ use PHP\Collections\IterableSpec;
 /**
  * Defines a set of entries that can be iterated over
  */
-class Iterable extends \PHP\Object implements IterableSpec
+class Iterable extends \PHP\PHPObject implements IterableSpec
 {
     
     /**

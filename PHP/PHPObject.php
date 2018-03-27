@@ -2,9 +2,9 @@
 namespace PHP;
 
 /**
- * Base definition for all Object instances
+ * Base definition for all PHPObject instances
  */
-class Object implements ObjectSpec
+class PHPObject implements PHPObjectSpec
 {
     
     final public function getType(): string

@@ -8,7 +8,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 /**
  * Defines a read only, unordered set of indexed values
  */
-class ReadOnlyDictionary extends \PHP\Object implements ReadOnlyDictionarySpec
+class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpec
 {
     
     /**

@@ -4,7 +4,7 @@ namespace PHP;
 /**
  * Defines a URL string
  */
-class URL extends Object implements ObjectSpec
+class URL extends PHPObject implements PHPObjectSpec
 {
     
     /***************************************************************************

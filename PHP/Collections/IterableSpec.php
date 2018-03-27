@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\ObjectSpec;
+use PHP\PHPObjectSpec;
 
 /**
  * Specifications for a set of entries that can be iterated over
  */
-interface IterableSpec extends ObjectSpec
+interface IterableSpec extends PHPObjectSpec
 {
     
     /**
