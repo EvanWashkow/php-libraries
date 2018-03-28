@@ -8,4 +8,4 @@ Java-/C#-like libraries for PHP, allowing rapid, scalable development
 
 2. [PHP\Collections](https://github.com/EvanWashkow/php-libraries/wiki/Collections)
 
-3. [PHP\Object](https://github.com/EvanWashkow/php-libraries/wiki/Object)
+3. [PHP\PHPObject](https://github.com/EvanWashkow/php-libraries/wiki/PHPObject)
