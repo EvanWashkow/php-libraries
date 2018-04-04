@@ -4,13 +4,13 @@ namespace PHP\Collections\Collection;
 use PHP\Collections\TraversableSpec;
 
 /**
- * Defines the type for a set of indexed, read-only values
+ * Defines the type for a set of keyed, read-only values
  */
 interface ReadOnlyCollectionSpec extends TraversableSpec
 {
     
     /**
-     * Duplicate every index and value into a new instance
+     * Duplicate every key and value into a new instance
      *
      * @return ReadOnlyCollectionSpec
      */
@@ -31,18 +31,18 @@ interface ReadOnlyCollectionSpec extends TraversableSpec
     public function count(): int;
     
     /**
-     * Retrieve the value stored at the specified index
+     * Retrieve the value stored at the specified key
      *
-     * @param mixed $index The index to retrieve the value from
-     * @return mixed The value if the index exists. NULL otherwise.
+     * @param mixed $key The key to retrieve the value from
+     * @return mixed The value if the key exists. NULL otherwise.
      */
-    public function get( $index );
+    public function get( $key );
     
     /**
-     * Determine if the index exists
+     * Determine if the key exists
      *
-     * @param mixed $index The index to check
+     * @param mixed $key The key to check
      * @return bool
      */
-    public function hasIndex( $index ): bool;
+    public function hasKey( $key ): bool;
 }

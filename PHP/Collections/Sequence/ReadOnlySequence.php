@@ -5,7 +5,7 @@ use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\SequenceSpec;
 
 /**
- * Defines a read-only, ordered set of indexed values
+ * Defines a read-only, ordered set of keyed values
  */
 class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
 {
@@ -58,32 +58,32 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     }
     
     
-    public function get( $index )
+    public function get( $key )
     {
-        return $this->sequence->get( $index );
+        return $this->sequence->get( $key );
     }
     
     
-    public function getFirstIndex(): int
+    public function getFirstKey(): int
     {
-        return $this->sequence->getFirstIndex();
+        return $this->sequence->getFirstKey();
     }
     
     
-    public function getLastIndex(): int
+    public function getLastKey(): int
     {
-        return $this->sequence->getLastIndex();
+        return $this->sequence->getLastKey();
     }
     
     
-    public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
-        return $this->sequence->getIndexOf( $value, $offset, $isReverseSearch );
+        return $this->sequence->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function hasIndex( $index ): bool
+    public function hasKey( $key ): bool
     {
-        return $this->sequence->hasIndex( $index );
+        return $this->sequence->hasKey( $key );
     }
     
     

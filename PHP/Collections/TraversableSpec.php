@@ -11,7 +11,7 @@ interface TraversableSpec extends \Iterator, PHPObjectSpec
     
     /**
      * Iterate through every entry, invoking the callback function with the entry's
-     * index and value
+     * key and value
      *
      * To exit, the loop early, return a non-NULL value. This value will be
      * returned by loop().

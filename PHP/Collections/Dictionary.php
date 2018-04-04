@@ -6,24 +6,24 @@ use PHP\Collections\Sequence\ReadOnlySequence;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
- * Defines a mutable, unordered set of indexed values
+ * Defines a mutable, unordered set of keyed values
  */
 class Dictionary extends \PHP\PHPObject implements DictionarySpec
 {
     
     /**
-     * The set of indexed values
+     * The set of keyed values
      *
      * @var array
      */
     private $entries;
     
     /**
-     * Specifies the type requirement for all indices
+     * Specifies the type requirement for all keys
      *
      * @var string
      */
-    private $indexType;
+    private $keyType;
     
     /**
      * Specifies the type requirement for all values
@@ -36,14 +36,14 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     /**
      * Create a new Dictionary instance
      *
-     * @param string $indexType Specifies the type requirement for all indices (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
+     * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $indexType = '', string $valueType = '' )
+    public function __construct( string $keyType = '', string $valueType = '' )
     {
-        // Abort. The index type must be either an integer or string.
-        if (( 'integer' !== $indexType ) && ( 'string' !== $indexType )) {
-            throw new \Exception( 'Dictionary indices must either be integers or strings' );
+        // Abort. The key type must be either an integer or string.
+        if (( 'integer' !== $keyType ) && ( 'string' !== $keyType )) {
+            throw new \Exception( 'Dictionary keys must either be integers or strings' );
         }
         
         // Abort. Value types cannot be null.
@@ -54,7 +54,7 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
         
         // Initialize properties
         $this->clear();
-        $this->indexType = $indexType;
+        $this->keyType = $keyType;
         $this->valueType = $valueType;
     }
     
@@ -65,14 +65,14 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     *                              EDITING METHODS
     ***************************************************************************/
     
-    public function add( $index, $value ): bool
+    public function add( $key, $value ): bool
     {
         $isSuccessful = false;
-        if ( $this->hasIndex( $index )) {
-            trigger_error( 'Cannot add value: index already exists' );
+        if ( $this->hasKey( $key )) {
+            trigger_error( 'Cannot add value: key already exists' );
         }
         else {
-            $isSuccessful = $this->set( $index, $value );
+            $isSuccessful = $this->set( $key, $value );
         }
         return $isSuccessful;
     }
@@ -84,31 +84,31 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     }
     
     
-    public function remove( $index ): bool
+    public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "Cannot remove entry with non-{$this->indexType} index" );
+        if ( !$this->isValidKeyType( $key )) {
+            trigger_error( "Cannot remove entry with non-{$this->keyType} key" );
         }
-        elseif ( !$this->hasIndex( $index )) {
-            trigger_error( 'Cannot remove value from non-existing index' );
+        elseif ( !$this->hasKey( $key )) {
+            trigger_error( 'Cannot remove value from non-existing key' );
         }
         else {
-            unset( $this->entries[ $index ] );
+            unset( $this->entries[ $key ] );
             $isSuccessful = true;
         }
         return $isSuccessful;
     }
     
     
-    public function update( $index, $value ): bool
+    public function update( $key, $value ): bool
     {
         $isSuccessful = false;
-        if ( $this->hasIndex( $index )) {
-            $isSuccessful = $this->set( $index, $value );
+        if ( $this->hasKey( $key )) {
+            $isSuccessful = $this->set( $key, $value );
         }
         else {
-            trigger_error( 'Cannot update value: the index does not exist' );
+            trigger_error( 'Cannot update value: the key does not exist' );
         }
         return $isSuccessful;
     }
@@ -123,9 +123,9 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     public function clone(): ReadOnlyCollectionSpec
     {
         $class = get_class( $this );
-        $clone = new $class( $this->indexType, $this->valueType );
-        $this->loop( function( $index, $value, &$clone ) {
-            $clone->add( $index, $value );
+        $clone = new $class( $this->keyType, $this->valueType );
+        $this->loop( function( $key, $value, &$clone ) {
+            $clone->add( $key, $value );
         }, $clone );
         return $clone;
     }
@@ -143,43 +143,43 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     }
     
     
-    public function get( $index )
+    public function get( $key )
     {
-        if ( !$this->isValidIndexType( $index )) {
-            throw new \Exception( "Cannot get non-{$this->indexType} index" );
+        if ( !$this->isValidKeyType( $key )) {
+            throw new \Exception( "Cannot get non-{$this->keyType} key" );
         }
-        elseif ( !$this->hasIndex( $index )) {
-            throw new \Exception( "Cannot get value at non-existing index" );
+        elseif ( !$this->hasKey( $key )) {
+            throw new \Exception( "Cannot get value at non-existing key" );
         }
-        return $this->entries[ $index ];
+        return $this->entries[ $key ];
     }
     
     
-    public function getIndices(): ReadOnlySequenceSpec
+    public function getKeys(): ReadOnlySequenceSpec
     {
-        $indices = new Sequence( $this->indexType );
-        foreach ( array_keys( $this->entries ) as $index ) {
-            $indices->add( $index );
+        $keys = new Sequence( $this->keyType );
+        foreach ( array_keys( $this->entries ) as $key ) {
+            $keys->add( $key );
         }
-        return new ReadOnlySequence( $indices );
+        return new ReadOnlySequence( $keys );
     }
     
     
     public function getValues(): ReadOnlySequenceSpec
     {
         $values = new Sequence( $this->valueType );
-        $this->loop(function( $index, $value, &$values ) {
+        $this->loop(function( $key, $value, &$values ) {
             $values->add( $value );
         }, $values );
         return new ReadOnlySequence( $values );
     }
     
     
-    public function hasIndex( $index ): bool
+    public function hasKey( $key ): bool
     {
         return (
-            $this->isValidIndexType( $index ) &&
-            array_key_exists( $index, $this->entries )
+            $this->isValidKeyType( $key ) &&
+            array_key_exists( $key, $this->entries )
         );
     }
     
@@ -220,7 +220,7 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     
     final public function valid()
     {
-        return $this->hasIndex( $this->key() );
+        return $this->hasKey( $this->key() );
     }
     
     
@@ -231,14 +231,14 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     ***************************************************************************/
     
     /**
-     * Determine if the index type meets its type constraints
+     * Determine if the key type meets its type constraints
      *
-     * @param mixed $index The index to check
+     * @param mixed $key The key to check
      * @return bool
      */
-    final protected function isValidIndexType( $index ): bool
+    final protected function isValidKeyType( $key ): bool
     {
-        return (( '' === $this->indexType ) || is( $index, $this->indexType ));
+        return (( '' === $this->keyType ) || is( $key, $this->keyType ));
     }
     
     
@@ -255,25 +255,25 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     
     
     /**
-     * Store the value at the specified index
+     * Store the value at the specified key
      *
-     * Fails if the index or value doesn't match its type requirement
+     * Fails if the key or value doesn't match its type requirement
      *
-     * @param mixed $index The index to store the value at
+     * @param mixed $key The key to store the value at
      * @param mixed $value The value to store
      * @return bool Whether or not the operation was successful
      */
-    private function set( $index, $value ): bool
+    private function set( $key, $value ): bool
     {
         $isSuccessful = false;
-        if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "Cannot set value at a non-{$this->indexType} index" );
+        if ( !$this->isValidKeyType( $key )) {
+            trigger_error( "Cannot set value at a non-{$this->keyType} key" );
         }
         elseif ( !$this->isValidValueType( $value )) {
             trigger_error( "Cannot set non-{$this->valueType} values" );
         }
         else {
-            $this->entries[ $index ] = $value;
+            $this->entries[ $key ] = $value;
             $isSuccessful = true;
         }
         return $isSuccessful;

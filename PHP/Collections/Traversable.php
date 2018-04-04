@@ -10,7 +10,7 @@ class Traversable extends \PHP\PHPObject implements TraversableSpec
 {
     
     /**
-     * The indexed set of entries
+     * The keyed set of entries
      *
      * @var array
      */
@@ -20,7 +20,7 @@ class Traversable extends \PHP\PHPObject implements TraversableSpec
     /**
      * Creates a new Traversable instance for the entries
      *
-     * @param array $entries The indexed set of entries
+     * @param array $entries The keyed set of entries
      */
     public function __construct( array $entries )
     {
@@ -30,12 +30,12 @@ class Traversable extends \PHP\PHPObject implements TraversableSpec
     
     final public function loop( callable $function, &...$args )
     {
-        foreach ( $this->entries as $index => $value ) {
+        foreach ( $this->entries as $key => $value ) {
             
-            // Add index and value the callback function parameters
+            // Add key and value the callback function parameters
             $parameters = array_merge(
                 [
-                    $index,
+                    $key,
                     $value
                 ],
                 $args

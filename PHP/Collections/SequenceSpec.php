@@ -5,7 +5,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
- * Specifications for a mutable, ordered set of indexed values
+ * Specifications for a mutable, ordered set of keyed values
  */
 interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
 {
@@ -19,20 +19,20 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     public function add( $value ): bool;
     
     /**
-     * Duplicate every index and value into a new instance
+     * Duplicate every key and value into a new instance
      *
      * @return SequenceSpec
      */
     public function clone(): ReadOnlyCollectionSpec;
     
     /**
-     * Insert the value at the index, shifting remaining values up
+     * Insert the value at the key, shifting remaining values up
      *
-     * @param int   $index The index to insert the value at
+     * @param int   $key The key to insert the value at
      * @param mixed $value The value
      * @return bool Whether or not the operation was successful
      */
-    public function insert( int $index, $value ): bool;
+    public function insert( int $key, $value ): bool;
     
     /**
      * Put all entries in reverse order
@@ -42,8 +42,8 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     /**
      * Create a subset of entries from this one
      *
-     * @param int $start Starting index
-     * @param int $end   Ending index
+     * @param int $start Starting key
+     * @param int $end   Ending key
      * @return SequenceSpec
      */
     public function slice( int $start, int $end ): ReadOnlySequenceSpec;

@@ -4,7 +4,7 @@ namespace PHP\Collections;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
- * Specifications for a set of indexed, mutable values
+ * Specifications for a set of keyed, mutable values
  */
 interface CollectionSpec extends ReadOnlyCollectionSpec
 {
@@ -15,21 +15,21 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
     public function clear();
     
     /**
-     * Remove the value from the index
+     * Remove the value from the key
      *
-     * @param mixed $index The index to remove the value from
+     * @param mixed $key The key to remove the value from
      * @return bool Whether or not the operation was successful
      */
-    public function remove( $index ): bool;
+    public function remove( $key ): bool;
     
     /**
-     * Overwrite the value at the index, if it exists
+     * Overwrite the value at the key, if it exists
      *
-     * Fails if the index or value doesn't match its type requirement
+     * Fails if the key or value doesn't match its type requirement
      *
-     * @param mixed $index The index to store the value at
+     * @param mixed $key The key to store the value at
      * @param mixed $value The value to store
      * @return bool Whether or not the operation was successful
      */
-    public function update( $index, $value ): bool;
+    public function update( $key, $value ): bool;
 }

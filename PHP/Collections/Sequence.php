@@ -5,7 +5,7 @@ use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
- * Defines a mutable, ordered set of indexed values
+ * Defines a mutable, ordered set of keyed values
  *
  * This would have been named "List" had that not been reserved by PHP
  */
@@ -70,18 +70,18 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    public function insert( int $index, $value ): bool
+    public function insert( int $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
         
-        // Index too small
-        if ( $index < $this->getFirstIndex() ) {
+        // Key too small
+        if ( $key < $this->getFirstKey() ) {
             trigger_error( 'Cannot insert value before the beginning' );
         }
         
-        // Index too large
-        elseif (( $this->getLastIndex() + 1 ) < $index ) {
+        // Key too large
+        elseif (( $this->getLastKey() + 1 ) < $key ) {
             trigger_error( 'Cannot insert value after the end' );
         }
         
@@ -90,9 +90,9 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
             trigger_error( "Cannot insert non-{$this->type} values" );
         }
         
-        // Insert value at the index
+        // Insert value at the key
         else {
-            array_splice( $this->entries, $index, 0, $value );
+            array_splice( $this->entries, $key, 0, $value );
             $isSuccessful = true;
         }
         
@@ -100,17 +100,17 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    public function remove( $index ): bool
+    public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( !is( $index, 'integer' )) {
-            trigger_error( 'Index is not an integer' );
+        if ( !is( $key, 'integer' )) {
+            trigger_error( 'Key is not an integer' );
         }
-        elseif ( !$this->hasIndex( $index )) {
-            trigger_error( 'Cannot remove value: the index does not exist.' );
+        elseif ( !$this->hasKey( $key )) {
+            trigger_error( 'Cannot remove value: the key does not exist.' );
         }
         else {
-            unset( $this->entries[ $index ] );
+            unset( $this->entries[ $key ] );
             $this->entries = array_values( $this->entries );
             $isSuccessful = true;
         }
@@ -124,17 +124,17 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    public function update( $index, $value ): bool
+    public function update( $key, $value ): bool
     {
         $isSuccessful = false;
-        if ( !$this->hasIndex( $index )) {
-            trigger_error( 'Update index does not exist' );
+        if ( !$this->hasKey( $key )) {
+            trigger_error( 'Update key does not exist' );
         }
         elseif ( !$this->isValueValidType( $value )) {
             trigger_error( "Cannot update entry to a non-{$this->type} value" );
         }
         else {
-            $this->entries[ $index ] = $value;
+            $this->entries[ $key ] = $value;
             $isSuccessful = true;
         }
         return $isSuccessful;
@@ -151,7 +151,7 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     {
         $class = get_class( $this );
         $clone = new $class( $this->type );
-        $this->loop( function( $index, $value, &$clone ) {
+        $this->loop( function( $key, $value, &$clone ) {
             $clone->add( $value );
         }, $clone );
         return $clone;
@@ -170,45 +170,45 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    public function get( $index )
+    public function get( $key )
     {
-        if ( !is( $index, 'integer' )) {
-            throw new \Exception( 'Cannot get value from non-integer index' );
+        if ( !is( $key, 'integer' )) {
+            throw new \Exception( 'Cannot get value from non-integer key' );
         }
-        elseif ( !$this->hasIndex( $index )) {
-            throw new \Exception( 'Cannot get value from index that does not exist' );
+        elseif ( !$this->hasKey( $key )) {
+            throw new \Exception( 'Cannot get value from key that does not exist' );
         }
-        return $this->entries[ $index ];
+        return $this->entries[ $key ];
     }
     
     
-    public function getFirstIndex(): int
+    public function getFirstKey(): int
     {
         return 0;
     }
     
     
-    public function getLastIndex(): int
+    public function getLastKey(): int
     {
         return ( $this->count() - 1 );
     }
     
     
-    public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
-        $index = -1;
+        $key = -1;
     
         // Exit. Offset cannot be negative.
-        if ( $offset < $this->getFirstIndex() ) {
-            trigger_error( 'Offset cannot be less than the first entry\'s index' );
-            return $index;
+        if ( $offset < $this->getFirstKey() ) {
+            trigger_error( 'Offset cannot be less than the first entry\'s key' );
+            return $key;
         }
         
         // Exit. Offset cannot surpass the end of the array.
-        elseif ( $this->getLastIndex() < $offset ) {
-            trigger_error( 'Offset cannot be greater than the last entry\'s index' );
-            return $index;
+        elseif ( $this->getLastKey() < $offset ) {
+            trigger_error( 'Offset cannot be greater than the last entry\'s key' );
+            return $key;
         }
             
         // Get the sub-sequence to traverse
@@ -216,31 +216,31 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
         if ( $isReverseSearch ) {
             $sequence->reverse();
         }
-        $sequence = $sequence->slice( $offset, $sequence->getLastIndex() );
+        $sequence = $sequence->slice( $offset, $sequence->getLastKey() );
         
         // Search the sub-sequence for the value
-        $_index = array_search( $value, $sequence->convertToArray() );
-        if ( false !== $_index ) {
+        $_key = array_search( $value, $sequence->convertToArray() );
+        if ( false !== $_key ) {
             
-            // Invert index for reverse search. Keep in mind that the last
-            // index is actually the first in the original order.
+            // Invert key for reverse search. Keep in mind that the last
+            // key is actually the first in the original order.
             if ( $isReverseSearch ) {
-                $index = $sequence->getLastIndex() - $_index;
+                $key = $sequence->getLastKey() - $_key;
             }
             
             // Add the offset to forward searches
             else {
-                $index = $_index + $offset;
+                $key = $_key + $offset;
             }
         }
     
-        return $index;
+        return $key;
     }
     
     
-    public function hasIndex( $index ): bool
+    public function hasKey( $key ): bool
     {
-        return ( is( $index, 'integer' ) && array_key_exists( $index, $this->entries ));
+        return ( is( $key, 'integer' ) && array_key_exists( $key, $this->entries ));
     }
     
     
@@ -257,27 +257,27 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
         // Variables
         $subArray = [];
         
-        // Error. Ending index cannot be less than the starting index.
+        // Error. Ending key cannot be less than the starting key.
         if ( $end < $start ) {
-            trigger_error( 'Ending index cannot be less than the starting index.' );
+            trigger_error( 'Ending key cannot be less than the starting key.' );
         }
         
         // Create array subset
         else {
             
-            // Sanitize the starting index
-            if ( $start < $this->getFirstIndex() ) {
-                trigger_error( 'Starting index cannot be less than the first index of the entry list.' );
-                $start = $this->getFirstIndex();
+            // Sanitize the starting key
+            if ( $start < $this->getFirstKey() ) {
+                trigger_error( 'Starting key cannot be less than the first key of the entry list.' );
+                $start = $this->getFirstKey();
             }
             
-            // Sanitize the ending index
-            if ( $this->getLastIndex() < $end ) {
-                trigger_error( 'Ending index cannot surpass the last index of the entry list.' );
-                $end = $this->getLastIndex();
+            // Sanitize the ending key
+            if ( $this->getLastKey() < $end ) {
+                trigger_error( 'Ending key cannot surpass the last key of the entry list.' );
+                $end = $this->getLastKey();
             }
             
-            // For each entry in the index range, push them into the subset array
+            // For each entry in the key range, push them into the subset array
             for ( $i = $start; $i <= $end; $i++ ) {
                 $subArray[] = $this->entries[ $i ];
             }
@@ -297,7 +297,7 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
         // Variables
-        $start       = $this->getFirstIndex();
+        $start       = $this->getFirstKey();
         $sequences   = [];
         $canContinue = true;
         
@@ -316,12 +316,12 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
             
             else {
                 
-                // Get index of the next delimiter
-                $end = $this->getIndexOf( $delimiter, $start );
+                // Get key of the next delimiter
+                $end = $this->getKeyOf( $delimiter, $start );
                 
                 // Delimiter not found. The end is the very last element.
                 if ( $end < 0 ) {
-                    $end = $this->getLastIndex() + 1;
+                    $end = $this->getLastKey() + 1;
                 }
                     
                 // Group the entries between the start and end, excluding the delimiter
@@ -330,9 +330,9 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
                     $sequences[] = $sequence;
                 }
                 
-                // Move start index and halt loop if at the end of the sequence
+                // Move start key and halt loop if at the end of the sequence
                 $start = $end + 1;
-                if ( $this->getLastIndex() <= $start ) {
+                if ( $this->getLastKey() <= $start ) {
                     $canContinue = false;
                 }
             }
@@ -376,7 +376,7 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     
     final public function valid()
     {
-        return $this->hasIndex( $this->key() );
+        return $this->hasKey( $this->key() );
     }
     
     

@@ -6,7 +6,7 @@ use \PHP\Collections\DictionarySpec;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
- * Defines a read only, unordered set of indexed values
+ * Defines a read only, unordered set of keyed values
  */
 class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpec
 {
@@ -51,14 +51,14 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
         return $this->dictionary->count();
     }
     
-    public function get( $index )
+    public function get( $key )
     {
-        return $this->dictionary->get( $index );
+        return $this->dictionary->get( $key );
     }
     
-    public function getIndices(): ReadOnlySequenceSpec
+    public function getKeys(): ReadOnlySequenceSpec
     {
-        return $this->dictionary->getIndices();
+        return $this->dictionary->getKeys();
     }
     
     public function getValues(): ReadOnlySequenceSpec
@@ -66,9 +66,9 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
         return $this->dictionary->getValues();
     }
     
-    public function hasIndex( $index ): bool
+    public function hasKey( $key ): bool
     {
-        return $this->dictionary->hasIndex( $index );
+        return $this->dictionary->hasKey( $key );
     }
     
     public function loop( callable $function, &...$args )
