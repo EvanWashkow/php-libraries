@@ -34,8 +34,9 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     
     final public function clone(): ReadOnlyCollectionSpec
     {
-        $sequenceClone = $this->sequence->clone();
-        return new static( $sequenceClone );
+        $class = get_class( $this );
+        $clone = $this->sequence->clone();
+        return new $class( $clone );
     }
     
     
