@@ -44,6 +44,12 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
+    
+    
+    /***************************************************************************
+    *                              EDITING METHODS
+    ***************************************************************************/
+    
     public function add( $value ): bool
     {
         $isSuccessful = false;
@@ -63,6 +69,95 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
         return $this->entries = [];
     }
     
+    
+    public function insert( int $index, $value ): bool
+    {
+        // Variables
+        $isSuccessful = false;
+        
+        // Index too small
+        if ( $index < $this->getFirstIndex() ) {
+            trigger_error( 'Cannot insert value before the beginning' );
+        }
+        
+        // Index too large
+        elseif (( $this->getLastIndex() + 1 ) < $index ) {
+            trigger_error( 'Cannot insert value after the end' );
+        }
+        
+        // Invalid value type
+        elseif ( !$this->isValueValidType( $value )) {
+            trigger_error( "Cannot insert non-{$this->type} values" );
+        }
+        
+        // Insert value at the index
+        else {
+            array_splice( $this->entries, $index, 0, $value );
+            $isSuccessful = true;
+        }
+        
+        return $isSuccessful;
+    }
+    
+    
+    public function remove( $index ): bool
+    {
+        $isSuccessful = false;
+        if ( !is( $index, 'integer' )) {
+            trigger_error( 'Index is not an integer' );
+        }
+        elseif ( !$this->hasIndex( $index )) {
+            trigger_error( 'Cannot remove value: the index does not exist.' );
+        }
+        else {
+            unset( $this->entries[ $index ] );
+            $this->entries = array_values( $this->entries );
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+    
+    
+    public function reverse()
+    {
+        $this->entries = array_reverse( $this->entries, false );
+    }
+    
+    
+    public function update( $index, $value ): bool
+    {
+        $isSuccessful = false;
+        if ( !$this->hasIndex( $index )) {
+            trigger_error( 'Update index does not exist' );
+        }
+        elseif ( !$this->isValueValidType( $value )) {
+            trigger_error( "Cannot update entry to a non-{$this->type} value" );
+        }
+        else {
+            $this->entries[ $index ] = $value;
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+    
+    
+    /**
+     * Determine if the value meets the type requirements
+     *
+     * @param mixed $value The value to check
+     * @return bool
+     */
+    final protected function isValueValidType( $value ): bool
+    {
+        return (( '' === $this->type ) || is( $value, $this->type ));
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                            READ-ONLY METHODS
+    ***************************************************************************/
     
     public function clone(): ReadOnlyCollectionSpec
     {
@@ -161,65 +256,11 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    public function insert( int $index, $value ): bool
-    {
-        // Variables
-        $isSuccessful = false;
-        
-        // Index too small
-        if ( $index < $this->getFirstIndex() ) {
-            trigger_error( 'Cannot insert value before the beginning' );
-        }
-        
-        // Index too large
-        elseif (( $this->getLastIndex() + 1 ) < $index ) {
-            trigger_error( 'Cannot insert value after the end' );
-        }
-        
-        // Invalid value type
-        elseif ( !$this->isValueValidType( $value )) {
-            trigger_error( "Cannot insert non-{$this->type} values" );
-        }
-        
-        // Insert value at the index
-        else {
-            array_splice( $this->entries, $index, 0, $value );
-            $isSuccessful = true;
-        }
-        
-        return $isSuccessful;
-    }
-    
-    
     public function loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
         $iterable   = new Traversable( $this->entries );
         return call_user_func_array( [ $iterable, 'loop' ], $parameters );
-    }
-    
-    
-    public function remove( $index ): bool
-    {
-        $isSuccessful = false;
-        if ( !is( $index, 'integer' )) {
-            trigger_error( 'Index is not an integer' );
-        }
-        elseif ( !$this->hasIndex( $index )) {
-            trigger_error( 'Cannot remove value: the index does not exist.' );
-        }
-        else {
-            unset( $this->entries[ $index ] );
-            $this->entries = array_values( $this->entries );
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-    
-    
-    public function reverse()
-    {
-        $this->entries = array_reverse( $this->entries, false );
     }
     
     
@@ -319,33 +360,6 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    public function update( $index, $value ): bool
-    {
-        $isSuccessful = false;
-        if ( !$this->hasIndex( $index )) {
-            trigger_error( 'Update index does not exist' );
-        }
-        elseif ( !$this->isValueValidType( $value )) {
-            trigger_error( "Cannot update entry to a non-{$this->type} value" );
-        }
-        else {
-            $this->entries[ $index ] = $value;
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-    
-    
-    /**
-     * Determine if the value meets the type requirements
-     *
-     * @param mixed $value The value to check
-     * @return bool
-     */
-    final protected function isValueValidType( $value ): bool
-    {
-        return (( '' === $this->type ) || is( $value, $this->type ));
-    }
     
     
     /***************************************************************************
