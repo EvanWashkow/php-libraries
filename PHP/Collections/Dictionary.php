@@ -180,6 +180,44 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     }
     
     
+    
+    
+    /***************************************************************************
+    *                              ITERATOR METHODS
+    ***************************************************************************/
+    
+    final public function current()
+    {
+        return current( $this->entries );
+    }
+    
+    final public function key()
+    {
+        return key( $this->entries );
+    }
+    
+    final public function next()
+    {
+        next( $this->entries );
+    }
+    
+    final public function rewind()
+    {
+        reset( $this->entries );
+    }
+    
+    final public function valid()
+    {
+        return $this->hasIndex( $this->key() );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                               HELPER METHODS
+    ***************************************************************************/
+    
     /**
      * Determine if the index type meets its type constraints
      *
@@ -227,37 +265,5 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
             $isSuccessful = true;
         }
         return $isSuccessful;
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                              ITERATOR METHODS
-    ***************************************************************************/
-    
-    final public function current()
-    {
-        return current( $this->entries );
-    }
-    
-    final public function key()
-    {
-        return key( $this->entries );
-    }
-    
-    final public function next()
-    {
-        next( $this->entries );
-    }
-    
-    final public function rewind()
-    {
-        reset( $this->entries );
-    }
-    
-    final public function valid()
-    {
-        return $this->hasIndex( $this->key() );
     }
 }
