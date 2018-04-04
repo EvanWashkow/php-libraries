@@ -7,7 +7,7 @@ use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 /**
  * Specifications for a mutable, ordered set of indexed values
  */
-interface SequenceSpec extends \Iterator, CollectionSpec, ReadOnlySequenceSpec
+interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
 {
     
     /**

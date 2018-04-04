@@ -102,4 +102,34 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
         $sequence = $this->sequence->split( $delimiter, $limit );
         return new $class( $sequence );
     }
+    
+    
+    /***************************************************************************
+    *                              ITERATOR METHODS
+    ***************************************************************************/
+    
+    final public function current()
+    {
+        return $this->sequence->current();
+    }
+    
+    final public function key()
+    {
+        return $this->sequence->key();
+    }
+    
+    final public function next()
+    {
+        $this->sequence->next();
+    }
+    
+    final public function rewind()
+    {
+        $this->sequence->rewind();
+    }
+    
+    final public function valid()
+    {
+        return $this->sequence->valid();
+    }
 }

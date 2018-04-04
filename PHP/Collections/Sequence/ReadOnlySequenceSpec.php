@@ -6,7 +6,7 @@ use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 /**
  * Specifications for a read-only, ordered set of indexed values
  */
-interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
+interface ReadOnlySequenceSpec extends \Iterator, ReadOnlyCollectionSpec
 {
     
     /**
