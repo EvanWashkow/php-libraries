@@ -346,4 +346,34 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     {
         return (( '' === $this->type ) || is( $value, $this->type ));
     }
+    
+    
+    /***************************************************************************
+    *                              ITERATOR METHODS
+    ***************************************************************************/
+    
+    public function current()
+    {
+        return current( $this->entries );
+    }
+    
+    public function key()
+    {
+        return key( $this->entries );
+    }
+    
+    public function next()
+    {
+        next( $this->entries );
+    }
+    
+    public function rewind()
+    {
+        reset( $this->entries );
+    }
+    
+    public function valid()
+    {
+        return $this->hasIndex( $this->key() );
+    }
 }
