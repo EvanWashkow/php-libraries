@@ -59,6 +59,12 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     }
     
     
+    
+    
+    /***************************************************************************
+    *                              EDITING METHODS
+    ***************************************************************************/
+    
     public function add( $index, $value ): bool
     {
         $isSuccessful = false;
@@ -77,6 +83,42 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
         $this->entries = [];
     }
     
+    
+    public function remove( $index ): bool
+    {
+        $isSuccessful = false;
+        if ( !$this->isValidIndexType( $index )) {
+            trigger_error( "Cannot remove entry with non-{$this->indexType} index" );
+        }
+        elseif ( !$this->hasIndex( $index )) {
+            trigger_error( 'Cannot remove value from non-existing index' );
+        }
+        else {
+            unset( $this->entries[ $index ] );
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+    
+    
+    public function update( $index, $value ): bool
+    {
+        $isSuccessful = false;
+        if ( $this->hasIndex( $index )) {
+            $isSuccessful = $this->set( $index, $value );
+        }
+        else {
+            trigger_error( 'Cannot update value: the index does not exist' );
+        }
+        return $isSuccessful;
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                             READ-ONLY METHODS
+    ***************************************************************************/
     
     public function clone(): ReadOnlyCollectionSpec
     {
@@ -147,36 +189,6 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
         $iterable   = new Traversable( $this->entries );
         $parameters = array_merge( [ $function ], $args );
         return call_user_func_array( [ $iterable, 'loop' ], $parameters );
-    }
-    
-    
-    public function remove( $index ): bool
-    {
-        $isSuccessful = false;
-        if ( !$this->isValidIndexType( $index )) {
-            trigger_error( "Cannot remove entry with non-{$this->indexType} index" );
-        }
-        elseif ( !$this->hasIndex( $index )) {
-            trigger_error( 'Cannot remove value from non-existing index' );
-        }
-        else {
-            unset( $this->entries[ $index ] );
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-    
-    
-    public function update( $index, $value ): bool
-    {
-        $isSuccessful = false;
-        if ( $this->hasIndex( $index )) {
-            $isSuccessful = $this->set( $index, $value );
-        }
-        else {
-            trigger_error( 'Cannot update value: the index does not exist' );
-        }
-        return $isSuccessful;
     }
     
     
