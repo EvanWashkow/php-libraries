@@ -32,7 +32,7 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     }
     
     
-    final public function clone(): ReadOnlyCollectionSpec
+    public function clone(): ReadOnlyCollectionSpec
     {
         $class = get_class( $this );
         $clone = $this->sequence->clone();
@@ -40,55 +40,55 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     }
     
     
-    final public function convertToArray(): array
+    public function convertToArray(): array
     {
         return $this->sequence->convertToArray();
     }
     
     
-    final public function count(): int
+    public function count(): int
     {
         return $this->sequence->count();
     }
     
     
-    final public function get( $index )
+    public function get( $index )
     {
         return $this->sequence->get( $index );
     }
     
     
-    final public function getFirstIndex(): int
+    public function getFirstIndex(): int
     {
         return $this->sequence->getFirstIndex();
     }
     
     
-    final public function getLastIndex(): int
+    public function getLastIndex(): int
     {
         return $this->sequence->getLastIndex();
     }
     
     
-    final public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    public function getIndexOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         return $this->sequence->getIndexOf( $value, $offset, $isReverseSearch );
     }
     
-    final public function hasIndex( $index ): bool
+    public function hasIndex( $index ): bool
     {
         return $this->sequence->hasIndex( $index );
     }
     
     
-    final public function loop( callable $function, &...$args )
+    public function loop( callable $function, &...$args )
     {
         $parameters = array_merge( [ $function ], $args );
         return call_user_func_array( [ $this->sequence, 'loop' ], $parameters );
     }
     
     
-    final public function slice( int $start, int $end ): ReadOnlySequenceSpec
+    public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
         $class    = get_class( $this );
         $sequence = $this->sequence->slice( $start, $end );
@@ -96,7 +96,7 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     }
     
     
-    final public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
+    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
         $class    = get_class( $this );
         $sequence = $this->sequence->split( $delimiter, $limit );
