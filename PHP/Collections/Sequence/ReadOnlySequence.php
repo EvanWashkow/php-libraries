@@ -90,12 +90,16 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     
     final public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
-        return $this->sequence->slice( $start, $end );
+        $class    = get_class( $this );
+        $sequence = $this->sequence->slice( $start, $end );
+        return new $class( $sequence );
     }
     
     
     final public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
-        return $this->sequence->split( $delimiter, $limit );
+        $class    = get_class( $this );
+        $sequence = $this->sequence->split( $delimiter, $limit );
+        return new $class( $sequence );
     }
 }
