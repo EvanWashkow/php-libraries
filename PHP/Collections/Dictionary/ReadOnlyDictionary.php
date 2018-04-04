@@ -33,7 +33,7 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
     }
     
     
-    final public function clone(): ReadOnlyCollectionSpec
+    public function clone(): ReadOnlyCollectionSpec
     {
         $class           = get_class( $this );
         $dictionaryClone = $this->dictionary->clone();
@@ -41,37 +41,37 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
     }
     
     
-    final public function convertToArray(): array
+    public function convertToArray(): array
     {
         return $this->dictionary->convertToArray();
     }
     
-    final public function count(): int
+    public function count(): int
     {
         return $this->dictionary->count();
     }
     
-    final public function get( $index )
+    public function get( $index )
     {
         return $this->dictionary->get( $index );
     }
     
-    final public function getIndices(): ReadOnlySequenceSpec
+    public function getIndices(): ReadOnlySequenceSpec
     {
         return $this->dictionary->getIndices();
     }
     
-    final public function getValues(): ReadOnlySequenceSpec
+    public function getValues(): ReadOnlySequenceSpec
     {
         return $this->dictionary->getValues();
     }
     
-    final public function hasIndex( $index ): bool
+    public function hasIndex( $index ): bool
     {
         return $this->dictionary->hasIndex( $index );
     }
     
-    final public function loop( callable $function, &...$args )
+    public function loop( callable $function, &...$args )
     {
         $args = array_merge( [ $function ], $args );
         return call_user_func_array( [ $this->dictionary, 'loop' ], $args );
