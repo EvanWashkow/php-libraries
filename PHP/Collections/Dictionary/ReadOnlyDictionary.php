@@ -76,4 +76,36 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
         $args = array_merge( [ $function ], $args );
         return call_user_func_array( [ $this->dictionary, 'loop' ], $args );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              ITERATOR METHODS
+    ***************************************************************************/
+    
+    final public function current()
+    {
+        return $this->dictionary->current();
+    }
+    
+    final public function key()
+    {
+        return $this->dictionary->key();
+    }
+    
+    final public function next()
+    {
+        $this->dictionary->next();
+    }
+    
+    final public function rewind()
+    {
+        $this->dictionary->rewind();
+    }
+    
+    final public function valid()
+    {
+        return $this->dictionary->valid();
+    }
 }
