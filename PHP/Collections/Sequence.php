@@ -352,27 +352,27 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     *                              ITERATOR METHODS
     ***************************************************************************/
     
-    public function current()
+    final public function current()
     {
         return current( $this->entries );
     }
     
-    public function key()
+    final public function key()
     {
         return key( $this->entries );
     }
     
-    public function next()
+    final public function next()
     {
         next( $this->entries );
     }
     
-    public function rewind()
+    final public function rewind()
     {
         reset( $this->entries );
     }
     
-    public function valid()
+    final public function valid()
     {
         return $this->hasIndex( $this->key() );
     }
