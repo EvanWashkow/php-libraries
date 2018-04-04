@@ -6,7 +6,7 @@ use PHP\PHPObjectSpec;
 /**
  * Specifications for a set of entries that can be iterated over
  */
-interface TraversableSpec extends PHPObjectSpec
+interface TraversableSpec extends \Iterator, PHPObjectSpec
 {
     
     /**
