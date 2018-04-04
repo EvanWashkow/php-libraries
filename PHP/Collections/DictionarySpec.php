@@ -8,7 +8,7 @@ use PHP\Collections\Dictionary\ReadOnlyDictionarySpec;
 /**
  * Specifications for a mutable, unordered set of indexed values
  */
-interface DictionarySpec extends CollectionSpec, ReadOnlyDictionarySpec
+interface DictionarySpec extends \Iterator, CollectionSpec, ReadOnlyDictionarySpec
 {
     
     /**
