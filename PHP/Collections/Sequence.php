@@ -66,7 +66,8 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     
     public function clone(): ReadOnlyCollectionSpec
     {
-        $clone = new static( $this->type );
+        $class = get_class( $this );
+        $clone = new $class( $this->type );
         $this->loop( function( $index, $value, &$clone ) {
             $clone->add( $value );
         }, $clone );
@@ -254,7 +255,8 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
         }
         
         // Create Sequence subset
-        $subSequence = new static( $this->type );
+        $class       = get_class( $this );
+        $subSequence = new $class( $this->type );
         foreach ( $subArray as $value ) {
             $subSequence->add( $value );
         }
@@ -308,7 +310,8 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
         } while ( $canContinue );
         
         // Return sequence of sequences
-        $sequence = new static( static::class );
+        $class    = get_class( $this );
+        $sequence = new $class( $class );
         foreach ( $sequences as $_sequence ) {
             $sequence->add( $_sequence );
         }
