@@ -80,7 +80,8 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
     
     public function clone(): ReadOnlyCollectionSpec
     {
-        $clone = new static( $this->indexType, $this->valueType );
+        $class = get_class( $this );
+        $clone = new $class( $this->indexType, $this->valueType );
         $this->loop( function( $index, $value, &$clone ) {
             $clone->add( $index, $value );
         }, $clone );
