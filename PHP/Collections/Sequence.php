@@ -308,7 +308,7 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
         } while ( $canContinue );
         
         // Return sequence of sequences
-        $sequence = new static( $this->getType() );
+        $sequence = new static( static::class );
         foreach ( $sequences as $_sequence ) {
             $sequence->add( $_sequence );
         }
