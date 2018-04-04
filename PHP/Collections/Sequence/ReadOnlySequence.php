@@ -32,6 +32,12 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     }
     
     
+    
+    
+    /***************************************************************************
+    *                             READ-ONLY METHODS
+    ***************************************************************************/
+    
     public function clone(): ReadOnlyCollectionSpec
     {
         $class = get_class( $this );
@@ -102,6 +108,8 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
         $sequence = $this->sequence->split( $delimiter, $limit );
         return new $class( $sequence );
     }
+    
+    
     
     
     /***************************************************************************
