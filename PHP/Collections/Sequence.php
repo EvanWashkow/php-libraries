@@ -141,18 +141,6 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     }
     
     
-    /**
-     * Determine if the value meets the type requirements
-     *
-     * @param mixed $value The value to check
-     * @return bool
-     */
-    final protected function isValueValidType( $value ): bool
-    {
-        return (( '' === $this->type ) || is( $value, $this->type ));
-    }
-    
-    
     
     
     /***************************************************************************
@@ -389,5 +377,23 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     final public function valid()
     {
         return $this->hasIndex( $this->key() );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              HELPER METHODS
+    ***************************************************************************/
+    
+    /**
+     * Determine if the value meets the type requirements
+     *
+     * @param mixed $value The value to check
+     * @return bool
+     */
+    final protected function isValueValidType( $value ): bool
+    {
+        return (( '' === $this->type ) || is( $value, $this->type ));
     }
 }
