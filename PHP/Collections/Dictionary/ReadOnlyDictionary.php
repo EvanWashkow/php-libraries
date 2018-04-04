@@ -35,8 +35,9 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
     
     final public function clone(): ReadOnlyCollectionSpec
     {
+        $class           = get_class( $this );
         $dictionaryClone = $this->dictionary->clone();
-        return new static( $dictionaryClone );
+        return new $class( $dictionaryClone );
     }
     
     
