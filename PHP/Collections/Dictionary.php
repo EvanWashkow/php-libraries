@@ -8,7 +8,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 /**
  * Defines a mutable, unordered set of keyed values
  */
-class Dictionary extends \PHP\PHPObject implements DictionarySpec
+class Dictionary extends Traversable implements DictionarySpec
 {
     
     /**
@@ -181,14 +181,6 @@ class Dictionary extends \PHP\PHPObject implements DictionarySpec
             $this->isValidKeyType( $key ) &&
             array_key_exists( $key, $this->entries )
         );
-    }
-    
-    
-    public function loop( callable $function, &...$args )
-    {
-        $iterable   = new Traversable( $this->entries );
-        $parameters = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $iterable, 'loop' ], $parameters );
     }
     
     

@@ -6,46 +6,30 @@ use PHP\Collections\TraversableSpec;
 /**
  * Defines a set of entries that can be iterated over
  */
-class Traversable extends \PHP\PHPObject implements TraversableSpec
+abstract class Traversable extends \PHP\PHPObject implements TraversableSpec
 {
-    
-    /**
-     * The keyed set of entries
-     *
-     * @var array
-     */
-    private $entries;
-    
-    
-    /**
-     * Creates a new Traversable instance for the entries
-     *
-     * @param array $entries The keyed set of entries
-     */
-    public function __construct( array $entries )
-    {
-        $this->entries = $entries;
-    }
-    
     
     final public function loop( callable $function, &...$args )
     {
-        foreach ( $this->entries as $key => $value ) {
+        $this->rewind();
+        while ( $this->valid() ) {
             
-            // Add key and value the callback function parameters
-            $parameters = array_merge(
-                [
-                    $key,
-                    $value
-                ],
-                $args
-            );
+            // Variables
+            $key   = $this->key();
+            $value = $this->current();
             
-            // Execute the callback function, exiting when a non-null value is returned
-            $result = call_user_func_array( $function, $parameters );
+            // Execute callback
+            $parameters = array_merge( [ $key, $value ], $args );
+            $result     = call_user_func_array( $function, $parameters );
+            
+            // Exit with non-null value
             if ( null !== $result ) {
                 return $result;
             }
+            
+            // Go to next entry
+            $this->next();
         }
+        $this->rewind();
     }
 }

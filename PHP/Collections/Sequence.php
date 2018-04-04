@@ -9,7 +9,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
  *
  * This would have been named "List" had that not been reserved by PHP
  */
-class Sequence extends \PHP\PHPObject implements SequenceSpec
+class Sequence extends Traversable implements SequenceSpec
 {
     
     /**
@@ -241,14 +241,6 @@ class Sequence extends \PHP\PHPObject implements SequenceSpec
     public function hasKey( $key ): bool
     {
         return ( is( $key, 'integer' ) && array_key_exists( $key, $this->entries ));
-    }
-    
-    
-    public function loop( callable $function, &...$args )
-    {
-        $parameters = array_merge( [ $function ], $args );
-        $iterable   = new Traversable( $this->entries );
-        return call_user_func_array( [ $iterable, 'loop' ], $parameters );
     }
     
     

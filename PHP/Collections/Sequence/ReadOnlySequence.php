@@ -1,13 +1,15 @@
 <?php
 namespace PHP\Collections\Sequence;
 
+use PHP\Collections\Traversable;
+
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\SequenceSpec;
 
 /**
  * Defines a read-only, ordered set of keyed values
  */
-class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
+class ReadOnlySequence extends Traversable implements ReadOnlySequenceSpec
 {
     
     /**
@@ -84,13 +86,6 @@ class ReadOnlySequence extends \PHP\PHPObject implements ReadOnlySequenceSpec
     public function hasKey( $key ): bool
     {
         return $this->sequence->hasKey( $key );
-    }
-    
-    
-    public function loop( callable $function, &...$args )
-    {
-        $parameters = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $this->sequence, 'loop' ], $parameters );
     }
     
     

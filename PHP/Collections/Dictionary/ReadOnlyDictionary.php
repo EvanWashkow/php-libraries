@@ -1,14 +1,15 @@
 <?php
 namespace PHP\Collections\Dictionary;
 
-use \PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use \PHP\Collections\DictionarySpec;
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
+use PHP\Collections\DictionarySpec;
+use PHP\Collections\Traversable;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a read only, unordered set of keyed values
  */
-class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpec
+class ReadOnlyDictionary extends Traversable implements ReadOnlyDictionarySpec
 {
     
     /**
@@ -69,12 +70,6 @@ class ReadOnlyDictionary extends \PHP\PHPObject implements ReadOnlyDictionarySpe
     public function hasKey( $key ): bool
     {
         return $this->dictionary->hasKey( $key );
-    }
-    
-    public function loop( callable $function, &...$args )
-    {
-        $args = array_merge( [ $function ], $args );
-        return call_user_func_array( [ $this->dictionary, 'loop' ], $args );
     }
     
     

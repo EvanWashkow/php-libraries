@@ -10,15 +10,19 @@ interface TraversableSpec extends \Iterator, PHPObjectSpec
 {
     
     /**
-     * Iterate through every entry, invoking the callback function with the entry's
+     * Iterate through each entry, invoking the callback function with the entry's
      * key and value
      *
-     * To exit, the loop early, return a non-NULL value. This value will be
+     * To exit the loop early, return a non-NULL value. This value will be
      * returned by loop().
      *
      * Additional arguments can be passed to the callback function by adding
      * them to loop(), after the callback function definition. To make edits to
      * them in the callback function, use the reference identifier `&`.
+     *
+     * To take advantage of this function in your own class, you must implement
+     * all Iterator methods (http://php.net/manual/en/class.iterator.php), and
+     * extend the Traversable class.
      *
      * @param callable $function Callback function to execute for each entry
      * @param mixed    ...$args  Additional arguments to be passed to the callback function (can be edited by the reference identifier `&` in the callback function)
