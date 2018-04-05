@@ -2,6 +2,7 @@
 namespace PHP\Collections\Collection;
 
 use PHP\Collections\IteratorSpec;
+use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Specifications for a set of read-only key-value pairs
@@ -37,6 +38,20 @@ interface ReadOnlyCollectionSpec extends IteratorSpec
      * @return mixed The value if the key exists. NULL otherwise.
      */
     public function get( $key );
+    
+    /**
+     * Retrieve all entry keys
+     *n
+     * @return ReadOnlySequenceSpec
+     */
+    public function getKeys(): ReadOnlySequenceSpec;
+    
+    /**
+     * Retrieve all entry values
+     *n
+     * @return ReadOnlySequenceSpec
+     */
+    public function getValues(): ReadOnlySequenceSpec;
     
     /**
      * Determine if the key exists

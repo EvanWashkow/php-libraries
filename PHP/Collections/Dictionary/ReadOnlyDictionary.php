@@ -3,7 +3,6 @@ namespace PHP\Collections\Dictionary;
 
 use PHP\Collections\Collection\ReadOnlyCollection;
 use PHP\Collections\DictionarySpec;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a read only, unordered set of keyed values
@@ -22,16 +21,5 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionar
     public function __construct( DictionarySpec &$dictionary )
     {
         parent::__construct( $dictionary );
-    }
-    
-    
-    public function getKeys(): ReadOnlySequenceSpec
-    {
-        return $this->collection->getKeys();
-    }
-    
-    public function getValues(): ReadOnlySequenceSpec
-    {
-        return $this->collection->getValues();
     }
 }
