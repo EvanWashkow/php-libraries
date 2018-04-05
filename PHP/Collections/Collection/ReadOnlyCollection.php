@@ -29,6 +29,16 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
     }
     
     
+    public function canAddKey( $key ): bool
+    {
+        return $this->collection->canAddKey( $key );
+    }
+    
+    public function canAddValue( $value ): bool
+    {
+        return $this->collection->canAddValue( $value );
+    }
+    
     public function clone(): ReadOnlyCollectionSpec
     {
         $class           = get_class( $this );

@@ -42,6 +42,18 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
+    public function canAddKey( $key ): bool
+    {
+        return is( $key, $this->keyType );
+    }
+    
+    
+    public function canAddValue( $value ): bool
+    {
+        return is( $value, $this->valueType );
+    }
+    
+    
     public function hasKey( $key ): bool
     {
         $hasKey = false;
