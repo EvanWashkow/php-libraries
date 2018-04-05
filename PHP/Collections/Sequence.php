@@ -9,7 +9,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
  *
  * This would have been named "List" had that not been reserved by PHP
  */
-class Sequence extends Iterator implements SequenceSpec
+class Sequence extends Collection implements SequenceSpec
 {
     
     /**
