@@ -1,15 +1,14 @@
 <?php
 namespace PHP\Collections\Sequence;
 
-use PHP\Collections\Traversable;
-
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
+use PHP\Collections\Iterator;
 use PHP\Collections\SequenceSpec;
 
 /**
  * Defines a read-only, ordered set of keyed values
  */
-class ReadOnlySequence extends Traversable implements ReadOnlySequenceSpec
+class ReadOnlySequence extends Iterator implements ReadOnlySequenceSpec
 {
     
     /**

@@ -3,13 +3,13 @@ namespace PHP\Collections\Dictionary;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\DictionarySpec;
-use PHP\Collections\Traversable;
+use PHP\Collections\Iterator;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a read only, unordered set of keyed values
  */
-class ReadOnlyDictionary extends Traversable implements ReadOnlyDictionarySpec
+class ReadOnlyDictionary extends Iterator implements ReadOnlyDictionarySpec
 {
     
     /**

@@ -6,7 +6,7 @@ use PHP\PHPObjectSpec;
 /**
  * Specifications for a set of entries that can be iterated over
  */
-interface TraversableSpec extends \Iterator, PHPObjectSpec
+interface IteratorSpec extends \Iterator, PHPObjectSpec
 {
     
     /**
@@ -22,7 +22,7 @@ interface TraversableSpec extends \Iterator, PHPObjectSpec
      *
      * To take advantage of this function in your own class, you must implement
      * all Iterator methods (http://php.net/manual/en/class.iterator.php), and
-     * extend the Traversable class.
+     * extend the Iterator class.
      *
      * @param callable $function Callback function to execute for each entry
      * @param mixed    ...$args  Additional arguments to be passed to the callback function (can be edited by the reference identifier `&` in the callback function)

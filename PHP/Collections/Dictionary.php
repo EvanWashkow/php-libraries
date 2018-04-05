@@ -8,7 +8,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 /**
  * Defines a mutable, unordered set of keyed values
  */
-class Dictionary extends Traversable implements DictionarySpec
+class Dictionary extends Iterator implements DictionarySpec
 {
     
     /**

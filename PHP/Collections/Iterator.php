@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\TraversableSpec;
+use PHP\Collections\IteratorSpec;
 
 /**
  * Defines a set of entries that can be iterated over
  */
-abstract class Traversable extends \PHP\PHPObject implements TraversableSpec
+abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
 {
     
     final public function loop( callable $function, &...$args )

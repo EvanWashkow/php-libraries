@@ -1,12 +1,12 @@
 <?php
 namespace PHP\Collections\Collection;
 
-use PHP\Collections\TraversableSpec;
+use PHP\Collections\IteratorSpec;
 
 /**
  * Defines the type for a set of keyed, read-only values
  */
-interface ReadOnlyCollectionSpec extends TraversableSpec
+interface ReadOnlyCollectionSpec extends IteratorSpec
 {
     
     /**
