@@ -41,7 +41,7 @@ interface ReadOnlyCollectionSpec extends IteratorSpec
     /**
      * Determine if the key exists
      *
-     * @param mixed $key The key to check
+     * @param mixed $key The key to check for
      * @return bool
      */
     public function hasKey( $key ): bool;

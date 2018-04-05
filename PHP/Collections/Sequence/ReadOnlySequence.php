@@ -82,7 +82,7 @@ class ReadOnlySequence extends Iterator implements ReadOnlySequenceSpec
         return $this->sequence->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return $this->sequence->hasKey( $key );
     }

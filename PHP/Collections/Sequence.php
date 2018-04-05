@@ -238,9 +238,9 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
-        return ( is( $key, 'integer' ) && array_key_exists( $key, $this->entries ));
+        return ( is( $key, 'integer' ) && parent::hasKey( $key ));
     }
     
     
@@ -368,7 +368,7 @@ class Sequence extends Collection implements SequenceSpec
     
     final public function valid()
     {
-        return $this->hasKey( $this->key() );
+        return array_key_exists( $this->key(), $this->entries );
     }
     
     
