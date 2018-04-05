@@ -11,6 +11,10 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
     
     final public function loop( callable $function, &...$args )
     {
+        // Variables
+        $returnValue = null;
+        
+        // Loop through each value, until the return value is not null
         $this->rewind();
         while ( $this->valid() ) {
             
@@ -19,17 +23,20 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
             $value = $this->current();
             
             // Execute callback
-            $parameters = array_merge( [ $key, $value ], $args );
-            $result     = call_user_func_array( $function, $parameters );
+            $parameters  = array_merge( [ $key, $value ], $args );
+            $returnValue = call_user_func_array( $function, $parameters );
             
-            // Exit with non-null value
-            if ( null !== $result ) {
-                return $result;
+            // Go to next entry or stop loop
+            if ( null === $returnValue ) {
+                $this->next();
+            }
+            else {
+                break;
             }
             
-            // Go to next entry
-            $this->next();
         }
         $this->rewind();
+        
+        return $returnValue;
     }
 }
