@@ -4,7 +4,7 @@ namespace PHP\Collections\Collection;
 use PHP\Collections\IteratorSpec;
 
 /**
- * Defines the type for a set of keyed, read-only values
+ * Specifications for a set of read-only key-value pairs
  */
 interface ReadOnlyCollectionSpec extends IteratorSpec
 {
