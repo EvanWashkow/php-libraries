@@ -53,6 +53,7 @@ class Dictionary extends Collection implements DictionarySpec
         
         
         // Initialize properties
+        parent::__construct( $keyType, $valueType );
         $this->clear();
         $this->keyType = $keyType;
         $this->valueType = $valueType;

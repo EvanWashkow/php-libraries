@@ -39,6 +39,7 @@ class Sequence extends Collection implements SequenceSpec
             throw new \Exception( 'Sequence values cannot be NULL' );
         }
         
+        parent::__construct( 'integer', $type );
         $this->clear();
         $this->type = $type;
     }
