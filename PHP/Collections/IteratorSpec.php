@@ -4,7 +4,7 @@ namespace PHP\Collections;
 use PHP\PHPObjectSpec;
 
 /**
- * Specifications for a set of entries that can be iterated over
+ * Specifications for a collection of methods used to iterate over internal values
  */
 interface IteratorSpec extends \Iterator, PHPObjectSpec
 {

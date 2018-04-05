@@ -4,7 +4,7 @@ namespace PHP\Collections;
 use PHP\Collections\IteratorSpec;
 
 /**
- * Defines a set of entries that can be iterated over
+ * Defines a collection of methods used to iterate over internal values
  */
 abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
 {
