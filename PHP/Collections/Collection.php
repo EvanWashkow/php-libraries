@@ -28,7 +28,7 @@ abstract class Collection extends Iterator implements CollectionSpec
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $keyType, string $valueType )
+    public function __construct( string $keyType = '', string $valueType = '' )
     {
         if ( 'null' === strtolower( $keyType )) {
             throw new \Exception( 'Key types cannot be NULL' );
@@ -57,14 +57,20 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    final public function isValidKeyType( $key ): bool
+    public function isValidKeyType( $key ): bool
     {
-        return is( $key, $this->keyType );
+        return (
+            ( null !== $key ) &&
+            (
+                ( '' === $this->keyType ) ||
+                is( $key, $this->keyType )
+            )
+        );
     }
     
     
-    final public function isValidValueType( $value ): bool
+    public function isValidValueType( $value ): bool
     {
-        return is( $value, $this->valueType );
+        return (( '' === $this->valueType ) || is( $value, $this->valueType ));
     }
 }
