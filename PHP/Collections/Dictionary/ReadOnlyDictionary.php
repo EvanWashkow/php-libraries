@@ -12,14 +12,6 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionar
 {
     
     /**
-     * The dictionary instance
-     *
-     * @var DictionarySpec
-     */
-    private $dictionary;
-    
-    
-    /**
      * Create a new read-only Dictionary instance
      *
      * As entries are added to / removed from the dictionary, the changes will
@@ -30,17 +22,16 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionar
     public function __construct( DictionarySpec &$dictionary )
     {
         parent::__construct( $dictionary );
-        $this->dictionary = $dictionary;
     }
     
     
     public function getKeys(): ReadOnlySequenceSpec
     {
-        return $this->dictionary->getKeys();
+        return $this->collection->getKeys();
     }
     
     public function getValues(): ReadOnlySequenceSpec
     {
-        return $this->dictionary->getValues();
+        return $this->collection->getValues();
     }
 }

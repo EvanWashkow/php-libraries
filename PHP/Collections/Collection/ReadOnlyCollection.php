@@ -15,7 +15,7 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
      *
      * @var CollectionSpec
      */
-    private $collection;
+    protected $collection;
     
     
     /**
