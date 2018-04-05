@@ -1,15 +1,14 @@
 <?php
 namespace PHP\Collections\Dictionary;
 
-use PHP\Collections\Collection\ReadOnlyCollectionSpec;
+use PHP\Collections\Collection\ReadOnlyCollection;
 use PHP\Collections\DictionarySpec;
-use PHP\Collections\Iterator;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a read only, unordered set of keyed values
  */
-class ReadOnlyDictionary extends Iterator implements ReadOnlyDictionarySpec
+class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionarySpec
 {
     
     /**
@@ -30,32 +29,10 @@ class ReadOnlyDictionary extends Iterator implements ReadOnlyDictionarySpec
      */
     public function __construct( DictionarySpec &$dictionary )
     {
+        parent::__construct( $dictionary );
         $this->dictionary = $dictionary;
     }
     
-    
-    public function clone(): ReadOnlyCollectionSpec
-    {
-        $class           = get_class( $this );
-        $dictionaryClone = $this->dictionary->clone();
-        return new $class( $dictionaryClone );
-    }
-    
-    
-    public function convertToArray(): array
-    {
-        return $this->dictionary->convertToArray();
-    }
-    
-    public function count(): int
-    {
-        return $this->dictionary->count();
-    }
-    
-    public function get( $key )
-    {
-        return $this->dictionary->get( $key );
-    }
     
     public function getKeys(): ReadOnlySequenceSpec
     {
@@ -65,42 +42,5 @@ class ReadOnlyDictionary extends Iterator implements ReadOnlyDictionarySpec
     public function getValues(): ReadOnlySequenceSpec
     {
         return $this->dictionary->getValues();
-    }
-    
-    final public function hasKey( $key ): bool
-    {
-        return $this->dictionary->hasKey( $key );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                              ITERATOR METHODS
-    ***************************************************************************/
-    
-    final public function current()
-    {
-        return $this->dictionary->current();
-    }
-    
-    final public function key()
-    {
-        return $this->dictionary->key();
-    }
-    
-    final public function next()
-    {
-        $this->dictionary->next();
-    }
-    
-    final public function rewind()
-    {
-        $this->dictionary->rewind();
-    }
-    
-    final public function valid()
-    {
-        return $this->dictionary->valid();
     }
 }
