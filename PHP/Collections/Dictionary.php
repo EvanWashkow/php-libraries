@@ -8,7 +8,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 /**
  * Defines a mutable, unordered set of keyed values
  */
-class Dictionary extends Iterator implements DictionarySpec
+class Dictionary extends Collection implements DictionarySpec
 {
     
     /**
@@ -175,11 +175,11 @@ class Dictionary extends Iterator implements DictionarySpec
     }
     
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return (
             $this->isValidKeyType( $key ) &&
-            array_key_exists( $key, $this->entries )
+            parent::hasKey( $key )
         );
     }
     
@@ -212,7 +212,7 @@ class Dictionary extends Iterator implements DictionarySpec
     
     final public function valid()
     {
-        return $this->hasKey( $this->key() );
+        return array_key_exists( $this->key(), $this->entries );
     }
     
     

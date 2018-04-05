@@ -67,7 +67,7 @@ class ReadOnlyDictionary extends Iterator implements ReadOnlyDictionarySpec
         return $this->dictionary->getValues();
     }
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return $this->dictionary->hasKey( $key );
     }
