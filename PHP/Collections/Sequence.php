@@ -239,6 +239,16 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
+    public function hasKey( $key ): bool
+    {
+        return (
+            $this->isValidKeyType( $key )    &&
+            ( $this->getFirstKey() <= $key ) &&
+            ( $key <= $this->getLastKey() )
+        );
+    }
+    
+    
     public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
         // Variables
