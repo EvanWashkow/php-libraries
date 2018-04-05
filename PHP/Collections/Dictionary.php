@@ -176,15 +176,6 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    final public function hasKey( $key ): bool
-    {
-        return (
-            $this->isValidKeyType( $key ) &&
-            parent::hasKey( $key )
-        );
-    }
-    
-    
     
     
     /***************************************************************************

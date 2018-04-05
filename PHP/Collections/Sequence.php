@@ -239,12 +239,6 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    final public function hasKey( $key ): bool
-    {
-        return ( is( $key, 'integer' ) && parent::hasKey( $key ));
-    }
-    
-    
     public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
         // Variables
