@@ -42,7 +42,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    final public function hasKey( $key ): bool
+    public function hasKey( $key ): bool
     {
         $hasKey = false;
         if ( $this->isValidKeyType( $key )) {
