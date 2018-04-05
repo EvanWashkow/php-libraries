@@ -8,22 +8,6 @@ use PHP\Collections\IteratorSpec;
  */
 interface ReadOnlyCollectionSpec extends IteratorSpec
 {
-
-    /**
-     * Determine if the key can be added to the collection
-     *
-     * @param mixed $key The key to check
-     * @return bool
-     */
-    public function canAddKey( $key ): bool;
-    
-    /**
-     * Determine if the value can be added to the collection
-     *
-     * @param mixed $value The value to check
-     * @return bool
-     */
-    public function canAddValue( $value ): bool;
     
     /**
      * Duplicate every key and value into a new instance
@@ -61,4 +45,20 @@ interface ReadOnlyCollectionSpec extends IteratorSpec
      * @return bool
      */
     public function hasKey( $key ): bool;
+    
+    /**
+     * Determine if the key type is valid for the collection
+     *
+     * @param mixed $key The key to check
+     * @return bool
+     */
+    public function isValidKeyType( $key ): bool;
+    
+    /**
+     * Determine if the value type is valid for the collection
+     *
+     * @param mixed $value The value to check
+     * @return bool
+     */
+    public function isValidValueType( $value ): bool;
 }

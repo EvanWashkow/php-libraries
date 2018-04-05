@@ -54,7 +54,7 @@ class Sequence extends Collection implements SequenceSpec
     public function add( $value ): bool
     {
         $isSuccessful = false;
-        if ( $this->isValueValidType( $value )) {
+        if ( $this->isValidValueType( $value )) {
             $this->entries[] = $value;
             $isSuccessful    = true;
         }
@@ -87,7 +87,7 @@ class Sequence extends Collection implements SequenceSpec
         }
         
         // Invalid value type
-        elseif ( !$this->isValueValidType( $value )) {
+        elseif ( !$this->isValidValueType( $value )) {
             trigger_error( "Cannot insert non-{$this->type} values" );
         }
         
@@ -131,7 +131,7 @@ class Sequence extends Collection implements SequenceSpec
         if ( !$this->hasKey( $key )) {
             trigger_error( 'Update key does not exist' );
         }
-        elseif ( !$this->isValueValidType( $value )) {
+        elseif ( !$this->isValidValueType( $value )) {
             trigger_error( "Cannot update entry to a non-{$this->type} value" );
         }
         else {
@@ -370,23 +370,5 @@ class Sequence extends Collection implements SequenceSpec
     final public function valid()
     {
         return array_key_exists( $this->key(), $this->entries );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                              HELPER METHODS
-    ***************************************************************************/
-    
-    /**
-     * Determine if the value meets the type requirements
-     *
-     * @param mixed $value The value to check
-     * @return bool
-     */
-    final protected function isValueValidType( $value ): bool
-    {
-        return (( '' === $this->type ) || is( $value, $this->type ));
     }
 }

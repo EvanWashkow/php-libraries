@@ -223,29 +223,6 @@ class Dictionary extends Collection implements DictionarySpec
     *                               HELPER METHODS
     ***************************************************************************/
     
-    /**
-     * Determine if the key type meets its type constraints
-     *
-     * @param mixed $key The key to check
-     * @return bool
-     */
-    final protected function isValidKeyType( $key ): bool
-    {
-        return (( '' === $this->keyType ) || is( $key, $this->keyType ));
-    }
-    
-    
-    /**
-     * Determine if the value type meets its type constraints
-     *
-     * @param mixed $value The value to check
-     * @return bool
-     */
-    final protected function isValidValueType( $value ): bool
-    {
-        return (( '' === $this->valueType ) || is( $value, $this->valueType ));
-    }
-    
     
     /**
      * Store the value at the specified key
