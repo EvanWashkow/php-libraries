@@ -10,6 +10,13 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
 {
     
     /**
+     * Duplicate every key and value into a new instance
+     *
+     * @return CollectionSpec
+     */
+    public function clone(): ReadOnlyCollectionSpec;
+    
+    /**
      * Remove all stored values
      */
     public function clear();
