@@ -5,7 +5,7 @@ use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
- * Defines a mutable, ordered set of keyed values
+ * Defines a mutable, ordered, and iterable set of key-value pairs
  *
  * This would have been named "List" had that not been reserved by PHP
  */

@@ -4,7 +4,7 @@ namespace PHP\Collections\Dictionary;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
- * Specifications for a read-only, unordered set of keyed values
+ * Specifications for a read-only, unordered, and iterable set of key-value pairs
  */
 interface ReadOnlyDictionarySpec extends ReadOnlyCollectionSpec
 {

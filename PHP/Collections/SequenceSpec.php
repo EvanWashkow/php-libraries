@@ -5,7 +5,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
- * Specifications for a mutable, ordered set of keyed values
+ * Specifications for a mutable, ordered, and iterable set of key-value pairs
  */
 interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
 {

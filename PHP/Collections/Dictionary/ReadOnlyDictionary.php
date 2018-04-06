@@ -5,7 +5,7 @@ use PHP\Collections\Collection\ReadOnlyCollection;
 use PHP\Collections\DictionarySpec;
 
 /**
- * Defines a read only, unordered set of keyed values
+ * Defines a read only, unordered set of key-value pairs
  */
 class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionarySpec
 {

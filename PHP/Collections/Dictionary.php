@@ -4,13 +4,13 @@ namespace PHP\Collections;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
- * Defines a mutable, unordered set of keyed values
+ * Defines a mutable, unordered, and iterable set of key-value pairs
  */
 class Dictionary extends Collection implements DictionarySpec
 {
     
     /**
-     * The set of keyed values
+     * The set of key-value pairs
      *
      * @var array
      */
