@@ -5,7 +5,7 @@ use PHP\Collections\IteratorSpec;
 use PHP\Collections\SequenceSpec;
 
 /**
- * Specifications for a set of read-only key-value pairs
+ * Specifications for an iterable set of read-only, key-value pairs
  */
 interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
 {

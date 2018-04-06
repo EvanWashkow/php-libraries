@@ -4,7 +4,7 @@ namespace PHP\Collections;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**
- * Specifications for a set of mutable, key-value pairs
+ * Specifications for an iterable set of mutable, key-value pairs
  */
 interface CollectionSpec extends ReadOnlyCollectionSpec
 {

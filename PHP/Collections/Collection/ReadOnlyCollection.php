@@ -6,7 +6,7 @@ use PHP\Collections\Iterator;
 use PHP\Collections\SequenceSpec;
 
 /**
- * Defines a set of read-only key-value pairs
+ * Defines an iterable set of read-only, key-value pairs
  */
 class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
 {
