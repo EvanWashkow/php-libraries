@@ -1,9 +1,6 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Sequence\ReadOnlySequence;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
-
 /**
  * Defines a set of mutable, key-value pairs
  */
@@ -45,23 +42,23 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function getKeys(): ReadOnlySequenceSpec
+    public function getKeys(): SequenceSpec
     {
         $keys = new Sequence( $this->keyType );
         $this->loop( function( $key, $value, Sequence &$keys ) {
             $keys->add( $key );
         }, $keys );
-        return new ReadOnlySequence( $keys );
+        return $keys;
     }
     
     
-    public function getValues(): ReadOnlySequenceSpec
+    public function getValues(): SequenceSpec
     {
         $values = new Sequence( $this->valueType );
         $this->loop( function( $key, $value, Sequence &$values ) {
             $values->add( $value );
         }, $values );
-        return new ReadOnlySequence( $values );
+        return $values;
     }
     
     

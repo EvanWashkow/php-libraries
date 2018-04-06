@@ -2,7 +2,7 @@
 namespace PHP\Collections\Collection;
 
 use PHP\Collections\IteratorSpec;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
+use PHP\Collections\SequenceSpec;
 
 /**
  * Specifications for a set of read-only key-value pairs
@@ -28,16 +28,16 @@ interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
     /**
      * Retrieve all entry keys
      *n
-     * @return ReadOnlySequenceSpec
+     * @return SequenceSpec
      */
-    public function getKeys(): ReadOnlySequenceSpec;
+    public function getKeys(): SequenceSpec;
     
     /**
      * Retrieve all entry values
      *n
-     * @return ReadOnlySequenceSpec
+     * @return SequenceSpec
      */
-    public function getValues(): ReadOnlySequenceSpec;
+    public function getValues(): SequenceSpec;
     
     /**
      * Determine if the key exists
