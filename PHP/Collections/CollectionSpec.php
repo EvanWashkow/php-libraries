@@ -19,8 +19,10 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
     
     /**
      * Remove all stored values
+     *
+     * @return bool
      */
-    public function clear();
+    public function clear(): bool;
     
     /**
      * Remove the value from the key

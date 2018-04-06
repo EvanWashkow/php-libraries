@@ -77,9 +77,10 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function clear()
+    public function clear(): bool
     {
         $this->entries = [];
+        return true;
     }
     
     

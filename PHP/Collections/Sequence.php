@@ -65,9 +65,10 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function clear()
+    public function clear(): bool
     {
-        return $this->entries = [];
+        $this->entries = [];
+        return true;
     }
     
     
