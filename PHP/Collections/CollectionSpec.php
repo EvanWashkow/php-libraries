@@ -2,7 +2,6 @@
 namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Specifications for an iterable set of mutable, key-value pairs
