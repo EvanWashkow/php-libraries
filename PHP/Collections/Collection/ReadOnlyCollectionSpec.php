@@ -7,7 +7,7 @@ use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 /**
  * Specifications for a set of read-only key-value pairs
  */
-interface ReadOnlyCollectionSpec extends IteratorSpec
+interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
 {
     
     /**
@@ -23,13 +23,6 @@ interface ReadOnlyCollectionSpec extends IteratorSpec
      * @return array
      */
     public function convertToArray(): array;
-    
-    /**
-     * Count all entries, returning the result
-     *
-     * @return int
-     */
-    public function count(): int;
     
     /**
      * Retrieve the value stored at the specified key
