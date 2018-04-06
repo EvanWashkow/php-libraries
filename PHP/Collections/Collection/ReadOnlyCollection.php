@@ -62,14 +62,14 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         return $this->collection->hasKey( $key );
     }
     
-    final public function isValidKeyType( $key ): bool
+    final public function isOfKeyType( $key ): bool
     {
-        return $this->collection->isValidKeyType( $key );
+        return $this->collection->isOfKeyType( $key );
     }
     
-    final public function isValidValueType( $value ): bool
+    final public function isOfValueType( $value ): bool
     {
-        return $this->collection->isValidValueType( $value );
+        return $this->collection->isOfValueType( $value );
     }
     
     

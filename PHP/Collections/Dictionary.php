@@ -87,7 +87,7 @@ class Dictionary extends Collection implements DictionarySpec
     public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( !$this->isValidKeyType( $key )) {
+        if ( !$this->isOfKeyType( $key )) {
             trigger_error( "Cannot remove entry with non-{$this->keyType} key" );
         }
         elseif ( !$this->hasKey( $key )) {
@@ -139,7 +139,7 @@ class Dictionary extends Collection implements DictionarySpec
     
     public function get( $key )
     {
-        if ( !$this->isValidKeyType( $key )) {
+        if ( !$this->isOfKeyType( $key )) {
             throw new \Exception( "Cannot get non-{$this->keyType} key" );
         }
         elseif ( !$this->hasKey( $key )) {
@@ -200,10 +200,10 @@ class Dictionary extends Collection implements DictionarySpec
     private function set( $key, $value ): bool
     {
         $isSuccessful = false;
-        if ( !$this->isValidKeyType( $key )) {
+        if ( !$this->isOfKeyType( $key )) {
             trigger_error( "Cannot set value at a non-{$this->keyType} key" );
         }
-        elseif ( !$this->isValidValueType( $value )) {
+        elseif ( !$this->isOfValueType( $value )) {
             trigger_error( "Cannot set non-{$this->valueType} values" );
         }
         else {

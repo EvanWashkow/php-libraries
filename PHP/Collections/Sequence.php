@@ -54,7 +54,7 @@ class Sequence extends Collection implements SequenceSpec
     public function add( $value ): bool
     {
         $isSuccessful = false;
-        if ( $this->isValidValueType( $value )) {
+        if ( $this->isOfValueType( $value )) {
             $this->entries[] = $value;
             $isSuccessful    = true;
         }
@@ -88,7 +88,7 @@ class Sequence extends Collection implements SequenceSpec
         }
         
         // Invalid value type
-        elseif ( !$this->isValidValueType( $value )) {
+        elseif ( !$this->isOfValueType( $value )) {
             trigger_error( "Cannot insert non-{$this->type} values" );
         }
         
@@ -132,7 +132,7 @@ class Sequence extends Collection implements SequenceSpec
         if ( !$this->hasKey( $key )) {
             trigger_error( 'Update key does not exist' );
         }
-        elseif ( !$this->isValidValueType( $value )) {
+        elseif ( !$this->isOfValueType( $value )) {
             trigger_error( "Cannot update entry to a non-{$this->type} value" );
         }
         else {
@@ -243,7 +243,7 @@ class Sequence extends Collection implements SequenceSpec
     public function hasKey( $key ): bool
     {
         return (
-            $this->isValidKeyType( $key )    &&
+            $this->isOfKeyType( $key )    &&
             ( $this->getFirstKey() <= $key ) &&
             ( $key <= $this->getLastKey() )
         );

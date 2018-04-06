@@ -53,7 +53,7 @@ interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
      * @param mixed $key The key to check
      * @return bool
      */
-    public function isValidKeyType( $key ): bool;
+    public function isOfKeyType( $key ): bool;
     
     /**
      * Determine if the value type is valid for the collection
@@ -61,5 +61,5 @@ interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
      * @param mixed $value The value to check
      * @return bool
      */
-    public function isValidValueType( $value ): bool;
+    public function isOfValueType( $value ): bool;
 }

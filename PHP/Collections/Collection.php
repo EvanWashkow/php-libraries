@@ -68,7 +68,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     public function hasKey( $key ): bool
     {
         $hasKey = false;
-        if ( $this->isValidKeyType( $key )) {
+        if ( $this->isOfKeyType( $key )) {
             $this->loop( function( $i, $value, $key, &$hasKey ) {
                 if ( $i === $key ) {
                     $hasKey = true;
@@ -80,7 +80,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function isValidKeyType( $key ): bool
+    public function isOfKeyType( $key ): bool
     {
         return (
             ( null !== $key ) &&
@@ -92,7 +92,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function isValidValueType( $value ): bool
+    public function isOfValueType( $value ): bool
     {
         return (( '' === $this->valueType ) || is( $value, $this->valueType ));
     }
