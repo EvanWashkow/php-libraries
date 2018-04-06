@@ -50,6 +50,9 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     /**
      * Create a subset of entries from this one
      *
+     * Since this is similar to cloning, the returned value will be of the same
+     * type as the originating sequence
+     *
      * @param int $start Starting key
      * @param int $end   Ending key
      * @return ReadOnlySequenceSpec
@@ -58,6 +61,9 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     
     /**
      * Chop these entries into groups, using the given value as a delimiter
+     *
+     * Since this is similar to cloning, the returned value will be of the same
+     * type as the originating sequence
      *
      * @param mixed $delimiter Value separating each group
      * @param int   $limit     Maximum number of entries to return; negative to return all.
