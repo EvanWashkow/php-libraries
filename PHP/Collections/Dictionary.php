@@ -2,8 +2,6 @@
 namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\Sequence\ReadOnlySequence;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines a mutable, unordered set of keyed values
@@ -147,26 +145,6 @@ class Dictionary extends Collection implements DictionarySpec
             throw new \Exception( "Cannot get value at non-existing key" );
         }
         return $this->entries[ $key ];
-    }
-    
-    
-    public function getKeys(): ReadOnlySequenceSpec
-    {
-        $keys = new Sequence( $this->keyType );
-        foreach ( array_keys( $this->entries ) as $key ) {
-            $keys->add( $key );
-        }
-        return new ReadOnlySequence( $keys );
-    }
-    
-    
-    public function getValues(): ReadOnlySequenceSpec
-    {
-        $values = new Sequence( $this->valueType );
-        $this->loop(function( $key, $value, &$values ) {
-            $values->add( $value );
-        }, $values );
-        return new ReadOnlySequence( $values );
     }
     
     
