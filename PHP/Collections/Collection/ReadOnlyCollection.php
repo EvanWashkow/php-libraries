@@ -3,7 +3,7 @@ namespace PHP\Collections\Collection;
 
 use PHP\Collections\CollectionSpec;
 use PHP\Collections\Iterator;
-use PHP\Collections\SequenceSpec;
+use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 
 /**
  * Defines an iterable set of read-only, key-value pairs
@@ -47,12 +47,12 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         return $this->collection->get( $key );
     }
     
-    public function getKeys(): SequenceSpec
+    public function getKeys(): ReadOnlySequenceSpec
     {
         return $this->collection->getKeys();
     }
     
-    public function getValues(): SequenceSpec
+    public function getValues(): ReadOnlySequenceSpec
     {
         return $this->collection->getValues();
     }
