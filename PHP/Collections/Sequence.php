@@ -294,55 +294,40 @@ class Sequence extends Collection implements SequenceSpec
     
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
-        // Variables
-        $start       = $this->getFirstKey();
-        $sequences   = [];
-        $canContinue = true;
+        // Sequence variables
+        $thisClass     = get_class( $this );
+        $outerSequence = new $thisClass( $thisClass );
         
-        // While there are entries left
-        do {
-            
-            // Halt loop if there are no entries
-            if ( 0 === $this->count() ) {
-                $canContinue = false;
-            }
-            
-            // Halt loop if the limit has been reached.
-            elseif (( 0 <= $limit ) && ( $limit === count( $sequences ))) {
-                $canContinue = false;
-            }
-            
-            else {
-                
-                // Get key of the next delimiter
-                $end = $this->getKeyOf( $delimiter, $start );
-                
-                // Delimiter not found. The end is the very last element.
-                if ( $end < 0 ) {
-                    $end = $this->getLastKey() + 1;
-                }
-                    
-                // Group the entries between the start and end, excluding the delimiter
-                $sequence = $this->slice( $start, $end - 1 );
-                if ( 1 <= $sequence->count() ) {
-                    $sequences[] = $sequence;
-                }
-                
-                // Move start key and halt loop if at the end of the sequence
-                $start = $end + 1;
-                if ( $this->getLastKey() <= $start ) {
-                    $canContinue = false;
-                }
-            }
-        } while ( $canContinue );
+        // Loop control variables
+        $start = $this->getFirstKey();
         
-        // Return sequence of sequences
-        $class    = get_class( $this );
-        $sequence = new $class( $class );
-        foreach ( $sequences as $_sequence ) {
-            $sequence->add( $_sequence );
+        while (
+            // Haven't exceeded requested items
+            (( $limit < 0 ) || ( $outerSequence->count() < $limit )) &&
+            // Starting index is not past the end of this sequence
+            ( $start <= $this->getLastKey() )
+        ) {
+            
+            // Get the ending index of this section
+            $end = $this->getKeyOf( $delimiter, $start );
+            if ( $end < 0 ) {
+                $end = $this->getLastKey();
+            }
+            
+            // Move end index to the previous entry
+            if ( $end !== $this->getLastKey()) {
+                $end = $end - 1;
+            }
+            
+            // Cut out the sub-section of this sequence from start => end
+            $innerSequence = $this->slice( $start, $end );
+            $outerSequence->add( $innerSequence );
+            
+            // Move start index two past the ending index, skipping the delimiter
+            $start = $end + 2;
         }
-        return $sequence;
+        
+        return $outerSequence;
     }
     
     
