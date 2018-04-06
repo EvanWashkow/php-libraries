@@ -17,6 +17,13 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function clone(): ReadOnlyCollectionSpec;
     
     /**
+     * Convert to a native PHP array
+     *
+     * @return array
+     */
+    public function convertToArray(): array;
+    
+    /**
      * Retrieve the key for the last entry
      *
      * @return int

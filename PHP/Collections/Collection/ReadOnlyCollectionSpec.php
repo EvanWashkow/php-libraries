@@ -18,13 +18,6 @@ interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
     public function clone(): ReadOnlyCollectionSpec;
     
     /**
-     * Convert to a native PHP array
-     *
-     * @return array
-     */
-    public function convertToArray(): array;
-    
-    /**
      * Retrieve the value stored at the specified key
      *
      * @param mixed $key The key to retrieve the value from

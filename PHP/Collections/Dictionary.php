@@ -132,12 +132,6 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function convertToArray(): array
-    {
-        return $this->entries;
-    }
-    
-    
     public function count(): int
     {
         return count( $this->entries );

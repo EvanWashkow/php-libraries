@@ -37,11 +37,6 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         return new $class( $dictionaryClone );
     }
     
-    public function convertToArray(): array
-    {
-        return $this->collection->convertToArray();
-    }
-    
     public function count(): int
     {
         return $this->collection->count();
