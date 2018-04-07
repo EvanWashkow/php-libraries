@@ -310,21 +310,31 @@ class Sequence extends Collection implements SequenceSpec
             
             // Get the ending index of this section
             $end = $this->getKeyOf( $delimiter, $start );
-            if ( $end < 0 ) {
-                $end = $this->getLastKey();
+            
+            // When start and end are the same, the current element is the delimiter
+            if ( $start === $end ) {
+                $start = $end + 1;
             }
             
-            // Move end index to the previous entry
-            if ( $end !== $this->getLastKey()) {
-                $end = $end - 1;
+            else
+            {
+                // Move ending index to the final element
+                if ( $end < 0 ) {
+                    $end = $this->getLastKey();
+                }
+                
+                // Or, move ending index to the previous entry, skipping delimiter
+                else {
+                    $end = $end - 1;
+                }
+                
+                // Cut out the sub-section of this sequence from start => end
+                $innerSequence = $this->slice( $start, $end );
+                $outerSequence->add( $innerSequence );
+                
+                // Move start index two past the ending index, skipping the delimiter
+                $start = $end + 2;
             }
-            
-            // Cut out the sub-section of this sequence from start => end
-            $innerSequence = $this->slice( $start, $end );
-            $outerSequence->add( $innerSequence );
-            
-            // Move start index two past the ending index, skipping the delimiter
-            $start = $end + 2;
         }
         
         return $outerSequence;
