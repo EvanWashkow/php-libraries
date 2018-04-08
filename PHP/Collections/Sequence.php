@@ -253,7 +253,8 @@ class Sequence extends Collection implements SequenceSpec
     public function slice( int $start, int $end ): ReadOnlySequenceSpec
     {
         // Variables
-        $subArray = [];
+        $class    = get_class( $this );
+        $sequence = new $class( $this->type );
         
         // Error. Ending key cannot be less than the starting key.
         if ( $end < $start ) {
@@ -277,18 +278,11 @@ class Sequence extends Collection implements SequenceSpec
             
             // For each entry in the key range, push them into the subset array
             for ( $i = $start; $i <= $end; $i++ ) {
-                $subArray[] = $this->entries[ $i ];
+                $sequence->add( $this->get( $i ));
             }
         }
         
-        // Create Sequence subset
-        $class       = get_class( $this );
-        $subSequence = new $class( $this->type );
-        foreach ( $subArray as $value ) {
-            $subSequence->add( $value );
-        }
-        
-        return $subSequence;
+        return $sequence;
     }
     
     
