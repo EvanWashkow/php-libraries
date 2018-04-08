@@ -2,6 +2,7 @@
 namespace PHP\Collections\Sequence;
 
 use PHP\Collections\Collection\ReadOnlyCollection;
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\SequenceSpec;
 
 /**
@@ -23,6 +24,12 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         parent::__construct( $sequence );
     }
     
+    
+    public function clone(): ReadOnlyCollectionSpec
+    {
+        $clone = $this->collection->clone();
+        return new self( $clone );
+    }
     
     public function convertToArray(): array
     {

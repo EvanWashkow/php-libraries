@@ -2,6 +2,7 @@
 namespace PHP\Collections\Dictionary;
 
 use PHP\Collections\Collection\ReadOnlyCollection;
+use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 use PHP\Collections\DictionarySpec;
 
 /**
@@ -21,5 +22,12 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionar
     public function __construct( DictionarySpec &$dictionary )
     {
         parent::__construct( $dictionary );
+    }
+    
+    
+    public function clone(): ReadOnlyCollectionSpec
+    {
+        $clone = $this->collection->clone();
+        return new self( $clone );
     }
 }

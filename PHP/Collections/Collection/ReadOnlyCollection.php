@@ -32,9 +32,8 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
     
     public function clone(): ReadOnlyCollectionSpec
     {
-        $class           = get_class( $this );
-        $dictionaryClone = $this->collection->clone();
-        return new $class( $dictionaryClone );
+        $clone = $this->collection->clone();
+        return new self( $clone );
     }
     
     public function count(): int
