@@ -50,6 +50,13 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     /**
      * Clone a subset of entries from this sequence
      *
+     * Why use a start index and a count rather than start / end indices?
+     * Because the starting / ending indices must be inclusive to retrieve the
+     * first / last items respectively. Doing so, however, prevents an empty
+     * list from ever being created, which is to be expected for certain
+     * applications. For this reason, dropping the ending index for count
+     * solves the problem entirely while reducing code complexity.
+     *
      * @param int $startingKey Starting key (inclusive)
      * @param int $count       Number of items to copy
      * @return ReadOnlySequenceSpec
