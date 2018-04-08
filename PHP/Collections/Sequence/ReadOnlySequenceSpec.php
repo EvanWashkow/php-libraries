@@ -51,10 +51,10 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * Clone a subset of entries from this sequence
      *
      * @param int $start Starting key (inclusive)
-     * @param int $end   Ending key (inclusive)
+     * @param int $count Number of items to copy
      * @return ReadOnlySequenceSpec
      */
-    public function slice( int $start, int $end ): ReadOnlySequenceSpec;
+    public function slice( int $start, int $count ): ReadOnlySequenceSpec;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter

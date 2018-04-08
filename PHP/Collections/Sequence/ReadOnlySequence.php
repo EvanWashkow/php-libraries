@@ -44,10 +44,10 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function slice( int $start, int $end ): ReadOnlySequenceSpec
+    public function slice( int $start, int $count ): ReadOnlySequenceSpec
     {
         $class    = get_class( $this );
-        $sequence = $this->collection->slice( $start, $end );
+        $sequence = $this->collection->slice( $start, $count );
         return new $class( $sequence );
     }
     

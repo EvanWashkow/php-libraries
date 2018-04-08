@@ -250,36 +250,23 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function slice( int $start, int $end ): ReadOnlySequenceSpec
+    public function slice( int $start, int $count ): ReadOnlySequenceSpec
     {
         // Variables
         $class    = get_class( $this );
         $sequence = new $class( $this->type );
+        $lastKey  = $this->getLastKey();
         
-        // Error. Ending key cannot be less than the starting key.
-        if ( $end < $start ) {
-            trigger_error( 'Ending key cannot be less than the starting key.' );
+        // Sanitize the starting key
+        if ( $start < $this->getFirstKey() ) {
+            trigger_error( 'Starting key cannot be less than the first key of the sequence.' );
+            $start = $this->getFirstKey();
         }
         
-        // Create array subset
-        else {
-            
-            // Sanitize the starting key
-            if ( $start < $this->getFirstKey() ) {
-                trigger_error( 'Starting key cannot be less than the first key of the entry list.' );
-                $start = $this->getFirstKey();
-            }
-            
-            // Sanitize the ending key
-            if ( $this->getLastKey() < $end ) {
-                trigger_error( 'Ending key cannot surpass the last key of the entry list.' );
-                $end = $this->getLastKey();
-            }
-            
-            // For each entry in the key range, push them into the subset array
-            for ( $i = $start; $i <= $end; $i++ ) {
-                $sequence->add( $this->get( $i ));
-            }
+        // Copy entries to the sub-sequence
+        while (( $sequence->count() < $count ) && ( $start <= $lastKey )) {
+            $sequence->add( $this->get( $start ));
+            $start++;
         }
         
         return $sequence;
