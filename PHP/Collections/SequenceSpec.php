@@ -51,9 +51,6 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     /**
      * Chop these entries into groups, using the given value as a delimiter
      *
-     * Since this is similar to cloning, the returned value will be of the same
-     * type as the originating sequence
-     *
      * @param mixed $delimiter Value separating each group
      * @param int   $limit     Maximum number of entries to return; negative to return all.
      * @return SequenceSpec
