@@ -245,17 +245,17 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function slice( int $start, int $count ): ReadOnlySequenceSpec
+    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec
     {
         // Variables
-        $key      = $start;
+        $key      = $startingKey;
         $lastKey  = $this->getLastKey();
         $sequence = new self( $this->type );
         
         // Sanitize the starting key
-        if ( $start < $this->getFirstKey() ) {
+        if ( $startingKey < $this->getFirstKey() ) {
             trigger_error( 'Starting key cannot be less than the first key of the sequence.' );
-            $start = $this->getFirstKey();
+            $startingKey = $this->getFirstKey();
         }
         
         // Copy entries to the sub-sequence
@@ -271,41 +271,41 @@ class Sequence extends Collection implements SequenceSpec
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
         // Variables
-        $start         = $this->getFirstKey();
+        $startingKey         = $this->getFirstKey();
         $outerSequence = new self( get_class( $this ) );
         
         while (
             // Haven't exceeded requested items
             (( $limit < 0 ) || ( $outerSequence->count() < $limit )) &&
             // Starting index is not past the end of this sequence
-            ( $start <= $this->getLastKey() )
+            ( $startingKey <= $this->getLastKey() )
         ) {
             
             // Find the next delimiter
-            $end = $this->getKeyOf( $delimiter, $start );
+            $end = $this->getKeyOf( $delimiter, $startingKey );
             
             // If start and end are the same, the current element is the delimiter
-            if ( $start !== $end ) {
+            if ( $startingKey !== $end ) {
                 
                 // Get number of items to cut
                 $count = 0;
                 if ( $end < 0 ) {
                     $end   = $this->getLastKey();
-                    $count = $this->count() - $start;
+                    $count = $this->count() - $startingKey;
                 }
                 else {
-                    $count = $end - $start;
+                    $count = $end - $startingKey;
                 }
                                 
                 // Cut out the sub-section of this sequence
                 if ( 0 < $count ) {
-                    $innerSequence = $this->slice( $start, $count );
+                    $innerSequence = $this->slice( $startingKey, $count );
                     $outerSequence->add( $innerSequence );
                 }
             }
             
             // Move to next entry
-            $start = $end + 1;
+            $startingKey = $end + 1;
         }
         
         return $outerSequence;

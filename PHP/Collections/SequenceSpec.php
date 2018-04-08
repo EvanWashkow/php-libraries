@@ -42,11 +42,11 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     /**
      * Clone a subset of entries from this sequence
      *
-     * @param int $start Starting key (inclusive)
+     * @param int $startingKey Starting key (inclusive)
      * @param int $count Number of items to copy
      * @return SequenceSpec
      */
-    public function slice( int $start, int $count ): ReadOnlySequenceSpec;
+    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter

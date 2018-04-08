@@ -51,9 +51,9 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function slice( int $start, int $count ): ReadOnlySequenceSpec
+    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec
     {
-        $sequence = $this->collection->slice( $start, $count );
+        $sequence = $this->collection->slice( $startingKey, $count );
         return new self( $sequence );
     }
     
