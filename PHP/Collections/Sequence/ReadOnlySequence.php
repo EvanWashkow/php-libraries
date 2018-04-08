@@ -46,9 +46,8 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
     
     public function slice( int $start, int $count ): ReadOnlySequenceSpec
     {
-        $class    = get_class( $this );
         $sequence = $this->collection->slice( $start, $count );
-        return new $class( $sequence );
+        return new self( $sequence );
     }
     
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec

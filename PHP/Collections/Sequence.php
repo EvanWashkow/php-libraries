@@ -253,8 +253,7 @@ class Sequence extends Collection implements SequenceSpec
     public function slice( int $start, int $count ): ReadOnlySequenceSpec
     {
         // Variables
-        $class    = get_class( $this );
-        $sequence = new $class( $this->type );
+        $sequence = new self( $this->type );
         $lastKey  = $this->getLastKey();
         
         // Sanitize the starting key
