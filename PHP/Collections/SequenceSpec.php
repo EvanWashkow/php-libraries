@@ -43,7 +43,7 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * Clone a subset of entries from this sequence
      *
      * @param int $startingKey Starting key (inclusive)
-     * @param int $count Number of items to copy
+     * @param int $count       Number of items to copy
      * @return SequenceSpec
      */
     public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec;
@@ -52,8 +52,8 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * Chop these entries into groups, using the given value as a delimiter
      *
      * @param mixed $delimiter Value separating each group
-     * @param int   $limit     Maximum number of entries to return; negative to return all.
+     * @param int   $count     Maximum number of entries to return; negative to return all.
      * @return SequenceSpec
      */
-    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    public function split( $delimiter, int $count = -1 ): ReadOnlySequenceSpec;
 }
