@@ -268,7 +268,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function split( $delimiter, int $count = -1 ): ReadOnlySequenceSpec
+    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
         // Variables
         $startingKey   = $this->getFirstKey();
@@ -276,7 +276,7 @@ class Sequence extends Collection implements SequenceSpec
         
         while (
             // Haven't exceeded requested items
-            (( $count < 0 ) || ( $outerSequence->count() < $count )) &&
+            (( $limit < 0 ) || ( $outerSequence->count() < $limit )) &&
             // Starting index is not past the end of this sequence
             ( $startingKey <= $this->getLastKey() )
         ) {
