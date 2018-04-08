@@ -151,12 +151,7 @@ class Sequence extends Collection implements SequenceSpec
     
     public function clone(): ReadOnlyCollectionSpec
     {
-        $class = get_class( $this );
-        $clone = new $class( $this->type );
-        $this->loop( function( $key, $value, &$clone ) {
-            $clone->add( $value );
-        }, $clone );
-        return $clone;
+        return $this->slice( $this->getFirstKey(), $this->count() );
     }
     
     
