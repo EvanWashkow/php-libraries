@@ -40,13 +40,10 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     public function reverse();
     
     /**
-     * Create a subset of entries from this one
+     * Clone a subset of entries from this sequence
      *
-     * Since this is similar to cloning, the returned value will be of the same
-     * type as the originating sequence
-     *
-     * @param int $start Starting key
-     * @param int $end   Ending key
+     * @param int $start Starting key (inclusive)
+     * @param int $end   Ending key (inclusive)
      * @return SequenceSpec
      */
     public function slice( int $start, int $end ): ReadOnlySequenceSpec;
