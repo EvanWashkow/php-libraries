@@ -286,18 +286,30 @@ class Sequence extends Collection implements SequenceSpec
             ( $start <= $this->getLastKey() )
         ) {
             
-            // Find the next delimiter, counting the distance from start
+            // Find the next delimiter
             $end = $this->getKeyOf( $delimiter, $start );
-            if ( $end < 0 ) {
-                $end = $this->getLastKey();
-            }
-            $count = $end - $start;
             
-            // Cut out the sub-section of this sequence
-            if ( 0 < $count ) {
-                $innerSequence = $this->slice( $start, $count );
-                $outerSequence->add( $innerSequence );
+            // If start and end are the same, the current element is the delimiter
+            if ( $start !== $end ) {
+                
+                // Get number of items to cut
+                $count = 0;
+                if ( $end < 0 ) {
+                    $end   = $this->getLastKey();
+                    $count = $this->count() - $start;
+                }
+                else {
+                    $count = $end - $start;
+                }
+                                
+                // Cut out the sub-section of this sequence
+                if ( 0 < $count ) {
+                    $innerSequence = $this->slice( $start, $count );
+                    $outerSequence->add( $innerSequence );
+                }
             }
+            
+            // Move to next entry
             $start = $end + 1;
         }
         
