@@ -253,8 +253,9 @@ class Sequence extends Collection implements SequenceSpec
     public function slice( int $start, int $count ): ReadOnlySequenceSpec
     {
         // Variables
-        $sequence = new self( $this->type );
+        $key      = $start;
         $lastKey  = $this->getLastKey();
+        $sequence = new self( $this->type );
         
         // Sanitize the starting key
         if ( $start < $this->getFirstKey() ) {
@@ -263,9 +264,9 @@ class Sequence extends Collection implements SequenceSpec
         }
         
         // Copy entries to the sub-sequence
-        while (( $sequence->count() < $count ) && ( $start <= $lastKey )) {
-            $sequence->add( $this->get( $start ));
-            $start++;
+        while (( $sequence->count() < $count ) && ( $key <= $lastKey )) {
+            $sequence->add( $this->get( $key ));
+            $key++;
         }
         
         return $sequence;
