@@ -275,12 +275,9 @@ class Sequence extends Collection implements SequenceSpec
     
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
-        // Sequence variables
-        $thisClass     = get_class( $this );
-        $outerSequence = new $thisClass( $thisClass );
-        
-        // Loop control variables
-        $start = $this->getFirstKey();
+        // Variables
+        $start         = $this->getFirstKey();
+        $outerSequence = new self( get_class( $this ) );
         
         while (
             // Haven't exceeded requested items
@@ -289,33 +286,19 @@ class Sequence extends Collection implements SequenceSpec
             ( $start <= $this->getLastKey() )
         ) {
             
-            // Get the ending index of this section
+            // Find the next delimiter, counting the distance from start
             $end = $this->getKeyOf( $delimiter, $start );
-            
-            // When start and end are the same, the current element is the delimiter
-            if ( $start === $end ) {
-                $start = $end + 1;
+            if ( $end < 0 ) {
+                $end = $this->getLastKey();
             }
+            $count = $end - $start;
             
-            else
-            {
-                // Move ending index to the final element
-                if ( $end < 0 ) {
-                    $end = $this->getLastKey();
-                }
-                
-                // Or, move ending index to the previous entry, skipping delimiter
-                else {
-                    $end = $end - 1;
-                }
-                
-                // Cut out the sub-section of this sequence from start => end
-                $innerSequence = $this->slice( $start, $end );
+            // Cut out the sub-section of this sequence
+            if ( 0 < $count ) {
+                $innerSequence = $this->slice( $start, $count );
                 $outerSequence->add( $innerSequence );
-                
-                // Move start index two past the ending index, skipping the delimiter
-                $start = $end + 2;
             }
+            $start = $end + 1;
         }
         
         return $outerSequence;
