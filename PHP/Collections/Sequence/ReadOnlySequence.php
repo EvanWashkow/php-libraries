@@ -52,7 +52,14 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
     
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
     {
-        $sequence = $this->collection->split( $delimiter, $limit );
-        return new self( $sequence );
+        // Variables
+        $splitSequence = $this->collection->split( $delimiter, $limit );
+        $outerSequence = new \PHP\Collections\Sequence( __CLASS__ );
+        
+        // For each inner sequence, make it read-only and add it to the outer
+        foreach ( $splitSequence as $innerSequence ) {
+            $outerSequence->add( new self( $innerSequence ));
+        }
+        return new self( $outerSequence );
     }
 }
