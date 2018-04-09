@@ -30,13 +30,19 @@ abstract class Collection extends Iterator implements CollectionSpec
      */
     public function __construct( string $keyType = '', string $valueType = '' )
     {
+        // Sanitize
+        $keyType   = trim( $keyType );
+        $valueType = trim( $valueType );
+        
+        // Check for invalid value types
         if ( 'null' === strtolower( $keyType )) {
             throw new \Exception( 'Key types cannot be NULL' );
         }
-        else if ( 'null' === strtolower( $keyType )) {
+        else if ( 'null' === strtolower( $valueType )) {
             throw new \Exception( 'Value types cannot be NULL' );
         }
         
+        // Set properties
         $this->keyType   = $keyType;
         $this->valueType = $valueType;
     }
