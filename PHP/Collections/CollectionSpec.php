@@ -1,35 +1,42 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-
 /**
- * Specifications for a set of indexed, mutable values
+ * Specifications for an iterable set of mutable, key-value pairs
  */
 interface CollectionSpec extends ReadOnlyCollectionSpec
 {
     
     /**
-     * Remove all stored values
+     * Duplicate every key and value into a new instance
+     *
+     * @return CollectionSpec
      */
-    public function clear();
+    public function clone(): ReadOnlyCollectionSpec;
     
     /**
-     * Remove the value from the index
+     * Remove all stored values
      *
-     * @param mixed $index The index to remove the value from
+     * @return bool
+     */
+    public function clear(): bool;
+    
+    /**
+     * Remove the value from the key
+     *
+     * @param mixed $key The key to remove the value from
      * @return bool Whether or not the operation was successful
      */
-    public function remove( $index ): bool;
+    public function remove( $key ): bool;
     
     /**
-     * Overwrite the value at the index, if it exists
+     * Overwrite the value at the key, if it exists
      *
-     * Fails if the index or value doesn't match its type requirement
+     * Fails if the key or value doesn't match its type requirement
      *
-     * @param mixed $index The index to store the value at
+     * @param mixed $key The key to store the value at
      * @param mixed $value The value to store
      * @return bool Whether or not the operation was successful
      */
-    public function update( $index, $value ): bool;
+    public function update( $key, $value ): bool;
 }

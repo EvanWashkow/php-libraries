@@ -2,39 +2,48 @@
 namespace PHP\Collections;
 
 /**
- * Specifications for a mutable, ordered, and iterable set of key-value pairs
+ * Specifications for a read-only, ordered, and iterable set of key-value pairs
  */
-interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
+interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
 {
-    
-    /**
-     * Store the value at the end of the sequence
-     *
-     * @param mixed $value The value to add
-     * @return bool Whether or not the operation was successful
-     */
-    public function add( $value ): bool;
     
     /**
      * Duplicate every key and value into a new instance
      *
-     * @return SequenceSpec
+     * @return ReadOnlySequenceSpec
      */
     public function clone(): ReadOnlyCollectionSpec;
     
     /**
-     * Insert the value at the key, shifting remaining values up
+     * Convert to a native PHP array
      *
-     * @param int   $key The key to insert the value at
-     * @param mixed $value The value
-     * @return bool Whether or not the operation was successful
+     * @return array
      */
-    public function insert( int $key, $value ): bool;
+    public function convertToArray(): array;
     
     /**
-     * Put all entries in reverse order
+     * Retrieve the key for the last entry
+     *
+     * @return int
      */
-    public function reverse();
+    public function getFirstKey(): int;
+    
+    /**
+     * Retrieve the key for the last entry
+     *
+     * @return int
+     */
+    public function getLastKey(): int;
+    
+    /**
+     * Search and retrieve key for the first instance of the specified value
+     *
+     * @param mixed $value           Value to get the key for
+     * @param int   $offset          Start search from this key
+     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
+     * @return int The key of the value, or -1
+     */
+    public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
     
     /**
      * Clone a subset of entries from this sequence
@@ -48,7 +57,7 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      *
      * @param int $startingKey Starting key (inclusive)
      * @param int $count Number of items to copy
-     * @return SequenceSpec
+     * @return ReadOnlySequenceSpec
      */
     public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec;
     
@@ -57,7 +66,7 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      *
      * @param mixed $delimiter Value separating each group
      * @param int   $limit     Maximum number of entries to return; negative to return all.
-     * @return SequenceSpec
+     * @return ReadOnlySequenceSpec
      */
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
 }

@@ -1,30 +1,26 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\CollectionSpec;
-use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\Dictionary\ReadOnlyDictionarySpec;
-
 /**
- * Specifications for a mutable, unordered set of indexed values
+ * Specifications for a mutable, unordered, and iterable set of key-value pairs
  */
 interface DictionarySpec extends CollectionSpec, ReadOnlyDictionarySpec
 {
     
     /**
-     * Store the value at the specified index
+     * Store the value at the specified key
      *
-     * Fails if the index already exists or if the index or value doesn't match
+     * Fails if the key already exists or if the key or value doesn't match
      * its type requirement.
      *
-     * @param mixed $index The index to store the value at
+     * @param mixed $key The key to store the value at
      * @param mixed $value The value to store
      * @return bool Whether or not the operation was successful
      */
-    public function add( $index, $value ): bool;
+    public function add( $key, $value ): bool;
     
     /**
-     * Duplicate every index and value into a new instance
+     * Duplicate every key and value into a new instance
      *
      * @return DictionarySpec
      */
