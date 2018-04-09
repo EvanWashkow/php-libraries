@@ -235,7 +235,7 @@ class Sequence extends Collection implements SequenceSpec
     public function hasKey( $key ): bool
     {
         return (
-            $this->isOfKeyType( $key )    &&
+            $this->isOfKeyType( $key )       &&
             ( $this->getFirstKey() <= $key ) &&
             ( $key <= $this->getLastKey() )
         );
