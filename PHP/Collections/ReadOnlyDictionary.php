@@ -1,9 +1,8 @@
 <?php
-namespace PHP\Collections\Dictionary;
+namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollection;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\DictionarySpec;
 
 /**
  * Defines a read only, unordered set of key-value pairs

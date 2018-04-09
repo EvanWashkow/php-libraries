@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Collections\Dictionary;
+namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 

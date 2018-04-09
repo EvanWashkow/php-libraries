@@ -1,9 +1,7 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\CollectionSpec;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\Dictionary\ReadOnlyDictionarySpec;
 
 /**
  * Specifications for a mutable, unordered, and iterable set of key-value pairs
