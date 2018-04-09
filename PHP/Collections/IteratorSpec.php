@@ -8,8 +8,8 @@ interface IteratorSpec extends \Iterator, \PHP\PHPObjectSpec
 {
     
     /**
-     * Iterate through each entry, invoking the callback function with the entry's
-     * key and value
+     * Iterate through each entry, invoking the callback function with the
+     * entry's key and value
      *
      * To exit the loop early, return a non-NULL value. This value will be
      * returned by loop().
