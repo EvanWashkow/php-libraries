@@ -1,12 +1,10 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\PHPObjectSpec;
-
 /**
  * Specifications for a collection of methods used to iterate over internal values
  */
-interface IteratorSpec extends \Iterator, PHPObjectSpec
+interface IteratorSpec extends \Iterator, \PHP\PHPObjectSpec
 {
     
     /**

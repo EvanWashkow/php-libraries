@@ -1,9 +1,6 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Collection\ReadOnlyCollection;
-use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-
 /**
  * Defines a read-only, ordered, and iterable set of key-value pairs
  */

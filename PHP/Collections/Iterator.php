@@ -1,8 +1,6 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\IteratorSpec;
-
 /**
  * Defines a collection of methods used to iterate over internal values
  */
