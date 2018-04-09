@@ -271,7 +271,7 @@ class Sequence extends Collection implements SequenceSpec
     public function split( $delimiter, int $count = -1 ): ReadOnlySequenceSpec
     {
         // Variables
-        $startingKey         = $this->getFirstKey();
+        $startingKey   = $this->getFirstKey();
         $outerSequence = new self( get_class( $this ) );
         
         while (
@@ -296,7 +296,7 @@ class Sequence extends Collection implements SequenceSpec
                 else {
                     $count = $end - $startingKey;
                 }
-                                
+                
                 // Cut out the sub-section of this sequence
                 if ( 0 < $count ) {
                     $innerSequence = $this->slice( $startingKey, $count );
