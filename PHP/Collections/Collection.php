@@ -1,9 +1,6 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Sequence\ReadOnlySequence;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
-
 /**
  * Defines an iterable set of mutable, key-value pairs
  */

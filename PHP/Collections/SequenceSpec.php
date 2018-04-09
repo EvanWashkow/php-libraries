@@ -1,7 +1,6 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
 /**

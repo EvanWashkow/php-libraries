@@ -1,9 +1,8 @@
 <?php
-namespace PHP\Collections\Sequence;
+namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollection;
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
-use PHP\Collections\SequenceSpec;
 
 /**
  * Defines a read-only, ordered, and iterable set of key-value pairs

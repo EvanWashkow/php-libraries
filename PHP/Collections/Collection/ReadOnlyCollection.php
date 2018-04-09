@@ -3,7 +3,7 @@ namespace PHP\Collections\Collection;
 
 use PHP\Collections\CollectionSpec;
 use PHP\Collections\Iterator;
-use PHP\Collections\Sequence\ReadOnlySequenceSpec;
+use PHP\Collections\ReadOnlySequenceSpec;
 
 /**
  * Defines an iterable set of read-only, key-value pairs

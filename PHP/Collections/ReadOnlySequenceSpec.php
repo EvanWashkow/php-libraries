@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Collections\Sequence;
+namespace PHP\Collections;
 
 use PHP\Collections\Collection\ReadOnlyCollectionSpec;
 
