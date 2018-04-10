@@ -123,6 +123,35 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
+    public function set( $key, $value ): bool
+    {
+        // Variables
+        $isSuccessful = false;
+        
+        // Log meaningful errors
+        if ( !$this->isOfKeyType( $key )) {
+            trigger_error( 'Cannot set value since the key is of the wrong type' );
+        }
+        elseif ( !$this->isOfValueType( $value )) {
+            trigger_error( 'Cannot set value since the value is of the wrong type' );
+        }
+        elseif ( $key < $this->getFirstKey() ) {
+            trigger_error( 'Cannot set value since the key is too small' );
+        }
+        elseif (( $this->getLastKey() + 1 ) < $key ) {
+            trigger_error( 'Cannot set value since the key is too large' );
+        }
+        
+        // Set value
+        else {
+            $this->entries[ $key ] = $value;
+            $isSuccessful          = true;
+        }
+        
+        return $isSuccessful;
+    }
+    
+    
     public function update( $key, $value ): bool
     {
         $isSuccessful = false;

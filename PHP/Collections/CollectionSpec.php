@@ -30,6 +30,19 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
     public function remove( $key ): bool;
     
     /**
+     * Store the value at the key
+     *
+     * Adds the key if it doesn't exist or updates the value at the existing key
+     *
+     * Fails if the key or value don't meet their type requirements
+     *
+     * @param mixed $key The key to store the value at
+     * @param mixed $value The value to store
+     * @return bool Whether or not the operation was successful
+     */
+    public function set( $key, $value ): bool;
+    
+    /**
      * Overwrite the value at the key, if it exists
      *
      * Fails if the key or value doesn't match its type requirement

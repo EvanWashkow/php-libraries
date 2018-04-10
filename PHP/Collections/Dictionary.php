@@ -99,6 +99,23 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
+    public function set( $key, $value ): bool
+    {
+        $isSuccessful = false;
+        if ( !$this->isOfKeyType( $key )) {
+            trigger_error( 'Cannot set value since the key is of the wrong type' );
+        }
+        elseif ( !$this->isOfValueType( $value )) {
+            trigger_error( 'Cannot set value since the value is of the wrong type' );
+        }
+        else {
+            $this->entries[ $key ] = $value;
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+    
+    
     public function update( $key, $value ): bool
     {
         $isSuccessful = false;
@@ -175,38 +192,5 @@ class Dictionary extends Collection implements DictionarySpec
     final public function valid()
     {
         return array_key_exists( $this->key(), $this->entries );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                               HELPER METHODS
-    ***************************************************************************/
-    
-    
-    /**
-     * Store the value at the specified key
-     *
-     * Fails if the key or value doesn't match its type requirement
-     *
-     * @param mixed $key The key to store the value at
-     * @param mixed $value The value to store
-     * @return bool Whether or not the operation was successful
-     */
-    private function set( $key, $value ): bool
-    {
-        $isSuccessful = false;
-        if ( !$this->isOfKeyType( $key )) {
-            trigger_error( "Cannot set value at a non-{$this->keyType} key" );
-        }
-        elseif ( !$this->isOfValueType( $value )) {
-            trigger_error( "Cannot set non-{$this->valueType} values" );
-        }
-        else {
-            $this->entries[ $key ] = $value;
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
     }
 }
