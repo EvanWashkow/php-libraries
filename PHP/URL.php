@@ -168,7 +168,7 @@ class URL extends PHPObject implements PHPObjectSpec
                     if ( null === $value ) {
                         $value = '';
                     }
-                    $this->parameters->add( $index, $value );
+                    $this->parameters->set( $index, $value );
                 }
             }
         }

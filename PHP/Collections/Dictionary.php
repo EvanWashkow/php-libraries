@@ -62,19 +62,6 @@ class Dictionary extends Collection implements DictionarySpec
     *                              EDITING METHODS
     ***************************************************************************/
     
-    public function add( $key, $value ): bool
-    {
-        $isSuccessful = false;
-        if ( $this->hasKey( $key )) {
-            trigger_error( 'Cannot add value: key already exists' );
-        }
-        else {
-            $isSuccessful = $this->set( $key, $value );
-        }
-        return $isSuccessful;
-    }
-    
-    
     public function clear(): bool
     {
         $this->entries = [];
@@ -126,7 +113,7 @@ class Dictionary extends Collection implements DictionarySpec
     {
         $clone = new self( $this->keyType, $this->valueType );
         $this->loop( function( $key, $value, &$clone ) {
-            $clone->add( $key, $value );
+            $clone->set( $key, $value );
         }, $clone );
         return $clone;
     }
