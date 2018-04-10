@@ -50,15 +50,7 @@ class Sequence extends Collection implements SequenceSpec
     
     public function add( $value ): bool
     {
-        $isSuccessful = false;
-        if ( $this->isOfValueType( $value )) {
-            $this->entries[] = $value;
-            $isSuccessful    = true;
-        }
-        else {
-            trigger_error( "Cannot add non-{$this->type} values" );
-        }
-        return $isSuccessful;
+        return $this->set( $this->getLastKey() + 1, $value );
     }
     
     
