@@ -152,23 +152,6 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function update( $key, $value ): bool
-    {
-        $isSuccessful = false;
-        if ( !$this->hasKey( $key )) {
-            trigger_error( 'Update key does not exist' );
-        }
-        elseif ( !$this->isOfValueType( $value )) {
-            trigger_error( "Cannot update entry to a non-{$this->type} value" );
-        }
-        else {
-            $this->entries[ $key ] = $value;
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-    
-    
     
     
     /***************************************************************************

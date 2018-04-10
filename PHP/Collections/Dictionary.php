@@ -116,19 +116,6 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function update( $key, $value ): bool
-    {
-        $isSuccessful = false;
-        if ( $this->hasKey( $key )) {
-            $isSuccessful = $this->set( $key, $value );
-        }
-        else {
-            trigger_error( 'Cannot update value: the key does not exist' );
-        }
-        return $isSuccessful;
-    }
-    
-    
     
     
     /***************************************************************************

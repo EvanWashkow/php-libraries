@@ -41,15 +41,4 @@ interface CollectionSpec extends ReadOnlyCollectionSpec
      * @return bool Whether or not the operation was successful
      */
     public function set( $key, $value ): bool;
-    
-    /**
-     * Overwrite the value at the key, if it exists
-     *
-     * Fails if the key or value doesn't match its type requirement
-     *
-     * @param mixed $key The key to store the value at
-     * @param mixed $value The value to store
-     * @return bool Whether or not the operation was successful
-     */
-    public function update( $key, $value ): bool;
 }
