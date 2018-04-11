@@ -99,4 +99,15 @@ abstract class Collection extends Iterator implements CollectionSpec
     {
         return (( '' === $this->valueType ) || is( $value, $this->valueType ));
     }
+    
+    
+    final public function seek( $key )
+    {
+        if ( $this->isOfKeyType( $key )) {
+            parent::seek( $key );
+        }
+        else {
+            $this->throwSeekError( $key );
+        }
+    }
 }
