@@ -94,6 +94,11 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         $this->collection->rewind();
     }
     
+    final public function seek( $key )
+    {
+        $this->collection->seek( $key );
+    }
+    
     final public function valid()
     {
         return $this->collection->valid();
