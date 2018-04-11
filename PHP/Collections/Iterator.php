@@ -3,6 +3,16 @@ namespace PHP\Collections;
 
 /**
  * Defines a collection of methods used to iterate over internal values
+ *
+ * NOTE: Prefer the loop() function to foreach(). PHP's Iterator interface does
+ * not work properly in nested foreach() loops. This is because PHP passes
+ * objects by reference, not by value. Thereby, when the inner loop executes,
+ * it is not operating on its own copy of the Iterator object, but on the same
+ * copy as the outer loop. This causes the inside loop to reset and increment
+ * the outer loop's cursor, since they are one and the same. When the inner
+ * loop finishes executing, the outer loop also exits since its cursor is now
+ * at an invalid position. The loop() function fixes this issue entirely by
+ * restoring the outer loop's cursor position after exiting the inner loop.
  */
 abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
 {
