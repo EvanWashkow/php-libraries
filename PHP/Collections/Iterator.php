@@ -12,6 +12,12 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
         // Variables
         $returnValue = null;
         
+        // Stash outer loop position (if there is one)
+        $outerLoopKey = null;
+        if ( $this->valid() ) {
+            $outerLoopKey = $this->key();
+        }
+        
         // Loop through each value, until the return value is not null
         $this->rewind();
         while ( $this->valid() ) {
@@ -20,7 +26,7 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
             $key   = $this->key();
             $value = $this->current();
             
-            // Execute callback
+            // Execute callback function
             $parameters  = array_merge( [ $key, $value ], $args );
             $returnValue = call_user_func_array( $function, $parameters );
             
@@ -31,7 +37,15 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
             else {
                 break;
             }
-            
+        }
+        
+        // Restore outer loop position (if there is one)
+        if ( null !== $outerLoopKey ) {
+            try {
+                $this->seek( $outerLoopKey );
+            } catch ( \Exception $e ) {
+                trigger_error( 'Failed to restore outer loop position from inside ' . get_class( $this ) . '->' . __FUNCTION__ . '(). You may experience unexpected behavior.' );
+            }
         }
         
         return $returnValue;
