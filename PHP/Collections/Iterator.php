@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * NOTE: Prefer the loop() function to foreach(). PHP's Iterator interface does
  * not work properly in nested foreach() loops. This is because PHP passes
- * objects by reference, not by value. Thereby, when the inner loop executes,
+ * objects by reference, not by value. Therefore, when the inner loop executes,
  * it is not operating on its own copy of the Iterator object, but on the same
  * copy as the outer loop. This causes the inside loop to reset and increment
  * the outer loop's cursor, since they are one and the same. When the inner
