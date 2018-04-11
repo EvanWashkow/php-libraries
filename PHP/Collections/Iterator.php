@@ -33,7 +33,6 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
             }
             
         }
-        $this->rewind();
         
         return $returnValue;
     }
