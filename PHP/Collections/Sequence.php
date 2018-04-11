@@ -2,9 +2,9 @@
 namespace PHP\Collections;
 
 /**
- * Defines a mutable, ordered, and iterable set of key-value pairs
+ * Defines a mutable, ordered, and iterable set of key-value pairs (similar to Lists in other languages)
  *
- * This would have been named "List" had that not been reserved by PHP
+ * @see PHP\Collections\Iterator
  */
 class Sequence extends Collection implements SequenceSpec
 {

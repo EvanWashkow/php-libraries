@@ -3,6 +3,8 @@ namespace PHP\Collections;
 
 /**
  * Defines a read only, unordered set of key-value pairs
+ *
+ * @see PHP\Collections\Iterator
  */
 class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionarySpec
 {

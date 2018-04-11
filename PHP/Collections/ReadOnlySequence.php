@@ -3,6 +3,8 @@ namespace PHP\Collections;
 
 /**
  * Defines a read-only, ordered, and iterable set of key-value pairs
+ *
+ * @see PHP\Collections\Iterator
  */
 class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpec
 {

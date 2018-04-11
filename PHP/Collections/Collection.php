@@ -3,6 +3,8 @@ namespace PHP\Collections;
 
 /**
  * Defines an iterable set of mutable, key-value pairs
+ *
+ * @see PHP\Collections\Iterator
  */
 abstract class Collection extends Iterator implements CollectionSpec
 {
