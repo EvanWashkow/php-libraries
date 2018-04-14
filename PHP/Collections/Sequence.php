@@ -196,9 +196,14 @@ class Sequence extends Collection implements SequenceSpec
     {
         // Variables
         $key = -1;
+        
+        // Exit. There are no entries.
+        if ( 0 === $this->count() ) {
+            return $key;
+        }
     
         // Exit. Offset cannot be negative.
-        if ( $offset < $this->getFirstKey() ) {
+        elseif ( $offset < $this->getFirstKey() ) {
             trigger_error( 'Offset cannot be less than the first entry\'s key' );
             return $key;
         }
