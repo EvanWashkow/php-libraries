@@ -214,7 +214,7 @@ class Sequence extends Collection implements SequenceSpec
         if ( $isReverseSearch ) {
             $sequence->reverse();
         }
-        $sequence = $sequence->slice( $offset, $sequence->getLastKey() );
+        $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
         $_key = array_search( $value, $sequence->convertToArray() );
