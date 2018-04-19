@@ -74,12 +74,12 @@ abstract class Collection extends Iterator implements CollectionSpec
     {
         $hasKey = false;
         if ( $this->isOfKeyType( $key )) {
-            $this->loop( function( $i, $value, $key, &$hasKey ) {
+            $this->loop( function( $i, $value ) use ( $key, &$hasKey ) {
                 if ( $i === $key ) {
                     $hasKey = true;
                     return $hasKey;
                 }
-            }, $key, $hasKey );
+            });
         }
         return $hasKey;
     }
