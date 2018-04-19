@@ -63,9 +63,9 @@ abstract class Collection extends Iterator implements CollectionSpec
     public function getValues(): ReadOnlySequenceSpec
     {
         $values = new Sequence( $this->valueType );
-        $this->loop( function( $key, $value, Sequence &$values ) {
+        $this->loop( function( $key, $value ) use ( &$values ) {
             $values->add( $value );
-        }, $values );
+        });
         return new ReadOnlySequence( $values );
     }
     
