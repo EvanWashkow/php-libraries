@@ -1,7 +1,7 @@
 {
     "name":        "evanwashkow/php-libraries",
     "description": "Foundational shared libraries for PHP",
-    "version":     "0.5.2",
+    "version":     "0.5.3",
     "autoload": {
         "files": [
             "PHP/functions.php"
