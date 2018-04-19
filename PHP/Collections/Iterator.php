@@ -17,7 +17,7 @@ namespace PHP\Collections;
 abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
 {
     
-    final public function loop( callable $function, &...$args )
+    final public function loop( callable $function )
     {
         // Variables
         $returnValue = null;
@@ -32,13 +32,10 @@ abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
         $this->rewind();
         while ( $this->valid() ) {
             
-            // Variables
-            $key   = $this->key();
-            $value = $this->current();
-            
             // Execute callback function
-            $parameters  = array_merge( [ $key, $value ], $args );
-            $returnValue = call_user_func_array( $function, $parameters );
+            $key         = $this->key();
+            $value       = $this->current();
+            $returnValue = call_user_func_array( $function, [ $key, $value ] );
             
             // Go to next entry or stop loop
             if ( null === $returnValue ) {
