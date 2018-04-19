@@ -114,9 +114,9 @@ class Dictionary extends Collection implements DictionarySpec
     public function clone(): ReadOnlyCollectionSpec
     {
         $clone = new self( $this->keyType, $this->valueType );
-        $this->loop( function( $key, $value, &$clone ) {
+        $this->loop( function( $key, $value ) use ( &$clone ) {
             $clone->set( $key, $value );
-        }, $clone );
+        });
         return $clone;
     }
     
