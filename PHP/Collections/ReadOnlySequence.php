@@ -62,9 +62,9 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         $outerSequence = new \PHP\Collections\Sequence( __CLASS__ );
         
         // For each inner sequence, make it read-only and add it to the outer
-        $splitSequence->loop( function( $key, $innerSequence, &$outerSequence ) {
+        $splitSequence->loop( function( $key, $innerSequence ) use ( &$outerSequence ) {
             $outerSequence->add( new self( $innerSequence ));
-        }, $outerSequence );
+        });
         return new self( $outerSequence );
     }
 }
