@@ -24,14 +24,14 @@ interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
     
     /**
      * Retrieve all entry keys
-     *n
+     *
      * @return ReadOnlySequenceSpec
      */
     public function getKeys(): ReadOnlySequenceSpec;
     
     /**
      * Retrieve all entry values
-     *n
+     *
      * @return ReadOnlySequenceSpec
      */
     public function getValues(): ReadOnlySequenceSpec;
