@@ -250,7 +250,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec
+    final public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec
     {
         // Variables
         $key      = $startingKey;
@@ -263,10 +263,10 @@ class Sequence extends Collection implements SequenceSpec
             $startingKey = $this->getFirstKey();
         }
         
-        // Copy entries to the sub-sequence
-        while (( $sequence->count() < $count ) && ( $key <= $lastKey )) {
-            $sequence->add( $this->get( $key ));
-            $key++;
+        // Slice and copy entries to the sub-sequence
+        $array = array_slice( $this->entries, $startingKey, $count );
+        foreach ( $array as $value ) {
+            $sequence->add( $value );
         }
         
         return $sequence;
