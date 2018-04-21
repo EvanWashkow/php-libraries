@@ -139,9 +139,12 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
-        return array_key_exists( $key, $this->entries );
+        return (
+            $this->isOfKeyType( $key ) &&
+            array_key_exists( $key, $this->entries )
+        );
     }
     
     
