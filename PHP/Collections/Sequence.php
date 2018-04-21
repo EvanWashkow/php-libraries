@@ -250,21 +250,37 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    final public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec
+    final public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
     {
         // Variables
-        $key      = $startingKey;
+        $key      = $offset;
         $lastKey  = $this->getLastKey();
         $sequence = new self( $this->type );
         
+        /**
+         * Even though "array_slice()" supports a negative offset and length,
+         * we don't support that. It is a bad practice to specify starting keys
+         * before the beginning of the array and negative lengths. Not only are
+         * they impossible and do not exist, but are confusing, and prevent
+         * useful errors when those odd situations do arise. Otherwise,  it's
+         * very possible for a calling routine to make an arithmetic mistake,
+         * passing a negative value, and recieve unexpected results.
+         */
+        
         // Sanitize the starting key
-        if ( $startingKey < $this->getFirstKey() ) {
+        if ( $offset < $this->getFirstKey() ) {
             trigger_error( 'Starting key cannot be less than the first key of the sequence.' );
-            $startingKey = $this->getFirstKey();
+            $offset = $this->getFirstKey();
+        }
+        
+        // Sanitize count
+        if ( $limit < 0 ) {
+            trigger_error( 'Cannot copy a negative number of items.' );
+            $limit = 0;
         }
         
         // Slice and copy entries to the sub-sequence
-        $array = array_slice( $this->entries, $startingKey, $count );
+        $array = array_slice( $this->entries, $offset, $limit );
         foreach ( $array as $value ) {
             $sequence->add( $value );
         }
