@@ -241,6 +241,17 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
+    public function reverse(): ReadOnlySequenceSpec
+    {
+        $sequence = new self( $this->type );
+        $entries  = array_reverse( $this->entries, false );
+        foreach ( $entries as $entry ) {
+            $sequence->add( $entry );
+        }
+        return $sequence;
+    }
+    
+    
     public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
     {
         // Variables
@@ -319,17 +330,6 @@ class Sequence extends Collection implements SequenceSpec
         }
         
         return $outerSequence;
-    }
-    
-    
-    public function reverse(): ReadOnlySequenceSpec
-    {
-        $sequence = new self( $this->type );
-        $entries  = array_reverse( $this->entries, false );
-        foreach ( $entries as $entry ) {
-            $sequence->add( $entry );
-        }
-        return $sequence;
     }
     
     

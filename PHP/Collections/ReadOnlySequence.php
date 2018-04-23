@@ -49,6 +49,12 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
+    public function reverse(): ReadOnlySequenceSpec
+    {
+        $sequence = $this->collection->reverse();
+        return new ReadOnlySequence( $sequence );
+    }
+    
     public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
     {
         $sequence = $this->collection->slice( $offset, $limit );
@@ -66,12 +72,5 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
             $outerSequence->add( new self( $innerSequence ));
         });
         return new self( $outerSequence );
-    }
-    
-    
-    final public function reverse(): ReadOnlySequenceSpec
-    {
-        $sequence = $this->collection->reverse();
-        return new ReadOnlySequence( $sequence );
     }
 }

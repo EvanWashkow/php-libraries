@@ -32,6 +32,13 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     public function insert( int $key, $value ): bool;
     
     /**
+     * Reverse all entries
+     *
+     * @return SequenceSpec
+     */
+    public function reverse(): ReadOnlySequenceSpec;
+    
+    /**
      * Clone a subset of entries from this sequence
      *
      * Why use a start index and a count rather than start / end indices?
@@ -55,11 +62,4 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * @return SequenceSpec
      */
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
-    
-    /**
-     * Reverse all entries
-     *
-     * @return SequenceSpec
-     */
-    public function reverse(): ReadOnlySequenceSpec;
 }

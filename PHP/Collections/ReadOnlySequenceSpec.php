@@ -46,6 +46,13 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
     
     /**
+     * Reverse all entries
+     *
+     * @return ReadOnlySequenceSpec
+     */
+    public function reverse(): ReadOnlySequenceSpec;
+    
+    /**
      * Clone a subset of entries from this sequence
      *
      * Why use a start index and a count rather than start / end indices?
@@ -69,11 +76,4 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * @return ReadOnlySequenceSpec
      */
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
-    
-    /**
-     * Reverse all entries
-     *
-     * @return ReadOnlySequenceSpec
-     */
-    public function reverse(): ReadOnlySequenceSpec;
 }
