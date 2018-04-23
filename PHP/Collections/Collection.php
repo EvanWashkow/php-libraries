@@ -88,6 +88,12 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
+    
+    
+    /***************************************************************************
+    *                              ITERATOR METHODS
+    ***************************************************************************/
+    
     final public function seek( $key )
     {
         if ( $this->hasKey( $key )) {
@@ -96,5 +102,11 @@ abstract class Collection extends Iterator implements CollectionSpec
         else {
             $this->throwSeekError( $key );
         }
+    }
+    
+    
+    final public function valid()
+    {
+        return $this->hasKey( $this->key() );
     }
 }

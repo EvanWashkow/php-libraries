@@ -358,9 +358,4 @@ class Sequence extends Collection implements SequenceSpec
     {
         reset( $this->entries );
     }
-    
-    final public function valid()
-    {
-        return $this->hasKey( $this->key() );
-    }
 }

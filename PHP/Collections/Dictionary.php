@@ -173,9 +173,4 @@ class Dictionary extends Collection implements DictionarySpec
     {
         reset( $this->entries );
     }
-    
-    final public function valid()
-    {
-        return $this->hasKey( $this->key() );
-    }
 }
