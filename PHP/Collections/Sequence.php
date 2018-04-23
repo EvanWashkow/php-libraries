@@ -261,10 +261,8 @@ class Sequence extends Collection implements SequenceSpec
          * Even though "array_slice()" supports a negative offset and length,
          * we don't support that. It is a bad practice to specify starting keys
          * before the beginning of the array and negative lengths. Not only are
-         * they impossible and do not exist, but are confusing, and prevent
-         * useful errors when those odd situations do arise. Otherwise,  it's
-         * very possible for a calling routine to make an arithmetic mistake,
-         * passing a negative value, and recieve unexpected results.
+         * they impossible (in that they do not exist), but are confusing and
+         * prevent useful errors when there is an arithmetic error in the caller.
          */
         
         // Sanitize the starting key
