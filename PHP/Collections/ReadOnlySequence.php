@@ -23,13 +23,13 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
     }
     
     
-    public function clone(): ReadOnlyCollectionSpec
+    final public function clone(): ReadOnlyCollectionSpec
     {
         $clone = $this->collection->clone();
         return new self( $clone );
     }
     
-    public function convertToArray(): array
+    final public function convertToArray(): array
     {
         return $this->collection->convertToArray();
     }
@@ -44,7 +44,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return $this->collection->getLastKey();
     }
     
-    public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
@@ -52,7 +52,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
     public function reverse(): ReadOnlySequenceSpec
     {
         $sequence = $this->collection->reverse();
-        return new ReadOnlySequence( $sequence );
+        return new self( $sequence );
     }
     
     public function slice( int $offset, int $limit ): ReadOnlySequenceSpec

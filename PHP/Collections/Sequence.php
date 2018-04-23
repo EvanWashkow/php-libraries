@@ -48,20 +48,20 @@ class Sequence extends Collection implements SequenceSpec
     *                              EDITING METHODS
     ***************************************************************************/
     
-    public function add( $value ): bool
+    final public function add( $value ): bool
     {
         return $this->set( $this->getLastKey() + 1, $value );
     }
     
     
-    public function clear(): bool
+    final public function clear(): bool
     {
         $this->entries = [];
         return true;
     }
     
     
-    public function insert( int $key, $value ): bool
+    final public function insert( int $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
@@ -91,7 +91,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function remove( $key ): bool
+    final public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !is( $key, 'integer' )) {
@@ -109,7 +109,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function set( $key, $value ): bool
+    final public function set( $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
@@ -144,25 +144,25 @@ class Sequence extends Collection implements SequenceSpec
     *                            READ-ONLY METHODS
     ***************************************************************************/
     
-    public function clone(): ReadOnlyCollectionSpec
+    final public function clone(): ReadOnlyCollectionSpec
     {
         return $this->slice( $this->getFirstKey(), $this->count() );
     }
     
     
-    public function convertToArray(): array
+    final public function convertToArray(): array
     {
         return $this->entries;
     }
     
     
-    public function count(): int
+    final public function count(): int
     {
         return count( $this->entries );
     }
     
     
-    public function get( $key )
+    final public function get( $key )
     {
         if ( !is( $key, 'integer' )) {
             throw new \Exception( 'Cannot get value from non-integer key' );
@@ -186,7 +186,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
         $key = -1;
