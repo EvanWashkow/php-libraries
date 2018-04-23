@@ -180,9 +180,9 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function getLastKey(): int
+    final public function getLastKey(): int
     {
-        return ( $this->count() - 1 );
+        return ( $this->getFirstKey() + ( $this->count() - 1 ));
     }
     
     

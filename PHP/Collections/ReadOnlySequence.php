@@ -34,12 +34,12 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return $this->collection->convertToArray();
     }
     
-    public function getFirstKey(): int
+    final public function getFirstKey(): int
     {
         return $this->collection->getFirstKey();
     }
     
-    public function getLastKey(): int
+    final public function getLastKey(): int
     {
         return $this->collection->getLastKey();
     }
