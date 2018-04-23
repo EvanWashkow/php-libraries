@@ -69,4 +69,11 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * @return ReadOnlySequenceSpec
      */
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    
+    /**
+     * Reverse all entries
+     *
+     * @return ReadOnlySequenceSpec
+     */
+    public function reverse(): ReadOnlySequenceSpec;
 }

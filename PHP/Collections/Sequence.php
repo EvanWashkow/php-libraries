@@ -109,12 +109,6 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function reverse()
-    {
-        $this->entries = array_reverse( $this->entries, false );
-    }
-    
-    
     public function set( $key, $value ): bool
     {
         // Variables
@@ -215,25 +209,22 @@ class Sequence extends Collection implements SequenceSpec
         }
             
         // Get the sub-sequence to traverse
-        $sequence = $this->clone();
-        if ( $isReverseSearch ) {
-            $sequence->reverse();
-        }
+        $sequence = $isReverseSearch ? $this->reverse() : $this->clone();
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
-        $_key = array_search( $value, $sequence->convertToArray() );
-        if ( false !== $_key ) {
+        $searchResult = array_search( $value, $sequence->convertToArray() );
+        if ( false !== $searchResult ) {
             
             // Invert key for reverse search. Keep in mind that the last
             // key is actually the first in the original order.
             if ( $isReverseSearch ) {
-                $key = $sequence->getLastKey() - $_key;
+                $key = $sequence->getLastKey() - $searchResult;
             }
             
             // Add the offset to forward searches
             else {
-                $key = $_key + $offset;
+                $key = $searchResult + $offset;
             }
         }
     
@@ -328,6 +319,17 @@ class Sequence extends Collection implements SequenceSpec
         }
         
         return $outerSequence;
+    }
+    
+    
+    public function reverse(): ReadOnlySequenceSpec
+    {
+        $sequence = new self( $this->type );
+        $entries  = array_reverse( $this->entries, false );
+        foreach ( $entries as $entry ) {
+            $sequence->add( $entry );
+        }
+        return $sequence;
     }
     
     

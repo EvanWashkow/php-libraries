@@ -67,4 +67,11 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         });
         return new self( $outerSequence );
     }
+    
+    
+    final public function reverse(): ReadOnlySequenceSpec
+    {
+        $sequence = $this->collection->reverse();
+        return new ReadOnlySequence( $sequence );
+    }
 }
