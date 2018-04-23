@@ -176,6 +176,6 @@ class Dictionary extends Collection implements DictionarySpec
     
     final public function valid()
     {
-        return array_key_exists( $this->key(), $this->entries );
+        return $this->hasKey( $this->key() );
     }
 }

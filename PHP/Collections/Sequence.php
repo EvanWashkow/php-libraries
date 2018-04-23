@@ -361,6 +361,6 @@ class Sequence extends Collection implements SequenceSpec
     
     final public function valid()
     {
-        return array_key_exists( $this->key(), $this->entries );
+        return $this->hasKey( $this->key() );
     }
 }

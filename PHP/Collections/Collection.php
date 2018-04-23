@@ -90,7 +90,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     
     final public function seek( $key )
     {
-        if ( $this->isOfKeyType( $key )) {
+        if ( $this->hasKey( $key )) {
             parent::seek( $key );
         }
         else {
