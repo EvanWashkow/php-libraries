@@ -46,6 +46,13 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int;
     
     /**
+     * Reverse all entries
+     *
+     * @return ReadOnlySequenceSpec
+     */
+    public function reverse(): ReadOnlySequenceSpec;
+    
+    /**
      * Clone a subset of entries from this sequence
      *
      * Why use a start index and a count rather than start / end indices?
@@ -55,11 +62,11 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * applications. For this reason, dropping the ending index for count
      * solves the problem entirely while reducing code complexity.
      *
-     * @param int $startingKey Starting key (inclusive)
-     * @param int $count Number of items to copy
+     * @param int $offset Starting key (inclusive)
+     * @param int $limit  Number of items to copy
      * @return ReadOnlySequenceSpec
      */
-    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec;
+    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter

@@ -32,9 +32,11 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     public function insert( int $key, $value ): bool;
     
     /**
-     * Put all entries in reverse order
+     * Reverse all entries
+     *
+     * @return SequenceSpec
      */
-    public function reverse();
+    public function reverse(): ReadOnlySequenceSpec;
     
     /**
      * Clone a subset of entries from this sequence
@@ -46,11 +48,11 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      * applications. For this reason, dropping the ending index for count
      * solves the problem entirely while reducing code complexity.
      *
-     * @param int $startingKey Starting key (inclusive)
-     * @param int $count Number of items to copy
+     * @param int $offset Starting key (inclusive)
+     * @param int $limit  Number of items to copy
      * @return SequenceSpec
      */
-    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec;
+    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter

@@ -48,20 +48,20 @@ class Sequence extends Collection implements SequenceSpec
     *                              EDITING METHODS
     ***************************************************************************/
     
-    public function add( $value ): bool
+    final public function add( $value ): bool
     {
         return $this->set( $this->getLastKey() + 1, $value );
     }
     
     
-    public function clear(): bool
+    final public function clear(): bool
     {
         $this->entries = [];
         return true;
     }
     
     
-    public function insert( int $key, $value ): bool
+    final public function insert( int $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
@@ -91,7 +91,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function remove( $key ): bool
+    final public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !is( $key, 'integer' )) {
@@ -109,13 +109,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function reverse()
-    {
-        $this->entries = array_reverse( $this->entries, false );
-    }
-    
-    
-    public function set( $key, $value ): bool
+    final public function set( $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
@@ -150,25 +144,25 @@ class Sequence extends Collection implements SequenceSpec
     *                            READ-ONLY METHODS
     ***************************************************************************/
     
-    public function clone(): ReadOnlyCollectionSpec
+    final public function clone(): ReadOnlyCollectionSpec
     {
         return $this->slice( $this->getFirstKey(), $this->count() );
     }
     
     
-    public function convertToArray(): array
+    final public function convertToArray(): array
     {
         return $this->entries;
     }
     
     
-    public function count(): int
+    final public function count(): int
     {
         return count( $this->entries );
     }
     
     
-    public function get( $key )
+    final public function get( $key )
     {
         if ( !is( $key, 'integer' )) {
             throw new \Exception( 'Cannot get value from non-integer key' );
@@ -186,13 +180,13 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function getLastKey(): int
+    final public function getLastKey(): int
     {
-        return ( $this->count() - 1 );
+        return ( $this->getFirstKey() + ( $this->count() - 1 ));
     }
     
     
-    public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
         $key = -1;
@@ -215,25 +209,22 @@ class Sequence extends Collection implements SequenceSpec
         }
             
         // Get the sub-sequence to traverse
-        $sequence = $this->clone();
-        if ( $isReverseSearch ) {
-            $sequence->reverse();
-        }
+        $sequence = $isReverseSearch ? $this->reverse() : $this->clone();
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
-        $_key = array_search( $value, $sequence->convertToArray() );
-        if ( false !== $_key ) {
+        $searchResult = array_search( $value, $sequence->convertToArray() );
+        if ( false !== $searchResult ) {
             
             // Invert key for reverse search. Keep in mind that the last
             // key is actually the first in the original order.
             if ( $isReverseSearch ) {
-                $key = $sequence->getLastKey() - $_key;
+                $key = $sequence->getLastKey() - $searchResult;
             }
             
             // Add the offset to forward searches
             else {
-                $key = $_key + $offset;
+                $key = $searchResult + $offset;
             }
         }
     
@@ -241,33 +232,57 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return (
-            $this->isOfKeyType( $key )       &&
-            ( $this->getFirstKey() <= $key ) &&
-            ( $key <= $this->getLastKey() )
+            $this->isOfKeyType( $key ) &&
+            array_key_exists( $key, $this->entries )
         );
     }
     
     
-    public function slice( int $startingKey, int $count ): ReadOnlySequenceSpec
+    public function reverse(): ReadOnlySequenceSpec
+    {
+        $sequence = new self( $this->type );
+        $entries  = array_reverse( $this->entries, false );
+        foreach ( $entries as $entry ) {
+            $sequence->add( $entry );
+        }
+        return $sequence;
+    }
+    
+    
+    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
     {
         // Variables
-        $key      = $startingKey;
+        $key      = $offset;
         $lastKey  = $this->getLastKey();
         $sequence = new self( $this->type );
         
+        /**
+         * Even though "array_slice()" supports a negative offset and length,
+         * we don't support that. It is a bad practice to specify starting keys
+         * before the beginning of the array and negative lengths. Not only are
+         * they impossible (in that they do not exist), but are confusing and
+         * prevent useful errors when there is an arithmetic error in the caller.
+         */
+        
         // Sanitize the starting key
-        if ( $startingKey < $this->getFirstKey() ) {
+        if ( $offset < $this->getFirstKey() ) {
             trigger_error( 'Starting key cannot be less than the first key of the sequence.' );
-            $startingKey = $this->getFirstKey();
+            $offset = $this->getFirstKey();
         }
         
-        // Copy entries to the sub-sequence
-        while (( $sequence->count() < $count ) && ( $key <= $lastKey )) {
-            $sequence->add( $this->get( $key ));
-            $key++;
+        // Sanitize count
+        if ( $limit < 0 ) {
+            trigger_error( 'Cannot copy a negative number of items.' );
+            $limit = 0;
+        }
+        
+        // Slice and copy entries to the sub-sequence
+        $array = array_slice( $this->entries, $offset, $limit );
+        foreach ( $array as $value ) {
+            $sequence->add( $value );
         }
         
         return $sequence;
@@ -342,10 +357,5 @@ class Sequence extends Collection implements SequenceSpec
     final public function rewind()
     {
         reset( $this->entries );
-    }
-    
-    final public function valid()
-    {
-        return array_key_exists( $this->key(), $this->entries );
     }
 }

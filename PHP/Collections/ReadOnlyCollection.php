@@ -34,27 +34,27 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         return new self( $clone );
     }
     
-    public function count(): int
+    final public function count(): int
     {
         return $this->collection->count();
     }
     
-    public function get( $key )
+    final public function get( $key )
     {
         return $this->collection->get( $key );
     }
     
-    public function getKeys(): ReadOnlySequenceSpec
+    final public function getKeys(): ReadOnlySequenceSpec
     {
         return $this->collection->getKeys();
     }
     
-    public function getValues(): ReadOnlySequenceSpec
+    final public function getValues(): ReadOnlySequenceSpec
     {
         return $this->collection->getValues();
     }
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return $this->collection->hasKey( $key );
     }

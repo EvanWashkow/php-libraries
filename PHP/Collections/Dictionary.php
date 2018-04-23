@@ -64,14 +64,14 @@ class Dictionary extends Collection implements DictionarySpec
     *                              EDITING METHODS
     ***************************************************************************/
     
-    public function clear(): bool
+    final public function clear(): bool
     {
         $this->entries = [];
         return true;
     }
     
     
-    public function remove( $key ): bool
+    final public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !$this->isOfKeyType( $key )) {
@@ -88,7 +88,7 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function set( $key, $value ): bool
+    final public function set( $key, $value ): bool
     {
         $isSuccessful = false;
         if ( !$this->isOfKeyType( $key )) {
@@ -121,13 +121,13 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function count(): int
+    final public function count(): int
     {
         return count( $this->entries );
     }
     
     
-    public function get( $key )
+    final public function get( $key )
     {
         if ( !$this->isOfKeyType( $key )) {
             throw new \Exception( "Cannot get non-{$this->keyType} key" );
@@ -136,6 +136,15 @@ class Dictionary extends Collection implements DictionarySpec
             throw new \Exception( "Cannot get value at non-existing key" );
         }
         return $this->entries[ $key ];
+    }
+    
+    
+    final public function hasKey( $key ): bool
+    {
+        return (
+            $this->isOfKeyType( $key ) &&
+            array_key_exists( $key, $this->entries )
+        );
     }
     
     
@@ -163,10 +172,5 @@ class Dictionary extends Collection implements DictionarySpec
     final public function rewind()
     {
         reset( $this->entries );
-    }
-    
-    final public function valid()
-    {
-        return array_key_exists( $this->key(), $this->entries );
     }
 }
