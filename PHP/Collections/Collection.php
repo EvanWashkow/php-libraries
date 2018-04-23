@@ -70,7 +70,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function isOfKeyType( $key ): bool
+    final public function isOfKeyType( $key ): bool
     {
         return (
             ( null !== $key ) &&
@@ -82,7 +82,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function isOfValueType( $value ): bool
+    final public function isOfValueType( $value ): bool
     {
         return (( '' === $this->valueType ) || is( $value, $this->valueType ));
     }
