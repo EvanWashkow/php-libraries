@@ -241,7 +241,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    final public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
+    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
     {
         // Variables
         $key      = $offset;
