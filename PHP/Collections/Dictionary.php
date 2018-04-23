@@ -64,14 +64,14 @@ class Dictionary extends Collection implements DictionarySpec
     *                              EDITING METHODS
     ***************************************************************************/
     
-    public function clear(): bool
+    final public function clear(): bool
     {
         $this->entries = [];
         return true;
     }
     
     
-    public function remove( $key ): bool
+    final public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !$this->isOfKeyType( $key )) {
@@ -88,7 +88,7 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function set( $key, $value ): bool
+    final public function set( $key, $value ): bool
     {
         $isSuccessful = false;
         if ( !$this->isOfKeyType( $key )) {
@@ -121,13 +121,13 @@ class Dictionary extends Collection implements DictionarySpec
     }
     
     
-    public function count(): int
+    final public function count(): int
     {
         return count( $this->entries );
     }
     
     
-    public function get( $key )
+    final public function get( $key )
     {
         if ( !$this->isOfKeyType( $key )) {
             throw new \Exception( "Cannot get non-{$this->keyType} key" );
