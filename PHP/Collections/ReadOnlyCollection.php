@@ -54,7 +54,7 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         return $this->collection->getValues();
     }
     
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return $this->collection->hasKey( $key );
     }
