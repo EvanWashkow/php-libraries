@@ -150,7 +150,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    final public function convertToArray(): array
+    final public function toArray(): array
     {
         return $this->entries;
     }
@@ -213,7 +213,7 @@ class Sequence extends Collection implements SequenceSpec
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
-        $searchResult = array_search( $value, $sequence->convertToArray() );
+        $searchResult = array_search( $value, $sequence->toArray() );
         if ( false !== $searchResult ) {
             
             // Invert key for reverse search. Keep in mind that the last

@@ -181,7 +181,7 @@ class URL extends PHPObject implements PHPObjectSpec
      *
      * @return string
      */
-    final public function convertToString()
+    final public function toString()
     {
         return $this->url;
     }

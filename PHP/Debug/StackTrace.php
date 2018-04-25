@@ -23,7 +23,7 @@ class StackTrace
      *
      * @return string
      */
-    public static function ConvertToString()
+    public static function ToString()
     {
         // Variables
         $output     = "\n";

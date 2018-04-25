@@ -15,13 +15,6 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     public function clone(): ReadOnlyCollectionSpec;
     
     /**
-     * Convert to a native PHP array
-     *
-     * @return array
-     */
-    public function convertToArray(): array;
-    
-    /**
      * Retrieve the key for the last entry
      *
      * @return int
@@ -76,4 +69,11 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      * @return ReadOnlySequenceSpec
      */
     public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    
+    /**
+     * Convert to a native PHP array
+     *
+     * @return array
+     */
+    public function toArray(): array;
 }

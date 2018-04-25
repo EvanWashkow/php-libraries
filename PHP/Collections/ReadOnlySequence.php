@@ -29,9 +29,9 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return new self( $clone );
     }
     
-    final public function convertToArray(): array
+    final public function toArray(): array
     {
-        return $this->collection->convertToArray();
+        return $this->collection->toArray();
     }
     
     final public function getFirstKey(): int
