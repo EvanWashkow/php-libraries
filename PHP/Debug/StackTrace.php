@@ -12,7 +12,7 @@ class StackTrace
      *
      * @return array
      */
-    final public static function Get()
+    final public static function Get(): array
     {
         return debug_backtrace();
     }
