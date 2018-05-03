@@ -1,7 +1,6 @@
 <?php
-namespace PHP\Tests\Debug;
 
-class StackTrace extends \PHPUnit\Framework\TestCase
+class StackTraceTest extends \PHPUnit\Framework\TestCase
 {
     
     public function testGetReturnsAnArray()
