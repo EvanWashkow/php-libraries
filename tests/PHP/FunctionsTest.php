@@ -60,7 +60,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         ];
         
         // For each type string, ensure is() returns true for its instances and
-        // false for every other type string's instances
+        // false for every other type's instances
         foreach ( $typeStringInstancesMap as $typeString => $typeInstances ) {
             
             // Ensure is() returns true for that type's instances
@@ -69,7 +69,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
                     is( $typeInstance, $typeString ),
                     "is() failed to identify instance at index {$i} as a {$typeString}"
                 );
-                // \PHP\Debug\Log::Write( $typeInstance );
             }
             
             // Ensure is() returns false for every other type instances
