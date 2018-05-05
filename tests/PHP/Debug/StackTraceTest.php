@@ -6,6 +6,10 @@
 class StackTraceTest extends \PHPUnit\Framework\TestCase
 {
     
+    /***************************************************************************
+    *                                  Get()
+    ***************************************************************************/
+    
     /**
      * Does Get() return an array?
      */
@@ -27,6 +31,25 @@ class StackTraceTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(
             ( 0 !== count( \PHP\Debug\StackTrace::Get() )),
             'StackTrace::Get() returned an empty array. There should be some entries.'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                 ToString()
+    ***************************************************************************/
+    
+    /**
+     * Does ToString() return a string?
+     */
+    public function testToStringReturnsString()
+    {
+        $this->assertInternalType(
+            'string',
+            \PHP\Debug\StackTrace::ToString(),
+            'StackTrace::ToString() didn\'t return a string, as expected'
         );
     }
 }
