@@ -40,7 +40,11 @@ class Dictionary extends Collection implements DictionarySpec
     public function __construct( string $keyType = '', string $valueType = '' )
     {
         // Abort. The key type must be either an integer or string.
-        if (( 'integer' !== $keyType ) && ( 'string' !== $keyType )) {
+        if (
+            ( ''        !== $keyType ) &&
+            ( 'integer' !== $keyType ) &&
+            ( 'string'  !== $keyType )
+        ) {
             throw new \Exception( 'Dictionary keys must either be integers or strings' );
         }
         
