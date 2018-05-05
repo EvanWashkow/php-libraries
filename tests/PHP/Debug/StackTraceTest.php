@@ -1,5 +1,7 @@
 <?php
 
+use PHP\Debug\StackTrace;
+
 /**
  * StackTrace tests
  */
@@ -17,7 +19,7 @@ class StackTraceTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInternalType(
             'array',
-            \PHP\Debug\StackTrace::Get(),
+            StackTrace::Get(),
             "StackTrace::Get() didn't return an array, as expected"
         );
     }
@@ -29,7 +31,7 @@ class StackTraceTest extends \PHPUnit\Framework\TestCase
     public function testGetReturnsNonEmptyArray()
     {
         $this->assertTrue(
-            ( 0 !== count( \PHP\Debug\StackTrace::Get() )),
+            ( 0 !== count( StackTrace::Get() )),
             "StackTrace::Get() returned an empty array"
         );
     }
@@ -48,7 +50,7 @@ class StackTraceTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInternalType(
             'string',
-            \PHP\Debug\StackTrace::ToString(),
+            StackTrace::ToString(),
             "StackTrace::ToString() didn\'t return a string, as expected"
         );
     }
@@ -60,7 +62,7 @@ class StackTraceTest extends \PHPUnit\Framework\TestCase
     public function testToStringReturnsNonEmptyString()
     {
         $this->assertTrue(
-            ( 0 !== strlen( \PHP\Debug\StackTrace::ToString() )),
+            ( 0 !== strlen( StackTrace::ToString() )),
             "StackTrace::ToString() returned an empty string"
         );
     }
