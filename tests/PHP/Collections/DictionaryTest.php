@@ -20,12 +20,14 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testDictionaryClearHasCountOfZero()
     {
-        $dictionary = $this->getStringStringDictionary();
-        $dictionary->clear();
-        $this->assertTrue(
-            ( 0 === $dictionary->count() ),
-            "Dictionary->clear() returned a non-zero count"
-        );
+        foreach ( $this->getDictionaries() as $dictionary ) {
+            $dictionary->clear();
+            $this->assertEquals(
+                0,
+                $dictionary->count(),
+                "Dictionary->clear() returned a non-zero count"
+            );
+        }
     }
     
     
@@ -40,15 +42,19 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testDictionaryRemoveHasSmallerCount()
     {
-        $dictionary = $this->getStringStringDictionary();
-        $previous   = $dictionary->count();
-        $dictionary->remove( 'a' );
-        $after      = $dictionary->count();
-        $this->assertLessThan(
-            $previous,
-            $after,
-            "Dictionary->remove( 'a' ) has the same number of keys as before"
-        );
+        foreach ( $this->getDictionaries() as $dictionary ) {
+            $previous = $dictionary->count();
+            foreach ( $dictionary as $key => $value ) {
+                $dictionary->remove( $key );
+                break;
+            }
+            $after = $dictionary->count();
+            $this->assertLessThan(
+                $previous,
+                $after,
+                "Dictionary->remove( 'a' ) has the same number of keys as before"
+            );
+        }
     }
     
     
@@ -113,6 +119,42 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
+     * Retrieve all test dictionaries
+     *
+     * @return array
+     */
+    public function getDictionaries(): array
+    {
+        return [
+            $this->getIntStringDictionary(),
+            $this->getStringStringDictionary(),
+            $this->getStringIntDictionary(),
+            $this->getMixedDictionary()
+        ];
+    }
+    
+    
+    /**
+     * Return sample Dictionary with integer keys and string values
+     *
+     * @return Dictionary
+     */
+    public function getIntStringDictionary(): Dictionary
+    {
+        // Map 1-26 to a-z
+        $start = 97;
+        $end   = 122;
+        $dictionary = new Dictionary( 'integer', 'string' );
+        for ( $ascii = $start; $ascii <= $end; $ascii++ ) {
+            $key   = ( $ascii - $start ) + 1;
+            $value = chr( $ascii );
+            $dictionary->set( $key, $value );
+        }
+        return $dictionary;
+    }
+    
+    
+    /**
      * Return sample Dictionary with string keys and string values
      *
      * @return Dictionary
@@ -126,6 +168,47 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
         for ( $ascii = $start; $ascii <= $end; $ascii++ ) {
             $key   = chr( $ascii );
             $value = chr( ( $start + $end ) - $ascii );
+            $dictionary->set( $key, $value );
+        }
+        return $dictionary;
+    }
+    
+    
+    /**
+     * Return sample Dictionary with string keys and integer values
+     *
+     * @return Dictionary
+     */
+    public function getStringIntDictionary(): Dictionary
+    {
+        // Map 1-26 to a-z
+        $start = 97;
+        $end   = 122;
+        $dictionary = new Dictionary( 'string', 'integer' );
+        for ( $ascii = $start; $ascii <= $end; $ascii++ ) {
+            $key   = chr( $ascii );
+            $value = ( $ascii - $start ) + 1;
+            $dictionary->set( $key, $value );
+        }
+        return $dictionary;
+    }
+    
+    
+    /**
+     * Retrieve sample Dictionary with mixed string and value types
+     *
+     * @return Dictionary
+     */
+    public function getMixedDictionary(): Dictionary
+    {
+        $dictionary = new Dictionary();
+        foreach ( $this->getIntStringDictionary() as $key => $value) {
+            $dictionary->set( $key, $value );
+        }
+        foreach ( $this->getStringStringDictionary() as $key => $value) {
+            $dictionary->set( $key, $value );
+        }
+        foreach ( $this->getStringIntDictionary() as $key => $value) {
             $dictionary->set( $key, $value );
         }
         return $dictionary;
