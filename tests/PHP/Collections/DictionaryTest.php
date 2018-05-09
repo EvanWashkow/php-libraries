@@ -115,6 +115,80 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
+    *                              Dictionary->set()
+    ***************************************************************************/
+    
+    /**
+     * Do the dummy Dictionaries have entries?
+     */
+    public function testSetDictionariesHaveEntries()
+    {
+        foreach ( $this->getDictionaries() as $dictionary ) {
+            $this->assertGreaterThan(
+                0,
+                $dictionary->count(),
+                "Dictionary->set() doesn't have any entries"
+            );
+        }
+    }
+    
+    
+    /**
+     * Setting an existing key should work
+     */
+    public function testSettingExistingStringStringDictionary()
+    {
+        $dictionary = $this->getStringStringDictionary();
+        $dictionary->set( 'a', 'a' );
+        $this->assertEquals(
+            'a',
+            $dictionary->get( 'a' ),
+            "Dictionary->set() did not correctly set an existing dictionary entry"
+        );
+    }
+    
+    
+    /**
+     * Setting an with the wrong key type should fail
+     */
+    public function testSettingStringStringDictionaryWithWrongKeyType()
+    {
+        $dictionary = $this->getStringStringDictionary();
+        $isError = false;
+        try {
+            $dictionary->set( 1, 'foobar' );
+        } catch (\Exception $e) {
+            $isError = true;
+        }
+        $this->assertTrue(
+            $isError,
+            "Dictionary->set() should not allow a key with the wrong type to be set"
+        );
+    }
+    
+    
+    /**
+     * Setting an with the wrong value type should fail
+     */
+    public function testSettingStringStringDictionaryWithWrongValueType()
+    {
+        $dictionary = $this->getStringStringDictionary();
+        $isError = false;
+        try {
+            $dictionary->set( 'foobar', 1 );
+        } catch (\Exception $e) {
+            $isError = true;
+        }
+        $this->assertTrue(
+            $isError,
+            "Dictionary->set() should not allow a value with the wrong type to be set"
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                               UTILITIES
     ***************************************************************************/
     
