@@ -12,7 +12,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
     
     /***************************************************************************
-    *                           Iterator->clear()
+    *                           Dictionary->clear()
     ***************************************************************************/
     
     /**
@@ -28,6 +28,82 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
         );
     }
     
+    
+    
+    
+    /***************************************************************************
+    *                           Dictionary->remove()
+    ***************************************************************************/
+    
+    /**
+     * Does removing a key from the dictionary remove the key?
+     */
+    public function testDictionaryRemoveHasSmallerCount()
+    {
+        $dictionary = $this->getStringStringDictionary();
+        $previous   = $dictionary->count();
+        $dictionary->remove( 'a' );
+        $after      = $dictionary->count();
+        $this->assertLessThan(
+            $previous,
+            $after,
+            "Dictionary->remove( 'a' ) has the same number of keys as before"
+        );
+    }
+    
+    
+    /**
+     * Does removing a key with the wrong key type fail?
+     */
+    public function testRemoveWithWrongKeyType()
+    {
+        $dictionary = $this->getStringStringDictionary();
+        $previous   = $dictionary->count();
+        $isError    = false;
+        try {
+            $dictionary->remove( 1 );
+        } catch (\Exception $e) {
+            $isError = true;
+        }
+        $after = $dictionary->count();
+        
+        $this->assertEquals(
+            $previous,
+            $after,
+            "Dictionary->remove() should not be able to remove a key with the wrong type"
+        );
+        $this->assertTrue(
+            $isError,
+            "Dictionary->remove() did not produce an error when invoked with the wrong key type"
+        );
+    }
+    
+    
+    /**
+     * Does removing a key with a non-existing key fail?
+     */
+    public function testRemoveWithNonExistingKey()
+    {
+        $dictionary = $this->getStringStringDictionary();
+        $previous   = $dictionary->count();
+        $isError    = false;
+        try {
+            $dictionary->remove( 'foobar' );
+        } catch (\Exception $e) {
+            $isError = true;
+        }
+        $after = $dictionary->count();
+        
+        $this->assertEquals(
+            $previous,
+            $after,
+            "Dictionary->remove() should not be able to remove a key that doesn't exist"
+        );
+        $this->assertTrue(
+            $isError,
+            "Dictionary->remove() did not produce an error when invoked with a non-existing key"
+        );
+    }
     
     
     
