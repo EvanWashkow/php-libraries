@@ -61,7 +61,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key with the wrong key type fail?
      */
-    public function testRemoveWithWrongKeyType()
+    public function testStringStringRemoveWithWrongKeyType()
     {
         $dictionary = $this->getStringStringDictionary();
         $previous   = $dictionary->count();
@@ -88,7 +88,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key with a non-existing key fail?
      */
-    public function testRemoveWithNonExistingKey()
+    public function testStringStringRemoveWithNonExistingKey()
     {
         $dictionary = $this->getStringStringDictionary();
         $previous   = $dictionary->count();
