@@ -144,17 +144,30 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting an existing key should work
+     * Setting an existing key to a different value should work
      */
-    public function testTypedDictionarySetExistingKey()
+    public function testDictionariesSetExistingKey()
     {
-        $dictionary = $this->getTypedDictionary();
-        $dictionary->set( 'a', 100 );
-        $this->assertEquals(
-            100,
-            $dictionary->get( 'a' ),
-            "Dictionary->set() did not correctly set an existing dictionary entry"
-        );
+        foreach ( $this->getDictionaries() as $dictionary ) {
+            
+            // Set first key to last value
+            $key   = null;
+            $value = null;
+            $dictionary->loop( function( $k, $v ) use ( &$key, &$value ) {
+                if ( null === $key ) {
+                    $key = $k;
+                }
+                $value = $v;
+            });
+            $dictionary->set( $key, $value );
+            
+            // Assert test
+            $this->assertEquals(
+                $value,
+                $dictionary->get( $key ),
+                "Dictionary->set() did not correctly set an existing dictionary entry"
+            );
+        }
     }
     
     
