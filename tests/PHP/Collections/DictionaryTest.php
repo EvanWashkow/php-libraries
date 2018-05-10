@@ -89,9 +89,9 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key with the wrong key type fail?
      */
-    public function testTypedDictionaryRemoveWithWrongKeyType()
+    public function testStringIntDictionaryRemoveWithWrongKeyType()
     {
-        $dictionary = $this->getTypedDictionary();
+        $dictionary = $this->getStringIntDictionary();
         $previous   = $dictionary->count();
         $isError    = false;
         try {
@@ -189,38 +189,48 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an with the wrong key type should fail
      */
-    public function testTypedDictionarySetWithWrongKeyType()
+    public function testTypedDictionariesSetWithWrongKeyType()
     {
-        $dictionary = $this->getTypedDictionary();
-        $isError = false;
-        try {
-            $dictionary->set( 1, 'foobar' );
-        } catch (\Exception $e) {
-            $isError = true;
+        foreach ( $this->getTypedDictionaries() as $dictionary ) {
+            $isSet = false;
+            $key;
+            $value;
+            foreach ($dictionary as $key => $value) {
+                break;
+            }
+            try {
+                $isSet = $dictionary->set( $value, $value );
+            } catch (\Exception $e) {}
+            
+            $this->assertFalse(
+                $isSet,
+                "Dictionary->set() should not allow a key with the wrong type to be set"
+            );
         }
-        $this->assertTrue(
-            $isError,
-            "Dictionary->set() should not allow a key with the wrong type to be set"
-        );
     }
     
     
     /**
      * Setting an with the wrong value type should fail
      */
-    public function testTypedDictionarySetWithWrongValueType()
+    public function testTypedDictionariesSetWithWrongValueType()
     {
-        $dictionary = $this->getTypedDictionary();
-        $isError = false;
-        try {
-            $dictionary->set( 'foo', 'bar' );
-        } catch (\Exception $e) {
-            $isError = true;
+        foreach ( $this->getTypedDictionaries() as $dictionary ) {
+            $isSet = false;
+            $key;
+            $value;
+            foreach ($dictionary as $key => $value) {
+                break;
+            }
+            try {
+                $isSet = $dictionary->set( $key, $key );
+            } catch (\Exception $e) {}
+            
+            $this->assertFalse(
+                $isSet,
+                "Dictionary->set() should not allow a value with the wrong type to be set"
+            );
         }
-        $this->assertTrue(
-            $isError,
-            "Dictionary->set() should not allow a value with the wrong type to be set"
-        );
     }
     
     
@@ -233,13 +243,32 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Retrieve all test dictionaries
      *
+     * IMPORTANT!!! The key-value typess cannot be the same. It is useful to
+     * swap dictionary key / values as parameters to test type constraints.
+     *
      * @return array
      */
     public function getDictionaries(): array
     {
+        return array_merge(
+            $this->getTypedDictionaries(),
+            [
+                $this->getMixedDictionary()
+            ]
+        );
+            
+    }
+    
+    
+    /**
+     * Retrieve all test typed dictionaries
+     *
+     * @return array
+     */
+    public function getTypedDictionaries(): array
+    {
         return [
-            $this->getTypedDictionary(),
-            $this->getMixedDictionary()
+            $this->getStringIntDictionary()
         ];
     }
     
@@ -249,7 +278,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      *
      * @return Dictionary
      */
-    public function getTypedDictionary(): Dictionary
+    public function getStringIntDictionary(): Dictionary
     {
         // Map 1-26 to a-z
         $start = 97;
@@ -272,9 +301,11 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     public function getMixedDictionary(): Dictionary
     {
         $dictionary = new Dictionary();
-        foreach ( $this->getTypedDictionary() as $key => $value) {
-            $dictionary->set( $key, $value );
-            $dictionary->set( $value, $key );
+        foreach ( $this->getTypedDictionaries() as $d ) {
+            foreach ( $d as $key => $value) {
+                $dictionary->set( $key, $value );
+                $dictionary->set( $value, $key );
+            }
         }
         return $dictionary;
     }
