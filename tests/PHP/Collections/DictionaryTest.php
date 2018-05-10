@@ -144,6 +144,21 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /**
+     * Setting an new entry should work
+     */
+    public function testDictionariesSetNewKey()
+    {
+        foreach ( $this->getDictionaries() as $dictionary ) {
+            $this->assertGreaterThan(
+                0,
+                $dictionary->count(),
+                "Dictionary->set() did not correctly set a new dictionary entry"
+            );
+        }
+    }
+    
+    
+    /**
      * Setting an existing key to a different value should work
      */
     public function testDictionariesSetExistingKey()
