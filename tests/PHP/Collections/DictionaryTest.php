@@ -125,20 +125,6 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     *                              Dictionary->set()
     ***************************************************************************/
     
-    /**
-     * Do the dummy Dictionaries have entries?
-     */
-    public function testDictionariesSetHaveEntries()
-    {
-        foreach ( $this->getDictionaries() as $dictionary ) {
-            $this->assertGreaterThan(
-                0,
-                $dictionary->count(),
-                "Dictionary->set() doesn't have any entries"
-            );
-        }
-    }
-    
     
     /**
      * Setting an new entry should work
