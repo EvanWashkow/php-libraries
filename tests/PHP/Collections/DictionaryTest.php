@@ -18,7 +18,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if clearing the dictionary has a count of zero
      */
-    public function testDictionaryClearHasCountOfZero()
+    public function testDictionaryClearHaveNoEntries()
     {
         foreach ( $this->getDictionaries() as $dictionary ) {
             $dictionary->clear();
@@ -59,16 +59,44 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /**
+     * Does removing a key with a non-existing key fail?
+     */
+    public function testDictionaryRemoveWithNonExistingKey()
+    {
+        foreach ( $this->getDictionaries() as $dictionary ) {
+            $previous = $dictionary->count();
+            $isError  = false;
+            try {
+                $dictionary->remove( 'foobar' );
+            } catch (\Exception $e) {
+                $isError = true;
+            }
+            $after = $dictionary->count();
+            
+            $this->assertEquals(
+                $previous,
+                $after,
+                "Dictionary->remove() should not be able to remove a key that doesn't exist"
+            );
+            $this->assertTrue(
+                $isError,
+                "Dictionary->remove() did not produce an error when invoked with a non-existing key"
+            );
+        }
+    }
+    
+    
+    /**
      * Does removing a key with the wrong key type fail?
      */
-    public function testTypedRemoveWithWrongKeyType()
+    public function testTypedDictionaryRemoveWithWrongKeyType()
     {
         $dictionary = $this->getTypedDictionary();
         $previous   = $dictionary->count();
         $isError    = false;
         try {
             $dictionary->remove( 1 );
-        } catch (\Exception $e) {
+        } catch ( \Exception $e ) {
             $isError = true;
         }
         $after = $dictionary->count();
@@ -76,38 +104,20 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             $previous,
             $after,
-            "Dictionary->remove() should not be able to remove a key with the wrong type"
+            "Dictionary->remove() should not be able to re
+    
+    
+    /**
+     * Retrieve collection tests, indexed by their type
+     */
+    public function getTests()
+    {
+        // code...
+    }move a key with the wrong type"
         );
         $this->assertTrue(
             $isError,
             "Dictionary->remove() did not produce an error when invoked with the wrong key type"
-        );
-    }
-    
-    
-    /**
-     * Does removing a key with a non-existing key fail?
-     */
-    public function testTypedRemoveWithNonExistingKey()
-    {
-        $dictionary = $this->getTypedDictionary();
-        $previous   = $dictionary->count();
-        $isError    = false;
-        try {
-            $dictionary->remove( 'foobar' );
-        } catch (\Exception $e) {
-            $isError = true;
-        }
-        $after = $dictionary->count();
-    
-        $this->assertEquals(
-            $previous,
-            $after,
-            "Dictionary->remove() should not be able to remove a key that doesn't exist"
-        );
-        $this->assertTrue(
-            $isError,
-            "Dictionary->remove() did not produce an error when invoked with a non-existing key"
         );
     }
     
@@ -121,7 +131,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Do the dummy Dictionaries have entries?
      */
-    public function testSetDictionariesHaveEntries()
+    public function testDictionariesSetHaveEntries()
     {
         foreach ( $this->getDictionaries() as $dictionary ) {
             $this->assertGreaterThan(
@@ -136,7 +146,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an existing key should work
      */
-    public function testSettingExistingTypedDictionary()
+    public function testTypedDictionarySetExistingKey()
     {
         $dictionary = $this->getTypedDictionary();
         $dictionary->set( 'a', 100 );
@@ -151,7 +161,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an with the wrong key type should fail
      */
-    public function testSettingTypedDictionaryWithWrongKeyType()
+    public function testTypedDictionarySetWithWrongKeyType()
     {
         $dictionary = $this->getTypedDictionary();
         $isError = false;
@@ -170,7 +180,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an with the wrong value type should fail
      */
-    public function testSettingTypedDictionaryWithWrongValueType()
+    public function testTypedDictionarySetWithWrongValueType()
     {
         $dictionary = $this->getTypedDictionary();
         $isError = false;
