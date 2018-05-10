@@ -104,16 +104,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             $previous,
             $after,
-            "Dictionary->remove() should not be able to re
-    
-    
-    /**
-     * Retrieve collection tests, indexed by their type
-     */
-    public function getTests()
-    {
-        // code...
-    }move a key with the wrong type"
+            "Dictionary->remove() should not be able to remove a key with the wrong type"
         );
         $this->assertTrue(
             $isError,
