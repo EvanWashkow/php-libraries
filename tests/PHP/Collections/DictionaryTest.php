@@ -61,9 +61,9 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key with the wrong key type fail?
      */
-    public function testStringStringRemoveWithWrongKeyType()
+    public function testTypedRemoveWithWrongKeyType()
     {
-        $dictionary = $this->getStringStringDictionary();
+        $dictionary = $this->getTypedDictionary();
         $previous   = $dictionary->count();
         $isError    = false;
         try {
@@ -72,7 +72,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
             $isError = true;
         }
         $after = $dictionary->count();
-        
+    
         $this->assertEquals(
             $previous,
             $after,
@@ -88,9 +88,9 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key with a non-existing key fail?
      */
-    public function testStringStringRemoveWithNonExistingKey()
+    public function testTypedRemoveWithNonExistingKey()
     {
-        $dictionary = $this->getStringStringDictionary();
+        $dictionary = $this->getTypedDictionary();
         $previous   = $dictionary->count();
         $isError    = false;
         try {
@@ -99,7 +99,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
             $isError = true;
         }
         $after = $dictionary->count();
-        
+    
         $this->assertEquals(
             $previous,
             $after,
@@ -136,12 +136,12 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an existing key should work
      */
-    public function testSettingExistingStringStringDictionary()
+    public function testSettingExistingTypedDictionary()
     {
-        $dictionary = $this->getStringStringDictionary();
-        $dictionary->set( 'a', 'a' );
+        $dictionary = $this->getTypedDictionary();
+        $dictionary->set( 'a', 100 );
         $this->assertEquals(
-            'a',
+            100,
             $dictionary->get( 'a' ),
             "Dictionary->set() did not correctly set an existing dictionary entry"
         );
@@ -151,9 +151,9 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an with the wrong key type should fail
      */
-    public function testSettingStringStringDictionaryWithWrongKeyType()
+    public function testSettingTypedDictionaryWithWrongKeyType()
     {
-        $dictionary = $this->getStringStringDictionary();
+        $dictionary = $this->getTypedDictionary();
         $isError = false;
         try {
             $dictionary->set( 1, 'foobar' );
@@ -170,12 +170,12 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an with the wrong value type should fail
      */
-    public function testSettingStringStringDictionaryWithWrongValueType()
+    public function testSettingTypedDictionaryWithWrongValueType()
     {
-        $dictionary = $this->getStringStringDictionary();
+        $dictionary = $this->getTypedDictionary();
         $isError = false;
         try {
-            $dictionary->set( 'foobar', 1 );
+            $dictionary->set( 'foo', 'bar' );
         } catch (\Exception $e) {
             $isError = true;
         }
@@ -200,51 +200,9 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     public function getDictionaries(): array
     {
         return [
-            $this->getIntStringDictionary(),
-            $this->getStringStringDictionary(),
-            $this->getStringIntDictionary(),
+            $this->getTypedDictionary(),
             $this->getMixedDictionary()
         ];
-    }
-    
-    
-    /**
-     * Return sample Dictionary with integer keys and string values
-     *
-     * @return Dictionary
-     */
-    public function getIntStringDictionary(): Dictionary
-    {
-        // Map 1-26 to a-z
-        $start = 97;
-        $end   = 122;
-        $dictionary = new Dictionary( 'integer', 'string' );
-        for ( $ascii = $start; $ascii <= $end; $ascii++ ) {
-            $key   = ( $ascii - $start ) + 1;
-            $value = chr( $ascii );
-            $dictionary->set( $key, $value );
-        }
-        return $dictionary;
-    }
-    
-    
-    /**
-     * Return sample Dictionary with string keys and string values
-     *
-     * @return Dictionary
-     */
-    public function getStringStringDictionary(): Dictionary
-    {
-        // For each entry, a-z, map it to the character at the other end
-        $start = 97;
-        $end   = 122;
-        $dictionary = new Dictionary( 'string', 'string' );
-        for ( $ascii = $start; $ascii <= $end; $ascii++ ) {
-            $key   = chr( $ascii );
-            $value = chr( ( $start + $end ) - $ascii );
-            $dictionary->set( $key, $value );
-        }
-        return $dictionary;
     }
     
     
@@ -253,7 +211,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      *
      * @return Dictionary
      */
-    public function getStringIntDictionary(): Dictionary
+    public function getTypedDictionary(): Dictionary
     {
         // Map 1-26 to a-z
         $start = 97;
@@ -276,14 +234,9 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     public function getMixedDictionary(): Dictionary
     {
         $dictionary = new Dictionary();
-        foreach ( $this->getIntStringDictionary() as $key => $value) {
+        foreach ( $this->getTypedDictionary() as $key => $value) {
             $dictionary->set( $key, $value );
-        }
-        foreach ( $this->getStringStringDictionary() as $key => $value) {
-            $dictionary->set( $key, $value );
-        }
-        foreach ( $this->getStringIntDictionary() as $key => $value) {
-            $dictionary->set( $key, $value );
+            $dictionary->set( $value, $key );
         }
         return $dictionary;
     }
