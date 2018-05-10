@@ -261,7 +261,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      *
      * @return Dictionary
      */
-    public function getStringIntDictionary(): Dictionary
+    private function getStringIntDictionary(): Dictionary
     {
         // Map 1-26 to a-z
         $start = 97;
