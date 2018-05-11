@@ -11,6 +11,13 @@ require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
 class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
 {
     
+    
+    
+    
+    /***************************************************************************
+    *                         ReadOnlyDictionary->clone()
+    ***************************************************************************/
+    
     /**
      * Cloning a dictionary should clone all the entries
      */
@@ -26,9 +33,23 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
                 $this->assertEquals(
                     $value,
                     $dictionary->get( $key ),
-                    "Dictionary->clone() entry does not have the same value"
+                    "ReadOnlyDictionary->clone() entry does not have the same value"
                 );
             });
+        }
+    }
+    
+    /**
+     * Cloning a Dictionary should return a Dictionary
+     */
+    public function testCloneReturnsReadOnlyDictionary()
+    {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+            $this->assertInstanceOf(
+                'PHP\\Collections\\ReadOnlyDictionary',
+                $dictionary->clone(),
+                "ReadOnlyDictionary->clone() should return a ReadOnlyDictionary"
+            );
         }
     }
 }
