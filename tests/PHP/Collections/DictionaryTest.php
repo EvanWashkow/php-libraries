@@ -5,8 +5,9 @@ require_once( __DIR__ . '/DictionaryData.php' );
 /**
  * Dictionary Tests
  *
- * This only tests the editable portion of a Dictionary. See Dictionary
- * for the read accessors
+ * This primarily tests the editable portion of an editable ictionary. The
+ * read-only dictionary tests verify both the read-only dictionary and the
+ * editable dictionary, and would be redundant to test here.
  */
 class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
@@ -18,7 +19,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if clearing the dictionary has a count of zero
      */
-    public function testDictionaryClearHaveNoEntries()
+    public function testClearHaveNoEntries()
     {
         foreach ( DictionaryData::Get() as $dictionary ) {
             $dictionary->clear();
@@ -40,7 +41,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key from the dictionary remove the key?
      */
-    public function testDictionaryRemoveHasSmallerCount()
+    public function testRemoveHasSmallerCount()
     {
         foreach ( DictionaryData::Get() as $dictionary ) {
             $previous = $dictionary->count();
@@ -61,7 +62,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Does removing a key with a non-existing key fail?
      */
-    public function testDictionaryRemoveWithNonExistingKey()
+    public function testRemoveWithNonExistingKey()
     {
         foreach ( DictionaryData::Get() as $dictionary ) {
             $previous = $dictionary->count();
@@ -129,7 +130,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an new entry should work
      */
-    public function testDictionariesSetNewKey()
+    public function testSetNewKey()
     {
         foreach ( DictionaryData::Get() as $dictionary ) {
             $this->assertGreaterThan(
@@ -144,7 +145,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an existing key to a different value should work
      */
-    public function testDictionariesSetExistingKey()
+    public function testSetExistingKey()
     {
         foreach ( DictionaryData::Get() as $dictionary ) {
             
