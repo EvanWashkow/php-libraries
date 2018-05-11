@@ -50,31 +50,26 @@ class DictionaryData
     public static function GetMixed(): Dictionary
     {
         $dictionary = new Dictionary();
-        foreach ( self::GetTyped() as $d ) {
-            foreach ( $d as $key => $value) {
+        foreach ( self::GetTyped() as $typedDictionary ) {
+            $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
                 $dictionary->set( $key, $value );
                 $dictionary->set( $value, $key );
-            }
+            });
         }
         return $dictionary;
     }
     
     
     /**
-     * Return sample Dictionary with string keys and integer values
+     * Return sample Dictionary with "1"-"9" => 1-9
      *
      * @return Dictionary
      */
     private static function getStringInt(): Dictionary
     {
-        // Map 1-26 to a-z
-        $start = 97;
-        $end   = 122;
         $dictionary = new Dictionary( 'string', 'integer' );
-        for ( $ascii = $start; $ascii <= $end; $ascii++ ) {
-            $key   = chr( $ascii );
-            $value = ( $ascii - $start ) + 1;
-            $dictionary->set( $key, $value );
+        for ( $i = 0; $i < 10; $i++ ) {
+            $dictionary->set( (string) $i, $i );
         }
         return $dictionary;
     }
