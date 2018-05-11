@@ -5,7 +5,7 @@ require_once( __DIR__ . '/DictionaryData.php' );
 /**
  * Dictionary Tests
  *
- * This only tests the editable portion of a Dictionary. See ReadOnlyDictionary
+ * This only tests the editable portion of a Dictionary. See Dictionary
  * for the read accessors
  */
 class DictionaryTest extends \PHPUnit\Framework\TestCase
@@ -233,6 +233,31 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
                 'PHP\\Collections\\Dictionary',
                 $dictionary->clone(),
                 "Dictionary->clone() should return a Dictionary"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                             Dictionary->count()
+    ***************************************************************************/
+    
+    /**
+     * Count returns zero when there are no entries
+     */
+    public function testCountIsZeroForEmpty()
+    {
+        foreach ( DictionaryData::Get() as $dictionary ) {
+            $dictionary->clear();
+            $dictionary->loop( function( $key, $value ) use ( &$count ) {
+                $count++;
+            });
+            $this->assertEquals(
+                0,
+                $dictionary->count(),
+                "Dictionary->count() returned {$dictionary->count()} on an empty Dictionary"
             );
         }
     }
