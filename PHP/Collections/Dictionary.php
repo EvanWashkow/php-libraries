@@ -168,8 +168,7 @@ class Dictionary extends Collection implements DictionarySpec
         $key = key( $this->entries );
         
         /**
-         * If an "string-integer", such as "0", is set as the index, it is
-         * implicitly converted to an integer
+         * PHP implicitly implicitly converts string indices--like "0"--to integers
          *
          * TODO: Remove this when converting to two internal sequences for keys
          * and values
