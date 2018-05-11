@@ -165,7 +165,19 @@ class Dictionary extends Collection implements DictionarySpec
     
     final public function key()
     {
-        return key( $this->entries );
+        $key = key( $this->entries );
+        
+        /**
+         * If an "string-integer", such as "0", is set as the index, it is
+         * implicitly converted to an integer
+         *
+         * TODO: Remove this when converting to two internal sequences for keys
+         * and values
+         */
+        if ( 'string' === $this->keyType ) {
+            $key = ( string ) $key;
+        }
+        return $key;
     }
     
     final public function next()
