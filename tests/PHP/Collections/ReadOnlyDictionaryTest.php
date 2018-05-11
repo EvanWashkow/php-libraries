@@ -77,4 +77,18 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+    
+    /**
+     * Count returns the number of items
+     */
+    public function testCountIsZeroForEmpty()
+    {
+        $dictionary = new \PHP\Collections\Dictionary();
+        $dictionary = new \PHP\Collections\ReadOnlyDictionary( $dictionary );
+        $this->assertEquals(
+            0,
+            $dictionary->count(),
+            "ReadOnlyDictionary->count() returned {$dictionary->count()} on an empty Dictionary"
+        );
+    }
 }

@@ -237,29 +237,4 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                             Dictionary->count()
-    ***************************************************************************/
-    
-    /**
-     * Count returns zero when there are no entries
-     */
-    public function testCountIsZeroForEmpty()
-    {
-        foreach ( DictionaryData::Get() as $dictionary ) {
-            $dictionary->clear();
-            $dictionary->loop( function( $key, $value ) use ( &$count ) {
-                $count++;
-            });
-            $this->assertEquals(
-                0,
-                $dictionary->count(),
-                "Dictionary->count() returned {$dictionary->count()} on an empty Dictionary"
-            );
-        }
-    }
 }
