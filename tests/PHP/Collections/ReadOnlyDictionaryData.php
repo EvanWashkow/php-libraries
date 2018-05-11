@@ -7,7 +7,7 @@ use PHP\Collections\ReadOnlyDictionary;
 /**
  * Dictionary Data for testing
  */
-class ReadOnlysDictionaryData
+class ReadOnlyDictionaryData
 {
     
     /**

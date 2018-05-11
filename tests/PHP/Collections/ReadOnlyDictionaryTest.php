@@ -16,7 +16,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testCloneCopiesAllEntries()
     {
-        foreach ( ReadOnlysDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
             $clone = $dictionary->clone();
             $clone->loop( function( $key, $value ) use ( $dictionary ) {
                 $this->assertTrue(
