@@ -6,13 +6,13 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
+class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
 {
     
     /**
      * The collection instance
      *
-     * @var CollectionSpec
+     * @var ICollection
      */
     protected $collection;
     
@@ -20,15 +20,15 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
     /**
      * Create a new read-only Collection instance
      *
-     * @param CollectionSpec $collection The collection to make read-only
+     * @param ICollection $collection The collection to make read-only
      */
-    public function __construct( CollectionSpec $collection )
+    public function __construct( ICollection $collection )
     {
         $this->collection = $collection;
     }
     
     
-    public function clone(): ReadOnlyCollectionSpec
+    public function clone(): IReadOnlyCollection
     {
         $clone = $this->collection->clone();
         return new self( $clone );
@@ -44,12 +44,12 @@ class ReadOnlyCollection extends Iterator implements ReadOnlyCollectionSpec
         return $this->collection->get( $key );
     }
     
-    final public function getKeys(): ReadOnlySequenceSpec
+    final public function getKeys(): IReadOnlySequence
     {
         return $this->collection->getKeys();
     }
     
-    final public function getValues(): ReadOnlySequenceSpec
+    final public function getValues(): IReadOnlySequence
     {
         return $this->collection->getValues();
     }

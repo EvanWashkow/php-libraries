@@ -4,7 +4,7 @@ namespace PHP\Collections;
 /**
  * Specifications for a mutable, ordered, and iterable set of key-value pairs
  */
-interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
+interface ISequence extends ICollection, IReadOnlySequence
 {
     
     /**
@@ -18,9 +18,9 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     /**
      * Duplicate every key and value into a new instance
      *
-     * @return SequenceSpec
+     * @return ISequence
      */
-    public function clone(): ReadOnlyCollectionSpec;
+    public function clone(): IReadOnlyCollection;
     
     /**
      * Insert the value at the key, shifting remaining values up
@@ -34,9 +34,9 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
     /**
      * Reverse all entries
      *
-     * @return SequenceSpec
+     * @return ISequence
      */
-    public function reverse(): ReadOnlySequenceSpec;
+    public function reverse(): IReadOnlySequence;
     
     /**
      * Clone a subset of entries from this sequence
@@ -50,16 +50,16 @@ interface SequenceSpec extends CollectionSpec, ReadOnlySequenceSpec
      *
      * @param int $offset Starting key (inclusive)
      * @param int $limit  Number of items to copy
-     * @return SequenceSpec
+     * @return ISequence
      */
-    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec;
+    public function slice( int $offset, int $limit ): IReadOnlySequence;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter
      *
      * @param mixed $delimiter Value separating each group
      * @param int   $limit     Maximum number of entries to return; negative to return all.
-     * @return SequenceSpec
+     * @return ISequence
      */
-    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence;
 }

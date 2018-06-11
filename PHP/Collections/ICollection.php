@@ -4,15 +4,15 @@ namespace PHP\Collections;
 /**
  * Specifications for an iterable set of mutable, key-value pairs
  */
-interface CollectionSpec extends ReadOnlyCollectionSpec
+interface ICollection extends IReadOnlyCollection
 {
     
     /**
      * Duplicate every key and value into a new instance
      *
-     * @return CollectionSpec
+     * @return ICollection
      */
-    public function clone(): ReadOnlyCollectionSpec;
+    public function clone(): IReadOnlyCollection;
     
     /**
      * Remove all stored values

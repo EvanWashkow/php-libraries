@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-abstract class Collection extends Iterator implements CollectionSpec
+abstract class Collection extends Iterator implements ICollection
 {
     
     /**
@@ -50,7 +50,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function getKeys(): ReadOnlySequenceSpec
+    public function getKeys(): IReadOnlySequence
     {
         $keys = new Sequence( $this->keyType );
         $this->loop( function( $key, $value ) use ( &$keys ) {
@@ -60,7 +60,7 @@ abstract class Collection extends Iterator implements CollectionSpec
     }
     
     
-    public function getValues(): ReadOnlySequenceSpec
+    public function getValues(): IReadOnlySequence
     {
         $values = new Sequence( $this->valueType );
         $this->loop( function( $key, $value ) use ( &$values ) {
