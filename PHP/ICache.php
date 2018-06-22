@@ -1,12 +1,12 @@
 <?php
 namespace PHP;
 
-use PHP\Collections\DictionarySpec;
+use PHP\Collections\IDictionary;
 
 /**
  * Specifications for a cache of values
  */
-interface CacheSpec extends DictionarySpec
+interface ICache extends IDictionary
 {
     
     /**

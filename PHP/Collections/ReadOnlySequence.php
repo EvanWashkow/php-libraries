@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpec
+class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
 {
     
     /**
@@ -15,15 +15,15 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
      * As entries are added to / removed from the sequence, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param SequenceSpec &$sequence The sequence to make read-only
+     * @param ISequence &$sequence The sequence to make read-only
      */
-    public function __construct( SequenceSpec &$sequence )
+    public function __construct( ISequence &$sequence )
     {
         parent::__construct( $sequence );
     }
     
     
-    final public function clone(): ReadOnlyCollectionSpec
+    final public function clone(): IReadOnlyCollection
     {
         $clone = $this->collection->clone();
         return new self( $clone );
@@ -49,19 +49,19 @@ class ReadOnlySequence extends ReadOnlyCollection implements ReadOnlySequenceSpe
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function reverse(): ReadOnlySequenceSpec
+    public function reverse(): IReadOnlySequence
     {
         $sequence = $this->collection->reverse();
         return new self( $sequence );
     }
     
-    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
+    public function slice( int $offset, int $limit ): IReadOnlySequence
     {
         $sequence = $this->collection->slice( $offset, $limit );
         return new self( $sequence );
     }
     
-    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
+    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence
     {
         // Variables
         $splitSequence = $this->collection->split( $delimiter, $limit );

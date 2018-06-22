@@ -4,15 +4,15 @@ namespace PHP\Collections;
 /**
  * Specifications for an iterable set of read-only, key-value pairs
  */
-interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
+interface IReadOnlyCollection extends \Countable, IIterator
 {
     
     /**
      * Duplicate every key and value into a new instance
      *
-     * @return ReadOnlyCollectionSpec
+     * @return IReadOnlyCollection
      */
-    public function clone(): ReadOnlyCollectionSpec;
+    public function clone(): IReadOnlyCollection;
     
     /**
      * Retrieve the value stored at the specified key
@@ -25,16 +25,16 @@ interface ReadOnlyCollectionSpec extends \Countable, IteratorSpec
     /**
      * Retrieve all entry keys
      *
-     * @return ReadOnlySequenceSpec
+     * @return IReadOnlySequence
      */
-    public function getKeys(): ReadOnlySequenceSpec;
+    public function getKeys(): IReadOnlySequence;
     
     /**
      * Retrieve all entry values
      *
-     * @return ReadOnlySequenceSpec
+     * @return IReadOnlySequence
      */
-    public function getValues(): ReadOnlySequenceSpec;
+    public function getValues(): IReadOnlySequence;
     
     /**
      * Determine if the key exists
