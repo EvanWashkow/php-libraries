@@ -4,7 +4,7 @@ namespace PHP\Collections;
 /**
  * Specifications for a collection of methods used to iterate over internal values
  */
-interface IteratorSpec extends \SeekableIterator, \PHP\PHPObjectSpec
+interface IIterator extends \SeekableIterator, \PHP\IPHPObject
 {
     
     /**

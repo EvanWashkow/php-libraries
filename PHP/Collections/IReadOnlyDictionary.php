@@ -4,13 +4,13 @@ namespace PHP\Collections;
 /**
  * Specifications for a read-only, unordered, and iterable set of key-value pairs
  */
-interface ReadOnlyDictionarySpec extends ReadOnlyCollectionSpec
+interface IReadOnlyDictionary extends IReadOnlyCollection
 {
     
     /**
      * Duplicate every key and value into a new instance
      *
-     * @return ReadOnlyDictionarySpec
+     * @return IReadOnlyDictionary
      */
-    public function clone(): ReadOnlyCollectionSpec;
+    public function clone(): IReadOnlyCollection;
 }

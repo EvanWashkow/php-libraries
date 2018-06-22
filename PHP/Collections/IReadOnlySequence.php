@@ -4,15 +4,15 @@ namespace PHP\Collections;
 /**
  * Specifications for a read-only, ordered, and iterable set of key-value pairs
  */
-interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
+interface IReadOnlySequence extends IReadOnlyCollection
 {
     
     /**
      * Duplicate every key and value into a new instance
      *
-     * @return ReadOnlySequenceSpec
+     * @return IReadOnlySequence
      */
-    public function clone(): ReadOnlyCollectionSpec;
+    public function clone(): IReadOnlyCollection;
     
     /**
      * Retrieve the key for the last entry
@@ -41,9 +41,9 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
     /**
      * Reverse all entries
      *
-     * @return ReadOnlySequenceSpec
+     * @return IReadOnlySequence
      */
-    public function reverse(): ReadOnlySequenceSpec;
+    public function reverse(): IReadOnlySequence;
     
     /**
      * Clone a subset of entries from this sequence
@@ -57,18 +57,18 @@ interface ReadOnlySequenceSpec extends ReadOnlyCollectionSpec
      *
      * @param int $offset Starting key (inclusive)
      * @param int $limit  Number of items to copy
-     * @return ReadOnlySequenceSpec
+     * @return IReadOnlySequence
      */
-    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec;
+    public function slice( int $offset, int $limit ): IReadOnlySequence;
     
     /**
      * Chop these entries into groups, using the given value as a delimiter
      *
      * @param mixed $delimiter Value separating each group
      * @param int   $limit     Maximum number of entries to return; negative to return all.
-     * @return ReadOnlySequenceSpec
+     * @return IReadOnlySequence
      */
-    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec;
+    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence;
     
     /**
      * Convert to a native PHP array

@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionarySpec
+class ReadOnlyDictionary extends ReadOnlyCollection implements IReadOnlyDictionary
 {
     
     /**
@@ -15,15 +15,15 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements ReadOnlyDictionar
      * As entries are added to / removed from the dictionary, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param DictionarySpec &$dictionary The dictionary to make read-only
+     * @param IDictionary &$dictionary The dictionary to make read-only
      */
-    public function __construct( DictionarySpec &$dictionary )
+    public function __construct( IDictionary &$dictionary )
     {
         parent::__construct( $dictionary );
     }
     
     
-    public function clone(): ReadOnlyCollectionSpec
+    public function clone(): IReadOnlyCollection
     {
         $clone = $this->collection->clone();
         return new self( $clone );

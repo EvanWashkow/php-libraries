@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Dictionary extends Collection implements DictionarySpec
+class Dictionary extends Collection implements IDictionary
 {
     
     /**
@@ -111,7 +111,7 @@ class Dictionary extends Collection implements DictionarySpec
     *                             READ-ONLY METHODS
     ***************************************************************************/
     
-    public function clone(): ReadOnlyCollectionSpec
+    public function clone(): IReadOnlyCollection
     {
         $clone = new self( $this->keyType, $this->valueType );
         $this->loop( function( $key, $value ) use ( &$clone ) {

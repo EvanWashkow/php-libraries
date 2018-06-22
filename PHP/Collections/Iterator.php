@@ -14,7 +14,7 @@ namespace PHP\Collections;
  * at an invalid position. The loop() function fixes this issue entirely by
  * restoring the outer loop's cursor position after exiting the inner loop.
  */
-abstract class Iterator extends \PHP\PHPObject implements IteratorSpec
+abstract class Iterator extends \PHP\PHPObject implements IIterator
 {
     
     final public function loop( callable $function )

@@ -6,7 +6,7 @@ use PHP\Collections\Dictionary;
 /**
  * Caches and retrieves items from system memory
  */
-class Cache extends Dictionary implements CacheSpec
+class Cache extends Dictionary implements ICache
 {
     
     /**

@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Sequence extends Collection implements SequenceSpec
+class Sequence extends Collection implements ISequence
 {
     
     /**
@@ -144,7 +144,7 @@ class Sequence extends Collection implements SequenceSpec
     *                            READ-ONLY METHODS
     ***************************************************************************/
     
-    final public function clone(): ReadOnlyCollectionSpec
+    final public function clone(): IReadOnlyCollection
     {
         return $this->slice( $this->getFirstKey(), $this->count() );
     }
@@ -241,7 +241,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function reverse(): ReadOnlySequenceSpec
+    public function reverse(): IReadOnlySequence
     {
         $sequence = new self( $this->type );
         $entries  = array_reverse( $this->entries, false );
@@ -252,7 +252,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function slice( int $offset, int $limit ): ReadOnlySequenceSpec
+    public function slice( int $offset, int $limit ): IReadOnlySequence
     {
         // Variables
         $key      = $offset;
@@ -289,7 +289,7 @@ class Sequence extends Collection implements SequenceSpec
     }
     
     
-    public function split( $delimiter, int $limit = -1 ): ReadOnlySequenceSpec
+    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence
     {
         // Variables
         $startingKey   = $this->getFirstKey();
