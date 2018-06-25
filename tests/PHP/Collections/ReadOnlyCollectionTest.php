@@ -93,26 +93,40 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
-     * Test if isOfKeyType() allows anything that is null
+     * Test if isOfKeyType() rejects null values
+     */
+    public function testIsOfKeyTypeRejectsNULL()
+    {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+            $this->assertFalse(
+                $collection->isOfKeyType( null ),
+                "Collection unexpectedly accepted a null key"
+            );
+        }
+    }
+    
+    
+    /**
+     * Test if isOfKeyType() allows anything that is not null
      */
     public function testIsOfKeyTypeMixedAllowsAnything()
     {
         foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
             $this->assertTrue(
                 $collection->isOfKeyType( true ),
-                "Untyped collection unexpectedly rejected boolean value"
+                "Untyped collection unexpectedly rejected boolean key"
             );
             $this->assertTrue(
                 $collection->isOfKeyType( 1 ),
-                "Untyped collection unexpectedly rejected integer"
+                "Untyped collection unexpectedly rejected integer key"
             );
             $this->assertTrue(
                 $collection->isOfKeyType( 'string' ),
-                "Untyped collection unexpectedly rejected string"
+                "Untyped collection unexpectedly rejected string key"
             );
             $this->assertTrue(
                 $collection->isOfKeyType( new stdClass() ),
-                "Untyped collection unexpectedly rejected object"
+                "Untyped collection unexpectedly rejected object key"
             );
         }
     }
