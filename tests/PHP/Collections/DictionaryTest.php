@@ -94,7 +94,8 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     {
         foreach ( DictionaryData::GetTyped() as $dictionary ) {
             $key;
-            foreach ( $dictionary as $key ) {
+            foreach ( $dictionary as $k => $value ) {
+                $key = $value;
                 break;
             }
             
