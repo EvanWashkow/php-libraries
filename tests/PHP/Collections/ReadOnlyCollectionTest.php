@@ -109,7 +109,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfKeyType() allows anything that is not null
      */
-    public function testIsOfKeyTypeMixedAllowsAnything()
+    public function testIsOfKeyTypeMixedAllowsAnyKey()
     {
         foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
             $this->assertTrue(
@@ -133,29 +133,18 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Test if isOfKeyType() allows its own integer type
+     * Test if isOfKeyType() allows its own key type
      */
-    public function testIsOfKeyTypeAllowsMatchingInt()
+    public function testIsOfKeyTypeAllowsMatchingKeyType()
     {
-        $collection = new \PHP\Collections\Dictionary( 'integer' );
-        $collection = new \PHP\Collections\ReadOnlyCollection( $collection );
-        $this->assertTrue(
-            $collection->isOfKeyType( 1 ),
-            "Collection with integer keys rejects integer keys"
-        );
-    }
-    
-    
-    /**
-     * Test if isOfKeyType() allows its own string type
-     */
-    public function testIsOfKeyTypeAllowsMatchingString()
-    {
-        $collection = new \PHP\Collections\Dictionary( 'string' );
-        $collection = new \PHP\Collections\ReadOnlyCollection( $collection );
-        $this->assertTrue(
-            $collection->isOfKeyType( 'string' ),
-            "Collection with string keys rejects string keys"
-        );
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            foreach ( $collection as $key => $value ) {
+                $this->assertTrue(
+                    $collection->isOfKeyType( $key ),
+                    "Collection with defined key types rejects its own keys"
+                );
+                break;
+            }
+        }
     }
 }
