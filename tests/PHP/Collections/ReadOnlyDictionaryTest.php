@@ -140,4 +140,25 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                       ReadOnlyDictionary->getKeys()
+    ***************************************************************************/
+    
+    /**
+     * Does getKeys() return a sequence?
+     */
+    public function testGetKeysReturnsSequence()
+    {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+            $this->assertInstanceOf(
+                "PHP\\Collections\\Sequence",
+                $dictionary->getKeys(),
+                "Expected Sequence to be returned from ReadOnlyDictionary->getKeys()"
+            );
+        }
+    }
 }
