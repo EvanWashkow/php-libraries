@@ -17,9 +17,7 @@ class DictionaryData
     {
         return array_merge(
             self::GetTyped(),
-            [
-                self::GetMixed()
-            ]
+            self::GetMixed()
         );
     }
     
@@ -45,9 +43,9 @@ class DictionaryData
     /**
      * Retrieve sample Dictionary with mixed string and value types
      *
-     * @return Dictionary
+     * @return array
      */
-    public static function GetMixed(): Dictionary
+    public static function GetMixed(): array
     {
         $dictionary = new Dictionary();
         foreach ( self::GetTyped() as $typedDictionary ) {
@@ -56,7 +54,9 @@ class DictionaryData
                 $dictionary->set( $value, $key );
             });
         }
-        return $dictionary;
+        return [
+            $dictionary
+        ];
     }
     
     

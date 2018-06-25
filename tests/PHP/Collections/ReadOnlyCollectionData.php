@@ -43,8 +43,6 @@ final class ReadOnlyCollectionData
      */
     public function GetMixed()
     {
-        return [
-            ReadOnlyDictionaryData::GetMixed()
-        ];
+        return ReadOnlyDictionaryData::GetMixed();
     }
 }

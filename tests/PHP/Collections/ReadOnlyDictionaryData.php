@@ -19,9 +19,7 @@ class ReadOnlyDictionaryData
     {
         return array_merge(
             self::GetTyped(),
-            [
-                self::GetMixed()
-            ]
+            self::GetMixed()
         );
     }
     
@@ -43,11 +41,14 @@ class ReadOnlyDictionaryData
     /**
      * Retrieve sample Dictionary with mixed string and value types
      *
-     * @return ReadOnlyDictionary
+     * @return array
      */
-    public static function GetMixed(): ReadOnlyDictionary
+    public static function GetMixed(): array
     {
-        $dictionary = DictionaryData::GetMixed();
-        return new ReadOnlyDictionary( $dictionary );
+        $roDictionaries = [];
+        foreach ( DictionaryData::GetMixed() as $dictionary ) {
+            $roDictionaries[] = new ReadOnlyDictionary( $dictionary );
+        }
+        return $roDictionaries;
     }
 }
