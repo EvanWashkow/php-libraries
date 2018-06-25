@@ -201,4 +201,38 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Test if isOfValueType() allows its own value type
+     */
+    public function testIsOfValueTypeAllowsMatchingValueType()
+    {
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            foreach ( $collection as $key => $value ) {
+                $this->assertTrue(
+                    $collection->isOfValueType( $value ),
+                    "Collection with defined value types rejects its own values"
+                );
+                break;
+            }
+        }
+    }
+    
+    
+    /**
+     * Test if isOfValueType() rejects other types
+     */
+    public function testIsOfValueTypeRejectsMixMatchedValueType()
+    {
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            foreach ( $collection as $key => $value ) {
+                $this->assertFalse(
+                    $collection->isOfValueType( $key ),
+                    "Collection with defined value types rejects its own values"
+                );
+                break;
+            }
+        }
+    }
 }
