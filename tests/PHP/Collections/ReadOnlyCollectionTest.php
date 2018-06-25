@@ -147,4 +147,21 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
             }
         }
     }
+    
+    
+    /**
+     * Test if isOfKeyType() rejects other types
+     */
+    public function testIsOfKeyTypeRejectsMixMatchedKeyType()
+    {
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            foreach ( $collection as $key => $value ) {
+                $this->assertFalse(
+                    $collection->isOfKeyType( $value ),
+                    "Collection with defined key types rejects its own keys"
+                );
+                break;
+            }
+        }
+    }
 }
