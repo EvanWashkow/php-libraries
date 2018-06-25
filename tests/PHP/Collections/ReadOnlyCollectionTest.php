@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
+require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
 
 /**
  * Test ReadOnlyCollection methods
@@ -17,7 +17,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetKeysReturnsSequence()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyCollectionData::Get() as $dictionary ) {
             $this->assertInstanceOf(
                 "PHP\\Collections\\Sequence",
                 $dictionary->getKeys(),
