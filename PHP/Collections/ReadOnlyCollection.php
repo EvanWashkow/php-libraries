@@ -44,12 +44,12 @@ class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
         return $this->collection->get( $key );
     }
     
-    final public function getKeys(): IReadOnlySequence
+    final public function getKeys(): Sequence
     {
         return $this->collection->getKeys();
     }
     
-    final public function getValues(): IReadOnlySequence
+    final public function getValues(): Sequence
     {
         return $this->collection->getValues();
     }

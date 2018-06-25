@@ -25,16 +25,16 @@ interface IReadOnlyCollection extends \Countable, IIterator
     /**
      * Retrieve all entry keys
      *
-     * @return IReadOnlySequence
+     * @return Sequence
      */
-    public function getKeys(): IReadOnlySequence;
+    public function getKeys(): Sequence;
     
     /**
      * Retrieve all entry values
      *
-     * @return IReadOnlySequence
+     * @return Sequence
      */
-    public function getValues(): IReadOnlySequence;
+    public function getValues(): Sequence;
     
     /**
      * Determine if the key exists

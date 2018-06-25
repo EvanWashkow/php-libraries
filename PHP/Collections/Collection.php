@@ -50,23 +50,23 @@ abstract class Collection extends Iterator implements ICollection
     }
     
     
-    public function getKeys(): IReadOnlySequence
+    final public function getKeys(): Sequence
     {
         $keys = new Sequence( $this->keyType );
         $this->loop( function( $key, $value ) use ( &$keys ) {
             $keys->add( $key );
         });
-        return new ReadOnlySequence( $keys );
+        return $keys;
     }
     
     
-    public function getValues(): IReadOnlySequence
+    final public function getValues(): Sequence
     {
         $values = new Sequence( $this->valueType );
         $this->loop( function( $key, $value ) use ( &$values ) {
             $values->add( $value );
         });
-        return new ReadOnlySequence( $values );
+        return $values;
     }
     
     
