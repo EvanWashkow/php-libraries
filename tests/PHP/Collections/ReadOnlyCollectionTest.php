@@ -130,4 +130,18 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Test if isOfKeyType() allows its own type
+     */
+    public function testIsOfKeyTypeAllowsMatchingInt()
+    {
+        $collection = new \PHP\Collections\Dictionary( 'integer' );
+        $collection = new \PHP\Collections\ReadOnlyCollection( $collection );
+        $this->assertTrue(
+            $collection->isOfKeyType( 1 ),
+            "Collection with boolean keys rejects boolean keys"
+        );
+    }
 }
