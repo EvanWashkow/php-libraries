@@ -25,10 +25,10 @@ class DictionaryData
     /**
      * Retrieve all test typed dictionaries
      *
-     * IMPORTANT!!! It is useful toswap dictionary key / values as parameters to
-     * test type constraints. So, the key-value types cannot be the same, and it
-     * very useful to define entries that PHP implicitly type converts, such as
-     * "1" => 1
+     * IMPORTANT!!! It is useful to swap dictionary key / values as parameters
+     * to test type constraints. So, the key-value types cannot be the same, and
+     * it is very useful to define entries that PHP implicitly type converts,
+     * such as "1" => 1
      *
      * @return array
      */
