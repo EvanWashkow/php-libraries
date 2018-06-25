@@ -44,4 +44,44 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                     ReadOnlyCollection->getValues()
+    ***************************************************************************/
+
+    /**
+     * Does getValues() return a sequence?
+     */
+    public function testGetValuesReturnsSequence()
+    {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+            $this->assertInstanceOf(
+                "PHP\\Collections\\Sequence",
+                $collection->getValues(),
+                "Expected Sequence to be returned from ReadOnlyCollection->getValues()"
+            );
+        }
+    }
+    
+    
+    /**
+     * Does getValues() return the collection's keys?
+     */
+    public function testGetValuesReturnsValues()
+    {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+            $values = [];
+            $collection->loop(function( $key, $value ) use ( &$values ) {
+                $values[] = $value;
+            });
+            $this->assertEquals(
+                $values,
+                $collection->getValues()->toArray(),
+                "ReadOnlyCollection->getValues() doesn't match the keys inside the collection."
+            );
+        }
+    }
 }
