@@ -12,6 +12,28 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
 {
     
     /***************************************************************************
+    *                          ReadOnlyDictionaryData
+    ***************************************************************************/
+    
+    /**
+     * Are all the collections valid?
+     */
+    public function testData()
+    {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+            $this->assertNotEquals(
+                0,
+                $dictionary->count(),
+                "ReadOnlyDictionary data is corrupt. It cannot be empty."
+            );
+        }
+    }
+    
+    
+    
+    
+    
+    /***************************************************************************
     *                         ReadOnlyDictionary->clone()
     ***************************************************************************/
     
