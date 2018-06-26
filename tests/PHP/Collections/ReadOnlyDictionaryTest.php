@@ -216,6 +216,22 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /**
+     * Ensure hasKey() returns false for non-existing keys
+     */
+    public function testHasKeyReturnsFalseForNonExistingKeys()
+    {
+        foreach ( ReadOnlyDictionaryData::GetTyped() as $dictionary ) {
+            $dictionary->loop(function( $key, $value ) use ( $dictionary ) {
+                $this->assertFalse(
+                    $dictionary->hasKey( $value ),
+                    "ReadOnlyDictionary->hasKey() should have returned false for missing key"
+                );
+            });
+        }
+    }
+    
+    
+    /**
      * Test if hasKey() returns true for its own keys
      */
     public function testHasKeyReturnsTrueForValidKeys()
