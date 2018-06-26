@@ -179,4 +179,26 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             });
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                        ReadOnlyDictionary->hasKey()
+    ***************************************************************************/
+    
+    /**
+     * Test if ReadOnlyDictionary->hasKey() returns true for its own keys
+     */
+    public function testHasKeyReturnsTrueForValidKeys()
+    {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+            $dictionary->loop(function( $key, $value ) use ( $dictionary ) {
+                $this->assertTrue(
+                    $dictionary->hasKey( $key ),
+                    "Expected ReadOnlyDictionary->hasKey() to return true for its own keys"
+                );
+            });
+        }
+    }
 }
