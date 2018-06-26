@@ -270,4 +270,27 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                        ReadOnlyCollection->valid()
+    ***************************************************************************/
+    
+    /**
+     * Does valid() return true for valid keys?
+     */
+    public function testValidReturnsTrueForValidKeys()
+    {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+            foreach ( $collection as $key => $value ) {
+                $collection->seek( $key );
+                $this->assertTrue(
+                    $collection->valid(),
+                    "Expected valid() to return true for a valid key"
+                );
+            }
+        }
+    }
 }
