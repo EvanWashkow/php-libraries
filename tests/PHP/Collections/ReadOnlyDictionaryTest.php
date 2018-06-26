@@ -136,16 +136,15 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Should not be able to retrieve a value from the dictionary with the wrong
-     * key type
+     * Should error when attempting to retrieve a value with the wrong key type
      */
-    public function testGetWithWrongKeyType()
+    public function testGetErrorsWithWrongKeyType()
     {
         foreach ( ReadOnlyDictionaryData::GetTyped() as $dictionary ) {
             $isSuccessful = false;
             $dictionary->loop(function( $key, $value ) use ( &$isSuccessful ) {
                 try {
-                    $isSuccessful = $dictionary->get( $value );
+                    $dictionary->get( $value );
                 } catch (\Exception $e) {}
                 if ( $isSuccessful ) {
                     return $isSuccessful;
@@ -153,8 +152,31 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             });
             $this->assertFalse(
                 $isSuccessful,
-                "ReadOnlyDictionary->get() should not be able to retrieve with the wrong type"
+                "ReadOnlyDictionary->get() should error when attempting to retrieve value the wrong key type"
             );
         }
+    }
+    
+    
+    /**
+     * Trying to get value from a non-existing key should error
+     */
+    public function testGetErrorsWithNonExistingKey()
+    {
+        $dictionary = new \PHP\Collections\Dictionary( 'integer', 'string' );
+        $dictionary->set( 1, 'foobar' );
+        $dictionary = new \PHP\Collections\ReadOnlyDictionary( $dictionary );
+        
+        $isError = false;
+        try {
+            $dictionary->get( 2 );
+        } catch (\Exception $e) {
+            $isError = true;
+        }
+        
+        $this->assertTrue(
+            $isError,
+            "Expected ReadOnlyDictionary->get() to error with non-existing key"
+        );
     }
 }
