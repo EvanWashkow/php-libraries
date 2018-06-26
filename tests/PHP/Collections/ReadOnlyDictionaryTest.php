@@ -245,4 +245,27 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             });
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                        ReadOnlyDictionary->current()
+    ***************************************************************************/
+    
+    /**
+     * Ensure current() always matches the current value in a loop
+     */
+    public function testCurrentMatchesValue()
+    {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+            foreach ( $dictionary as $value ) {
+                $this->assertEquals(
+                    $value,
+                    $dictionary->current(),
+                    "Expected ReadOnlyDictionary->current() to return the current value in the iteration"
+                );
+            }
+        }
+    }
 }
