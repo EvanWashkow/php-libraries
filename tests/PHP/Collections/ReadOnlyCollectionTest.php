@@ -109,7 +109,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfKeyType() allows anything that is not null
      */
-    public function testIsOfKeyTypeMixedAllowsAnyKey()
+    public function testIsOfKeyTypeAllowsAnyKeyInMixed()
     {
         foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
             $this->assertTrue(
@@ -176,7 +176,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfValueType() allows anything
      */
-    public function testIsOfValueTypeMixedAllowsAnyValue()
+    public function testIsOfValueTypeAllowsAnyValueInMixed()
     {
         foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
             $this->assertTrue(
