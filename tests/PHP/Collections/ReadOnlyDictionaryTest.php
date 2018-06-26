@@ -188,7 +188,35 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
-     * Test if ReadOnlyDictionary->hasKey() returns true for its own keys
+     * Ensure hasKey() returns false for the wrong type
+     */
+    public function testHasKeyReturnsFalseForWrongType()
+    {
+        // Variables
+        $message = "Expected ReadOnlyDictionary->hasKey() to return false for wrong type";
+        
+        // Test implicit string => integer conversion
+        $dictionary = new \PHP\Collections\Dictionary( 'integer', 'string' );
+        $dictionary->set( 1, '1' );
+        $dictionary = new \PHP\Collections\ReadOnlyDictionary( $dictionary );
+        $this->assertFalse(
+            $dictionary->hasKey( '1' ),
+            $message
+        );
+        
+        // Test implicit boolean => integer conversion
+        $dictionary = new \PHP\Collections\Dictionary( 'integer', 'string' );
+        $dictionary->set( 1, '1' );
+        $dictionary = new \PHP\Collections\ReadOnlyDictionary( $dictionary );
+        $this->assertFalse(
+            $dictionary->hasKey( true ),
+            $message
+        );
+    }
+    
+    
+    /**
+     * Test if hasKey() returns true for its own keys
      */
     public function testHasKeyReturnsTrueForValidKeys()
     {
