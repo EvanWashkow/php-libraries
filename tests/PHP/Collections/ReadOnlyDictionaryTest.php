@@ -119,23 +119,6 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
-     * A value should be retrievable by its key
-     */
-    public function testGetRetrievesValue()
-    {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
-            $dictionary->loop(function( $key, $value ) use ( &$dictionary ) {
-                $this->assertEquals(
-                    $value,
-                    $dictionary->get( $key ),
-                    "ReadOnlyDictionary->get() did not return the value corresponding to its key"
-                );
-            });
-        }
-    }
-    
-    
-    /**
      * Should error when attempting to retrieve a value with the wrong key type
      */
     public function testGetErrorsWithWrongKeyType()
@@ -178,5 +161,22 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             $isError,
             "Expected ReadOnlyDictionary->get() to error with non-existing key"
         );
+    }
+    
+    
+    /**
+     * A value should be retrievable by its key
+     */
+    public function testGetRetrievesValue()
+    {
+        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+            $dictionary->loop(function( $key, $value ) use ( &$dictionary ) {
+                $this->assertEquals(
+                    $value,
+                    $dictionary->get( $key ),
+                    "ReadOnlyDictionary->get() did not return the value corresponding to its key"
+                );
+            });
+        }
     }
 }
