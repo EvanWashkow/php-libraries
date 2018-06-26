@@ -35,6 +35,7 @@ class DictionaryData
     public static function GetTyped(): array
     {
         return [
+            self::getIntBool(),
             self::getStringInt()
         ];
     }
@@ -61,6 +62,20 @@ class DictionaryData
     
     
     /**
+     * Return sample Dictionary with 1, 0 => true, false
+     *
+     * @return Dictionary
+     */
+    private static function getIntBool(): Dictionary
+    {
+        $dictionary = new Dictionary( 'integer', 'boolean' );
+        $dictionary->set( 1, true );
+        $dictionary->set( 0, false );
+        return $dictionary;
+    }
+    
+    
+    /**
      * Return sample Dictionary with "1"-"9" => 1-9
      *
      * @return Dictionary
@@ -70,6 +85,21 @@ class DictionaryData
         $dictionary = new Dictionary( 'string', 'integer' );
         for ( $i = 0; $i < 10; $i++ ) {
             $dictionary->set( (string) $i, $i );
+        }
+        return $dictionary;
+    }
+    
+    
+    /**
+     * Return sample Dictionary with "1"-"9" => new stdClass()
+     *
+     * @return Dictionary
+     */
+    private static function getStringObject(): Dictionary
+    {
+        $dictionary = new Dictionary( 'string', 'stdClass' );
+        for ( $i = 0; $i < 10; $i++ ) {
+            $dictionary->set( (string) $i, new stdClass() );
         }
         return $dictionary;
     }
