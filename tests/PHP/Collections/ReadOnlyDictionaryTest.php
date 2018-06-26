@@ -124,18 +124,13 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     public function testGetRetrievesValue()
     {
         foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
-            $key;
-            $value;
-            $dictionary->loop(function($k, $v) use ( &$key, &$value ) {
-                $key   = $k;
-                $value = $v;
-                return -1;
+            $dictionary->loop(function( $key, $value ) use ( &$dictionary ) {
+                $this->assertEquals(
+                    $value,
+                    $dictionary->get( $key ),
+                    "ReadOnlyDictionary->get() did not return the value corresponding to its key"
+                );
             });
-            $this->assertEquals(
-                $value,
-                $dictionary->get( $key ),
-                "ReadOnlyDictionary->get() did not return the value corresponding to its key"
-            );
         }
     }
     
