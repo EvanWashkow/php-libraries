@@ -235,4 +235,39 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
             }
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                        ReadOnlyCollection->seek()
+    ***************************************************************************/
+    
+    /**
+     * Seeking to the wrong key type should produce an error
+     */
+    public function testSeekReturnsErrorForWrongType()
+    {
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            $key;
+            $value;
+            foreach ( $collection as $k => $v ) {
+                $key   = $k;
+                $value = $v;
+                break;
+            }
+            
+            $isError = false;
+            try {
+                $collection->seek( $value );
+            } catch ( \Exception $e ) {
+                $isError = true;
+            }
+            
+            $this->assertTrue(
+                $isError,
+                "Expected an error when seeking to a key with the wrong type"
+            );
+        }
+    }
 }
