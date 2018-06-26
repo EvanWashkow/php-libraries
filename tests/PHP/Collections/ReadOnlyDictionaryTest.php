@@ -139,7 +139,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      * Should not be able to retrieve a value from the dictionary with the wrong
      * key type
      */
-    public function testTypedDictionaryGetWithWrongKeyType()
+    public function testGetWithWrongKeyType()
     {
         foreach ( ReadOnlyDictionaryData::GetTyped() as $dictionary ) {
             $isSuccessful = false;
