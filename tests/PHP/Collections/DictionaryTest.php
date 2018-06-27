@@ -219,6 +219,25 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Ensure set() fails when trying to set a key with an empty value
+     *
+     * @expectedException PHPUnit\Framework\Error\Error
+     */
+    public function testSetErrorsOnEmptyKey()
+    {
+        $emptyKeys = [
+            '',
+            []
+        ];
+        foreach ( DictionaryData::GetMixed() as $dictionary ) {
+            foreach ( $emptyKeys as $emptyKey ) {
+                $dictionary->set( $emptyKey, 1 );
+            }
+        }
+    }
+    
+    
     
     
     /***************************************************************************
