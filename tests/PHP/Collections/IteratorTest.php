@@ -86,6 +86,30 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * key() should always return NULL on invalid key
+     */
+    public function testKeyReturnsNullOnInvalidKey()
+    {
+        foreach ( IteratorData::Get() as $iterator ) {
+            
+            // Find the last key and seek to it
+            $lastKey = null;
+            $iterator->loop(function( $key, $value ) use ( &$lastKey ) {
+                $lastKey = $key;
+            });
+            $iterator->seek( $lastKey );
+            
+            // Test if the next key returns NULL
+            $iterator->next();
+            $this->assertNull(
+                $iterator->key(),
+                "Expected Iterator->key() to return NULL on invalid key"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************

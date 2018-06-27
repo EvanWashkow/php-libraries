@@ -173,7 +173,7 @@ class Dictionary extends Collection implements IDictionary
          * TODO: Remove this when converting to two internal sequences for keys
          * and values
          */
-        if ( 'string' === $this->keyType ) {
+        if (( null !== $key ) && ( 'string' === $this->keyType )) {
             $key = ( string ) $key;
         }
         return $key;
