@@ -21,9 +21,10 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
             foreach ( $iterator as $value ) {
                 continue;
             }
+            $name = self::getClassName( $iterator );
             $this->assertFalse(
                 $iterator->current(),
-                "Iterator->current() should return false on invalid key"
+                "{$name}->current() should return false on invalid key"
             );
         }
     }
@@ -35,11 +36,12 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testCurrentMatchesValue()
     {
         foreach ( IteratorData::Get() as $iterator ) {
+            $name = self::getClassName( $iterator );
             foreach ( $iterator as $value ) {
                 $this->assertEquals(
                     $value,
                     $iterator->current(),
-                    "Expected Iterator->current() to return the current value in the iteration"
+                    "Expected {$name}->current() to return the current value in the iteration"
                 );
             }
         }
@@ -58,11 +60,12 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testKeyReturnsCurrentLoopKey()
     {
         foreach ( IteratorData::Get() as $iterator ) {
-            $iterator->loop(function( $key, $value ) use ( $iterator ) {
+            $name = self::getClassName( $iterator );
+            $iterator->loop(function( $key, $value ) use ( $iterator, $name ) {
                 $this->assertEquals(
                     $key,
                     $iterator->key(),
-                    "Expected Iterator->key() to return the current loop key"
+                    "Expected {$name}->key() to return the current loop key"
                 );
             });
         }
@@ -75,11 +78,12 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testKeyReturnsUniqueKeys()
     {
         foreach ( IteratorData::Get() as $iterator ) {
-            $key = null;
-            $iterator->loop(function( $k, $value ) use ( $iterator, &$key ) {
+            $key  = null;
+            $name = self::getClassName( $iterator );
+            $iterator->loop(function( $k, $value ) use ( $iterator, &$key, $name ) {
                 $this->assertFalse(
                     ( $key === $iterator->key() ),
-                    "Expected Iterator->key() to return unique keys while in loop"
+                    "Expected {$name}->key() to return unique keys while in loop"
                 );
             });
         }
@@ -102,9 +106,10 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
             
             // Test if the next key returns NULL
             $iterator->next();
+            $name = self::getClassName( $iterator );
             $this->assertNull(
                 $iterator->key(),
-                "Expected Iterator->key() to return NULL on invalid key"
+                "Expected {$name}->key() to return NULL on invalid key"
             );
         }
     }
@@ -122,7 +127,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testSeekReturnsErrorForBadKey()
     {
         foreach ( IteratorData::GetTyped() as $iterator ) {
-            foreach ( $iterator as $key => $value ) {
+            foreach ( $iterator as $value ) {
                 
                 // Set flag if error gets thrown
                 $isError = false;
@@ -135,7 +140,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
                 // Write test
                 $this->assertTrue(
                     $isError,
-                    "Expected an error when seeking to a key with the wrong type"
+                    "Expected an error from Iterator->seek() when seeking to a bad key"
                 );
                 break;
             }
@@ -155,14 +160,15 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testValidReturnsFalseForInvalidKeys()
     {
         foreach ( IteratorData::GetTyped() as $iterator ) {
-            foreach ( $iterator as $key => $value ) {
+            foreach ( $iterator as $value ) {
                 continue;
             }
             
             // Should be invalid after the loop finishes
+            $name = self::getClassName( $iterator );
             $this->assertFalse(
                 $iterator->valid(),
-                "Expected Iterator->valid() to return false for a invalid key (when the loop finishes)"
+                "Expected {$name}->valid() to return false for a invalid key (when the loop finishes)"
             );
         }
     }
@@ -174,13 +180,34 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testValidReturnsTrueForValidKeys()
     {
         foreach ( IteratorData::Get() as $iterator ) {
-            foreach ( $iterator as $key => $value ) {
+            $name = self::getClassName( $iterator );
+            $iterator->loop(function( $key, $value ) use ( $iterator, $name) {
                 $iterator->seek( $key );
                 $this->assertTrue(
                     $iterator->valid(),
-                    "Expected Iterator->valid() to return true for a valid key"
+                    "Expected {$name}->valid() to return true for a valid key"
                 );
-            }
+            });
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                UTILITIES
+    ***************************************************************************/
+    
+    /**
+     * Get the class name of the object
+     *
+     * @param Iterator $object The Iterator object instance
+     * @return string
+     */
+    protected static function getClassName( Iterator $object ): string
+    {
+        $name = get_class( $object );
+        $name = explode( '\\', $name );
+        return array_pop( $name );
     }
 }
