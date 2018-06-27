@@ -9,7 +9,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
 {
     
     /***************************************************************************
-    *                        ReadOnlyDictionary->current()
+    *                        Iterator->current()
     ***************************************************************************/
     
     /**
@@ -23,7 +23,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
             }
             $this->assertFalse(
                 $iterator->current(),
-                "ReadOnlyDictionary->current() should return false on invalid key"
+                "Iterator->current() should return false on invalid key"
             );
         }
     }
@@ -39,12 +39,34 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
                 $this->assertEquals(
                     $value,
                     $iterator->current(),
-                    "Expected ReadOnlyDictionary->current() to return the current value in the iteration"
+                    "Expected Iterator->current() to return the current value in the iteration"
                 );
             }
         }
     }
     
+    
+    
+    
+    /***************************************************************************
+    *                        ReadOnlyCollection->key()
+    ***************************************************************************/
+    
+    /**
+     * Does key() return the key inside a loop?
+     */
+    public function testKeyReturnsCurrentLoopKey()
+    {
+        foreach ( IteratorData::Get() as $iterator ) {
+            $iterator->loop(function( $key, $value ) use ( $iterator ) {
+                $this->assertEquals(
+                    $key,
+                    $iterator->key(),
+                    "Expected Iterator->key() to return the current loop key"
+                );
+            });
+        }
+    }
     
     
     
