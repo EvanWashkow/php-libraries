@@ -3,10 +3,50 @@
 require_once( __DIR__ . '/IteratorData.php' );
 
 /**
- * Test all Iterator methods for consistent functionality
+ * Test all Iterator methods to ensure consistent functionality
  */
 class IteratorTest extends \PHPUnit\Framework\TestCase
 {
+    
+    /***************************************************************************
+    *                        ReadOnlyDictionary->current()
+    ***************************************************************************/
+    
+    /**
+     * Ensure current() returns false on invalid key
+     */
+    public function testCurrentReturnsFalseOnInvalidKey()
+    {
+        foreach ( IteratorData::Get() as $iterator ) {
+            foreach ( $iterator as $value ) {
+                continue;
+            }
+            $this->assertFalse(
+                $iterator->current(),
+                "ReadOnlyDictionary->current() should return false on invalid key"
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure current() always matches the current value in a loop
+     */
+    public function testCurrentMatchesValue()
+    {
+        foreach ( IteratorData::Get() as $iterator ) {
+            foreach ( $iterator as $value ) {
+                $this->assertEquals(
+                    $value,
+                    $iterator->current(),
+                    "Expected ReadOnlyDictionary->current() to return the current value in the iteration"
+                );
+            }
+        }
+    }
+    
+    
+    
     
     /***************************************************************************
     *                        ReadOnlyCollection->seek()
