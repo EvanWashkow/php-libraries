@@ -69,6 +69,24 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * key() should always be unique in the iterator
+     */
+    public function testKeyReturnsUniqueKeys()
+    {
+        foreach ( IteratorData::Get() as $iterator ) {
+            $key = null;
+            $iterator->loop(function( $k, $value ) use ( $iterator, &$key ) {
+                $this->assertFalse(
+                    ( $key === $iterator->key() ),
+                    "Expected Iterator->key() to return unique keys while in loop"
+                );
+            });
+        }
+    }
+    
+    
+    
     
     /***************************************************************************
     *                        ReadOnlyCollection->seek()
