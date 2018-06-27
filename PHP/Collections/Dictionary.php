@@ -94,13 +94,19 @@ class Dictionary extends Collection implements IDictionary
     
     final public function set( $key, $value ): bool
     {
+        // Throw warnings
         $isSuccessful = false;
         if ( !$this->isOfKeyType( $key )) {
             trigger_error( 'Cannot set value since the key is of the wrong type' );
         }
+        elseif (( '' === $key ) || ( [] === $key )) {
+            trigger_error( 'Cannot use an empty key to set a value' );
+        }
         elseif ( !$this->isOfValueType( $value )) {
             trigger_error( 'Cannot set value since the value is of the wrong type' );
         }
+        
+        // Set the key value pair
         else {
             $this->entries[ $key ] = $value;
             $isSuccessful = true;
