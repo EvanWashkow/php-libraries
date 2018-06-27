@@ -18,25 +18,23 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testSeekReturnsErrorForBadKey()
     {
         foreach ( IteratorData::GetTyped() as $iterator ) {
-            $key;
-            $value;
-            foreach ( $iterator as $k => $v ) {
-                $key   = $k;
-                $value = $v;
+            foreach ( $iterator as $key => $value ) {
+                
+                // Set flag if error gets thrown
+                $isError = false;
+                try {
+                    $iterator->seek( $value );
+                } catch ( \Exception $e ) {
+                    $isError = true;
+                }
+                
+                // Write test
+                $this->assertTrue(
+                    $isError,
+                    "Expected an error when seeking to a key with the wrong type"
+                );
                 break;
             }
-            
-            $isError = false;
-            try {
-                $iterator->seek( $value );
-            } catch ( \Exception $e ) {
-                $isError = true;
-            }
-            
-            $this->assertTrue(
-                $isError,
-                "Expected an error when seeking to a key with the wrong type"
-            );
         }
     }
     
