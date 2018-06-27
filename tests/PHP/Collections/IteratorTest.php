@@ -160,11 +160,17 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     public function testValidReturnsFalseForInvalidKeys()
     {
         foreach ( IteratorData::GetTyped() as $iterator ) {
-            foreach ( $iterator as $value ) {
-                continue;
-            }
             
-            // Should be invalid after the loop finishes
+            // Find the last key and seek to it
+            $lastKey = null;
+            $iterator->loop(function( $key, $value ) use ( &$lastKey ) {
+                $lastKey = $key;
+            });
+            $iterator->seek( $lastKey );
+            
+            
+            // Should be invalid after progressing to the next key
+            $iterator->next();
             $name = self::getClassName( $iterator );
             $this->assertFalse(
                 $iterator->valid(),
