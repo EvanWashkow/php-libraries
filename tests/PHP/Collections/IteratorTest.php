@@ -169,6 +169,25 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Test Iterator->loop() never iterates over empty data
+     */
+    public function testLoopNeverIteratesOnEmptyData()
+    {
+        foreach ( IteratorData::GetEmpty() as $iterator ) {
+            $count = 0;
+            $iterator->loop(function( $key, $value ) use ( &$count ) {
+                $count++;
+            });
+            $this->assertEquals(
+                0,
+                $count,
+                "Expected Iterator->loop() to never iterate over empty data"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
