@@ -27,6 +27,32 @@ class DictionaryData
     
     
     /**
+     * Retrieve sample dictionary data that has no entries
+     *
+     * @return array
+     */
+    public static function GetEmpty(): array
+    {
+        // Variables
+        $dictionaries = [];
+        
+        // Add mixed dictionaries
+        foreach ( self::GetMixed() as $dictionary ) {
+            $dictionary->clear();
+            $dictionaries[] = $dictionary;
+        }
+        
+        // Add typed dictionaries
+        foreach ( self::GetTyped() as $dictionary ) {
+            $dictionary->clear();
+            $dictionaries[] = $dictionary;
+        }
+        
+        return $dictionaries;
+    }
+    
+    
+    /**
     * Retrieve sample Dictionary with mixed string and value types
     *
     * @return array

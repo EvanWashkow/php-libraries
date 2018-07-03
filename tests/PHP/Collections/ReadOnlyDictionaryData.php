@@ -25,6 +25,21 @@ final class ReadOnlyDictionaryData
     
     
     /**
+     * Retrieve sample dictionaries with no entries
+     * 
+     * @return array
+     */
+    public static function GetEmpty(): array
+    {
+        $dictionaries = [];
+        foreach ( DictionaryData::GetEmpty() as $dictionary ) {
+            $dictionaries[] = new ReadOnlyDictionary( $dictionary );
+        }
+        return $dictionaries;
+    }
+    
+    
+    /**
     * Retrieve sample Dictionary with mixed string and value types
     *
     * @return array

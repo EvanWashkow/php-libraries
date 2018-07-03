@@ -30,6 +30,21 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Ensure all empty dictionaries are empty
+     */
+    public function testEmptyData()
+    {
+        foreach ( ReadOnlyDictionaryData::GetEmpty() as $dictionary ) {
+            $this->assertEquals(
+                0,
+                $dictionary->count(),
+                "Expected ReadOnlyDictionaryData::GetEmpty() to retrieve empty dictionaries"
+            );
+        }
+    }
+    
+    
     
     
     
