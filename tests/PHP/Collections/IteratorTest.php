@@ -13,6 +13,21 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
+    * Ensure current() returns false on empty data
+    */
+    public function testCurrentReturnsFalseOnEmptyData()
+    {
+        foreach ( IteratorData::GetEmpty() as $iterator ) {
+            $name = self::getClassName( $iterator );
+            $this->assertFalse(
+                $iterator->current(),
+                "{$name}->current() should return false when it has no data"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure current() returns false on invalid key
      */
     public function testCurrentReturnsFalseOnInvalidKey()
