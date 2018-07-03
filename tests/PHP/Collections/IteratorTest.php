@@ -300,7 +300,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     /***************************************************************************
     *                        Iterator->valid()
     ***************************************************************************/
-
+    
     /**
     * Does valid() return false for invalid keys?
     */
@@ -325,8 +325,23 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
-
-
+    
+    
+    /**
+     * Ensure valid() returns false for empty Iterators
+     */
+    public function testValidReturnsFalseForEmptyData()
+    {
+        foreach ( IteratorData::GetEmpty() as $iterator ) {
+            $name = self::getClassName( $iterator );
+            $this->assertFalse(
+                $iterator->valid(),
+                "Expected {$name}->valid() to return false with empty data"
+            );
+        }
+    }
+    
+    
     /**
      * Does valid() return true for valid keys?
      */
