@@ -189,7 +189,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Test that returning a value from Iterator->loop() returns it to the caller
+     * Test that a returned value from Iterator->loop() returns to the caller
      */
     public function testLoopReturnsValue()
     {
@@ -201,6 +201,26 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
                 1,
                 $value,
                 "Expected Iterator->loop() to return the inner value to the caller"
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure that returning any non-NULL value from the loop stops it
+     */
+    public function testLoopBreaksOnReturn()
+    {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+            $count = 0;
+            $iterator->loop(function( $key, $value ) use ( &$count ) {
+                $count++;
+                return 'foobar';
+            });
+            $this->assertEquals(
+                1,
+                $count,
+                "Expected Iterator->loop() to break on first return statement"
             );
         }
     }
