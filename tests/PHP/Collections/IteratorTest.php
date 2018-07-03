@@ -188,6 +188,24 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Test that returning a value from Iterator->loop() returns it to the caller
+     */
+    public function testLoopReturnsValue()
+    {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+            $value = $iterator->loop( function( $key, $value ) {
+                return 1;
+            });
+            $this->assertEquals(
+                1,
+                $value,
+                "Expected Iterator->loop() to return the inner value to the caller"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
