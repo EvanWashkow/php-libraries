@@ -118,6 +118,30 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
+    *                        ReadOnlyCollection->loop()
+    ***************************************************************************/
+    
+    /**
+     * Test Iterator->loop() iterates over data with unique keys
+     */
+    public function testLoopHasUniqueKeys()
+    {
+        foreach ( IteratorData::Get() as $iterator ) {
+            $previousKey = null;
+            $iterator->loop(function( $key, $value ) use ( &$previousKey ) {
+                $this->assertFalse(
+                    ( $previousKey === $key ),
+                    "Expected each key in Iterator->loop() to be unique"
+                );
+                $previousKey = $key;
+            });
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                       ReadOnlyCollection->rewind()
     ***************************************************************************/
     
