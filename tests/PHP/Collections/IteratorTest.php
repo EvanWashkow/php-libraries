@@ -269,9 +269,9 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
-     * Seeking to the wrong key type should produce an error
+     * Seeking to a non-existing key should produce an error
      */
-    public function testSeekReturnsErrorForBadKey()
+    public function testSeekReturnsErrorForMissingKey()
     {
         foreach ( IteratorData::GetTyped() as $iterator ) {
             foreach ( $iterator as $value ) {
