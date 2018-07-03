@@ -106,6 +106,21 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
     
     
     /**
+     * key() should always return NULL on empty data
+     */
+    public function testKeyReturnsNullOnEmptyData()
+    {
+        foreach ( IteratorData::GetEmpty() as $iterator ) {
+            $name = self::getClassName( $iterator );
+            $this->assertNull(
+                $iterator->key(),
+                "Expected {$name}->key() to return NULL when it has no data"
+            );
+        }
+    }
+    
+    
+    /**
      * key() should always return NULL on invalid key
      */
     public function testKeyReturnsNullOnInvalidKey()
