@@ -7,7 +7,7 @@ use PHP\Collections\ReadOnlyDictionary;
 /**
  * Dictionary Data for testing
  */
-class ReadOnlyDictionaryData
+final class ReadOnlyDictionaryData
 {
     
     /**
@@ -23,6 +23,22 @@ class ReadOnlyDictionaryData
         );
     }
     
+    
+    /**
+    * Retrieve sample Dictionary with mixed string and value types
+    *
+    * @return array
+    */
+    public static function GetMixed(): array
+    {
+        $roDictionaries = [];
+        foreach ( DictionaryData::GetMixed() as $dictionary ) {
+            $roDictionaries[] = new ReadOnlyDictionary( $dictionary );
+        }
+        return $roDictionaries;
+    }
+    
+    
     /**
      * Retrieve all test typed dictionaries
      *
@@ -35,20 +51,5 @@ class ReadOnlyDictionaryData
             $dictionaries[] = new ReadOnlyDictionary( $dictionary );
         }
         return $dictionaries;
-    }
-    
-    
-    /**
-     * Retrieve sample Dictionary with mixed string and value types
-     *
-     * @return array
-     */
-    public static function GetMixed(): array
-    {
-        $roDictionaries = [];
-        foreach ( DictionaryData::GetMixed() as $dictionary ) {
-            $roDictionaries[] = new ReadOnlyDictionary( $dictionary );
-        }
-        return $roDictionaries;
     }
 }

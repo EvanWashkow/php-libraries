@@ -8,6 +8,10 @@ use PHP\Collections\Dictionary;
 class DictionaryData
 {
     
+    /***************************************************************************
+    *                                 MAIN
+    ***************************************************************************/
+    
     /**
      * Retrieve all test dictionaries
      *
@@ -19,6 +23,26 @@ class DictionaryData
             self::GetTyped(),
             self::GetMixed()
         );
+    }
+    
+    
+    /**
+    * Retrieve sample Dictionary with mixed string and value types
+    *
+    * @return array
+    */
+    public static function GetMixed(): array
+    {
+        $dictionary = new Dictionary();
+        foreach ( self::GetTyped() as $typedDictionary ) {
+            $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
+                $dictionary->set( $key, $value );
+                $dictionary->set( $value, $key );
+            });
+        }
+        return [
+            $dictionary
+        ];
     }
     
     
@@ -40,25 +64,9 @@ class DictionaryData
     }
     
     
-    /**
-     * Retrieve sample Dictionary with mixed string and value types
-     *
-     * @return array
-     */
-    public static function GetMixed(): array
-    {
-        $dictionary = new Dictionary();
-        foreach ( self::GetTyped() as $typedDictionary ) {
-            $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
-                $dictionary->set( $key, $value );
-                $dictionary->set( $value, $key );
-            });
-        }
-        return [
-            $dictionary
-        ];
-    }
-    
+    /***************************************************************************
+    *                                   TYPED
+    ***************************************************************************/
     
     /**
      * Return sample Dictionary with 1, 0 => true, false
