@@ -11,20 +11,6 @@ final class ReadOnlyDictionaryData
 {
     
     /**
-     * Retrieve all test dictionaries
-     *
-     * @return array
-     */
-    public static function Get(): array
-    {
-        return array_merge(
-            self::GetTyped(),
-            self::GetMixed()
-        );
-    }
-    
-    
-    /**
      * Retrieve sample dictionaries with no entries
      * 
      * @return array
@@ -36,6 +22,20 @@ final class ReadOnlyDictionaryData
             $dictionaries[] = new ReadOnlyDictionary( $dictionary );
         }
         return $dictionaries;
+    }
+    
+    
+    /**
+    * Retrieve all test dictionaries
+    *
+    * @return array
+    */
+    public static function GetNonEmpty(): array
+    {
+        return array_merge(
+            self::GetTyped(),
+            self::GetMixed()
+        );
     }
     
     

@@ -17,7 +17,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testCurrentReturnsFalseOnInvalidKey()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             foreach ( $iterator as $value ) {
                 continue;
             }
@@ -35,7 +35,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testCurrentMatchesValue()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             $name = self::getClassName( $iterator );
             foreach ( $iterator as $value ) {
                 $this->assertEquals(
@@ -59,7 +59,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testKeyReturnsCurrentLoopKey()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             $name = self::getClassName( $iterator );
             $iterator->loop(function( $key, $value ) use ( $iterator, $name ) {
                 $this->assertEquals(
@@ -77,7 +77,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testKeyReturnsUniqueKeys()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             $key  = null;
             $name = self::getClassName( $iterator );
             $iterator->loop(function( $k, $value ) use ( $iterator, &$key, $name ) {
@@ -95,7 +95,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testKeyReturnsNullOnInvalidKey()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             
             // Find the last key and seek to it
             $lastKey = null;
@@ -126,7 +126,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testLoopHasUniqueKeys()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             $previousKey = null;
             $iterator->loop(function( $key, $value ) use ( &$previousKey ) {
                 $this->assertFalse(
@@ -150,7 +150,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testRewindResetsToFirstKey()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             
             // Find the last key and seek to it
             $firstKey = null;
@@ -245,7 +245,7 @@ class IteratorTest extends \PHPUnit\Framework\TestCase
      */
     public function testValidReturnsTrueForValidKeys()
     {
-        foreach ( IteratorData::Get() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             $name = self::getClassName( $iterator );
             $iterator->loop(function( $key, $value ) use ( $iterator, $name) {
                 $iterator->seek( $key );

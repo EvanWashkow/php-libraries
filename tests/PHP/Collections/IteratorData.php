@@ -13,9 +13,9 @@ final class IteratorData
      * 
      * @return array
      */
-    public function Get()
+    public function GetNonEmpty()
     {
-        return CollectionData::Get();
+        return CollectionData::GetNonEmpty();
     }
     
     

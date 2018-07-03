@@ -21,7 +21,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testClearHaveNoEntries()
     {
-        foreach ( DictionaryData::Get() as $dictionary ) {
+        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
             $dictionary->clear();
             $this->assertEquals(
                 0,
@@ -43,7 +43,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemoveHasSmallerCount()
     {
-        foreach ( DictionaryData::Get() as $dictionary ) {
+        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
             $previous = $dictionary->count();
             foreach ( $dictionary as $key => $value ) {
                 $dictionary->remove( $key );
@@ -64,7 +64,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemoveWithNonExistingKey()
     {
-        foreach ( DictionaryData::Get() as $dictionary ) {
+        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
             $previous = $dictionary->count();
             $isError  = false;
             try {
@@ -133,7 +133,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetNewKey()
     {
-        foreach ( DictionaryData::Get() as $dictionary ) {
+        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
             $this->assertGreaterThan(
                 0,
                 $dictionary->count(),
@@ -148,7 +148,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetExistingKey()
     {
-        foreach ( DictionaryData::Get() as $dictionary ) {
+        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
             
             // Set first key to last value
             $key   = null;
@@ -249,7 +249,7 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testCloneReturnsDictionary()
     {
-        foreach ( DictionaryData::Get() as $dictionary ) {
+        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
             $this->assertInstanceOf(
                 'PHP\\Collections\\Dictionary',
                 $dictionary->clone(),

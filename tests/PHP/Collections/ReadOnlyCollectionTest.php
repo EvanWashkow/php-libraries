@@ -17,7 +17,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetKeysReturnsSequence()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $this->assertInstanceOf(
                 "PHP\\Collections\\Sequence",
                 $collection->getKeys(),
@@ -32,7 +32,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetKeysReturnsKeys()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $keys = [];
             $collection->loop(function( $key, $value ) use ( &$keys ) {
                 $keys[] = $key;
@@ -57,7 +57,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetValuesReturnsSequence()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $this->assertInstanceOf(
                 "PHP\\Collections\\Sequence",
                 $collection->getValues(),
@@ -72,7 +72,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetValuesReturnsValues()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $values = [];
             $collection->loop(function( $key, $value ) use ( &$values ) {
                 $values[] = $value;
@@ -97,7 +97,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsOfKeyTypeRejectsNULL()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $this->assertFalse(
                 $collection->isOfKeyType( null ),
                 "Collection unexpectedly accepted a null key"

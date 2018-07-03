@@ -20,7 +20,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testData()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $this->assertNotEquals(
                 0,
                 $dictionary->count(),
@@ -57,7 +57,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testCloneCopiesAllEntries()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $clone = $dictionary->clone();
             $clone->loop( function( $key, $value ) use ( $dictionary ) {
                 $this->assertTrue(
@@ -78,7 +78,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testCloneReturnsReadOnlyDictionary()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $this->assertInstanceOf(
                 'PHP\\Collections\\ReadOnlyDictionary',
                 $dictionary->clone(),
@@ -99,7 +99,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testCountIsAccurateForNonEmpty()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $count = 0;
             $dictionary->loop( function( $key, $value ) use ( &$count ) {
                 $count++;
@@ -130,7 +130,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
-    *                         ReadOnlyDictionary->get()
+    *                         ReadOnlyDictionary->GetNonEmpty()
     ***************************************************************************/
     
     /**
@@ -150,7 +150,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
             });
             $this->assertFalse(
                 $isSuccessful,
-                "ReadOnlyDictionary->get() should error when attempting to retrieve value the wrong key type"
+                "ReadOnlyDictionary->GetNonEmpty() should error when attempting to retrieve value the wrong key type"
             );
         }
     }
@@ -174,7 +174,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
         
         $this->assertTrue(
             $isError,
-            "Expected ReadOnlyDictionary->get() to error with non-existing key"
+            "Expected ReadOnlyDictionary->GetNonEmpty() to error with non-existing key"
         );
     }
     
@@ -184,12 +184,12 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetRetrievesValue()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $dictionary->loop(function( $key, $value ) use ( &$dictionary ) {
                 $this->assertEquals(
                     $value,
                     $dictionary->get( $key ),
-                    "ReadOnlyDictionary->get() did not return the value corresponding to its key"
+                    "ReadOnlyDictionary->GetNonEmpty() did not return the value corresponding to its key"
                 );
             });
         }
@@ -251,7 +251,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
      */
     public function testHasKeyReturnsTrueForValidKeys()
     {
-        foreach ( ReadOnlyDictionaryData::Get() as $dictionary ) {
+        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $dictionary->loop(function( $key, $value ) use ( $dictionary ) {
                 $this->assertTrue(
                     $dictionary->hasKey( $key ),

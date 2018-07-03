@@ -13,20 +13,6 @@ class DictionaryData
     ***************************************************************************/
     
     /**
-     * Retrieve all test dictionaries
-     *
-     * @return array
-     */
-    public static function Get(): array
-    {
-        return array_merge(
-            self::GetTyped(),
-            self::GetMixed()
-        );
-    }
-    
-    
-    /**
      * Retrieve sample dictionary data that has no entries
      *
      * @return array
@@ -49,6 +35,20 @@ class DictionaryData
         }
         
         return $dictionaries;
+    }
+    
+    
+    /**
+    * Retrieve all test dictionaries
+    *
+    * @return array
+    */
+    public static function GetNonEmpty(): array
+    {
+        return array_merge(
+            self::GetTyped(),
+            self::GetMixed()
+        );
     }
     
     

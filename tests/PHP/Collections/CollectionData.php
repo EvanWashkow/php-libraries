@@ -13,10 +13,10 @@ final class CollectionData
      * 
      * @return array
      */
-    public function Get()
+    public function GetNonEmpty()
     {
         return array_merge(
-            DictionaryData::Get()
+            DictionaryData::GetNonEmpty()
         );
     }
     

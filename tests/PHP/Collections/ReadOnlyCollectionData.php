@@ -13,10 +13,10 @@ final class ReadOnlyCollectionData
      * 
      * @return array
      */
-    public function Get()
+    public function GetNonEmpty()
     {
         return array_merge(
-            ReadOnlyDictionaryData::Get()
+            ReadOnlyDictionaryData::GetNonEmpty()
         );
     }
     
