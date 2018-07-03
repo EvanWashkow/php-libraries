@@ -9,11 +9,24 @@ final class CollectionData
 {
     
     /**
-     * Get all test data for collections
+     * Get empty test data for collections
      * 
      * @return array
      */
-    public function GetNonEmpty()
+    public function GetEmpty(): array
+    {
+        return array_merge(
+            DictionaryData::GetEmpty()
+        );
+    }
+    
+    
+    /**
+     * Get non-empty test data for collections
+     * 
+     * @return array
+     */
+    public function GetNonEmpty(): array
     {
         return array_merge(
             DictionaryData::GetNonEmpty()
@@ -26,7 +39,7 @@ final class CollectionData
      * 
      * @return array
      */
-    public function GetTyped()
+    public function GetTyped(): array
     {
         return array_merge(
             DictionaryData::GetTyped()
@@ -41,7 +54,7 @@ final class CollectionData
      * 
      * @return array
      */
-    public function GetMixed()
+    public function GetMixed(): array
     {
         return DictionaryData::GetMixed();
     }

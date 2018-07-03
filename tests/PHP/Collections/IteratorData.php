@@ -9,11 +9,22 @@ final class IteratorData
 {
     
     /**
-     * Get all test data for read-only collections
+     * Get empty test data for read-only collections
      * 
      * @return array
      */
-    public function GetNonEmpty()
+    public function GetEmpty(): array
+    {
+        return CollectionData::GetEmpty();
+    }
+    
+    
+    /**
+     * Get non-empty test data for read-only collections
+     * 
+     * @return array
+     */
+    public function GetNonEmpty(): array
     {
         return CollectionData::GetNonEmpty();
     }
@@ -24,7 +35,7 @@ final class IteratorData
      * 
      * @return array
      */
-    public function GetTyped()
+    public function GetTyped(): array
     {
         return CollectionData::GetTyped();
     }
@@ -37,7 +48,7 @@ final class IteratorData
      * 
      * @return array
      */
-    public function GetMixed()
+    public function GetMixed(): array
     {
         return CollectionData::GetMixed();
     }
