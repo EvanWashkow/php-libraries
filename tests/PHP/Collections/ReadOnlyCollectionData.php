@@ -9,6 +9,19 @@ final class ReadOnlyCollectionData
 {
     
     /**
+     * Retrieves empty read-only collections
+     * 
+     * @return array
+     */
+    public static function GetEmpty(): array
+    {
+        return array_merge(
+            ReadOnlyDictionaryData::GetEmpty()
+        );
+    }
+    
+    
+    /**
      * Get all test data for read-only collections
      * 
      * @return array
