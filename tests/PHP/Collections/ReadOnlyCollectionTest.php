@@ -9,6 +9,28 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
 {
     
     /***************************************************************************
+    *                         ReadOnlyCollection->clone()
+    ***************************************************************************/
+    
+    /**
+     * Ensure clone() returns the same type
+     */
+    public function testCloneReturnsSameType()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $this->assertEquals(
+                get_class( $collection ),
+                get_class( $collection->clone() ),
+                "Expected {$name}->clone() to return the same type"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                       ReadOnlyCollection->getKeys()
     ***************************************************************************/
 
