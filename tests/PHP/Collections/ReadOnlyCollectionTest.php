@@ -28,6 +28,22 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Ensure clone() has same keys
+     */
+    public function testCloneReturnsSameKeys()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $this->assertEquals(
+                $collection->getKeys()->toArray(),
+                $collection->clone()->getKeys()->toArray(),
+                "Expected {$name}->clone() to return the same keys"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
