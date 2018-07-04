@@ -109,6 +109,23 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Does hasKey() return true for existing keys?
+     */
+    public function testHasKeyReturnsTrueForExistingKeys()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $collection->loop(function( $key, $value ) use ( $collection ) {
+                $name = self::getClassName( $collection );
+                $this->assertTrue(
+                    $collection->hasKey( $key ),
+                    "Expected {$name}->hasKey() to return true for existing key"
+                );
+            });
+        }
+    }
+    
+    
     
     
     /***************************************************************************
