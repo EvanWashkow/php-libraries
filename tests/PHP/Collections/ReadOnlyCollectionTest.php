@@ -60,6 +60,22 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Ensure clone() has same count
+     */
+    public function testCloneHasSameCount()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $this->assertEquals(
+                $collection->count(),
+                $collection->clone()->count(),
+                "Expected {$name}->clone() to have same count"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
