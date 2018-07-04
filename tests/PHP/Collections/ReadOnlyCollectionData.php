@@ -13,7 +13,7 @@ final class ReadOnlyCollectionData
      * 
      * @return array
      */
-    public function GetNonEmpty()
+    public static function GetNonEmpty()
     {
         return array_merge(
             ReadOnlyDictionaryData::GetNonEmpty()
@@ -26,7 +26,7 @@ final class ReadOnlyCollectionData
      * 
      * @return array
      */
-    public function GetTyped()
+    public static function GetTyped()
     {
         return array_merge(
             ReadOnlyDictionaryData::GetTyped()
@@ -41,7 +41,7 @@ final class ReadOnlyCollectionData
      * 
      * @return array
      */
-    public function GetMixed()
+    public static function GetMixed()
     {
         return ReadOnlyDictionaryData::GetMixed();
     }
