@@ -44,6 +44,22 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Ensure clone() has same values
+     */
+    public function testCloneReturnsSameValues()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $this->assertEquals(
+                $collection->getValues()->toArray(),
+                $collection->clone()->getValues()->toArray(),
+                "Expected {$name}->clone() to return the same values"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
