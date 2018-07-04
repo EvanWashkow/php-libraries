@@ -47,49 +47,6 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     
-    
-    /***************************************************************************
-    *                         ReadOnlyDictionary->clone()
-    ***************************************************************************/
-    
-    /**
-     * Cloning a dictionary should clone all the entries
-     */
-    public function testCloneCopiesAllEntries()
-    {
-        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
-            $clone = $dictionary->clone();
-            $clone->loop( function( $key, $value ) use ( $dictionary ) {
-                $this->assertTrue(
-                    $dictionary->hasKey( $key ),
-                    "Dictionary->clone() entry does not have the same key"
-                );
-                $this->assertEquals(
-                    $value,
-                    $dictionary->get( $key ),
-                    "ReadOnlyDictionary->clone() entry does not have the same value"
-                );
-            });
-        }
-    }
-    
-    /**
-     * Cloning a Dictionary should return a Dictionary
-     */
-    public function testCloneReturnsReadOnlyDictionary()
-    {
-        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
-            $this->assertInstanceOf(
-                'PHP\\Collections\\ReadOnlyDictionary',
-                $dictionary->clone(),
-                "ReadOnlyDictionary->clone() should return a ReadOnlyDictionary"
-            );
-        }
-    }
-    
-    
-    
-    
     /***************************************************************************
     *                         ReadOnlyDictionary->count()
     ***************************************************************************/

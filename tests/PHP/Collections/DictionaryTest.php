@@ -236,25 +236,4 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
             }
         }
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                             Dictionary->clone()
-    ***************************************************************************/
-    
-    /**
-     * Cloning a Dictionary should return a Dictionary
-     */
-    public function testCloneReturnsDictionary()
-    {
-        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
-            $this->assertInstanceOf(
-                'PHP\\Collections\\Dictionary',
-                $dictionary->clone(),
-                "Dictionary->clone() should return a Dictionary"
-            );
-        }
-    }
 }
