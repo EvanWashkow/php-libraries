@@ -89,6 +89,29 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
+    *                        ReadOnlyDictionary->hasKey()
+    ***************************************************************************/
+    
+    /**
+     * Does hasKey() return false for missing keys?
+     */
+    public function testHasKeyReturnsFalseForMissingKeys()
+    {
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            $collection->loop(function( $key, $value ) use ( $collection ) {
+                $name = self::getClassName( $collection );
+                $this->assertFalse(
+                    $collection->hasKey( $value ),
+                    "Expected {$name}->hasKey() to return false for missing key"
+                );
+            });
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                    ReadOnlyCollection->isOfKeyType()
     ***************************************************************************/
     
@@ -234,5 +257,25 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
                 break;
             }
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                UTILITIES
+    ***************************************************************************/
+    
+    /**
+     * Get the class name of the object
+     *
+     * @param Iterator $object The Iterator object instance
+     * @return string
+     */
+    protected static function getClassName( Iterator $object ): string
+    {
+        $name = get_class( $object );
+        $name = explode( '\\', $name );
+        return array_pop( $name );
     }
 }
