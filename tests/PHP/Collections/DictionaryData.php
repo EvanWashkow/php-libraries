@@ -109,14 +109,14 @@ class DictionaryData
     
     
     /**
-     * Return sample Dictionary with "1"-"9" => 1-9
+     * Return sample Dictionary with "1"-"2" => 1-2
      *
      * @return Dictionary
      */
     private static function getStringInt(): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'integer' );
-        for ( $i = 0; $i < 10; $i++ ) {
+        for ( $i = 0; $i <= 2; $i++ ) {
             $dictionary->set( (string) $i, $i );
         }
         return $dictionary;
