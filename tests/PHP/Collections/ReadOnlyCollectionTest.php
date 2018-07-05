@@ -3,7 +3,7 @@
 require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
 
 /**
- * Test ReadOnlyCollection methods
+ * Test all ReadOnlyCollection methods to ensure consistent functionality
  */
 class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
 {

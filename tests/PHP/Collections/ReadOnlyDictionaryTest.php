@@ -3,7 +3,7 @@
 require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
 
 /**
- * Dictionary Tests
+ * Test all ReadOnlyDictionary methods to ensure consistent functionality
  *
  * This tests both the read-only and the editable dictionary (the read-only
  * simply invokes the editable)
