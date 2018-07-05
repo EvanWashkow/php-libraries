@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__ . '/CollectionData.php' );
+require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
 
 /**
  * ReadOnlyCollection test data
@@ -15,7 +15,7 @@ final class IteratorData
      */
     public function GetEmpty(): array
     {
-        return CollectionData::GetEmpty();
+        return ReadOnlyCollectionData::GetEmpty();
     }
     
     
@@ -26,7 +26,7 @@ final class IteratorData
      */
     public function GetNonEmpty(): array
     {
-        return CollectionData::GetNonEmpty();
+        return ReadOnlyCollectionData::GetNonEmpty();
     }
     
     
@@ -37,7 +37,7 @@ final class IteratorData
      */
     public function GetTyped(): array
     {
-        return CollectionData::GetTyped();
+        return ReadOnlyCollectionData::GetTyped();
     }
     
     
@@ -50,6 +50,6 @@ final class IteratorData
      */
     public function GetMixed(): array
     {
-        return CollectionData::GetMixed();
+        return ReadOnlyCollectionData::GetMixed();
     }
 }
