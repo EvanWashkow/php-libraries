@@ -4,6 +4,8 @@ require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
 
 /**
  * Test all ReadOnlyCollection methods to ensure consistent functionality
+ *
+ * NOTE: ReadOnlyCollections tests also tests the underlying collection
  */
 class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
 {
