@@ -215,6 +215,36 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
+     * Setting with the wrong key type should error
+     */
+    public function testSetErrorsOnWrongKeyType()
+    {
+        foreach ( CollectionData::GetTyped() as $collection ) {
+            $key;
+            $value;
+            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+                $key   = $k;
+                $value = $v;
+                return 1;
+            });
+            
+            $isError = false;
+            try {
+                $collection->set( $value, $value );
+            } catch (\Exception $e) {
+                $isError = true;
+            }
+            
+            $name = self::getClassName( $collection );
+            $this->assertTrue(
+                $isError,
+                "Expected {$name}->set() to error on keys with the wrong type"
+            );
+        }
+    }
+    
+    
+    /**
      * Setting with the wrong key type should fail
      */
     public function testSetRejectsWrongKeyType()
@@ -235,6 +265,34 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
             $this->assertFalse(
                 $collection->hasKey( $value ),
                 "Expected {$name}->set() to reject keys with the wrong type"
+            );
+        }
+    }
+    
+    
+    /**
+     * Setting an with the wrong value type should produce errors
+     */
+    public function testSetErrorsOnWrongValueType()
+    {
+        foreach ( CollectionData::GetTyped() as $collection ) {
+            $key;
+            $value;
+            foreach ($collection as $key => $value) {
+                break;
+            }
+            
+            $isError = false;
+            try {
+                $collection->set( $key, $key );
+            } catch (\Exception $e) {
+                $isError = true;
+            }
+            
+            $name = self::getClassName( $collection );
+            $this->assertTrue(
+                $isError,
+                "Expected {$name}->set() to error on keys with the wrong type"
             );
         }
     }
