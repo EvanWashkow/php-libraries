@@ -196,6 +196,30 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     }
     
     
+    /**
+     * Ensure that get() throws InvalidArgumentException on wrong key type
+     */
+    public function testGetThrowsInvalidArgumentExceptionOnWrongKeyType()
+    {
+        $badKey = [ new stdClass() ];
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            $name = self::getClassName( $collection );
+            $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
+                $isException = false;
+                try {
+                    $collection->get( $value );
+                } catch (\Exception $e) {
+                    $isException = true;
+                }
+                $this->assertTrue(
+                    $isException,
+                    "Expected {$name}->get() to throw an InvalidArgumentException on wrong key type"
+                );
+            });
+        }
+    }
+    
+    
     
     
     /***************************************************************************
