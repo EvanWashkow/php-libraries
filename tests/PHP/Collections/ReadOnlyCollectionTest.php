@@ -177,19 +177,43 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetThrowsInvalidArgumentExceptionOnMissingKey()
     {
-        $badKey = [ new stdClass() ];
+        $badKey = '5000foobarsinarow';
         foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
-                $isException = false;
+                $exception = null;
                 try {
                     $collection->get( $badKey );
                 } catch (\Exception $e) {
-                    $isException = true;
+                    $exception = $e;
                 }
                 $this->assertTrue(
-                    $isException,
+                    'InvalidArgumentException' === get_class( $exception ),
                     "Expected {$name}->get() to throw an InvalidArgumentException on a bad key"
+                );
+            });
+        }
+    }
+    
+    
+    /**
+     * Ensure that get() throws InvalidArgumentException on null key
+     */
+    public function testGetThrowsInvalidArgumentExceptionOnNullKey()
+    {
+        $badKey = [ new stdClass() ];
+        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+            $name = self::getClassName( $collection );
+            $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
+                $exception = null;
+                try {
+                    $collection->get( null );
+                } catch (\Exception $e) {
+                    $exception = $e;
+                }
+                $this->assertTrue(
+                    'InvalidArgumentException' === get_class( $exception ),
+                    "Expected {$name}->get() to throw an InvalidArgumentException on wrong key type"
                 );
             });
         }
@@ -205,14 +229,14 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
         foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
-                $isException = false;
+                $exception = null;
                 try {
                     $collection->get( $value );
                 } catch (\Exception $e) {
-                    $isException = true;
+                    $exception = $e;
                 }
                 $this->assertTrue(
-                    $isException,
+                    'InvalidArgumentException' === get_class( $exception ),
                     "Expected {$name}->get() to throw an InvalidArgumentException on wrong key type"
                 );
             });
