@@ -396,7 +396,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfKeyType() rejects null values
      */
-    public function testIsOfKeyTypeRejectsNULL()
+    public function testIsOfKeyTypeReturnsFalseForNull()
     {
         foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $this->assertFalse(
@@ -410,7 +410,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfKeyType() allows anything that is not null
      */
-    public function testIsOfKeyTypeAllowsAnyKeyInMixed()
+    public function testIsOfKeyTypeReturnsTrueForAnyKeyTypeInMixed()
     {
         foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
             $this->assertTrue(
@@ -436,7 +436,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfKeyType() allows its own key type
      */
-    public function testIsOfKeyTypeAllowsMatchingKeyType()
+    public function testIsOfKeyTypeReturnsTrueForMatchingKeyType()
     {
         foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
             foreach ( $collection as $key => $value ) {
@@ -453,7 +453,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfKeyType() rejects other types
      */
-    public function testIsOfKeyTypeRejectsMixMatchedKeyType()
+    public function testIsOfKeyTypeReturnsFalseForWrongKeyType()
     {
         foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
             foreach ( $collection as $key => $value ) {
@@ -477,7 +477,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfValueType() allows anything
      */
-    public function testIsOfValueTypeAllowsAnyValueInMixed()
+    public function testIsOfValueTypeReturnsTrueForAnyValueTypeInMixed()
     {
         foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
             $this->assertTrue(
@@ -507,7 +507,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfValueType() allows its own value type
      */
-    public function testIsOfValueTypeAllowsMatchingValueType()
+    public function testIsOfValueTypeReturnnsTrueForMatchingValueType()
     {
         foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
             foreach ( $collection as $key => $value ) {
@@ -524,7 +524,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Test if isOfValueType() rejects other types
      */
-    public function testIsOfValueTypeRejectsMixMatchedValueType()
+    public function testIsOfValueTypeReturnsFalseForWrongValueType()
     {
         foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
             foreach ( $collection as $key => $value ) {
