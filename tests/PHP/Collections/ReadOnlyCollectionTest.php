@@ -257,6 +257,29 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
+     * Ensure hasKey() return a boolean value
+     */
+    public function testHasKeyReturnsBoolean()
+    {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+            $collection->loop(function( $key, $value ) use ( $collection ) {
+                $name = self::getClassName( $collection );
+                $this->assertEquals(
+                    'boolean',
+                    gettype( $collection->hasKey( $key ) ),
+                    "Expected {$name}->hasKey() to return a boolean value"
+                );
+                $this->assertEquals(
+                    'boolean',
+                    gettype( $collection->hasKey( $value ) ),
+                    "Expected {$name}->hasKey() to return a boolean value"
+                );
+            });
+        }
+    }
+    
+    
+    /**
      * Does hasKey() return false for missing keys?
      */
     public function testHasKeyReturnsFalseForMissingKeys()
