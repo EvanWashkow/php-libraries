@@ -9,6 +9,20 @@ final class CollectionData
 {
     
     /**
+     * Retrieve all sample data for tests
+     * 
+     * @return array
+     */
+    public static function Get(): array
+    {
+        return array_merge(
+            self::GetEmpty(),
+            self::GetNonEmpty()
+        );
+    }
+    
+    
+    /**
      * Get empty test data for collections
      * 
      * @return array

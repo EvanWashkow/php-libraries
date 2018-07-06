@@ -63,7 +63,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemoveTriggersErrorWithMissingKey()
     {
-        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+        foreach ( CollectionData::Get() as $collection ) {
             $previous = $collection->count();
             $isError  = false;
             try {
