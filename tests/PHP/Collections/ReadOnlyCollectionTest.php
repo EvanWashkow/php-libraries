@@ -163,7 +163,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetThrowsInvalidArgumentExceptionOnMissingKey()
     {
         foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
-            $collection->loop(function( $key, $value ) use ( $collection, $name ) {
+            $collection->loop(function( $key, $value ) use ( $collection ) {
                 $collection->get( $value );
             });
         }
