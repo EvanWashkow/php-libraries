@@ -174,14 +174,23 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     
     /**
      * Ensure that get() throws InvalidArgumentException on missing key
-     *
-     * @expectedException InvalidArgumentException
      */
     public function testGetThrowsInvalidArgumentExceptionOnMissingKey()
     {
+        $badKey = [ new stdClass() ];
         foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
-            $collection->loop(function( $key, $value ) use ( $collection ) {
-                $collection->get( $value );
+            $name = self::getClassName( $collection );
+            $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
+                $isException = false;
+                try {
+                    $collection->get( $badKey );
+                } catch (\Exception $e) {
+                    $isException = true;
+                }
+                $this->assertTrue(
+                    $isException,
+                    "Expected {$name}->get() to throw an InvalidArgumentException on a bad key"
+                );
             });
         }
     }
