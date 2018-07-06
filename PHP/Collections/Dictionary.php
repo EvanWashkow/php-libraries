@@ -140,10 +140,10 @@ class Dictionary extends Collection implements IDictionary
     final public function get( $key )
     {
         if ( !$this->isOfKeyType( $key )) {
-            throw new \Exception( "Cannot get non-{$this->keyType} key" );
+            throw new \InvalidArgumentException( "Cannot get non-{$this->keyType} key" );
         }
         elseif ( !$this->hasKey( $key )) {
-            throw new \Exception( "Cannot get value at non-existing key" );
+            throw new \InvalidArgumentException( "Cannot get value at non-existing key" );
         }
         return $this->entries[ $key ];
     }

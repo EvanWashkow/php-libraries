@@ -165,10 +165,10 @@ class Sequence extends Collection implements ISequence
     final public function get( $key )
     {
         if ( !is( $key, 'integer' )) {
-            throw new \Exception( 'Cannot get value from non-integer key' );
+            throw new \InvalidArgumentException( 'Cannot get value from non-integer key' );
         }
         elseif ( !$this->hasKey( $key )) {
-            throw new \Exception( 'Cannot get value from key that does not exist' );
+            throw new \InvalidArgumentException( 'Cannot get value from key that does not exist' );
         }
         return $this->entries[ $key ];
     }
