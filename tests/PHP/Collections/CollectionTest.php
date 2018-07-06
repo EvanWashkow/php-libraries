@@ -13,9 +13,9 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
-     * Test if clearing the collection has a count of zero
+     * Ensure clear() has no entries
      */
-    public function testClearHaveNoEntries()
+    public function testClearHasNoEntries()
     {
         foreach ( CollectionData::GetNonEmpty() as $collection ) {
             $collection->clear();
@@ -170,7 +170,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting an new entry should work
+     * Ensure set() with a new key works
      */
     public function testSetNewKey()
     {
@@ -186,7 +186,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting an existing key to a different value should work
+     * Ensure set() with an existing key works
      */
     public function testSetExistingKey()
     {
@@ -215,7 +215,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting with the wrong key type should error
+     * Ensure set() errors when given wrong key type
      */
     public function testSetErrorsOnWrongKeyType()
     {
@@ -245,7 +245,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting with the wrong key type should fail
+     * Ensure set() rejects keys of the wrong type
      */
     public function testSetRejectsWrongKeyType()
     {
@@ -271,7 +271,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting an with the wrong value type should produce errors
+     * Ensure set() errors when given wrong value type
      */
     public function testSetErrorsOnWrongValueType()
     {
@@ -299,7 +299,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
-     * Setting an with the wrong value type should fail
+     * Ensure set() rejects values of the wrong type
      */
     public function testSetRejectsWrongValueType()
     {
