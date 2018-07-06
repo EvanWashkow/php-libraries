@@ -13,28 +13,6 @@ class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
     
     /***************************************************************************
-    *                           Dictionary->clear()
-    ***************************************************************************/
-    
-    /**
-     * Test if clearing the dictionary has a count of zero
-     */
-    public function testClearHaveNoEntries()
-    {
-        foreach ( DictionaryData::GetNonEmpty() as $dictionary ) {
-            $dictionary->clear();
-            $this->assertEquals(
-                0,
-                $dictionary->count(),
-                "Dictionary->clear() returned a non-zero count"
-            );
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                           Dictionary->remove()
     ***************************************************************************/
     
