@@ -175,10 +175,11 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     public function testSetNewKey()
     {
         foreach ( CollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
             $this->assertGreaterThan(
                 0,
                 $collection->count(),
-                "Collection->set() did not correctly set a new collection entry"
+                "Expected {$name}->set() to set a new key"
             );
         }
     }
@@ -203,34 +204,37 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
             $collection->set( $key, $value );
             
             // Assert test
+            $name = self::getClassName( $collection );
             $this->assertEquals(
                 $value,
                 $collection->get( $key ),
-                "Collection->set() did not correctly set an existing collection entry"
+                "Expected {$name}->set() to set an existing entry"
             );
         }
     }
     
     
     /**
-     * Setting an with the wrong key type should fail
+     * Setting with the wrong key type should fail
      */
-    public function testTypedDictionariesSetWithWrongKeyType()
+    public function testSetRejectsWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
-            $isSet = false;
             $key;
             $value;
-            foreach ($collection as $key => $value) {
-                break;
-            }
+            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+                $key   = $k;
+                $value = $v;
+                return 1;
+            });
             try {
-                $isSet = $collection->set( $value, $value );
+                $collection->set( $value, $value );
             } catch (\Exception $e) {}
             
+            $name = self::getClassName( $collection );
             $this->assertFalse(
-                $isSet,
-                "Collection->set() should not allow a key with the wrong type to be set"
+                $collection->hasKey( $value ),
+                "Expected {$name}->set() to reject keys with the wrong type"
             );
         }
     }
@@ -239,22 +243,22 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Setting an with the wrong value type should fail
      */
-    public function testTypedDictionariesSetWithWrongValueType()
+    public function testSetRejectsWrongValueType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
-            $isSet = false;
             $key;
             $value;
             foreach ($collection as $key => $value) {
                 break;
             }
             try {
-                $isSet = $collection->set( $key, $key );
+                $collection->set( $key, $key );
             } catch (\Exception $e) {}
             
+            $name = self::getClassName( $collection );
             $this->assertFalse(
-                $isSet,
-                "Collection->set() should not allow a value with the wrong type to be set"
+                ( $key === $collection->get( $key ) ),
+                "Expected {$name}->set() to reject keys with the wrong type"
             );
         }
     }
@@ -262,8 +266,6 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     /**
      * Ensure set() fails when trying to set a key with an empty value
-     *
-     * @expectedException PHPUnit\Framework\Error\Error
      */
     public function testSetErrorsOnEmptyKey()
     {
@@ -273,7 +275,17 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         ];
         foreach ( CollectionData::GetMixed() as $collection ) {
             foreach ( $emptyKeys as $emptyKey ) {
-                $collection->set( $emptyKey, 1 );
+                $isError = false;
+                try {
+                    $collection->set( $emptyKey, 1 );
+                } catch (\Exception $e) {
+                    $isError = true;
+                }
+                $name = self::getClassName( $collection );
+                $this->assertTrue(
+                    $isError,
+                    "Expected {$name}->set() to error on an empty key"
+                );
             }
         }
     }
