@@ -61,7 +61,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Ensure remove() triggers an error on missing key
      */
-    public function testRemoveTriggersErrorWithMissingKey()
+    public function testRemoveTriggersErrorForBadKey()
     {
         foreach ( CollectionData::Get() as $collection ) {
             $previous = $collection->count();
@@ -85,7 +85,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Ensure remove() has same count when given a missing key
      */
-    public function testRemoveHasSameCountWithMissingKey()
+    public function testRemoveHasSameCountForBadKey()
     {
         foreach ( CollectionData::GetNonEmpty() as $collection ) {
             $previous = $collection->count();
@@ -110,7 +110,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Ensure remove() triggers an error on wrong key type
      */
-    public function testRemoveTriggersErrorWithWrongKeyType()
+    public function testRemoveTriggersErrorForWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
             $value = $collection->loop(function( $key, $value ) {
@@ -137,7 +137,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * Ensure remove() has the same count as before when given the wrong key type
      */
-    public function testRemoveHasSameCountWithWrongKeyType()
+    public function testRemoveHasSameCountForWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
             $value = $collection->loop(function( $key, $value ) {
