@@ -48,45 +48,6 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
-    *                         ReadOnlyDictionary->count()
-    ***************************************************************************/
-    
-    /**
-     * Count returns the number of items
-     */
-    public function testCountIsAccurateForNonEmpty()
-    {
-        foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
-            $count = 0;
-            $dictionary->loop( function( $key, $value ) use ( &$count ) {
-                $count++;
-            });
-            $this->assertEquals(
-                $count,
-                $dictionary->count(),
-                'ReadOnlyDictionary->count() returned the wrong number of items on a non-empty Dictionary'
-            );
-        }
-    }
-    
-    /**
-     * Count returns the number of items
-     */
-    public function testCountIsZeroForEmpty()
-    {
-        $dictionary = new \PHP\Collections\Dictionary();
-        $dictionary = new \PHP\Collections\ReadOnlyDictionary( $dictionary );
-        $this->assertEquals(
-            0,
-            $dictionary->count(),
-            "ReadOnlyDictionary->count() returned {$dictionary->count()} on an empty Dictionary"
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                         ReadOnlyDictionary->GetNonEmpty()
     ***************************************************************************/
     
