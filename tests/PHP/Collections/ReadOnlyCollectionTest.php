@@ -135,6 +135,29 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
+    *                         ReadOnlyCollection->get()
+    ***************************************************************************/
+    
+    /**
+     * Ensure that get() retrieves the value at that key
+     */
+    public function testGetReturnsValue()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $collection->loop(function( $key, $value ) use ( $collection, $name ) {
+                $this->assertTrue(
+                    $value === $collection->get( $key ),
+                    "Expected {$name}->get() to return the value stored at that key"
+                );
+            });
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                       ReadOnlyCollection->getKeys()
     ***************************************************************************/
 
