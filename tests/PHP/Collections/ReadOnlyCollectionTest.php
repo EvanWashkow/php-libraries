@@ -85,6 +85,22 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     ***************************************************************************/
     
     /**
+     * Ensure that count() returns a positive value for non-empty collections
+     */
+    public function testCountIsPositiveForNonEmpty()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $this->assertGreaterThanOrEqual(
+                1,
+                $collection->count(),
+                "Expected {$name}->count() to return an positive value"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure that count() returns an integer value
      */
     public function testCountReturnsInt()
