@@ -18,7 +18,7 @@ class ReadOnlyDictionaryTest extends \PHPUnit\Framework\TestCase
     /**
      * Are all the collections valid?
      */
-    public function testData()
+    public function testNonEmptyData()
     {
         foreach ( ReadOnlyDictionaryData::GetNonEmpty() as $dictionary ) {
             $this->assertNotEquals(
