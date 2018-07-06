@@ -10,6 +10,20 @@ final class ReadOnlyCollectionData
 {
     
     /**
+     * Retrieves all test data
+     *
+     * @return array
+     */
+    public static function Get(): array
+    {
+        return array_merge(
+            self::GetEmpty(),
+            self::GetNonEmpty()
+        );
+    }
+    
+    
+    /**
      * Retrieves empty read-only collections
      * 
      * @return array

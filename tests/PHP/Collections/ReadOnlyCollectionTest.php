@@ -81,6 +81,28 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
+    *                       ReadOnlyCollection->count()
+    ***************************************************************************/
+    
+    /**
+     * Ensure that count() returns an integer value
+     */
+    public function testCountReturnsInt()
+    {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+            $name = self::getClassName( $collection );
+            $this->assertEquals(
+                'integer',
+                gettype( $collection->count() ),
+                "Expected {$name}->count() to return an integer value"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                       ReadOnlyCollection->getKeys()
     ***************************************************************************/
 
