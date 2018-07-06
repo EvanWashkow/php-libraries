@@ -202,7 +202,7 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGetThrowsInvalidArgumentExceptionOnNullKey()
     {
         $badKey = [ new stdClass() ];
-        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
                 $exception = null;
