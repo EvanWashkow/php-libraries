@@ -165,6 +165,123 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /***************************************************************************
+    *                              Collection->set()
+    ***************************************************************************/
+    
+    
+    /**
+     * Setting an new entry should work
+     */
+    public function testSetNewKey()
+    {
+        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+            $this->assertGreaterThan(
+                0,
+                $collection->count(),
+                "Collection->set() did not correctly set a new collection entry"
+            );
+        }
+    }
+    
+    
+    /**
+     * Setting an existing key to a different value should work
+     */
+    public function testSetExistingKey()
+    {
+        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+            
+            // Set first key to last value
+            $key   = null;
+            $value = null;
+            $collection->loop( function( $k, $v ) use ( &$key, &$value ) {
+                if ( null === $key ) {
+                    $key = $k;
+                }
+                $value = $v;
+            });
+            $collection->set( $key, $value );
+            
+            // Assert test
+            $this->assertEquals(
+                $value,
+                $collection->get( $key ),
+                "Collection->set() did not correctly set an existing collection entry"
+            );
+        }
+    }
+    
+    
+    /**
+     * Setting an with the wrong key type should fail
+     */
+    public function testTypedDictionariesSetWithWrongKeyType()
+    {
+        foreach ( CollectionData::GetTyped() as $collection ) {
+            $isSet = false;
+            $key;
+            $value;
+            foreach ($collection as $key => $value) {
+                break;
+            }
+            try {
+                $isSet = $collection->set( $value, $value );
+            } catch (\Exception $e) {}
+            
+            $this->assertFalse(
+                $isSet,
+                "Collection->set() should not allow a key with the wrong type to be set"
+            );
+        }
+    }
+    
+    
+    /**
+     * Setting an with the wrong value type should fail
+     */
+    public function testTypedDictionariesSetWithWrongValueType()
+    {
+        foreach ( CollectionData::GetTyped() as $collection ) {
+            $isSet = false;
+            $key;
+            $value;
+            foreach ($collection as $key => $value) {
+                break;
+            }
+            try {
+                $isSet = $collection->set( $key, $key );
+            } catch (\Exception $e) {}
+            
+            $this->assertFalse(
+                $isSet,
+                "Collection->set() should not allow a value with the wrong type to be set"
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure set() fails when trying to set a key with an empty value
+     *
+     * @expectedException PHPUnit\Framework\Error\Error
+     */
+    public function testSetErrorsOnEmptyKey()
+    {
+        $emptyKeys = [
+            '',
+            []
+        ];
+        foreach ( CollectionData::GetMixed() as $collection ) {
+            foreach ( $emptyKeys as $emptyKey ) {
+                $collection->set( $emptyKey, 1 );
+            }
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                                UTILITIES
     ***************************************************************************/
     
