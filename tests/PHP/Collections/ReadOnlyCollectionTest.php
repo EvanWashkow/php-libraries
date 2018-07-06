@@ -156,6 +156,23 @@ class ReadOnlyCollectionTest extends \PHPUnit\Framework\TestCase
     
     
     /**
+     * Ensure that get() returns value of that value type
+     */
+    public function testGetReturnsValueOfValueType()
+    {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+            $name = self::getClassName( $collection );
+            $collection->loop(function( $key, $value ) use ( $collection, $name ) {
+                $this->assertTrue(
+                    $collection->isOfValueType( $collection->get( $key ) ),
+                    "Expected {$name}->get() to return the value of the same type"
+                );
+            });
+        }
+    }
+    
+    
+    /**
      * Ensure that get() throws InvalidArgumentException on missing key
      *
      * @expectedException InvalidArgumentException
