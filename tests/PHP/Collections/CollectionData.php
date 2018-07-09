@@ -1,6 +1,7 @@
 <?php
 
 require_once( __DIR__ . '/DictionaryData.php' );
+require_once( __DIR__ . '/SequenceData.php' );
 
 /**
  * Collection test data
@@ -30,7 +31,8 @@ final class CollectionData
     public function GetEmpty(): array
     {
         return array_merge(
-            DictionaryData::GetEmpty()
+            DictionaryData::GetEmpty(),
+            SequenceData::GetEmpty()
         );
     }
     
