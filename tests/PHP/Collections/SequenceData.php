@@ -43,7 +43,7 @@ class SequenceData
     
     
     /**
-    * Retrieve sample Sequence with mixed string and value types
+    * Retrieve sample Sequence with mixed types
     *
     * @return array
     */

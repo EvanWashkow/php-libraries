@@ -5,7 +5,7 @@ require_once( __DIR__ . '/DictionaryData.php' );
 use PHP\Collections\ReadOnlyDictionary;
 
 /**
- * Dictionary Data for testing
+ * ReadOnlyDictionary test data
  */
 final class ReadOnlyDictionaryData
 {
@@ -40,7 +40,7 @@ final class ReadOnlyDictionaryData
     
     
     /**
-    * Retrieve sample Dictionary with mixed string and value types
+    * Retrieve sample Dictionary with mixed types
     *
     * @return array
     */
