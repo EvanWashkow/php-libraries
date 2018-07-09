@@ -13,6 +13,20 @@ class SequenceData
     ***************************************************************************/
     
     /**
+     * Retrieve sample sequences
+     *
+     * @return array
+     */
+    public function Get(): array
+    {
+        return array_merge(
+            self::GetEmpty(),
+            self::GetNonEmpty()
+        );
+    }
+    
+    
+    /**
      * Retrieve sample sequence data that has no entries
      *
      * @return array

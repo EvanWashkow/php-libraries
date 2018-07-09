@@ -11,6 +11,21 @@ final class ReadOnlySequenceData
 {
     
     /**
+     * Retrieve sample sequences
+     *
+     * @return array
+     */
+    public function Get(): array
+    {
+        $sequences = [];
+        foreach ( SequenceData::Get() as $sequence ) {
+            $sequences[] = new ReadOnlySequence( $sequence );
+        }
+        return $sequences;
+    }
+    
+    
+    /**
      * Retrieve sample sequences with no entries
      * 
      * @return array
