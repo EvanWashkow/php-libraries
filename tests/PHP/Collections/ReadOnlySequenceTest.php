@@ -87,4 +87,21 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getLastKey() is larger than or equalt to the
+     * first for non-empty
+     */
+    public function testGetLastKeyIsGreaterThanOrEqualToFirstForNonEmpty()
+    {
+        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertGreaterThanOrEqual(
+                $sequence->getFirstKey(),
+                $sequence->getLastKey(),
+                "Expected {$class}->getLastKey() to be greater than or equal to the first key for non-empty sequences"
+            );
+        }
+    }
 }
