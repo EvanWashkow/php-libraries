@@ -29,10 +29,10 @@ class DictionaryData
     
     
     /**
-    * Retrieve non-empty test dictionaries
-    *
-    * @return array
-    */
+     * Retrieve non-empty test dictionaries
+     *
+     * @return array
+     */
     public static function GetNonEmpty(): array
     {
         return array_merge(
@@ -43,10 +43,10 @@ class DictionaryData
     
     
     /**
-    * Retrieve sample Dictionary with mixed string and value types
-    *
-    * @return array
-    */
+     * Retrieve sample Dictionary with mixed string and value types
+     *
+     * @return array
+     */
     public static function GetMixed(): array
     {
         $dictionary = new Dictionary();

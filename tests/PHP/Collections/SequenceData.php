@@ -29,10 +29,10 @@ class SequenceData
     
     
     /**
-    * Retrieve all non-empty test sequences
-    *
-    * @return array
-    */
+     * Retrieve all non-empty test sequences
+     *
+     * @return array
+     */
     public static function GetNonEmpty(): array
     {
         return array_merge(
@@ -43,10 +43,10 @@ class SequenceData
     
     
     /**
-    * Retrieve sample Sequence with mixed types
-    *
-    * @return array
-    */
+     * Retrieve sample Sequence with mixed types
+     *
+     * @return array
+     */
     public static function GetMixed(): array
     {
         $sequence = new Sequence();

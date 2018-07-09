@@ -26,10 +26,10 @@ final class ReadOnlyDictionaryData
     
     
     /**
-    * Retrieve all test dictionaries
-    *
-    * @return array
-    */
+     * Retrieve all test dictionaries
+     *
+     * @return array
+     */
     public static function GetNonEmpty(): array
     {
         return array_merge(
@@ -40,10 +40,10 @@ final class ReadOnlyDictionaryData
     
     
     /**
-    * Retrieve sample Dictionary with mixed types
-    *
-    * @return array
-    */
+     * Retrieve sample Dictionary with mixed types
+     *
+     * @return array
+     */
     public static function GetMixed(): array
     {
         $roDictionaries = [];
