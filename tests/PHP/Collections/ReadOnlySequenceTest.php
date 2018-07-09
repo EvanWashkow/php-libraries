@@ -177,11 +177,26 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     
     
     /**
+     * Ensure ReadOnlySequence->getKeyOf() returns key in a reversed, offset search
+     */
+    public function testGetKeyOfStringValueReturnsKeyOfReverseOffsetSearch()
+    {
+        foreach ( self::getKeyOfStringData() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                3 === $sequence->getKeyOf( '0', 2, true ),
+                "Expected {$class}->getKeyOf() to return the key of the value when searching in reverse with offset"
+            );
+        }
+    }
+    
+    
+    /**
      * Retrieves test data for getKeyOf() string tests
      *
      * @return array
      */
-    private static function getKeyOfStringData(): array
+    public static function getKeyOfStringData(): array
     {
         // Variables
         $sequences = [];
