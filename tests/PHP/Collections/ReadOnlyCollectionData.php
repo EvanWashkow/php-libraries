@@ -17,6 +17,7 @@ final class ReadOnlyCollectionData
     public static function Get(): array
     {
         return array_merge(
+            CollectionData::Get(),
             self::GetEmpty(),
             self::GetNonEmpty()
         );
@@ -31,6 +32,7 @@ final class ReadOnlyCollectionData
     public static function GetEmpty(): array
     {
         return array_merge(
+            CollectionData::GetEmpty(),
             ReadOnlyDictionaryData::GetEmpty()
         );
     }
@@ -44,6 +46,7 @@ final class ReadOnlyCollectionData
     public static function GetNonEmpty()
     {
         return array_merge(
+            CollectionData::GetNonEmpty(),
             ReadOnlyDictionaryData::GetNonEmpty()
         );
     }
@@ -57,6 +60,7 @@ final class ReadOnlyCollectionData
     public static function GetTyped()
     {
         return array_merge(
+            CollectionData::GetTyped(),
             ReadOnlyDictionaryData::GetTyped()
         );
     }
@@ -72,6 +76,7 @@ final class ReadOnlyCollectionData
     public static function GetMixed()
     {
         return array_merge(
+            CollectionData::GetMixed(),
             ReadOnlyDictionaryData::GetMixed()
         );
     }
