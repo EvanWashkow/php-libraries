@@ -279,4 +279,26 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
         
         return $sequences;
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                      ReadOnlySequence->reverse()
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->reverse() returns the same type
+     */
+    public function testReverseReturnsSameType()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                get_class( $sequence ),
+                get_class( $sequence->reverse() ),
+                "Expected {$class}->reverse() to return the same type"
+            );
+        }
+    }
 }
