@@ -340,4 +340,31 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             });
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                      ReadOnlySequence->slice()
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->slice() errors on an offset too small
+     */
+    public function testSliceErrorsOnSmallOffset()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $isError = false;
+            try {
+                $sequence->slice( $sequence->getFirstKey() - 1, 0 );
+            } catch ( \Exception $e ) {
+                $isError = true;
+            }            
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                $isError,
+                "Expected {$class}->slice() to error on an offset that is too small"
+            );
+        }
+    }
 }
