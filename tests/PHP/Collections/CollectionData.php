@@ -45,7 +45,8 @@ final class CollectionData
     public function GetNonEmpty(): array
     {
         return array_merge(
-            DictionaryData::GetNonEmpty()
+            DictionaryData::GetNonEmpty(),
+            SequenceData::GetNonEmpty()
         );
     }
     
