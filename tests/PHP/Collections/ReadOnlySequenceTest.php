@@ -45,4 +45,25 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             );
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                      ReadOnlySequence->getFirstKey()
+    ***************************************************************************/
+    
+    /**
+     * Ensure getFirstKey() returns an integer value
+     */
+    public function testGetFirstKeyReturnsInt()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                is( $sequence->getFirstKey(), 'integer' ),
+                "Expected {$class}->getFirstKey() to return an integer"
+            );
+        }
+    }
 }
