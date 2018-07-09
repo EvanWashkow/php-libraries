@@ -63,7 +63,6 @@ class DictionaryData
         foreach ( self::GetTyped() as $typedDictionary ) {
             $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
                 $dictionary->set( $key, $value );
-                $dictionary->set( $value, $key );
             });
         }
         return [
