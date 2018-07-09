@@ -131,6 +131,23 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     *                      ReadOnlySequence->getKeyOf()
     ***************************************************************************/
     
+    
+    /**
+     * Ensure ReadOnlySequence->getKeyOf() returns a bad key on empty data
+     */
+    public function testGetKeyOfReturnsBadKeyOnEmptyData()
+    {
+        foreach ( ReadOnlySequenceData::GetEmpty() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertLessThan(
+                $sequence->getFirstKey(),
+                $sequence->getKeyOf( 'foobar' ),
+                "Expected {$class}->getKeyOf() to return a bad key on empty data"
+            );
+        }
+    }
+    
+    
     /**
      * Ensure ReadOnlySequence->getKeyOf() errors on too small of an offset
      */
