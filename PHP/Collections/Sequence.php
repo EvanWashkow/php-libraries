@@ -272,10 +272,6 @@ class Sequence extends Collection implements ISequence
             trigger_error( 'Starting key cannot be before the first key of the sequence.' );
             $offset = $this->getFirstKey();
         }
-        elseif ( $this->getLastKey() < $offset ) {
-            trigger_error( 'Starting key cannot be after the last key of the sequence.' );
-            $offset = $this->getLastKey();
-        }
         
         // Sanitize count
         if ( $limit < 0 ) {
