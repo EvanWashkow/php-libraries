@@ -99,14 +99,14 @@ class DictionaryData
     
     
     /**
-     * Return sample Dictionary with "0"-"2" => 0-2
+     * Return sample Dictionary with "0"-"1" => 0-1
      *
      * @return Dictionary
      */
     private static function getStringInt(): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'integer' );
-        for ( $i = 0; $i <= 2; $i++ ) {
+        for ( $i = 0; $i <= 1; $i++ ) {
             $dictionary->set( (string) $i, $i );
         }
         return $dictionary;
@@ -114,16 +114,14 @@ class DictionaryData
     
     
     /**
-     * Return sample Dictionary with "0"-"2" => new stdClass()
+     * Return sample Dictionary with "0" => new stdClass()
      *
      * @return Dictionary
      */
     private static function getStringObject(): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'stdClass' );
-        for ( $i = 0; $i <= 2; $i++ ) {
-            $dictionary->set( (string) $i, new stdClass() );
-        }
+        $dictionary->set( "0", new stdClass() );
         return $dictionary;
     }
 }

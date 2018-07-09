@@ -99,14 +99,14 @@ class SequenceData
     
     
     /**
-     * Return sample Sequence with 0-2 => "0"-"2"
+     * Return sample Sequence with 0-1 => "0"-"1"
      *
      * @return Sequence
      */
     private static function getString(): Sequence
     {
         $sequence = new Sequence( 'string' );
-        for ( $i = 0; $i <= 2; $i++ ) {
+        for ( $i = 0; $i <= 1; $i++ ) {
             $sequence->add( (string) $i );
         }
         return $sequence;
@@ -114,16 +114,14 @@ class SequenceData
     
     
     /**
-     * Return sample Sequence with 0-2 => new stdClass()
+     * Return sample Sequence with 0 => new stdClass()
      *
      * @return Sequence
      */
     private static function getObject(): Sequence
     {
         $sequence = new Sequence( 'stdClass' );
-        for ( $i = 0; $i <= 2; $i++ ) {
-            $sequence->add( new stdClass() );
-        }
+        $sequence->add( new stdClass() );
         return $sequence;
     }
 }
