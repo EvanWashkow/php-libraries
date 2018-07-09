@@ -324,6 +324,22 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     ***************************************************************************/
     
     /**
+     * Ensure ReadOnlySequence->slice() returns same type
+     */
+    public function testSliceReturnsSameType()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                get_class( $sequence ),
+                get_class( $sequence->slice( $sequence->getFirstKey(), $sequence->count() ) ),
+                "Expected {$class}->slice() to return same type"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->slice() errors on an offset too small
      */
     public function testSliceErrorsOnSmallOffset()
