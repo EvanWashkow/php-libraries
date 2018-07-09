@@ -19,21 +19,11 @@ class DictionaryData
      */
     public static function GetEmpty(): array
     {
-        // Variables
         $dictionaries = [];
-        
-        // Add mixed dictionaries
-        foreach ( self::GetMixed() as $dictionary ) {
+        foreach ( self::GetNonEmpty() as $dictionary ) {
             $dictionary->clear();
             $dictionaries[] = $dictionary;
         }
-        
-        // Add typed dictionaries
-        foreach ( self::GetTyped() as $dictionary ) {
-            $dictionary->clear();
-            $dictionaries[] = $dictionary;
-        }
-        
         return $dictionaries;
     }
     
