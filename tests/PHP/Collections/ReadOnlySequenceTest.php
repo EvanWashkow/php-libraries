@@ -128,6 +128,33 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
+    *                      ReadOnlySequence->getKeyOf()
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->getKeyOf() errors on too small of an offset
+     */
+    public function testGetKeyOfErrorsOnOffsetTooSmall()
+    {
+        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
+            $isError = false;
+            try {
+                $sequence->getKeyOf( 'foobar', $sequence->getFirstKey() - 1 );
+            } catch (\Exception $e) {
+                $isError = true;
+            }
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                $isError,
+                "Expected {$class}->getKeyOf() to error when given an offset position too small"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *               ReadOnlySequence->getKeyOf() (string data)
     ***************************************************************************/
     
