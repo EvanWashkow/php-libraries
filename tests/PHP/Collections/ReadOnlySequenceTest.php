@@ -17,7 +17,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     ***************************************************************************/
     
     /**
-     * Ensure toArray() returns an array
+     * Ensure ReadOnlySequence->toArray() returns an array
      */
     public function testToArrayReturnsArray()
     {
@@ -32,7 +32,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure toArray() has the same number of elements
+     * Ensure ReadOnlySequence->toArray() has the same number of elements
      */
     public function testToArrayHasSameCount()
     {
@@ -54,7 +54,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     ***************************************************************************/
     
     /**
-     * Ensure getFirstKey() returns zero
+     * Ensure ReadOnlySequence->getFirstKey() returns zero
      */
     public function testGetFirstKeyReturnsZero()
     {
@@ -75,7 +75,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     ***************************************************************************/
     
     /**
-     * Ensure getLastKey() returns an integer value
+     * Ensure ReadOnlySequence->getLastKey() returns an integer value
      */
     public function testGetFirstKeyReturnsInt()
     {
@@ -83,7 +83,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 is( $sequence->getLastKey(), 'integer' ),
-                "Expected {$class}->getFirstKey() to return zero"
+                "Expected {$class}->getLastKey() to return an integer value"
             );
         }
     }
