@@ -124,14 +124,14 @@ class DictionaryData
     
     
     /**
-     * Return sample Dictionary with "1"-"9" => new stdClass()
+     * Return sample Dictionary with "0"-"2" => new stdClass()
      *
      * @return Dictionary
      */
     private static function getStringObject(): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'stdClass' );
-        for ( $i = 0; $i < 10; $i++ ) {
+        for ( $i = 0; $i <= 2; $i++ ) {
             $dictionary->set( (string) $i, new stdClass() );
         }
         return $dictionary;
