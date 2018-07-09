@@ -109,7 +109,7 @@ class DictionaryData
     
     
     /**
-     * Return sample Dictionary with "1"-"2" => 1-2
+     * Return sample Dictionary with "0"-"2" => 0-2
      *
      * @return Dictionary
      */
