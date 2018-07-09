@@ -92,8 +92,8 @@ class DictionaryData
     private static function getIntBool(): Dictionary
     {
         $dictionary = new Dictionary( 'integer', 'boolean' );
-        $dictionary->set( 1, true );
         $dictionary->set( 0, false );
+        $dictionary->set( 1, true );
         return $dictionary;
     }
     
