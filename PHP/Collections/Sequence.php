@@ -189,7 +189,7 @@ class Sequence extends Collection implements ISequence
     final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
-        $key = -1;
+        $key = $this->getFirstKey() - 1;
         
         // Exit. There are no entries.
         if ( 0 === $this->count() ) {
