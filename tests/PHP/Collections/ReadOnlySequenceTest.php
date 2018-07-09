@@ -304,17 +304,21 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure ReadOnlySequence->reverse() has same count
+     * Ensure ReadOnlySequence->reverse() has same values
      */
-    public function testReverseHasSameCount()
+    public function testReverseHasSameValues()
     {
         foreach ( ReadOnlySequenceData::Get() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                $sequence->count(),
-                $sequence->reverse()->count(),
-                "Expected {$class}->reverse() to have the same count"
-            );
+            $class   = self::getClassName( $sequence );
+            $lastKey = $sequence->getLastKey();
+            $reverse = $sequence->reverse();
+            $sequence->loop(function( $key, $value ) use ( $class, $lastKey, $reverse ) {
+                $this->assertEquals(
+                    $value,
+                    $reverse->get( $lastKey - $key ),
+                    "Expected {$class}->reverse() to have the same values"
+                );
+            });
         }
     }
 }
