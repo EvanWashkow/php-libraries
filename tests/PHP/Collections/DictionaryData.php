@@ -3,7 +3,7 @@
 use PHP\Collections\Dictionary;
 
 /**
- * Dictionary Data for testing
+ * Dictionary test data
  */
 class DictionaryData
 {
@@ -29,7 +29,7 @@ class DictionaryData
     
     
     /**
-    * Retrieve all test dictionaries
+    * Retrieve non-empty test dictionaries
     *
     * @return array
     */
@@ -85,7 +85,7 @@ class DictionaryData
     ***************************************************************************/
     
     /**
-     * Return sample Dictionary with 1, 0 => true, false
+     * Return sample Dictionary with 0, 1 => false, true
      *
      * @return Dictionary
      */
