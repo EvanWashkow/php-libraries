@@ -58,7 +58,8 @@ final class CollectionData
     public function GetTyped(): array
     {
         return array_merge(
-            DictionaryData::GetTyped()
+            DictionaryData::GetTyped(),
+            SequenceData::GetTyped()
         );
     }
     
