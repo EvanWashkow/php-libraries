@@ -34,7 +34,7 @@ class SequenceData
     public static function GetEmpty(): array
     {
         $sequences = [];
-        foreach ( self::GetNonEmpty() as $sequence ) {
+        foreach ( self::GetMixed() as $sequence ) {
             $sequence->clear();
             $sequences[] = $sequence;
         }

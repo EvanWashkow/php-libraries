@@ -20,7 +20,7 @@ class DictionaryData
     public static function GetEmpty(): array
     {
         $dictionaries = [];
-        foreach ( self::GetNonEmpty() as $dictionary ) {
+        foreach ( self::GetMixed() as $dictionary ) {
             $dictionary->clear();
             $dictionaries[] = $dictionary;
         }
