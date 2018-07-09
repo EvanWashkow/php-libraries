@@ -85,7 +85,8 @@ class DictionaryData
     {
         return [
             self::getIntBool(),
-            self::getStringInt()
+            self::getStringInt(),
+            self::getStringObject()
         ];
     }
     
