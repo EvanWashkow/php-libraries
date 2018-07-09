@@ -388,4 +388,25 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->slice() errors on a negative offset
+     */
+    public function testSliceErrorsOnNegativeLimits()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $isError = false;
+            try {
+                $sequence->slice( $sequence->getFirstKey(), -1 );
+            } catch ( \Exception $e ) {
+                $isError = true;
+            }            
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                $isError,
+                "Expected {$class}->slice() to error on a negative offset"
+            );
+        }
+    }
 }
