@@ -2,6 +2,7 @@
 
 require_once( __DIR__ . '/CollectionData.php' );
 require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
+require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
 /**
  * ReadOnlyCollection test data
@@ -33,7 +34,8 @@ final class ReadOnlyCollectionData
     {
         return array_merge(
             CollectionData::GetEmpty(),
-            ReadOnlyDictionaryData::GetEmpty()
+            ReadOnlyDictionaryData::GetEmpty(),
+            ReadOnlySequenceData::GetEmpty()
         );
     }
     
@@ -47,7 +49,8 @@ final class ReadOnlyCollectionData
     {
         return array_merge(
             CollectionData::GetNonEmpty(),
-            ReadOnlyDictionaryData::GetNonEmpty()
+            ReadOnlyDictionaryData::GetNonEmpty(),
+            ReadOnlySequenceData::GetNonEmpty()
         );
     }
     
@@ -61,7 +64,8 @@ final class ReadOnlyCollectionData
     {
         return array_merge(
             CollectionData::GetTyped(),
-            ReadOnlyDictionaryData::GetTyped()
+            ReadOnlyDictionaryData::GetTyped(),
+            ReadOnlySequenceData::GetTyped()
         );
     }
     
