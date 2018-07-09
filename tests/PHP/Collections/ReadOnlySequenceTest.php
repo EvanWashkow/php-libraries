@@ -201,7 +201,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
      */
     public function testGetKeyOfStringValueReturnsFirstValueKey()
     {
-        foreach ( self::getKeyOfStringData() as $sequence ) {
+        foreach ( self::getStringData() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 0 === $sequence->getKeyOf( '0' ),
@@ -216,7 +216,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
      */
     public function testGetKeyOfStringValueReturnsKeyOfOffsetSearch()
     {
-        foreach ( self::getKeyOfStringData() as $sequence ) {
+        foreach ( self::getStringData() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 3 === $sequence->getKeyOf( '0', 1 ),
@@ -231,7 +231,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
      */
     public function testGetKeyOfStringValueReturnsKeyOfReverseSearch()
     {
-        foreach ( self::getKeyOfStringData() as $sequence ) {
+        foreach ( self::getStringData() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 4 === $sequence->getKeyOf( '0', 0, true ),
@@ -246,38 +246,13 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
      */
     public function testGetKeyOfStringValueReturnsKeyOfReverseOffsetSearch()
     {
-        foreach ( self::getKeyOfStringData() as $sequence ) {
+        foreach ( self::getStringData() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 3 === $sequence->getKeyOf( '0', 2, true ),
                 "Expected {$class}->getKeyOf() to return the key of the value when searching in reverse with offset"
             );
         }
-    }
-    
-    
-    /**
-     * Retrieves test data for getKeyOf() string tests
-     *
-     * @return array
-     */
-    public static function getKeyOfStringData(): array
-    {
-        // Variables
-        $sequences = [];
-        
-        // Build test string Sequences
-        $sequence = new Sequence( 'string' );
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        $sequence->add( '1' );
-        $sequence->add( '0' );
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        $sequences[] = $sequence;
-        $sequences[] = new ReadOnlySequence( $sequence );
-        
-        return $sequences;
     }
     
     
@@ -387,5 +362,36 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
                 "Expected {$class}->slice() to error on a negative offset"
             );
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                   DATA
+    ***************************************************************************/
+    
+    /**
+     * Retrieves test data for string tests
+     *
+     * @return array
+     */
+    public static function getStringData(): array
+    {
+        // Variables
+        $sequences = [];
+        
+        // Build test string Sequences
+        $sequence = new Sequence( 'string' );
+        $sequence->add( '0' );
+        $sequence->add( '1' );
+        $sequence->add( '1' );
+        $sequence->add( '0' );
+        $sequence->add( '0' );
+        $sequence->add( '1' );
+        $sequences[] = $sequence;
+        $sequences[] = new ReadOnlySequence( $sequence );
+        
+        return $sequences;
     }
 }
