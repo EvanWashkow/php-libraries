@@ -20,6 +20,7 @@ final class ReadOnlyDictionaryData
         $dictionaries = [];
         foreach ( DictionaryData::GetEmpty() as $dictionary ) {
             $dictionaries[] = new ReadOnlyDictionary( $dictionary );
+            $dictionaries[] = $dictionary;
         }
         return $dictionaries;
     }
@@ -46,11 +47,12 @@ final class ReadOnlyDictionaryData
      */
     public static function GetMixed(): array
     {
-        $roDictionaries = [];
+        $dictionaries = [];
         foreach ( DictionaryData::GetMixed() as $dictionary ) {
-            $roDictionaries[] = new ReadOnlyDictionary( $dictionary );
+            $dictionaries[] = new ReadOnlyDictionary( $dictionary );
+            $dictionaries[] = $dictionary;
         }
-        return $roDictionaries;
+        return $dictionaries;
     }
     
     
@@ -64,6 +66,7 @@ final class ReadOnlyDictionaryData
         $dictionaries = [];
         foreach ( DictionaryData::GetTyped() as $dictionary ) {
             $dictionaries[] = new ReadOnlyDictionary( $dictionary );
+            $dictionaries[] = $dictionary;
         }
         return $dictionaries;
     }

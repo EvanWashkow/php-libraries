@@ -20,6 +20,7 @@ final class ReadOnlySequenceData
         $sequences = [];
         foreach ( SequenceData::Get() as $sequence ) {
             $sequences[] = new ReadOnlySequence( $sequence );
+            $sequences[] = $sequence;
         }
         return $sequences;
     }
@@ -35,6 +36,7 @@ final class ReadOnlySequenceData
         $sequences = [];
         foreach ( SequenceData::GetEmpty() as $sequence ) {
             $sequences[] = new ReadOnlySequence( $sequence );
+            $sequences[] = $sequence;
         }
         return $sequences;
     }
@@ -61,11 +63,12 @@ final class ReadOnlySequenceData
     */
     public static function GetMixed(): array
     {
-        $roDictionaries = [];
+        $sequences = [];
         foreach ( SequenceData::GetMixed() as $sequence ) {
-            $roDictionaries[] = new ReadOnlySequence( $sequence );
+            $sequences[] = new ReadOnlySequence( $sequence );
+            $sequences[] = $sequence;
         }
-        return $roDictionaries;
+        return $sequences;
     }
     
     
@@ -79,6 +82,7 @@ final class ReadOnlySequenceData
         $sequences = [];
         foreach ( SequenceData::GetTyped() as $sequence ) {
             $sequences[] = new ReadOnlySequence( $sequence );
+            $sequences[] = $sequence;
         }
         return $sequences;
     }
