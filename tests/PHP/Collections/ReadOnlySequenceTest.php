@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Collections\Sequence;
+use PHP\Collections\ReadOnlySequence;
+
 require_once( __DIR__ . '/../TestCase.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
@@ -119,5 +122,51 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
                 "Expected {$class}->getLastKey() to be less than the first key for empty sequences"
             );
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *               ReadOnlySequence->getKeyOf() (string data)
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->getKeyOf() returns key of the first value
+     */
+    public function testGetKeyOfStringValueReturnsFirstValueKey()
+    {
+        foreach ( self::getKeyOfStringData() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                0 === $sequence->getKeyOf( '0' ),
+                "Expected {$class}->getKeyOf() to return the key of the first value"
+            );
+        }
+    }
+    
+    
+    /**
+     * Retrieves test data for getKeyOf() string tests
+     *
+     * @return array
+     */
+    private static function getKeyOfStringData(): array
+    {
+        // Variables
+        $sequences = [];
+        
+        // Build test string Sequences
+        $sequence = new Sequence( 'string' );
+        $sequence->add( '0' );
+        $sequence->add( '1' );
+        $sequence->add( '1' );
+        $sequence->add( '0' );
+        $sequence->add( '0' );
+        $sequence->add( '1' );
+        $sequences[] = $sequence;
+        $sequences[] = new ReadOnlySequence( $sequence );
+        
+        return $sequences;
     }
 }
