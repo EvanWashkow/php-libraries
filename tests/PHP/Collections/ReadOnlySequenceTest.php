@@ -104,4 +104,20 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getLastKey() is less than first for empty
+     */
+    public function testGetLastKeyIsLessThanFirstForEmpty()
+    {
+        foreach ( ReadOnlySequenceData::GetEmpty() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertLessThan(
+                $sequence->getFirstKey(),
+                $sequence->getLastKey(),
+                "Expected {$class}->getLastKey() to be less than the first key for empty sequences"
+            );
+        }
+    }
 }
