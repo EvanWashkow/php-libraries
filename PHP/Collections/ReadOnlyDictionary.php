@@ -25,7 +25,6 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements IReadOnlyDictiona
     
     public function clone(): IReadOnlyCollection
     {
-        $clone = $this->collection->clone();
-        return new self( $clone );
+        return new self( $this->collection );
     }
 }

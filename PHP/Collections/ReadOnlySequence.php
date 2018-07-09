@@ -25,8 +25,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
     
     public function clone(): IReadOnlyCollection
     {
-        $clone = $this->collection->clone();
-        return new self( $clone );
+        return new self( $this->collection );
     }
     
     final public function toArray(): array
