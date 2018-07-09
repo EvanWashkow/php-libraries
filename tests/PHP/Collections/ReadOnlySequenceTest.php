@@ -29,4 +29,20 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure toArray() has the same number of elements
+     */
+    public function testToArrayHasSameCount()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                $sequence->count(),
+                count( $sequence->toArray() ),
+                "Expected {$class}->toArray() to have the same number of elements"
+            );
+        }
+    }
 }
