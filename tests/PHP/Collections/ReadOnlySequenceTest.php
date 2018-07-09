@@ -301,4 +301,20 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->reverse() has same count
+     */
+    public function testReverseHasSameCount()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                $sequence->count(),
+                $sequence->reverse()->count(),
+                "Expected {$class}->reverse() to have the same count"
+            );
+        }
+    }
 }
