@@ -151,10 +151,17 @@ class Dictionary extends Collection implements IDictionary
     
     final public function hasKey( $key ): bool
     {
-        return (
-            $this->isOfKeyType( $key ) &&
-            array_key_exists( $key, $this->entries )
-        );
+        $hasKey = $this->isOfKeyType( $key );
+        if ( $hasKey ) {
+            
+            // If the given key is an object, array_key_exists throws an error
+            try {
+                $hasKey = array_key_exists( $key, $this->entries );
+            } catch ( \Exception $e ) {
+                $hasKey = false;
+            }
+        }
+        return $hasKey;
     }
     
     
