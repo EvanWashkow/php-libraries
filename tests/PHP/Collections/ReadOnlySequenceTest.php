@@ -147,6 +147,21 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     
     
     /**
+     * Ensure ReadOnlySequence->getKeyOf() returns key of offset value
+     */
+    public function testGetKeyOfStringValueReturnsOffsetKey()
+    {
+        foreach ( self::getKeyOfStringData() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                3 === $sequence->getKeyOf( '0', 1 ),
+                "Expected {$class}->getKeyOf() to return the key of the offset value"
+            );
+        }
+    }
+    
+    
+    /**
      * Retrieves test data for getKeyOf() string tests
      *
      * @return array
