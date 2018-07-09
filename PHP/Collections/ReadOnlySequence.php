@@ -23,7 +23,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
     }
     
     
-    final public function clone(): IReadOnlyCollection
+    public function clone(): IReadOnlyCollection
     {
         $clone = $this->collection->clone();
         return new self( $clone );
