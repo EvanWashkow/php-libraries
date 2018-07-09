@@ -323,9 +323,9 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure ReadOnlySequence->reverse() has same values
+     * Ensure ReadOnlySequence->reverse() has the same values in reverse
      */
-    public function testReverseHasSameValues()
+    public function testReverseValuesAreReversed()
     {
         foreach ( ReadOnlySequenceData::Get() as $sequence ) {
             $class   = self::getClassName( $sequence );
@@ -335,7 +335,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
                 $this->assertEquals(
                     $value,
                     $reverse->get( $lastKey - $key ),
-                    "Expected {$class}->reverse() to have the same values"
+                    "Expected {$class}->reverse() to have the same values in reverse"
                 );
             });
         }
