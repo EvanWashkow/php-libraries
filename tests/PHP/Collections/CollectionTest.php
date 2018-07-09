@@ -1,11 +1,12 @@
 <?php
 
+require_once( __DIR__ . '/../TestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
 
 /**
  * Test all Collection methods to ensure consistent functionality
  */
-class CollectionTest extends \PHPUnit\Framework\TestCase
+class CollectionTest extends \PHP\Tests\TestCase
 {
     
     /***************************************************************************
@@ -346,25 +347,5 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
                 );
             }
         }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                UTILITIES
-    ***************************************************************************/
-    
-    /**
-     * Get the class name of the object
-     *
-     * @param Iterator $object The Iterator object instance
-     * @return string
-     */
-    protected static function getClassName( Iterator $object ): string
-    {
-        $name = get_class( $object );
-        $name = explode( '\\', $name );
-        return array_pop( $name );
     }
 }

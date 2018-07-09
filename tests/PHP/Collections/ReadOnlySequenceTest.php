@@ -1,5 +1,6 @@
 <?php
 
+require_once( __DIR__ . '/../TestCase.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
 /**
@@ -8,7 +9,7 @@ require_once( __DIR__ . '/ReadOnlySequenceData.php' );
  * This tests both the read-only and the editable sequnce (the read-only
  * simply invokes the editable)
  */
-class ReadOnlySequenceTest extends \PHPUnit\Framework\TestCase
+class ReadOnlySequenceTest extends \PHP\Tests\TestCase
 {
     
     /***************************************************************************
@@ -27,25 +28,5 @@ class ReadOnlySequenceTest extends \PHPUnit\Framework\TestCase
                 "Expected {$class}->toArray() to return an array"
             );
         }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                UTILITIES
-    ***************************************************************************/
-    
-    /**
-     * Get the class name of the object
-     *
-     * @param Iterator $object The Iterator object instance
-     * @return string
-     */
-    protected static function getClassName( Iterator $object ): string
-    {
-        $name = get_class( $object );
-        $name = explode( '\\', $name );
-        return array_pop( $name );
     }
 }
