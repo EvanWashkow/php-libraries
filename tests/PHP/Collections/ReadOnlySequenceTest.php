@@ -381,6 +381,27 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
     }
     
     
+    /**
+     * Ensure ReadOnlySequence->slice() with offset has same first value
+     */
+    public function testSliceOffsetHasSameFirstValue()
+    {
+        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
+            $class   = self::getClassName( $sequence );
+            $count   = $sequence->count();
+            $lastKey = $sequence->getLastKey();
+            for ( $i = $sequence->getFirstKey(); $i <= $lastKey; $i++ ) {
+                $slice = $sequence->slice( $i, $count );
+                $this->assertEquals(
+                    $sequence->get( $i ),
+                    $slice->get( 0 ),
+                    "Expected {$class}->slice() offset to be the first value"
+                );
+            }
+        }
+    }
+    
+    
     
     
     /***************************************************************************
