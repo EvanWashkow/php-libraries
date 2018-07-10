@@ -103,21 +103,6 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
-     * key() should always return NULL on empty data
-     */
-    public function testKeyReturnsNullOnEmptyData()
-    {
-        foreach ( IteratorData::GetEmpty() as $iterator ) {
-            $name = self::getClassName( $iterator );
-            $this->assertNull(
-                $iterator->key(),
-                "Expected {$name}->key() to return NULL when it has no data"
-            );
-        }
-    }
-    
-    
-    /**
      * key() should always return NULL on invalid key
      */
     public function testKeyReturnsNullOnInvalidKey()
@@ -175,7 +160,10 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testLoopNeverIteratesOnEmptyData()
     {
-        foreach ( IteratorData::GetEmpty() as $iterator ) {
+        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+            if ( 0 !== self::countElements( $iterator )) {
+                continue;
+            }
             $count = 0;
             $iterator->loop(function( $key, $value ) use ( &$count ) {
                 $count++;
@@ -338,21 +326,6 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
             $this->assertFalse(
                 $iterator->valid(),
                 "Expected {$name}->valid() to return false for a invalid key (when the loop finishes)"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure valid() returns false for empty Iterators
-     */
-    public function testValidReturnsFalseForEmptyData()
-    {
-        foreach ( IteratorData::GetEmpty() as $iterator ) {
-            $name = self::getClassName( $iterator );
-            $this->assertFalse(
-                $iterator->valid(),
-                "Expected {$name}->valid() to return false with empty data"
             );
         }
     }
