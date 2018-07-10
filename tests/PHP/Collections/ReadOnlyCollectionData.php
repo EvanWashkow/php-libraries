@@ -11,43 +11,15 @@ final class ReadOnlyCollectionData
 {
     
     /**
-     * Retrieves all test data
-     *
-     * @return array
-     */
-    public static function Get(): array
-    {
-        return array_merge(
-            self::GetEmpty(),
-            self::GetNonEmpty()
-        );
-    }
-    
-    
-    /**
-     * Retrieves empty read-only collections
-     * 
-     * @return array
-     */
-    public static function GetEmpty(): array
-    {
-        return array_merge(
-            ReadOnlyDictionaryData::GetEmpty(),
-            ReadOnlySequenceData::GetEmpty()
-        );
-    }
-    
-    
-    /**
      * Get all test data for read-only collections
      * 
      * @return array
      */
-    public static function GetNonEmpty()
+    public static function Get()
     {
         return array_merge(
-            ReadOnlyDictionaryData::GetNonEmpty(),
-            ReadOnlySequenceData::GetNonEmpty()
+            ReadOnlyDictionaryData::Get(),
+            ReadOnlySequenceData::Get()
         );
     }
     

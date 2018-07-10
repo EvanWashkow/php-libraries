@@ -9,24 +9,13 @@ final class IteratorData
 {
     
     /**
-     * Get empty test data for read-only collections
-     * 
-     * @return array
-     */
-    public function GetEmpty(): array
-    {
-        return ReadOnlyCollectionData::GetEmpty();
-    }
-    
-    
-    /**
      * Get non-empty test data for read-only collections
      * 
      * @return array
      */
-    public function GetNonEmpty(): array
+    public function Get(): array
     {
-        return ReadOnlyCollectionData::GetNonEmpty();
+        return ReadOnlyCollectionData::Get();
     }
     
     

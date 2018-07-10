@@ -18,7 +18,7 @@ class CollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testClearHasNoEntries()
     {
-        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+        foreach ( CollectionData::Get() as $collection ) {
             $collection->clear();
             $name = self::getClassName( $collection );
             $this->assertEquals(
@@ -41,7 +41,7 @@ class CollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testRemoveHasSmallerCount()
     {
-        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+        foreach ( CollectionData::Get() as $collection ) {
             $previous = $collection->count();
             if ( 0 === $previous ) {
                 continue;
@@ -91,7 +91,7 @@ class CollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testRemoveHasSameCountForBadKey()
     {
-        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+        foreach ( CollectionData::Get() as $collection ) {
             $previous = $collection->count();
             $isError  = false;
             try {
@@ -178,7 +178,7 @@ class CollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testSetNewKey()
     {
-        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+        foreach ( CollectionData::Get() as $collection ) {
             if ( 0 === $collection->count() ) {
                 continue;
             }
@@ -210,7 +210,7 @@ class CollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testSetExistingKey()
     {
-        foreach ( CollectionData::GetNonEmpty() as $collection ) {
+        foreach ( CollectionData::Get() as $collection ) {
             
             // Continue on. This collection has no data.
             if ( $collection->count() === 0 ) {

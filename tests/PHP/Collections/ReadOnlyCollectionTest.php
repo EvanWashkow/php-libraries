@@ -20,7 +20,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testCloneReturnsSameType()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $this->assertEquals(
                 get_class( $collection ),
@@ -36,7 +36,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testCloneReturnsSameKeys()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $this->assertEquals(
                 $collection->getKeys()->toArray(),
@@ -52,7 +52,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testCloneReturnsSameValues()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $this->assertEquals(
                 $collection->getValues()->toArray(),
@@ -68,7 +68,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testCloneHasSameCount()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $this->assertEquals(
                 $collection->count(),
@@ -105,7 +105,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
     */
     public function testCountReturnsInt()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $this->assertTrue(
                 is( $collection->count(), 'integer' ),
@@ -127,7 +127,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetReturnsValue()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $name ) {
                 $this->assertTrue(
@@ -144,7 +144,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetReturnsValueOfValueType()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $name ) {
                 $this->assertTrue(
@@ -162,7 +162,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
     public function testGetThrowsInvalidArgumentExceptionOnMissingKey()
     {
         $badKey = '5000foobarsinarow';
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
                 $exception = null;
@@ -239,7 +239,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeysReturnsSequence()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $this->assertInstanceOf(
                 "PHP\\Collections\\Sequence",
                 $collection->getKeys(),
@@ -254,7 +254,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeysReturnsKeys()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $keys = [];
             $collection->loop(function( $key, $value ) use ( &$keys ) {
                 $keys[] = $key;
@@ -279,7 +279,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetValuesReturnsSequence()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $this->assertInstanceOf(
                 "PHP\\Collections\\Sequence",
                 $collection->getValues(),
@@ -294,7 +294,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetValuesReturnsValues()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $values = [];
             $collection->loop(function( $key, $value ) use ( &$values ) {
                 $values[] = $value;
@@ -359,7 +359,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testHasKeyReturnsTrueForExistingKeys()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $collection->loop(function( $key, $value ) use ( $collection ) {
                 $name = self::getClassName( $collection );
                 $this->assertTrue(
@@ -382,7 +382,7 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testIsOfKeyTypeReturnsFalseForNull()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $this->assertFalse(
                 $collection->isOfKeyType( null ),
                 "Collection unexpectedly accepted a null key"

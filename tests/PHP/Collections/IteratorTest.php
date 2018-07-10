@@ -18,7 +18,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testCurrentReturnsFalseOnInvalidKey()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             
             // Get last key
             $key = null;
@@ -47,7 +47,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testCurrentMatchesValue()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             $name = self::getClassName( $iterator );
             foreach ( $iterator as $value ) {
                 $this->assertEquals(
@@ -71,7 +71,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testKeyReturnsCurrentLoopKey()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             $name = self::getClassName( $iterator );
             $iterator->loop(function( $key, $value ) use ( $iterator, $name ) {
                 $this->assertEquals(
@@ -89,7 +89,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testKeyReturnsUniqueKeys()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             $key  = null;
             $name = self::getClassName( $iterator );
             $iterator->loop(function( $k, $value ) use ( $iterator, &$key, $name ) {
@@ -107,7 +107,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testKeyReturnsNullOnInvalidKey()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             
             // Find the last key
             $lastKey = null;
@@ -142,7 +142,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testLoopHasUniqueKeys()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             $previousKey = null;
             $iterator->loop(function( $key, $value ) use ( &$previousKey ) {
                 $this->assertFalse(
@@ -160,7 +160,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testLoopNeverIteratesOnEmptyData()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             if ( 0 !== self::countElements( $iterator )) {
                 continue;
             }
@@ -182,7 +182,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testLoopReturnsValue()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             if ( self::countElements( $iterator ) === 0 ) {
                 continue;
             }
@@ -203,7 +203,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testLoopBreaksOnReturn()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             if ( self::countElements( $iterator ) === 0 ) {
                 continue;
             }
@@ -232,7 +232,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testRewindResetsToFirstKey()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             
             // Continue on. This iterator is empty.
             if ( self::countElements( $iterator ) === 0 ) {
@@ -336,7 +336,7 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testValidReturnsTrueForValidKeys()
     {
-        foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+        foreach ( IteratorData::Get() as $iterator ) {
             $name = self::getClassName( $iterator );
             $iterator->loop(function( $key, $value ) use ( $iterator, $name) {
                 $iterator->seek( $key );

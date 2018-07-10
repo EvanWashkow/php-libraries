@@ -11,27 +11,11 @@ final class ReadOnlyDictionaryData
 {
     
     /**
-     * Retrieve sample dictionaries with no entries
-     * 
-     * @return array
-     */
-    public static function GetEmpty(): array
-    {
-        $dictionaries = [];
-        foreach ( DictionaryData::GetEmpty() as $dictionary ) {
-            $dictionaries[] = new ReadOnlyDictionary( $dictionary );
-            $dictionaries[] = $dictionary;
-        }
-        return $dictionaries;
-    }
-    
-    
-    /**
      * Retrieve all test dictionaries
      *
      * @return array
      */
-    public static function GetNonEmpty(): array
+    public static function Get(): array
     {
         return array_merge(
             self::GetTyped(),

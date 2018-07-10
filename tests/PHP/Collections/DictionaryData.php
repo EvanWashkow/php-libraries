@@ -8,32 +8,12 @@ use PHP\Collections\Dictionary;
 class DictionaryData
 {
     
-    /***************************************************************************
-    *                                 MAIN
-    ***************************************************************************/
-    
-    /**
-     * Retrieve sample dictionary data that has no entries
-     *
-     * @return array
-     */
-    public static function GetEmpty(): array
-    {
-        $dictionaries = [];
-        foreach ( self::GetMixed() as $dictionary ) {
-            $dictionary->clear();
-            $dictionaries[] = $dictionary;
-        }
-        return $dictionaries;
-    }
-    
-    
     /**
      * Retrieve non-empty test dictionaries
      *
      * @return array
      */
-    public static function GetNonEmpty(): array
+    public static function Get(): array
     {
         return array_merge(
             self::GetTyped(),

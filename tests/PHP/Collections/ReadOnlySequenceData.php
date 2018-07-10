@@ -11,43 +11,11 @@ final class ReadOnlySequenceData
 {
     
     /**
-     * Retrieve sample sequences
-     *
-     * @return array
-     */
-    public function Get(): array
-    {
-        $sequences = [];
-        foreach ( SequenceData::Get() as $sequence ) {
-            $sequences[] = new ReadOnlySequence( $sequence );
-            $sequences[] = $sequence;
-        }
-        return $sequences;
-    }
-    
-    
-    /**
-     * Retrieve sample sequences with no entries
-     * 
-     * @return array
-     */
-    public static function GetEmpty(): array
-    {
-        $sequences = [];
-        foreach ( SequenceData::GetEmpty() as $sequence ) {
-            $sequences[] = new ReadOnlySequence( $sequence );
-            $sequences[] = $sequence;
-        }
-        return $sequences;
-    }
-    
-    
-    /**
     * Retrieve all test sequences
     *
     * @return array
     */
-    public static function GetNonEmpty(): array
+    public static function Get(): array
     {
         return array_merge(
             self::GetTyped(),

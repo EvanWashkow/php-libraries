@@ -8,46 +8,12 @@ use PHP\Collections\Sequence;
 class SequenceData
 {
     
-    /***************************************************************************
-    *                                 MAIN
-    ***************************************************************************/
-    
-    /**
-     * Retrieve sample sequences
-     *
-     * @return array
-     */
-    public function Get(): array
-    {
-        return array_merge(
-            self::GetEmpty(),
-            self::GetNonEmpty()
-        );
-    }
-    
-    
-    /**
-     * Retrieve sample sequence data that has no entries
-     *
-     * @return array
-     */
-    public static function GetEmpty(): array
-    {
-        $sequences = [];
-        foreach ( self::GetMixed() as $sequence ) {
-            $sequence->clear();
-            $sequences[] = $sequence;
-        }
-        return $sequences;
-    }
-    
-    
     /**
      * Retrieve all non-empty test sequences
      *
      * @return array
      */
-    public static function GetNonEmpty(): array
+    public static function Get(): array
     {
         return array_merge(
             self::GetTyped(),

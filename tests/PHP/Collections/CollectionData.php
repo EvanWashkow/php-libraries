@@ -10,43 +10,15 @@ final class CollectionData
 {
     
     /**
-     * Retrieve all sample data for tests
-     * 
-     * @return array
-     */
-    public static function Get(): array
-    {
-        return array_merge(
-            self::GetEmpty(),
-            self::GetNonEmpty()
-        );
-    }
-    
-    
-    /**
-     * Get empty test data for collections
-     * 
-     * @return array
-     */
-    public function GetEmpty(): array
-    {
-        return array_merge(
-            DictionaryData::GetEmpty(),
-            SequenceData::GetEmpty()
-        );
-    }
-    
-    
-    /**
      * Get non-empty test data for collections
      * 
      * @return array
      */
-    public function GetNonEmpty(): array
+    public function Get(): array
     {
         return array_merge(
-            DictionaryData::GetNonEmpty(),
-            SequenceData::GetNonEmpty()
+            DictionaryData::Get(),
+            SequenceData::Get()
         );
     }
     
