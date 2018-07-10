@@ -190,21 +190,20 @@ class Sequence extends Collection implements ISequence
     {
         // Variables
         $key = $this->getFirstKey() - 1;
-        
-        // Exit. There are no entries.
-        if ( 0 === $this->count() ) {
-            return $key;
-        }
     
         // Exit. Offset cannot be negative.
-        elseif ( $offset < $this->getFirstKey() ) {
+        if ( $offset < $this->getFirstKey() ) {
             trigger_error( 'Offset cannot be less than the first entry\'s key' );
             return $key;
         }
         
         // Exit. Offset cannot surpass the end of the array.
         elseif ( $this->getLastKey() < $offset ) {
-            trigger_error( 'Offset cannot be greater than the last entry\'s key' );
+            return $key;
+        }
+        
+        // Exit. There are no entries.
+        elseif ( 0 === $this->count() ) {
             return $key;
         }
             

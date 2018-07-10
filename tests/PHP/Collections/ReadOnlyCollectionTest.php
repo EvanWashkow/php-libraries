@@ -86,51 +86,34 @@ class ReadOnlyCollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
     ***************************************************************************/
     
     /**
-     * Ensure that count() returns a positive value for non-empty collections
+     * Ensure that count() returns the number of items
      */
-    public function testCountIsPositiveForNonEmpty()
+    public function testCountIsAccurate()
     {
-        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
-            $name = self::getClassName( $collection );
-            $this->assertGreaterThanOrEqual(
-                1,
-                $collection->count(),
-                "Expected {$name}->count() to return an positive value for non-empty collections"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure that count() returns zero for empty collections
-     */
-    public function testCountIsZeroForEmpty()
-    {
-        foreach ( ReadOnlyCollectionData::GetEmpty() as $collection ) {
+        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $this->assertEquals(
-                0,
+                self::countElements( $collection ),
                 $collection->count(),
                 "Expected {$name}->count() to return zero for empty collections"
             );
         }
     }
     
-    
     /**
-     * Ensure that count() returns an integer value
-     */
+    * Ensure that count() returns an integer value
+    */
     public function testCountReturnsInt()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        foreach ( ReadOnlyCollectionData::GetNonEmpty() as $collection ) {
             $name = self::getClassName( $collection );
-            $this->assertEquals(
-                'integer',
-                gettype( $collection->count() ),
+            $this->assertTrue(
+                is( $collection->count(), 'integer' ),
                 "Expected {$name}->count() to return an integer value"
             );
         }
     }
+    
     
     
     

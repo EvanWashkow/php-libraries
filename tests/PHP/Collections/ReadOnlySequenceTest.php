@@ -80,7 +80,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     /**
      * Ensure ReadOnlySequence->getLastKey() returns an integer value
      */
-    public function testGetFirstKeyReturnsInt()
+    public function testGetLastKeyReturnsInt()
     {
         foreach ( ReadOnlySequenceData::Get() as $sequence ) {
             $class = self::getClassName( $sequence );
@@ -98,7 +98,10 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetLastKeyIsGreaterThanOrEqualToFirstForNonEmpty()
     {
-        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            if ( $sequence->count() === 0 ) {
+                continue;
+            }
             $class = self::getClassName( $sequence );
             $this->assertGreaterThanOrEqual(
                 $sequence->getFirstKey(),
@@ -114,7 +117,10 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetLastKeyIsLessThanFirstForEmpty()
     {
-        foreach ( ReadOnlySequenceData::GetEmpty() as $sequence ) {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            if ( 0 < $sequence->count() ) {
+                continue;
+            }
             $class = self::getClassName( $sequence );
             $this->assertLessThan(
                 $sequence->getFirstKey(),
@@ -153,7 +159,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeyOfErrorsOnOffsetTooSmall()
     {
-        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
             $isError = false;
             try {
                 $sequence->getKeyOf( 'foobar', $sequence->getFirstKey() - 1 );
@@ -164,27 +170,6 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
             $this->assertTrue(
                 $isError,
                 "Expected {$class}->getKeyOf() to error when given an offset position too small"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->getKeyOf() errors on too large of an offset
-     */
-    public function testGetKeyOfErrorsOnOffsetTooLarge()
-    {
-        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
-            $isError = false;
-            try {
-                $sequence->getKeyOf( 'foobar', $sequence->getLastKey() + 1 );
-            } catch (\Exception $e) {
-                $isError = true;
-            }
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $isError,
-                "Expected {$class}->getKeyOf() to error when given an offset position too large"
             );
         }
     }
