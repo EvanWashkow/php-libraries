@@ -3,7 +3,7 @@
 use PHP\Collections\Sequence;
 use PHP\Collections\ReadOnlySequence;
 
-require_once( __DIR__ . '/../TestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
 /**
@@ -12,7 +12,7 @@ require_once( __DIR__ . '/ReadOnlySequenceData.php' );
  * This tests both the read-only and the editable sequnce (the read-only
  * simply invokes the editable)
  */
-class ReadOnlySequenceTest extends \PHP\Tests\TestCase
+class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
 {
     
     /***************************************************************************

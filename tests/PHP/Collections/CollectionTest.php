@@ -1,12 +1,12 @@
 <?php
 
-require_once( __DIR__ . '/../TestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
 
 /**
  * Test all Collection methods to ensure consistent functionality
  */
-class CollectionTest extends \PHP\Tests\TestCase
+class CollectionTest extends \PHP\Tests\Collections\CollectionsTestCase
 {
     
     /***************************************************************************

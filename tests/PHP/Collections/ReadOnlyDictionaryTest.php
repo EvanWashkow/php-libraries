@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__ . '/../TestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
 
 /**
@@ -9,7 +9,7 @@ require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
  * This tests both the read-only and the editable dictionary (the read-only
  * simply invokes the editable)
  */
-class ReadOnlyDictionaryTest extends \PHP\Tests\TestCase
+class ReadOnlyDictionaryTest extends \PHP\Tests\Collections\CollectionsTestCase
 {
     
     /***************************************************************************

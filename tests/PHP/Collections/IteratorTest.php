@@ -1,12 +1,12 @@
 <?php
 
-require_once( __DIR__ . '/../TestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/IteratorData.php' );
 
 /**
  * Test all Iterator methods to ensure consistent functionality
  */
-class IteratorTest extends \PHP\Tests\TestCase
+class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
 {
     
     /***************************************************************************
@@ -377,27 +377,5 @@ class IteratorTest extends \PHP\Tests\TestCase
                 );
             });
         }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                              UTILITIES
-    ***************************************************************************/
-    
-    /**
-     * Retrieve count of items in iterator
-     *
-     * @param \PHP\Collections\IIterator $iterator The iterator instance
-     * @return int
-     */
-    private static function countElements( \PHP\Collections\IIterator $iterator ): int
-    {
-        $count = 0;
-        foreach ( $iterator as $key => $value ) {
-            $count++;
-        }
-        return $count;
     }
 }
