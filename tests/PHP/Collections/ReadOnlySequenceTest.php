@@ -325,21 +325,22 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
-     * Ensure ReadOnlySequence->slice() with offset has same first value
+     * Ensure ReadOnlySequence->slice() with offset returns a subset of the same values
      */
-    public function testSliceOffsetHasSameFirstValue()
+    public function testSliceOffsetReturnsValueSubset()
     {
         foreach ( ReadOnlySequenceData::Get() as $sequence ) {
             $class   = self::getClassName( $sequence );
             $count   = $sequence->count();
             $lastKey = $sequence->getLastKey();
-            for ( $i = $sequence->getFirstKey(); $i <= $lastKey; $i++ ) {
-                $slice = $sequence->slice( $i, $count );
-                $this->assertEquals(
-                    $sequence->get( $i ),
-                    $slice->get( 0 ),
-                    "Expected {$class}->slice() offset to be the first value"
-                );
+            for ( $offset = $sequence->getFirstKey(); $offset <= $lastKey; $offset++ ) {
+                $slice = $sequence->slice( $offset, $count );
+                for ( $key = $offset;  $key <= $lastKey;  $key++ ) {
+                    $this->assertTrue(
+                        $sequence->get( $key ) === $slice->get( $key - $offset ),
+                        "Expected {$class}->slice() with offset to return a subset of the same values"
+                    );
+                }
             }
         }
     }
