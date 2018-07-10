@@ -139,16 +139,16 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
-     * Ensure ReadOnlySequence->getKeyOf() returns a bad key on empty data
+     * Ensure ReadOnlySequence->getKeyOf() returns a bad key when value doesn't exist
      */
-    public function testGetKeyOfReturnsBadKeyOnEmptyData()
+    public function testGetKeyOfReturnsBadKeyWhenMissingValue()
     {
-        foreach ( ReadOnlySequenceData::GetEmpty() as $sequence ) {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertLessThan(
                 $sequence->getFirstKey(),
                 $sequence->getKeyOf( 'foobar' ),
-                "Expected {$class}->getKeyOf() to return a bad key on empty data"
+                "Expected {$class}->getKeyOf() to return a bad key when the value doesn't exist"
             );
         }
     }

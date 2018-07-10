@@ -212,7 +212,7 @@ class Sequence extends Collection implements ISequence
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
-        $searchResult = array_search( $value, $sequence->toArray() );
+        $searchResult = array_search( $value, $sequence->toArray(), true );
         if ( false !== $searchResult ) {
             
             // Invert key for reverse search. Keep in mind that the last

@@ -106,7 +106,7 @@ class SequenceData
      *
      * @return Sequence
      */
-    private static function getBool(): Sequence
+    public static function getBool(): Sequence
     {
         $sequence = new Sequence( 'boolean' );
         $sequence->add( false );
