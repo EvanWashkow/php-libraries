@@ -344,7 +344,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\TestCase
      */
     public function testSliceOffsetHasSameFirstValue()
     {
-        foreach ( ReadOnlySequenceData::GetNonEmpty() as $sequence ) {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
             $class   = self::getClassName( $sequence );
             $count   = $sequence->count();
             $lastKey = $sequence->getLastKey();
