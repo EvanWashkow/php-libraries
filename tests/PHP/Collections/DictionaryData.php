@@ -72,7 +72,10 @@ class DictionaryData
      */
     public static function GetTyped(): array
     {
+        $empty = self::getStringInt();
+        $empty->clear();
         return [
+            $empty,
             self::getIntBool(),
             self::getStringInt(),
             self::getStringObject()

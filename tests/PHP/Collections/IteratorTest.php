@@ -14,33 +14,29 @@ class IteratorTest extends \PHP\Tests\Collections\CollectionsTestCase
     ***************************************************************************/
     
     /**
-    * Ensure current() returns false on empty data
-    */
-    public function testCurrentReturnsFalseOnEmptyData()
-    {
-        foreach ( IteratorData::GetEmpty() as $iterator ) {
-            $name = self::getClassName( $iterator );
-            $this->assertFalse(
-                $iterator->current(),
-                "{$name}->current() should return false when it has no data"
-            );
-        }
-    }
-    
-    
-    /**
      * Ensure current() returns false on invalid key
      */
     public function testCurrentReturnsFalseOnInvalidKey()
     {
         foreach ( IteratorData::GetNonEmpty() as $iterator ) {
-            foreach ( $iterator as $value ) {
-                continue;
+            
+            // Get last key
+            $key = null;
+            $iterator->loop(function( $k, $v ) use ( &$key ) {
+                $key = $k;
+            });
+            
+            // Seek to an invalid entry
+            if ( $key !== null ) {
+                $iterator->seek( $key );
+                $iterator->next();
             }
-            $name = self::getClassName( $iterator );
+            
+            // Test if current() is false
+            $class = self::getClassName( $iterator );
             $this->assertFalse(
                 $iterator->current(),
-                "{$name}->current() should return false on invalid key"
+                "Expected {$class}->current() to return false on invalid key"
             );
         }
     }
