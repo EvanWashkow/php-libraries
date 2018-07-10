@@ -86,9 +86,11 @@ class SequenceData
      */
     public static function GetTyped(): array
     {
+        $empty = self::getString();
+        $empty->clear();
         return [
+            $empty,
             self::getBool(),
-            self::getEmptyString(),
             self::getString(),
             self::getObject()
         ];
@@ -114,24 +116,13 @@ class SequenceData
     
     
     /**
-    * Return an empty sample of a string sequence
-    *
-    * @return Sequence
-    */
-    private static function getEmptyString(): Sequence
-    {
-        return new Sequence( 'string' );
-    }
-    
-    
-    /**
      * Return sample Sequence with 0-1 => "0"-"1"
      *
      * @return Sequence
      */
     private static function getString(): Sequence
     {
-        $sequence = self::getEmptyString();
+        $sequence = new Sequence( 'string' );
         for ( $i = 0; $i <= 1; $i++ ) {
             $sequence->add( (string) $i );
         }
