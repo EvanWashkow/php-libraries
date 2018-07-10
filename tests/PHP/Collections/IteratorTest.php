@@ -128,15 +128,19 @@ class IteratorTest extends \PHP\Tests\TestCase
     {
         foreach ( IteratorData::GetNonEmpty() as $iterator ) {
             
-            // Find the last key and seek to it
+            // Find the last key
             $lastKey = null;
             $iterator->loop(function( $key, $value ) use ( &$lastKey ) {
                 $lastKey = $key;
             });
-            $iterator->seek( $lastKey );
             
-            // Test if the next key returns NULL
-            $iterator->next();
+            // Set to a bad key
+            if ( $lastKey !== null ) {
+                $iterator->seek( $lastKey );
+                $iterator->next();
+            }
+            
+            // Test if key() returns NULL
             $name = self::getClassName( $iterator );
             $this->assertNull(
                 $iterator->key(),
@@ -195,6 +199,9 @@ class IteratorTest extends \PHP\Tests\TestCase
     public function testLoopReturnsValue()
     {
         foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+            if ( self::countElements( $iterator ) === 0 ) {
+                continue;
+            }
             $value = $iterator->loop( function( $key, $value ) {
                 return 1;
             });
@@ -213,6 +220,9 @@ class IteratorTest extends \PHP\Tests\TestCase
     public function testLoopBreaksOnReturn()
     {
         foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+            if ( self::countElements( $iterator ) === 0 ) {
+                continue;
+            }
             $count = 0;
             $iterator->loop(function( $key, $value ) use ( &$count ) {
                 $count++;
@@ -239,6 +249,11 @@ class IteratorTest extends \PHP\Tests\TestCase
     public function testRewindResetsToFirstKey()
     {
         foreach ( IteratorData::GetNonEmpty() as $iterator ) {
+            
+            // Continue on. This iterator is empty.
+            if ( self::countElements( $iterator ) === 0 ) {
+                continue;
+            }
             
             // Find the last key and seek to it
             $firstKey = null;
@@ -314,11 +329,15 @@ class IteratorTest extends \PHP\Tests\TestCase
             $iterator->loop(function( $key, $value ) use ( &$lastKey ) {
                 $lastKey = $key;
             });
-            $iterator->seek( $lastKey );
+            
+            // Seek to a bad position
+            if ( $lastKey !== null ) {
+                $iterator->seek( $lastKey );
+                $iterator->next();
+            }
             
             
             // Should be invalid after progressing to the next key
-            $iterator->next();
             $name = self::getClassName( $iterator );
             $this->assertFalse(
                 $iterator->valid(),
@@ -358,5 +377,27 @@ class IteratorTest extends \PHP\Tests\TestCase
                 );
             });
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              UTILITIES
+    ***************************************************************************/
+    
+    /**
+     * Retrieve count of items in iterator
+     *
+     * @param \PHP\Collections\IIterator $iterator The iterator instance
+     * @return int
+     */
+    private static function countElements( \PHP\Collections\IIterator $iterator ): int
+    {
+        $count = 0;
+        foreach ( $iterator as $key => $value ) {
+            $count++;
+        }
+        return $count;
     }
 }

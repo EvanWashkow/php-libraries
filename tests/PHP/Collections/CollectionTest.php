@@ -43,6 +43,9 @@ class CollectionTest extends \PHP\Tests\TestCase
     {
         foreach ( CollectionData::GetNonEmpty() as $collection ) {
             $previous = $collection->count();
+            if ( 0 === $previous ) {
+                continue;
+            }
             $collection->loop( function( $key, $value ) use ( $collection ) {
                 $collection->remove( $key );
                 return 1;
@@ -176,6 +179,22 @@ class CollectionTest extends \PHP\Tests\TestCase
     public function testSetNewKey()
     {
         foreach ( CollectionData::GetNonEmpty() as $collection ) {
+            if ( 0 === $collection->count() ) {
+                continue;
+            }
+            
+            // Get first key and value
+            $key   = null;
+            $value = null;
+            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+                $key   = $k;
+                $value = $v;
+                return 1;
+            });
+            $collection->clear();
+            
+            // Test if set works
+            $collection->set( $key, $value );
             $name = self::getClassName( $collection );
             $this->assertGreaterThan(
                 0,
@@ -192,6 +211,11 @@ class CollectionTest extends \PHP\Tests\TestCase
     public function testSetExistingKey()
     {
         foreach ( CollectionData::GetNonEmpty() as $collection ) {
+            
+            // Continue on. This collection has no data.
+            if ( $collection->count() === 0 ) {
+                continue;
+            }
             
             // Set first key to last value
             $key   = null;
@@ -279,9 +303,11 @@ class CollectionTest extends \PHP\Tests\TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            foreach ($collection as $key => $value) {
-                break;
-            }
+            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+                $key   = $k;
+                $value = $v;
+                return 1;
+            });
             
             $isError = false;
             try {
@@ -305,11 +331,17 @@ class CollectionTest extends \PHP\Tests\TestCase
     public function testSetRejectsWrongValueType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
+            if ( $collection->count() === 0 ) {
+                continue;
+            }
+            
             $key;
             $value;
-            foreach ($collection as $key => $value) {
-                break;
-            }
+            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+                $key   = $k;
+                $value = $v;
+                return 1;
+            });
             try {
                 $collection->set( $key, $key );
             } catch (\Exception $e) {}
