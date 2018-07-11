@@ -526,6 +526,38 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
+     * Ensure ReadOnlySequence->split() does not contain an empty sequence
+     */
+    public function testSplitContainsNoEmptySequence()
+    {
+        $sequences = array_merge(
+            ReadOnlySequenceData::Get(),
+            self::getStringData()
+        );
+        foreach ( $sequences as $sequence ) {
+            if ( $sequence->count() === 0 ) {
+                continue;
+            }
+            $value = $sequence->get( $sequence->getFirstKey() );
+            $split = $sequence->split( $value );
+            $hasEmptySequence = $split->loop(function( $key, $inner ) {
+                if ( $inner->count() === 0 ) {
+                    return true;
+                }
+            });
+            if ( null === $hasEmptySequence ) {
+                $hasEmptySequence = false;
+            }
+            $class = self::getClassName( $sequence );
+            $this->assertFalse(
+                $hasEmptySequence,
+                "Expected {$class}->split() to not contain an empty sequence"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->split() has one inner sequence on unfound delimiter
      */
     public function testSplitHasOneInnerSequenceOnUnfoundDelimiter()
