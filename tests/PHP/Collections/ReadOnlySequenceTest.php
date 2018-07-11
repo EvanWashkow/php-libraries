@@ -469,6 +469,29 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     }
     
     
+    /**
+     * Ensure ReadOnlySequence->split() returns same inner sequence type
+     */
+    public function testSplitReturnsSameInnerType()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            if ( $sequence->count() === 0 ) {
+                continue;
+            }
+            $value = $sequence->get( $sequence->getFirstKey() );
+            $split = $sequence->split( $value );
+            if ( $split->count() === 0 ) {
+                continue;
+            }
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                get_class( $sequence ) === get_class( $split->get( $split->getFirstKey() )),
+                "Expected {$class}->split() to return the same inner sequence type"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
