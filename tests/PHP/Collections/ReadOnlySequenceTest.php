@@ -412,7 +412,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
                 $sequence->slice( $sequence->getFirstKey() - 1, 0 );
             } catch ( \Exception $e ) {
                 $isError = true;
-            }            
+            }
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 $isError,
@@ -433,11 +433,37 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
                 $sequence->slice( $sequence->getFirstKey(), -1 );
             } catch ( \Exception $e ) {
                 $isError = true;
-            }            
+            }
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 $isError,
                 "Expected {$class}->slice() to error on a negative offset"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                      ReadOnlySequence->split()
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->split() returns same type
+     */
+    public function testSplitReturnsSameType()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            if ( $sequence->count() === 0 ) {
+                continue;
+            }
+            $value = $sequence->get( $sequence->getFirstKey() );
+            $split = $sequence->split( $value );
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                get_class( $sequence ) === get_class( $split ),
+                "Expected {$class}->split() to return the same type"
             );
         }
     }
