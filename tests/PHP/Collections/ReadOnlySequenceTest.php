@@ -493,6 +493,26 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
+     * Ensure ReadOnlySequence->split() has one inner sequence on unfound delimiter
+     */
+    public function testSplitHasOneInnerSequenceOnUnfoundDelimiter()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            if ( $sequence->count() === 0 ) {
+                continue;
+            }
+            $split = $sequence->split( 'foobar' );
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                1,
+                $split->count(),
+                "Expected {$class}->split() to have one inner sequence on unfound delimiter"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->split() returns same inner sequence count when
      * the delimiter is not found
      */
