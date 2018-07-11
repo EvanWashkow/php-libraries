@@ -368,6 +368,23 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
+     * Ensure ReadOnlySequence->slice() with count of zero can return no values
+     */
+    public function testSliceWithCountOfZeroReturnsNoValues()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+            $class = self::getClassName( $sequence );
+            $slice = $sequence->slice( $sequence->getFirstKey(), 0 );
+            $this->assertEquals(
+                0,
+                $slice->count(),
+                "Expected {$class}->slice() with count of zero to return an empty object"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->slice() errors on an offset too small
      */
     public function testSliceErrorsOnSmallOffset()
