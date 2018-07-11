@@ -493,6 +493,39 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /**
+     * Ensure ReadOnlySequence->split() does not contain the value
+     */
+    public function testSplitDoesNotContainValue()
+    {
+        $sequences = array_merge(
+            ReadOnlySequenceData::Get(),
+            self::getStringData()
+        );
+        foreach ( $sequences as $sequence ) {
+            if ( $sequence->count() === 0 ) {
+                continue;
+            }
+            $value    = $sequence->get( $sequence->getFirstKey() );
+            $split    = $sequence->split( $value );
+            $hasValue = false;
+            $split->loop(function( $key, $inner ) use ( &$hasValue, &$value ) {
+                $inner->loop( function( $key, $v ) use ( &$hasValue, &$value ) {
+                    $hasValue = ( $v === $value );
+                    if ( $hasValue ) {
+                        return;
+                    }
+                });
+            });
+            $class = self::getClassName( $sequence );
+            $this->assertFalse(
+                $hasValue,
+                "Expected {$class}->split() to not contain the value"
+            );
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->split() has one inner sequence on unfound delimiter
      */
     public function testSplitHasOneInnerSequenceOnUnfoundDelimiter()
