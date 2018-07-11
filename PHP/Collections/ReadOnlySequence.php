@@ -60,7 +60,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
         return new self( $sequence );
     }
     
-    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables
         $splitSequence = $this->collection->split( $delimiter, $limit );

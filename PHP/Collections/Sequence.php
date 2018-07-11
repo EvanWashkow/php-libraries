@@ -288,7 +288,7 @@ class Sequence extends Collection implements ISequence
     }
     
     
-    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables
         $startingKey   = $this->getFirstKey();
@@ -296,7 +296,7 @@ class Sequence extends Collection implements ISequence
         
         while (
             // Haven't exceeded requested items
-            (( $limit < 0 ) || ( $outerSequence->count() < $limit )) &&
+            ( $outerSequence->count() < $limit ) &&
             // Starting index is not past the end of this sequence
             ( $startingKey <= $this->getLastKey() )
         ) {

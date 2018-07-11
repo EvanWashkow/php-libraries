@@ -68,7 +68,7 @@ interface IReadOnlySequence extends IReadOnlyCollection
      * @param int   $limit     Maximum number of entries to return; negative to return all.
      * @return IReadOnlySequence
      */
-    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence;
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence;
     
     /**
      * Convert to a native PHP array
