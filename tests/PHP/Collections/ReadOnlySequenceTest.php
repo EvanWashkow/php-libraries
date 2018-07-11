@@ -601,6 +601,43 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     
     
     /***************************************************************************
+    *                 ReadOnlySequence->split() (string data)
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->split() on 1 has three 0s
+     */
+    public function testSplitHasThreeZeros()
+    {
+        foreach ( self::getStringData() as $sequence ) {
+            $split = $sequence->split( '1' );
+            $count = 0;
+            $split->loop(function( $key, $inner ) use ( &$count ) {
+                $inner->loop(function( $key, $value ) use ( &$count ) {
+                    if ( '0' === $value ) {
+                        $count++;
+                    }
+                    else {
+                        $this->assertFalse(
+                            true,
+                            "Did not expect any other values beside \"0\""
+                        );
+                    }
+                });
+            });
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                3,
+                $count,
+                "Expected {$class}->split() on 1 to return three 0s"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                                   DATA
     ***************************************************************************/
     
