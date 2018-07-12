@@ -669,35 +669,4 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
             );
         }
     }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() on 0 has three 1s
-     */
-    public function testSplitOnZeroHasThreeOnes()
-    {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $split = $sequence->split( '0' );
-            $count = 0;
-            $split->loop(function( $key, $inner ) use ( &$count ) {
-                $inner->loop(function( $key, $value ) use ( &$count ) {
-                    if ( '1' === $value ) {
-                        $count++;
-                    }
-                    else {
-                        $this->assertFalse(
-                            true,
-                            "Did not expect any other values beside \"1\""
-                        );
-                    }
-                });
-            });
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                3,
-                $count,
-                "Expected {$class}->split() on 0 to return three 1s"
-            );
-        }
-    }
 }
