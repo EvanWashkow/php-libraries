@@ -186,7 +186,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeyOfStringValueReturnsFirstValueKey()
     {
-        foreach ( self::getStringData() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 0 === $sequence->getKeyOf( '0' ),
@@ -201,7 +201,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeyOfStringValueReturnsKeyOfOffsetSearch()
     {
-        foreach ( self::getStringData() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 3 === $sequence->getKeyOf( '0', 1 ),
@@ -216,7 +216,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeyOfStringValueReturnsKeyOfReverseSearch()
     {
-        foreach ( self::getStringData() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 4 === $sequence->getKeyOf( '0', 0, true ),
@@ -231,7 +231,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testGetKeyOfStringValueReturnsKeyOfReverseOffsetSearch()
     {
-        foreach ( self::getStringData() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 3 === $sequence->getKeyOf( '0', 2, true ),
@@ -499,7 +499,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     {
         $sequences = array_merge(
             ReadOnlySequenceData::Get(),
-            self::getStringData()
+            ReadOnlySequenceData::GetStringDuplicates()
         );
         foreach ( $sequences as $sequence ) {
             if ( $sequence->count() === 0 ) {
@@ -532,7 +532,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     {
         $sequences = array_merge(
             ReadOnlySequenceData::Get(),
-            self::getStringData()
+            ReadOnlySequenceData::GetStringDuplicates()
         );
         foreach ( $sequences as $sequence ) {
             if ( $sequence->count() === 0 ) {
@@ -609,7 +609,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testSplitHasThreeZeros()
     {
-        foreach ( self::getStringData() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $split = $sequence->split( '1' );
             $count = 0;
             $split->loop(function( $key, $inner ) use ( &$count ) {
@@ -639,7 +639,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testSplitHasThreeOnes()
     {
-        foreach ( self::getStringData() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $split = $sequence->split( '0' );
             $count = 0;
             $split->loop(function( $key, $inner ) use ( &$count ) {
@@ -662,36 +662,5 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
                 "Expected {$class}->split() on 0 to return three 1s"
             );
         }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                   DATA
-    ***************************************************************************/
-    
-    /**
-     * Retrieves test data for string tests
-     *
-     * @return array
-     */
-    public static function getStringData(): array
-    {
-        // Variables
-        $sequences = [];
-        
-        // Build test string Sequences
-        $sequence = new Sequence( 'string' );
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        $sequence->add( '1' );
-        $sequence->add( '0' );
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        $sequences[] = $sequence;
-        $sequences[] = new ReadOnlySequence( $sequence );
-        
-        return $sequences;
     }
 }

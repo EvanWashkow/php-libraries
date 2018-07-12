@@ -54,4 +54,26 @@ final class ReadOnlySequenceData
         }
         return $sequences;
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                   DUPLICATES
+    ***************************************************************************/
+    
+    /**
+     * Retrieves test data with duplicated strings
+     *
+     * @return array
+     */
+    public static function GetStringDuplicates(): array
+    {
+        $sequences = [];
+        foreach ( SequenceData::GetStringDuplicates() as $sequence ) {
+            $sequences[] = $sequence;
+            $sequences[] = new ReadOnlySequence( $sequence );
+        }
+        return $sequences;
+    }
 }
