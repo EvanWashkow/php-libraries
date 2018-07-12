@@ -647,7 +647,25 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
             $this->assertEquals(
                 1,
                 $split->get( $firstKey )->count(),
-                "Expected {$class}->split() on 1 to have 1 item in its first inner sequence"
+                "Expected {$class}->split() on 1 to have 1 item in first inner sequence"
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->split() on 1 has 2 items in second inner sequence
+     */
+    public function testSplitOnOneSecondInnerSequenceHasTwoItems()
+    {
+        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
+            $class   = self::getClassName( $sequence );
+            $split   = $sequence->split( '1' );
+            $firstKey = $split->getFirstKey();
+            $this->assertEquals(
+                2,
+                $split->get( $firstKey + 1 )->count(),
+                "Expected {$class}->split() on 1 to have 2 items in second inner sequence"
             );
         }
     }
