@@ -607,7 +607,7 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
     /**
      * Ensure ReadOnlySequence->split() on 1 has three 0s
      */
-    public function testSplitHasThreeZeros()
+    public function testSplitOnOneHasThreeZeros()
     {
         foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $split = $sequence->split( '1' );
@@ -634,10 +634,11 @@ class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
         }
     }
     
+    
     /**
      * Ensure ReadOnlySequence->split() on 0 has three 1s
      */
-    public function testSplitHasThreeOnes()
+    public function testSplitOnZeroHasThreeOnes()
     {
         foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
             $split = $sequence->split( '0' );
