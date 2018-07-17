@@ -1,8 +1,5 @@
 <?php
 
-use PHP\Collections\Sequence;
-use PHP\Collections\ReadOnlySequence;
-
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
