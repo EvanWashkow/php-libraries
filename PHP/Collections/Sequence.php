@@ -251,7 +251,7 @@ class Sequence extends Collection implements ISequence
     }
     
     
-    public function slice( int $offset, int $limit ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables
         $key      = $offset;

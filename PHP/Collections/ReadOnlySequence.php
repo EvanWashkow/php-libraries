@@ -54,7 +54,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
         return new self( $sequence );
     }
     
-    public function slice( int $offset, int $limit ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         $sequence = $this->collection->slice( $offset, $limit );
         return new self( $sequence );
