@@ -79,4 +79,26 @@ class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure Sequence->add() has same value on empty
+     */
+    public function testAddValueIsSameOnEmpty()
+    {
+        foreach ( SequenceData::Get() as $sequence ) {
+            if ( 0 === $sequence->count() ) {
+                continue;
+            }
+            $value = $sequence->get( $sequence->getLastKey() );
+            $sequence->clear();
+            $sequence->add( $value );
+            $class = self::getClassName( $sequence );
+            $this->assertTrue(
+                $value === $sequence->get( $sequence->getLastKey() ),
+                $sequence->count(),
+                "Expected {$class}->add() to have the same value on empty"
+            );
+        }
+    }
 }
