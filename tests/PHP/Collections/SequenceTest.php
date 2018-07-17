@@ -8,15 +8,29 @@ require_once( __DIR__ . '/SequenceData.php' );
  */
 class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
 {
+    
+    /***************************************************************************
+    *                            Sequence->add()
+    ***************************************************************************/
+    
+    
     /**
-     * Ensure one is one
+     * Ensure Sequence->add() has a higher count
      */
-    public function testOneIsOne()
+    public function testAddHasHigherCount()
     {
-        $this->assertEquals(
-            1,
-            1,
-            "Expected one to be one"
-        );
+        foreach ( SequenceData::Get() as $sequence ) {
+            if ( 0 === $sequence->count() ) {
+                continue;
+            }
+            $before = $sequence->count();
+            $sequence->add( $sequence->get( $sequence->getLastKey() ));
+            $class = self::getClassName( $sequence );
+            $this->assertGreaterThan(
+                $before,
+                $sequence->count(),
+                "Expected {$class}->add() to have a higher count"
+            );
+        }
     }
 }
