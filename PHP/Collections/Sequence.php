@@ -81,9 +81,16 @@ class Sequence extends Collection implements ISequence
             trigger_error( "Cannot insert non-{$this->type} values" );
         }
         
-        // Insert value at the key
+        /**
+         * Insert value at this key, shifting other values
+         *
+         * array_slice() ignores single, empty values, such as null and
+         * stdClass(). First insert a placeholder at that entry and then
+         * set that key.
+         */
         else {
-            array_splice( $this->entries, $key, 0, $value );
+            array_splice( $this->entries, $key, 0, 'placeholder' );
+            $this->set( $key, $value );
             $isSuccessful = true;
         }
         
