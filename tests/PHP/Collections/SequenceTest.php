@@ -243,7 +243,7 @@ class SequenceTest extends CollectionTestCase
     
     
     /**
-     * Retrieve test instances
+     * Retrieve test instances, indexed by type
      *
      * @return array
      */
