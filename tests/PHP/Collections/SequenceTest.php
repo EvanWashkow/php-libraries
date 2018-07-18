@@ -130,4 +130,25 @@ class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
             );
         }
     }
+    
+    
+    /**
+     * Ensure Sequence->insert() errors on key too small
+     */
+    public function testInsertErrorsOnKeyTooSmall()
+    {
+        foreach ( TestData::Get() as $type => $values ) {
+            $sequence = new Sequence( $type );
+            $isError = false;
+            try {
+                $sequence->insert( $sequence->getFirstKey() - 1, $values[0] );
+            } catch (\Exception $e) {
+                $isError = true;
+            }
+            $this->assertTrue(
+                $isError,
+                "Expected Sequence->insert() to error on key too small"
+            );
+        }
+    }
 }
