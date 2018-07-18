@@ -150,4 +150,26 @@ class SequenceTest extends CollectionTestCase
             );
         }
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                  DATA
+    ***************************************************************************/
+    
+    
+    /**
+     * Retrieve test instances
+     *
+     * @return array
+     */
+    final public static function GetInstances(): array
+    {
+        $instances = [];
+        foreach ( CollectionTestData::Get() as $type => $values ) {
+            $instances[ $type ] = new Sequence( $type );
+        }
+        return $instances;
+    }
 }
