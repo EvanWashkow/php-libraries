@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__ . '/CollectionsTestCase.php' );
+require_once( __DIR__ . '/CollectionTestCase.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
 /**
@@ -9,7 +9,7 @@ require_once( __DIR__ . '/ReadOnlySequenceData.php' );
  * This tests both the read-only and the editable sequnce (the read-only
  * simply invokes the editable)
  */
-class ReadOnlySequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
+class ReadOnlySequenceTest extends CollectionTestCase
 {
     
     /***************************************************************************

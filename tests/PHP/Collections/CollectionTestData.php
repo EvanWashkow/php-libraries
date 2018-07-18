@@ -1,13 +1,11 @@
 <?php
 
-namespace PHP\Tests\Collections;
-
 /**
  * Test data mapped by type
  *
  * Use this going forward for all future collection tests.
  */
-final class TestData
+final class CollectionTestData
 {
     
     /**

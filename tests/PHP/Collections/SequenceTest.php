@@ -1,16 +1,15 @@
 <?php
 
 use PHP\Collections\Sequence;
-use PHP\Tests\Collections\TestData;
 
-require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/SequenceData.php' );
-require_once( __DIR__ . '/TestData.php' );
+require_once( __DIR__ . '/CollectionTestCase.php' );
+require_once( __DIR__ . '/CollectionTestData.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
  */
-class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
+class SequenceTest extends CollectionTestCase
 {
     
     /***************************************************************************
@@ -119,7 +118,7 @@ class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testInsertHasEntries()
     {
-        foreach ( TestData::Get() as $type => $values ) {
+        foreach ( CollectionTestData::Get() as $type => $values ) {
             $sequence = new Sequence( $type );
             $sequence->insert( 0, $values[0] );
             $sequence->insert( 1, $values[1] );
@@ -137,7 +136,7 @@ class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testInsertErrorsOnKeyTooSmall()
     {
-        foreach ( TestData::Get() as $type => $values ) {
+        foreach ( CollectionTestData::Get() as $type => $values ) {
             $sequence = new Sequence( $type );
             $isError = false;
             try {

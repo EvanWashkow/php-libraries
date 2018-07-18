@@ -1,12 +1,11 @@
 <?php
-namespace PHP\Tests\Collections;
 
 require_once( __DIR__ . '/../TestCase.php' );
 
 /**
  * Defines a base test class for all collection test cases
  */
-class CollectionsTestCase extends \PHP\Tests\TestCase
+class CollectionTestCase extends TestCase
 {
     /**
      * Retrieve count of items in iterator
