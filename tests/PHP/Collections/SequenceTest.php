@@ -160,6 +160,32 @@ class SequenceTest extends CollectionTestCase
     
     
     /**
+     * Ensure Sequence->insert() shifts values
+     */
+    public function testInsertShiftsValues()
+    {
+        $values = CollectionTestData::Get();
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                if ( 0 === $sequence->count() ) {
+                    continue;
+                }
+                $value         = $values[ $type ][ 0 ];
+                $key           = $sequence->getFirstKey();
+                $previousValue = $sequence->get( $key );
+                $class         = self::getClassName( $sequence );
+                $sequence->insert( $key, $value );
+                $this->assertEquals(
+                    $previousValue,
+                    $sequence->get( $key + 1 ),
+                    "Expected {$class}->insert() shifts values"
+                );
+            }
+        }
+    }
+    
+    
+    /**
      * Ensure Sequence->insert() errors on key too small
      */
     public function testInsertErrorsOnKeyTooSmall()
