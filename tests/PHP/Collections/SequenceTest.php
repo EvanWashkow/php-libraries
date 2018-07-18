@@ -1,5 +1,7 @@
 <?php
 
+use PHP\Collections\Sequence;
+
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/SequenceData.php' );
 
@@ -98,6 +100,40 @@ class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
                 $value === $sequence->get( $sequence->getLastKey() ),
                 $sequence->count(),
                 "Expected {$class}->add() to have the same value on empty"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                            Sequence->insert()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Sequence->insert() has entries
+     */
+    public function testInsertHasEntries()
+    {
+        $types = [
+            'integer'  => 1,
+            'string'   => 'string',
+            'boolean'  => true,
+            'stdClass' => new stdClass(),
+            ''         => null
+        ];
+        
+        foreach ( $types as $type => $value ) {
+            $sequence = new Sequence( $type );
+            $sequence->insert( 0, $value );
+            $sequence->insert( 1, $value );
+            $class = self::getClassName( $sequence );
+            $this->assertEquals(
+                2,
+                $sequence->count(),
+                "Expected {$class}->insert() to have entries"
             );
         }
     }
