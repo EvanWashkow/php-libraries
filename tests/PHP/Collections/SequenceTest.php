@@ -235,6 +235,64 @@ class SequenceTest extends CollectionTestCase
     }
     
     
+    /**
+     * Ensure Sequence->insert() errors on wrong key type
+     */
+    public function testInsertErrorsOnWrongKeyType()
+    {
+        $values = CollectionTestData::Get();
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            $value = $values[ $type ][0];
+            foreach ( $sequences as $sequence ) {
+                $isError = false;
+                try {
+                    $sequence->insert( 'string', $value );
+                } catch (\TypeError $e) {
+                    $isError = true;
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $isError,
+                    "Expected {$class}->insert() to error on wrong key type"
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure Sequence->insert() errors on wrong value type
+     */
+    public function testInsertErrorsOnWrongValueType()
+    {
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            if ( '' === $type ) {
+                continue;
+            }
+            
+            foreach ( $sequences as $sequence ) {
+                foreach ( CollectionTestData::Get() as $valueType => $values ) {
+                    if ( in_array( $valueType, [ '', $type ] )) {
+                        continue;
+                    }
+                    
+                    $isError = false;
+                    try {
+                        $sequence->insert( $sequence->getFirstKey(), $values[ 0 ] );
+                    } catch (\Exception $e) {
+                        $isError = true;
+                    }
+                    $class = self::getClassName( $sequence );
+                    $this->assertTrue(
+                        $isError,
+                        "Expected {$class}->insert() to error on wrong value type"
+                    );
+                }
+            }
+        }
+    }
+    
+    
     
     
     /***************************************************************************
