@@ -118,14 +118,15 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertHasEntries()
     {
-        foreach ( CollectionTestData::Get() as $type => $values ) {
-            $sequence = new Sequence( $type );
+        foreach ( self::GetInstances() as $type => $sequence ) {
+            $values = CollectionTestData::Get()[ $type ];
             $sequence->insert( 0, $values[0] );
             $sequence->insert( 1, $values[1] );
+            $class = self::getClassName( $sequence );
             $this->assertEquals(
                 2,
                 $sequence->count(),
-                "Expected Sequence->insert() to have entries"
+                "Expected {$class}->insert() to have entries"
             );
         }
     }
@@ -136,17 +137,17 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertErrorsOnKeyTooSmall()
     {
-        foreach ( CollectionTestData::Get() as $type => $values ) {
-            $sequence = new Sequence( $type );
+        foreach ( self::GetInstances() as $type => $sequence ) {
             $isError = false;
             try {
                 $sequence->insert( $sequence->getFirstKey() - 1, $values[0] );
             } catch (\Exception $e) {
                 $isError = true;
             }
+            $class = self::getClassName( $sequence );
             $this->assertTrue(
                 $isError,
-                "Expected Sequence->insert() to error on key too small"
+                "Expected {$class}->insert() to error on key too small"
             );
         }
     }
