@@ -153,6 +153,44 @@ class SequenceTest extends CollectionTestCase
     }
     
     
+    /**
+     * Ensure Sequence->insert() errors on key too large
+     */
+    public function testInsertErrorsOnKeyTooLarge()
+    {
+        foreach ( self::GetInstances() as $type => $emptySequence ) {
+            
+            // Get values for this sequence type
+            $values = CollectionTestData::Get()[ $type ];
+            
+            // Create an empty and non-empty sequence
+            $nonEmptySequence = $emptySequence->clone();
+            foreach ( $values as $value ) {
+                $nonEmptySequence->add( $value );
+            }
+            $sequences = [
+                $emptySequence,
+                $nonEmptySequence
+            ];
+            
+            // Run tests
+            foreach ( $sequences as $sequence ) {
+                $isError = false;
+                try {
+                    $sequence->insert( $sequence->getLastKey() + 2, $values[0] );
+                } catch (\Exception $e) {
+                    $isError = true;
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $isError,
+                    "Expected {$class}->insert() to error on key too large"
+                );
+            }
+        }
+    }
+    
+    
     
     
     /***************************************************************************
