@@ -18,90 +18,55 @@ class SequenceTest extends CollectionTestCase
     
     
     /**
-     * Ensure Sequence->add() has a higher count
-     */
-    public function testAddHasHigherCount()
-    {
-        foreach ( SequenceData::Get() as $sequence ) {
-            if ( 0 === $sequence->count() ) {
-                continue;
-            }
-            $before = $sequence->count();
-            $sequence->add( $sequence->get( $sequence->getLastKey() ));
-            $class = self::getClassName( $sequence );
-            $this->assertGreaterThan(
-                $before,
-                $sequence->count(),
-                "Expected {$class}->add() to have a higher count"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure Sequence->add() has a higher count
-     */
-    public function testAddErrorsOnWrongType()
-    {
-        foreach ( SequenceData::GetTyped() as $sequence ) {
-            if ( 0 === $sequence->count() ) {
-                continue;
-            }
-            $isError = false;
-            try {
-                $sequence->add( $sequence->getFirstKey() );
-            }
-            catch ( \Exception $e ) {
-                $isError = true;
-            }
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $isError,
-                "Expected {$class}->add() to error on the wrong type"
-            );
-        }
-    }
-    
-    
-    /**
      * Ensure Sequence->add() has the same value at the end
      */
     public function testAddValueIsSame()
     {
-        foreach ( SequenceData::Get() as $sequence ) {
-            if ( 0 === $sequence->count() ) {
-                continue;
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            $value = CollectionTestData::Get()[ $type ][ 0 ];
+            foreach ( $sequences as $sequence ) {
+                $before = $sequence->count();
+                $class  = self::getClassName( $sequence );
+                $sequence->add( $value );
+                $this->assertEquals(
+                    $value,
+                    $sequence->get( $sequence->getLastKey() ),
+                    "Expected {$class}->add() to have the same value at the end"
+                );
             }
-            $value = $sequence->get( $sequence->getLastKey() );
-            $sequence->add( $value );
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $value === $sequence->get( $sequence->getLastKey() ),
-                $sequence->count(),
-                "Expected {$class}->add() to have the same value at the end"
-            );
         }
     }
     
     
     /**
-     * Ensure Sequence->add() has same value on empty
+     * Ensure Sequence->add() errors on the wrong value type
      */
-    public function testAddValueIsSameOnEmpty()
+    public function testAddErrorsOnWrongType()
     {
-        foreach ( SequenceData::Get() as $sequence ) {
-            if ( 0 === $sequence->count() ) {
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            if ( '' === $type ) {
                 continue;
             }
-            $value = $sequence->get( $sequence->getLastKey() );
-            $sequence->clear();
-            $sequence->add( $value );
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $value === $sequence->get( $sequence->getLastKey() ),
-                $sequence->count(),
-                "Expected {$class}->add() to have the same value on empty"
-            );
+            
+            foreach ( $sequences as $sequence ) {
+                foreach ( CollectionTestData::Get() as $valueType => $values ) {
+                    if ( in_array( $valueType, [ '', $type ] )) {
+                        continue;
+                    }
+                    
+                    $isError = false;
+                    try {
+                        $sequence->add( $values[ 0 ] );
+                    } catch (\Exception $e) {
+                        $isError = true;
+                    }
+                    $class = self::getClassName( $sequence );
+                    $this->assertTrue(
+                        $isError,
+                        "Expected {$class}->insert() to error on wrong value type"
+                    );
+                }
+            }
         }
     }
     
