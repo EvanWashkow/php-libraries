@@ -114,6 +114,52 @@ class SequenceTest extends CollectionTestCase
     
     
     /**
+     * Ensure Sequence->insert() has the inserted value at the beginning of the
+     * sequence
+     */
+    public function testInsertAtBeginning()
+    {
+        $values = CollectionTestData::Get();
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            $value = $values[ $type ][ 0 ];
+            foreach ( $sequences as $sequence ) {
+                $key   = $sequence->getFirstKey();
+                $class = self::getClassName( $sequence );
+                $sequence->insert( $key, $value );
+                $this->assertEquals(
+                    $value,
+                    $sequence->get( $key ),
+                    "Expected {$class}->insert() to have the inserted value at the beginning of the sequence"
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure Sequence->insert() has the inserted value at the end of the
+     * sequence
+     */
+    public function testInsertAtEnd()
+    {
+        $values = CollectionTestData::Get();
+        foreach ( self::GetInstances() as $type => $sequences ) {
+            $value = $values[ $type ][ 0 ];
+            foreach ( $sequences as $sequence ) {
+                $key   = $sequence->getLastKey() + 1;
+                $class = self::getClassName( $sequence );
+                $sequence->insert( $key, $value );
+                $this->assertEquals(
+                    $value,
+                    $sequence->get( $key ),
+                    "Expected {$class}->insert() to have the inserted value at the end of the sequence"
+                );
+            }
+        }
+    }
+    
+    
+    /**
      * Ensure Sequence->insert() errors on key too small
      */
     public function testInsertErrorsOnKeyTooSmall()
