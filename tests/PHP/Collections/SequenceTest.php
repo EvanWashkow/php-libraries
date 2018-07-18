@@ -1,9 +1,11 @@
 <?php
 
 use PHP\Collections\Sequence;
+use PHP\Tests\Collections\TestData;
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/SequenceData.php' );
+require_once( __DIR__ . '/TestData.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
@@ -117,23 +119,14 @@ class SequenceTest extends \PHP\Tests\Collections\CollectionsTestCase
      */
     public function testInsertHasEntries()
     {
-        $types = [
-            'integer'  => 1,
-            'string'   => 'string',
-            'boolean'  => true,
-            'stdClass' => new stdClass(),
-            ''         => null
-        ];
-        
-        foreach ( $types as $type => $value ) {
+        foreach ( TestData::Get() as $type => $values ) {
             $sequence = new Sequence( $type );
-            $sequence->insert( 0, $value );
-            $sequence->insert( 1, $value );
-            $class = self::getClassName( $sequence );
+            $sequence->insert( 0, $values[0] );
+            $sequence->insert( 1, $values[1] );
             $this->assertEquals(
                 2,
                 $sequence->count(),
-                "Expected {$class}->insert() to have entries"
+                "Expected Sequence->insert() to have entries"
             );
         }
     }
