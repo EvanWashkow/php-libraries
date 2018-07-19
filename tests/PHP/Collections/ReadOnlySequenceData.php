@@ -32,7 +32,7 @@ final class ReadOnlySequenceData
     public static function GetMixed(): array
     {
         $sequences = [];
-        foreach ( SequenceData::GetMixed() as $sequence ) {
+        foreach ( SequenceData::GetOldMixed() as $sequence ) {
             $sequences[] = new ReadOnlySequence( $sequence );
             $sequences[] = $sequence;
         }
@@ -48,7 +48,7 @@ final class ReadOnlySequenceData
     public static function GetTyped(): array
     {
         $sequences = [];
-        foreach ( SequenceData::GetTyped() as $sequence ) {
+        foreach ( SequenceData::GetOldTyped() as $sequence ) {
             $sequences[] = new ReadOnlySequence( $sequence );
             $sequences[] = $sequence;
         }

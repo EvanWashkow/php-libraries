@@ -18,7 +18,7 @@ final class CollectionData
     {
         return array_merge(
             DictionaryData::Get(),
-            SequenceData::Get()
+            SequenceData::GetOld()
         );
     }
     
@@ -32,7 +32,7 @@ final class CollectionData
     {
         return array_merge(
             DictionaryData::GetTyped(),
-            SequenceData::GetTyped()
+            SequenceData::GetOldTyped()
         );
     }
     

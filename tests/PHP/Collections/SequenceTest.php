@@ -1,10 +1,7 @@
 <?php
 
-use PHP\Collections\Sequence;
-
 require_once( __DIR__ . '/SequenceData.php' );
 require_once( __DIR__ . '/CollectionTestCase.php' );
-require_once( __DIR__ . '/CollectionTestData.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
@@ -22,7 +19,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testAddValueIsSame()
     {
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = CollectionTestData::Get()[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
                 $before = $sequence->count();
@@ -43,7 +40,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testAddErrorsOnWrongType()
     {
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             if ( '' === $type ) {
                 continue;
             }
@@ -85,7 +82,7 @@ class SequenceTest extends CollectionTestCase
     public function testInsertAtBeginning()
     {
         $values = CollectionTestData::Get();
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = $values[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
                 $key   = $sequence->getFirstKey();
@@ -108,7 +105,7 @@ class SequenceTest extends CollectionTestCase
     public function testInsertAtEnd()
     {
         $values = CollectionTestData::Get();
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = $values[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
                 $key   = $sequence->getLastKey() + 1;
@@ -130,7 +127,7 @@ class SequenceTest extends CollectionTestCase
     public function testInsertShiftsValues()
     {
         $values = CollectionTestData::Get();
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             foreach ( $sequences as $sequence ) {
                 if ( 0 === $sequence->count() ) {
                     continue;
@@ -156,7 +153,7 @@ class SequenceTest extends CollectionTestCase
     public function testInsertErrorsOnKeyTooSmall()
     {
         $values = CollectionTestData::Get();
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             $typeValues = $values[ $type ];
             foreach ( $sequences as $sequence ) {
                 $isError = false;
@@ -181,7 +178,7 @@ class SequenceTest extends CollectionTestCase
     public function testInsertErrorsOnKeyTooLarge()
     {
         $values = CollectionTestData::Get();
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             $typeValues = $values[ $type ];
             foreach ( $sequences as $sequence ) {
                 $isError = false;
@@ -206,7 +203,7 @@ class SequenceTest extends CollectionTestCase
     public function testInsertErrorsOnWrongKeyType()
     {
         $values = CollectionTestData::Get();
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = $values[ $type ][0];
             foreach ( $sequences as $sequence ) {
                 $isError = false;
@@ -230,7 +227,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertErrorsOnWrongValueType()
     {
-        foreach ( self::GetInstances() as $type => $sequences ) {
+        foreach ( SequenceData::Get() as $type => $sequences ) {
             if ( '' === $type ) {
                 continue;
             }
@@ -255,34 +252,5 @@ class SequenceTest extends CollectionTestCase
                 }
             }
         }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                  DATA
-    ***************************************************************************/
-    
-    
-    /**
-     * Retrieve test instances, indexed by type
-     *
-     * @return array
-     */
-    final public static function GetInstances(): array
-    {
-        $instances = [];
-        foreach ( CollectionTestData::Get() as $type => $values ) {
-            $sequence = new Sequence( $type );
-            foreach ( $values as $value ) {
-                $sequence->add( $value );
-            }
-            
-            $instances[ $type ]   = [];
-            $instances[ $type ][] = new Sequence( $type );
-            $instances[ $type ][] = $sequence;
-        }
-        return $instances;
     }
 }
