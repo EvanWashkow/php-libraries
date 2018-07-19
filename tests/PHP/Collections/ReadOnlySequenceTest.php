@@ -21,12 +21,14 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testToArrayReturnsArray()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                is( $sequence->toArray(), 'array' ),
-                "Expected {$class}->toArray() to return an array"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    is( $sequence->toArray(), 'array' ),
+                    "Expected {$class}->toArray() to return an array"
+                );
+            }
         }
     }
     
@@ -36,13 +38,15 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testToArrayHasSameCount()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                $sequence->count(),
-                count( $sequence->toArray() ),
-                "Expected {$class}->toArray() to have the same number of elements"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $class = self::getClassName( $sequence );
+                $this->assertEquals(
+                    $sequence->count(),
+                    count( $sequence->toArray() ),
+                    "Expected {$class}->toArray() to have the same number of elements"
+                );
+            }
         }
     }
     
