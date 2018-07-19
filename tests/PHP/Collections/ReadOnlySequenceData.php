@@ -11,6 +11,31 @@ final class ReadOnlySequenceData
 {
     
     /**
+     * Retrieve sample instances that implement read-only sequences
+     * 
+     * @return array
+     */
+    public static function Get(): array
+    {
+        $roSequences = [];
+        foreach ( SequenceData::Get() as $type => $sequences ) {
+            $roSequences[ $type ] = [];
+            foreach ( $sequences as $sequence ) {
+                $roSequences[ $type ][] = $sequence;
+                $roSequences[ $type ][] = new ReadOnlySequence( $sequence );
+            }
+        }
+        return $roSequences;
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                     OLD
+    ***************************************************************************/
+    
+    /**
     * Retrieve all test sequences
     *
     * @return array
