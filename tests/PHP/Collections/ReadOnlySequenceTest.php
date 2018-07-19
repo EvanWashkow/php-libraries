@@ -21,7 +21,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testToArrayReturnsArray()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 is( $sequence->toArray(), 'array' ),
@@ -36,7 +36,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testToArrayHasSameCount()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertEquals(
                 $sequence->count(),
@@ -58,7 +58,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetFirstKeyReturnsZero()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 0 === $sequence->getFirstKey(),
@@ -79,7 +79,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetLastKeyReturnsInt()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertTrue(
                 is( $sequence->getLastKey(), 'integer' ),
@@ -95,7 +95,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetLastKeyIsGreaterThanOrEqualToFirstForNonEmpty()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             if ( $sequence->count() === 0 ) {
                 continue;
             }
@@ -114,7 +114,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetLastKeyIsLessThanFirstForEmpty()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             if ( 0 < $sequence->count() ) {
                 continue;
             }
@@ -140,7 +140,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetKeyOfReturnsBadKeyWhenMissingValue()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertLessThan(
                 $sequence->getFirstKey(),
@@ -156,7 +156,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetKeyOfErrorsOnOffsetTooSmall()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $isError = false;
             try {
                 $sequence->getKeyOf( 'foobar', $sequence->getFirstKey() - 1 );
@@ -249,7 +249,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testReverseReturnsSameType()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertEquals(
                 get_class( $sequence ),
@@ -265,7 +265,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testReverseHasSameKeys()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class   = self::getClassName( $sequence );
             $lastKey = $sequence->getLastKey();
             $reverse = $sequence->reverse();
@@ -284,7 +284,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testReverseValuesAreReversed()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class   = self::getClassName( $sequence );
             $lastKey = $sequence->getLastKey();
             $reverse = $sequence->reverse();
@@ -310,7 +310,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceReturnsSameType()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $this->assertEquals(
                 get_class( $sequence ),
@@ -326,7 +326,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceOffsetReturnsValueSubset()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class   = self::getClassName( $sequence );
             $count   = $sequence->count();
             $lastKey = $sequence->getLastKey();
@@ -348,7 +348,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceCountReturnsValueSubset()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class   = self::getClassName( $sequence );
             $firstKey = $sequence->getFirstKey();
             for ( $count = 0; $count <= $sequence->count(); $count++ ) {
@@ -369,7 +369,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceWithLargeOffsetReturnsNoValues()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $slice = $sequence->slice( $sequence->getLastKey() + 1, $sequence->count() );
             $this->assertEquals(
@@ -386,7 +386,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceWithCountOfZeroReturnsNoValues()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $class = self::getClassName( $sequence );
             $slice = $sequence->slice( $sequence->getFirstKey(), 0 );
             $this->assertEquals(
@@ -403,7 +403,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceErrorsOnSmallOffset()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $isError = false;
             try {
                 $sequence->slice( $sequence->getFirstKey() - 1, 0 );
@@ -424,7 +424,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceErrorsOnNegativeLimits()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             $isError = false;
             try {
                 $sequence->slice( $sequence->getFirstKey(), -1 );
@@ -451,7 +451,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitReturnsSameType()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             if ( $sequence->count() === 0 ) {
                 continue;
             }
@@ -471,7 +471,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitReturnsSameInnerType()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             if ( $sequence->count() === 0 ) {
                 continue;
             }
@@ -495,7 +495,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
     public function testSplitDoesNotContainValue()
     {
         $sequences = array_merge(
-            ReadOnlySequenceData::Get(),
+            ReadOnlySequenceData::GetOld(),
             ReadOnlySequenceData::GetStringDuplicates()
         );
         foreach ( $sequences as $sequence ) {
@@ -528,7 +528,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
     public function testSplitContainsNoEmptySequence()
     {
         $sequences = array_merge(
-            ReadOnlySequenceData::Get(),
+            ReadOnlySequenceData::GetOld(),
             ReadOnlySequenceData::GetStringDuplicates()
         );
         foreach ( $sequences as $sequence ) {
@@ -559,7 +559,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitHasOneInnerSequenceOnUnfoundDelimiter()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             if ( $sequence->count() === 0 ) {
                 continue;
             }
@@ -580,7 +580,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitHasSameInnerCountOnUnfoundDelimiter()
     {
-        foreach ( ReadOnlySequenceData::Get() as $sequence ) {
+        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
             if ( $sequence->count() === 0 ) {
                 continue;
             }

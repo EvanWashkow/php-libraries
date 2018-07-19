@@ -19,7 +19,7 @@ final class ReadOnlyCollectionData
     {
         return array_merge(
             ReadOnlyDictionaryData::Get(),
-            ReadOnlySequenceData::Get()
+            ReadOnlySequenceData::GetOld()
         );
     }
     
@@ -33,7 +33,7 @@ final class ReadOnlyCollectionData
     {
         return array_merge(
             ReadOnlyDictionaryData::GetTyped(),
-            ReadOnlySequenceData::GetTyped()
+            ReadOnlySequenceData::GetOldTyped()
         );
     }
     

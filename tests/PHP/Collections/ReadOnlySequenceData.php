@@ -15,11 +15,11 @@ final class ReadOnlySequenceData
     *
     * @return array
     */
-    public static function Get(): array
+    public static function GetOld(): array
     {
         return array_merge(
-            self::GetTyped(),
-            self::GetMixed()
+            self::GetOldTyped(),
+            self::GetOldMixed()
         );
     }
     
@@ -29,7 +29,7 @@ final class ReadOnlySequenceData
     *
     * @return array
     */
-    public static function GetMixed(): array
+    public static function GetOldMixed(): array
     {
         $sequences = [];
         foreach ( SequenceData::GetOldMixed() as $sequence ) {
@@ -45,7 +45,7 @@ final class ReadOnlySequenceData
      *
      * @return array
      */
-    public static function GetTyped(): array
+    public static function GetOldTyped(): array
     {
         $sequences = [];
         foreach ( SequenceData::GetOldTyped() as $sequence ) {
