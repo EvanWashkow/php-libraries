@@ -110,13 +110,25 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetKeyOfReturnsBadKeyWhenMissingValue()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertLessThan(
-                $sequence->getFirstKey(),
-                $sequence->getKeyOf( 'foobar' ),
-                "Expected {$class}->getKeyOf() to return a bad key when the value doesn't exist"
-            );
+        $values = CollectionTestData::Get();
+        foreach ( ReadOnlySequenceData::Get() as $sequenceType => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                foreach ( $values as $valueType => $typedValues ) {
+                    $value = $typedValues[ 0 ];
+                    if ( '' === $sequenceType ) {
+                        $value = 'foobar';
+                    }
+                    elseif ( $sequenceType === $valueType ) {
+                        continue;
+                    }
+                    $class = self::getClassName( $sequence );
+                    $this->assertLessThan(
+                        $sequence->getFirstKey(),
+                        $sequence->getKeyOf( $value ),
+                        "Expected {$class}->getKeyOf() to return a bad key when the value doesn't exist"
+                    );
+                }
+            }
         }
     }
     
@@ -126,84 +138,143 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetKeyOfErrorsOnOffsetTooSmall()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $isError = false;
-            try {
-                $sequence->getKeyOf( 'foobar', $sequence->getFirstKey() - 1 );
-            } catch (\Exception $e) {
-                $isError = true;
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $isError = false;
+                try {
+                    $sequence->getKeyOf( 'foobar', $sequence->getFirstKey() - 1 );
+                } catch (\Exception $e) {
+                    $isError = true;
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $isError,
+                    "Expected {$class}->getKeyOf() to error when given an offset position too small"
+                );
             }
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $isError,
-                "Expected {$class}->getKeyOf() to error when given an offset position too small"
-            );
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *               ReadOnlySequence->getKeyOf() (string data)
-    ***************************************************************************/
-    
-    /**
-     * Ensure ReadOnlySequence->getKeyOf() returns key of the first value
-     */
-    public function testGetKeyOfStringValueReturnsFirstValueKey()
-    {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                0 === $sequence->getKeyOf( '0' ),
-                "Expected {$class}->getKeyOf() to return the key of the first value"
-            );
         }
     }
     
     
     /**
-     * Ensure ReadOnlySequence->getKeyOf() returns key of offset value
+     * Ensure ReadOnlySequence->getKeyOf() returns key with no offset
      */
-    public function testGetKeyOfStringValueReturnsKeyOfOffsetSearch()
+    public function testGetKeyOfReturnsKeyWithNoOffset()
     {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                3 === $sequence->getKeyOf( '0', 1 ),
-                "Expected {$class}->getKeyOf() to return the key of the offset value"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $sequence->loop(function( $key, $value ) use ( $sequence ) {
+                    $class = self::getClassName( $sequence );
+                    $this->assertEquals(
+                        $key,
+                        $sequence->getKeyOf( $value ),
+                        "Expected {$class}->getKeyOf() to return the key of the value with no offset"
+                    );
+                });
+            }
         }
     }
     
     
     /**
-     * Ensure ReadOnlySequence->getKeyOf() returns key of a reverse search
+     * Ensure ReadOnlySequence->getKeyOf() returns key when offset at that key
      */
-    public function testGetKeyOfStringValueReturnsKeyOfReverseSearch()
+    public function testGetKeyOfReturnsKeyAtThatOffset()
     {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                4 === $sequence->getKeyOf( '0', 0, true ),
-                "Expected {$class}->getKeyOf() to return the key of the value when searching in reverse"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $sequence->loop(function( $key, $value ) use ( $sequence ) {
+                    $class = self::getClassName( $sequence );
+                    $this->assertEquals(
+                        $key,
+                        $sequence->getKeyOf( $value, $key ),
+                        "Expected {$class}->getKeyOf() to return the key when offset at that key"
+                    );
+                });
+            }
         }
     }
     
     
     /**
-     * Ensure ReadOnlySequence->getKeyOf() returns key in a reversed, offset search
+     * Ensure ReadOnlySequence->getKeyOf() returns bad key with offset too large
      */
-    public function testGetKeyOfStringValueReturnsKeyOfReverseOffsetSearch()
+    public function testGetKeyOfReturnsBadKeyOnOffsetTooLarge()
     {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                3 === $sequence->getKeyOf( '0', 2, true ),
-                "Expected {$class}->getKeyOf() to return the key of the value when searching in reverse with offset"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $sequence->loop(function( $key, $value ) use ( $sequence ) {
+                    $class = self::getClassName( $sequence );
+                    $this->assertEquals(
+                        $sequence->getFirstKey() - 1,
+                        $sequence->getKeyOf( $value, $key + 1 ),
+                        "Expected {$class}->getKeyOf() to return a bad key given an offset too large"
+                    );
+                });
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getKeyOf() returns key with no offset,
+     * reversed
+     */
+    public function testGetKeyOfReturnsKeyWithNoOffsetReversed()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $sequence->loop(function( $key, $value ) use ( $sequence ) {
+                    $class = self::getClassName( $sequence );
+                    $this->assertEquals(
+                        $key,
+                        $sequence->getKeyOf( $value, 0, true ),
+                        "Expected {$class}->getKeyOf() to return the key of the value with no offset"
+                    );
+                });
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getKeyOf() returns key when offset at that key,
+     * reversed
+     */
+    public function testGetKeyOfReturnsKeyAtThatOffsetReversed()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $sequence->loop(function( $key, $value ) use ( $sequence ) {
+                    $class = self::getClassName( $sequence );
+                    $this->assertEquals(
+                        $key,
+                        $sequence->getKeyOf( $value, $sequence->getLastKey() - $key, true ),
+                        "Expected {$class}->getKeyOf() to return the key when offset at that key"
+                    );
+                });
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getKeyOf() returns bad key with offset too large,
+     * reversed
+     */
+    public function testGetKeyOfReturnsBadKeyOnOffsetTooLargeReversed()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $sequence->loop(function( $key, $value ) use ( $sequence ) {
+                    $class = self::getClassName( $sequence );
+                    $this->assertEquals(
+                        $sequence->getFirstKey() - 1,
+                        $sequence->getKeyOf( $value, $sequence->count() - $key, true ),
+                        "Expected {$class}->getKeyOf() to return a bad key given an offset too large"
+                    );
+                });
+            }
         }
     }
     
