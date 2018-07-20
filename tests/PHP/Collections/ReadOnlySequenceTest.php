@@ -85,12 +85,14 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetLastKeyReturnsInt()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                is( $sequence->getLastKey(), 'integer' ),
-                "Expected {$class}->getLastKey() to return an integer value"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    is( $sequence->getLastKey(), 'integer' ),
+                    "Expected {$class}->getLastKey() to return an integer value"
+                );
+            }
         }
     }
     
