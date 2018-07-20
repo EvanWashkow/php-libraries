@@ -80,58 +80,20 @@ class ReadOnlySequenceTest extends CollectionTestCase
     *                      ReadOnlySequence->getLastKey()
     ***************************************************************************/
     
+    
     /**
-     * Ensure ReadOnlySequence->getLastKey() returns an integer value
+     * Ensure ReadOnlySequence->getLastKey() returns one less than count
      */
-    public function testGetLastKeyReturnsInt()
+    public function testGetLastKeyReturnsOneLessThanCount()
     {
         foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
             foreach ( $sequences as $sequence ) {
                 $class = self::getClassName( $sequence );
                 $this->assertTrue(
-                    is( $sequence->getLastKey(), 'integer' ),
-                    "Expected {$class}->getLastKey() to return an integer value"
+                    $sequence->getLastKey() === ( $sequence->count() - 1 ),
+                    "Expected {$class}->getLastKey() to return one less than count"
                 );
             }
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->getLastKey() is larger than or equalt to the
-     * first for non-empty
-     */
-    public function testGetLastKeyIsGreaterThanOrEqualToFirstForNonEmpty()
-    {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
-            }
-            $class = self::getClassName( $sequence );
-            $this->assertGreaterThanOrEqual(
-                $sequence->getFirstKey(),
-                $sequence->getLastKey(),
-                "Expected {$class}->getLastKey() to be greater than or equal to the first key for non-empty sequences"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->getLastKey() is less than first for empty
-     */
-    public function testGetLastKeyIsLessThanFirstForEmpty()
-    {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            if ( 0 < $sequence->count() ) {
-                continue;
-            }
-            $class = self::getClassName( $sequence );
-            $this->assertLessThan(
-                $sequence->getFirstKey(),
-                $sequence->getLastKey(),
-                "Expected {$class}->getLastKey() to be less than the first key for empty sequences"
-            );
         }
     }
     
