@@ -62,12 +62,14 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetFirstKeyReturnsZero()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                0 === $sequence->getFirstKey(),
-                "Expected {$class}->getFirstKey() to return zero"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    0 === $sequence->getFirstKey(),
+                    "Expected {$class}->getFirstKey() to return zero"
+                );
+            }
         }
     }
     
