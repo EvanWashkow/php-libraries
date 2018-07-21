@@ -290,32 +290,59 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testReverseReturnsSameType()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                get_class( $sequence ),
-                get_class( $sequence->reverse() ),
-                "Expected {$class}->reverse() to return the same type"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                $class = self::getClassName( $sequence );
+                $this->assertEquals(
+                    get_class( $sequence ),
+                    get_class( $sequence->reverse() ),
+                    "Expected {$class}->reverse() to return the same type"
+                );
+            }
         }
     }
     
     
     /**
-     * Ensure ReadOnlySequence->reverse() has same keys
+     * Ensure ReadOnlySequence->reverse() has same count
      */
-    public function testReverseHasSameKeys()
+    public function testReverseHasCount()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $lastKey = $sequence->getLastKey();
-            $reverse = $sequence->reverse();
-            $sequence->loop(function( $key, $value ) use ( $class, $lastKey, $reverse ) {
+        foreach (ReadOnlySequenceData::Get() as $type => $sequences) {
+            foreach ($sequences as $type => $sequence) {
+                $class = self::getClassName( $sequence );
+                $this->assertEquals(
+                    $sequence->count(),
+                    $sequence->reverse()->count(),
+                    "Expected {$class}->reverse() to have the same count"
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->reverse() has keys
+     */
+    public function testReverseHasKeys()
+    {
+        foreach (ReadOnlySequenceData::Get() as $type => $sequences) {
+            foreach ($sequences as $type => $sequence) {
+                $hasKeys = true;
+                $reverse = $sequence->reverse();
+                foreach ($sequence as $key => $value) {
+                    if ( !$reverse->hasKey( $key ) ) {
+                        $hasKeys = false;
+                        break;
+                    }
+                    
+                }
+                $class = self::getClassName( $sequence );
                 $this->assertTrue(
-                    $reverse->hasKey( $lastKey - $key ),
+                    $hasKeys,
                     "Expected {$class}->reverse() to have the same keys"
                 );
-            });
+            }
         }
     }
     
@@ -325,17 +352,27 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testReverseValuesAreReversed()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $lastKey = $sequence->getLastKey();
-            $reverse = $sequence->reverse();
-            $sequence->loop(function( $key, $value ) use ( $class, $lastKey, $reverse ) {
-                $this->assertEquals(
-                    $value,
-                    $reverse->get( $lastKey - $key ),
+        foreach (ReadOnlySequenceData::Get() as $type => $sequences) {
+            foreach ($sequences as $type => $sequence) {
+                $hasValues = true;
+                $lastKey   = $sequence->getLastKey();
+                $reverse   = $sequence->reverse();
+                foreach ( $sequence as $key => $value ) {
+                    $reverseKey = $lastKey - $key;
+                    if (
+                        ( !$reverse->hasKey( $reverseKey ) )        ||
+                        ( $value !== $reverse->get( $reverseKey ) )
+                    ) {
+                        $hasValues = false;
+                        break;
+                    }
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $hasValues,
                     "Expected {$class}->reverse() to have the same values in reverse"
                 );
-            });
+            }
         }
     }
     
