@@ -566,17 +566,17 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitReturnsSameType()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
+        $typedValues = CollectionTestData::Get();
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            $value = $typedValues[ $type ][ 0 ];
+            foreach ( $sequences as $sequence ) {
+                $split = $sequence->split( $value );
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    get_class( $sequence ) === get_class( $split ),
+                    "Expected {$class}->split() to return the same type"
+                );
             }
-            $value = $sequence->get( $sequence->getFirstKey() );
-            $split = $sequence->split( $value );
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                get_class( $sequence ) === get_class( $split ),
-                "Expected {$class}->split() to return the same type"
-            );
         }
     }
     
@@ -586,105 +586,42 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitReturnsSameInnerType()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
-            }
-            $value = $sequence->get( $sequence->getFirstKey() );
-            $split = $sequence->split( $value );
-            if ( $split->count() === 0 ) {
-                continue;
-            }
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                get_class( $sequence ) === get_class( $split->get( $split->getFirstKey() )),
-                "Expected {$class}->split() to return the same inner sequence type"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() does not contain the value
-     */
-    public function testSplitDoesNotContainValue()
-    {
-        $sequences = array_merge(
-            ReadOnlySequenceData::GetOld(),
-            ReadOnlySequenceData::GetStringDuplicates()
-        );
-        foreach ( $sequences as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
-            }
-            $value    = $sequence->get( $sequence->getFirstKey() );
-            $split    = $sequence->split( $value );
-            $hasValue = false;
-            $split->loop(function( $key, $inner ) use ( &$hasValue, &$value ) {
-                $inner->loop( function( $key, $v ) use ( &$hasValue, &$value ) {
-                    $hasValue = ( $v === $value );
-                    if ( $hasValue ) {
-                        return;
-                    }
-                });
-            });
-            $class = self::getClassName( $sequence );
-            $this->assertFalse(
-                $hasValue,
-                "Expected {$class}->split() to not contain the value"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() does not contain an empty sequence
-     */
-    public function testSplitContainsNoEmptySequence()
-    {
-        $sequences = array_merge(
-            ReadOnlySequenceData::GetOld(),
-            ReadOnlySequenceData::GetStringDuplicates()
-        );
-        foreach ( $sequences as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
-            }
-            $value = $sequence->get( $sequence->getFirstKey() );
-            $split = $sequence->split( $value );
-            $hasEmptySequence = $split->loop(function( $key, $inner ) {
-                if ( $inner->count() === 0 ) {
-                    return true;
+        $typedValues = CollectionTestData::Get();
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            $value = $typedValues[ $type ][ 0 ];
+            foreach ( $sequences as $sequence ) {
+                $split = $sequence->split( $value );
+                if ( $split->count() === 0 ) {
+                    continue;
                 }
-            });
-            if ( null === $hasEmptySequence ) {
-                $hasEmptySequence = false;
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    get_class( $sequence ) === get_class( $split->get( $split->getFirstKey() )),
+                    "Expected {$class}->split() to return the same inner type"
+                );
             }
-            $class = self::getClassName( $sequence );
-            $this->assertFalse(
-                $hasEmptySequence,
-                "Expected {$class}->split() to not contain an empty sequence"
-            );
         }
     }
     
     
     /**
-     * Ensure ReadOnlySequence->split() has one inner sequence on unfound delimiter
+     * Ensure ReadOnlySequence->split() return one inner sequence on unfound delimiter
      */
-    public function testSplitHasOneInnerSequenceOnUnfoundDelimiter()
+    public function testSplitReturnsOneInnerSequenceOnUnfoundDelimiter()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                if ( 0 === $sequence->count() ) {
+                    continue;
+                }
+                $split = $sequence->split( 'foobar' );
+                $class = self::getClassName( $sequence );
+                $this->assertEquals(
+                    1,
+                    $split->count(),
+                    "Expected {$class}->split() to return one inner sequence on unfound delimiter"
+                );
             }
-            $split = $sequence->split( 'foobar' );
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                1,
-                $split->count(),
-                "Expected {$class}->split() to have one inner sequence on unfound delimiter"
-            );
         }
     }
     
@@ -695,17 +632,84 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitHasSameInnerCountOnUnfoundDelimiter()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            if ( $sequence->count() === 0 ) {
-                continue;
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                if ( 0 === $sequence->count() ) {
+                    continue;
+                }
+                $split = $sequence->split( 'foobar' );
+                $class = self::getClassName( $sequence );
+                $this->assertEquals(
+                    $sequence->count(),
+                    $split->get( $split->getFirstKey() )->count(),
+                    "Expected {$class}->split() to return the same inner sequence count on an unfound delimiter"
+                );
             }
-            $split = $sequence->split( 'foobar' );
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                $sequence->count(),
-                $split->get( $split->getFirstKey() )->count(),
-                "Expected {$class}->split() to return the same inner sequence count on an unfound delimiter"
-            );
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->split() does not contain the value
+     */
+    public function testSplitDoesNotContainValue()
+    {
+        $typedValues = CollectionTestData::Get();
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $hasValue = false;
+                foreach ($typedValues[ $type ] as $value) {
+                    $split  = $sequence->split( $value );
+                    foreach ($split as $subSequence) {
+                        $hasValue = (
+                            $subSequence->getFirstKey() <
+                            $subSequence->getKeyOf( $value )
+                        );
+                        if ( $hasValue ) {
+                            break;
+                        }
+                    }
+                }
+                if ( $hasValue ) {
+                    break;
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertFalse(
+                    $hasValue,
+                    "Expected {$class}->split() to not contain the value"
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->split() does not contain an empty sequence
+     */
+    public function testSplitDoesNotContainEmptySequence()
+    {
+        $typedValues = CollectionTestData::Get();
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $isEmptySequence = false;
+                foreach ($typedValues[ $type ] as $value) {
+                    $split = $sequence->split( $value );
+                    foreach ( $split as $key => $subSequence ) {
+                        $isEmptySequence = 0 === $subSequence->count();
+                        if ( $isEmptySequence ) {
+                            break;
+                        }
+                    }
+                    if ( $isEmptySequence ) {
+                        break;
+                    }
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertFalse(
+                    $isEmptySequence,
+                    "Expected {$class}->split() to not contain an empty sequence"
+                );
+            }
         }
     }
     
