@@ -388,13 +388,15 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceReturnsSameType()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                get_class( $sequence ),
-                get_class( $sequence->slice( $sequence->getFirstKey(), $sequence->count() ) ),
-                "Expected {$class}->slice() to return same type"
-            );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                $class = self::getClassName( $sequence );
+                $this->assertEquals(
+                    get_class( $sequence ),
+                    get_class( $sequence->slice( $sequence->getFirstKey(), $sequence->count() ) ),
+                    "Expected {$class}->slice() to return same type"
+                );
+            }
         }
     }
     
@@ -404,18 +406,31 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceOffsetReturnsValueSubset()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $count   = $sequence->count();
-            $lastKey = $sequence->getLastKey();
-            for ( $offset = $sequence->getFirstKey(); $offset <= $lastKey; $offset++ ) {
-                $slice = $sequence->slice( $offset, $count );
-                for ( $key = $offset; $key <= $lastKey; $key++ ) {
-                    $this->assertTrue(
-                        $sequence->get( $key ) === $slice->get( $key - $offset ),
-                        "Expected {$class}->slice() with offset to return a subset of the same values"
-                    );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                
+                // Variables
+                $count     = $sequence->count();
+                $lastKey   = $sequence->getLastKey();
+                $hasValues = true;
+                
+                // Increment the offset, checking values from resulting slice
+                for ( $offset = $sequence->getFirstKey(); $offset <= $lastKey; $offset++ ) {
+                    $slice = $sequence->slice( $offset, $count );
+                    for ( $key = $offset; $key <= $lastKey; $key++ ) {
+                        if ( $sequence->get( $key ) !== $slice->get( $key - $offset )) {
+                            $hasValues = false;
+                            break;
+                        }
+                    }
                 }
+                
+                // Assertion
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $hasValues,
+                    "Expected {$class}->slice() with offset to return a subset of the same values"
+                );
             }
         }
     }
@@ -424,19 +439,75 @@ class ReadOnlySequenceTest extends CollectionTestCase
     /**
      * Ensure ReadOnlySequence->slice() with count returns a subset of the same values
      */
-    public function testSliceCountReturnsValueSubset()
+    public function testSliceLimitReturnsValueSubset()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $firstKey = $sequence->getFirstKey();
-            for ( $count = 0; $count <= $sequence->count(); $count++ ) {
-                $slice = $sequence->slice( $firstKey, $count );
-                for ( $key = $firstKey; $key <= $slice->getLastKey(); $key++ ) {
-                    $this->assertTrue(
-                        $sequence->get( $key ) === $slice->get( $key ),
-                        "Expected {$class}->slice() with count to return a subset of the same values"
-                    );
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                $hasValues = true;
+                $firstKey   = $sequence->getFirstKey();
+                for ( $count = 0; $count <= $sequence->count(); $count++ ) {
+                    $slice = $sequence->slice( $firstKey, $count );
+                    for ( $key = $firstKey; $key <= $slice->getLastKey(); $key++ ) {
+                        if ( $sequence->get( $key ) !== $slice->get( $key )) {
+                            $hasValues = false;
+                            break;
+                        }
+                    }
                 }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $hasValues,
+                    "Expected {$class}->slice() with limit to return a subset of the same values"
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure ReadOnlySequence->slice() with limit returns that many elements
+     */
+    public function testSliceLimitReturnsLimit()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                $hasLimit = true;
+                $firstKey   = $sequence->getFirstKey();
+                for ( $count = 0; $count <= $sequence->count(); $count++ ) {
+                    $slice = $sequence->slice( $firstKey, $count );
+                    if ( $count !== $slice->count() ) {
+                        $hasLimit = false;
+                        break;
+                    }
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $hasLimit,
+                    "Expected {$class}->slice() with limit to return a subset of the same values"
+                );
+            }
+        }
+    }
+    
+    
+    /**
+    * Ensure ReadOnlySequence->slice() errors on an offset too small
+    */
+    public function testSliceErrorsOnSmallOffset()
+    {
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                $isError = false;
+                try {
+                    $sequence->slice( $sequence->getFirstKey() - 1, 0 );
+                } catch ( \Exception $e ) {
+                    $isError = true;
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $isError,
+                    "Expected {$class}->slice() to error on an offset that is too small"
+                );
             }
         }
     }
@@ -447,52 +518,16 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceWithLargeOffsetReturnsNoValues()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $slice = $sequence->slice( $sequence->getLastKey() + 1, $sequence->count() );
-            $this->assertEquals(
-                0,
-                $slice->count(),
-                "Expected {$class}->slice() given an offset too large returns an empty object"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->slice() with count of zero returns no values
-     */
-    public function testSliceWithCountOfZeroReturnsNoValues()
-    {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $class = self::getClassName( $sequence );
-            $slice = $sequence->slice( $sequence->getFirstKey(), 0 );
-            $this->assertEquals(
-                0,
-                $slice->count(),
-                "Expected {$class}->slice() with count of zero to return an empty object"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->slice() errors on an offset too small
-     */
-    public function testSliceErrorsOnSmallOffset()
-    {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $isError = false;
-            try {
-                $sequence->slice( $sequence->getFirstKey() - 1, 0 );
-            } catch ( \Exception $e ) {
-                $isError = true;
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                $class = self::getClassName( $sequence );
+                $slice = $sequence->slice( $sequence->getLastKey() + 1 );
+                $this->assertEquals(
+                    0,
+                    $slice->count(),
+                    "Expected {$class}->slice() given an offset too large returns an empty object"
+                );
             }
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $isError,
-                "Expected {$class}->slice() to error on an offset that is too small"
-            );
         }
     }
     
@@ -502,18 +537,20 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSliceErrorsOnNegativeLimits()
     {
-        foreach ( ReadOnlySequenceData::GetOld() as $sequence ) {
-            $isError = false;
-            try {
-                $sequence->slice( $sequence->getFirstKey(), -1 );
-            } catch ( \Exception $e ) {
-                $isError = true;
+        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
+            foreach ($sequences as $sequence) {
+                $isError = false;
+                try {
+                    $sequence->slice( $sequence->getFirstKey(), -1 );
+                } catch ( \Exception $e ) {
+                    $isError = true;
+                }
+                $class = self::getClassName( $sequence );
+                $this->assertTrue(
+                    $isError,
+                    "Expected {$class}->slice() to error on a negative offset"
+                );
             }
-            $class = self::getClassName( $sequence );
-            $this->assertTrue(
-                $isError,
-                "Expected {$class}->slice() to error on a negative offset"
-            );
         }
     }
     
