@@ -650,6 +650,32 @@ class ReadOnlySequenceTest extends CollectionTestCase
     
     
     /**
+     * Ensure ReadOnlySequence->split() returns the requested limit (of 1)
+     */
+    public function testSplitReturnsLimit()
+    {
+        foreach ( ReadOnlySequenceData::GetDuplicates() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                for (
+                    $key = $sequence->getFirstKey();
+                    $key <= ( $sequence->count() / 2 );
+                    $key++
+                ) {
+                    $value = $sequence->get( $key );
+                    $split = $sequence->split( $value, 1 );
+                    $class = self::getClassName( $sequence );
+                    $this->assertLessThanOrEqual(
+                        1,
+                        $split->count(),
+                        "Expected {$class}->split() to return the requested limit of 1"
+                    );
+                }
+            }
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->split() return one inner sequence on unfound delimiter
      */
     public function testSplitReturnsOneInnerSequenceOnUnfoundDelimiter()
