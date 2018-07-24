@@ -124,24 +124,4 @@ final class SequenceData
         }
         return $duplicates;
     }
-    
-    
-    /**
-     * Retrieves test data with duplicated strings
-     *
-     * @return array
-     */
-    public static function GetStringDuplicates(): array
-    {
-        $sequence = new Sequence( 'string' );
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        $sequence->add( '1' );
-        $sequence->add( '0' );
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        return [
-            $sequence
-        ];
-    }
 }
