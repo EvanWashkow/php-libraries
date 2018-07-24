@@ -605,6 +605,51 @@ class ReadOnlySequenceTest extends CollectionTestCase
     
     
     /**
+     * Ensure ReadOnlySequence->split() returns all sequence values stored in
+     * the proper location on the returned split sequence
+     */
+    public function testSplitReturnsValidInnerSequenceData()
+    {
+        foreach ( ReadOnlySequenceData::GetDuplicates() as $type => $sequences ) {
+            foreach ( $sequences as $sequence ) {
+                for (
+                    $key = $sequence->getFirstKey();
+                    $key <= ( $sequence->count() / 2 );
+                    $key++
+                ) {
+                    
+                    // Variables
+                    $class     = self::getClassName( $sequence );
+                    $value     = $sequence->get( $key );
+                    $split     = $sequence->split( $value );
+                    $outerKey  = 0;
+                    $innerKey  = 0;
+                    
+                    // Ensure each sequence value is in the proper location
+                    // in the split sequence
+                    foreach ( $sequence as $sequenceKey => $sequenceValue ) {
+                        if ( $sequenceValue !== $value ) {
+                            $this->assertEquals(
+                                $sequenceValue,
+                                $split->get( $outerKey )->get( $innerKey ),
+                                "{$class}->split() does not have the sequence value at the expected key"
+                            );
+                            $innerKey++;
+                        }
+                        
+                        // Values are equal and tests have been run on the inner
+                        else if ( 0 !== $innerKey ) {
+                            $outerKey++;
+                            $innerKey = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    /**
      * Ensure ReadOnlySequence->split() return one inner sequence on unfound delimiter
      */
     public function testSplitReturnsOneInnerSequenceOnUnfoundDelimiter()
@@ -645,161 +690,6 @@ class ReadOnlySequenceTest extends CollectionTestCase
                     "Expected {$class}->split() to return the same inner sequence count on an unfound delimiter"
                 );
             }
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() does not contain the value
-     */
-    public function testSplitDoesNotContainValue()
-    {
-        $typedValues = CollectionTestData::Get();
-        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
-            foreach ( $sequences as $sequence ) {
-                $hasValue = false;
-                foreach ($typedValues[ $type ] as $value) {
-                    $split  = $sequence->split( $value );
-                    foreach ($split as $subSequence) {
-                        $hasValue = (
-                            $subSequence->getFirstKey() <
-                            $subSequence->getKeyOf( $value )
-                        );
-                        if ( $hasValue ) {
-                            break;
-                        }
-                    }
-                }
-                if ( $hasValue ) {
-                    break;
-                }
-                $class = self::getClassName( $sequence );
-                $this->assertFalse(
-                    $hasValue,
-                    "Expected {$class}->split() to not contain the value"
-                );
-            }
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() does not contain an empty sequence
-     */
-    public function testSplitDoesNotContainEmptySequence()
-    {
-        $typedValues = CollectionTestData::Get();
-        foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
-            foreach ( $sequences as $sequence ) {
-                $isEmptySequence = false;
-                foreach ($typedValues[ $type ] as $value) {
-                    $split = $sequence->split( $value );
-                    foreach ( $split as $key => $subSequence ) {
-                        $isEmptySequence = 0 === $subSequence->count();
-                        if ( $isEmptySequence ) {
-                            break;
-                        }
-                    }
-                    if ( $isEmptySequence ) {
-                        break;
-                    }
-                }
-                $class = self::getClassName( $sequence );
-                $this->assertFalse(
-                    $isEmptySequence,
-                    "Expected {$class}->split() to not contain an empty sequence"
-                );
-            }
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                 ReadOnlySequence->split() (string data)
-    ***************************************************************************/
-    
-    /**
-     * Ensure ReadOnlySequence->split() on 1 has three 0s
-     */
-    public function testSplitOnOneHasThreeZeros()
-    {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $split = $sequence->split( '1' );
-            $count = 0;
-            $split->loop(function( $key, $inner ) use ( &$count ) {
-                $inner->loop(function( $key, $value ) use ( &$count ) {
-                    if ( '0' === $value ) {
-                        $count++;
-                    }
-                    else {
-                        $this->assertFalse(
-                            true,
-                            "Did not expect any other values beside \"0\""
-                        );
-                    }
-                });
-            });
-            $class = self::getClassName( $sequence );
-            $this->assertEquals(
-                3,
-                $count,
-                "Expected {$class}->split() on 1 to return three 0s"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() on 1 has 2 inner sequences
-     */
-    public function testSplitOnOneHasTwoInnerSequences()
-    {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $split   = $sequence->split( '1' );
-            $this->assertEquals(
-                2,
-                $split->count(),
-                "Expected {$class}->split() on 1 to have 2 inner sequences"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() on 1 has 1 item in first inner sequence
-     */
-    public function testSplitOnOneFirstInnerSequenceHasOneItem()
-    {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $split   = $sequence->split( '1' );
-            $firstKey = $split->getFirstKey();
-            $this->assertEquals(
-                1,
-                $split->get( $firstKey )->count(),
-                "Expected {$class}->split() on 1 to have 1 item in first inner sequence"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure ReadOnlySequence->split() on 1 has 2 items in second inner sequence
-     */
-    public function testSplitOnOneSecondInnerSequenceHasTwoItems()
-    {
-        foreach ( ReadOnlySequenceData::GetStringDuplicates() as $sequence ) {
-            $class   = self::getClassName( $sequence );
-            $split   = $sequence->split( '1' );
-            $firstKey = $split->getFirstKey();
-            $this->assertEquals(
-                2,
-                $split->get( $firstKey + 1 )->count(),
-                "Expected {$class}->split() on 1 to have 2 items in second inner sequence"
-            );
         }
     }
 }
