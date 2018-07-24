@@ -104,6 +104,29 @@ final class SequenceData
     
     
     /**
+     * Retrieves duplicate test data by appending the reverse with itself
+     *
+     * @return array
+     */
+    public static function GetDuplicates(): array
+    {
+        $duplicates = [];
+        foreach ( CollectionTestData::Get() as $type => $values ) {
+            $sequence = new Sequence( $type );
+            foreach ($values as $value) {
+                $sequence->add( $value );
+            }
+            foreach (array_reverse($values) as $value) {
+                $sequence->add( $value );
+            }
+            $duplicates[ $type ][] = $sequence;
+            
+        }
+        return $duplicates;
+    }
+    
+    
+    /**
      * Retrieves test data with duplicated strings
      *
      * @return array

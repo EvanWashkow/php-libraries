@@ -87,6 +87,26 @@ final class ReadOnlySequenceData
     *                                   DUPLICATES
     ***************************************************************************/
     
+    
+    /**
+     * Retrieves duplicate test data by appending the reverse with itself
+     *
+     * @return array
+     */
+    public static function GetDuplicates(): array
+    {
+        $duplicates = [];
+        foreach ( SequenceData::GetDuplicates() as $type => $sequences ) {
+            $duplicates[ $type ] = [];
+            foreach ( $sequences as $sequence ) {
+                $duplicates[ $type ][] = $sequence;
+                $duplicates[ $type ][] = new ReadOnlySequence( $sequence );
+            }
+        }
+        return $duplicates;
+    }
+    
+    
     /**
      * Retrieves test data with duplicated strings
      *
