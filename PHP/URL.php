@@ -143,6 +143,9 @@ class URL extends PHPObject implements IPHPObject
             $pieces = explode( '/', $pieces[ 0 ] );
             array_shift( $pieces );
             $this->path = '/' . trim( implode( '/', $pieces ), '/' );
+            if ( 1 < strlen( $this->path )) {
+                $this->path = "{$this->path}/";
+            }
         }
         return $this->path;
     }

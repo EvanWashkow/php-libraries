@@ -117,6 +117,23 @@ class URLTest extends TestCase
     }
     
     
+    /**
+     * Ensure URL->getPath() returns the path
+     */
+    public function testGetPathReturnsPath()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $url = new URL( $url );
+            $this->assertEquals(
+                $urlInfo[ 'path' ],
+                $url->getPath(),
+                "Expected URL->getPath() to return the path"
+            );
+        }
+    }
+    
+    
+    
     
     /***************************************************************************
     *                                   DATA
