@@ -49,8 +49,8 @@ class URLTest extends TestCase
     
     
     /**
-    * Ensure URL::Sanitize() returns trimmed string
-    */
+     * Ensure URL::Sanitize() returns trimmed string
+     */
     public function testSanitizeReturnsTrimmedString()
     {
         foreach ( self::getURLs() as $url => $urlInfo ) {
@@ -61,6 +61,19 @@ class URLTest extends TestCase
             );
             break;
         }
+    }
+    
+    
+    /**
+     * Ensure URL::Sanitize() returns empty string on invalid URL
+     */
+    public function testSanitizeReturnsEmptyStringOnInvalid()
+    {
+        $this->assertEquals(
+            '',
+            URL::Sanitize( 'foobar' ),
+            "Expected URL::Sanitize() to return a empty string on invalid URL"
+        );
     }
     
     
