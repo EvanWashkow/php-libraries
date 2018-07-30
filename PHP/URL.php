@@ -161,17 +161,20 @@ class URL extends PHPObject implements IPHPObject
         if ( null === $this->parameters ) {
             $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
             $index = strpos( $this->url, '?' );
-            if ( false !== $index ) {
+            if ( false === $index ) {
                 $_parameters = substr( $this->url, $index + 1 );
                 $_parameters = explode( '&', $_parameters );
                 foreach ( $_parameters as $_parameter ) {
                     $pieces = explode( '=', $_parameter, 2 );
-                    $index  = array_shift( $pieces );
+                    $key    = array_shift( $pieces );
+                    if ( '' === $key ) {
+                        continue;
+                    }
                     $value  = array_shift( $pieces );
                     if ( null === $value ) {
                         $value = '';
                     }
-                    $this->parameters->set( $index, $value );
+                    $this->parameters->set( $key, $value );
                 }
             }
         }
