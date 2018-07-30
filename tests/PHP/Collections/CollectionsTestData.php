@@ -5,7 +5,7 @@
  *
  * Use this going forward for all future collection tests.
  */
-final class CollectionTestData
+final class CollectionsTestData
 {
     
     /**

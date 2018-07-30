@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__ . '/CollectionTestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
 /**
@@ -9,7 +9,7 @@ require_once( __DIR__ . '/ReadOnlySequenceData.php' );
  * This tests both the read-only and the editable sequnce (the read-only
  * simply invokes the editable)
  */
-class ReadOnlySequenceTest extends CollectionTestCase
+class ReadOnlySequenceTest extends CollectionsTestCase
 {
     
     /***************************************************************************
@@ -110,7 +110,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testGetKeyOfReturnsBadKeyWhenMissingValue()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( ReadOnlySequenceData::Get() as $sequenceType => $sequences ) {
             foreach ( $sequences as $sequence ) {
                 foreach ( $values as $valueType => $typedValues ) {
@@ -566,7 +566,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitReturnsSameType()
     {
-        $typedValues = CollectionTestData::Get();
+        $typedValues = CollectionsTestData::Get();
         foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
             $value = $typedValues[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
@@ -586,7 +586,7 @@ class ReadOnlySequenceTest extends CollectionTestCase
      */
     public function testSplitReturnsSameInnerType()
     {
-        $typedValues = CollectionTestData::Get();
+        $typedValues = CollectionsTestData::Get();
         foreach ( ReadOnlySequenceData::Get() as $type => $sequences ) {
             $value = $typedValues[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {

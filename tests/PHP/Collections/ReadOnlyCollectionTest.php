@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__ . '/CollectionTestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
 
 /**
@@ -8,7 +8,7 @@ require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
  *
  * NOTE: ReadOnlyCollections tests also tests the underlying collection
  */
-class ReadOnlyCollectionTest extends CollectionTestCase
+class ReadOnlyCollectionTest extends CollectionsTestCase
 {
     
     /***************************************************************************

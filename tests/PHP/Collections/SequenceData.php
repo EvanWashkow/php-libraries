@@ -2,7 +2,7 @@
 
 use PHP\Collections\Sequence;
 
-require_once( __DIR__ . '/CollectionTestData.php' );
+require_once( __DIR__ . '/CollectionsTestData.php' );
 
 /**
  * Sequence test data
@@ -18,7 +18,7 @@ final class SequenceData
     public static function Get(): array
     {
         $instances = [];
-        foreach ( CollectionTestData::Get() as $type => $values ) {
+        foreach ( CollectionsTestData::Get() as $type => $values ) {
             $sequence = new Sequence( $type );
             foreach ( $values as $value ) {
                 $sequence->add( $value );
@@ -111,7 +111,7 @@ final class SequenceData
     public static function GetDuplicates(): array
     {
         $duplicates = [];
-        foreach ( CollectionTestData::Get() as $type => $values ) {
+        foreach ( CollectionsTestData::Get() as $type => $values ) {
             $sequence = new Sequence( $type );
             foreach ($values as $value) {
                 $sequence->add( $value );

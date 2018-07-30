@@ -1,12 +1,12 @@
 <?php
 
 require_once( __DIR__ . '/SequenceData.php' );
-require_once( __DIR__ . '/CollectionTestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
  */
-class SequenceTest extends CollectionTestCase
+class SequenceTest extends CollectionsTestCase
 {
     
     /***************************************************************************
@@ -20,7 +20,7 @@ class SequenceTest extends CollectionTestCase
     public function testAddValueIsSame()
     {
         foreach ( SequenceData::Get() as $type => $sequences ) {
-            $value = CollectionTestData::Get()[ $type ][ 0 ];
+            $value = CollectionsTestData::Get()[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
                 $before = $sequence->count();
                 $class  = self::getClassName( $sequence );
@@ -46,7 +46,7 @@ class SequenceTest extends CollectionTestCase
             }
             
             foreach ( $sequences as $sequence ) {
-                foreach ( CollectionTestData::Get() as $valueType => $values ) {
+                foreach ( CollectionsTestData::Get() as $valueType => $values ) {
                     if ( in_array( $valueType, [ '', $type ] )) {
                         continue;
                     }
@@ -81,7 +81,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertAtBeginning()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = $values[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
@@ -104,7 +104,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertAtEnd()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = $values[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
@@ -126,7 +126,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertShiftsValues()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( SequenceData::Get() as $type => $sequences ) {
             foreach ( $sequences as $sequence ) {
                 if ( 0 === $sequence->count() ) {
@@ -152,7 +152,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertErrorsOnKeyTooSmall()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( SequenceData::Get() as $type => $sequences ) {
             $typeValues = $values[ $type ];
             foreach ( $sequences as $sequence ) {
@@ -177,7 +177,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertErrorsOnKeyTooLarge()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( SequenceData::Get() as $type => $sequences ) {
             $typeValues = $values[ $type ];
             foreach ( $sequences as $sequence ) {
@@ -202,7 +202,7 @@ class SequenceTest extends CollectionTestCase
      */
     public function testInsertErrorsOnWrongKeyType()
     {
-        $values = CollectionTestData::Get();
+        $values = CollectionsTestData::Get();
         foreach ( SequenceData::Get() as $type => $sequences ) {
             $value = $values[ $type ][0];
             foreach ( $sequences as $sequence ) {
@@ -233,7 +233,7 @@ class SequenceTest extends CollectionTestCase
             }
             
             foreach ( $sequences as $sequence ) {
-                foreach ( CollectionTestData::Get() as $valueType => $values ) {
+                foreach ( CollectionsTestData::Get() as $valueType => $values ) {
                     if ( in_array( $valueType, [ '', $type ] )) {
                         continue;
                     }

@@ -5,7 +5,7 @@ require_once( __DIR__ . '/../TestCase.php' );
 /**
  * Defines a base test class for all collection test cases
  */
-class CollectionTestCase extends TestCase
+class CollectionsTestCase extends TestCase
 {
     /**
      * Retrieve count of items in iterator

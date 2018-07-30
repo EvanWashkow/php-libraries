@@ -1,12 +1,12 @@
 <?php
 
-require_once( __DIR__ . '/CollectionTestCase.php' );
+require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/IteratorData.php' );
 
 /**
  * Test all Iterator methods to ensure consistent functionality
  */
-class IteratorTest extends CollectionTestCase
+class IteratorTest extends CollectionsTestCase
 {
     
     /***************************************************************************
