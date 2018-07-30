@@ -44,6 +44,29 @@ class URLTest extends TestCase
     
     
     /***************************************************************************
+    *                                Sanitize()
+    ***************************************************************************/
+    
+    
+    /**
+    * Ensure URL::Sanitize() returns trimmed string
+    */
+    public function testSanitizeReturnsTrimmedString()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $this->assertEquals(
+                $url,
+                URL::Sanitize( "  {$url}  " ),
+                "Expected URL::Sanitize() to return a trimmed string"
+            );
+            break;
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                                   DATA
     ***************************************************************************/
     
