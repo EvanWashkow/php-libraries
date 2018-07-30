@@ -81,7 +81,7 @@ class URLTest extends TestCase
     
     
     /***************************************************************************
-    *                              getProtocol()
+    *                               ACCESSORS
     ***************************************************************************/
     
     
@@ -96,6 +96,22 @@ class URLTest extends TestCase
                 $urlInfo[ 'protocol' ],
                 $url->getProtocol(),
                 "Expected URL->getProtocol() to return the protocol"
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure URL->getDomain() returns the domain
+     */
+    public function testGetDomainReturnsDomain()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $url = new URL( $url );
+            $this->assertEquals(
+                $urlInfo[ 'domain' ],
+                $url->getDomain(),
+                "Expected URL->getDomain() to return the domain"
             );
         }
     }
