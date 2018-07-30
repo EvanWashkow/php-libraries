@@ -17,7 +17,7 @@ class URL extends PHPObject implements IPHPObject
      * @param string $url The URL to check
      * @return bool
      */
-    final public static function IsValid( string $url )
+    final public static function IsValid( string $url ): bool
     {
         $url = filter_var( $url, FILTER_VALIDATE_URL );
         return ( false !== $url );
@@ -30,7 +30,7 @@ class URL extends PHPObject implements IPHPObject
      * @param string $url The URL
      * @return string Empty string on invalid URL
      */
-    final public static function Sanitize( string $url )
+    final public static function Sanitize( string $url ): string
     {
         $url = filter_var( $url, FILTER_SANITIZE_URL );
         if ( !self::IsValid( $url )) {
@@ -104,7 +104,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function getProtocol()
+    final public function getProtocol(): string
     {
         if ( null === $this->protocol ) {
             $this->protocol = explode( '://', $this->url, 2 )[ 0 ];
@@ -118,7 +118,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function getDomain()
+    final public function getDomain(): string
     {
         if ( null === $this->domain ) {
             $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3 );
@@ -135,7 +135,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function getPath()
+    final public function getPath(): string
     {
         if ( null === $this->path ) {
             $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3);
@@ -153,7 +153,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return \PHP\Collections\Dictionary
      */
-    final public function getParameters()
+    final public function getParameters(): \PHP\Collections\Dictionary
     {
         if ( null === $this->parameters ) {
             $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
@@ -181,7 +181,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function toString()
+    final public function toString(): string
     {
         return $this->url;
     }

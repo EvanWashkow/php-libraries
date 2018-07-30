@@ -17,7 +17,7 @@ class URLTest extends TestCase
      *
      * @return array
      */
-    public static function getURLs(): array
+    private static function getURLs(): array
     {
         // URL parts
         $protocols = [ 'https', 'http' ];
