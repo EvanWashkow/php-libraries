@@ -1,5 +1,7 @@
 <?php
 
+use PHP\URL;
+
 require_once( __DIR__ . '/TestCase.php' );
 
 /**
@@ -7,6 +9,27 @@ require_once( __DIR__ . '/TestCase.php' );
  */
 class URLTest extends TestCase
 {
+    
+    /***************************************************************************
+    *                                 IsValid()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure URL::IsValid() returns true for valid URLs
+     */
+    public function testIsValidReturnsTrue()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $this->assertTrue(
+                URL::IsValid( $url ),
+                "Expected URL::IsValid() to return true for valid URLs"
+            );
+        }
+    }
+    
+    
+    
     
     /***************************************************************************
     *                                   DATA
