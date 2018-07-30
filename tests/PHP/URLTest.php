@@ -64,6 +64,7 @@ class URLTest extends TestCase
     }
     
     
+    
     /**
      * Ensure URL::Sanitize() returns empty string on invalid URL
      */
@@ -76,6 +77,28 @@ class URLTest extends TestCase
         );
     }
     
+    
+    
+    
+    /***************************************************************************
+    *                              getProtocol()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure URL->getProtocol() returns the protocol
+     */
+    public function testGetProtocolReturnsProtocol()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $url = new URL( $url );
+            $this->assertEquals(
+                $urlInfo[ 'protocol' ],
+                $url->getProtocol(),
+                "Expected URL->getProtocol() to return the protocol"
+            );
+        }
+    }
     
     
     
