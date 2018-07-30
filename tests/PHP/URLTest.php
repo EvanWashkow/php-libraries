@@ -29,6 +29,18 @@ class URLTest extends TestCase
     }
     
     
+    /**
+     * Ensure URL::IsValid() returns false for invalid URLs
+     */
+    public function testIsValidReturnsFalse()
+    {
+        $this->assertFalse(
+            URL::IsValid( 'foobar' ),
+            "Expected URL::IsValid() to return false for invalid URLs"
+        );
+    }
+    
+    
     
     
     /***************************************************************************
