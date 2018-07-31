@@ -158,25 +158,32 @@ class URL extends PHPObject implements IPHPObject
      */
     final public function getParameters(): \PHP\Collections\Dictionary
     {
-        if ( null === $this->parameters ) {
-            $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
-            $index = strpos( $this->url, '?' );
-            if ( false === $index ) {
-                $_parameters = substr( $this->url, $index + 1 );
-                $_parameters = explode( '&', $_parameters );
-                foreach ( $_parameters as $_parameter ) {
-                    $pieces = explode( '=', $_parameter, 2 );
-                    $key    = array_shift( $pieces );
-                    if ( '' === $key ) {
-                        continue;
-                    }
-                    $value  = array_shift( $pieces );
-                    if ( null === $value ) {
-                        $value = '';
-                    }
-                    $this->parameters->set( $key, $value );
-                }
+        // Exit. Parameters already generated.
+        if ( null !== $this->parameters ) {
+            return $this->parameters;
+        }
+        
+        // Exit. No parameters in this URL.
+        $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
+        $index = strpos( $this->url, '?' );
+        if ( false === $index ) {
+            return $this->parameters;
+        }
+        
+        // Build list of URL parameters, mapping key => value pairs
+        $parameters = substr( $this->url, $index + 1 );
+        $parameters = explode( '&', $parameters );
+        foreach ( $parameters as $parameter ) {
+            $pieces = explode( '=', $parameter, 2 );
+            $key    = array_shift( $pieces );
+            if ( '' === $key ) {
+                continue;
             }
+            $value  = array_shift( $pieces );
+            if ( null === $value ) {
+                $value = '';
+            }
+            $this->parameters->set( $key, $value );
         }
         return $this->parameters;
     }
