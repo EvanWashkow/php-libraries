@@ -133,6 +133,32 @@ class URLTest extends TestCase
     }
     
     
+    /**
+     * Ensure URL->getParameters() returns the parameters
+     */
+    public function testGetParametersReturnsParameters()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $url           = new URL( $url );
+            $parameters    = $url->getParameters();
+            $hasParameters = true;
+            foreach ( $urlInfo[ 'parameters' ] as $key => $value) {
+                $hasParameters = (
+                    $parameters->hasKey( $key ) &&
+                    ( $parameters->get( $key ) === $value )
+                );
+                if ( !$hasParameters ) {
+                    break;
+                }
+            }
+            $this->assertTrue(
+                $hasParameters,
+                "Expected URL->getParameters() to return the parameters"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
@@ -174,10 +200,10 @@ class URLTest extends TestCase
                         $urls[
                             "{$protocol}://{$domain}{$actualPath}{$actualParam}"
                         ] = [
-                            'protocol'  => $protocol,
-                            'domain'    => $domain,
-                            'path'      => $expectedPath,
-                            'parameter' => $expectedParam,
+                            'protocol'   => $protocol,
+                            'domain'     => $domain,
+                            'path'       => $expectedPath,
+                            'parameters' => $expectedParam,
                         ];
                     }
                 }
