@@ -40,7 +40,11 @@ class Dictionary extends Collection implements IDictionary
     public function __construct( string $keyType = '', string $valueType = '' )
     {
         // Abort. The key type must be either an integer or string.
-        if (( 'integer' !== $keyType ) && ( 'string' !== $keyType )) {
+        if (
+            ( ''        !== $keyType ) &&
+            ( 'integer' !== $keyType ) &&
+            ( 'string'  !== $keyType )
+        ) {
             throw new \Exception( 'Dictionary keys must either be integers or strings' );
         }
         
@@ -90,6 +94,7 @@ class Dictionary extends Collection implements IDictionary
     
     final public function set( $key, $value ): bool
     {
+        // Throw warnings
         $isSuccessful = false;
         if ( !$this->isOfKeyType( $key )) {
             trigger_error( 'Cannot set value since the key is of the wrong type' );
@@ -97,6 +102,8 @@ class Dictionary extends Collection implements IDictionary
         elseif ( !$this->isOfValueType( $value )) {
             trigger_error( 'Cannot set value since the value is of the wrong type' );
         }
+        
+        // Set the key value pair
         else {
             $this->entries[ $key ] = $value;
             $isSuccessful = true;
@@ -130,10 +137,10 @@ class Dictionary extends Collection implements IDictionary
     final public function get( $key )
     {
         if ( !$this->isOfKeyType( $key )) {
-            throw new \Exception( "Cannot get non-{$this->keyType} key" );
+            throw new \InvalidArgumentException( "Cannot get non-{$this->keyType} key" );
         }
         elseif ( !$this->hasKey( $key )) {
-            throw new \Exception( "Cannot get value at non-existing key" );
+            throw new \InvalidArgumentException( "Cannot get value at non-existing key" );
         }
         return $this->entries[ $key ];
     }
@@ -141,10 +148,17 @@ class Dictionary extends Collection implements IDictionary
     
     final public function hasKey( $key ): bool
     {
-        return (
-            $this->isOfKeyType( $key ) &&
-            array_key_exists( $key, $this->entries )
-        );
+        $hasKey = $this->isOfKeyType( $key );
+        if ( $hasKey ) {
+            
+            // If the given key is an object, array_key_exists throws an error
+            try {
+                $hasKey = array_key_exists( $key, $this->entries );
+            } catch ( \Exception $e ) {
+                $hasKey = false;
+            }
+        }
+        return $hasKey;
     }
     
     
@@ -161,7 +175,18 @@ class Dictionary extends Collection implements IDictionary
     
     final public function key()
     {
-        return key( $this->entries );
+        $key = key( $this->entries );
+        
+        /**
+         * PHP implicitly implicitly converts string indices--like "0"--to integers
+         *
+         * TODO: Remove this when converting to two internal sequences for keys
+         * and values
+         */
+        if (( null !== $key ) && ( 'string' === $this->keyType )) {
+            $key = ( string ) $key;
+        }
+        return $key;
     }
     
     final public function next()

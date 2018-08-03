@@ -81,9 +81,16 @@ class Sequence extends Collection implements ISequence
             trigger_error( "Cannot insert non-{$this->type} values" );
         }
         
-        // Insert value at the key
+        /**
+         * Insert value at this key, shifting other values
+         *
+         * array_slice() ignores single, empty values, such as null and
+         * stdClass(). First insert a placeholder at that entry and then
+         * set that key.
+         */
         else {
-            array_splice( $this->entries, $key, 0, $value );
+            array_splice( $this->entries, $key, 0, 'placeholder' );
+            $this->set( $key, $value );
             $isSuccessful = true;
         }
         
@@ -165,10 +172,10 @@ class Sequence extends Collection implements ISequence
     final public function get( $key )
     {
         if ( !is( $key, 'integer' )) {
-            throw new \Exception( 'Cannot get value from non-integer key' );
+            throw new \InvalidArgumentException( 'Cannot get value from non-integer key' );
         }
         elseif ( !$this->hasKey( $key )) {
-            throw new \Exception( 'Cannot get value from key that does not exist' );
+            throw new \InvalidArgumentException( 'Cannot get value from key that does not exist' );
         }
         return $this->entries[ $key ];
     }
@@ -189,22 +196,21 @@ class Sequence extends Collection implements ISequence
     final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
-        $key = -1;
-        
-        // Exit. There are no entries.
-        if ( 0 === $this->count() ) {
-            return $key;
-        }
+        $key = $this->getFirstKey() - 1;
     
         // Exit. Offset cannot be negative.
-        elseif ( $offset < $this->getFirstKey() ) {
+        if ( $offset < $this->getFirstKey() ) {
             trigger_error( 'Offset cannot be less than the first entry\'s key' );
             return $key;
         }
         
         // Exit. Offset cannot surpass the end of the array.
         elseif ( $this->getLastKey() < $offset ) {
-            trigger_error( 'Offset cannot be greater than the last entry\'s key' );
+            return $key;
+        }
+        
+        // Exit. There are no entries.
+        elseif ( 0 === $this->count() ) {
             return $key;
         }
             
@@ -213,7 +219,7 @@ class Sequence extends Collection implements ISequence
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
-        $searchResult = array_search( $value, $sequence->toArray() );
+        $searchResult = array_search( $value, $sequence->toArray(), true );
         if ( false !== $searchResult ) {
             
             // Invert key for reverse search. Keep in mind that the last
@@ -252,7 +258,7 @@ class Sequence extends Collection implements ISequence
     }
     
     
-    public function slice( int $offset, int $limit ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables
         $key      = $offset;
@@ -269,7 +275,7 @@ class Sequence extends Collection implements ISequence
         
         // Sanitize the starting key
         if ( $offset < $this->getFirstKey() ) {
-            trigger_error( 'Starting key cannot be less than the first key of the sequence.' );
+            trigger_error( 'Starting key cannot be before the first key of the sequence.' );
             $offset = $this->getFirstKey();
         }
         
@@ -289,7 +295,7 @@ class Sequence extends Collection implements ISequence
     }
     
     
-    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables
         $startingKey   = $this->getFirstKey();
@@ -297,7 +303,7 @@ class Sequence extends Collection implements ISequence
         
         while (
             // Haven't exceeded requested items
-            (( $limit < 0 ) || ( $outerSequence->count() < $limit )) &&
+            ( $outerSequence->count() < $limit ) &&
             // Starting index is not past the end of this sequence
             ( $startingKey <= $this->getLastKey() )
         ) {

@@ -23,10 +23,9 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
     }
     
     
-    final public function clone(): IReadOnlyCollection
+    public function clone(): IReadOnlyCollection
     {
-        $clone = $this->collection->clone();
-        return new self( $clone );
+        return new self( $this->collection );
     }
     
     final public function toArray(): array
@@ -55,13 +54,13 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
         return new self( $sequence );
     }
     
-    public function slice( int $offset, int $limit ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         $sequence = $this->collection->slice( $offset, $limit );
         return new self( $sequence );
     }
     
-    public function split( $delimiter, int $limit = -1 ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables
         $splitSequence = $this->collection->split( $delimiter, $limit );

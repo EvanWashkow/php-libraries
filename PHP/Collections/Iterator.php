@@ -51,7 +51,7 @@ abstract class Iterator extends \PHP\PHPObject implements IIterator
             try {
                 $this->seek( $outerLoopKey );
             } catch ( \Exception $e ) {
-                trigger_error( 'Failed to restore outer loop position from inside ' . get_class( $this ) . '->' . __FUNCTION__ . '(). You may experience unexpected behavior.' );
+                $this->rewind();
             }
         }
         

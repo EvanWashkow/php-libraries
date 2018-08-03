@@ -17,7 +17,7 @@ class URL extends PHPObject implements IPHPObject
      * @param string $url The URL to check
      * @return bool
      */
-    final public static function IsValid( string $url )
+    final public static function IsValid( string $url ): bool
     {
         $url = filter_var( $url, FILTER_VALIDATE_URL );
         return ( false !== $url );
@@ -30,7 +30,7 @@ class URL extends PHPObject implements IPHPObject
      * @param string $url The URL
      * @return string Empty string on invalid URL
      */
-    final public static function Sanitize( string $url )
+    final public static function Sanitize( string $url ): string
     {
         $url = filter_var( $url, FILTER_SANITIZE_URL );
         if ( !self::IsValid( $url )) {
@@ -104,7 +104,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function getProtocol()
+    final public function getProtocol(): string
     {
         if ( null === $this->protocol ) {
             $this->protocol = explode( '://', $this->url, 2 )[ 0 ];
@@ -118,7 +118,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function getDomain()
+    final public function getDomain(): string
     {
         if ( null === $this->domain ) {
             $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3 );
@@ -135,7 +135,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function getPath()
+    final public function getPath(): string
     {
         if ( null === $this->path ) {
             $_url   = substr( $this->url, strlen( $this->getProtocol() ) + 3);
@@ -143,6 +143,9 @@ class URL extends PHPObject implements IPHPObject
             $pieces = explode( '/', $pieces[ 0 ] );
             array_shift( $pieces );
             $this->path = '/' . trim( implode( '/', $pieces ), '/' );
+            if ( 1 < strlen( $this->path )) {
+                $this->path = "{$this->path}/";
+            }
         }
         return $this->path;
     }
@@ -153,24 +156,34 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return \PHP\Collections\Dictionary
      */
-    final public function getParameters()
+    final public function getParameters(): \PHP\Collections\Dictionary
     {
-        if ( null === $this->parameters ) {
-            $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
-            $index = strpos( $this->url, '?' );
-            if ( false !== $index ) {
-                $_parameters = substr( $this->url, $index + 1 );
-                $_parameters = explode( '&', $_parameters );
-                foreach ( $_parameters as $_parameter ) {
-                    $pieces = explode( '=', $_parameter, 2 );
-                    $index  = array_shift( $pieces );
-                    $value  = array_shift( $pieces );
-                    if ( null === $value ) {
-                        $value = '';
-                    }
-                    $this->parameters->set( $index, $value );
-                }
+        // Exit. Parameters already generated.
+        if ( null !== $this->parameters ) {
+            return $this->parameters;
+        }
+        
+        // Exit. No parameters in this URL.
+        $this->parameters = new \PHP\Collections\Dictionary( 'string', 'string' );
+        $index = strpos( $this->url, '?' );
+        if ( false === $index ) {
+            return $this->parameters;
+        }
+        
+        // Build list of URL parameters, mapping key => value pairs
+        $parameters = substr( $this->url, $index + 1 );
+        $parameters = explode( '&', $parameters );
+        foreach ( $parameters as $parameter ) {
+            $pieces = explode( '=', $parameter, 2 );
+            $key    = array_shift( $pieces );
+            if ( '' === $key ) {
+                continue;
             }
+            $value  = array_shift( $pieces );
+            if ( null === $value ) {
+                $value = '';
+            }
+            $this->parameters->set( $key, $value );
         }
         return $this->parameters;
     }
@@ -181,7 +194,7 @@ class URL extends PHPObject implements IPHPObject
      *
      * @return string
      */
-    final public function toString()
+    final public function toString(): string
     {
         return $this->url;
     }

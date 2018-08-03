@@ -10,7 +10,7 @@
 function is( $variable, string $type ): bool
 {
     // Variables
-    $isOfType    = false;
+    $isOfType     = false;
     $variableType = gettype( $variable );
     
     // Evaluate
