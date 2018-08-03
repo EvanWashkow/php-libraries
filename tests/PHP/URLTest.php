@@ -159,6 +159,21 @@ class URLTest extends TestCase
     }
     
     
+    /**
+     * Ensure URL->toString() returns sanitized URL string
+     */
+    public function testToStringReturnsSanitizedUrlString()
+    {
+        foreach ( self::getURLs() as $url => $urlInfo ) {
+            $urlInstance = new URL( '  ' . $url . '  ' );
+            $this->assertTrue(
+                $urlInstance->toString() === $url,
+                "Expected URL->toString() to return the sanitized URL string"
+            );
+        }
+    }
+    
+    
     
     
     /***************************************************************************
