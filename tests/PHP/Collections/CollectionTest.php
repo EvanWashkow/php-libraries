@@ -353,31 +353,4 @@ class CollectionTest extends CollectionsTestCase
             );
         }
     }
-    
-    
-    /**
-     * Ensure set() fails when trying to set a key with an empty value
-     */
-    public function testSetErrorsOnEmptyKey()
-    {
-        $emptyKeys = [
-            '',
-            []
-        ];
-        foreach ( CollectionData::GetMixed() as $collection ) {
-            foreach ( $emptyKeys as $emptyKey ) {
-                $isError = false;
-                try {
-                    $collection->set( $emptyKey, 1 );
-                } catch (\Exception $e) {
-                    $isError = true;
-                }
-                $name = self::getClassName( $collection );
-                $this->assertTrue(
-                    $isError,
-                    "Expected {$name}->set() to error on an empty key"
-                );
-            }
-        }
-    }
 }

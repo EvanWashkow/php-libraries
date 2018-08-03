@@ -99,9 +99,6 @@ class Dictionary extends Collection implements IDictionary
         if ( !$this->isOfKeyType( $key )) {
             trigger_error( 'Cannot set value since the key is of the wrong type' );
         }
-        elseif (( '' === $key ) || ( [] === $key )) {
-            trigger_error( 'Cannot use an empty key to set a value' );
-        }
         elseif ( !$this->isOfValueType( $value )) {
             trigger_error( 'Cannot set value since the value is of the wrong type' );
         }
