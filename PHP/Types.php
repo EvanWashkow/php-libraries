@@ -16,22 +16,25 @@ final class Types
     public static function GetByValue( $value ): Types\Type
     {
         // Get and convert the name
-        $name = gettype( $value );
+        $name      = gettype( $value );
+        $shortName = '';
         switch ( $name ) {
             case 'boolean':
-                $name = 'bool';
+                $shortName = 'bool';
                 break;
             
             case 'integer':
-                $name = 'int';
+                $shortName = 'int';
                 break;
             
             case 'double':
-                $name = 'float';
+                $shortName = 'float';
                 break;
             
             case 'object':
-                $name = get_class( $value );
+                $name      = get_class( $value );
+                $shortName = explode( '\\', $name );
+                $shortName = array_pop( $shortName );
                 break;
             
             default:
@@ -39,6 +42,6 @@ final class Types
         }
         
         // Create and return a new type
-        return new Types\Type( $name );
+        return new Types\Type( $name, $shortName );
     }
 }
