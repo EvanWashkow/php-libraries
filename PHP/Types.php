@@ -29,6 +29,9 @@ final class Types
     {
         // Sanitize the name
         $name = trim( $name );
+        if ( '' === $name ) {
+            $name = 'null';
+        }
         
         // Get the name / short name
         $shortName = '';
