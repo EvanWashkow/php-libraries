@@ -7,6 +7,17 @@ namespace PHP;
 final class Types
 {
     
+    /**
+     * undocumented class variable
+     *
+     * @var string
+     */
+    private static $shortNameMap = [
+        'boolean' => 'bool',
+        'double'  => 'float',
+        'integer' => 'int'
+    ];
+    
     
     /**
      * Retrieve the type information by name
@@ -16,24 +27,27 @@ final class Types
      */
     public static function GetByName( string $name ): Types\Type
     {
-        $name      = trim( $name );
+        // Sanitize the name
+        $name = trim( $name );
+        
+        // Get the name / short name
         $shortName = '';
-        if ( 'boolean' === $name ) {
-            $shortName = 'bool';
-        }
-        elseif ( 'double' === $name ) {
-            $shortName = 'float';
-        }
-        elseif ( 'integer' === $name ) {
-            $shortName = 'int';
-        }
-        elseif ( 'NULL' === $name ) {
+        if ( 'NULL' === $name ) {
             $name = 'null';
+        }
+        elseif ( array_key_exists( $name, self::$shortNameMap )) {
+            $shortName = self::$shortNameMap[ $name ];
+        }
+        elseif ( in_array( $name, self::$shortNameMap )) {
+            $shortName = $name;
+            $name      = array_search( $shortName, self::$shortNameMap );
         }
         elseif ( class_exists( $name )) {
             $shortName = explode( '\\', $name );
             $shortName = array_pop( $shortName );
         }
+        
+        // Return new type
         return new Types\Type( $name, $shortName );
     }
     
