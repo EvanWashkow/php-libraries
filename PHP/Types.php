@@ -16,7 +16,7 @@ final class Types
     public static function GetByValue( $value ): Types\Type
     {
         // Get and convert the name
-        $name      = gettype( $value );
+        $name      = strtolower( gettype( $value ) );
         $shortName = '';
         switch ( $name ) {
             case 'boolean':
