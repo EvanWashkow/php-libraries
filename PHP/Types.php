@@ -48,8 +48,8 @@ final class Types
             $name = 'function';
         }
         
-        // Sanitize name (http://php.net/manual/en/function.gettype.php)
-        if ( '' === $name ) {
+        // Unknown type (http://php.net/manual/en/function.gettype.php)
+        elseif ( !in_array( $name, [ 'array', 'string' ] )) {
             $name = 'unknown type';
         }
         
