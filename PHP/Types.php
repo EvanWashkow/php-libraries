@@ -8,7 +8,7 @@ final class Types
 {
     
     /**
-     * undocumented class variable
+     * List of basic system types mapped to their short names
      *
      * @var string
      */
