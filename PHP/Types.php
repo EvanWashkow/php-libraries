@@ -44,7 +44,7 @@ final class Types
             $shortName = explode( '\\', $name );
             $shortName = array_pop( $shortName );
         }
-        elseif ( function_exists( $name )) {
+        elseif ( function_exists( $name ) || ( 'function' === $name )) {
             $name = 'function';
         }
         
