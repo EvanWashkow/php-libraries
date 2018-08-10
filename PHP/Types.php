@@ -27,13 +27,8 @@ final class Types
      */
     public static function GetByName( string $name ): Types\Type
     {
-        // Sanitize the name
-        $name = trim( $name );
-        if ( '' === $name ) {
-            $name = 'null';
-        }
-        
         // Get the name / short name
+        $name      = trim( $name );
         $shortName = '';
         if ( 'NULL' === $name ) {
             $name = 'null';
@@ -51,6 +46,11 @@ final class Types
         }
         elseif ( function_exists( $name )) {
             $name = 'function';
+        }
+        
+        // Sanitize name (http://php.net/manual/en/function.gettype.php)
+        if ( '' === $name ) {
+            $name = 'unknown type';
         }
         
         // Return new type
