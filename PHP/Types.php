@@ -49,6 +49,9 @@ final class Types
             $shortName = explode( '\\', $name );
             $shortName = array_pop( $shortName );
         }
+        elseif ( function_exists( $name )) {
+            $name = 'function';
+        }
         
         // Return new type
         return new Types\Type( $name, $shortName );
