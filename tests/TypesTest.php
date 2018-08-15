@@ -51,4 +51,41 @@ class TypesTest extends TestCase
             }
         }
     }
+    
+    
+    /**
+     * Ensure all Types::GetBy methods return the same type data
+     */
+    public function testGetByMethodsReturnSameResults()
+    {
+        foreach ( TypesData::Get() as $data ) {
+            
+            // Array to retain all Type instances
+            $types = [];
+            
+            // Create the list of types
+            if ( array_key_exists( 'value', $data['in'] )) {
+                $types[ 'value' ]     = Types::GetByValue( $data['in']['value'] );
+            }
+            if ( array_key_exists( 'name', $data['in'] )) {
+                $types[ 'name' ]      = Types::GetByName(  $data['in']['name'] );
+            }
+            if ( array_key_exists( 'shortName', $data['in'] )) {
+                $types[ 'shortName' ] = Types::GetByName(  $data['in']['shortName'] );
+            }
+            
+            // For each type instance, ensure it has the same data properties as
+            // the others
+            $previous = null;
+            foreach ( $types as $input => $type ) {
+                if ( null !== $previous ) {
+                    $this->assertTrue(
+                        $previous == $type,
+                        "Expected all Types::GetBy methods to return the same type data"
+                    );
+                }
+                $previous = $type;
+            }
+        }
+    }
 }
