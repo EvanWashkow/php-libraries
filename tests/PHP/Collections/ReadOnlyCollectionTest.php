@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
@@ -185,7 +186,7 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
      */
     public function testGetThrowsInvalidArgumentExceptionOnNullKey()
     {
-        $badKey = [ new stdClass() ];
+        $badKey = [ new \stdClass() ];
         foreach ( ReadOnlyCollectionData::Get() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
@@ -209,7 +210,7 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
      */
     public function testGetThrowsInvalidArgumentExceptionOnWrongKeyType()
     {
-        $badKey = [ new stdClass() ];
+        $badKey = [ new \stdClass() ];
         foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $badKey, $name ) {
@@ -410,7 +411,7 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
                 "Untyped collection unexpectedly rejected string key"
             );
             $this->assertTrue(
-                $collection->isOfKeyType( new stdClass() ),
+                $collection->isOfKeyType( new \stdClass() ),
                 "Untyped collection unexpectedly rejected object key"
             );
         }
@@ -481,7 +482,7 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
                 "Untyped collection unexpectedly rejected string value"
             );
             $this->assertTrue(
-                $collection->isOfValueType( new stdClass() ),
+                $collection->isOfValueType( new \stdClass() ),
                 "Untyped collection unexpectedly rejected object value"
             );
         }

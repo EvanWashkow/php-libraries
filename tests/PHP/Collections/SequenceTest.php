@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 require_once( __DIR__ . '/SequenceData.php' );
 require_once( __DIR__ . '/CollectionsTestCase.php' );

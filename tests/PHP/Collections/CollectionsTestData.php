@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 /**
  * Test data mapped by type
