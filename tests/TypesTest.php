@@ -11,22 +11,6 @@ require_once( __DIR__ . '/TypesData.php' );
 class TypesTest extends TestCase
 {
     
-    /**
-     * Ensure Types::GetByValue() returns a `Type` instance
-     */
-    public function testGetByValueReturnsType()
-    {
-        foreach ( TypesData::Get() as $data ) {
-            if ( array_key_exists( 'value', $data['in'] )) {
-                $this->assertInstanceOf(
-                    'PHP\\Types\\Type',
-                    Types::GetByValue( $data['in']['value'] ),
-                    'Expected Types::GetByValue() to return a PHP\\Types\\Type instance'
-                );
-            }
-        }
-    }
-    
     
     /**
      * Ensure Types::GetByName() returns a `Type` instance
@@ -46,6 +30,23 @@ class TypesTest extends TestCase
                     'PHP\\Types\\Type',
                     Types::GetByName( $data['in']['shortName'] ),
                     'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure Types::GetByValue() returns a `Type` instance
+     */
+    public function testGetByValueReturnsType()
+    {
+        foreach ( TypesData::Get() as $data ) {
+            if ( array_key_exists( 'value', $data['in'] )) {
+                $this->assertInstanceOf(
+                    'PHP\\Types\\Type',
+                    Types::GetByValue( $data['in']['value'] ),
+                    'Expected Types::GetByValue() to return a PHP\\Types\\Type instance'
                 );
             }
         }
