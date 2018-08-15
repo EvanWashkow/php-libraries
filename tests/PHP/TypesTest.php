@@ -12,7 +12,7 @@ class TypesTest extends TestCase
 {
     
     /**
-     * Ensure ::GetByValue() returns a `Type` instance
+     * Ensure Types::GetByValue() returns a `Type` instance
      */
     public function testGetByValueReturnsType()
     {
@@ -22,6 +22,30 @@ class TypesTest extends TestCase
                     'PHP\\Types\\Type',
                     Types::GetByValue( $data['in']['value'] ),
                     'Expected Types::GetByValue() to return a PHP\\Types\\Type instance'
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure Types::GetByName() returns a `Type` instance
+     */
+    public function testGetByNameReturnsType()
+    {
+        foreach ( TypesData::Get() as $data ) {
+            if ( array_key_exists( 'name', $data['in'] )) {
+                $this->assertInstanceOf(
+                    'PHP\\Types\\Type',
+                    Types::GetByName( $data['in']['name'] ),
+                    'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
+                );
+            }
+            if ( array_key_exists( 'shortName', $data['in'] )) {
+                $this->assertInstanceOf(
+                    'PHP\\Types\\Type',
+                    Types::GetByName( $data['in']['shortName'] ),
+                    'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
                 );
             }
         }
