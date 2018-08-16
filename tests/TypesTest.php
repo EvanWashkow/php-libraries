@@ -73,8 +73,9 @@ class TypesTest extends TestCase
             $previous = null;
             foreach ( $types as $index => $type ) {
                 if ( null !== $previous ) {
-                    $this->assertTrue(
-                        $previous == $type,
+                    $this->assertEquals(
+                        $previous,
+                        $type,
                         "Expected all Types::GetBy methods to return the same type data"
                     );
                 }
