@@ -32,16 +32,16 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure Type->getShortName() returns the correct aliases
+     * Ensure Type->getAliases() returns the correct aliases
      */
-    public function testGetNameReturnsCorrectAliases()
+    public function testGetAliasesReturnsCorrectAliases()
     {
         foreach ( TypesData::Get() as $data ) {
             $type  = self::getType( $data[ 'in' ] );
             $class = self::getClassName( $type );
             $this->assertEquals(
                 $data[ 'out' ][ 'aliases' ],
-                $type->getAliases(),
+                $type->getAliases()->toArray(),
                 "{$class}->getAliases() did not return the correct aliases"
             );
         }

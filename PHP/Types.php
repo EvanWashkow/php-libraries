@@ -10,7 +10,7 @@ final class Types
     /**
      * List of type names mapped to their aliases
      *
-     * @var array
+     * @var string[]
      */
     private static $aliasMap = [
         'boolean' => [ 'bool' ],

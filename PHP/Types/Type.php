@@ -1,6 +1,9 @@
 <?php
 namespace PHP\Types;
 
+use PHP\Collections\ReadOnlySequence;
+use PHP\Collections\Sequence;
+
 /**
  * Defines basic type information
  */
@@ -10,7 +13,7 @@ class Type extends \PHP\PHPObject
     /**
      * Alternate names for this type
      *
-     * @var array
+     * @var ReadOnlySequence
      */
     private $aliases;
     
@@ -25,22 +28,26 @@ class Type extends \PHP\PHPObject
     /**
      * Create a Type representation to retrieve information from
      *
-     * @param string $name    The type name
-     * @param array  $aliases Alternate names for this type
+     * @param string   $name    The type name
+     * @param string[] $aliases Alternate names for this type
      */
     public function __construct( string $name, array $aliases = [] )
     {
         $this->name    = trim( $name );
-        $this->aliases = $aliases;
+        $this->aliases = new Sequence( 'string' );
+        foreach ( $aliases as $alias ) {
+            $this->aliases->add( $alias );
+        }
+        $this->aliases = new ReadOnlySequence( $this->aliases );
     }
     
     
     /**
      * Retrieve alternate names for this type
      *
-     * @return array
+     * @return ReadOnlySequence
      */
-    public function getAliases(): array
+    public function getAliases(): ReadOnlySequence
     {
         return $this->aliases;
     }
