@@ -76,10 +76,22 @@ final class TypesData
                     'shortName' => ''
                 ]
             ],
+            
+            // Nullity
             [
                 'in' => [
                     'value'     => null,
                     'name'      => 'null'
+                ],
+                'out' => [
+                    'name'      => 'null',
+                    'shortName' => ''
+                ]
+            ],
+            [
+                'in' => [
+                    'value'     => NULL,
+                    'name'      => 'NULL'
                 ],
                 'out' => [
                     'name'      => 'null',
