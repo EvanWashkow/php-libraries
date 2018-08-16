@@ -13,6 +13,7 @@ use PHP\Tests\TypesData;
 class TypeTest extends \PHP\Tests\TestCase
 {
     
+    
     /**
      * Ensure Type->getName() returns the correct name
      */
@@ -25,6 +26,23 @@ class TypeTest extends \PHP\Tests\TestCase
                 $data[ 'out' ][ 'name' ],
                 $type->getName(),
                 "{$class}->getName() did not return the correct name"
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure Type->getShortName() returns the correct short name
+     */
+    public function testGetShortNameReturnsCorrectShortName()
+    {
+        foreach ( TypesData::Get() as $data ) {
+            $type  = self::getType( $data[ 'in' ] );
+            $class = self::getClassName( $type );
+            $this->assertEquals(
+                $data[ 'out' ][ 'shortName' ],
+                $type->getShortName(),
+                "{$class}->getShortName() did not return the correct short name"
             );
         }
     }
