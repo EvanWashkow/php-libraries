@@ -6,6 +6,14 @@ namespace PHP\Types;
  */
 class Type extends \PHP\PHPObject
 {
+    
+    /**
+     * Alternate names for this type
+     *
+     * @var array
+     */
+    private $aliases;
+    
     /**
      * The type name
      *
@@ -13,24 +21,28 @@ class Type extends \PHP\PHPObject
      */
     private $name;
     
-    /**
-     * Short variant of the type name
-     *
-     * @var string
-     */
-    private $shortName;
-    
     
     /**
      * Create a Type representation to retrieve information from
      *
-     * @param string $name      The type name
-     * @param string $shortName Short variant of the type name
+     * @param string $name    The type name
+     * @param array  $aliases Alternate names for this type
      */
-    public function __construct( string $name, string $shortName = '' )
+    public function __construct( string $name, array $aliases = [] )
     {
-        $this->name      = trim( $name );
-        $this->shortName = trim( $shortName );
+        $this->name    = trim( $name );
+        $this->aliases = $aliases;
+    }
+    
+    
+    /**
+     * Retrieve alternate names for this type
+     *
+     * @return array
+     */
+    public function getAliases(): array
+    {
+        return $this->aliases;
     }
     
     
@@ -42,16 +54,5 @@ class Type extends \PHP\PHPObject
     public function getName(): string
     {
         return $this->name;
-    }
-    
-    
-    /**
-     * Retrieve the short variant of the type name
-     *
-     * @return string
-     */
-    public function getShortName(): string
-    {
-        return $this->shortName;
     }
 }

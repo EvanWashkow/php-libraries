@@ -8,14 +8,14 @@ final class Types
 {
     
     /**
-     * List of basic system types mapped to their short names
+     * List of type names mapped to their aliases
      *
-     * @var string
+     * @var array
      */
-    private static $shortNameMap = [
-        'boolean' => 'bool',
-        'double'  => 'float',
-        'integer' => 'int'
+    private static $aliasMap = [
+        'boolean' => [ 'bool' ],
+        'double'  => [ 'float' ],
+        'integer' => [ 'int' ]
     ];
     
     
@@ -27,29 +27,26 @@ final class Types
      */
     public static function GetByName( string $name ): Types\Type
     {
-        // Get the name / short name
-        $name      = trim( $name );
-        $shortName = '';
+        // Variables
+        $name    = trim( $name );
+        $aliases = [];
+        
+        // Get the name and aliases
         if (( 'NULL' === $name ) || ( 'null' === $name )) {
             $name = 'null';
         }
-        elseif ( array_key_exists( $name, self::$shortNameMap )) {
-            $shortName = self::$shortNameMap[ $name ];
-        }
-        elseif ( in_array( $name, self::$shortNameMap )) {
-            $shortName = $name;
-            $name      = array_search( $shortName, self::$shortNameMap );
-        }
         elseif ( class_exists( $name )) {
-            $shortName = explode( '\\', $name );
-            $shortName = array_pop( $shortName );
+            $name = $name;
         }
-        elseif ( function_exists( $name )) {
-            $shortName = $name;
-            $name      = 'function';
-        }
-        elseif ( 'function' === $name ) {
+        elseif ( function_exists( $name ) || ( 'function' === $name )) {
             $name = 'function';
+        }
+        elseif ( array_key_exists( $name, self::$aliasMap )) {
+            $aliases = self::$aliasMap[ $name ];
+        }
+        elseif ( '' !== self::getNameByAlias( $name )) {
+            $name    = self::getNameByAlias( $name );
+            $aliases = self::$aliasMap[ $name ];
         }
         
         // Unknown type (http://php.net/manual/en/function.gettype.php)
@@ -58,7 +55,7 @@ final class Types
         }
         
         // Return new type
-        return new Types\Type( $name, $shortName );
+        return new Types\Type( $name, $aliases );
     }
     
     
@@ -75,5 +72,24 @@ final class Types
             $name = get_class( $value );
         }
         return self::GetByName( $name );
+    }
+    
+    
+    /**
+     * Try to lookup the type name by its alias
+     *
+     * @param  string $alias The type alias
+     * @return string The name or an empty string if not found
+     */
+    private static function getNameByAlias( string $alias ): string
+    {
+        $name = '';
+        foreach ( self::$aliasMap as $typeName => $aliases ) {
+            if ( in_array( $alias, $aliases ) ) {
+                $name = $typeName;
+                break;
+            }
+        }
+        return $name;
     }
 }

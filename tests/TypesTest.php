@@ -18,19 +18,14 @@ class TypesTest extends TestCase
     public function testGetByNameReturnsType()
     {
         foreach ( TypesData::Get() as $data ) {
-            if ( array_key_exists( 'name', $data['in'] )) {
-                $this->assertInstanceOf(
-                    'PHP\\Types\\Type',
-                    Types::GetByName( $data['in']['name'] ),
-                    'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
-                );
-            }
-            if ( array_key_exists( 'shortName', $data['in'] )) {
-                $this->assertInstanceOf(
-                    'PHP\\Types\\Type',
-                    Types::GetByName( $data['in']['shortName'] ),
-                    'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
-                );
+            if ( array_key_exists( 'names', $data['in'] )) {
+                foreach ( $data['in']['names'] as $name ) {
+                    $this->assertInstanceOf(
+                        'PHP\\Types\\Type',
+                        Types::GetByName( $name ),
+                        'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
+                    );
+                }
             }
         }
     }
@@ -65,19 +60,18 @@ class TypesTest extends TestCase
             
             // Create the list of types
             if ( array_key_exists( 'value', $data['in'] )) {
-                $types[ 'value' ]     = Types::GetByValue( $data['in']['value'] );
+                $types[] = Types::GetByValue( $data['in']['value'] );
             }
-            if ( array_key_exists( 'name', $data['in'] )) {
-                $types[ 'name' ]      = Types::GetByName(  $data['in']['name'] );
-            }
-            if ( array_key_exists( 'shortName', $data['in'] )) {
-                $types[ 'shortName' ] = Types::GetByName(  $data['in']['shortName'] );
+            if ( array_key_exists( 'names', $data['in'] )) {
+                foreach ( $data['in']['names'] as $name ) {
+                    $types[] = Types::GetByName( $name );
+                }
             }
             
             // For each type instance, ensure it has the same data properties as
             // the others
             $previous = null;
-            foreach ( $types as $input => $type ) {
+            foreach ( $types as $index => $type ) {
                 if ( null !== $previous ) {
                     $this->assertTrue(
                         $previous == $type,

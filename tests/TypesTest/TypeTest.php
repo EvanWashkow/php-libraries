@@ -32,17 +32,17 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure Type->getShortName() returns the correct short name
+     * Ensure Type->getShortName() returns the correct aliases
      */
-    public function testGetShortNameReturnsCorrectShortName()
+    public function testGetNameReturnsCorrectAliases()
     {
         foreach ( TypesData::Get() as $data ) {
             $type  = self::getType( $data[ 'in' ] );
             $class = self::getClassName( $type );
             $this->assertEquals(
-                $data[ 'out' ][ 'shortName' ],
-                $type->getShortName(),
-                "{$class}->getShortName() did not return the correct short name"
+                $data[ 'out' ][ 'aliases' ],
+                $type->getAliases(),
+                "{$class}->getAliases() did not return the correct aliases"
             );
         }
     }
@@ -60,15 +60,11 @@ class TypeTest extends \PHP\Tests\TestCase
         if ( array_key_exists( 'value', $dataIn )) {
             $type = Types::GetByValue( $dataIn[ 'value' ] );
         }
-        elseif ( array_key_exists( 'shortName', $dataIn )) {
-            $type = Types::GetByName( $dataIn[ 'shortName'] );
-        }
-        elseif ( array_key_exists( 'name', $dataIn )) {
-            $type = Types::GetByName( $dataIn[ 'name' ] );
+        elseif ( !empty( $dataIn[ 'names'] )) {
+            $type = Types::GetByName( $dataIn[ 'names' ][ 0 ] );
         }
         else {
             throw new \Exception( 'Malformed Type test data. Type query is missing.' );
-            
         }
         return $type;
     }

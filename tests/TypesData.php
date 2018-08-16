@@ -20,115 +20,140 @@ final class TypesData
      */
     public static function Get(): array
     {
+        // Define base parameters for out
+        $outBase = [
+            'aliases' => []
+        ];
+        
         return [
             
             // Basic types
             [
                 'in' => [
-                    'value'     => true,
-                    'name'      => 'boolean',
-                    'shortName' => 'bool'
+                    'value' => true,
+                    'names' => [ 'bool', 'boolean' ],
                 ],
-                'out' => [
-                    'name'      => 'boolean',
-                    'shortName' => 'bool'
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name'    => 'boolean',
+                        'aliases' => [ 'bool' ]
+                    ]
+                )
             ],
             [
                 'in' => [
-                    'value'     => 1,
-                    'name'      => 'integer',
-                    'shortName' => 'int'
+                    'value' => 1,
+                    'names' => [ 'int', 'integer' ]
                 ],
-                'out' => [
-                    'name'      => 'integer',
-                    'shortName' => 'int'
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name'    => 'integer',
+                        'aliases' => [ 'int' ]
+                    ]
+                )
             ],
             [
                 'in' => [
-                    'value'     => 'foobar',
-                    'name'      => 'string'
+                    'value' => '1',
+                    'names' => [ 'string' ]
                 ],
-                'out' => [
-                    'name'      => 'string',
-                    'shortName' => ''
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'string'
+                    ]
+                )
             ],
             [
                 'in' => [
-                    'value'     => 1.5,
-                    'name'      => 'double',
-                    'shortName' => 'float'
+                    'value' => 1.0,
+                    'names' => [ 'double', 'float' ]
                 ],
-                'out' => [
-                    'name'      => 'double',
-                    'shortName' => 'float'
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name'    => 'double',
+                        'aliases' => [ 'float' ]
+                    ]
+                )
             ],
             [
                 'in' => [
-                    'value'     => [],
-                    'name'      => 'array'
+                    'value' => [],
+                    'names' => [ 'array' ]
                 ],
-                'out' => [
-                    'name'      => 'array',
-                    'shortName' => ''
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'array'
+                    ]
+                )
             ],
             
             // Nullity
             [
                 'in' => [
-                    'value'     => null,
-                    'name'      => 'null'
+                    'value' => null,
+                    'names' => [ 'null' ]
                 ],
-                'out' => [
-                    'name'      => 'null',
-                    'shortName' => ''
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'null'
+                    ]
+                )
             ],
             [
                 'in' => [
-                    'value'     => NULL,
-                    'name'      => 'NULL'
+                    'value' => NULL,
+                    'names' => [ 'NULL' ]
                 ],
-                'out' => [
-                    'name'      => 'null',
-                    'shortName' => ''
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'null'
+                    ]
+                )
             ],
             
             // Classes
             [
                 'in' => [
-                    'value'     => new \PHP\Collections\Sequence(),
-                    'name'      => 'PHP\\Collections\\Sequence'
+                    'value' => new \PHP\Collections\Sequence(),
+                    'names' => [ 'PHP\\Collections\\Sequence' ]
                 ],
-                'out' => [
-                    'name'      => 'PHP\\Collections\\Sequence',
-                    'shortName' => 'Sequence'
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'PHP\\Collections\\Sequence'
+                    ]
+                )
             ],
             
             // Functions
             [
                 'in' => [
-                    'name'      => 'function'
+                    'names' => [ 'function' ]
                 ],
-                'out' => [
-                    'name'      => 'function',
-                    'shortName' => ''
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'function'
+                    ]
+                )
             ],
             [
                 'in' => [
-                    'name'      => 'substr'
+                    'names' => [ 'substr' ]
                 ],
-                'out' => [
-                    'name'      => 'function',
-                    'shortName' => 'substr'
-                ]
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'function'
+                    ]
+                )
             ],
         ];
     }
