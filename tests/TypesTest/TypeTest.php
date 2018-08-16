@@ -14,9 +14,9 @@ class TypeTest extends \PHP\Tests\TestCase
 {
     
     /**
-     * Ensure Type->getName() returns the expected name
+     * Ensure Type->getName() returns the correct name
      */
-    public function testGetNameReturnsName()
+    public function testGetNameReturnsCorrectName()
     {
         foreach ( TypesData::Get() as $data ) {
             $type  = self::getType( $data[ 'in' ] );
@@ -24,7 +24,7 @@ class TypeTest extends \PHP\Tests\TestCase
             $this->assertEquals(
                 $data[ 'out' ][ 'name' ],
                 $type->getName(),
-                "{$class}->getName() did not return the expected name"
+                "{$class}->getName() did not return the correct name"
             );
         }
     }
