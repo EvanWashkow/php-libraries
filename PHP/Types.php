@@ -30,7 +30,7 @@ final class Types
         // Get the name / short name
         $name      = trim( $name );
         $shortName = '';
-        if ( 'NULL' === $name ) {
+        if (( 'NULL' === $name ) || ( 'null' === $name )) {
             $name = 'null';
         }
         elseif ( array_key_exists( $name, self::$shortNameMap )) {
@@ -70,7 +70,7 @@ final class Types
      */
     public static function GetByValue( $value ): Types\Type
     {
-        $name = strtolower( gettype( $value ) );
+        $name = gettype( $value );
         if ( 'object' === $name ) {
             $name = get_class( $value );
         }
