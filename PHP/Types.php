@@ -57,7 +57,7 @@ final class Types
         
         // Function type
         elseif ( function_exists( $name ) || ( 'function' === $name )) {
-            $type = new Types\Type( 'function' );
+            $type = new Types\FunctionType();
         }
         
         // Unknown type (http://php.net/manual/en/function.gettype.php)
