@@ -70,7 +70,7 @@ class Type extends \PHP\PHPObject
      *
      * @return ReadOnlySequence
      */
-    public function getAliases(): ReadOnlySequence
+    final public function getAliases(): ReadOnlySequence
     {
         return $this->aliases;
     }
@@ -81,7 +81,7 @@ class Type extends \PHP\PHPObject
      *
      * @return string
      */
-    public function getName(): string
+    final public function getName(): string
     {
         return $this->name;
     }
