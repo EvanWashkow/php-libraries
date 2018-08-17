@@ -155,6 +155,19 @@ final class TypesData
                     ]
                 )
             ],
+            
+            // Unknown type
+            [
+                'in' => [
+                    'names' => [ 'foobar' ]
+                ],
+                'out' => array_merge(
+                    $outBase,
+                    [
+                        'name' => 'unknown type'
+                    ]
+                )
+            ]
         ];
     }
 }
