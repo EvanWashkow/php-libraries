@@ -43,6 +43,29 @@ class Type extends \PHP\PHPObject
     
     
     /**
+     * Determines if the given value or PHP\Types\Type instance is, or is
+     * derived from, this type
+     *
+     * @param mixed $item A value or PHP\Types\Type instance
+     * @return bool
+     */
+    public function equals( $item ): bool
+    {
+        // Get a Type instance
+        $itemType = null;
+        if ( self::class === get_class( $item ) || is_subclass_of( $item, self::class )) {
+            $itemType = $item;
+        }
+        else {
+            $itemType = \PHP\Types::GetByValue( $item );
+        }
+        
+        // If the type names match, this is the same type
+        return $this->getName() === $itemType->getName();
+    }
+    
+    
+    /**
      * Retrieve alternate names for this type
      *
      * @return ReadOnlySequence
