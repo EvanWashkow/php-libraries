@@ -36,8 +36,8 @@ final class TypesData
                 'out' => array_merge(
                     $outBase,
                     [
-                        'name'    => 'boolean',
-                        'aliases' => [ 'bool' ]
+                        'name'    => 'bool',
+                        'aliases' => [ 'boolean' ]
                     ]
                 )
             ],
@@ -49,8 +49,8 @@ final class TypesData
                 'out' => array_merge(
                     $outBase,
                     [
-                        'name'    => 'integer',
-                        'aliases' => [ 'int' ]
+                        'name'    => 'int',
+                        'aliases' => [ 'integer' ]
                     ]
                 )
             ],
@@ -74,8 +74,8 @@ final class TypesData
                 'out' => array_merge(
                     $outBase,
                     [
-                        'name'    => 'double',
-                        'aliases' => [ 'float' ]
+                        'name'    => 'float',
+                        'aliases' => [ 'double' ]
                     ]
                 )
             ],

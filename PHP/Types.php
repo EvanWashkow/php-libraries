@@ -13,11 +13,11 @@ final class Types
      * @var string[]
      */
     private static $knownTypes = [
-        'array'   => [],
-        'boolean' => [ 'bool' ],
-        'double'  => [ 'float' ],
-        'integer' => [ 'int' ],
-        'string'  => []
+        'array'  => [],
+        'bool'   => [ 'boolean' ],
+        'float'  => [ 'double' ],
+        'int'    => [ 'integer' ],
+        'string' => []
     ];
     
     
