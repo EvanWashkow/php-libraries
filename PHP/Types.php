@@ -8,14 +8,16 @@ final class Types
 {
     
     /**
-     * List of type names mapped to their aliases
+     * List of known type names mapped to their aliases
      *
      * @var string[]
      */
-    private static $aliasMap = [
+    private static $knownTypes = [
+        'array'   => [],
         'boolean' => [ 'bool' ],
         'double'  => [ 'float' ],
-        'integer' => [ 'int' ]
+        'integer' => [ 'int' ],
+        'string'  => []
     ];
     
     
@@ -27,35 +29,43 @@ final class Types
      */
     public static function GetByName( string $name ): Types\Type
     {
-        // Variables
-        $name    = trim( $name );
-        $aliases = [];
+        // Sanitize parameter
+        $name = trim( $name );
         
-        // Get the name and aliases
+        // The type instance to return
+        $type = null;
+        
+        // Known system types
         if (( 'NULL' === $name ) || ( 'null' === $name )) {
-            $name = 'null';
+            $type = new Types\Type( 'null' );
         }
-        elseif ( class_exists( $name )) {
-            $name = $name;
-        }
-        elseif ( function_exists( $name ) || ( 'function' === $name )) {
-            $name = 'function';
-        }
-        elseif ( array_key_exists( $name, self::$aliasMap )) {
-            $aliases = self::$aliasMap[ $name ];
+        elseif ( array_key_exists( $name, self::$knownTypes )) {
+            $aliases = self::$knownTypes[ $name ];
+            $type    = new Types\Type( $name, $aliases );
         }
         elseif ( '' !== self::getNameByAlias( $name )) {
             $name    = self::getNameByAlias( $name );
-            $aliases = self::$aliasMap[ $name ];
+            $aliases = self::$knownTypes[ $name ];
+            $type    = new Types\Type( $name, $aliases );
+        }
+        
+        // Class type
+        elseif ( class_exists( $name )) {
+            $type = new Types\Type( $name );
+        }
+        
+        // Function type
+        elseif ( function_exists( $name ) || ( 'function' === $name )) {
+            $type = new Types\Type( 'function' );
         }
         
         // Unknown type (http://php.net/manual/en/function.gettype.php)
-        elseif ( !in_array( $name, [ 'array', 'string' ] )) {
-            $name = 'unknown type';
+        else {
+            $type = new Types\Type( 'unknown type' );
         }
         
-        // Return new type
-        return new Types\Type( $name, $aliases );
+        // Return the type
+        return $type;
     }
     
     
@@ -84,7 +94,7 @@ final class Types
     private static function getNameByAlias( string $alias ): string
     {
         $name = '';
-        foreach ( self::$aliasMap as $typeName => $aliases ) {
+        foreach ( self::$knownTypes as $typeName => $aliases ) {
             if ( in_array( $alias, $aliases ) ) {
                 $name = $typeName;
                 break;

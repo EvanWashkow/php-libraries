@@ -27,7 +27,7 @@ final class TypesData
         
         return [
             
-            // Basic types
+            // Known types
             [
                 'in' => [
                     'value' => true,
