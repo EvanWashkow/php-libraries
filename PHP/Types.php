@@ -51,7 +51,8 @@ final class Types
         
         // Class type
         elseif ( class_exists( $name )) {
-            $type = new Types\Type( $name );
+            $class = new \ReflectionClass( $name );
+            $type  = new Types\ClassType( $class );
         }
         
         // Function type
