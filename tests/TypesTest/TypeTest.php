@@ -14,22 +14,9 @@ class TypeTest extends \PHP\Tests\TestCase
 {
     
     
-    /**
-     * Ensure Type->getName() returns the correct name
-     */
-    public function testGetNameReturnsCorrectName()
-    {
-        foreach ( TypesData::Get() as $data ) {
-            $type  = self::getType( $data[ 'in' ] );
-            $class = self::getClassName( $type );
-            $this->assertEquals(
-                $data[ 'out' ][ 'name' ],
-                $type->getName(),
-                "{$class}->getName() did not return the correct name"
-            );
-        }
-    }
-    
+    /***************************************************************************
+    *                             Type->getAliases()
+    ***************************************************************************/
     
     /**
      * Ensure Type->getAliases() returns the correct aliases
@@ -47,6 +34,35 @@ class TypeTest extends \PHP\Tests\TestCase
         }
     }
     
+    
+    
+    
+    /***************************************************************************
+    *                             Type->getName()
+    ***************************************************************************/
+    
+    /**
+     * Ensure Type->getName() returns the correct name
+     */
+    public function testGetNameReturnsCorrectName()
+    {
+        foreach ( TypesData::Get() as $data ) {
+            $type  = self::getType( $data[ 'in' ] );
+            $class = self::getClassName( $type );
+            $this->assertEquals(
+                $data[ 'out' ][ 'name' ],
+                $type->getName(),
+                "{$class}->getName() did not return the correct name"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                  UTILITIES
+    ***************************************************************************/
     
     /**
      * Return the Type instance for the given data[ 'in' ] property
