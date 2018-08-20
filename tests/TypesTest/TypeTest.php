@@ -15,6 +15,61 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
+    *                               Type->equals()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->equals() returns true for same Type
+     */
+    public function testEqualsReturnsTrueForSameType()
+    {
+        $this->assertTrue(
+            Types::GetByValue( 1 )->equals( Types::GetByName( 'int' )),
+            "Expected Type->equals() to return true for the same Type instance"
+        );
+    }
+    
+    
+    /**
+     * Ensure Type->equals() returns true for a value of that type
+     */
+    public function testEqualsReturnsTrueForSameValueType()
+    {
+        $this->assertTrue(
+            Types::GetByValue( 1 )->equals( 1 ),
+            "Expected Type->equals() to return true for a value of that type"
+        );
+    }
+    
+    
+    /**
+     * Ensure Type->equals() returns false for different Type
+     */
+    public function testEqualsReturnsFalseForDifferentType()
+    {
+        $this->assertFalse(
+            Types::GetByValue( 1 )->equals( Types::GetByName( 'bool' )),
+            "Expected Type->equals() to return false for the different Type instance"
+        );
+    }
+    
+    
+    /**
+     * Ensure Type->equals() returns false for a value of a different type
+     */
+    public function testEqualsReturnsFalseForDifferentValueType()
+    {
+        $this->assertFalse(
+            Types::GetByValue( 1 )->equals( true ),
+            "Expected Type->equals() to return false for a value of a different type"
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                             Type->getAliases()
     ***************************************************************************/
     
