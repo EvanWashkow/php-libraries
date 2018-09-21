@@ -43,8 +43,7 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determines if the given value or PHP\Types\Type instance is, or is
-     * derived from, this type
+     * Determine if the type or value is derived from the current type
      *
      * @param mixed $item A value or PHP\Types\Type instance
      * @return bool
