@@ -10,6 +10,10 @@ use PHP\Collections\Sequence;
 class Type extends \PHP\PHPObject
 {
     
+    /***************************************************************************
+    *                                  VARIABLES
+    ***************************************************************************/
+    
     /**
      * Alternate names for this type
      *
@@ -23,6 +27,13 @@ class Type extends \PHP\PHPObject
      * @var string
      */
     private $name;
+    
+    
+    
+    
+    /***************************************************************************
+    *                                 CONSTRUCTOR
+    ***************************************************************************/
     
     
     /**
@@ -40,6 +51,42 @@ class Type extends \PHP\PHPObject
         }
         $this->aliases = new ReadOnlySequence( $this->aliases );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                   PROPERTIES
+    ***************************************************************************/
+    
+    
+    /**
+     * Retrieve alternate names for this type
+     *
+     * @return ReadOnlySequence
+     */
+    final public function getAliases(): ReadOnlySequence
+    {
+        return $this->aliases;
+    }
+    
+    
+    /**
+     * Retrieve the full type name
+     *
+     * @return string
+     */
+    final public function getName(): string
+    {
+        return $this->name;
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                 COMPARISON
+    ***************************************************************************/
     
     
     /**
@@ -62,27 +109,5 @@ class Type extends \PHP\PHPObject
         
         // If the type names match, this is the same type
         return $this->getName() === $itemType->getName();
-    }
-    
-    
-    /**
-     * Retrieve alternate names for this type
-     *
-     * @return ReadOnlySequence
-     */
-    final public function getAliases(): ReadOnlySequence
-    {
-        return $this->aliases;
-    }
-    
-    
-    /**
-     * Retrieve the full type name
-     *
-     * @return string
-     */
-    final public function getName(): string
-    {
-        return $this->name;
     }
 }
