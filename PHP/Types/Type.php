@@ -107,8 +107,8 @@ class Type extends \PHP\PHPObject
             $itemType = \PHP\Types::GetByValue( $item );
         }
         
-        // If the type names match, this is the same type
-        return $this->getName() === $itemType->getName();
+        // Determine if that type is derived from this one
+        return $itemType->is( $this->getName() );
     }
     
     
