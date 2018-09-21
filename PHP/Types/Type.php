@@ -110,4 +110,18 @@ class Type extends \PHP\PHPObject
         // If the type names match, this is the same type
         return $this->getName() === $itemType->getName();
     }
+    
+    
+    /**
+     * Determine if this type is derived from that type
+     *
+     * @param string $typeName The type to compare this type with
+     **/
+    public function is( string $typeName ): bool
+    {
+        return (
+            ( $this->getName() === $typeName ) ||
+            ( 0 <= $this->getAliases()->getKeyOf( $typeName ) )
+        );
+    }
 }
