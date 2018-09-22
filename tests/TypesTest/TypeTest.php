@@ -116,6 +116,81 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
+    *                                 Type->is()
+    ***************************************************************************/
+    
+    /**
+     * Ensure Type->is() returns true for the same type
+     */
+    public function testIsReturnsTrueForOwnType()
+    {
+        $typeStrings = [
+            'int',
+            'bool',
+            'float',
+            'string'
+        ];
+        foreach ( $typeStrings as $typeString ) {
+            $type = \PHP\Types::GetByName( $typeString );
+            $this->assertTrue(
+                $type->is( $typeString ),
+                'Type should return true for its own type'
+            );
+        }
+    }
+    
+    
+    /**
+     * Ensure Type->is() returns true for aliases
+     **/
+    public function testIsReturnsTrueForAliases()
+    {
+        $typeStrings = [
+            'int'       => [ 'integer' ],
+            'bool'      => [],
+            'float'     => [ 'double' ],
+            'string'    => []
+        ];
+        foreach ( $typeStrings as $typeString => $aliasTypeStrings ) {
+            $type = \PHP\Types::GetByName( $typeString );
+            foreach ( $aliasTypeStrings as $aliasTypeString ) {
+                $this->assertTrue(
+                    $type->is( $aliasTypeString ),
+                    'Type should return true for its aliases'
+                );
+            }
+        }
+    }
+    
+    
+    /**
+     * Ensure Type->is() returns false for wrong type strings
+     **/
+    public function testIsReturnsFalse(Type $var = null)
+    {
+        $typeStrings = [
+            'int',
+            'bool',
+            'float',
+            'string'
+        ];
+        foreach ( $typeStrings as $typeString ) {
+            $type = \PHP\Types::GetByName( $typeString );
+            foreach ( $typeStrings as $otherTypeString ) {
+                if ( $typeString !== $otherTypeString ) {
+                    $this->assertFalse(
+                        $type->is( $otherTypeString ),
+                        'Type should return false for other types'
+                    );
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                                  UTILITIES
     ***************************************************************************/
     
