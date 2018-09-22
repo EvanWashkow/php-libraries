@@ -5,6 +5,7 @@ require_once( __DIR__ . '/../TypesData.php' );
 
 use PHP\Types;
 use PHP\Tests\TypesData;
+use PHP\Collections\Sequence;
 
 
 /**
@@ -76,15 +77,15 @@ class TypeTest extends \PHP\Tests\TestCase
     /**
      * Ensure Type->getAliases() returns the correct aliases
      */
-    public function testGetAliasesReturnsCorrectAliases()
+    public function testGetAliases()
     {
-        foreach ( TypesData::Get() as $data ) {
-            $type  = self::getType( $data[ 'in' ] );
-            $class = self::getClassName( $type );
+        $aliasesMap = self::getAliasMap();
+        foreach ( $aliasesMap as $typeName => $aliases ) {
+            $type = Types::GetByName( $typeName );
             $this->assertEquals(
-                $data[ 'out' ][ 'aliases' ],
+                $aliases,
                 $type->getAliases()->toArray(),
-                "{$class}->getAliases() did not return the correct aliases"
+                "Type->getAliases() did not return the correct aliases"
             );
         }
     }
@@ -124,16 +125,16 @@ class TypeTest extends \PHP\Tests\TestCase
      */
     public function testIsReturnsTrueForOwnType()
     {
-        $typeStrings = [
+        $typeNames = [
             'int',
             'bool',
             'float',
             'string'
         ];
-        foreach ( $typeStrings as $typeString ) {
-            $type = \PHP\Types::GetByName( $typeString );
+        foreach ( $typeNames as $typeName ) {
+            $type = \PHP\Types::GetByName( $typeName );
             $this->assertTrue(
-                $type->is( $typeString ),
+                $type->is( $typeName ),
                 'Type should return true for its own type'
             );
         }
@@ -145,17 +146,12 @@ class TypeTest extends \PHP\Tests\TestCase
      **/
     public function testIsReturnsTrueForAliases()
     {
-        $typeStrings = [
-            'int'       => [ 'integer' ],
-            'bool'      => [],
-            'float'     => [ 'double' ],
-            'string'    => []
-        ];
-        foreach ( $typeStrings as $typeString => $aliasTypeStrings ) {
-            $type = \PHP\Types::GetByName( $typeString );
-            foreach ( $aliasTypeStrings as $aliasTypeString ) {
+        $aliasMap = self::getAliasMap();
+        foreach ( $aliasMap as $typeName => $aliasTypeNames ) {
+            $type = \PHP\Types::GetByName( $typeName );
+            foreach ( $aliasTypeNames as $aliasTypeName ) {
                 $this->assertTrue(
-                    $type->is( $aliasTypeString ),
+                    $type->is( $aliasTypeName ),
                     'Type should return true for its aliases'
                 );
             }
@@ -168,23 +164,55 @@ class TypeTest extends \PHP\Tests\TestCase
      **/
     public function testIsReturnsFalse(Type $var = null)
     {
-        $typeStrings = [
+        $typeNames = [
             'int',
             'bool',
             'float',
             'string'
         ];
-        foreach ( $typeStrings as $typeString ) {
-            $type = \PHP\Types::GetByName( $typeString );
-            foreach ( $typeStrings as $otherTypeString ) {
-                if ( $typeString !== $otherTypeString ) {
+        foreach ( $typeNames as $typeName ) {
+            $type = \PHP\Types::GetByName( $typeName );
+            foreach ( $typeNames as $otherTypeName ) {
+                if ( $typeName !== $otherTypeName ) {
                     $this->assertFalse(
-                        $type->is( $otherTypeString ),
+                        $type->is( $otherTypeName ),
                         'Type should return false for other types'
                     );
                 }
             }
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                    DATA
+    ***************************************************************************/
+    
+    /**
+     * Retrieve aliases indexed by their type
+     * 
+     * @return array
+     **/
+    private static function getAliasMap(): array
+    {
+        return [
+            
+            // Basic types
+            'array'     => [],
+            'bool'      => [ 'boolean' ],
+            'int'       => [ 'integer' ],
+            'function'  => [],
+            'float'     => [ 'double' ],
+            'null'      => [],
+            'string'    => [],
+            
+            // Other
+            'substr'        => [],
+            'unknown type'  => [],
+            Sequence::class => []
+        ];
     }
     
     
