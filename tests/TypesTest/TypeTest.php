@@ -9,7 +9,7 @@ use PHP\Collections\Sequence;
 
 
 /**
- * Tests the \PHP\Types\Type functionality
+ * Tests the base Type functionality
  */
 class TypeTest extends \PHP\Tests\TestCase
 {
@@ -125,12 +125,7 @@ class TypeTest extends \PHP\Tests\TestCase
      */
     public function testIsReturnsTrueForOwnType()
     {
-        $typeNames = [
-            'int',
-            'bool',
-            'float',
-            'string'
-        ];
+        $typeNames = self::getTypeNames();
         foreach ( $typeNames as $typeName ) {
             $type = \PHP\Types::GetByName( $typeName );
             $this->assertTrue(
@@ -164,12 +159,7 @@ class TypeTest extends \PHP\Tests\TestCase
      **/
     public function testIsReturnsFalse(Type $var = null)
     {
-        $typeNames = [
-            'int',
-            'bool',
-            'float',
-            'string'
-        ];
+        $typeNames = self::getTypeNames();
         foreach ( $typeNames as $typeName ) {
             $type = \PHP\Types::GetByName( $typeName );
             foreach ( $typeNames as $otherTypeName ) {
@@ -212,6 +202,27 @@ class TypeTest extends \PHP\Tests\TestCase
             'substr'        => [],
             'unknown type'  => [],
             Sequence::class => []
+        ];
+    }
+    
+    
+    /**
+     * Retrieve a list of type names
+     * 
+     * @return array
+     */
+    private static function getTypeNames(): array
+    {
+        return [
+            'array',
+            'bool',
+            'int',
+            'function',
+            'float',
+            'null',
+            'string',
+            'unknown type',
+            Sequence::class ,
         ];
     }
     
