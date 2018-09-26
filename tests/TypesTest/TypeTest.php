@@ -75,11 +75,27 @@ class TypeTest extends \PHP\Tests\TestCase
     ***************************************************************************/
     
     /**
-     * Ensure Type->getAliases() returns the correct aliases
+     * Ensure each type has the correct aliases
      */
     public function testGetAliases()
     {
-        $aliasesMap = self::getAliasMap();
+        $aliasesMap = [
+            
+            // Basic types
+            'array'     => [],
+            'bool'      => [ 'boolean' ],
+            'int'       => [ 'integer' ],
+            'function'  => [],
+            'float'     => [ 'double' ],
+            'null'      => [],
+            'string'    => [],
+            
+            // Other
+            'unknown type'  => [],
+            Sequence::class => []
+        ];
+        
+        // Ensure each type has the correct aliases
         foreach ( $aliasesMap as $typeName => $aliases ) {
             $type = Types::GetByName( $typeName );
             $this->assertEquals(
@@ -170,37 +186,6 @@ class TypeTest extends \PHP\Tests\TestCase
             $type->is( 'boolean' ),
             'Expected Type->is() to return false for an invalid type alias'
         );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                    DATA
-    ***************************************************************************/
-    
-    /**
-     * Retrieve aliases indexed by type name
-     * 
-     * @return array
-     **/
-    private static function getAliasMap(): array
-    {
-        return [
-            
-            // Basic types
-            'array'     => [],
-            'bool'      => [ 'boolean' ],
-            'int'       => [ 'integer' ],
-            'function'  => [],
-            'float'     => [ 'double' ],
-            'null'      => [],
-            'string'    => [],
-            
-            // Other
-            'unknown type'  => [],
-            Sequence::class => []
-        ];
     }
     
     
