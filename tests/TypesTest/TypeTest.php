@@ -181,7 +181,7 @@ class TypeTest extends \PHP\Tests\TestCase
     ***************************************************************************/
     
     /**
-     * Retrieve aliases indexed by their type
+     * Retrieve aliases indexed by type name
      * 
      * @return array
      **/
@@ -199,7 +199,6 @@ class TypeTest extends \PHP\Tests\TestCase
             'string'    => [],
             
             // Other
-            'substr'        => [],
             'unknown type'  => [],
             Sequence::class => []
         ];
