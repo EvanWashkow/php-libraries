@@ -155,7 +155,7 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure Type->is() returns false for wrong type strings
+     * Ensure Type->is() returns false for other type names
      **/
     public function testIsReturnsFalse(Type $var = null)
     {
