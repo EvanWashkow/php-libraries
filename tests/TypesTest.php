@@ -114,34 +114,12 @@ class TypesTest extends TestCase
      */
     public function testGetByMethodsReturnSameResults()
     {
-        foreach ( TypesData::Get() as $data ) {
-            
-            // Array to retain all Type instances
-            $types = [];
-            
-            // Create the list of types
-            if ( array_key_exists( 'value', $data['in'] )) {
-                $types[] = Types::GetByValue( $data['in']['value'] );
-            }
-            if ( array_key_exists( 'names', $data['in'] )) {
-                foreach ( $data['in']['names'] as $name ) {
-                    $types[] = Types::GetByName( $name );
-                }
-            }
-            
-            // For each type instance, ensure it has the same data properties as
-            // the others
-            $previous = null;
-            foreach ( $types as $index => $type ) {
-                if ( null !== $previous ) {
-                    $this->assertEquals(
-                        $previous,
-                        $type,
-                        "Expected all Types::GetBy methods to return the same type data"
-                    );
-                }
-                $previous = $type;
-            }
+        foreach ( self::getTypeNameValueMap() as $name => $value ) {
+            $this->assertEquals(
+                Types::GetByName( $name ),
+                Types::GetByValue( $value ),
+                "Expected all Types::GetBy methods to return the same type data"
+            );
         }
     }
     
