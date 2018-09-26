@@ -2,6 +2,7 @@
 namespace PHP\Tests;
 
 use PHP\Types;
+use PHP\Collections\Sequence;
 
 require_once( __DIR__ . '/TypesData.php' );
 
@@ -27,6 +28,40 @@ class TypesTest extends TestCase
             Types::GetByName( 'foobar' ),
             'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
         );
+    }
+    
+    
+    /**
+     * Ensure Types::GetByName() returns type with the same name
+     */
+    public function testGetByNameReturnsCorrectName()
+    {
+        $typeNameMap = [
+            'array'         => 'array',
+            'boolean'       => 'bool',
+            'integer'       => 'int',
+            'function'      => 'function',
+            'substr'        => 'function',
+            'double'        => 'float',
+            'null'          => 'null',
+            'NULL'          => 'null',
+            'string'        => 'string',
+            Sequence::class => Sequence::class,
+            
+            // Other
+            'foobar'        => 'unknown type',
+            'unknown type'  => 'unknown type'
+        ];
+        
+        // Ensure each type returns its expected type name
+        foreach ( $typeNameMap as $query => $name ) {
+            $type = Types::GetByName( $query );
+            $this->assertEquals(
+                $name,
+                $type->getName(),
+                "Type->getName() did not return the correct name"
+            );
+        }
     }
     
     

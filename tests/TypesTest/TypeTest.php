@@ -111,40 +111,10 @@ class TypeTest extends \PHP\Tests\TestCase
     
     /***************************************************************************
     *                             Type->getName()
+    *
+    * This was already tested when testing type lookup in TypesTest. Nothing to
+    * do here.
     ***************************************************************************/
-    
-    /**
-     * Ensure Type->getName() returns the correct name
-     */
-    public function testGetNameReturnsCorrectName()
-    {
-        $typeNameMap = [
-            'array'         => 'array',
-            'boolean'       => 'bool',
-            'integer'       => 'int',
-            'function'      => 'function',
-            'substr'        => 'function',
-            'double'        => 'float',
-            'null'          => 'null',
-            'NULL'          => 'null',
-            'string'        => 'string',
-            Sequence::class => Sequence::class,
-            
-            // Other
-            'foobar'        => 'unknown type',
-            'unknown type'  => 'unknown type'
-        ];
-        
-        // Ensure each type returns its expected type name
-        foreach ( $typeNameMap as $query => $name ) {
-            $type = Types::GetByName( $query );
-            $this->assertEquals(
-                $name,
-                $type->getName(),
-                "Type->getName() did not return the correct name"
-            );
-        }
-    }
     
     
     
