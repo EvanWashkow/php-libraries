@@ -204,32 +204,4 @@ class TypeTest extends \PHP\Tests\TestCase
             'Expected Type->is() to return false for an invalid type alias'
         );
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                  UTILITIES
-    ***************************************************************************/
-    
-    /**
-     * Return the Type instance for the given data[ 'in' ] property
-     *
-     * @param array $dataIn The $data[ 'in' ] property
-     * @return \PHP\Types\Type
-     */
-    private static function getType( array $dataIn ): \PHP\Types\Type
-    {
-        $type = null;
-        if ( array_key_exists( 'value', $dataIn )) {
-            $type = Types::GetByValue( $dataIn[ 'value' ] );
-        }
-        elseif ( !empty( $dataIn[ 'names'] )) {
-            $type = Types::GetByName( $dataIn[ 'names' ][ 0 ] );
-        }
-        else {
-            throw new \Exception( 'Malformed Type test data. Type query is missing.' );
-        }
-        return $type;
-    }
 }
