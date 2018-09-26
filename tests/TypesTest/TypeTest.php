@@ -120,57 +120,56 @@ class TypeTest extends \PHP\Tests\TestCase
     *                                 Type->is()
     ***************************************************************************/
     
+    
     /**
-     * Ensure Type->is() returns true for the same type
+     * Ensure Type->is() returns true for valid type name
      */
-    public function testIsReturnsTrueForOwnType()
+    public function testIsWithValidTypeName()
     {
-        $typeNames = self::getTypeNames();
-        foreach ( $typeNames as $typeName ) {
-            $type = \PHP\Types::GetByName( $typeName );
-            $this->assertTrue(
-                $type->is( $typeName ),
-                'Type should return true for its own type'
-            );
-        }
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertTrue(
+            $type->is( 'int' ),
+            'Expected Type->is() to return true for a valid type name'
+        );
     }
     
     
     /**
      * Ensure Type->is() returns true for aliases
      **/
-    public function testIsReturnsTrueForAliases()
+    public function testIsWithValidAlias()
     {
-        $aliasMap = self::getAliasMap();
-        foreach ( $aliasMap as $typeName => $aliasTypeNames ) {
-            $type = \PHP\Types::GetByName( $typeName );
-            foreach ( $aliasTypeNames as $aliasTypeName ) {
-                $this->assertTrue(
-                    $type->is( $aliasTypeName ),
-                    'Type should return true for its aliases'
-                );
-            }
-        }
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertTrue(
+            $type->is( 'integer' ),
+            'Expected Type->is() to return true for a valid type alias'
+        );
     }
     
     
     /**
-     * Ensure Type->is() returns false for other type names
-     **/
-    public function testIsReturnsFalse(Type $var = null)
+     * Ensure Type->is() returns false for invalid type name
+     */
+    public function testIsWithInvalidTypeName()
     {
-        $typeNames = self::getTypeNames();
-        foreach ( $typeNames as $typeName ) {
-            $type = \PHP\Types::GetByName( $typeName );
-            foreach ( $typeNames as $otherTypeName ) {
-                if ( $typeName !== $otherTypeName ) {
-                    $this->assertFalse(
-                        $type->is( $otherTypeName ),
-                        'Type should return false for other types'
-                    );
-                }
-            }
-        }
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->is( 'bool' ),
+            'Expected Type->is() to return false for an invalid type name'
+        );
+    }
+    
+    
+    /**
+     * Ensure Type->is() returns false for invalid type alias
+     */
+    public function testIsWithInvalidAlias()
+    {
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->is( 'boolean' ),
+            'Expected Type->is() to return false for an invalid type alias'
+        );
     }
     
     
@@ -201,27 +200,6 @@ class TypeTest extends \PHP\Tests\TestCase
             // Other
             'unknown type'  => [],
             Sequence::class => []
-        ];
-    }
-    
-    
-    /**
-     * Retrieve a list of type names
-     * 
-     * @return array
-     */
-    private static function getTypeNames(): array
-    {
-        return [
-            'array',
-            'bool',
-            'int',
-            'function',
-            'float',
-            'null',
-            'string',
-            'unknown type',
-            Sequence::class ,
         ];
     }
     
