@@ -12,6 +12,11 @@ class TypesTest extends TestCase
 {
     
     
+    /***************************************************************************
+    *                              Types::GetByName()
+    ***************************************************************************/
+    
+    
     /**
      * Ensure Types::GetByName() returns a `Type` instance
      */
@@ -25,6 +30,13 @@ class TypesTest extends TestCase
     }
     
     
+    
+    
+    /***************************************************************************
+    *                              Types::GetByValue()
+    ***************************************************************************/
+    
+    
     /**
      * Ensure Types::GetByValue() returns a `Type` instance
      */
@@ -36,6 +48,13 @@ class TypesTest extends TestCase
             'Expected Types::GetByValue() to return a PHP\\Types\\Type instance'
         );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                     OTHER
+    ***************************************************************************/
     
     
     /**
