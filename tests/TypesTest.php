@@ -90,18 +90,8 @@ class TypesTest extends TestCase
      */
     public function testGetByValueReturnsCorrectName()
     {
-        $valueMap = [
-            'array'         => [],
-            'bool'          => false,
-            'int'           => 1,
-            'float'         => 1.0,
-            'null'          => null,
-            'string'        => 'foobar',
-            Sequence::class => new Sequence(),
-        ];
-        
         // Ensure each type returns its expected type name
-        foreach ( $valueMap as $name => $value ) {
+        foreach ( self::getTypeNameValueMap() as $name => $value ) {
             $type = Types::GetByValue( $value );
             $this->assertEquals(
                 $name,
@@ -153,5 +143,31 @@ class TypesTest extends TestCase
                 $previous = $type;
             }
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                    DATA
+    ***************************************************************************/
+    
+    
+    /**
+     * Retrieve sample lookup data of type names mapped to their values
+     *
+     * @return array
+     **/
+    private static function getTypeNameValueMap(): array
+    {
+        return [
+            'array'         => [],
+            'bool'          => false,
+            'int'           => 1,
+            'float'         => 1.0,
+            'null'          => null,
+            'string'        => 'foobar',
+            Sequence::class => new Sequence(),
+        ];
     }
 }
