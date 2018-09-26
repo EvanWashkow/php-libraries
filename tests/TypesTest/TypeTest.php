@@ -1,10 +1,7 @@
 <?php
 namespace PHP\Tests\TypesTest;
 
-require_once( __DIR__ . '/../TypesData.php' );
-
 use PHP\Types;
-use PHP\Tests\TypesData;
 use PHP\Collections\Sequence;
 
 

@@ -4,8 +4,6 @@ namespace PHP\Tests;
 use PHP\Types;
 use PHP\Collections\Sequence;
 
-require_once( __DIR__ . '/TypesData.php' );
-
 /**
  * Tests the \PHP\Types functionality
  */
