@@ -1,6 +1,9 @@
 <?php
 namespace PHP;
 
+use PHP\Types\Type;
+
+
 /**
  * Lookup type information
  */
@@ -19,6 +22,9 @@ final class Types
         'int'    => [ 'integer' ],
         'string' => []
     ];
+
+    /** @var Type $unknownType The unknown type definition */
+    private static $unknownType = null;
     
     
     /**
@@ -64,9 +70,9 @@ final class Types
             $type     = new Types\FunctionReferenceType( $function );
         }
         
-        // Unknown type (http://php.net/manual/en/function.gettype.php)
+        // Unknown type
         else {
-            $type = new Types\Type( 'unknown type' );
+            $type = self::GetUnknown();
         }
         
         // Return the type
@@ -87,6 +93,22 @@ final class Types
             $name = get_class( $value );
         }
         return self::GetByName( $name );
+    }
+
+
+    /**
+     * Retrieve unknown type
+     *
+     * http://php.net/manual/en/function.gettype.php
+     *
+     * @return Type
+     **/
+    public static function GetUnknown(): Type
+    {
+        if ( self::$unknownType === null ) {
+            self::$unknownType = new Type( 'unknown type' );
+        }
+        return self::$unknownType;
     }
     
     
