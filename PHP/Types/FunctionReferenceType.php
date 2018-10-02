@@ -7,12 +7,8 @@ namespace PHP\Types;
 final class FunctionReferenceType extends FunctionType
 {
     
-    /**
-     * Reflection instance with details for the function instance
-     *
-     * @var \ReflectionFunctionAbstract
-     */
-    private $function;
+    /** @var \ReflectionFunctionAbstract $function Reflection instance with details for the function instance */
+    private $function = null;
     
     
     /**
@@ -24,5 +20,16 @@ final class FunctionReferenceType extends FunctionType
     {
         parent::__construct();
         $this->function = $function;
+    }
+
+
+    /**
+     * Retrieve the function name
+     *
+     * @return string
+     **/
+    public function getFunctionName(): string
+    {
+        return $this->function->getName();
     }
 }
