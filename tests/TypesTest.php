@@ -103,6 +103,52 @@ class TypesTest extends TestCase
     
     
     /***************************************************************************
+    *                              Types::GetUnknown()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Types::GetUnknown() returns a `Type` instance
+     */
+    public function testGetUnknownReturnsType()
+    {
+        $this->assertInstanceOf(
+            'PHP\\Types\\Type',
+            Types::GetUnknown(),
+            'Expected Types::GetUnknown() to return a PHP\\Types\\Type instance'
+        );
+    }
+
+
+    /**
+     * Ensure Types::GetUnknown() returns an type with an "unknown type" name
+     **/
+    public function testGetUnknownReturnsUnknownTypeName()
+    {
+        $this->assertEquals(
+            'unknown type',
+            Types::GetUnknown()->getName(),
+            'Expected Types::GetUnkown() to return a type with name "unknown type"'
+        );
+    }
+
+
+    /**
+     * Ensure Types::GetUnknown() returns an type no aliases
+     **/
+    public function testGetUnknownReturnsNoAliases()
+    {
+        $this->assertEquals(
+            [],
+            Types::GetUnknown()->getAliases()->toArray(),
+            'Expected Types::GetUnkown() to return a type no aliases'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                 Types::GetByName() == Types::GetByValue()
     ***************************************************************************/
     
