@@ -15,4 +15,15 @@ class FunctionType extends Type
     {
         parent::__construct( 'function' );
     }
+
+
+    /**
+     * Retrieve the function name
+     *
+     * @return string
+     **/
+    public function getFunctionName(): string
+    {
+        return '';
+    }
 }

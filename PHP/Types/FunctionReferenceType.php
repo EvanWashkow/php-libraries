@@ -23,11 +23,6 @@ final class FunctionReferenceType extends FunctionType
     }
 
 
-    /**
-     * Retrieve the function name
-     *
-     * @return string
-     **/
     public function getFunctionName(): string
     {
         return $this->function->getName();

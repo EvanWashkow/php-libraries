@@ -60,4 +60,23 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
             "Expected FunctionType->equals() to return false for a value of a different type"
         );
     }
+
+
+
+
+    /***************************************************************************
+    *                     FunctionType->getFunctionName()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure FunctionType->getFunctionName() returns an empty string
+     **/
+    public function testGetFunctionNameReturnsEmptyString()
+    {
+        $this->assertTrue(
+            '' === Types::GetByName( 'function' )->getFunctionName(),
+            'Expected FunctionType->getFunctionName() to always return an empty string'
+        );
+    }
 }
