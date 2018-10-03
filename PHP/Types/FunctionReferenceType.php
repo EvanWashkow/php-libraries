@@ -23,8 +23,32 @@ final class FunctionReferenceType extends FunctionType
     }
 
 
+
+
+    /***************************************************************************
+    *                                   PROPERTIES
+    ***************************************************************************/
+
+
     public function getFunctionName(): string
     {
         return $this->function->getName();
+    }
+
+
+
+
+    /***************************************************************************
+    *                                 COMPARISON
+    ***************************************************************************/
+
+
+    public function equals( $item ): bool
+    {
+        // @todo Use \PHP\Types::GetByValue() to determine if the item is a Type instance
+        return (
+            is_a( $item, self::class ) &&
+            ( $item->getFunctionName() === $this->getFunctionName() )
+        );
     }
 }
