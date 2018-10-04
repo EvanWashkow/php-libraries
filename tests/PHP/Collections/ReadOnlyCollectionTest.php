@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Collections\Dictionary;
+use PHP\Collections\ReadOnlyCollection;
+
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/ReadOnlyCollectionData.php' );
 
@@ -368,6 +371,58 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
                 );
             });
         }
+    }
+
+
+
+
+    /***************************************************************************
+    *                            ReadOnlyCollection->hasValue()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure ReadOnlyCollection->hasValue() returns true for the value
+     **/
+    public function testHasValueReturnsTrueForValue()
+    {
+        $dictionary = new Dictionary( 'integer', 'integer' );
+        $dictionary->set( 0, 1 );
+        $roc = new ReadOnlyCollection( $dictionary );
+        $this->assertTrue(
+            $roc->hasValue( 1 ),
+            'ReadOnlyCollection->hasValue() should return true for the value'
+        );
+    }
+
+
+    /**
+     * Ensure ReadOnlyCollection->hasValue() returns false for wrong value
+     **/
+    public function testHasValueReturnsFalseForWrongValue()
+    {
+        $dictionary = new Dictionary( 'integer', 'integer' );
+        $dictionary->set( 0, 1 );
+        $roc = new ReadOnlyCollection( $dictionary );
+        $this->assertFalse(
+            $roc->hasValue( 2 ),
+            'ReadOnlyCollection->hasValue() should return false for wrong value'
+        );
+    }
+
+
+    /**
+     * Ensure ReadOnlyCollection->hasValue() returns false for wrong value type
+     **/
+    public function testHasValueReturnsFalseForWrongValueType()
+    {
+        $dictionary = new Dictionary( 'integer', 'integer' );
+        $dictionary->set( 0, 1 );
+        $roc = new ReadOnlyCollection( $dictionary );
+        $this->assertFalse(
+            $roc->hasValue( '1' ),
+            'ReadOnlyCollection->hasValue() should return false for wrong value type'
+        );
     }
     
     

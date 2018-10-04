@@ -1,5 +1,7 @@
 <?php
 
+use PHP\Collections\Sequence;
+
 require_once( __DIR__ . '/SequenceData.php' );
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 
@@ -65,6 +67,55 @@ class SequenceTest extends CollectionsTestCase
                 }
             }
         }
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                            Sequence->hasValue()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Sequence->hasValue() returns true for the value
+     **/
+    public function testHasValueReturnsTrueForValue()
+    {
+        $sequence = new Sequence( 'integer' );
+        $sequence->add( 1 );
+        $this->assertTrue(
+            $sequence->hasValue( 1 ),
+            'Sequence->hasValue() should return true for the value'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->hasValue() returns false for wrong value
+     **/
+    public function testHasValueReturnsFalseForWrongValue()
+    {
+        $sequence = new Sequence( 'integer' );
+        $sequence->add( 1 );
+        $this->assertFalse(
+            $sequence->hasValue( 2 ),
+            'Sequence->hasValue() should return false for wrong value'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->hasValue() returns false for wrong value type
+     **/
+    public function testHasValueReturnsFalseForWrongValueType()
+    {
+        $sequence = new Sequence( 'integer' );
+        $sequence->add( 1 );
+        $this->assertFalse(
+            $sequence->hasValue( '1' ),
+            'Sequence->hasValue() should return false for wrong value type'
+        );
     }
     
     
