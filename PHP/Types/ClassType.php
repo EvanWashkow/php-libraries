@@ -25,4 +25,14 @@ final class ClassType extends Type
         parent::__construct( $class->getName() );
         $this->class = $class;
     }
+
+
+    public function is( string $typeName ): bool
+    {
+        $typeName = trim( $typeName );
+        return (
+            ( $this->getName() === $typeName ) ||
+            $this->class->isSubclassOf( $typeName )
+        );
+    }
 }
