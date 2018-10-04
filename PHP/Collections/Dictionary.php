@@ -160,6 +160,15 @@ class Dictionary extends Collection implements IDictionary
         }
         return $hasKey;
     }
+
+
+    final public function hasValue( $value ): bool
+    {
+        return (
+            $this->isOfValueType( $value ) &&
+            in_array( $value, $this->entries )
+        );
+    }
     
     
     
