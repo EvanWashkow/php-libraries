@@ -35,7 +35,7 @@ class TypeTest extends \PHP\Tests\TestCase
     public function testEqualsReturnsTrueForSameValueType()
     {
         $this->assertTrue(
-            Types::GetByValue( 1 )->equals( 1 ),
+            Types::GetByValue( 1 )->equals( 2 ),
             "Expected Type->equals() to return true for a value of that type"
         );
     }
