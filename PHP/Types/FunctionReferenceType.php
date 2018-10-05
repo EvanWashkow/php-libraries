@@ -45,9 +45,9 @@ final class FunctionReferenceType extends FunctionType
 
     public function equals( $item ): bool
     {
-        // @todo Use \PHP\Types::GetByValue() to determine if the item is a Type instance
+        $type = \PHP\Types::GetByValue( $item );
         return (
-            is_a( $item, self::class ) &&
+            $type->is( self::class ) &&
             ( $item->getFunctionName() === $this->getFunctionName() )
         );
     }
