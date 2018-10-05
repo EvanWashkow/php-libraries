@@ -43,6 +43,14 @@ interface IReadOnlyCollection extends \Countable, IIterator
      * @return bool
      */
     public function hasKey( $key ): bool;
+
+    /**
+     * Determine if the value exists
+     *
+     * @param mixed $value The value to check for
+     * @return bool
+     */
+    public function hasValue( $value ): bool;
     
     /**
      * Determine if the key type is valid for the collection

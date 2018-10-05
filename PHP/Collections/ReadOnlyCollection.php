@@ -59,6 +59,11 @@ class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
         return $this->collection->hasKey( $key );
     }
     
+    final public function hasValue( $value ): bool
+    {
+        return $this->collection->hasValue( $value );
+    }
+    
     final public function isOfKeyType( $key ): bool
     {
         return $this->collection->isOfKeyType( $key );

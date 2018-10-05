@@ -245,6 +245,15 @@ class Sequence extends Collection implements ISequence
             array_key_exists( $key, $this->entries )
         );
     }
+
+
+    final public function hasValue( $value ): bool
+    {
+        return (
+            $this->isOfValueType( $value ) &&
+            in_array( $value, $this->entries )
+        );
+    }
     
     
     public function reverse(): IReadOnlySequence
