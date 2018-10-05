@@ -56,7 +56,11 @@ final class Types
         }
         
         // Class and interface types
-        elseif ( class_exists( $name ) || interface_exists( $name )) {
+        elseif ( interface_exists( $name )) {
+            $class = new \ReflectionClass( $name );
+            $type  = new Types\InterfaceType( $class );
+        }
+        elseif ( class_exists( $name )) {
             $class = new \ReflectionClass( $name );
             $type  = new Types\ClassType( $class );
         }
