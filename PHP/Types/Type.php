@@ -36,8 +36,17 @@ class Type extends \PHP\PHPObject
      */
     public function __construct( string $name, array $aliases = [] )
     {
-        $this->name    = trim( $name );
-        $this->aliases = new Sequence( 'string' );
+        $this->name = trim( $name );
+
+        /**
+         * IMPORTANT!!! ALIAS SEQUENCE CANNOT BE TYPED!!!
+         * Adding an alias string to a typed Collection causes the Collection to
+         * evaluate the Type of that string. However, aliases themselves are
+         * used when comparing Types. This is a paradox and will result in
+         * infinite recursion unless an untyped Collection is used. (Untyped
+         * collections do not evaluate aliases).
+         */
+        $this->aliases = new Sequence();
         foreach ( $aliases as $alias ) {
             $this->aliases->add( $alias );
         }
