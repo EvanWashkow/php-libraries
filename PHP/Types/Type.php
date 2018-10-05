@@ -111,7 +111,7 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type is derived from that type
+     * Determine if this type is derived from the given type
      *
      * @param string $typeName The type to compare this type with
      **/
