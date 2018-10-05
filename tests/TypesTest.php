@@ -35,20 +35,21 @@ class TypesTest extends TestCase
     public function testGetByNameReturnsCorrectName()
     {
         $typeNameMap = [
-            'array'         => 'array',
-            'boolean'       => 'bool',
-            'integer'       => 'int',
-            'function'      => 'function',
-            'substr'        => 'function',
-            'double'        => 'float',
-            'null'          => 'null',
-            'NULL'          => 'null',
-            'string'        => 'string',
-            Sequence::class => Sequence::class,
+            'array'                         => 'array',
+            'boolean'                       => 'bool',
+            'integer'                       => 'int',
+            'function'                      => 'function',
+            'substr'                        => 'function',
+            'double'                        => 'float',
+            'null'                          => 'null',
+            'NULL'                          => 'null',
+            'string'                        => 'string',
+            'PHP\\Collections\\Sequence'    => 'PHP\\Collections\\Sequence',
+            'PHP\\Collections\\ICollection' => 'PHP\\Collections\\ICollection',
             
             // Other
-            'foobar'        => 'unknown type',
-            'unknown type'  => 'unknown type'
+            'foobar'                        => 'unknown type',
+            'unknown type'                  => 'unknown type'
         ];
         
         // Ensure each type returns its expected type name
