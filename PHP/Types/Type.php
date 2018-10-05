@@ -97,18 +97,16 @@ class Type extends \PHP\PHPObject
      */
     public function equals( $item ): bool
     {
-        // Get a Type instance
-        // @todo Use \PHP\Types::GetByValue() to determine if the item is a Type instance
-        $itemType = null;
-        if ( is_a( $item, self::class ) ) {
-            $itemType = $item;
-        }
-        else {
-            $itemType = \PHP\Types::GetByValue( $item );
+        // Get the item type
+        $type = \PHP\Types::GetByValue( $item );
+
+        // The item is a Type instance. Evaluate the item as the Type.
+        if ( $type->is( self::class )) {
+            $type = $item;
         }
         
         // Determine if that type is derived from this one
-        return $itemType->is( $this->getName() );
+        return $type->is( $this->getName() );
     }
     
     
