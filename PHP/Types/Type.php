@@ -13,24 +13,16 @@ class Type extends \PHP\PHPObject
     /***************************************************************************
     *                                  VARIABLES
     ***************************************************************************/
-    
-    /**
-     * Alternate names for this type
-     *
-     * @var ReadOnlySequence
-     */
+
+    /** @var ReadOnlySequence $aliases Alternate names for this type */
     private $aliases;
-    
-    /**
-     * The type name
-     *
-     * @var string
-     */
+
+    /** @var string $name The type name */
     private $name;
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
     *                                 CONSTRUCTOR
     ***************************************************************************/
