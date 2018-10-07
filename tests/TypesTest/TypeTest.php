@@ -3,6 +3,7 @@ namespace PHP\Tests\TypesTest;
 
 use PHP\Types;
 use PHP\Collections\Sequence;
+use PHP\Types\Type;
 
 
 /**
@@ -12,6 +13,24 @@ class TypeTest extends \PHP\Tests\TestCase
 {
     
     
+    /***************************************************************************
+    *                            Type->__construct()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Type->__construct throws an exception on an empty name
+     * 
+     * @expectedException InvalidArgumentException
+     **/
+    public function testConstructThrowsExceptionOnEmptyName()
+    {
+        new Type( '' );
+    }
+
+
+
+
     /***************************************************************************
     *                               Type->equals()
     ***************************************************************************/

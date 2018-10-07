@@ -3,6 +3,7 @@ namespace PHP\Types;
 
 use PHP\Collections\ReadOnlySequence;
 use PHP\Collections\Sequence;
+use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
  * Defines basic type information
@@ -37,6 +38,9 @@ class Type extends \PHP\PHPObject
     public function __construct( string $name, array $aliases = [] )
     {
         $this->name = trim( $name );
+        if ( $this->name === '' ) {
+            throw new InvalidArgumentException( 'Type name cannot be empty' );
+        }
 
         /**
          * IMPORTANT!!! ALIAS SEQUENCE CANNOT BE TYPED!!!
