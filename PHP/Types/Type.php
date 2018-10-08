@@ -2,7 +2,6 @@
 namespace PHP\Types;
 
 use PHP\Collections\ReadOnlySequence;
-use PHP\Collections\Sequence;
 use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
@@ -14,6 +13,9 @@ class Type extends \PHP\PHPObject
     /***************************************************************************
     *                                  VARIABLES
     ***************************************************************************/
+
+    /** @var ReadOnlySequence $aliasArray Alternate names for this type */
+    private $aliasArray;
 
     /** @var ReadOnlySequence $aliasROS Alternate names for this type */
     private $aliasROS;
@@ -43,18 +45,14 @@ class Type extends \PHP\PHPObject
         }
 
         /**
-         * IMPORTANT!!! ALIAS SEQUENCE CANNOT BE TYPED!!!
-         * Adding an alias string to a typed Collection causes the Collection to
-         * evaluate the Type of that string. However, aliases themselves are
-         * used when comparing Types. This is a paradox and will result in
-         * infinite recursion unless an untyped Collection is used. (Untyped
-         * collections do not evaluate aliases).
+         * IMPORTANT! DO NOT CREATE ALIAS SEQUENCE IN THE CONSTRUCTOR!
+         * 
+         * Collections depend on type comparison. Type comparison relies on
+         * Collections for aliases. Initializing the alias collection in the
+         * constructor will result in infinite recursion.
          */
-        $sequence = new Sequence();
-        foreach ( $aliases as $alias ) {
-            $sequence->add( $alias );
-        }
-        $this->aliasROS = new ReadOnlySequence( $sequence );
+        $this->aliasArray = $aliases;
+        $this->aliasROS   = null;
     }
     
     
@@ -72,6 +70,24 @@ class Type extends \PHP\PHPObject
      */
     final public function getAliases(): ReadOnlySequence
     {
+        /**
+         * Build alias sequence. See documentation in constructor.
+         * 
+         * IMPORTANT! ALIAS SEQUENCE CANNOT BE TYPED!
+         * 
+         * A typed alias sequence would rely on a type comparison using a typed
+         * alias sequence. This would result in infinite recursion.
+         * An untyped alias sequence adds items without looking at type aliases.
+         */
+        if ( null === $this->aliasROS ) {
+            $sequence = new \PHP\Collections\Sequence();
+            foreach ( $this->aliasArray as $alias ) {
+                $sequence->add( $alias );
+            }
+            $this->aliasROS = new ReadOnlySequence( $sequence );
+        }
+
+        // Return read-only sequence of aliases
         return $this->aliasROS;
     }
     
