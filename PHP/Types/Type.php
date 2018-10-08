@@ -15,8 +15,8 @@ class Type extends \PHP\PHPObject
     *                                  VARIABLES
     ***************************************************************************/
 
-    /** @var ReadOnlySequence $aliases Alternate names for this type */
-    private $aliases;
+    /** @var ReadOnlySequence $aliasROS Alternate names for this type */
+    private $aliasROS;
 
     /** @var string $name The type name */
     private $name;
@@ -50,11 +50,11 @@ class Type extends \PHP\PHPObject
          * infinite recursion unless an untyped Collection is used. (Untyped
          * collections do not evaluate aliases).
          */
-        $this->aliases = new Sequence();
+        $sequence = new Sequence();
         foreach ( $aliases as $alias ) {
-            $this->aliases->add( $alias );
+            $sequence->add( $alias );
         }
-        $this->aliases = new ReadOnlySequence( $this->aliases );
+        $this->aliasROS = new ReadOnlySequence( $sequence );
     }
     
     
@@ -72,7 +72,7 @@ class Type extends \PHP\PHPObject
      */
     final public function getAliases(): ReadOnlySequence
     {
-        return $this->aliases;
+        return $this->aliasROS;
     }
     
     
