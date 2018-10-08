@@ -14,10 +14,10 @@ class Type extends \PHP\PHPObject
     *                                  VARIABLES
     ***************************************************************************/
 
-    /** @var ReadOnlySequence $aliasArray Alternate names for this type */
+    /** @var ReadOnlySequence $aliasArray Alternate names for this type. For internal use. */
     private $aliasArray;
 
-    /** @var ReadOnlySequence $aliasROS Alternate names for this type */
+    /** @var ReadOnlySequence $aliasROS Alternate names for this type. For external use. */
     private $aliasROS;
 
     /** @var string $name The type name */
@@ -39,18 +39,16 @@ class Type extends \PHP\PHPObject
      */
     public function __construct( string $name, array $aliases = [] )
     {
-        $this->name = trim( $name );
-        if ( $this->name === '' ) {
+        // Set name
+        $name = trim( $name );
+        if ( $name === '' ) {
             throw new InvalidArgumentException( 'Type name cannot be empty' );
         }
+        else {
+            $this->name = $name;
+        }
 
-        /**
-         * IMPORTANT! DO NOT CREATE ALIAS SEQUENCE IN THE CONSTRUCTOR!
-         * 
-         * Collections depend on type comparison. Type comparison relies on
-         * Collections for aliases. Initializing the alias collection in the
-         * constructor will result in infinite recursion.
-         */
+        // Set aliases
         $this->aliasArray = $aliases;
         $this->aliasROS   = null;
     }
@@ -70,17 +68,9 @@ class Type extends \PHP\PHPObject
      */
     final public function getAliases(): ReadOnlySequence
     {
-        /**
-         * Build alias sequence. See documentation in constructor.
-         * 
-         * IMPORTANT! ALIAS SEQUENCE CANNOT BE TYPED!
-         * 
-         * A typed alias sequence would rely on a type comparison using a typed
-         * alias sequence. This would result in infinite recursion.
-         * An untyped alias sequence adds items without looking at type aliases.
-         */
+        // Build the alias sequence
         if ( null === $this->aliasROS ) {
-            $sequence = new \PHP\Collections\Sequence();
+            $sequence = new \PHP\Collections\Sequence( 'string' );
             foreach ( $this->aliasArray as $alias ) {
                 $sequence->add( $alias );
             }
@@ -133,6 +123,9 @@ class Type extends \PHP\PHPObject
     
     /**
      * Determine if this type is derived from the given type
+     * 
+     * @internal Type comparison cannot reference collections: collections rely
+     * on type comparison.
      *
      * @param string $typeName The type to compare this type with
      **/
@@ -140,7 +133,7 @@ class Type extends \PHP\PHPObject
     {
         return (
             ( $this->getName() === $typeName ) ||
-            ( 0 <= $this->getAliases()->getKeyOf( $typeName ) )
+            ( in_array( $typeName, $this->aliasArray ) )
         );
     }
 }
