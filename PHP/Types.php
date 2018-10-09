@@ -10,11 +10,7 @@ use PHP\Types\Type;
 final class Types
 {
     
-    /**
-     * List of known type names mapped to their aliases
-     *
-     * @var string[]
-     */
+    /** @var string[] List of known type names mapped to their aliases */
     private static $knownTypes = [
         'array'  => [],
         'bool'   => [ 'boolean' ],
