@@ -180,10 +180,14 @@ final class Types
      **/
     private static function cacheType( Type $type )
     {
-        $typeName = $type->getName();
-        if ( !in_array( $typeName, [ self::UNKNOWN_TYPE_NAME, self::FUNCTION_TYPE_NAME ] )) {
-            self::$cache[ $typeName ] = $type;
+        $name = $type->getName();
+        if ( $name === self::UNKNOWN_TYPE_NAME ) {
+            return;
         }
+        elseif ( $name === self::FUNCTION_TYPE_NAME ) {
+            $name = $type->getFunctionName();
+        }
+        self::$cache[ $name ] = $type;
     }
 
 
