@@ -59,57 +59,61 @@ final class Types
      */
     public static function GetByName( string $name ): Types\Type
     {
-        // Sanitize parameter
+        // Variables
         $name = trim( $name );
-        
-        // The type instance to return
         $type = null;
 
-        // Query the type cache
+        // Query type cache
         if ( self::isTypeCached( $name )) {
             $type = self::getCachedType( $name );
         }
-        
-        // Known system types
-        elseif (( 'NULL' === $name ) || ( 'null' === $name )) {
-            $type = new Types\Type( 'null' );
-        }
-        elseif ( array_key_exists( $name, self::$knownTypes )) {
-            $aliases = self::$knownTypes[ $name ];
-            $type    = new Types\Type( $name, $aliases );
-        }
-        elseif ( '' !== self::getNameByAlias( $name )) {
-            $name    = self::getNameByAlias( $name );
-            $aliases = self::$knownTypes[ $name ];
-            $type    = new Types\Type( $name, $aliases );
-        }
-        
-        // Class and interface types
-        elseif ( interface_exists( $name )) {
-            $class = new \ReflectionClass( $name );
-            $type  = new Types\InterfaceType( $class );
-        }
-        elseif ( class_exists( $name )) {
-            $class = new \ReflectionClass( $name );
-            $type  = new Types\ClassType( $class );
-        }
-        
-        // Function type
-        elseif ( self::FUNCTION_TYPE_NAME === $name ) {
-            $type = new Types\FunctionType();
-        }
-        elseif ( function_exists( $name )) {
-            $function = new \ReflectionFunction( $name );
-            $type     = new Types\FunctionReferenceType( $function );
-        }
-        
-        // Unknown type
-        else {
-            $type = self::GetUnknown();
-        }
 
-        // Cache and return the type
-        self::cacheType( $type );
+        // Find type
+        else {
+
+            // Known system types
+            if (( 'NULL' === $name ) || ( 'null' === $name )) {
+                $type = new Types\Type( 'null' );
+            }
+            elseif ( array_key_exists( $name, self::$knownTypes )) {
+                $aliases = self::$knownTypes[ $name ];
+                $type    = new Types\Type( $name, $aliases );
+            }
+            elseif ( '' !== self::getNameByAlias( $name )) {
+                $name    = self::getNameByAlias( $name );
+                $aliases = self::$knownTypes[ $name ];
+                $type    = new Types\Type( $name, $aliases );
+            }
+            
+            // Class and interface types
+            elseif ( interface_exists( $name )) {
+                $class = new \ReflectionClass( $name );
+                $type  = new Types\InterfaceType( $class );
+            }
+            elseif ( class_exists( $name )) {
+                $class = new \ReflectionClass( $name );
+                $type  = new Types\ClassType( $class );
+            }
+            
+            // Function type
+            elseif ( self::FUNCTION_TYPE_NAME === $name ) {
+                $type = new Types\FunctionType();
+            }
+            elseif ( function_exists( $name )) {
+                $function = new \ReflectionFunction( $name );
+                $type     = new Types\FunctionReferenceType( $function );
+            }
+            
+            // Unknown type
+            else {
+                $type = self::GetUnknown();
+            }
+
+            // Cache the type
+            self::cacheType( $type );
+        }
+        
+        // Return the type
         return $type;
     }
     
