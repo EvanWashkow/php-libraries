@@ -12,6 +12,19 @@ final class Types
 
 
     /***************************************************************************
+    *                                  CONSTANTS
+    ***************************************************************************/
+
+    /** @var string FUNCTION_TYPE_NAME The function type name */
+    private const FUNCTION_TYPE_NAME = 'function';
+
+    /** @var string UNKNOWN_TYPE_NAME The unknown type name (http://php.net/manual/en/function.gettype.php) */
+    private const UNKNOWN_TYPE_NAME = 'unknown type';
+
+
+
+
+    /***************************************************************************
     *                                  PROPERTIES
     ***************************************************************************/
 
@@ -82,7 +95,7 @@ final class Types
         }
         
         // Function type
-        elseif ( 'function' === $name ) {
+        elseif ( self::FUNCTION_TYPE_NAME === $name ) {
             $type = new Types\FunctionType();
         }
         elseif ( function_exists( $name )) {
@@ -120,14 +133,12 @@ final class Types
     /**
      * Retrieve unknown type
      *
-     * http://php.net/manual/en/function.gettype.php
-     *
      * @return Type
      **/
     public static function GetUnknown(): Type
     {
         if ( self::$unknownType === null ) {
-            self::$unknownType = new Type( 'unknown type' );
+            self::$unknownType = new Type( self::UNKNOWN_TYPE_NAME );
         }
         return self::$unknownType;
     }
@@ -169,8 +180,9 @@ final class Types
      **/
     private static function cacheType( Type $type )
     {
-        if ( self::GetUnknown()->getName() !== $type->getName() ) {
-            self::$cache[ $type->getName() ] = $type;
+        $typeName = $type->getName();
+        if ( !in_array( $typeName, [ self::UNKNOWN_TYPE_NAME, self::FUNCTION_TYPE_NAME ] )) {
+            self::$cache[ $typeName ] = $type;
         }
     }
 
