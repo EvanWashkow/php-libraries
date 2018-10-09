@@ -38,10 +38,10 @@ abstract class Collection extends Iterator implements ICollection
         
         // Check for invalid value types
         if ( 'null' === strtolower( $keyType )) {
-            throw new \Exception( 'Key types cannot be NULL' );
+            throw new \InvalidArgumentException( 'Key types cannot be NULL' );
         }
         else if ( 'null' === strtolower( $valueType )) {
-            throw new \Exception( 'Value types cannot be NULL' );
+            throw new \InvalidArgumentException( 'Value types cannot be NULL' );
         }
         
         // Set properties
