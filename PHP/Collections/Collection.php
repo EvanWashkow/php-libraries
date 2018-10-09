@@ -14,14 +14,14 @@ abstract class Collection extends Iterator implements ICollection
      *
      * @var string
      */
-    private $keyType;
+    private $keyTypeString;
     
     /**
      * Type requirement for all values
      *
      * @var string
      */
-    private $valueType;
+    private $valueTypeString;
     
     
     /**
@@ -45,14 +45,14 @@ abstract class Collection extends Iterator implements ICollection
         }
         
         // Set properties
-        $this->keyType   = $keyType;
-        $this->valueType = $valueType;
+        $this->keyTypeString   = $keyType;
+        $this->valueTypeString = $valueType;
     }
     
     
     final public function getKeys(): Sequence
     {
-        $keys = new Sequence( $this->keyType );
+        $keys = new Sequence( $this->keyTypeString );
         $this->loop( function( $key, $value ) use ( &$keys ) {
             $keys->add( $key );
         });
@@ -62,7 +62,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function getValues(): Sequence
     {
-        $values = new Sequence( $this->valueType );
+        $values = new Sequence( $this->valueTypeString );
         $this->loop( function( $key, $value ) use ( &$values ) {
             $values->add( $value );
         });
@@ -75,8 +75,8 @@ abstract class Collection extends Iterator implements ICollection
         return (
             ( null !== $key ) &&
             (
-                ( '' === $this->keyType ) ||
-                is( $key, $this->keyType )
+                ( '' === $this->keyTypeString ) ||
+                is( $key, $this->keyTypeString )
             )
         );
     }
@@ -84,7 +84,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function isOfValueType( $value ): bool
     {
-        return (( '' === $this->valueType ) || is( $value, $this->valueType ));
+        return (( '' === $this->valueTypeString ) || is( $value, $this->valueTypeString ));
     }
     
     
