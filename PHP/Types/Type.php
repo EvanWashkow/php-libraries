@@ -33,6 +33,9 @@ class Type extends \PHP\PHPObject
     
     /**
      * Create a Type representation to retrieve information from
+     * 
+     * @internal Do not instantiantiate collections in the type constructor:
+     * collections rely on types.
      *
      * @param string   $name    The type name
      * @param string[] $aliases Alternate names for this type
