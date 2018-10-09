@@ -9,6 +9,14 @@ use PHP\Types\Type;
  */
 final class Types
 {
+
+
+    /***************************************************************************
+    *                                  PROPERTIES
+    ***************************************************************************/
+
+    /** @var Type[] $cache Cache of type instances indexed by their name */
+    private static $cache = [];
     
     /** @var string[] List of known type names mapped to their aliases */
     private static $knownTypes = [
@@ -21,6 +29,13 @@ final class Types
 
     /** @var Type $unknownType The unknown type definition */
     private static $unknownType = null;
+
+
+
+
+    /***************************************************************************
+    *                                 MAIN LOOKUP
+    ***************************************************************************/
     
     
     /**
@@ -36,9 +51,14 @@ final class Types
         
         // The type instance to return
         $type = null;
+
+        // Query the type cache
+        if ( self::isTypeCached( $name )) {
+            $type = self::getCachedType( $name );
+        }
         
         // Known system types
-        if (( 'NULL' === $name ) || ( 'null' === $name )) {
+        elseif (( 'NULL' === $name ) || ( 'null' === $name )) {
             $type = new Types\Type( 'null' );
         }
         elseif ( array_key_exists( $name, self::$knownTypes )) {
@@ -74,8 +94,9 @@ final class Types
         else {
             $type = self::GetUnknown();
         }
-        
-        // Return the type
+
+        // Cache and return the type
+        self::cacheType( $type );
         return $type;
     }
     
@@ -128,5 +149,52 @@ final class Types
             }
         }
         return $name;
+    }
+
+
+
+
+    /***************************************************************************
+    *                                  TYPE CACHE
+    *
+    * @internal Type caches connot use collections. Collections derive their
+    * functionality from Types.
+    ***************************************************************************/
+
+
+    /**
+     * Cache the Type for quicker retrieval later
+     *
+     * @param Type $type The type instance
+     **/
+    private static function cacheType( Type $type )
+    {
+        if ( self::GetUnknown()->getName() !== $type->getName() ) {
+            self::$cache[ $type->getName() ] = $type;
+        }
+    }
+
+
+    /**
+     * Retrieve Type from cache
+     *
+     * @param string $name The type name
+     * @return Type
+     **/
+    private static function getCachedType( string $name ): Type
+    {
+        return self::$cache[ $name ];
+    }
+
+
+    /**
+     * Determine if a Type instance is cached
+     *
+     * @param string $name The type name
+     * @return Type
+     **/
+    private static function isTypeCached( string $name ): bool
+    {
+        return array_key_exists( $name, self::$cache );
     }
 }
