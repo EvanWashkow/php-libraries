@@ -104,44 +104,44 @@ class TypesTest extends TestCase
     
     
     /***************************************************************************
-    *                              Types::GetUnknown()
+    *                              Types::GetUnknownType()
     ***************************************************************************/
     
     
     /**
-     * Ensure Types::GetUnknown() returns a `Type` instance
+     * Ensure Types::GetUnknownType() returns a `Type` instance
      */
     public function testGetUnknownReturnsType()
     {
         $this->assertInstanceOf(
             'PHP\\Types\\Type',
-            Types::GetUnknown(),
-            'Expected Types::GetUnknown() to return a PHP\\Types\\Type instance'
+            Types::GetUnknownType(),
+            'Expected Types::GetUnknownType() to return a PHP\\Types\\Type instance'
         );
     }
 
 
     /**
-     * Ensure Types::GetUnknown() returns an type with an "unknown type" name
+     * Ensure Types::GetUnknownType() returns an type with an "unknown type" name
      **/
     public function testGetUnknownReturnsUnknownTypeName()
     {
         $this->assertEquals(
             'unknown type',
-            Types::GetUnknown()->getName(),
+            Types::GetUnknownType()->getName(),
             'Expected Types::GetUnkown() to return a type with name "unknown type"'
         );
     }
 
 
     /**
-     * Ensure Types::GetUnknown() returns an type no aliases
+     * Ensure Types::GetUnknownType() returns an type no aliases
      **/
     public function testGetUnknownReturnsNoAliases()
     {
         $this->assertEquals(
             [],
-            Types::GetUnknown()->getAliases()->toArray(),
+            Types::GetUnknownType()->getAliases()->toArray(),
             'Expected Types::GetUnkown() to return a type no aliases'
         );
     }

@@ -106,7 +106,7 @@ final class Types
             
             // Unknown type
             else {
-                $type = self::GetUnknown();
+                $type = self::GetUnknownType();
             }
 
             // Cache the type
@@ -139,7 +139,7 @@ final class Types
      *
      * @return Type
      **/
-    public static function GetUnknown(): Type
+    public static function GetUnknownType(): Type
     {
         if ( self::$unknownType === null ) {
             self::$unknownType = new Type( self::UNKNOWN_TYPE_NAME );
