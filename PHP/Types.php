@@ -40,9 +40,6 @@ final class Types
         'string' => []
     ];
 
-    /** @var Type $unknownType The unknown type definition */
-    private static $unknownType = null;
-
 
 
 
@@ -141,10 +138,21 @@ final class Types
      **/
     public static function GetUnknownType(): Type
     {
-        if ( self::$unknownType === null ) {
-            self::$unknownType = new Type( self::UNKNOWN_TYPE_NAME );
+        // The unknown type name (http://php.net/manual/en/function.gettype.php)
+        $name = 'unknown type';
+
+        // Get / cache the unknown type
+        $type = null;
+        if ( self::isTypeCached( $name ) ) {
+            $type = self::getCachedType( $name );
         }
-        return self::$unknownType;
+        else {
+            $type = new Type( self::UNKNOWN_TYPE_NAME );
+            self::cacheType( $type );
+        }
+
+        // Return the unknown type
+        return $type;
     }
     
     
@@ -185,10 +193,7 @@ final class Types
     private static function cacheType( Type $type )
     {
         $name = $type->getName();
-        if ( $name === self::UNKNOWN_TYPE_NAME ) {
-            return;
-        }
-        elseif ( $name === self::FUNCTION_TYPE_NAME ) {
+        if ( $name === self::FUNCTION_TYPE_NAME ) {
             $name = $type->getFunctionName();
         }
         self::$cache[ $name ] = $type;
