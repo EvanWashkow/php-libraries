@@ -13,6 +13,26 @@ class DictionaryTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                               Dictionary->get()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Dictionary->get() throws exception on wrong key type
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testGetThrowsErrorOnWrongKeyType()
+    {
+        $dictionary = new Dictionary( 'integer', 'integer' );
+        $dictionary->set( 0, 1 );
+        $dictionary->get( 1 );
+    }
+
+
+
+
+    /***************************************************************************
     *                            Dictionary->hasValue()
     ***************************************************************************/
 

@@ -73,15 +73,12 @@ class Dictionary extends Collection implements IDictionary
     final public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( !$this->isOfKeyType( $key )) {
-            trigger_error( "Cannot remove entry with non-{$this->keyType} key" );
-        }
-        elseif ( !$this->hasKey( $key )) {
-            trigger_error( 'Cannot remove value from non-existing key' );
-        }
-        else {
+        if ( $this->getKeyType()->equals( $key ) && $this->hasKey( $key )) {
             unset( $this->entries[ $key ] );
             $isSuccessful = true;
+        }
+        else {
+            trigger_error( "Key does not exist" );
         }
         return $isSuccessful;
     }
@@ -91,8 +88,8 @@ class Dictionary extends Collection implements IDictionary
     {
         // Throw warnings
         $isSuccessful = false;
-        if ( !$this->isOfKeyType( $key )) {
-            trigger_error( 'Cannot set value since the key is of the wrong type' );
+        if ( !$this->getKeyType()->equals( $key )) {
+            trigger_error( 'Wrong key type' );
         }
         elseif ( !$this->isOfValueType( $value )) {
             trigger_error( 'Cannot set value since the value is of the wrong type' );
@@ -131,7 +128,7 @@ class Dictionary extends Collection implements IDictionary
     
     final public function get( $key )
     {
-        if ( !$this->isOfKeyType( $key )) {
+        if ( !$this->getKeyType()->equals( $key )) {
             throw new \InvalidArgumentException( "Cannot get non-{$this->keyType} key" );
         }
         elseif ( !$this->hasKey( $key )) {
