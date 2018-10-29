@@ -28,6 +28,9 @@ abstract class Collection extends Iterator implements ICollection
      * @var string
      */
     private $valueTypeString;
+
+    /** @var Types\Type $valueType Type requirement for all values */
+    private $valueType;
     
     
     /**
@@ -43,13 +46,14 @@ abstract class Collection extends Iterator implements ICollection
         $valueType = trim( $valueType );
 
         // Lookup types by their name
-        $this->keyType = Types::GetByName( $keyType );
+        $this->keyType   = Types::GetByName( $keyType );
+        $this->valueType = Types::GetByName( $valueType );
         
         // Check for invalid value types
         if ( 'null' === $this->keyType->getName() ) {
             throw new \InvalidArgumentException( 'Key types cannot be NULL' );
         }
-        else if ( 'null' === strtolower( $valueType )) {
+        elseif ( 'null' === $this->valueType->getName() ) {
             throw new \InvalidArgumentException( 'Value types cannot be NULL' );
         }
         
