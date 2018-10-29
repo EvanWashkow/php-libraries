@@ -45,12 +45,7 @@ class Dictionary extends Collection implements IDictionary
             ( 'integer' !== $keyType ) &&
             ( 'string'  !== $keyType )
         ) {
-            throw new \Exception( 'Dictionary keys must either be integers or strings' );
-        }
-        
-        // Abort. Value types cannot be null.
-        elseif ( 'null' === strtolower( $valueType )) {
-            throw new \Exception( 'Dictionary values cannot be NULL' );
+            throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
         }
         
         

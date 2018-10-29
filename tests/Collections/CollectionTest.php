@@ -1,6 +1,9 @@
 <?php
 namespace PHP\Tests;
 
+use PHP\Collections\Dictionary;
+
+
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
 
@@ -9,7 +12,35 @@ require_once( __DIR__ . '/CollectionData.php' );
  */
 class CollectionTest extends CollectionsTestCase
 {
-    
+
+    /***************************************************************************
+    *                           Collection->__construct()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure the constructor throws an error for null key types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForNullKey()
+    {
+        new Dictionary( 'null' );
+    }
+
+
+    /**
+     * Ensure the constructor throws an error for null value types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForNullValue()
+    {
+        new Dictionary( '', 'null' );
+    }
+
+
+
     /***************************************************************************
     *                           Collection->clear()
     ***************************************************************************/
