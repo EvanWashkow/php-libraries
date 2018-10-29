@@ -76,7 +76,20 @@ class CollectionTest extends CollectionsTestCase
         $this->assertEquals(
             'int',
             ( new Dictionary( 'integer' ) )->getKeyType()->getName(),
-            "Collection->getKeyType() return the wrong key type"
+            'Collection->getKeyType() return the wrong key type'
+        );
+    }
+
+
+    /**
+     * Ensure getKeyType() returns a wildcard type
+     */
+    public function testGetKeyTypeWildcard()
+    {
+        $this->assertInstanceOf(
+            'PHP\\Collections\\Collection\\WildcardType',
+            ( new Dictionary( '' ) )->getKeyType(),
+            'Expected Collection->getKeyType() to return a wildcard type'
         );
     }
 
@@ -96,6 +109,19 @@ class CollectionTest extends CollectionsTestCase
             'int',
             ( new Dictionary( '', 'integer' ) )->getValueType()->getName(),
             "Collection->getValueType() return the wrong value type"
+        );
+    }
+
+
+    /**
+     * Ensure getValueType() returns a wildcard type
+     */
+    public function testGetValueTypeWildcard()
+    {
+        $this->assertInstanceOf(
+            'PHP\\Collections\\Collection\\WildcardType',
+            ( new Dictionary( '', '' ) )->getValueType(),
+            'Expected Collection->getValueType() to return a wildcard type'
         );
     }
     

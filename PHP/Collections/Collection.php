@@ -42,13 +42,23 @@ abstract class Collection extends Iterator implements ICollection
      */
     public function __construct( string $keyType = '', string $valueType = '' )
     {
-        // Sanitize
-        $keyType   = trim( $keyType );
+        // Lookup key type
+        $keyType = trim( $keyType );
+        if ( '' === $keyType ) {
+            $this->keyType = new Collection\WildcardType();
+        }
+        else {
+            $this->keyType = Types::GetByName( $keyType );
+        }
+        
+        // Lookup value type
         $valueType = trim( $valueType );
-
-        // Lookup types by their name
-        $this->keyType   = Types::GetByName( $keyType );
-        $this->valueType = Types::GetByName( $valueType );
+        if ( '' === $valueType ) {
+            $this->valueType = new Collection\WildcardType();
+        }
+        else {
+            $this->valueType = Types::GetByName( $valueType );
+        }
         
         // Check for invalid value types
         if ( 'null' === $this->keyType->getName() ) {
