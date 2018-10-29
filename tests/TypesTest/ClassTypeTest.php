@@ -142,6 +142,20 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
 
     /**
+     * Ensure InterfaceType->is() returns false for basic types (like integers)
+     */
+    public function testIsReturnsFalseForBasicTypes()
+    {
+        $typeName = 'PHP\\Collections\\Collection';
+        $type     = Types::GetByName( $typeName );
+        $this->assertFalse(
+            $type->is( 'int' ),
+            'InterfaceType->is() should return false for basic types (like integers)'
+        );
+    }
+
+
+    /**
      * Ensure ClassType->is() returns true for the same class name
      */
     public function testIsReturnsTrueForSameClass()
