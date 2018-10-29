@@ -37,8 +37,19 @@ class InterfaceType extends Type
                     class_exists(     $typeName ) ||
                     interface_exists( $typeName )
                 ) &&
-                $this->reflectionClass->isSubclassOf( $typeName )
+                $this->getReflectionClass()->isSubclassOf( $typeName )
             )
         );
+    }
+
+
+    /**
+     * Retrieve the reflection class instance
+     *
+     * @return \ReflectionClass
+     **/
+    final protected function getReflectionClass(): \ReflectionClass
+    {
+        return $this->reflectionClass;
     }
 }
