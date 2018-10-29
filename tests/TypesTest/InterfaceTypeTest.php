@@ -118,6 +118,20 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
 
 
     /**
+     * Ensure InterfaceType->is() returns false for basic types (like integers)
+     */
+    public function testIsReturnsFalseForBasicTypes()
+    {
+        $typeName = 'PHP\\Collections\\ICollection';
+        $type     = Types::GetByName( $typeName );
+        $this->assertFalse(
+            $type->is( 'int' ),
+            'InterfaceType->is() should return false for basic types (like integers)'
+        );
+    }
+
+
+    /**
      * Ensure InterfaceType->is() returns true for the same interface name
      */
     public function testIsReturnsTrueForSameInterface()

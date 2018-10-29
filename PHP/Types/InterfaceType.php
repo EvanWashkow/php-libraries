@@ -32,7 +32,13 @@ class InterfaceType extends Type
         $typeName = trim( $typeName );
         return (
             ( $this->getName() === $typeName ) ||
-            $this->reflectionClass->isSubclassOf( $typeName )
+            (
+                (
+                    class_exists(     $typeName ) ||
+                    interface_exists( $typeName )
+                ) &&
+                $this->reflectionClass->isSubclassOf( $typeName )
+            )
         );
     }
 }
