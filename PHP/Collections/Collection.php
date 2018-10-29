@@ -60,17 +60,24 @@ abstract class Collection extends Iterator implements ICollection
             $this->valueType = Types::GetByName( $valueType );
         }
         
-        // Check for invalid value types
-        if ( 'null' === $this->keyType->getName() ) {
-            throw new \InvalidArgumentException( 'Key types cannot be NULL' );
-        }
-        elseif ( 'null' === $this->valueType->getName() ) {
-            throw new \InvalidArgumentException( 'Value types cannot be NULL' );
-        }
-        
-        // Set properties
+        // Set deprecated properties
+        // @todo Remove
         $this->keyTypeString   = $keyType;
         $this->valueTypeString = $valueType;
+
+        // Check for invalid types
+        $keyType   = $this->getKeyType()->getName();
+        $valueType = $this->getValueType()->getName();
+        $invalidTypes = [
+            'null',
+            Types::GetUnknownType()->getName()
+        ];
+        if ( in_array( $keyType, $invalidTypes )) {
+            throw new \InvalidArgumentException( "Key type cannot be {$keyType}" );
+        }
+        elseif ( in_array( $valueType, $invalidTypes )) {
+            throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
+        }
     }
     
     

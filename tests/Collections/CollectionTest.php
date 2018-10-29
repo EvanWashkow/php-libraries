@@ -30,6 +30,17 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
+     * Ensure the constructor throws an error for unknown key types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForUnknownKey()
+    {
+        new Dictionary( 'foobar' );
+    }
+
+
+    /**
      * Ensure the constructor throws an error for null value types
      * 
      * @expectedException \InvalidArgumentException
@@ -37,6 +48,17 @@ class CollectionTest extends CollectionsTestCase
     public function testConstructorThrowsErrorForNullValue()
     {
         new Dictionary( '', 'null' );
+    }
+
+
+    /**
+     * Ensure the constructor throws an error for unknown value types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForUnknownValue()
+    {
+        new Dictionary( '', 'foobar' );
     }
 
 
