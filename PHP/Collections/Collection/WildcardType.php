@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Collections\Types;
+namespace PHP\Collections\Collection;
 
 use PHP\Types\Type;
 

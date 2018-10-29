@@ -1,7 +1,7 @@
 <?php
 namespace PHP\Tests\Collections\Types;
 
-use PHP\Collections\Types\WildcardType;
+use PHP\Collections\Collection\WildcardType;
 
 
 /**
