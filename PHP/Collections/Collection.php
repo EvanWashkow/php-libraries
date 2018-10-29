@@ -2,6 +2,7 @@
 namespace PHP\Collections;
 
 use PHP\Types;
+use PHP\Types\Type;
 
 
 /**
@@ -19,7 +20,7 @@ abstract class Collection extends Iterator implements ICollection
      */
     private $keyTypeString;
 
-    /** @var Types\Type $keyType Type requirement for all keys */
+    /** @var Type $keyType Type requirement for all keys */
     private $keyType;
     
     /**
@@ -29,7 +30,7 @@ abstract class Collection extends Iterator implements ICollection
      */
     private $valueTypeString;
 
-    /** @var Types\Type $valueType Type requirement for all values */
+    /** @var Type $valueType Type requirement for all values */
     private $valueType;
     
     
@@ -71,6 +72,12 @@ abstract class Collection extends Iterator implements ICollection
         });
         return $keys;
     }
+
+
+    final public function getKeyType(): Type
+    {
+        return $this->keyType;
+    }
     
     
     final public function getValues(): Sequence
@@ -80,6 +87,12 @@ abstract class Collection extends Iterator implements ICollection
             $values->add( $value );
         });
         return $values;
+    }
+
+
+    final public function getValueType(): Type
+    {
+        return $this->valueType;
     }
     
     

@@ -1,6 +1,8 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Types\Type;
+
 /**
  * Defines an iterable set of read-only, key-value pairs
  *
@@ -48,10 +50,20 @@ class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
     {
         return $this->collection->getKeys();
     }
+
+    final public function getKeyType(): Type
+    {
+        return $this->collection->getKeyType();
+    }
     
     final public function getValues(): Sequence
     {
         return $this->collection->getValues();
+    }
+
+    final public function getValueType(): Type
+    {
+        return $this->collection->getValueType();
     }
     
     final public function hasKey( $key ): bool

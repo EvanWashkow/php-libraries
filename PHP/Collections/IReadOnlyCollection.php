@@ -1,6 +1,8 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Types\Type;
+
 /**
  * Specifications for an iterable set of read-only, key-value pairs
  */
@@ -28,6 +30,13 @@ interface IReadOnlyCollection extends \Countable, IIterator
      * @return Sequence
      */
     public function getKeys(): Sequence;
+
+    /**
+     * Retrieve key type
+     * 
+     * @return Type
+     **/
+    public function getKeyType(): Type;
     
     /**
      * Retrieve all entry values
@@ -35,6 +44,13 @@ interface IReadOnlyCollection extends \Countable, IIterator
      * @return Sequence
      */
     public function getValues(): Sequence;
+
+    /**
+     * Retrieve value type
+     * 
+     * @return Type
+     **/
+    public function getValueType(): Type;
     
     /**
      * Determine if the key exists

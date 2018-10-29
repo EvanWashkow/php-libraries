@@ -60,6 +60,44 @@ class CollectionTest extends CollectionsTestCase
             );
         }
     }
+
+
+
+    /***************************************************************************
+    *                          Collection->getKeyType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getKeyType() has the same name
+     */
+    public function testGetKeyTypeHasSameName()
+    {
+        $this->assertEquals(
+            'int',
+            ( new Dictionary( 'integer' ) )->getKeyType()->getName(),
+            "Collection->getKeyType() return the wrong key type"
+        );
+    }
+
+
+
+    /***************************************************************************
+    *                          Collection->getValueType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getValueType() has the same name
+     */
+    public function testGetValueTypeHasSameName()
+    {
+        $this->assertEquals(
+            'int',
+            ( new Dictionary( '', 'integer' ) )->getValueType()->getName(),
+            "Collection->getValueType() return the wrong value type"
+        );
+    }
     
     
     
