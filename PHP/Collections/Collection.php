@@ -1,6 +1,9 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Types;
+
+
 /**
  * Defines an iterable set of mutable, key-value pairs
  *
@@ -15,6 +18,9 @@ abstract class Collection extends Iterator implements ICollection
      * @var string
      */
     private $keyTypeString;
+
+    /** @var Types\Type $keyType Type requirement for all keys */
+    private $keyType;
     
     /**
      * Type requirement for all values
@@ -35,9 +41,12 @@ abstract class Collection extends Iterator implements ICollection
         // Sanitize
         $keyType   = trim( $keyType );
         $valueType = trim( $valueType );
+
+        // Lookup types by their name
+        $this->keyType = Types::GetByName( $keyType );
         
         // Check for invalid value types
-        if ( 'null' === strtolower( $keyType )) {
+        if ( 'null' === $this->keyType->getName() ) {
             throw new \InvalidArgumentException( 'Key types cannot be NULL' );
         }
         else if ( 'null' === strtolower( $valueType )) {
