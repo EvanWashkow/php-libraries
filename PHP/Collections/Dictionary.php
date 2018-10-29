@@ -140,7 +140,7 @@ class Dictionary extends Collection implements IDictionary
     
     final public function hasKey( $key ): bool
     {
-        $hasKey = $this->isOfKeyType( $key );
+        $hasKey = $this->getKeyType()->equals( $key );
         if ( $hasKey ) {
             
             // If the given key is an object, array_key_exists throws an error
