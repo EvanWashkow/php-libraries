@@ -45,7 +45,7 @@ abstract class Collection extends Iterator implements ICollection
         // Lookup key type
         $keyType = trim( $keyType );
         if ( '' === $keyType ) {
-            $this->keyType = new Collection\WildcardType();
+            $this->keyType = new Collection\WildcardKeyType();
         }
         else {
             $this->keyType = Types::GetByName( $keyType );
