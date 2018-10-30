@@ -115,13 +115,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function isOfKeyType( $key ): bool
     {
-        return (
-            ( null !== $key ) &&
-            (
-                ( '' === $this->keyTypeString ) ||
-                is( $key, $this->keyTypeString )
-            )
-        );
+        return $this->getKeyType()->equals( $key );
     }
     
     

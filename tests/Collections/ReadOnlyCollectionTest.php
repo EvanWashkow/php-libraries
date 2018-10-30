@@ -414,7 +414,11 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
      */
     public function testIsOfKeyTypeReturnsFalseForNull()
     {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
+        $collections = [
+            new Dictionary(),
+            new Dictionary( 'integer' )
+        ];
+        foreach ( $collections as $collection ) {
             $this->assertFalse(
                 $collection->isOfKeyType( null ),
                 "Collection unexpectedly accepted a null key"
