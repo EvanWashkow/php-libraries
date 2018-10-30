@@ -3,7 +3,6 @@ namespace PHP\Tests\Collections\Types;
 
 use PHP\Collections\Collection\WildcardType;
 
-
 /**
  * Tests WildcardType
  */

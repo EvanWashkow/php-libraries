@@ -6,7 +6,7 @@ use PHP\Types\Type;
 /**
  * Type wildcard that evaluates to true for any type
  */
-final class WildcardType extends Type
+class WildcardType extends Type
 {
 
 
