@@ -122,17 +122,17 @@ class Sequence extends Collection implements ISequence
         $isSuccessful = false;
         
         // Log meaningful errors
-        if ( !$this->isOfKeyType( $key )) {
-            trigger_error( 'Cannot set value since the key is of the wrong type' );
+        if ( !$this->getKeyType()->equals( $key )) {
+            trigger_error( 'Wrong key type' );
         }
         elseif ( !$this->isOfValueType( $value )) {
-            trigger_error( 'Cannot set value since the value is of the wrong type' );
+            trigger_error( 'Wrong value type' );
         }
         elseif ( $key < $this->getFirstKey() ) {
-            trigger_error( 'Cannot set value since the key is too small' );
+            trigger_error( 'Key is too small' );
         }
         elseif (( $this->getLastKey() + 1 ) < $key ) {
-            trigger_error( 'Cannot set value since the key is too large' );
+            trigger_error( 'Key is too large' );
         }
         
         // Set value
@@ -241,7 +241,7 @@ class Sequence extends Collection implements ISequence
     final public function hasKey( $key ): bool
     {
         return (
-            $this->isOfKeyType( $key ) &&
+            $this->getKeyType()->equals( $key ) &&
             array_key_exists( $key, $this->entries )
         );
     }
