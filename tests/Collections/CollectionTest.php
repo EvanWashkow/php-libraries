@@ -151,6 +151,33 @@ class CollectionTest extends CollectionsTestCase
     
     
     /***************************************************************************
+    *                         Collection->isOfKeyType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure isOfKeyType throws an error
+     **/
+    public function testIsOfKeyTypeThrowsDeprecatedError()
+    {
+        $isError = false;
+        try {
+            $collection = new \PHP\Collections\Sequence();
+            $collection->isOfKeyType( 'int' );
+        }
+        catch ( \Exception $e ) {
+            $isError = true;
+        }
+        $this->assertTrue(
+            $isError,
+            'Ensure Collection->isOfKeyType() throws a deprecation error'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                           Collection->remove()
     ***************************************************************************/
     

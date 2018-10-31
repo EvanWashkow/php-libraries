@@ -408,82 +408,26 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
     /***************************************************************************
     *                    ReadOnlyCollection->isOfKeyType()
     ***************************************************************************/
-    
+
+
     /**
-     * Test if isOfKeyType() rejects null values
-     */
-    public function testIsOfKeyTypeReturnsFalseForNull()
+     * Ensure isOfKeyType throws an error
+     **/
+    public function testIsOfKeyTypeThrowsDeprecatedError()
     {
-        $collections = [
-            new Dictionary(),
-            new Dictionary( 'integer' )
-        ];
-        foreach ( $collections as $collection ) {
-            $this->assertFalse(
-                $collection->isOfKeyType( null ),
-                "Collection unexpectedly accepted a null key"
-            );
+        $isError = false;
+        try {
+            $collection = new \PHP\Collections\Sequence();
+            $collection = new \PHP\Collections\ReadOnlySequence( $collection );
+            $collection->isOfKeyType( 'int' );
         }
-    }
-    
-    
-    /**
-     * Test if isOfKeyType() allows anything that is not null
-     */
-    public function testIsOfKeyTypeReturnsTrueForAnyKeyTypeInMixed()
-    {
-        foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
-            $this->assertTrue(
-                $collection->isOfKeyType( true ),
-                "Untyped collection unexpectedly rejected boolean key"
-            );
-            $this->assertTrue(
-                $collection->isOfKeyType( 1 ),
-                "Untyped collection unexpectedly rejected integer key"
-            );
-            $this->assertTrue(
-                $collection->isOfKeyType( 'string' ),
-                "Untyped collection unexpectedly rejected string key"
-            );
-            $this->assertTrue(
-                $collection->isOfKeyType( new \stdClass() ),
-                "Untyped collection unexpectedly rejected object key"
-            );
+        catch ( \Exception $e ) {
+            $isError = true;
         }
-    }
-    
-    
-    /**
-     * Test if isOfKeyType() allows its own key type
-     */
-    public function testIsOfKeyTypeReturnsTrueForMatchingKeyType()
-    {
-        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
-            foreach ( $collection as $key => $value ) {
-                $this->assertTrue(
-                    $collection->isOfKeyType( $key ),
-                    "Collection with defined key types rejects its own keys"
-                );
-                break;
-            }
-        }
-    }
-    
-    
-    /**
-     * Test if isOfKeyType() rejects other types
-     */
-    public function testIsOfKeyTypeReturnsFalseForWrongKeyType()
-    {
-        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
-            foreach ( $collection as $key => $value ) {
-                $this->assertFalse(
-                    $collection->isOfKeyType( $value ),
-                    "Collection with defined key types rejects its own keys"
-                );
-                break;
-            }
-        }
+        $this->assertTrue(
+            $isError,
+            'Ensure ReadOnlyCollection->isOfKeyType() throws a deprecation error'
+        );
     }
     
     

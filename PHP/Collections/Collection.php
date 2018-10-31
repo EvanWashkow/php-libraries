@@ -115,6 +115,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function isOfKeyType( $key ): bool
     {
+        trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.' );
         return $this->getKeyType()->equals( $key );
     }
     
