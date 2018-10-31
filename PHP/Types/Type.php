@@ -12,14 +12,8 @@ class Type extends \PHP\PHPObject
 {
     
     /***************************************************************************
-    *                                  VARIABLES
+    *                                  PROPERTIES
     ***************************************************************************/
-
-    /** @var ReadOnlySequence $aliasArray Alternate names for this type. For internal use. */
-    private $aliasArray;
-
-    /** @var ReadOnlySequence $aliasROS Alternate names for this type. For external use. */
-    private $aliasROS;
 
     /** @var string $name The primary type name */
     private $name;
@@ -61,37 +55,14 @@ class Type extends \PHP\PHPObject
             array_splice( $this->namesArray, 0, 0, $name );
         }
         $this->namesSequence = null;
-        $this->aliasArray = $aliases;
-        $this->aliasROS   = null;
     }
     
     
     
     
     /***************************************************************************
-    *                                   PROPERTIES
+    *                                   ACCESSORS
     ***************************************************************************/
-    
-    
-    /**
-     * Retrieve alternate names for this type
-     *
-     * @return ReadOnlySequence
-     */
-    final public function getAliases(): ReadOnlySequence
-    {
-        // Build the alias sequence
-        if ( null === $this->aliasROS ) {
-            $sequence = new \PHP\Collections\Sequence( 'string' );
-            foreach ( $this->aliasArray as $alias ) {
-                $sequence->add( $alias );
-            }
-            $this->aliasROS = new ReadOnlySequence( $sequence );
-        }
-
-        // Return read-only sequence of aliases
-        return $this->aliasROS;
-    }
     
     
     /**

@@ -31,19 +31,6 @@ class WildcardTypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
-     * Ensure WildcardType->getAliases() is empty
-     **/
-    public function testGetAliasesIsEmpty()
-    {
-        $this->assertEquals(
-            0,
-            ( new WildcardType() )->getAliases()->count(),
-            'WildcardType->getAliases() should be empty'
-        );
-    }
-
-
-    /**
      * Ensure WildcardType->getName() is an asterisk
      **/
     public function testGetNameIsAsterisk()

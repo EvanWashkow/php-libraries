@@ -87,45 +87,6 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
-    *                             Type->getAliases()
-    ***************************************************************************/
-    
-    /**
-     * Ensure each type has the correct aliases
-     */
-    public function testGetAliases()
-    {
-        $aliasesMap = [
-            
-            // Basic types
-            'array'     => [],
-            'bool'      => [ 'boolean' ],
-            'int'       => [ 'integer' ],
-            'function'  => [],
-            'float'     => [ 'double' ],
-            'null'      => [],
-            'string'    => [],
-            
-            // Other
-            'unknown type'  => [],
-            Sequence::class => []
-        ];
-        
-        // Ensure each type has the correct aliases
-        foreach ( $aliasesMap as $typeName => $aliases ) {
-            $type = Types::GetByName( $typeName );
-            $this->assertEquals(
-                $aliases,
-                $type->getAliases()->toArray(),
-                "Type->getAliases() did not return the correct aliases"
-            );
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                             Type->getName()
     *
     * This was already tested when testing type lookup in TypesTest. Nothing to

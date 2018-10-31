@@ -132,19 +132,6 @@ class TypesTest extends TestCase
             'Expected Types::GetUnkown() to return a type with name "unknown type"'
         );
     }
-
-
-    /**
-     * Ensure Types::GetUnknownType() returns an type no aliases
-     **/
-    public function testGetUnknownReturnsNoAliases()
-    {
-        $this->assertEquals(
-            [],
-            Types::GetUnknownType()->getAliases()->toArray(),
-            'Expected Types::GetUnkown() to return a type no aliases'
-        );
-    }
     
     
     
