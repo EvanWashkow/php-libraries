@@ -152,7 +152,7 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
             $name = self::getClassName( $collection );
             $collection->loop(function( $key, $value ) use ( $collection, $name ) {
                 $this->assertTrue(
-                    $collection->isOfValueType( $collection->get( $key ) ),
+                    $collection->getValueType()->equals( $collection->get( $key ) ),
                     "Expected {$name}->get() to return the value of the same type"
                 );
             });
@@ -428,76 +428,5 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
             $isError,
             'Ensure ReadOnlyCollection->isOfKeyType() throws a deprecation error'
         );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                    ReadOnlyCollection->isOfValueType()
-    ***************************************************************************/
-    
-    
-    /**
-     * Test if isOfValueType() allows anything
-     */
-    public function testIsOfValueTypeReturnsTrueForAnyValueTypeInMixed()
-    {
-        foreach ( ReadOnlyCollectionData::GetMixed() as $collection ) {
-            $this->assertTrue(
-                $collection->isOfValueType( null ),
-                "Untyped collection unexpectedly rejected null value"
-            );
-            $this->assertTrue(
-                $collection->isOfValueType( true ),
-                "Untyped collection unexpectedly rejected boolean value"
-            );
-            $this->assertTrue(
-                $collection->isOfValueType( 1 ),
-                "Untyped collection unexpectedly rejected integer value"
-            );
-            $this->assertTrue(
-                $collection->isOfValueType( 'string' ),
-                "Untyped collection unexpectedly rejected string value"
-            );
-            $this->assertTrue(
-                $collection->isOfValueType( new \stdClass() ),
-                "Untyped collection unexpectedly rejected object value"
-            );
-        }
-    }
-    
-    
-    /**
-     * Test if isOfValueType() allows its own value type
-     */
-    public function testIsOfValueTypeReturnnsTrueForMatchingValueType()
-    {
-        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
-            foreach ( $collection as $key => $value ) {
-                $this->assertTrue(
-                    $collection->isOfValueType( $value ),
-                    "Collection with defined value types rejects its own values"
-                );
-                break;
-            }
-        }
-    }
-    
-    
-    /**
-     * Test if isOfValueType() rejects other types
-     */
-    public function testIsOfValueTypeReturnsFalseForWrongValueType()
-    {
-        foreach ( ReadOnlyCollectionData::GetTyped() as $collection ) {
-            foreach ( $collection as $key => $value ) {
-                $this->assertFalse(
-                    $collection->isOfValueType( $key ),
-                    "Collection with defined value types rejects its own values"
-                );
-                break;
-            }
-        }
     }
 }
