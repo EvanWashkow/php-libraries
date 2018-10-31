@@ -3,6 +3,7 @@ namespace PHP\Types;
 
 use PHP\Collections\ReadOnlySequence;
 use SebastianBergmann\ObjectReflector\InvalidArgumentException;
+use PHP\Collections\Sequence;
 
 /**
  * Defines basic type information
@@ -20,8 +21,14 @@ class Type extends \PHP\PHPObject
     /** @var ReadOnlySequence $aliasROS Alternate names for this type. For external use. */
     private $aliasROS;
 
-    /** @var string $name The type name */
+    /** @var string $name The primary type name */
     private $name;
+
+    /** @var string[] $namesArray All names for this type. For internal use. */
+    private $namesArray;
+
+    /** @var Sequence $namesSequence All known names for this type. For external use. */
+    private $namesSequence;
 
 
 
@@ -37,7 +44,7 @@ class Type extends \PHP\PHPObject
      * @internal Do not instantiantiate collections in the type constructor:
      * collections rely on types.
      *
-     * @param string   $name    The type name
+     * @param string   $name    The primary type name
      * @param string[] $aliases Alternate names for this type
      */
     public function __construct( string $name, array $aliases = [] )
@@ -49,6 +56,11 @@ class Type extends \PHP\PHPObject
         
         // Set properties
         $this->name       = $name;
+        $this->namesArray = $aliases;
+        if ( !in_array( $name, $this->namesArray )) {
+            array_splice( $this->namesArray, 0, 0, $name );
+        }
+        $this->namesSequence = null;
         $this->aliasArray = $aliases;
         $this->aliasROS   = null;
     }
@@ -83,13 +95,33 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Retrieve the full type name
+     * Retrieve the primary type name
      *
      * @return string
      */
     final public function getName(): string
     {
         return $this->name;
+    }
+    
+    
+    /**
+     * Retrieve all known names for this type
+     *
+     * @return Sequence
+     */
+    final public function getNames(): Sequence
+    {
+        // Build the name sequence
+        if ( null === $this->namesSequence ) {
+            $this->namesSequence = new Sequence( 'string' );
+            foreach ( $this->namesArray as $name ) {
+                $this->namesSequence->add( $name );
+            }
+        }
+
+        // Return sequence of names
+        return $this->namesSequence->clone();
     }
     
     
@@ -131,9 +163,6 @@ class Type extends \PHP\PHPObject
      **/
     public function is( string $typeName ): bool
     {
-        return (
-            ( $this->getName() === $typeName ) ||
-            ( in_array( $typeName, $this->aliasArray ) )
-        );
+        return in_array( $typeName, $this->namesArray );
     }
 }

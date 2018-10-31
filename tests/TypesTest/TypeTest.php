@@ -136,6 +136,45 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
+    *                             Type->getNames()
+    ***************************************************************************/
+    
+    /**
+     * Ensure each type has the correct names
+     */
+    public function testGetNames()
+    {
+        $namesMap = [
+            
+            // Basic types
+            'array'     => [ 'array' ],
+            'bool'      => [ 'bool', 'boolean' ],
+            'int'       => [ 'int', 'integer' ],
+            'function'  => [ 'function' ],
+            'float'     => [ 'float', 'double' ],
+            'null'      => [ 'null' ],
+            'string'    => [ 'string' ],
+            
+            // Other
+            'unknown type'  => [ 'unknown type' ],
+            Sequence::class => [ Sequence::class ]
+        ];
+        
+        // Ensure each type has the correct names
+        foreach ( $namesMap as $typeName => $names ) {
+            $type = Types::GetByName( $typeName );
+            $this->assertEquals(
+                $names,
+                $type->getNames()->toArray(),
+                "Type->getNames() did not return the correct names"
+            );
+        }
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                                 Type->is()
     ***************************************************************************/
     
