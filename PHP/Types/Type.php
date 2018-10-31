@@ -43,15 +43,12 @@ class Type extends \PHP\PHPObject
     public function __construct( string $name, array $aliases = [] )
     {
         // Set name
-        $name = trim( $name );
-        if ( $name === '' ) {
+        if ( '' === ( $name = trim( $name ) )) {
             throw new InvalidArgumentException( 'Type name cannot be empty' );
         }
-        else {
-            $this->name = $name;
-        }
-
-        // Set aliases
+        
+        // Set properties
+        $this->name       = $name;
         $this->aliasArray = $aliases;
         $this->aliasROS   = null;
     }
