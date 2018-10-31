@@ -77,7 +77,7 @@ class Sequence extends Collection implements ISequence
         }
         
         // Invalid value type
-        elseif ( !$this->isOfValueType( $value )) {
+        elseif ( !$this->getValueType()->equals( $value )) {
             trigger_error( "Cannot insert non-{$this->type} values" );
         }
         
@@ -125,7 +125,7 @@ class Sequence extends Collection implements ISequence
         if ( !$this->getKeyType()->equals( $key )) {
             trigger_error( 'Wrong key type' );
         }
-        elseif ( !$this->isOfValueType( $value )) {
+        elseif ( !$this->getValueType()->equals( $value )) {
             trigger_error( 'Wrong value type' );
         }
         elseif ( $key < $this->getFirstKey() ) {
@@ -250,7 +250,7 @@ class Sequence extends Collection implements ISequence
     final public function hasValue( $value ): bool
     {
         return (
-            $this->isOfValueType( $value ) &&
+            $this->getValueType()->equals( $value ) &&
             in_array( $value, $this->entries )
         );
     }
