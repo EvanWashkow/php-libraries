@@ -429,4 +429,32 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
             'Ensure ReadOnlyCollection->isOfKeyType() throws a deprecation error'
         );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                               isOfValueType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure isOfValueType() throws an error
+     **/
+    public function testIsOfValueTypeThrowsDeprecatedError()
+    {
+        $isError = false;
+        try {
+            $collection = new \PHP\Collections\Sequence();
+            $collection = new \PHP\Collections\ReadOnlySequence( $collection );
+            $collection->isOfValueType( 'int' );
+        }
+        catch ( \Exception $e ) {
+            $isError = true;
+        }
+        $this->assertTrue(
+            $isError,
+            'Ensure Collection->isOfValueType() throws a deprecation error'
+        );
+    }
 }

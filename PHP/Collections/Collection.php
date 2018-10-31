@@ -122,6 +122,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function isOfValueType( $value ): bool
     {
+        trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.' );
         return (( '' === $this->valueTypeString ) || is( $value, $this->valueTypeString ));
     }
     
