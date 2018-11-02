@@ -40,11 +40,11 @@ abstract class Collection extends Iterator implements ICollection
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $keyType = '', string $valueType = '' )
+    public function __construct( string $keyType = '*', string $valueType = '*' )
     {
         // Lookup key type
         $keyType = trim( $keyType );
-        if ( '' === $keyType ) {
+        if ( in_array( $keyType, [ '', '*' ] ) ) {
             $this->keyType = new Collection\WildcardKeyType();
         }
         else {
@@ -53,7 +53,7 @@ abstract class Collection extends Iterator implements ICollection
         
         // Lookup value type
         $valueType = trim( $valueType );
-        if ( '' === $valueType ) {
+        if ( in_array( $valueType, [ '', '*' ] ) ) {
             $this->valueType = new Collection\WildcardType();
         }
         else {
