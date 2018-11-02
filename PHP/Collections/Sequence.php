@@ -79,7 +79,7 @@ class Sequence extends Collection implements ISequence
         
         // Invalid value type
         elseif ( !$this->getValueType()->equals( $value )) {
-            trigger_error( "Cannot insert non-{$this->type} values" );
+            trigger_error( "Wrong value type" );
         }
         
         /**
@@ -270,11 +270,6 @@ class Sequence extends Collection implements ISequence
     
     public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
-        // Variables
-        $key      = $offset;
-        $lastKey  = $this->getLastKey();
-        $sequence = new self( $this->type );
-        
         /**
          * Even though "array_slice()" supports a negative offset and length,
          * we don't support that. It is a bad practice to specify starting keys
@@ -296,7 +291,8 @@ class Sequence extends Collection implements ISequence
         }
         
         // Slice and copy entries to the sub-sequence
-        $array = array_slice( $this->entries, $offset, $limit );
+        $array    = array_slice( $this->entries, $offset, $limit );
+        $sequence = new self( $this->type );
         foreach ( $array as $value ) {
             $sequence->add( $value );
         }
