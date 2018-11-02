@@ -36,7 +36,8 @@ class Sequence extends Collection implements ISequence
             throw new \Exception( 'Sequence values cannot be NULL' );
         }
         
-        parent::__construct( 'integer', $type );
+        // Set properties
+        parent::__construct( 'int', $type );
         $this->clear();
         $this->type = $type;
     }
