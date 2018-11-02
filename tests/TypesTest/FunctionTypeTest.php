@@ -79,4 +79,25 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
             'Expected FunctionType->getFunctionName() to always return an empty string'
         );
     }
+
+
+
+
+    /***************************************************************************
+    *                    FunctionReferenceType->getNames()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getNames() returns 'function'
+     **/
+    public function testGetNamesReturnsFunction()
+    {
+        $type = Types::GetByName( 'function' );
+        $this->assertEquals(
+            [ 'function' ],
+            $type->getNames()->toArray(),
+            'Expected FunctionReferenceType->getNames() to only return "function"'
+        );
+    }
 }
