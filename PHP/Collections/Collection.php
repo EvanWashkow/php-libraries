@@ -83,7 +83,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function getKeys(): Sequence
     {
-        $keys = new Sequence( $this->keyTypeString );
+        $keys = new Sequence( $this->getKeyType()->getName() );
         $this->loop( function( $key, $value ) use ( &$keys ) {
             $keys->add( $key );
         });
@@ -99,7 +99,7 @@ abstract class Collection extends Iterator implements ICollection
     
     final public function getValues(): Sequence
     {
-        $values = new Sequence( $this->valueTypeString );
+        $values = new Sequence( $this->getValueType()->getName() );
         $this->loop( function( $key, $value ) use ( &$values ) {
             $values->add( $value );
         });
@@ -123,7 +123,7 @@ abstract class Collection extends Iterator implements ICollection
     final public function isOfValueType( $value ): bool
     {
         trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.' );
-        return (( '' === $this->valueTypeString ) || is( $value, $this->valueTypeString ));
+        return ( $this->getValueType()->equals( $value ) );
     }
     
     
