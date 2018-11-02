@@ -39,19 +39,17 @@ class Dictionary extends Collection implements IDictionary
      */
     public function __construct( string $keyType = '*', string $valueType = '*' )
     {
-        // Abort. The key type must be either an integer or string.
-        if (
-            ( ''        !== $keyType ) &&
-            ( '*'       !== $keyType ) &&
-            ( 'integer' !== $keyType ) &&
-            ( 'string'  !== $keyType )
-        ) {
+        // Invoke parent constructor
+        parent::__construct( $keyType, $valueType );
+
+        // Exit. The key type must be either an integer or string.
+        if ( !$this->getKeyType()->is( 'int' ) &&
+             !$this->getKeyType()->is( 'string' ) )
+        {
             throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
         }
         
-        
         // Initialize properties
-        parent::__construct( $keyType, $valueType );
         $this->clear();
         $this->keyType = $keyType;
         $this->valueType = $valueType;
