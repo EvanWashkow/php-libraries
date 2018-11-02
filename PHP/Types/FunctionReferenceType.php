@@ -18,8 +18,8 @@ final class FunctionReferenceType extends FunctionType
      */
     public function __construct( \ReflectionFunctionAbstract $function )
     {
-        parent::__construct();
         $this->function = $function;
+        parent::__construct();
     }
 
 

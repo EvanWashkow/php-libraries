@@ -13,7 +13,11 @@ class FunctionType extends Type
      */
     public function __construct()
     {
-        parent::__construct( 'function' );
+        $aliases = [];
+        if ( '' !== $this->getFunctionName() ) {
+            $aliases[] = $this->getFunctionName();
+        }
+        parent::__construct( 'function', $aliases );
     }
 
 

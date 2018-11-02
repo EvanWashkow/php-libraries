@@ -101,4 +101,26 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
             'Expected FunctionReferenceType->getFunctionName() to return the function name'
         );
     }
+
+
+
+
+    /***************************************************************************
+    *                    FunctionReferenceType->getNames()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getNames() returns 'function' and the function name
+     **/
+    public function testGetNamesReturnsFunctionAndFunctionName()
+    {
+        $functionName = 'substr';
+        $type         = Types::GetByName( $functionName );
+        $this->assertEquals(
+            [ 'function', $functionName ],
+            $type->getNames()->toArray(),
+            'Expected FunctionReferenceType->getNames() to return "function" and the function name'
+        );
+    }
 }
