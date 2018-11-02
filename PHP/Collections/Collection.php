@@ -12,23 +12,9 @@ use PHP\Types\Type;
  */
 abstract class Collection extends Iterator implements ICollection
 {
-    
-    /**
-     * Type requirement for all keys
-     *
-     * @var string
-     */
-    private $keyTypeString;
 
     /** @var Type $keyType Type requirement for all keys */
     private $keyType;
-    
-    /**
-     * Type requirement for all values
-     *
-     * @var string
-     */
-    private $valueTypeString;
 
     /** @var Type $valueType Type requirement for all values */
     private $valueType;
@@ -59,11 +45,6 @@ abstract class Collection extends Iterator implements ICollection
         else {
             $this->valueType = Types::GetByName( $valueType );
         }
-        
-        // Set deprecated properties
-        // @todo Remove
-        $this->keyTypeString   = $keyType;
-        $this->valueTypeString = $valueType;
 
         // Check for invalid types
         $keyType   = $this->getKeyType()->getName();
