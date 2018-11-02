@@ -47,7 +47,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
                 '1',
                 'foobar',
             ],
-            'NULL' => [
+            'null' => [
                 NULL
             ],
             'PHP\Collections\Collection' => [
