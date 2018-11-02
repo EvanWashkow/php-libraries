@@ -16,20 +16,6 @@ class Dictionary extends Collection implements IDictionary
      */
     private $entries;
     
-    /**
-     * Specifies the type requirement for all keys
-     *
-     * @var string
-     */
-    private $keyType;
-    
-    /**
-     * Specifies the type requirement for all values
-     *
-     * @var string
-     */
-    private $valueType;
-    
     
     /**
      * Create a new Dictionary instance
@@ -39,8 +25,9 @@ class Dictionary extends Collection implements IDictionary
      */
     public function __construct( string $keyType = '*', string $valueType = '*' )
     {
-        // Invoke parent constructor
+        // Set properties
         parent::__construct( $keyType, $valueType );
+        $this->clear();
 
         // Exit. The key type must be either an integer or string.
         if ( !$this->getKeyType()->is( 'int' ) &&
@@ -48,11 +35,6 @@ class Dictionary extends Collection implements IDictionary
         {
             throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
         }
-        
-        // Initialize properties
-        $this->clear();
-        $this->keyType = $keyType;
-        $this->valueType = $valueType;
     }
     
     
@@ -111,7 +93,8 @@ class Dictionary extends Collection implements IDictionary
     
     public function clone(): IReadOnlyCollection
     {
-        $clone = new self( $this->keyType, $this->valueType );
+        $clone = new self( $this->getKeyType()->getName(),
+                           $this->getValueType()->getName() );
         $this->loop( function( $key, $value ) use ( &$clone ) {
             $clone->set( $key, $value );
         });
@@ -128,10 +111,10 @@ class Dictionary extends Collection implements IDictionary
     final public function get( $key )
     {
         if ( !$this->getKeyType()->equals( $key )) {
-            throw new \InvalidArgumentException( "Cannot get non-{$this->keyType} key" );
+            throw new \InvalidArgumentException( "Wrong key type" );
         }
         elseif ( !$this->hasKey( $key )) {
-            throw new \InvalidArgumentException( "Cannot get value at non-existing key" );
+            throw new \InvalidArgumentException( "Key doesn't exist" );
         }
         return $this->entries[ $key ];
     }
@@ -183,7 +166,7 @@ class Dictionary extends Collection implements IDictionary
          * TODO: Remove this when converting to two internal sequences for keys
          * and values
          */
-        if (( null !== $key ) && ( 'string' === $this->keyType )) {
+        if (( null !== $key ) && $this->getKeyType()->is( 'string' ) ) {
             $key = ( string ) $key;
         }
         return $key;
