@@ -37,11 +37,12 @@ class Dictionary extends Collection implements IDictionary
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $keyType = '', string $valueType = '' )
+    public function __construct( string $keyType = '*', string $valueType = '*' )
     {
         // Abort. The key type must be either an integer or string.
         if (
             ( ''        !== $keyType ) &&
+            ( '*'       !== $keyType ) &&
             ( 'integer' !== $keyType ) &&
             ( 'string'  !== $keyType )
         ) {

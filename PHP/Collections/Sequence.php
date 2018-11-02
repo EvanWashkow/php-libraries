@@ -29,7 +29,7 @@ class Sequence extends Collection implements ISequence
      *
      * @param string $type Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $type = '' )
+    public function __construct( string $type = '*' )
     {
         // Throw error for NULL value types
         if ( 'null' === strtolower( $type )) {
