@@ -45,16 +45,16 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure InterfaceType->equals() returns true for a parent class type
+     * Ensure InterfaceType->equals() returns true for a child class type
      **/
-    public function testEqualsReturnsTrueForParentClassType()
+    public function testEqualsReturnsTrueForChildClassType()
     {
         $typeName   = 'PHP\\Collections\\ICollection';
         $type       = Types::GetByName( $typeName );
         $parentType = Types::GetByName( 'PHP\\Collections\\Sequence' );
         $this->assertTrue(
             $type->equals( $parentType ),
-            'InterfaceType->equals() should return true for a parent class type'
+            'InterfaceType->equals() should return true for a child class type'
         );
     }
 
