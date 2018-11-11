@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 /**
  * Defines a base test case for all tests

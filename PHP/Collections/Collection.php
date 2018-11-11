@@ -1,6 +1,10 @@
 <?php
 namespace PHP\Collections;
 
+use PHP\Types;
+use PHP\Types\Type;
+
+
 /**
  * Defines an iterable set of mutable, key-value pairs
  *
@@ -8,19 +12,11 @@ namespace PHP\Collections;
  */
 abstract class Collection extends Iterator implements ICollection
 {
-    
-    /**
-     * Type requirement for all keys
-     *
-     * @var string
-     */
+
+    /** @var Type $keyType Type requirement for all keys */
     private $keyType;
-    
-    /**
-     * Type requirement for all values
-     *
-     * @var string
-     */
+
+    /** @var Type $valueType Type requirement for all values */
     private $valueType;
     
     
@@ -30,61 +26,85 @@ abstract class Collection extends Iterator implements ICollection
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
      */
-    public function __construct( string $keyType = '', string $valueType = '' )
+    public function __construct( string $keyType = '*', string $valueType = '*' )
     {
-        // Sanitize
-        $keyType   = trim( $keyType );
+        // Lookup key type
+        $keyType = trim( $keyType );
+        if ( in_array( $keyType, [ '', '*' ] ) ) {
+            $this->keyType = new Collection\WildcardKeyType();
+        }
+        else {
+            $this->keyType = Types::GetByName( $keyType );
+        }
+        
+        // Lookup value type
         $valueType = trim( $valueType );
-        
-        // Check for invalid value types
-        if ( 'null' === strtolower( $keyType )) {
-            throw new \Exception( 'Key types cannot be NULL' );
+        if ( in_array( $valueType, [ '', '*' ] ) ) {
+            $this->valueType = new Collection\WildcardType();
         }
-        else if ( 'null' === strtolower( $valueType )) {
-            throw new \Exception( 'Value types cannot be NULL' );
+        else {
+            $this->valueType = Types::GetByName( $valueType );
         }
-        
-        // Set properties
-        $this->keyType   = $keyType;
-        $this->valueType = $valueType;
+
+        // Check for invalid types
+        $keyType   = $this->getKeyType()->getName();
+        $valueType = $this->getValueType()->getName();
+        $invalidTypes = [
+            'null',
+            Types::GetUnknownType()->getName()
+        ];
+        if ( in_array( $keyType, $invalidTypes )) {
+            throw new \InvalidArgumentException( "Key type cannot be {$keyType}" );
+        }
+        elseif ( in_array( $valueType, $invalidTypes )) {
+            throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
+        }
     }
     
     
     final public function getKeys(): Sequence
     {
-        $keys = new Sequence( $this->keyType );
+        $keys = new Sequence( $this->getKeyType()->getName() );
         $this->loop( function( $key, $value ) use ( &$keys ) {
             $keys->add( $key );
         });
         return $keys;
     }
+
+
+    final public function getKeyType(): Type
+    {
+        return $this->keyType;
+    }
     
     
     final public function getValues(): Sequence
     {
-        $values = new Sequence( $this->valueType );
+        $values = new Sequence( $this->getValueType()->getName() );
         $this->loop( function( $key, $value ) use ( &$values ) {
             $values->add( $value );
         });
         return $values;
     }
+
+
+    final public function getValueType(): Type
+    {
+        return $this->valueType;
+    }
     
     
     final public function isOfKeyType( $key ): bool
     {
-        return (
-            ( null !== $key ) &&
-            (
-                ( '' === $this->keyType ) ||
-                is( $key, $this->keyType )
-            )
-        );
+        trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.' );
+        return $this->getKeyType()->equals( $key );
     }
     
     
     final public function isOfValueType( $value ): bool
     {
-        return (( '' === $this->valueType ) || is( $value, $this->valueType ));
+        trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.' );
+        return ( $this->getValueType()->equals( $value ) );
     }
     
     

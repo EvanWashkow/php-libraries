@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 use PHP\Collections\Sequence;
 
@@ -67,6 +68,24 @@ class SequenceTest extends CollectionsTestCase
                 }
             }
         }
+    }
+
+
+    /***************************************************************************
+    *                               Sequence->get()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Sequence->get() throws exception on wrong key type
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testGetThrowsErrorOnWrongKeyType()
+    {
+        $dictionary = new Sequence( 'integer' );
+        $dictionary->add( 1 );
+        $dictionary->get( 1 );
     }
     
     

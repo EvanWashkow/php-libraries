@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 use PHP\Collections\Sequence;
 

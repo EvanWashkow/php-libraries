@@ -9,16 +9,5 @@
  */
 function is( $variable, string $type ): bool
 {
-    // Variables
-    $isOfType     = false;
-    $variableType = gettype( $variable );
-    
-    // Evaluate
-    if ( 'object' === $variableType ) {
-        $isOfType = is_a( $variable, $type );
-    }
-    else {
-        $isOfType = $variableType === $type;
-    }
-    return $isOfType;
+    return \PHP\Types::GetByValue( $variable )->is( $type );
 }

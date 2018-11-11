@@ -1,4 +1,8 @@
 <?php
+namespace PHP\Tests;
+
+use PHP\Collections\Dictionary;
+
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
@@ -8,7 +12,57 @@ require_once( __DIR__ . '/CollectionData.php' );
  */
 class CollectionTest extends CollectionsTestCase
 {
-    
+
+    /***************************************************************************
+    *                           Collection->__construct()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure the constructor throws an error for null key types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForNullKey()
+    {
+        new Dictionary( 'null' );
+    }
+
+
+    /**
+     * Ensure the constructor throws an error for unknown key types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForUnknownKey()
+    {
+        new Dictionary( 'foobar' );
+    }
+
+
+    /**
+     * Ensure the constructor throws an error for null value types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForNullValue()
+    {
+        new Dictionary( '', 'null' );
+    }
+
+
+    /**
+     * Ensure the constructor throws an error for unknown value types
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testConstructorThrowsErrorForUnknownValue()
+    {
+        new Dictionary( '', 'foobar' );
+    }
+
+
+
     /***************************************************************************
     *                           Collection->clear()
     ***************************************************************************/
@@ -27,6 +81,124 @@ class CollectionTest extends CollectionsTestCase
                 "Expected {$name}->clear() to remove all elements"
             );
         }
+    }
+
+
+
+    /***************************************************************************
+    *                          Collection->getKeyType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getKeyType() has the same name
+     */
+    public function testGetKeyTypeHasSameName()
+    {
+        $this->assertEquals(
+            'int',
+            ( new Dictionary( 'integer' ) )->getKeyType()->getName(),
+            'Collection->getKeyType() return the wrong key type'
+        );
+    }
+
+
+    /**
+     * Ensure getKeyType() returns a wildcard type
+     */
+    public function testGetKeyTypeWildcard()
+    {
+        $this->assertInstanceOf(
+            'PHP\\Collections\\Collection\\WildcardType',
+            ( new Dictionary( '' ) )->getKeyType(),
+            'Expected Collection->getKeyType() to return a wildcard type'
+        );
+    }
+
+
+
+    /***************************************************************************
+    *                          Collection->getValueType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getValueType() has the same name
+     */
+    public function testGetValueTypeHasSameName()
+    {
+        $this->assertEquals(
+            'int',
+            ( new Dictionary( '', 'integer' ) )->getValueType()->getName(),
+            "Collection->getValueType() return the wrong value type"
+        );
+    }
+
+
+    /**
+     * Ensure getValueType() returns a wildcard type
+     */
+    public function testGetValueTypeWildcard()
+    {
+        $this->assertInstanceOf(
+            'PHP\\Collections\\Collection\\WildcardType',
+            ( new Dictionary( '', '' ) )->getValueType(),
+            'Expected Collection->getValueType() to return a wildcard type'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                         Collection->isOfKeyType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure isOfKeyType throws an error
+     **/
+    public function testIsOfKeyTypeThrowsDeprecatedError()
+    {
+        $isError = false;
+        try {
+            $collection = new \PHP\Collections\Sequence();
+            $collection->isOfKeyType( 'int' );
+        }
+        catch ( \Exception $e ) {
+            $isError = true;
+        }
+        $this->assertTrue(
+            $isError,
+            'Ensure Collection->isOfKeyType() throws a deprecation error'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                         Collection->isOfValueType()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure isOfValueType throws an error
+     **/
+    public function testIsOfValueTypeThrowsDeprecatedError()
+    {
+        $isError = false;
+        try {
+            $collection = new \PHP\Collections\Sequence();
+            $collection->isOfValueType( 'int' );
+        }
+        catch ( \Exception $e ) {
+            $isError = true;
+        }
+        $this->assertTrue(
+            $isError,
+            'Ensure Collection->isOfValueType() throws a deprecation error'
+        );
     }
     
     

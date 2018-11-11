@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 use PHP\Collections\Dictionary;
 
@@ -104,7 +105,7 @@ class DictionaryData
     private static function getStringObject(): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'stdClass' );
-        $dictionary->set( "0", new stdClass() );
+        $dictionary->set( "0", new \stdClass() );
         return $dictionary;
     }
 }

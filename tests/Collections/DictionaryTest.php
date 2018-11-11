@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 use PHP\Collections\Dictionary;
 
@@ -9,6 +10,26 @@ require_once( __DIR__ . '/CollectionsTestCase.php' );
  */
 class DictionaryTest extends CollectionsTestCase
 {
+
+
+    /***************************************************************************
+    *                               Dictionary->get()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Dictionary->get() throws exception on wrong key type
+     * 
+     * @expectedException \InvalidArgumentException
+     **/
+    public function testGetThrowsErrorOnWrongKeyType()
+    {
+        $dictionary = new Dictionary( 'integer', 'integer' );
+        $dictionary->set( 0, 1 );
+        $dictionary->get( 1 );
+    }
+
+
 
 
     /***************************************************************************

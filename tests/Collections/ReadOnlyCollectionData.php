@@ -1,4 +1,5 @@
 <?php
+namespace PHP\Tests;
 
 require_once( __DIR__ . '/CollectionData.php' );
 require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
