@@ -248,6 +248,39 @@ class ClassTypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
+    *                            ClassType->isFunction()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure ClassType->isFunction() returns true for Closure instances
+     */
+    public function testIsFunctionReturnsTrue()
+    {
+        $type = \PHP\Types::GetByValue( function() {} );
+        $this->assertTrue(
+            $type->isFunction(),
+            'Expected Type->isFunction() to return true for Closure instances'
+        );
+    }
+    
+    
+    /**
+     * Ensure ClassType->isFunction() returns false for non-Closure instances
+     */
+    public function testIsFunctionReturnsFalse()
+    {
+        $type = \PHP\Types::GetByName( 'stdClass' );
+        $this->assertFalse(
+            $type->isFunction(),
+            'Expected Type->isFunction() to return false for non-Closure instances'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
     *                              Type->isInterface()
     ***************************************************************************/
     

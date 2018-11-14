@@ -51,4 +51,10 @@ final class FunctionReferenceType extends FunctionType
             ( $item->getFunctionName() === $this->getFunctionName() )
         );
     }
+    
+    
+    public function isFunction(): bool
+    {
+        return true;
+    }
 }

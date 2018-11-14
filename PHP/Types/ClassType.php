@@ -27,6 +27,12 @@ final class ClassType extends InterfaceType
     }
     
     
+    public function isFunction(): bool
+    {
+        return $this->is( 'Closure' );
+    }
+    
+    
     public function isInterface(): bool
     {
         return false;

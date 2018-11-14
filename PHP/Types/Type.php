@@ -150,6 +150,17 @@ class Type extends \PHP\PHPObject
     
     
     /**
+     * Determine if this type functions as a function
+     *
+     * @return bool
+     **/
+    public function isFunction(): bool
+    {
+        return false;
+    }
+    
+    
+    /**
      * Determine if this type is an interface
      *
      * @return bool
