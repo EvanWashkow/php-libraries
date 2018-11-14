@@ -139,17 +139,6 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type can be treated as an array
-     *
-     * @return bool
-     **/
-    public function isArray(): bool
-    {
-        return 'array' === $this->getName();
-    }
-    
-    
-    /**
      * Determine if this type is a class
      *
      * @return bool

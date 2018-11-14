@@ -195,39 +195,6 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
-    *                                Type->isArray()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure Type->isArray() returns true for arrays
-     */
-    public function testIsArrayReturnsTrue()
-    {
-        $type = \PHP\Types::GetByValue( [] );
-        $this->assertTrue(
-            $type->isArray(),
-            'Expected Type->isArray() to return true for arrays'
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->isArray() returns false for other types
-     */
-    public function testIsArrayReturnsFalse()
-    {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertFalse(
-            $type->isArray(),
-            'Expected Type->isArray() to return false for other types'
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                                Type->isClass()
     ***************************************************************************/
     
