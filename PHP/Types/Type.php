@@ -136,4 +136,15 @@ class Type extends \PHP\PHPObject
     {
         return in_array( $typeName, $this->namesArray );
     }
+    
+    
+    /**
+     * Determine if this type is an array
+     *
+     * @return bool
+     **/
+    public function isArray(): bool
+    {
+        return 'array' === $this->getName();
+    }
 }
