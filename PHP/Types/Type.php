@@ -150,7 +150,7 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type functions as a function
+     * Determine if this type behaves as a function
      *
      * @return bool
      **/
