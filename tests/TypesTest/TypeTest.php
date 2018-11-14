@@ -256,4 +256,24 @@ class TypeTest extends \PHP\Tests\TestCase
             'Expected Type->isBool() to return false for other types'
         );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                Type->isClass()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isClass() returns false for basic types
+     */
+    public function testIsClassReturnsFalse()
+    {
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->isClass(),
+            'Expected Type->isClass() to return false for basic types'
+        );
+    }
 }

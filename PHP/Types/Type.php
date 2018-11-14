@@ -158,4 +158,15 @@ class Type extends \PHP\PHPObject
     {
         return 'bool' === $this->getName();
     }
+    
+    
+    /**
+     * Determine if this type is a class
+     *
+     * @return bool
+     **/
+    public function isClass(): bool
+    {
+        return false;
+    }
 }

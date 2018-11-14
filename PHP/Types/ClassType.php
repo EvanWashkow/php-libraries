@@ -19,4 +19,10 @@ final class ClassType extends InterfaceType
             )
         );
     }
+    
+    
+    public function isClass(): bool
+    {
+        return true;
+    }
 }
