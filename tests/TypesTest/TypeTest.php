@@ -210,4 +210,24 @@ class TypeTest extends \PHP\Tests\TestCase
             'Expected Type->isClass() to return false for basic types'
         );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              Type->isInterface()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isInterface() returns false for basic types
+     */
+    public function testIsInterfaceReturnsFalse()
+    {
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->isInterface(),
+            'Expected Type->isInterface() to return false for basic types'
+        );
+    }
 }

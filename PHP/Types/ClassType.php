@@ -25,4 +25,10 @@ final class ClassType extends InterfaceType
     {
         return true;
     }
+    
+    
+    public function isInterface(): bool
+    {
+        return false;
+    }
 }

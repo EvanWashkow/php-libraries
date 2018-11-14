@@ -185,4 +185,24 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
             'InterfaceType->is() should return false for a parent interface name'
         );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              Type->isInterface()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isInterface() returns true for interface types
+     */
+    public function testIsInterfaceReturnsTrue()
+    {
+        $type = \PHP\Types::GetByName( 'ArrayAccess' );
+        $this->assertTrue(
+            $type->isInterface(),
+            'Expected Type->isInterface() to return true for interface types'
+        );
+    }
 }

@@ -243,4 +243,24 @@ class ClassTypeTest extends \PHP\Tests\TestCase
             'Expected Type->isClass() to return true for classes'
         );
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              Type->isInterface()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isInterface() returns false for class types
+     */
+    public function testIsInterfaceReturnsFalse()
+    {
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->isInterface(),
+            'Expected Type->isInterface() to return false for class types'
+        );
+    }
 }

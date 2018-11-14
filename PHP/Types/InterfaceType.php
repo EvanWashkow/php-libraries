@@ -38,6 +38,12 @@ class InterfaceType extends Type
             )
         );
     }
+    
+    
+    public function isInterface(): bool
+    {
+        return true;
+    }
 
 
     /**

@@ -147,4 +147,15 @@ class Type extends \PHP\PHPObject
     {
         return false;
     }
+    
+    
+    /**
+     * Determine if this type is an interface
+     *
+     * @return bool
+     **/
+    public function isInterface(): bool
+    {
+        return false;
+    }
 }
