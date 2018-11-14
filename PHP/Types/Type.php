@@ -139,7 +139,7 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type is an array
+     * Determine if this type can be treated as an array
      *
      * @return bool
      **/
