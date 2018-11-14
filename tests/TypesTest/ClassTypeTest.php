@@ -281,19 +281,19 @@ class ClassTypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
-    *                              Type->isInterface()
+    *                            ClassType->isInterface()
     ***************************************************************************/
     
     
     /**
-     * Ensure Type->isInterface() returns false for class types
+     * Ensure ClassType->isInterface() returns false for class types
      */
     public function testIsInterfaceReturnsFalse()
     {
         $type = \PHP\Types::GetByValue( 1 );
         $this->assertFalse(
             $type->isInterface(),
-            'Expected Type->isInterface() to return false for class types'
+            'Expected ClassType->isInterface() to return false for class types'
         );
     }
 }
