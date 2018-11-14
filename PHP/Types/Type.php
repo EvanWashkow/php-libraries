@@ -150,17 +150,6 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type is a boolean
-     *
-     * @return bool
-     **/
-    public function isBool(): bool
-    {
-        return 'bool' === $this->getName();
-    }
-    
-    
-    /**
      * Determine if this type is a class
      *
      * @return bool

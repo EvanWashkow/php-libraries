@@ -228,39 +228,6 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
-    *                                Type->isBool()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure Type->isBool() returns true for booleans
-     */
-    public function testIsBoolReturnsTrue()
-    {
-        $type = \PHP\Types::GetByValue( true );
-        $this->assertTrue(
-            $type->isBool(),
-            'Expected Type->isBool() to return true for booleans'
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->isBool() returns false for other types
-     */
-    public function testIsBoolReturnsFalse()
-    {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertFalse(
-            $type->isBool(),
-            'Expected Type->isBool() to return false for other types'
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                                Type->isClass()
     ***************************************************************************/
     
