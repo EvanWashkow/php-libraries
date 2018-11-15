@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 /**
  * Defines basic information for a "function" type

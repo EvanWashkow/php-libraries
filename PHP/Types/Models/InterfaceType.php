@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 /**
  * Store and retrieve type information for a interface

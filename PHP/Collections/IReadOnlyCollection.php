@@ -1,7 +1,7 @@
 <?php
 namespace PHP\Collections;
 
-use PHP\Types\Type;
+use PHP\Types\Models\Type;
 
 /**
  * Specifications for an iterable set of read-only, key-value pairs

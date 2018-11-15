@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 /**
  * Retrieve type information from a function instance

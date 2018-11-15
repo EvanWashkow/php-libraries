@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 use PHP\Collections\ReadOnlySequence;
 use SebastianBergmann\ObjectReflector\InvalidArgumentException;
@@ -106,7 +106,7 @@ class Type extends \PHP\PHPObject
     /**
      * Determine if the type or value is derived from the current type
      *
-     * @param mixed $item A value or PHP\Types\Type instance
+     * @param mixed $item A value or PHP\Types\Models\Type instance
      * @return bool
      */
     public function equals( $item ): bool

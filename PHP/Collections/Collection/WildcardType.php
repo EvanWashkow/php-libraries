@@ -1,7 +1,7 @@
 <?php
 namespace PHP\Collections\Collection;
 
-use PHP\Types\Type;
+use PHP\Types\Models\Type;
 
 /**
  * Type wildcard that evaluates to true for any type

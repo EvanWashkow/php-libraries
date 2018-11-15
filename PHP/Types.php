@@ -1,7 +1,7 @@
 <?php
 namespace PHP;
 
-use PHP\Types\Type;
+use PHP\Types\Models\Type;
 
 
 /**
@@ -52,9 +52,9 @@ final class Types
      * Retrieve the type information by name
      *
      * @param string $name The type name
-     * @return Types\Type
+     * @return Type
      */
-    public static function GetByName( string $name ): Types\Type
+    public static function GetByName( string $name ): Type
     {
         // Variables
         $name = trim( $name );
@@ -70,38 +70,38 @@ final class Types
 
             // Known system types
             if (( 'NULL' === $name ) || ( 'null' === $name )) {
-                $type = new Types\Type( 'null' );
+                $type = new Type( 'null' );
             }
             elseif ( Types\TypeNames::CALLABLE_TYPE_NAME === $name ) {
-                $type = new Types\CallableType();
+                $type = new Types\Models\CallableType();
             }
             elseif ( array_key_exists( $name, self::$knownTypes )) {
                 $aliases = self::$knownTypes[ $name ];
-                $type    = new Types\Type( $name, $aliases );
+                $type    = new Types\Models\Type( $name, $aliases );
             }
             elseif ( '' !== self::getNameByAlias( $name )) {
                 $name    = self::getNameByAlias( $name );
                 $aliases = self::$knownTypes[ $name ];
-                $type    = new Types\Type( $name, $aliases );
+                $type    = new Types\Models\Type( $name, $aliases );
             }
             
             // Class and interface types
             elseif ( interface_exists( $name )) {
                 $class = new \ReflectionClass( $name );
-                $type  = new Types\InterfaceType( $class );
+                $type  = new Types\Models\InterfaceType( $class );
             }
             elseif ( class_exists( $name )) {
                 $class = new \ReflectionClass( $name );
-                $type  = new Types\ClassType( $class );
+                $type  = new Types\Models\ClassType( $class );
             }
             
             // Function type
             elseif ( self::FUNCTION_TYPE_NAME === $name ) {
-                $type = new Types\FunctionType();
+                $type = new Types\Models\FunctionType();
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );
-                $type     = new Types\CallableFunctionType( $function );
+                $type     = new Types\Models\CallableFunctionType( $function );
             }
             
             // Unknown type
@@ -122,9 +122,9 @@ final class Types
      * Retrieve the type information by value
      *
      * @param mixed $value The value to retrieve type information for
-     * @return Types\Type
+     * @return Types\Models\Type
      */
-    public static function GetByValue( $value ): Types\Type
+    public static function GetByValue( $value ): Types\Models\Type
     {
         $name = gettype( $value );
         if ( 'object' === $name ) {

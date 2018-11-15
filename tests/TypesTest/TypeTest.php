@@ -3,7 +3,7 @@ namespace PHP\Tests\TypesTest;
 
 use PHP\Types;
 use PHP\Collections\Sequence;
-use PHP\Types\Type;
+use PHP\Types\Models\Type;
 
 
 /**
