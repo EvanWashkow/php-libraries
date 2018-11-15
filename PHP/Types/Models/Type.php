@@ -139,7 +139,7 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type can be invoked like a function
+     * Determine if the value for this type can be invoked as a function call
      *
      * @return bool
      **/
