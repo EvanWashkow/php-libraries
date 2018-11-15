@@ -27,13 +27,13 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     }
     
     /**
-     * Ensure FunctionType->equals() returns true for a FunctionReferenceType
+     * Ensure FunctionType->equals() returns true for a CallableFunctionType
      */
-    public function testEqualsReturnsTrueForFunctionReferenceType()
+    public function testEqualsReturnsTrueForCallableFunctionType()
     {
         $this->assertTrue(
             Types::GetByName( 'function' )->equals( Types::GetByName( 'substr' )),
-            "Expected FunctionType->equals() to return true for a FunctionReferenceType"
+            "Expected FunctionType->equals() to return true for a CallableFunctionType"
         );
     }
     
@@ -84,7 +84,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                    FunctionReferenceType->getNames()
+    *                    CallableFunctionType->getNames()
     ***************************************************************************/
 
 
@@ -97,7 +97,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
         $this->assertEquals(
             [ 'function', 'callable' ],
             $type->getNames()->toArray(),
-            'Expected FunctionReferenceType->getNames() to only return "function"'
+            'Expected CallableFunctionType->getNames() to only return "function"'
         );
     }
 }

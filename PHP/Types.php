@@ -101,7 +101,7 @@ final class Types
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );
-                $type     = new Types\FunctionReferenceType( $function );
+                $type     = new Types\CallableFunctionType( $function );
             }
             
             // Unknown type

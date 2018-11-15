@@ -4,7 +4,7 @@ namespace PHP\Types;
 /**
  * Retrieve type information from a function instance
  */
-final class FunctionReferenceType extends FunctionType
+final class CallableFunctionType extends FunctionType
 {
     
     /** @var \ReflectionFunctionAbstract $function Reflection instance with details for the function instance */
