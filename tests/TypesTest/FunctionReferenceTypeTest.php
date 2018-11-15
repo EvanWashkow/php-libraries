@@ -118,7 +118,7 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
         $functionName = 'substr';
         $type         = Types::GetByName( $functionName );
         $this->assertEquals(
-            [ 'function', $functionName ],
+            [ 'function', $functionName, 'callable' ],
             $type->getNames()->toArray(),
             'Expected FunctionReferenceType->getNames() to return "function" and the function name'
         );

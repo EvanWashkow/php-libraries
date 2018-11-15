@@ -95,7 +95,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     {
         $type = Types::GetByName( 'function' );
         $this->assertEquals(
-            [ 'function' ],
+            [ 'function', 'callable' ],
             $type->getNames()->toArray(),
             'Expected FunctionReferenceType->getNames() to only return "function"'
         );

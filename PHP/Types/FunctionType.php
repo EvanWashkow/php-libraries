@@ -4,7 +4,7 @@ namespace PHP\Types;
 /**
  * Defines basic information for a "function" type
  */
-class FunctionType extends Type
+class FunctionType extends CallableType
 {
     
     

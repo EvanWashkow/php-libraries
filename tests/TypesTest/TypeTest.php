@@ -111,7 +111,6 @@ class TypeTest extends \PHP\Tests\TestCase
             'array'     => [ 'array' ],
             'bool'      => [ 'bool', 'boolean' ],
             'int'       => [ 'int', 'integer' ],
-            'function'  => [ 'function' ],
             'float'     => [ 'float', 'double' ],
             'null'      => [ 'null' ],
             'string'    => [ 'string' ],
