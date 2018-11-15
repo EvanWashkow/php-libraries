@@ -1,6 +1,8 @@
 <?php
 namespace PHP\Types\Models;
 
+use PHP\Types\TypeNames;
+
 /**
  * Defines basic information for a "function" type
  */
@@ -17,7 +19,7 @@ class FunctionType extends CallableType
         if ( '' !== $this->getFunctionName() ) {
             $aliases[] = $this->getFunctionName();
         }
-        parent::__construct( 'function', $aliases );
+        parent::__construct( TypeNames::FUNCTION, $aliases );
     }
 
 
