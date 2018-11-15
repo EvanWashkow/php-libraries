@@ -21,7 +21,7 @@ class CallableTypeTest extends \PHP\Tests\TestCase
      **/
     public function testGetNamesReturnsNames()
     {
-        $type = Types::GetByName( TypeNames::CALLABLE_TYPE_NAME );
+        $type = Types::GetByName( TypeNames::CALLABLE );
         $this->assertEquals(
             [ 'callable' ],
             $type->getNames()->toArray(),

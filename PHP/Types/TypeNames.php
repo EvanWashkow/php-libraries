@@ -6,6 +6,6 @@ namespace PHP\Types;
  */
 final class TypeNames
 {
-    /** @var string CALLABLE_TYPE_NAME Base name for any "callable" type (http://php.net/manual/en/language.types.callable.php) */
-    const CALLABLE_TYPE_NAME = 'callable';
+    /** @var string CALLABLE Base name for any "callable" type (http://php.net/manual/en/language.types.callable.php) */
+    const CALLABLE = 'callable';
 }

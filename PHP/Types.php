@@ -71,7 +71,7 @@ final class Types
             if (( 'NULL' === $name ) || ( 'null' === $name )) {
                 $type = new Type( 'null' );
             }
-            elseif ( Types\TypeNames::CALLABLE_TYPE_NAME === $name ) {
+            elseif ( Types\TypeNames::CALLABLE === $name ) {
                 $type = new Types\Models\CallableType();
             }
             elseif ( array_key_exists( $name, self::$knownTypes )) {
