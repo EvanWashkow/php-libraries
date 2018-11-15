@@ -14,7 +14,7 @@ class WildcardKeyType extends WildcardType
         $type = \PHP\Types::GetByValue( $item );
 
         // The item is a Type instance. Evaluate the item as the Type.
-        if ( $type->is( 'PHP\\Types\\Models\\Type' )) {
+        if ( $type->is( \PHP\Types\Models\Type::class )) {
             $type = $item;
         }
         
