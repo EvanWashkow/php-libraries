@@ -3,7 +3,6 @@ namespace PHP;
 
 use PHP\Types\Models\Type;
 
-
 /**
  * Lookup type information
  */
@@ -77,12 +76,12 @@ final class Types
             }
             elseif ( array_key_exists( $name, self::$knownTypes )) {
                 $aliases = self::$knownTypes[ $name ];
-                $type    = new Types\Models\Type( $name, $aliases );
+                $type    = new Type( $name, $aliases );
             }
             elseif ( '' !== self::getNameByAlias( $name )) {
                 $name    = self::getNameByAlias( $name );
                 $aliases = self::$knownTypes[ $name ];
-                $type    = new Types\Models\Type( $name, $aliases );
+                $type    = new Type( $name, $aliases );
             }
             
             // Class and interface types
@@ -122,9 +121,9 @@ final class Types
      * Retrieve the type information by value
      *
      * @param mixed $value The value to retrieve type information for
-     * @return Types\Models\Type
+     * @return Type
      */
-    public static function GetByValue( $value ): Types\Models\Type
+    public static function GetByValue( $value ): Type
     {
         $name = gettype( $value );
         if ( 'object' === $name ) {
