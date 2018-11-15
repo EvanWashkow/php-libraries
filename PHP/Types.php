@@ -11,16 +11,6 @@ final class Types
 
 
     /***************************************************************************
-    *                                  CONSTANTS
-    ***************************************************************************/
-
-    /** @var string UNKNOWN_TYPE_NAME The unknown type name (http://php.net/manual/en/function.gettype.php) */
-    private const UNKNOWN_TYPE_NAME = 'unknown type';
-
-
-
-
-    /***************************************************************************
     *                                  PROPERTIES
     ***************************************************************************/
 
@@ -146,7 +136,7 @@ final class Types
             $type = self::getCachedType( $name );
         }
         else {
-            $type = new Type( self::UNKNOWN_TYPE_NAME );
+            $type = new Type( Types\TypeNames::UNKNOWN );
             self::cacheType( $type );
         }
 

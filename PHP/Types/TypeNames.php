@@ -11,4 +11,7 @@ final class TypeNames
 
     /** @var string FUNCTION The function type name */
     const FUNCTION = 'function';
+
+    /** @var string UNKNOWN The unknown type name (http://php.net/manual/en/function.gettype.php) */
+    const UNKNOWN = 'unknown type';
 }
