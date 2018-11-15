@@ -14,7 +14,7 @@ class CallableType extends Type
             $name = TypeNames::CALLABLE_TYPE_NAME;
         }
         if ( !in_array( TypeNames::CALLABLE_TYPE_NAME, $aliases )) {
-            $aliases[] = TypeNames::CALLABLE_TYPE_NAME;
+            array_splice( $aliases, 0, 0, TypeNames::CALLABLE_TYPE_NAME );
         }
         parent::__construct( $name, $aliases );
     }
