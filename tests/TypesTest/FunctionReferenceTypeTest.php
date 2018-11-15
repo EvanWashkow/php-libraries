@@ -159,19 +159,19 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
-    *                     FunctionReferenceType->isFunction()
+    *                     FunctionReferenceType->isCallable()
     ***************************************************************************/
     
     
     /**
-     * Ensure FunctionReferenceType->isFunction() returns true for functions
+     * Ensure FunctionReferenceType->isCallable() returns true for functions
      */
     public function testIsFunctionReturnsTrue()
     {
         $type = \PHP\Types::GetByName( 'substr' );
         $this->assertTrue(
-            $type->isFunction(),
-            'Expected Type->isFunction() to return true for functions'
+            $type->isCallable(),
+            'Expected Type->isCallable() to return true for functions'
         );
     }
 }

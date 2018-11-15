@@ -53,7 +53,7 @@ final class FunctionReferenceType extends FunctionType
     }
     
     
-    public function isFunction(): bool
+    public function isCallable(): bool
     {
         return true;
     }

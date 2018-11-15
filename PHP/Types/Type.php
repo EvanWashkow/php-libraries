@@ -139,22 +139,22 @@ class Type extends \PHP\PHPObject
     
     
     /**
-     * Determine if this type is a class
+     * Determine if this type can be invoked like a function
      *
      * @return bool
      **/
-    public function isClass(): bool
+    public function isCallable(): bool
     {
         return false;
     }
     
     
     /**
-     * Determine if this type behaves as a function
+     * Determine if this type is a class
      *
      * @return bool
      **/
-    public function isFunction(): bool
+    public function isClass(): bool
     {
         return false;
     }

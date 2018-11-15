@@ -21,15 +21,15 @@ final class ClassType extends InterfaceType
     }
     
     
-    public function isClass(): bool
+    public function isCallable(): bool
     {
-        return true;
+        return $this->is( 'Closure' );
     }
     
     
-    public function isFunction(): bool
+    public function isClass(): bool
     {
-        return $this->is( 'Closure' );
+        return true;
     }
     
     
