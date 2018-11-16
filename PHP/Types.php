@@ -182,7 +182,10 @@ final class Types
     private static function setCache( Type $type )
     {
         $name = $type->getName();
-        if ( $name === Types\TypeNames::FUNCTION ) {
+        if (
+            $type->is( Types\TypeNames::FUNCTION ) &&
+            ( '' !== $type->getFunctionName() )
+        ) {
             $name = $type->getFunctionName();
         }
         self::$cache[ $name ] = $type;
