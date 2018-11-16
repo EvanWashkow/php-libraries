@@ -58,9 +58,6 @@ final class Types
             if ( 'null' === strtolower( $name ) ) {
                 $type = new Type( 'null' );
             }
-            elseif ( Types\TypeNames::CALLABLE === $name ) {
-                $type = new Types\Models\CallableType();
-            }
             elseif ( array_key_exists( $name, self::$knownTypes )) {
                 $aliases = self::$knownTypes[ $name ];
                 $type    = new Type( $name, $aliases );
@@ -71,6 +68,18 @@ final class Types
                 $type    = new Type( $name, $aliases );
             }
             
+            // Callable types
+            elseif ( Types\TypeNames::CALLABLE === $name ) {
+                $type = new Types\Models\CallableType();
+            }
+            elseif ( Types\TypeNames::FUNCTION === $name ) {
+                $type = new Types\Models\FunctionType();
+            }
+            elseif ( function_exists( $name )) {
+                $function = new \ReflectionFunction( $name );
+                $type     = new Types\Models\CallableFunctionType( $function );
+            }
+            
             // Class and interface types
             elseif ( interface_exists( $name )) {
                 $class = new \ReflectionClass( $name );
@@ -79,15 +88,6 @@ final class Types
             elseif ( class_exists( $name )) {
                 $class = new \ReflectionClass( $name );
                 $type  = new Types\Models\ClassType( $class );
-            }
-            
-            // Function type
-            elseif ( Types\TypeNames::FUNCTION === $name ) {
-                $type = new Types\Models\FunctionType();
-            }
-            elseif ( function_exists( $name )) {
-                $function = new \ReflectionFunction( $name );
-                $type     = new Types\Models\CallableFunctionType( $function );
             }
             
             // Unknown type
