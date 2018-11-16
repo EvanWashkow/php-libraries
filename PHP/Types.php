@@ -72,7 +72,7 @@ final class Types
                 $type = new Types\Models\CallableBaseType();
             }
             elseif ( TypeNames::FUNCTION === $name ) {
-                $type = new Types\Models\FunctionType();
+                $type = new Types\Models\FunctionBaseType();
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );

@@ -4,9 +4,9 @@ namespace PHP\Types\Models;
 use PHP\Types\TypeNames;
 
 /**
- * Defines basic information for a "function" type
+ * Defines the base type for a function
  */
-class FunctionType extends CallableBaseType
+class FunctionBaseType extends CallableBaseType
 {
     
     
