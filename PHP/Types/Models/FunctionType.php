@@ -12,16 +12,14 @@ class FunctionType extends CallableType
     
     /**
      * Create a new Type representing a function
-     *
-     * @param \ReflectionFunction $reflection Reflection of a function
      */
-    public function __construct( \ReflectionFunction $reflection = null )
+    public function __construct()
     {
         $aliases = [];
-        if ( null !== $reflection ) {
-            $aliases[] = $reflection->getName();
+        if ( '' !== $this->getFunctionName() ) {
+            $aliases[] = $this->getFunctionName();
         }
-        parent::__construct( TypeNames::FUNCTION, $aliases, $reflection );
+        parent::__construct( TypeNames::FUNCTION, $aliases );
     }
 
 
@@ -32,6 +30,6 @@ class FunctionType extends CallableType
      **/
     public function getFunctionName(): string
     {
-        return $this->getReflection()->getName();
+        return '';
     }
 }
