@@ -69,7 +69,7 @@ final class Types
             
             // Callable types
             elseif ( TypeNames::CALLABLE === $name ) {
-                $type = new Types\Models\CallableType();
+                $type = new Types\Models\CallableBaseType();
             }
             elseif ( TypeNames::FUNCTION === $name ) {
                 $type = new Types\Models\FunctionType();
