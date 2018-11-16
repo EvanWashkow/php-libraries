@@ -51,10 +51,4 @@ final class CallableFunctionType extends FunctionType
             ( $item->getFunctionName() === $this->getFunctionName() )
         );
     }
-    
-    
-    public function isCallable(): bool
-    {
-        return true;
-    }
 }

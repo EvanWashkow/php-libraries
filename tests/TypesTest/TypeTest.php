@@ -214,26 +214,6 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     /***************************************************************************
-    *                              Type->isCallable()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure Type->isCallable() returns false for basic types
-     */
-    public function testIsFunctionReturnsFalse()
-    {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertFalse(
-            $type->isCallable(),
-            'Expected Type->isCallable() to return false for basic types'
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                              Type->isInterface()
     ***************************************************************************/
     

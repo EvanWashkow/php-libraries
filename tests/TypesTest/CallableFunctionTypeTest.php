@@ -154,24 +154,4 @@ class CallableFunctionTypeTest extends \PHP\Tests\TestCase
             'CallableFunctionType->is() should return true for the function name'
         );
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                     CallableFunctionType->isCallable()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure CallableFunctionType->isCallable() returns true for functions
-     */
-    public function testIsFunctionReturnsTrue()
-    {
-        $type = \PHP\Types::GetByName( 'substr' );
-        $this->assertTrue(
-            $type->isCallable(),
-            'Expected Type->isCallable() to return true for functions'
-        );
-    }
 }
