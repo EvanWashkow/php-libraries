@@ -20,12 +20,12 @@ final class Types
     
     /** @var string[] List of known type names mapped to their aliases */
     private static $knownTypes = [
-        'array'  => [],
-        'bool'   => [ 'boolean' ],
-        'float'  => [ 'double' ],
-        'int'    => [ 'integer' ],
-        'null'   => [],
-        'string' => []
+        TypeNames::ARRAY  => [],
+        TypeNames::BOOL   => [ 'boolean' ],
+        TypeNames::FLOAT  => [ 'double' ],
+        TypeNames::INT    => [ 'integer' ],
+        TypeNames::NULL   => [],
+        TypeNames::STRING => []
     ];
 
 
@@ -119,7 +119,7 @@ final class Types
          * See: http://php.net/manual/en/language.types.null.php
          */ 
         if ( 'NULL' === $name ) {
-            $name = strtolower( $name );
+            $name = TypeNames::NULL;
         }
 
         // Get class of objects
