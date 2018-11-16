@@ -55,7 +55,7 @@ final class Types
         else {
 
             // Known system types
-            if (( 'NULL' === $name ) || ( 'null' === $name )) {
+            if ( 'null' === strtolower( $name ) ) {
                 $type = new Type( 'null' );
             }
             elseif ( Types\TypeNames::CALLABLE === $name ) {
