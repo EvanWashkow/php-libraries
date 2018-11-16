@@ -14,9 +14,9 @@ final class CallableFunctionType extends FunctionType
     /**
      * Create a new type instance for this function definition
      *
-     * @param \ReflectionFunctionAbstract $function Reflection instance for the function
+     * @param \ReflectionFunction $function Reflection instance for the function
      */
-    public function __construct( \ReflectionFunctionAbstract $function )
+    public function __construct( \ReflectionFunction $function )
     {
         $this->function = $function;
         parent::__construct();
