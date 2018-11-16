@@ -8,56 +8,77 @@ use PHP\Types;
  */
 class FunctionTypeTest extends \PHP\Tests\TestCase
 {
-    
-    
+
+
     /***************************************************************************
-    *                           FunctionType->equals()
+    *                          FunctionType->equals()
     ***************************************************************************/
-    
-    
+
+
     /**
-     * Ensure FunctionType->equals() returns true for a FunctionType
-     */
-    public function testEqualsReturnsTrueForFunctionType()
+     * Ensure FunctionType equals its own FunctionType
+     **/
+    public function testEqualsReturnsTrueForSameFunctionType()
     {
+        $referenceType = Types::GetByName( 'substr' );
         $this->assertTrue(
-            Types::GetByName( 'function' )->equals( Types::GetByName( 'function' )),
-            "Expected FunctionType->equals() to return true for a FunctionType instance"
+            $referenceType->equals( $referenceType ),
+            'FunctionType->equals() should return true for same FunctionType'
         );
     }
-    
+
+
     /**
-     * Ensure FunctionType->equals() returns true for a CallableFunctionType
-     */
-    public function testEqualsReturnsTrueForCallableFunctionType()
-    {
-        $this->assertTrue(
-            Types::GetByName( 'function' )->equals( Types::GetByName( 'substr' )),
-            "Expected FunctionType->equals() to return true for a CallableFunctionType"
-        );
-    }
-    
-    
-    /**
-     * Ensure FunctionType->equals() returns false for different Type
-     */
+     * Ensure FunctionType does not equal a different Type
+     **/
     public function testEqualsReturnsFalseForDifferentType()
     {
+        $referenceType = Types::GetByName( 'substr' );
+        $otherType     = Types::GetByName( 'int' );
         $this->assertFalse(
-            Types::GetByName( 'function' )->equals( Types::GetByName( 'null' )),
-            "Expected FunctionType->equals() to return false for the different Type instance"
+            $referenceType->equals( $otherType ),
+            'FunctionType->equals() should return false for a different Type'
         );
     }
-    
-    
+
+
     /**
-     * Ensure FunctionType->equals() returns false for a value of a different type
-     */
-    public function testEqualsReturnsFalseForDifferentValueType()
+     * Ensure FunctionType does not equal a generic FunctionType
+     **/
+    public function testEqualsReturnsFalseForFunctionType()
     {
+        $referenceType = Types::GetByName( 'substr' );
+        $otherType     = Types::GetByName( 'function' );
         $this->assertFalse(
-            Types::GetByName( 'function' )->equals( 'function' ),
-            "Expected FunctionType->equals() to return false for a value of a different type"
+            $referenceType->equals( $otherType ),
+            'FunctionType->equals() should return false for a generic FunctionType'
+        );
+    }
+
+
+    /**
+     * Ensure FunctionType does not equal a different FunctionType
+     **/
+    public function testEqualsReturnsFalseForDifferentFunctionType()
+    {
+        $referenceType = Types::GetByName( 'substr' );
+        $otherType     = Types::GetByName( 'strpos' );
+        $this->assertFalse(
+            $referenceType->equals( $otherType ),
+            'FunctionType->equals() should return false for a different FunctionType'
+        );
+    }
+
+
+    /**
+     * Ensure FunctionType does not equal any values passed in
+     **/
+    public function testEqualsReturnsFalseForValues()
+    {
+        $referenceType = Types::GetByName( 'substr' );
+        $this->assertFalse(
+            $referenceType->equals( 'substr' ),
+            'FunctionType->equals() should return false for any values passed in'
         );
     }
 
@@ -65,39 +86,72 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                     FunctionType->getFunctionName()
+    *                      FunctionType->getFunctionName()
     ***************************************************************************/
 
 
     /**
-     * Ensure FunctionType->getFunctionName() returns an empty string
+     * Ensure FunctionType->getFunctionName() returns the function name
      **/
-    public function testGetFunctionNameReturnsEmptyString()
+    public function testGetFunctionNameReturnsName()
+    {
+        $this->assertEquals(
+            'substr',
+            Types::GetByName( 'substr' )->getFunctionName(),
+            'Expected FunctionType->getFunctionName() to return the function name'
+        );
+    }
+
+
+
+
+    /***************************************************************************
+    *                         FunctionType->getNames()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getNames() returns 'function' and the function name
+     **/
+    public function testGetNamesReturnsFunctionAndFunctionName()
+    {
+        $functionName = 'substr';
+        $type         = Types::GetByName( $functionName );
+        $this->assertEquals(
+            [ 'function', $functionName, 'callable' ],
+            $type->getNames()->toArray(),
+            'Expected FunctionType->getNames() to return "function" and the function name'
+        );
+    }
+
+
+
+
+    /***************************************************************************
+    *                             FunctionType->is()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure is() returns true for "function"
+     **/
+    public function testIsReturnsTrueForFunction()
     {
         $this->assertTrue(
-            '' === Types::GetByName( 'function' )->getFunctionName(),
-            'Expected FunctionType->getFunctionName() to always return an empty string'
+            Types::GetByName( 'substr' )->is( 'function' ),
+            'FunctionType->is() should return true for "function"'
         );
     }
 
 
-
-
-    /***************************************************************************
-    *                    CallableFunctionType->getNames()
-    ***************************************************************************/
-
-
     /**
-     * Ensure getNames() returns 'function'
+     * Ensure is() returns true for the function name
      **/
-    public function testGetNamesReturnsFunction()
+    public function testIsReturnsTrueForTheFunctionName()
     {
-        $type = Types::GetByName( 'function' );
-        $this->assertEquals(
-            [ 'function', 'callable' ],
-            $type->getNames()->toArray(),
-            'Expected CallableFunctionType->getNames() to only return "function"'
+        $this->assertTrue(
+            Types::GetByName( 'substr' )->is( 'substr' ),
+            'FunctionType->is() should return true for the function name'
         );
     }
 }

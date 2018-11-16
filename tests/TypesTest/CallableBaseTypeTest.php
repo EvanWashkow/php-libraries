@@ -5,19 +5,19 @@ use PHP\Types;
 use PHP\Types\TypeNames;
 
 /**
- * Tests the \PHP\Types\CallableType functionality
+ * Tests the \PHP\Types\CallableBaseType functionality
  */
-class CallableTypeTest extends \PHP\Tests\TestCase
+class CallableBaseTypeTest extends \PHP\Tests\TestCase
 {
 
 
     /***************************************************************************
-    *                         CallableType->getNames()
+    *                         CallableBaseType->getNames()
     ***************************************************************************/
 
 
     /**
-     * Ensure CallableType->getNames() returns expected names
+     * Ensure CallableBaseType->getNames() returns expected names
      **/
     public function testGetNamesReturnsNames()
     {
@@ -25,7 +25,7 @@ class CallableTypeTest extends \PHP\Tests\TestCase
         $this->assertEquals(
             [ 'callable' ],
             $type->getNames()->toArray(),
-            'CallableType->getNames() didn\'t return the expected names'
+            'CallableBaseType->getNames() didn\'t return the expected names'
         );
     }
 }
