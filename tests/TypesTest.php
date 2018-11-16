@@ -43,7 +43,6 @@ class TypesTest extends TestCase
             'substr'                        => 'function',
             'double'                        => 'float',
             'null'                          => 'null',
-            'NULL'                          => 'null',
             'string'                        => 'string',
             'PHP\\Collections\\Sequence'    => 'PHP\\Collections\\Sequence',
             'PHP\\Collections\\ICollection' => 'PHP\\Collections\\ICollection',

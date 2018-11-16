@@ -24,6 +24,7 @@ final class Types
         'bool'   => [ 'boolean' ],
         'float'  => [ 'double' ],
         'int'    => [ 'integer' ],
+        'null'   => [],
         'string' => []
     ];
 
@@ -56,10 +57,7 @@ final class Types
         else {
 
             // Known system types
-            if ( 'null' === strtolower( $name ) ) {
-                $type = new Type( 'null' );
-            }
-            elseif ( array_key_exists( $name, self::$knownTypes )) {
+            if ( array_key_exists( $name, self::$knownTypes )) {
                 $aliases = self::$knownTypes[ $name ];
                 $type    = new Type( $name, $aliases );
             }
@@ -90,7 +88,7 @@ final class Types
                 $class = new \ReflectionClass( $name );
                 $type  = new Types\Models\ClassType( $class );
             }
-            
+
             // Unknown type
             else {
                 $type = self::GetUnknownType();
@@ -114,7 +112,18 @@ final class Types
     public static function GetByValue( $value ): Type
     {
         $name = gettype( $value );
-        if ( 'object' === $name ) {
+
+        /**
+         * "NULL" is not a type: it is a value. "null" is the type.
+         *
+         * See: http://php.net/manual/en/language.types.null.php
+         */ 
+        if ( 'NULL' === $name ) {
+            $name = strtolower( $name );
+        }
+
+        // Get class of objects
+        elseif ( 'object' === $name ) {
             $name = get_class( $value );
         }
         return self::GetByName( $name );
