@@ -2,6 +2,7 @@
 namespace PHP;
 
 use PHP\Types\Models\Type;
+use PHP\Types\TypeNames;
 
 /**
  * Lookup type information
@@ -69,10 +70,10 @@ final class Types
             }
             
             // Callable types
-            elseif ( Types\TypeNames::CALLABLE === $name ) {
+            elseif ( TypeNames::CALLABLE === $name ) {
                 $type = new Types\Models\CallableType();
             }
-            elseif ( Types\TypeNames::FUNCTION === $name ) {
+            elseif ( TypeNames::FUNCTION === $name ) {
                 $type = new Types\Models\FunctionType();
             }
             elseif ( function_exists( $name )) {
@@ -136,7 +137,7 @@ final class Types
             $type = self::getCache( $name );
         }
         else {
-            $type = new Type( Types\TypeNames::UNKNOWN );
+            $type = new Type( TypeNames::UNKNOWN );
             self::setCache( $type );
         }
 
@@ -183,7 +184,7 @@ final class Types
     {
         $name = $type->getName();
         if (
-            $type->is( Types\TypeNames::FUNCTION ) &&
+            $type->is( TypeNames::FUNCTION ) &&
             ( '' !== $type->getFunctionName() )
         ) {
             $name = $type->getFunctionName();
