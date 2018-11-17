@@ -8,7 +8,7 @@ use PHP\Collections\Sequence;
 /**
  * Defines basic type information
  */
-class Type extends \PHP\PHPObject
+class Type extends \PHP\PHPObject implements IType
 {
     
     /***************************************************************************
@@ -65,22 +65,12 @@ class Type extends \PHP\PHPObject
     ***************************************************************************/
     
     
-    /**
-     * Retrieve the primary type name
-     *
-     * @return string
-     */
     final public function getName(): string
     {
         return $this->name;
     }
     
     
-    /**
-     * Retrieve all known names for this type
-     *
-     * @return Sequence
-     */
     final public function getNames(): Sequence
     {
         // Build the name sequence
@@ -103,12 +93,6 @@ class Type extends \PHP\PHPObject
     ***************************************************************************/
     
     
-    /**
-     * Determine if the type or value is derived from the current type
-     *
-     * @param mixed $item A value or PHP\Types\Models\Type instance
-     * @return bool
-     */
     public function equals( $item ): bool
     {
         // Get the item type
@@ -124,36 +108,18 @@ class Type extends \PHP\PHPObject
     }
     
     
-    /**
-     * Determine if this type is derived from the given type
-     * 
-     * @internal Type comparison cannot reference collections: collections rely
-     * on type comparison.
-     *
-     * @param string $typeName The type to compare this type with
-     **/
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, $this->namesArray );
     }
     
     
-    /**
-     * Determine if this type is a class
-     *
-     * @return bool
-     **/
     public function isClass(): bool
     {
         return false;
     }
     
     
-    /**
-     * Determine if this type is an interface
-     *
-     * @return bool
-     **/
     public function isInterface(): bool
     {
         return false;
