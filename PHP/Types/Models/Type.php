@@ -65,12 +65,18 @@ class Type extends \PHP\PHPObject implements IType
     ***************************************************************************/
     
     
+    /**
+     * @see IType->getName()
+     */
     final public function getName(): string
     {
         return $this->name;
     }
     
     
+    /**
+     * @see IType->getNames()
+     */
     final public function getNames(): Sequence
     {
         // Build the name sequence
@@ -93,6 +99,9 @@ class Type extends \PHP\PHPObject implements IType
     ***************************************************************************/
     
     
+    /**
+     * @see IType->equals()
+     */
     public function equals( $item ): bool
     {
         // Get the item type
@@ -108,18 +117,27 @@ class Type extends \PHP\PHPObject implements IType
     }
     
     
+    /**
+     * @see IType->is()
+     */
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, $this->namesArray );
     }
     
-    
+
+    /**
+     * @see IType->isClass()
+     */
     public function isClass(): bool
     {
         return false;
     }
     
     
+    /**
+     * @see IType->isInterface()
+     */
     public function isInterface(): bool
     {
         return false;
