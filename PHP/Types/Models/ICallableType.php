@@ -2,6 +2,6 @@
 namespace PHP\Types\Models;
 
 /**
- * Defines a callable type
+ * Defines an interface for callable types
  */
 interface ICallableType extends IType {}
