@@ -8,7 +8,7 @@ use PHP\Collections\Sequence;
 /**
  * Defines basic type information
  */
-class Type extends \PHP\PHPObject implements IType
+class Type implements IType
 {
     
     /***************************************************************************

@@ -6,7 +6,7 @@ use PHP\Collections\Sequence;
 /**
  * Defines an interface for types
  */
-interface IType extends \PHP\IPHPObject
+interface IType
 {
     /**
      * Retrieve the primary type name
