@@ -18,13 +18,13 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure all getNames() contain 'callable'
+     * Ensure getNames() contains 'callable'
      * 
      * @dataProvider typesProvider
      * 
      * @param ICallableType $type The type instance to check
      **/
-    public function testGetNamesContainsCallable( ICallableType $type )
+    public function testGetNames( ICallableType $type )
     {
         $class = self::getClassName( $type );
         $this->assertTrue(
@@ -48,7 +48,7 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
      * 
      * @param ICallableType $type The type instance to check
      **/
-    public function testIsReturnsTrueForCallable( ICallableType $type )
+    public function testIsCallable( ICallableType $type )
     {
         $class = self::getClassName( $type );
         $this->assertTrue(
