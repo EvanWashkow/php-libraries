@@ -3,12 +3,78 @@ namespace PHP\Tests\TypesTest;
 
 use PHP\Types;
 use PHP\Types\Models\IClassType;
+use PHP\Types\Models\Type;
 
 /**
  * Ensure all IClassTypes have same basic functionality
  */
 class IClassTypeTest extends \PHP\Tests\TestCase
 {
+
+
+    /***************************************************************************
+    *                               IClassType->equals()
+    ***************************************************************************/
+
+    /**
+     * Test Type->equals()
+     * 
+     * @dataProvider equalsByTypeProvider
+     * 
+     * @param IClassType $typeA    Class name
+     * @param Type       $typeB    Class name to compare A to
+     * @param bool       $expected The expected result
+     */
+    public function testEqualsByType( IClassType $typeA,
+                                      Type       $typeB,
+                                      bool       $expected )
+    {
+        $this->assertSame(
+            $expected,
+            $typeA->equals( $typeB )
+        );
+    }
+
+
+    /**
+     * Data provider for is() test
+     *
+     * @return array
+     **/
+    public function equalsByTypeProvider(): array
+    {
+        return [
+
+            // ClassType
+            'ClassType->equals( int )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                Types::GetByName( 'int' ),
+                false
+            ],
+            'ClassType->equals( child class )' => [
+                Types::GetByName( 'ReflectionClass' ),
+                Types::GetByName( 'ReflectionObject' ),
+                true
+            ],
+            'ClassType->equals( same class )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                Types::GetByName( 'ReflectionObject' ),
+                true
+            ],
+            'ClassType->equals( parent class )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                Types::GetByName( 'ReflectionClass' ),
+                false
+            ],
+            'ClassType->equals( parent interface )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                Types::GetByName( 'Reflector' ),
+                false
+            ],
+        ];
+    }
+
+
 
 
     /***************************************************************************
