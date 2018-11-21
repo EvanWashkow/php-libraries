@@ -17,7 +17,7 @@ class IClassTypeTest extends \PHP\Tests\TestCase
     ***************************************************************************/
 
     /**
-     * Test Type->equals()
+     * Test IClassType->equals()
      * 
      * @dataProvider equalsByTypeProvider
      * 
@@ -82,7 +82,7 @@ class IClassTypeTest extends \PHP\Tests\TestCase
     ***************************************************************************/
 
     /**
-     * Test Type->equals() by value
+     * Test IClassType->equals() by value
      * 
      * @dataProvider equalsByValueProvider
      * 
@@ -177,7 +177,7 @@ class IClassTypeTest extends \PHP\Tests\TestCase
     ***************************************************************************/
 
     /**
-     * Test Type->is()
+     * Test IClassType->is()
      * 
      * @dataProvider isProvider
      * 
@@ -240,7 +240,7 @@ class IClassTypeTest extends \PHP\Tests\TestCase
     
     
     /**
-     * Ensure Type->isClass() returns true for classes
+     * Ensure IClassType->isClass() returns true for classes
      * 
      * @dataProvider classTypesProvider
      * 
