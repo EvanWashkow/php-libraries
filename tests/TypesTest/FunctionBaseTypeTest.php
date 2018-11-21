@@ -89,15 +89,14 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure getNames() returns 'function'
+     * Ensure getNames() contains 'function'
      **/
-    public function testGetNamesReturnsFunction()
+    public function testGetNamesContainsFunction()
     {
         $type = Types::GetByName( 'function' );
-        $this->assertEquals(
-            [ 'function', 'callable' ],
-            $type->getNames()->toArray(),
-            'Expected CallableFunctionBaseType->getNames() to only return "function"'
+        $this->assertTrue(
+            $type->getNames()->hasValue( 'function' ),
+            'Expected CallableFunctionBaseType->getNames() to contain "function"'
         );
     }
 }
