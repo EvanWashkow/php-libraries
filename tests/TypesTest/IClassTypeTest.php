@@ -78,6 +78,64 @@ class IClassTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
+    *                        IClassType->equals() by value
+    ***************************************************************************/
+
+    /**
+     * Test Type->equals() by value
+     * 
+     * @dataProvider equalsByValueProvider
+     * 
+     * @param IClassType $type     Class type instance
+     * @param mixed      $value    Value to compare the type to
+     * @param bool       $expected The expected result
+     */
+    public function testEqualsByValue( IClassType $type, $value, bool $expected )
+    {
+        $this->assertSame(
+            $expected,
+            $type->equals( $value )
+        );
+    }
+
+
+    /**
+     * Data provider for is() test
+     *
+     * @return array
+     **/
+    public function equalsByValueProvider(): array
+    {
+        return [
+
+            // ClassType
+            'ClassType->equals( int )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                1,
+                false
+            ],
+            'ClassType->equals( child class )' => [
+                Types::GetByName( 'ReflectionClass' ),
+                new \ReflectionObject( $this ),
+                true
+            ],
+            'ClassType->equals( same class )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                new \ReflectionObject( $this ),
+                true
+            ],
+            'ClassType->equals( parent class )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                new \ReflectionClass( self::class ),
+                false
+            ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                               IClassType->is()
     ***************************************************************************/
 
