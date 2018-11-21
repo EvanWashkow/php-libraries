@@ -1,8 +1,7 @@
 <?php
 namespace PHP\Tests\TypesTest;
 
-use PHP\Types;
-
+use PHP\Types\Models\IClassType;
 
 /**
  * Ensure all IClassTypes have same basic functionality
@@ -21,13 +20,12 @@ abstract class IClassTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsClassReturnsTrue()
     {
-        foreach ( self::getTypes() as $type ) {
-            $class = self::getClassName( $type );
-            $this->assertTrue(
-                $type->isClass(),
-                "{$class} implements IClassType: {$class}->isClass() should return true"
-            );
-        }
+        $type  = $this->getChildClassType();
+        $class = self::getClassName( $type );
+        $this->assertTrue(
+            $type->isClass(),
+            "{$class} implements IClassType: {$class}->isClass() should return true"
+        );
     }
     
     
@@ -43,48 +41,29 @@ abstract class IClassTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsInterfaceReturnsFalse()
     {
-        foreach ( self::getTypes() as $type ) {
-            $class = self::getClassName( $type );
-            $this->assertFalse(
-                $type->isInterface(),
-                "{$class} implements IClassType: {$class}->isInterface() should return false"
-            );
-        }
+        $type  = $this->getChildClassType();
+        $class = self::getClassName( $type );
+        $this->assertFalse(
+            $type->isInterface(),
+            "{$class} implements IClassType: {$class}->isInterface() should return false"
+        );
     }
 
 
 
 
     /***************************************************************************
-    *                                 DATA
+    *                                  DATA
     ***************************************************************************/
 
 
     /**
-     * Retrieve sample class inheritance data
+     * Retrieve a ClassType instance of a child class
      * 
-     * Formatted:
-     * [
-     *     [
-     *         'ParentClassName' => instance,
-     *         'ChildClassName'  => instance
-     *     ]
-     * ]
+     * The class in question should have a parent class and interface,
+     * for testing purposes.
      * 
-     * @return array
+     * @return IClassType
      **/
-    abstract protected function getClassInheritanceData(): array;
-
-
-    /**
-     * Retrieve list of IClassTypes
-     * 
-     * @return Types\Model\Type[]
-     **/
-    private static function getTypes(): array
-    {
-        return [
-            Types::GetByName( 'ReflectionClass' ) // ClassType
-        ];
-    }
+    abstract protected function getChildClassType(): IClassType;
 }

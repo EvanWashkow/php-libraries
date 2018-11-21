@@ -4,6 +4,7 @@ namespace PHP\Tests\TypesTest;
 require_once( __DIR__ . '/IClassTypeTest.php' );
 
 use PHP\Types;
+use PHP\Types\Models\IClassType;
 
 /**
  * Tests the \PHP\Types\ClassType functionality
@@ -230,20 +231,15 @@ class ClassTypeTest extends IClassTypeTest
 
 
     /***************************************************************************
-    *                                 DATA
+    *                                      DATA
     ***************************************************************************/
 
 
     /**
-     * @see IClassTypeTest->getClassInheritanceData()
+     * @see IClassTypeTest->getChildClassType()
      */
-    protected function getClassInheritanceData(): array
+    protected function getChildClassType(): IClassType
     {
-        return [
-            [
-                \ReflectionClass::class  => new \ReflectionClass( self::class ),
-                \ReflectionObject::class => new \ReflectionObject( $this )
-            ]
-        ];
+        return \PHP\Types::GetByName( 'ReflectionObject' );
     }
 }
