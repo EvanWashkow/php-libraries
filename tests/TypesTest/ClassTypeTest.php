@@ -223,44 +223,4 @@ class ClassTypeTest extends \PHP\Tests\TestCase
             'ClassType->is() should return false for a parent interface name'
         );
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                             ClassType->isClass()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure Type->isClass() returns true for classes
-     */
-    public function testIsClassReturnsTrue()
-    {
-        $type = \PHP\Types::GetByName( 'ReflectionClass' );
-        $this->assertTrue(
-            $type->isClass(),
-            'Expected Type->isClass() to return true for classes'
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                            ClassType->isInterface()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure ClassType->isInterface() returns false for class types
-     */
-    public function testIsInterfaceReturnsFalse()
-    {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertFalse(
-            $type->isInterface(),
-            'Expected ClassType->isInterface() to return false for class types'
-        );
-    }
 }
