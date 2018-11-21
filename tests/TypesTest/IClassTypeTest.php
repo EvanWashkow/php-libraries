@@ -1,6 +1,7 @@
 <?php
 namespace PHP\Tests\TypesTest;
 
+use PHP\Types;
 use PHP\Types\Models\IClassType;
 
 /**
@@ -17,10 +18,13 @@ abstract class IClassTypeTest extends \PHP\Tests\TestCase
     
     /**
      * Ensure Type->isClass() returns true for classes
+     * 
+     * @dataProvider classTypesProvider
+     * 
+     * @param IClassType $type The class type to check
      */
-    public function testIsClassReturnsTrue()
+    public function testIsClass( IClassType $type )
     {
-        $type  = $this->getChildClassType();
         $class = self::getClassName( $type );
         $this->assertTrue(
             $type->isClass(),
@@ -38,10 +42,13 @@ abstract class IClassTypeTest extends \PHP\Tests\TestCase
     
     /**
      * Ensure ClassType->isInterface() returns false for class types
+     * 
+     * @dataProvider classTypesProvider
+     * 
+     * @param IClassType $type The class type to check
      */
-    public function testIsInterfaceReturnsFalse()
+    public function testIsInterface( IClassType $type )
     {
-        $type  = $this->getChildClassType();
         $class = self::getClassName( $type );
         $this->assertFalse(
             $type->isInterface(),
@@ -55,6 +62,19 @@ abstract class IClassTypeTest extends \PHP\Tests\TestCase
     /***************************************************************************
     *                                  DATA
     ***************************************************************************/
+
+
+    /**
+     * Retrieve a list of types as a data provider
+     * 
+     * @return IClassType[]
+     **/
+    public function classTypesProvider(): array
+    {
+        return [
+            [ Types::GetByName( 'ReflectionClass' ) ]   // ClassType
+        ];
+    }
 
 
     /**
