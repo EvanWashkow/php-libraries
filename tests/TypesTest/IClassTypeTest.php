@@ -136,6 +136,43 @@ class IClassTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
+    *                           IClassType->getName()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure IClassType->getName() returns the class name
+     * 
+     * @dataProvider classNamesProvider
+     *
+     * @param string $className The class name
+     **/
+    public function testGetName( string $className )
+    {
+        $this->assertSame(
+            $className,
+            Types::GetByName( $className )->getName(),
+            "Types::GetByName( '{$className}' )->getName() did not return the class name"
+        );
+    }
+
+
+    /**
+     * Provides test name data
+     * 
+     * @return string[]
+     **/
+    public function classNamesProvider(): array
+    {
+        return [
+            [ \PHP\Collections\Dictionary::class ]  // ClassType
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                               IClassType->is()
     ***************************************************************************/
 
