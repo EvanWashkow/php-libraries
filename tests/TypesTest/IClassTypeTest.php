@@ -9,8 +9,70 @@ use PHP\Types\Models\IClassType;
  */
 class IClassTypeTest extends \PHP\Tests\TestCase
 {
-    
-    
+
+
+    /***************************************************************************
+    *                               IClassType->is()
+    ***************************************************************************/
+
+    /**
+     * Test Type->is()
+     * 
+     * @dataProvider isProvider
+     * 
+     * @param IClassType $typeA    Class type
+     * @param string     $typeB    Class name to compare A to
+     * @param bool       $expected The expected result
+     */
+    public function testIs( IClassType $typeA, string $typeB, bool $expected )
+    {
+        $this->assertSame(
+            $expected,
+            $typeA->is( $typeB )
+        );
+    }
+
+
+    /**
+     * Data provider for is() test
+     *
+     * @return array
+     **/
+    public function isProvider(): array
+    {
+        return [
+
+            // ClassType
+            'ClassType->is( int )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                'int',
+                false
+            ],
+            'ClassType->is( child class )' => [
+                Types::GetByName( 'ReflectionClass' ),
+                'ReflectionObject',
+                false
+            ],
+            'ClassType->is( same class )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                'ReflectionObject',
+                true
+            ],
+            'ClassType->is( parent class )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                'ReflectionClass',
+                true
+            ],
+            'ClassType->is( parent interface )' => [
+                Types::GetByName( 'ReflectionObject' ),
+                'Reflector',
+                true
+            ],
+        ];
+    }
+
+
+
     /***************************************************************************
     *                             IClassType->isClass()
     ***************************************************************************/
