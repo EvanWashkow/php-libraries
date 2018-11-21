@@ -1,15 +1,13 @@
 <?php
 namespace PHP\Tests\TypesTest;
 
-require_once( __DIR__ . '/IClassTypeTest.php' );
-
 use PHP\Types;
 use PHP\Types\Models\IClassType;
 
 /**
  * Tests the \PHP\Types\ClassType functionality
  */
-class ClassTypeTest extends IClassTypeTest
+class ClassTypeTest extends \PHP\Tests\TestCase
 {
 
 
@@ -225,21 +223,5 @@ class ClassTypeTest extends IClassTypeTest
             $type->is( 'PHP\\Collections\\ISequence' ),
             'ClassType->is() should return false for a parent interface name'
         );
-    }
-
-
-
-
-    /***************************************************************************
-    *                                      DATA
-    ***************************************************************************/
-
-
-    /**
-     * @see IClassTypeTest->getChildClassType()
-     */
-    protected function getChildClassType(): IClassType
-    {
-        return \PHP\Types::GetByName( 'ReflectionObject' );
     }
 }

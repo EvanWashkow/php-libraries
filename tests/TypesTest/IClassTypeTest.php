@@ -7,7 +7,7 @@ use PHP\Types\Models\IClassType;
 /**
  * Ensure all IClassTypes have same basic functionality
  */
-abstract class IClassTypeTest extends \PHP\Tests\TestCase
+class IClassTypeTest extends \PHP\Tests\TestCase
 {
     
     
@@ -75,15 +75,4 @@ abstract class IClassTypeTest extends \PHP\Tests\TestCase
             [ Types::GetByName( 'ReflectionClass' ) ]   // ClassType
         ];
     }
-
-
-    /**
-     * Retrieve a ClassType instance of a child class
-     * 
-     * The class in question should have a parent class and interface,
-     * for testing purposes.
-     * 
-     * @return IClassType
-     **/
-    abstract protected function getChildClassType(): IClassType;
 }
