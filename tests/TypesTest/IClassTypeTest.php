@@ -13,7 +13,7 @@ class IClassTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                               IClassType->equals()
+    *                        IClassType->equals() by type
     ***************************************************************************/
 
     /**
@@ -21,8 +21,8 @@ class IClassTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider equalsByTypeProvider
      * 
-     * @param IClassType $typeA    Class name
-     * @param Type       $typeB    Class name to compare A to
+     * @param IClassType $typeA    Class type instance
+     * @param Type       $typeB    Class type instance to compare A to
      * @param bool       $expected The expected result
      */
     public function testEqualsByType( IClassType $typeA,
