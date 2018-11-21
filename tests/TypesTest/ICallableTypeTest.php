@@ -2,6 +2,7 @@
 namespace PHP\Tests\TypesTest;
 
 use PHP\Types;
+use PHP\Types\Models\ICallableType;
 
 
 /**
@@ -17,17 +18,19 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure all getNames() returns contains 'callable'
+     * Ensure all getNames() contain 'callable'
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param ICallableType $type The type instance to check
      **/
-    public function testGetNamesContainsCallable()
+    public function testGetNamesContainsCallable( ICallableType $type )
     {
-        foreach ( self::getTypes() as $type ) {
-            $class = self::getClassName( $type );
-            $this->assertTrue(
-                $type->getNames()->hasValue( 'callable' ),
-                "{$class} extends ICallableType, therefore {$class}->getNames() should contain 'callable'"
-            );
-        }
+        $class = self::getClassName( $type );
+        $this->assertTrue(
+            $type->getNames()->hasValue( 'callable' ),
+            "{$class} extends ICallableType, therefore {$class}->getNames() should contain 'callable'"
+        );
     }
 
 
@@ -40,37 +43,39 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
 
     /**
      * Ensure all is() returns true for 'callable'
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param ICallableType $type The type instance to check
      **/
-    public function testIsReturnsTrueForCallable()
+    public function testIsReturnsTrueForCallable( ICallableType $type )
     {
-        foreach ( self::getTypes() as $type ) {
-            $class = self::getClassName( $type );
-            $this->assertTrue(
-                $type->is( 'callable' ),
-                "{$class} extends ICallableType, therefore {$class}->is( 'callable' ) should return true"
-            );
-        }
+        $class = self::getClassName( $type );
+        $this->assertTrue(
+            $type->is( 'callable' ),
+            "{$class} extends ICallableType, therefore {$class}->is( 'callable' ) should return true"
+        );
     }
 
 
 
 
     /***************************************************************************
-    *                            LIST OF ICallableTypes
+    *                                    DATA
     ***************************************************************************/
 
 
     /**
-     * Retrieve list of ICallableTypes
-     * 
-     * @return Types\Model\Type[]
+     * Provides types for testing
+     *
+     * @return ICallableType[]
      **/
-    private static function getTypes(): array
+    public function typesProvider(): array
     {
         return [
-            Types::GetByName( 'callable' ), // CallableBaseType
-            Types::GetByName( 'function' ), // FunctionBaseType
-            Types::GetByName( 'substr' )    // FunctionType
+            [ Types::GetByName( 'callable' ) ], // CallableBaseType
+            [ Types::GetByName( 'function' ) ], // FunctionBaseType
+            [ Types::GetByName( 'substr' ) ]    // FunctionType
         ];
     }
 }
