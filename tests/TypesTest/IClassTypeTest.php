@@ -7,7 +7,7 @@ use PHP\Types;
 /**
  * Ensure all IClassTypes have same basic functionality
  */
-class IClassTypeTest extends \PHP\Tests\TestCase
+abstract class IClassTypeTest extends \PHP\Tests\TestCase
 {
     
     
@@ -56,8 +56,24 @@ class IClassTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                            LIST OF IClassTypes
+    *                                 DATA
     ***************************************************************************/
+
+
+    /**
+     * Retrieve sample class inheritance data
+     * 
+     * Formatted:
+     * [
+     *     [
+     *         'ParentClassName' => instance,
+     *         'ChildClassName'  => instance
+     *     ]
+     * ]
+     * 
+     * @return array
+     **/
+    abstract protected function getClassInheritanceData(): array;
 
 
     /**
