@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Tests\TypesTest;
+namespace PHP\Tests\Types\Models;
 
 use PHP\Types\Models\ClassType;
 use PHP\Types;
