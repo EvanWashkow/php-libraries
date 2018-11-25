@@ -71,6 +71,33 @@ class IClassTypeTest extends \PHP\Tests\TestCase
                 Types::GetByName( 'Reflector' ),
                 false
             ],
+            
+            // CallableClassType
+            'CallableClassType->equals( int )' => [
+                Types::GetByName( CallableChild::class ),
+                Types::GetByName( 'int' ),
+                false
+            ],
+            'CallableClassType->equals( child class )' => [
+                Types::GetByName( CallableParent::class ),
+                Types::GetByName( CallableChild::class ),
+                true
+            ],
+            'CallableClassType->equals( same class )' => [
+                Types::GetByName( CallableChild::class ),
+                Types::GetByName( CallableChild::class ),
+                true
+            ],
+            'CallableClassType->equals( parent class )' => [
+                Types::GetByName( CallableChild::class ),
+                Types::GetByName( CallableParent::class ),
+                false
+            ],
+            'CallableClassType->equals( parent interface )' => [
+                Types::GetByName( CallableChild::class ),
+                Types::GetByName( ICallable::class ),
+                false
+            ]
         ];
     }
 
@@ -128,6 +155,28 @@ class IClassTypeTest extends \PHP\Tests\TestCase
                 Types::GetByName( 'ReflectionObject' ),
                 new \ReflectionClass( self::class ),
                 false
+            ],
+
+            // CallableClassType
+            'CallableClassType->equals( int )' => [
+                Types::GetByName( CallableParent::class ),
+                1,
+                false
+            ],
+            'CallableClassType->equals( child class )' => [
+                Types::GetByName( CallableParent::class ),
+                new CallableChild(),
+                true
+            ],
+            'CallableClassType->equals( same class )' => [
+                Types::GetByName( CallableParent::class ),
+                new CallableChild(),
+                true
+            ],
+            'CallableClassType->equals( parent class )' => [
+                Types::GetByName( CallableChild::class ),
+                new CallableParent(),
+                false
             ]
         ];
     }
@@ -154,19 +203,6 @@ class IClassTypeTest extends \PHP\Tests\TestCase
             Types::GetByName( $className )->getName(),
             "Types::GetByName( '{$className}' )->getName() did not return the class name"
         );
-    }
-
-
-    /**
-     * Provides test name data
-     * 
-     * @return string[]
-     **/
-    public function classNamesProvider(): array
-    {
-        return [
-            [ \PHP\Collections\Dictionary::class ]  // ClassType
-        ];
     }
 
 
@@ -229,6 +265,33 @@ class IClassTypeTest extends \PHP\Tests\TestCase
                 'Reflector',
                 true
             ],
+
+            // CallableClassType
+            'CallableClassType->is( int )' => [
+                Types::GetByName( CallableChild::class ),
+                'int',
+                false
+            ],
+            'CallableClassType->is( child class )' => [
+                Types::GetByName( CallableParent::class ),
+                CallableChild::class,
+                false
+            ],
+            'CallableClassType->is( same class )' => [
+                Types::GetByName( CallableChild::class ),
+                CallableChild::class,
+                true
+            ],
+            'CallableClassType->is( parent class )' => [
+                Types::GetByName( CallableChild::class ),
+                CallableParent::class,
+                true
+            ],
+            'CallableClassType->is( parent interface )' => [
+                Types::GetByName( CallableChild::class ),
+                ICallable::class,
+                true
+            ]
         ];
     }
 
@@ -294,8 +357,36 @@ class IClassTypeTest extends \PHP\Tests\TestCase
      **/
     public function classTypesProvider(): array
     {
+        $types = [];
+        foreach ( $this->classNamesProvider() as $array ) {
+            $name = $array[ 0 ];
+            $types[] = [ Types::GetByName( $name ) ];
+        }
+        return $types;
+    }
+
+
+    /**
+     * Provides test name data
+     * 
+     * @return string[]
+     **/
+    public function classNamesProvider(): array
+    {
         return [
-            [ Types::GetByName( 'ReflectionClass' ) ]   // ClassType
+            [ \PHP\Collections\Dictionary::class ], // ClassType
+            [ CallableChild::class ]                // CallableClassType
         ];
     }
 }
+
+
+interface ICallable {}
+class CallableParent implements ICallable
+{
+    public function __invoke()
+    {
+        
+    }
+}
+class CallableChild extends CallableParent {}

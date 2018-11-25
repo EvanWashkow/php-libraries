@@ -33,4 +33,34 @@ class CallableClassType extends Type implements ICallableType, IClassType
         );
         parent::__construct( $this->classType->getName(), $aliases );
     }
+
+
+    /**
+     * @see IType->equals()
+     */
+    public function equals( $item ): bool
+    {
+        return $this->classType->equals( $item );
+    }
+
+
+    /**
+     * @see IType->is()
+     */
+    public function is( string $typeName ): bool
+    {
+        return (
+            $this->callableType->is( $typeName ) |
+            $this->classType->is(    $typeName )
+        );
+    }
+
+
+    /**
+     * @see IType->is()
+     */
+    public function isClass(): bool
+    {
+        return true;
+    }
 }

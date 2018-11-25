@@ -75,7 +75,8 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
         return [
             [ Types::GetByName( 'callable' ) ], // CallableBaseType
             [ Types::GetByName( 'function' ) ], // FunctionBaseType
-            [ Types::GetByName( 'substr' ) ]    // FunctionType
+            [ Types::GetByName( 'substr' ) ],   // FunctionType
+            [ Types::GetByName( 'Closure' ) ]   // CallableClassType
         ];
     }
 }
