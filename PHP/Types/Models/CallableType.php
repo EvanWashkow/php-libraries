@@ -7,18 +7,19 @@ namespace PHP\Types\Models;
 final class CallableType extends CallableBaseType
 {
 
-    /** @var \ReflectionFunction $reflection Reflection of the callable instance */
-    private $reflection = null;
+    /** @var \ReflectionFunctionAbstract $reflectionFunctionAbstract Reflection of the callable instance */
+    private $reflectionFunctionAbstract;
     
     
     /**
      * Create a new callable type instance
      *
-     * @param \ReflectionFunction $reflection Reflection of the callable instance
+     * @param \ReflectionFunctionAbstract $reflectionFunctionAbstract Reflection of the callable instance
      */
-    public function __construct( \ReflectionFunction $reflection )
-    {
+    public function __construct(
+        \ReflectionFunctionAbstract $reflectionFunctionAbstract
+    ) {
         parent::__construct();
-        $this->reflection = $reflection;
+        $this->reflectionFunctionAbstract = $reflectionFunctionAbstract;
     }
 }
