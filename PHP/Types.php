@@ -86,9 +86,13 @@ final class Types
                 );
             }
             elseif ( class_exists( $name )) {
-                $type = new Types\Models\ClassType(
-                    new \ReflectionClass( $name )
-                );
+                $reflectionClass = new \ReflectionClass( $name );
+                if ( $reflectionClass->hasMethod( '__invoke' )) {
+                    $type = new Types\Models\CallableClassType( $reflectionClass );
+                }
+                else {
+                    $type = new Types\Models\ClassType( $reflectionClass );
+                }
             }
 
             // Unknown type
