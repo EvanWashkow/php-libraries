@@ -10,14 +10,10 @@ class CallableBaseType extends Type implements ICallableType
 {
     
 
-    public function __construct( string $name = '', array $aliases = [] )
+    public function __construct( string $name    = TypeNames::CALLABLE,
+                                 array  $aliases = [] )
     {
-        if ( '' === ( $name = trim( $name ) )) {
-            $name = TypeNames::CALLABLE;
-        }
-        if ( !in_array( TypeNames::CALLABLE, $aliases )) {
-            $aliases[] = TypeNames::CALLABLE;
-        }
+        $aliases[] = TypeNames::CALLABLE;
         parent::__construct( $name, $aliases );
     }
 }
