@@ -28,13 +28,4 @@ final class CallableClassType extends ClassType implements CallableType
         // Set parent properties
         parent::__construct( $reflectionClass, [ TypeNames::CALLABLE ] );
     }
-
-
-    /**
-     * @see IType->is()
-     */
-    public function isClass(): bool
-    {
-        return true;
-    }
 }
