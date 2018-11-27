@@ -8,7 +8,7 @@ class ClassType extends InterfaceType
 {
 
 
-    public function is( string $typeName ): bool
+    final public function is( string $typeName ): bool
     {
         $typeName = trim( $typeName );
         return (
@@ -21,13 +21,13 @@ class ClassType extends InterfaceType
     }
     
     
-    public function isClass(): bool
+    final public function isClass(): bool
     {
         return true;
     }
     
     
-    public function isInterface(): bool
+    final public function isInterface(): bool
     {
         return false;
     }
