@@ -8,7 +8,7 @@ use PHP\Collections\Sequence;
 /**
  * Defines basic type information
  */
-class Type implements IType
+class Type
 {
     
     /***************************************************************************
@@ -66,7 +66,9 @@ class Type implements IType
     
     
     /**
-     * @see IType->getName()
+     * Retrieve the primary type name
+     *
+     * @return string
      */
     final public function getName(): string
     {
@@ -75,7 +77,9 @@ class Type implements IType
     
     
     /**
-     * @see IType->getNames()
+     * Retrieve all known names for this type
+     *
+     * @return Sequence
      */
     final public function getNames(): Sequence
     {
@@ -100,7 +104,13 @@ class Type implements IType
     
     
     /**
-     * @see IType->equals()
+     * Determine if the type or value is derived from the current type
+     * 
+     * i.e. The given type must have all the same properties and methods;
+     * meaning this type =< that type.
+     *
+     * @param mixed $item A value or PHP\Types\Models\Type instance
+     * @return bool
      */
     public function equals( $item ): bool
     {
@@ -118,8 +128,16 @@ class Type implements IType
     
     
     /**
-     * @see IType->is()
-     */
+     * Determine if this type is derived from the given type
+     * 
+     * i.e. This type has all the same properties and methods as the given type;
+     * meaning this type >= that type.
+     * 
+     * @internal Type comparison cannot reference collections: collections rely
+     * on type comparison.
+     *
+     * @param string $typeName The type to compare this type with
+     **/
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, $this->namesArray );
@@ -127,8 +145,10 @@ class Type implements IType
     
 
     /**
-     * @see IType->isClass()
-     */
+     * Determine if this type is a class
+     *
+     * @return bool
+     **/
     public function isClass(): bool
     {
         return false;
@@ -136,8 +156,10 @@ class Type implements IType
     
     
     /**
-     * @see IType->isInterface()
-     */
+     * Determine if this type is an interface
+     *
+     * @return bool
+     **/
     public function isInterface(): bool
     {
         return false;
