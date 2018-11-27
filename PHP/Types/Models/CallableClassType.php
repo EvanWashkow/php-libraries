@@ -21,17 +21,20 @@ class CallableClassType extends Type implements ICallableType, IClassType
      */
     public function __construct( \ReflectionClass $reflectionClass )
     {
+        // Variables
+        $className = $reflectionClass->getName();
+
         // Set own properties
         $reflectionMethod   = $reflectionClass->getMethod( '__invoke' );
-        $this->callableType = new CallableType( $reflectionMethod );
-        $this->classType    = new ClassType(    $reflectionClass );
+        $this->callableType = new CallableType( $className, $reflectionMethod );
+        $this->classType    = new ClassType( $reflectionClass );
 
         // Set parent properties
         $aliases = array_merge(
             $this->classType->getNames()->toArray(),
             $this->callableType->getNames()->toArray()
         );
-        parent::__construct( $this->classType->getName(), $aliases );
+        parent::__construct( $className, $aliases );
     }
 
 
