@@ -7,16 +7,16 @@ namespace PHP\Types\Models;
 final class FunctionType extends FunctionBaseType
 {
     
-    /** @var \ReflectionFunction $reflectionFunction Reflection instance with details for the function instance */
+    /** @var \ReflectionFunctionAbstract $reflectionFunction Reflection instance with details for the function instance */
     private $reflectionFunction;
     
     
     /**
      * Create a new type instance for this function definition
      *
-     * @param \ReflectionFunction $reflectionFunction Reflection instance for the function
+     * @param \ReflectionFunctionAbstract $reflectionFunction Reflection instance for the function
      */
-    public function __construct( \ReflectionFunction $reflectionFunction )
+    public function __construct( \ReflectionFunctionAbstract $reflectionFunction )
     {
         $this->reflectionFunction = $reflectionFunction;
         parent::__construct();
