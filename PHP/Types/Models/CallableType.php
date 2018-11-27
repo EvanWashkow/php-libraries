@@ -17,13 +17,13 @@ final class CallableType extends CallableBaseType
     /**
      * Create a new callable type instance
      *
-     * @param string $name The primary type name
      * @param \ReflectionFunctionAbstract $reflectionFunctionAbstract Reflection of the callable instance
+     * @param string $name The primary type name
      */
     public function __construct(
-        string $name = TypeNames::CALLABLE,
-        \ReflectionFunctionAbstract $reflectionFunctionAbstract
-    ) {
+        \ReflectionFunctionAbstract $reflectionFunctionAbstract,
+        string $name = TypeNames::CALLABLE )
+    {
         parent::__construct( $name );
         $this->reflectionFunctionAbstract = $reflectionFunctionAbstract;
     }

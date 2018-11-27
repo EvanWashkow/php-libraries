@@ -26,7 +26,7 @@ class CallableClassType extends Type implements ICallableType, IClassType
 
         // Set own properties
         $reflectionMethod   = $reflectionClass->getMethod( '__invoke' );
-        $this->callableType = new CallableType( $className, $reflectionMethod );
+        $this->callableType = new CallableType( $reflectionMethod, $className );
         $this->classType    = new ClassType( $reflectionClass );
 
         // Set parent properties
