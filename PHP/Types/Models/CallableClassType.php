@@ -7,7 +7,7 @@ use PHP\Types\TypeNames;
 /**
  * Defines a class that can be invoked like a function
  */
-final class CallableClassType extends ClassType implements ICallableType
+final class CallableClassType extends ClassType implements CallableType
 {
 
     /** @var FunctionType $functionType FunctionType instance */

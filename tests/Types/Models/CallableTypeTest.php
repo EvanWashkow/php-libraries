@@ -2,18 +2,18 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
-use PHP\Types\Models\ICallableType;
+use PHP\Types\Models\CallableType;
 
 
 /**
- * Ensure all ICallableTypes have same basic functionality
+ * Ensure all CallableTypes have same basic functionality
  */
-class ICallableTypeTest extends \PHP\Tests\TestCase
+class CallableTypeTest extends \PHP\Tests\TestCase
 {
 
 
     /***************************************************************************
-    *                         ICallableType->getNames()
+    *                         CallableType->getNames()
     ***************************************************************************/
 
 
@@ -22,14 +22,14 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider typesProvider
      * 
-     * @param ICallableType $type The type instance to check
+     * @param CallableType $type The type instance to check
      **/
-    public function testGetNames( ICallableType $type )
+    public function testGetNames( CallableType $type )
     {
         $class = self::getClassName( $type );
         $this->assertTrue(
             $type->getNames()->hasValue( 'callable' ),
-            "{$class} extends ICallableType, therefore {$class}->getNames() should contain 'callable'"
+            "{$class} implements a CallableType, therefore {$class}->getNames() should contain 'callable'"
         );
     }
 
@@ -37,7 +37,7 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                            ICallableType->is()
+    *                            CallableType->is()
     ***************************************************************************/
 
 
@@ -46,14 +46,14 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider typesProvider
      * 
-     * @param ICallableType $type The type instance to check
+     * @param CallableType $type The type instance to check
      **/
-    public function testIsCallable( ICallableType $type )
+    public function testIsCallable( CallableType $type )
     {
         $class = self::getClassName( $type );
         $this->assertTrue(
             $type->is( 'callable' ),
-            "{$class} extends ICallableType, therefore {$class}->is( 'callable' ) should return true"
+            "{$class} implements a CallableType, therefore {$class}->is( 'callable' ) should return true"
         );
     }
 
@@ -68,7 +68,7 @@ class ICallableTypeTest extends \PHP\Tests\TestCase
     /**
      * Provides types for testing
      *
-     * @return ICallableType[]
+     * @return CallableType[]
      **/
     public function typesProvider(): array
     {

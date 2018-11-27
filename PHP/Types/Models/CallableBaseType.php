@@ -6,7 +6,7 @@ use PHP\Types\TypeNames;
 /**
  * Defines the base type for an item that can be invoked like a function
  */
-class CallableBaseType extends Type implements ICallableType
+class CallableBaseType extends Type implements CallableType
 {
     
 
