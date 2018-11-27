@@ -33,7 +33,7 @@ class InterfaceType extends Type
     {
         $typeName = trim( $typeName );
         return (
-            ( $this->getName() === $typeName ) ||
+            parent::is( $typeName ) ||
             (
                 interface_exists( $typeName ) &&
                 $this->getReflectionClass()->isSubclassOf( $typeName )
