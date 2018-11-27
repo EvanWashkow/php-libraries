@@ -1,19 +1,19 @@
 <?php
 namespace PHP\Types\Models;
 
+use PHP\Types\TypeNames;
+
+
 /**
  * Defines a class that can be invoked like a function
  */
-class CallableClassType extends Type implements ICallableType, IClassType
+final class CallableClassType extends ClassType implements ICallableType
 {
-    
-    /** @var CallableType $callableType CallableType instance */
-    private $callableType;
 
-    /** @var ClassType $classType CLassType instance */
-    private $classType;
-    
-    
+    /** @var FunctionType $functionType FunctionType instance */
+    private $functionType;
+
+
     /**
      * Create a new type instance representing a interface
      *
@@ -21,41 +21,12 @@ class CallableClassType extends Type implements ICallableType, IClassType
      */
     public function __construct( \ReflectionClass $reflectionClass )
     {
-        // Variables
-        $className = $reflectionClass->getName();
-
         // Set own properties
         $reflectionMethod   = $reflectionClass->getMethod( '__invoke' );
-        $this->callableType = new CallableType( $reflectionMethod, $className );
-        $this->classType    = new ClassType( $reflectionClass );
+        $this->functionType = new FunctionType( $reflectionMethod );
 
         // Set parent properties
-        $aliases = array_merge(
-            $this->classType->getNames()->toArray(),
-            $this->callableType->getNames()->toArray()
-        );
-        parent::__construct( $className, $aliases );
-    }
-
-
-    /**
-     * @see IType->equals()
-     */
-    public function equals( $item ): bool
-    {
-        return $this->classType->equals( $item );
-    }
-
-
-    /**
-     * @see IType->is()
-     */
-    public function is( string $typeName ): bool
-    {
-        return (
-            $this->callableType->is( $typeName ) |
-            $this->classType->is(    $typeName )
-        );
+        parent::__construct( $reflectionClass, [ TypeNames::CALLABLE ] );
     }
 
 
