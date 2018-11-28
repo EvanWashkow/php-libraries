@@ -6,6 +6,11 @@ use PHP\Types\TypeNames;
 
 /**
  * Lookup type information
+ * 
+ * Callables are not types. They evaluate variables at runtime using reflection,
+ * to determine if they reference a function. For example, 'substr' is callable,
+ * but 'foobar' is not. Both are of the string type, but one is "callable" and
+ * the other is not.
  */
 final class Types
 {
