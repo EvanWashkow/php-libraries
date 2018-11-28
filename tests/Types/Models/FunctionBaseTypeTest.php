@@ -140,7 +140,7 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
     /**
      * Provides types for testing
      *
-     * @return FunctionBaseType[]
+     * @return array
      **/
     public function typesProvider(): array
     {

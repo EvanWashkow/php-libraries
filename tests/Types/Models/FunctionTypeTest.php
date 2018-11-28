@@ -132,18 +132,6 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure is() returns true for "function"
-     **/
-    public function testIsReturnsTrueForFunction()
-    {
-        $this->assertTrue(
-            Types::GetByName( 'substr' )->is( 'function' ),
-            'FunctionType->is() should return true for "function"'
-        );
-    }
-
-
-    /**
      * Ensure is() returns true for the function name
      **/
     public function testIsReturnsTrueForTheFunctionName()
