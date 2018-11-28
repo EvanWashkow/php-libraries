@@ -37,7 +37,6 @@ class TypesTest extends TestCase
         $typeNameMap = [
             'array'                         => 'array',
             'boolean'                       => 'bool',
-            'callable'                      => 'callable',
             'integer'                       => 'int',
             'function'                      => 'function',
             'substr'                        => 'function',

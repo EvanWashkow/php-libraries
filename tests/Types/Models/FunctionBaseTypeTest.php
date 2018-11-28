@@ -2,6 +2,7 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
+use PHP\Types\Models\FunctionBaseType;
 
 /**
  * Tests the \PHP\Types\FunctionBaseType functionality
@@ -27,13 +28,13 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
     }
     
     /**
-     * Ensure FunctionBaseType->equals() returns true for a CallableFunctionBaseType
+     * Ensure FunctionBaseType->equals() returns true for a FunctionBaseType
      */
-    public function testEqualsReturnsTrueForCallableFunctionType()
+    public function testEqualsReturnsTrueForFunctionType()
     {
         $this->assertTrue(
             Types::GetByName( 'function' )->equals( Types::GetByName( 'substr' )),
-            "Expected FunctionBaseType->equals() to return true for a CallableFunctionBaseType"
+            "Expected FunctionBaseType->equals() to return true for a FunctionBaseType"
         );
     }
     
@@ -90,13 +91,62 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
 
     /**
      * Ensure getNames() contains 'function'
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param FunctionBaseType $type The type instance to check
      **/
-    public function testGetNamesContainsFunction()
+    public function testGetNames( FunctionBaseType $type )
     {
-        $type = Types::GetByName( 'function' );
+        $class = self::getClassName( $type );
         $this->assertTrue(
             $type->getNames()->hasValue( 'function' ),
-            'Expected CallableFunctionBaseType->getNames() to contain "function"'
+            "{$class} implements a FunctionBaseType, therefore {$class}->getNames() should contain 'function'"
         );
+    }
+
+
+
+
+    /***************************************************************************
+    *                            FunctionBaseType->is()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure all is() returns true for 'function'
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param FunctionBaseType $type The type instance to check
+     **/
+    public function testIs( FunctionBaseType $type )
+    {
+        $class = self::getClassName( $type );
+        $this->assertTrue(
+            $type->is( 'function' ),
+            "{$class} implements a FunctionBaseType, therefore {$class}->is( 'function' ) should return true"
+        );
+    }
+
+
+
+
+    /***************************************************************************
+    *                                    DATA
+    ***************************************************************************/
+
+
+    /**
+     * Provides types for testing
+     *
+     * @return FunctionBaseType[]
+     **/
+    public function typesProvider(): array
+    {
+        return [
+            'FunctionBaseType' => [ Types::GetByName( 'function' ) ],
+            'FunctionType' =>     [ Types::GetByName( 'substr' ) ]
+        ];
     }
 }

@@ -19,13 +19,11 @@ class InterfaceType extends Type
      * Create a new type instance representing a interface
      *
      * @param \ReflectionClass $reflectionClass ReflectionClass instance
-     * @param string[]         $aliases         Alternate names for this type
      */
-    public function __construct( \ReflectionClass $reflectionClass,
-                                 array            $aliases = [] )
+    public function __construct( \ReflectionClass $reflectionClass )
     {
         $this->reflectionClass = $reflectionClass;
-        parent::__construct( $this->reflectionClass->getName(), $aliases );
+        parent::__construct( $this->reflectionClass->getName() );
     }
 
 

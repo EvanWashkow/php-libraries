@@ -67,10 +67,7 @@ final class Types
                 $type    = new Type( $name, $aliases );
             }
             
-            // Callable types
-            elseif ( TypeNames::CALLABLE === $name ) {
-                $type = new Types\Models\CallableBaseType();
-            }
+            // Function types
             elseif ( TypeNames::FUNCTION === $name ) {
                 $type = new Types\Models\FunctionBaseType();
             }
@@ -86,13 +83,9 @@ final class Types
                 );
             }
             elseif ( class_exists( $name )) {
-                $reflectionClass = new \ReflectionClass( $name );
-                if ( $reflectionClass->hasMethod( '__invoke' )) {
-                    $type = new Types\Models\CallableClassType( $reflectionClass );
-                }
-                else {
-                    $type = new Types\Models\ClassType( $reflectionClass );
-                }
+                $type = new Types\Models\ClassType(
+                    new \ReflectionClass( $name )
+                );
             }
 
             // Unknown type

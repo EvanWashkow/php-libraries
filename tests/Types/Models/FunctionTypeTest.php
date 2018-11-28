@@ -111,15 +111,14 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure getNames() returns 'function' and the function name
+     * Ensure getNames() returns the function name
      **/
-    public function testGetNamesReturnsFunctionAndFunctionName()
+    public function testGetNames()
     {
         $functionName = 'substr';
         $type         = Types::GetByName( $functionName );
-        $this->assertEquals(
-            [ 'function', $functionName, 'callable' ],
-            $type->getNames()->toArray(),
+        $this->assertTrue(
+            $type->getNames()->hasValue( $functionName ),
             'Expected FunctionType->getNames() to return "function" and the function name'
         );
     }

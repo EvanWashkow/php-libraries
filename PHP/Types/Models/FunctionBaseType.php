@@ -6,10 +6,10 @@ use PHP\Types\TypeNames;
 /**
  * Defines the base type for a function
  */
-class FunctionBaseType extends CallableBaseType
+class FunctionBaseType extends Type
 {
-    
-    
+
+
     /**
      * Create a new Type representing a function
      */
