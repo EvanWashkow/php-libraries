@@ -18,47 +18,48 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
     
     /**
      * Ensure FunctionBaseType->equals() returns true for a FunctionBaseType
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param FunctionBaseType The function base type instance
      */
-    public function testEqualsReturnsTrueForFunctionBaseType()
+    public function testEqualsForFunctionBaseType( FunctionBaseType $type )
     {
         $this->assertTrue(
-            Types::GetByName( 'function' )->equals( Types::GetByName( 'function' )),
-            "Expected FunctionBaseType->equals() to return true for a FunctionBaseType instance"
-        );
-    }
-    
-    /**
-     * Ensure FunctionBaseType->equals() returns true for a FunctionBaseType
-     */
-    public function testEqualsReturnsTrueForFunctionType()
-    {
-        $this->assertTrue(
-            Types::GetByName( 'function' )->equals( Types::GetByName( 'substr' )),
-            "Expected FunctionBaseType->equals() to return true for a FunctionBaseType"
+            Types::GetByName( 'function' )->equals( $type ),
+            "FunctionBaseType->equals() should return return true for a FunctionBaseType instance"
         );
     }
     
     
     /**
      * Ensure FunctionBaseType->equals() returns false for different Type
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param FunctionBaseType The function base type instance
      */
-    public function testEqualsReturnsFalseForDifferentType()
+    public function testEqualsForDifferentType( FunctionBaseType $type )
     {
         $this->assertFalse(
-            Types::GetByName( 'function' )->equals( Types::GetByName( 'null' )),
-            "Expected FunctionBaseType->equals() to return false for the different Type instance"
+            $type->equals( Types::GetByName( 'null' )),
+            "FunctionBaseType->equals() should return false for the different Type instance"
         );
     }
     
     
     /**
      * Ensure FunctionBaseType->equals() returns false for a value of a different type
+     * 
+     * @dataProvider typesProvider
+     * 
+     * @param FunctionBaseType The function base type instance
      */
-    public function testEqualsReturnsFalseForDifferentValueType()
+    public function testEqualsForDifferentValueType( FunctionBaseType $type )
     {
         $this->assertFalse(
-            Types::GetByName( 'function' )->equals( 'function' ),
-            "Expected FunctionBaseType->equals() to return false for a value of a different type"
+            $type->equals( 'function' ),
+            "FunctionBaseType->equals() should return false for a value of a different type"
         );
     }
 
