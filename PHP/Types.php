@@ -1,27 +1,19 @@
 <?php
 namespace PHP;
 
-use PHP\Types\Type;
-
+use PHP\Types\Models\Type;
+use PHP\Types\TypeNames;
 
 /**
  * Lookup type information
+ * 
+ * Callables are not types. They evaluate variables at runtime using reflection,
+ * to determine if they reference a function. For example, 'substr' is callable,
+ * but 'foobar' is not. Both are of the string type, but one is "callable" and
+ * the other is not.
  */
 final class Types
 {
-
-
-    /***************************************************************************
-    *                                  CONSTANTS
-    ***************************************************************************/
-
-    /** @var string FUNCTION_TYPE_NAME The function type name */
-    private const FUNCTION_TYPE_NAME = 'function';
-
-    /** @var string UNKNOWN_TYPE_NAME The unknown type name (http://php.net/manual/en/function.gettype.php) */
-    private const UNKNOWN_TYPE_NAME = 'unknown type';
-
-
 
 
     /***************************************************************************
@@ -33,11 +25,12 @@ final class Types
     
     /** @var string[] List of known type names mapped to their aliases */
     private static $knownTypes = [
-        'array'  => [],
-        'bool'   => [ 'boolean' ],
-        'float'  => [ 'double' ],
-        'int'    => [ 'integer' ],
-        'string' => []
+        TypeNames::ARRAY  => [],
+        TypeNames::BOOL   => [ 'boolean' ],
+        TypeNames::FLOAT  => [ 'double' ],
+        TypeNames::INT    => [ 'integer' ],
+        TypeNames::NULL   => [],
+        TypeNames::STRING => []
     ];
 
 
@@ -52,62 +45,61 @@ final class Types
      * Retrieve the type information by name
      *
      * @param string $name The type name
-     * @return Types\Type
+     * @return Type
      */
-    public static function GetByName( string $name ): Types\Type
+    public static function GetByName( string $name ): Type
     {
         // Variables
         $name = trim( $name );
         $type = null;
 
         // Query type cache
-        if ( self::isTypeCached( $name )) {
-            $type = self::getCachedType( $name );
+        if ( self::isCached( $name )) {
+            $type = self::getCache( $name );
         }
 
         // Find type
         else {
 
             // Known system types
-            if (( 'NULL' === $name ) || ( 'null' === $name )) {
-                $type = new Types\Type( 'null' );
-            }
-            elseif ( array_key_exists( $name, self::$knownTypes )) {
+            if ( array_key_exists( $name, self::$knownTypes )) {
                 $aliases = self::$knownTypes[ $name ];
-                $type    = new Types\Type( $name, $aliases );
+                $type    = new Type( $name, $aliases );
             }
             elseif ( '' !== self::getNameByAlias( $name )) {
                 $name    = self::getNameByAlias( $name );
                 $aliases = self::$knownTypes[ $name ];
-                $type    = new Types\Type( $name, $aliases );
+                $type    = new Type( $name, $aliases );
+            }
+            
+            // Function types
+            elseif ( TypeNames::FUNCTION === $name ) {
+                $type = new Types\Models\FunctionBaseType();
+            }
+            elseif ( function_exists( $name )) {
+                $function = new \ReflectionFunction( $name );
+                $type     = new Types\Models\FunctionType( $function );
             }
             
             // Class and interface types
             elseif ( interface_exists( $name )) {
-                $class = new \ReflectionClass( $name );
-                $type  = new Types\InterfaceType( $class );
+                $type = new Types\Models\InterfaceType(
+                    new \ReflectionClass( $name )
+                );
             }
             elseif ( class_exists( $name )) {
-                $class = new \ReflectionClass( $name );
-                $type  = new Types\ClassType( $class );
+                $type = new Types\Models\ClassType(
+                    new \ReflectionClass( $name )
+                );
             }
-            
-            // Function type
-            elseif ( self::FUNCTION_TYPE_NAME === $name ) {
-                $type = new Types\FunctionType();
-            }
-            elseif ( function_exists( $name )) {
-                $function = new \ReflectionFunction( $name );
-                $type     = new Types\FunctionReferenceType( $function );
-            }
-            
+
             // Unknown type
             else {
                 $type = self::GetUnknownType();
             }
 
             // Cache the type
-            self::cacheType( $type );
+            self::setCache( $type );
         }
         
         // Return the type
@@ -119,12 +111,23 @@ final class Types
      * Retrieve the type information by value
      *
      * @param mixed $value The value to retrieve type information for
-     * @return Types\Type
+     * @return Type
      */
-    public static function GetByValue( $value ): Types\Type
+    public static function GetByValue( $value ): Type
     {
         $name = gettype( $value );
-        if ( 'object' === $name ) {
+
+        /**
+         * "NULL" is not a type: it is a value. "null" is the type.
+         *
+         * See: http://php.net/manual/en/language.types.null.php
+         */ 
+        if ( 'NULL' === $name ) {
+            $name = TypeNames::NULL;
+        }
+
+        // Get class of objects
+        elseif ( 'object' === $name ) {
             $name = get_class( $value );
         }
         return self::GetByName( $name );
@@ -143,12 +146,12 @@ final class Types
 
         // Get / cache the unknown type
         $type = null;
-        if ( self::isTypeCached( $name ) ) {
-            $type = self::getCachedType( $name );
+        if ( self::isCached( $name ) ) {
+            $type = self::getCache( $name );
         }
         else {
-            $type = new Type( self::UNKNOWN_TYPE_NAME );
-            self::cacheType( $type );
+            $type = new Type( TypeNames::UNKNOWN );
+            self::setCache( $type );
         }
 
         // Return the unknown type
@@ -190,10 +193,13 @@ final class Types
      *
      * @param Type $type The type instance
      **/
-    private static function cacheType( Type $type )
+    private static function setCache( Type $type )
     {
         $name = $type->getName();
-        if ( $name === self::FUNCTION_TYPE_NAME ) {
+        if (
+            $type->is( TypeNames::FUNCTION ) &&
+            ( '' !== $type->getFunctionName() )
+        ) {
             $name = $type->getFunctionName();
         }
         self::$cache[ $name ] = $type;
@@ -206,7 +212,7 @@ final class Types
      * @param string $name The type name
      * @return Type
      **/
-    private static function getCachedType( string $name ): Type
+    private static function getCache( string $name ): Type
     {
         return self::$cache[ $name ];
     }
@@ -218,7 +224,7 @@ final class Types
      * @param string $name The type name
      * @return Type
      **/
-    private static function isTypeCached( string $name ): bool
+    private static function isCached( string $name ): bool
     {
         return array_key_exists( $name, self::$cache );
     }

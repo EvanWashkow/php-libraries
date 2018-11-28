@@ -1,24 +1,24 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 /**
  * Retrieve type information from a function instance
  */
-final class FunctionReferenceType extends FunctionType
+final class FunctionType extends FunctionBaseType
 {
     
-    /** @var \ReflectionFunctionAbstract $function Reflection instance with details for the function instance */
-    private $function = null;
+    /** @var \ReflectionFunctionAbstract $reflectionFunction Reflection instance with details for the function instance */
+    private $reflectionFunction;
     
     
     /**
      * Create a new type instance for this function definition
      *
-     * @param \ReflectionFunctionAbstract $function Reflection instance for the function
+     * @param \ReflectionFunctionAbstract $reflectionFunction Reflection instance for the function
      */
-    public function __construct( \ReflectionFunctionAbstract $function )
+    public function __construct( \ReflectionFunctionAbstract $reflectionFunction )
     {
-        $this->function = $function;
+        $this->reflectionFunction = $reflectionFunction;
         parent::__construct();
     }
 
@@ -32,7 +32,7 @@ final class FunctionReferenceType extends FunctionType
 
     public function getFunctionName(): string
     {
-        return $this->function->getName();
+        return $this->reflectionFunction->getName();
     }
 
 

@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 /**
  * Store and retrieve type information for a interface
@@ -18,12 +18,12 @@ class InterfaceType extends Type
     /**
      * Create a new type instance representing a interface
      *
-     * @param \ReflectionClass $reflectionClass Reflection instance for the interface
+     * @param \ReflectionClass $reflectionClass ReflectionClass instance
      */
     public function __construct( \ReflectionClass $reflectionClass )
     {
-        parent::__construct( $reflectionClass->getName() );
         $this->reflectionClass = $reflectionClass;
+        parent::__construct( $this->reflectionClass->getName() );
     }
 
 
@@ -31,12 +31,18 @@ class InterfaceType extends Type
     {
         $typeName = trim( $typeName );
         return (
-            ( $this->getName() === $typeName ) ||
+            parent::is( $typeName ) ||
             (
                 interface_exists( $typeName ) &&
                 $this->getReflectionClass()->isSubclassOf( $typeName )
             )
         );
+    }
+    
+    
+    public function isInterface(): bool
+    {
+        return true;
     }
 
 

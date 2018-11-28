@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 /**
  * Store and retrieve type information for a class
@@ -8,7 +8,7 @@ final class ClassType extends InterfaceType
 {
 
 
-    public function is( string $typeName ): bool
+    final public function is( string $typeName ): bool
     {
         $typeName = trim( $typeName );
         return (
@@ -18,5 +18,17 @@ final class ClassType extends InterfaceType
                 $this->getReflectionClass()->isSubclassOf( $typeName )
             )
         );
+    }
+    
+    
+    final public function isClass(): bool
+    {
+        return true;
+    }
+    
+    
+    final public function isInterface(): bool
+    {
+        return false;
     }
 }

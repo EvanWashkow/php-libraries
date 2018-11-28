@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Tests\TypesTest;
+namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
 
@@ -183,6 +183,26 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
         $this->assertFalse(
             $type->is( 'PHP\\Collections\\ISequence' ),
             'InterfaceType->is() should return false for a parent interface name'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              InterfaceType->isInterface()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure InterfaceType->isInterface() returns true for interface types
+     */
+    public function testIsInterfaceReturnsTrue()
+    {
+        $type = \PHP\Types::GetByName( 'ArrayAccess' );
+        $this->assertTrue(
+            $type->isInterface(),
+            'Expected InterfaceType->isInterface() to return true for interface types'
         );
     }
 }

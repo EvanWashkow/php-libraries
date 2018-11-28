@@ -1,13 +1,15 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
+
+use PHP\Types\TypeNames;
 
 /**
- * Defines basic information for a "function" type
+ * Defines the base type for a function
  */
-class FunctionType extends Type
+class FunctionBaseType extends Type
 {
-    
-    
+
+
     /**
      * Create a new Type representing a function
      */
@@ -17,7 +19,7 @@ class FunctionType extends Type
         if ( '' !== $this->getFunctionName() ) {
             $aliases[] = $this->getFunctionName();
         }
-        parent::__construct( 'function', $aliases );
+        parent::__construct( TypeNames::FUNCTION, $aliases );
     }
 
 

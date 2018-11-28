@@ -1,5 +1,5 @@
 <?php
-namespace PHP\Types;
+namespace PHP\Types\Models;
 
 use PHP\Collections\ReadOnlySequence;
 use SebastianBergmann\ObjectReflector\InvalidArgumentException;
@@ -8,7 +8,7 @@ use PHP\Collections\Sequence;
 /**
  * Defines basic type information
  */
-class Type extends \PHP\PHPObject
+class Type
 {
     
     /***************************************************************************
@@ -105,8 +105,11 @@ class Type extends \PHP\PHPObject
     
     /**
      * Determine if the type or value is derived from the current type
+     * 
+     * i.e. The given type must have all the same properties and methods;
+     * meaning this type =< that type.
      *
-     * @param mixed $item A value or PHP\Types\Type instance
+     * @param mixed $item A value or PHP\Types\Models\Type instance
      * @return bool
      */
     public function equals( $item ): bool
@@ -127,6 +130,9 @@ class Type extends \PHP\PHPObject
     /**
      * Determine if this type is derived from the given type
      * 
+     * i.e. This type has all the same properties and methods as the given type;
+     * meaning this type >= that type.
+     * 
      * @internal Type comparison cannot reference collections: collections rely
      * on type comparison.
      *
@@ -135,5 +141,27 @@ class Type extends \PHP\PHPObject
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, $this->namesArray );
+    }
+    
+
+    /**
+     * Determine if this type is a class
+     *
+     * @return bool
+     **/
+    public function isClass(): bool
+    {
+        return false;
+    }
+    
+    
+    /**
+     * Determine if this type is an interface
+     *
+     * @return bool
+     **/
+    public function isInterface(): bool
+    {
+        return false;
     }
 }

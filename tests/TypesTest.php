@@ -22,9 +22,9 @@ class TypesTest extends TestCase
     public function testGetByNameReturnsType()
     {
         $this->assertInstanceOf(
-            'PHP\\Types\\Type',
+            'PHP\\Types\\Models\\Type',
             Types::GetByName( 'foobar' ),
-            'Expected Types::GetByName() to return a PHP\\Types\\Type instance'
+            'Expected Types::GetByName() to return a PHP\\Types\\Models\\Type instance'
         );
     }
     
@@ -42,7 +42,6 @@ class TypesTest extends TestCase
             'substr'                        => 'function',
             'double'                        => 'float',
             'null'                          => 'null',
-            'NULL'                          => 'null',
             'string'                        => 'string',
             'PHP\\Collections\\Sequence'    => 'PHP\\Collections\\Sequence',
             'PHP\\Collections\\ICollection' => 'PHP\\Collections\\ICollection',
@@ -77,9 +76,9 @@ class TypesTest extends TestCase
     public function testGetByValueReturnsType()
     {
         $this->assertInstanceOf(
-            'PHP\\Types\\Type',
+            'PHP\\Types\\Models\\Type',
             Types::GetByValue( null ),
-            'Expected Types::GetByValue() to return a PHP\\Types\\Type instance'
+            'Expected Types::GetByValue() to return a PHP\\Types\\Models\\Type instance'
         );
     }
     
@@ -114,9 +113,9 @@ class TypesTest extends TestCase
     public function testGetUnknownReturnsType()
     {
         $this->assertInstanceOf(
-            'PHP\\Types\\Type',
+            'PHP\\Types\\Models\\Type',
             Types::GetUnknownType(),
-            'Expected Types::GetUnknownType() to return a PHP\\Types\\Type instance'
+            'Expected Types::GetUnknownType() to return a PHP\\Types\\Models\\Type instance'
         );
     }
 

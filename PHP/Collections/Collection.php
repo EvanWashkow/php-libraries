@@ -2,7 +2,7 @@
 namespace PHP\Collections;
 
 use PHP\Types;
-use PHP\Types\Type;
+use PHP\Types\Models\Type;
 
 
 /**

@@ -1,35 +1,35 @@
 <?php
-namespace PHP\Tests\TypesTest;
+namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
 
 /**
- * Tests the \PHP\Types\FunctionReferenceType functionality
+ * Tests the \PHP\Types\FunctionType functionality
  */
-class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
+class FunctionTypeTest extends \PHP\Tests\TestCase
 {
 
 
     /***************************************************************************
-    *                     FunctionReferenceType->equals()
+    *                          FunctionType->equals()
     ***************************************************************************/
 
 
     /**
-     * Ensure FunctionReferenceType equals its own FunctionReferenceType
+     * Ensure FunctionType equals its own FunctionType
      **/
-    public function testEqualsReturnsTrueForSameFunctionReferenceType()
+    public function testEqualsReturnsTrueForSameFunctionType()
     {
         $referenceType = Types::GetByName( 'substr' );
         $this->assertTrue(
             $referenceType->equals( $referenceType ),
-            'FunctionReferenceType->equals() should return true for same FunctionReferenceType'
+            'FunctionType->equals() should return true for same FunctionType'
         );
     }
 
 
     /**
-     * Ensure FunctionReferenceType does not equal a different Type
+     * Ensure FunctionType does not equal a different Type
      **/
     public function testEqualsReturnsFalseForDifferentType()
     {
@@ -37,13 +37,13 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
         $otherType     = Types::GetByName( 'int' );
         $this->assertFalse(
             $referenceType->equals( $otherType ),
-            'FunctionReferenceType->equals() should return false for a different Type'
+            'FunctionType->equals() should return false for a different Type'
         );
     }
 
 
     /**
-     * Ensure FunctionReferenceType does not equal a generic FunctionType
+     * Ensure FunctionType does not equal a generic FunctionType
      **/
     public function testEqualsReturnsFalseForFunctionType()
     {
@@ -51,34 +51,34 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
         $otherType     = Types::GetByName( 'function' );
         $this->assertFalse(
             $referenceType->equals( $otherType ),
-            'FunctionReferenceType->equals() should return false for a generic FunctionType'
+            'FunctionType->equals() should return false for a generic FunctionType'
         );
     }
 
 
     /**
-     * Ensure FunctionReferenceType does not equal a different FunctionReferenceType
+     * Ensure FunctionType does not equal a different FunctionType
      **/
-    public function testEqualsReturnsFalseForDifferentFunctionReferenceType()
+    public function testEqualsReturnsFalseForDifferentFunctionType()
     {
         $referenceType = Types::GetByName( 'substr' );
         $otherType     = Types::GetByName( 'strpos' );
         $this->assertFalse(
             $referenceType->equals( $otherType ),
-            'FunctionReferenceType->equals() should return false for a different FunctionReferenceType'
+            'FunctionType->equals() should return false for a different FunctionType'
         );
     }
 
 
     /**
-     * Ensure FunctionReferenceType does not equal any values passed in
+     * Ensure FunctionType does not equal any values passed in
      **/
     public function testEqualsReturnsFalseForValues()
     {
         $referenceType = Types::GetByName( 'substr' );
         $this->assertFalse(
             $referenceType->equals( 'substr' ),
-            'FunctionReferenceType->equals() should return false for any values passed in'
+            'FunctionType->equals() should return false for any values passed in'
         );
     }
 
@@ -86,19 +86,19 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                 FunctionReferenceType->getFunctionName()
+    *                      FunctionType->getFunctionName()
     ***************************************************************************/
 
 
     /**
-     * Ensure FunctionReferenceType->getFunctionName() returns the function name
+     * Ensure FunctionType->getFunctionName() returns the function name
      **/
     public function testGetFunctionNameReturnsName()
     {
         $this->assertEquals(
             'substr',
             Types::GetByName( 'substr' )->getFunctionName(),
-            'Expected FunctionReferenceType->getFunctionName() to return the function name'
+            'Expected FunctionType->getFunctionName() to return the function name'
         );
     }
 
@@ -106,21 +106,20 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                    FunctionReferenceType->getNames()
+    *                         FunctionType->getNames()
     ***************************************************************************/
 
 
     /**
-     * Ensure getNames() returns 'function' and the function name
+     * Ensure getNames() returns the function name
      **/
-    public function testGetNamesReturnsFunctionAndFunctionName()
+    public function testGetNames()
     {
         $functionName = 'substr';
         $type         = Types::GetByName( $functionName );
-        $this->assertEquals(
-            [ 'function', $functionName ],
-            $type->getNames()->toArray(),
-            'Expected FunctionReferenceType->getNames() to return "function" and the function name'
+        $this->assertTrue(
+            $type->getNames()->hasValue( $functionName ),
+            'Expected FunctionType->getNames() to return "function" and the function name'
         );
     }
 
@@ -128,20 +127,8 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                        FunctionReferenceType->is()
+    *                             FunctionType->is()
     ***************************************************************************/
-
-
-    /**
-     * Ensure is() returns true for "function"
-     **/
-    public function testIsReturnsTrueForFunction()
-    {
-        $this->assertTrue(
-            Types::GetByName( 'substr' )->is( 'function' ),
-            'FunctionReferenceType->is() should return true for "function"'
-        );
-    }
 
 
     /**
@@ -151,7 +138,7 @@ class FunctionReferenceTypeTest extends \PHP\Tests\TestCase
     {
         $this->assertTrue(
             Types::GetByName( 'substr' )->is( 'substr' ),
-            'FunctionReferenceType->is() should return true for the function name'
+            'FunctionType->is() should return true for the function name'
         );
     }
 }

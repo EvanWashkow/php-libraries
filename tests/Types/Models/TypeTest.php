@@ -1,9 +1,9 @@
 <?php
-namespace PHP\Tests\TypesTest;
+namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
 use PHP\Collections\Sequence;
-use PHP\Types\Type;
+use PHP\Types\Models\Type;
 
 
 /**
@@ -111,7 +111,6 @@ class TypeTest extends \PHP\Tests\TestCase
             'array'     => [ 'array' ],
             'bool'      => [ 'bool', 'boolean' ],
             'int'       => [ 'int', 'integer' ],
-            'function'  => [ 'function' ],
             'float'     => [ 'float', 'double' ],
             'null'      => [ 'null' ],
             'string'    => [ 'string' ],
@@ -188,6 +187,46 @@ class TypeTest extends \PHP\Tests\TestCase
         $this->assertFalse(
             $type->is( 'boolean' ),
             'Expected Type->is() to return false for an invalid type alias'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                                Type->isClass()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isClass() returns false for basic types
+     */
+    public function testIsClassReturnsFalse()
+    {
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->isClass(),
+            'Expected Type->isClass() to return false for basic types'
+        );
+    }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              Type->isInterface()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isInterface() returns false for basic types
+     */
+    public function testIsInterfaceReturnsFalse()
+    {
+        $type = \PHP\Types::GetByValue( 1 );
+        $this->assertFalse(
+            $type->isInterface(),
+            'Expected Type->isInterface() to return false for basic types'
         );
     }
 }
