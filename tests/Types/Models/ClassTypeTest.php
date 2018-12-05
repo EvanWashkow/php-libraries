@@ -60,8 +60,8 @@ class ClassTypeTest extends \PHP\Tests\TestCase
      * @param bool       $expected The expected result
      */
     public function testEqualsByType( ClassType $typeA,
-                                      Type       $typeB,
-                                      bool       $expected )
+                                      Type      $typeB,
+                                      bool      $expected )
     {
         $this->assertSame(
             $expected,
@@ -83,6 +83,11 @@ class ClassTypeTest extends \PHP\Tests\TestCase
             'ClassType->equals( int )' => [
                 Types::GetByName( 'ReflectionObject' ),
                 Types::GetByName( 'int' ),
+                false
+            ],
+            'ClassType->equals( other class )' => [
+                Types::GetByName( 'ReflectionClass' ),
+                Types::GetByName( 'ReflectionFunction' ),
                 false
             ],
             'ClassType->equals( child class )' => [
@@ -146,6 +151,11 @@ class ClassTypeTest extends \PHP\Tests\TestCase
             'ClassType->equals( int )' => [
                 Types::GetByName( 'ReflectionObject' ),
                 1,
+                false
+            ],
+            'ClassType->equals( other class )' => [
+                Types::GetByName( 'ReflectionClass' ),
+                new \ReflectionFunction( function() {} ),
                 false
             ],
             'ClassType->equals( child class )' => [
@@ -226,8 +236,13 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
             // ClassType
             'ClassType->is( int )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                Types::GetByName( 'ReflectionClass' ),
                 'int',
+                false
+            ],
+            'ClassType->is( other class )' => [
+                Types::GetByName( 'ReflectionClass' ),
+                'ReflectionFunction',
                 false
             ],
             'ClassType->is( child class )' => [
