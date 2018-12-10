@@ -2,7 +2,6 @@
 namespace PHP\Tests;
 
 require_once( __DIR__ . '/CollectionData.php' );
-require_once( __DIR__ . '/ReadOnlyDictionaryData.php' );
 require_once( __DIR__ . '/ReadOnlySequenceData.php' );
 
 /**
@@ -18,10 +17,7 @@ final class ReadOnlyCollectionData
      */
     public static function Get()
     {
-        return array_merge(
-            ReadOnlyDictionaryData::Get(),
-            ReadOnlySequenceData::GetOld()
-        );
+        return ReadOnlySequenceData::GetOld();
     }
     
     
@@ -32,10 +28,7 @@ final class ReadOnlyCollectionData
      */
     public static function GetTyped()
     {
-        return array_merge(
-            ReadOnlyDictionaryData::GetTyped(),
-            ReadOnlySequenceData::GetOldTyped()
-        );
+        return ReadOnlySequenceData::GetOldTyped();
     }
     
     
@@ -48,8 +41,6 @@ final class ReadOnlyCollectionData
      */
     public static function GetMixed()
     {
-        return array_merge(
-            ReadOnlyDictionaryData::GetMixed()
-        );
+        return [];
     }
 }
