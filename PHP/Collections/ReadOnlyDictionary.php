@@ -19,6 +19,8 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements IReadOnlyDictiona
      */
     public function __construct( IDictionary &$dictionary )
     {
+        $dictionaryClass = Dictionary::class;
+        \trigger_error( self::class . " is deprecated. Clone a {$dictionaryClass} instance instead." );
         parent::__construct( $dictionary );
     }
     
