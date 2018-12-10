@@ -87,6 +87,138 @@ class SequenceTest extends CollectionsTestCase
         $dictionary->add( 1 );
         $dictionary->get( 1 );
     }
+
+
+
+
+    /***************************************************************************
+    *                            Sequence->getFirstKey()
+    ***************************************************************************/
+    
+    /**
+     * Ensure ReadOnlySequence->getFirstKey() returns zero
+     */
+    public function testGetFirstKeyReturnsZero()
+    {
+        $this->assertEquals(
+            (new Sequence())->getFirstKey(),
+            0,
+            'The first key of a Sequence should always be zero'
+        );
+    }
+
+
+
+
+    /***************************************************************************
+    *                      ReadOnlySequence->getKeyOf()
+    ***************************************************************************/
+
+
+    /**
+     * Test getKeyOf() return values
+     * 
+     * @dataProvider getGetKeyOfData
+     *
+     * @param Sequence $sequence        The sequence
+     * @param mixed    $value           The value to get the key of
+     * @param int      $offset          The offset to start the search from
+     * @param bool     $isReverseSearch Start from the end of the sequence?
+     * @param int      $expected        The expected key
+     **/
+    public function testGetKeyOf( Sequence $sequence,
+                                           $value,
+                                  int      $offset,
+                                  bool     $isReverseSearch,
+                                  int      $expected )
+    {
+        $this->assertEquals(
+            $sequence->getKeyOf( $value, $offset, $isReverseSearch ),
+            $expected
+        );
+    }
+
+
+    /**
+     * Retrieve test data for the getKeyOf() test
+     *
+     * @return array
+     **/
+    public function getGetKeyOfData(): array
+    {
+        $sequence = new Sequence();
+        $sequence->add( 0 );    // Index 0, Reverse Index 5
+        $sequence->add( 1 );    // Index 1, Reverse Index 4
+        $sequence->add( 1 );    // Index 2, Reverse Index 3
+        $sequence->add( 0 );    // Index 3, Reverse Index 2
+        $sequence->add( 0 );    // Index 4, Reverse Index 1
+        $sequence->add( 1 );    // Index 5, Reverse Index 0
+
+        return [
+
+            // Non-reverse search
+            'Value 0, Offset 0, Reverse false' => [ $sequence, 0, 0, false, 0 ],
+            'Value 1, Offset 0, Reverse false' => [ $sequence, 1, 0, false, 1 ],
+            'Value 1, Offset 2, Reverse false' => [ $sequence, 1, 2, false, 2 ],
+            'Value 0, Offset 1, Reverse false' => [ $sequence, 0, 1, false, 3 ],
+
+            // Reverse search
+            'Value 1, Offset 0, Reverse true'  => [ $sequence, 1, 0, true,  5 ],
+            'Value 0, Offset 0, Reverse true'  => [ $sequence, 0, 0, true,  4 ],
+            'Value 0, Offset 2, Reverse true'  => [ $sequence, 0, 2, true,  3 ],
+            'Value 1, Offset 1, Reverse true'  => [ $sequence, 1, 1, true,  2 ],
+        ];
+    }
+
+
+
+
+    /***************************************************************************
+    *                            Sequence->getLastKey()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getLastKey() returns one less than count
+     * 
+     * @dataProvider getLastKeyData
+     */
+    public function testGetLastKey( Sequence $sequence )
+    {
+        $this->assertEquals(
+            $sequence->getLastKey(),
+            $sequence->count() - 1,
+            'Sequence->getLastKey() should always return one less than the count'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for testing getLastKey()
+     *
+     * @return array
+     **/
+    public function getLastKeyData(): array
+    {
+        $data = [];
+
+        // Empty sequence
+        $data[ 'Empty Sequence' ] = [ new Sequence() ];
+
+        // Sequence with one entry
+        $sequence = new Sequence();
+        $sequence->add(0);
+        $data[ 'Sequence with one entry' ] = [ $sequence ];
+
+        // Sequence with multiple entries
+        $sequence = new Sequence();
+        $sequence->add(0);
+        $sequence->add(1);
+        $sequence->add(2);
+        $data[ 'Sequence with multiple entries' ] = [ $sequence ];
+
+        return $data;
+    }
     
     
     
@@ -322,5 +454,60 @@ class SequenceTest extends CollectionsTestCase
                 }
             }
         }
+    }
+
+
+
+
+    /***************************************************************************
+    *                             Sequence->toArray()
+    ***************************************************************************/
+    
+    /**
+     * Ensure Sequence->toArray() returns the array
+     * 
+     * @dataProvider getToArrayData
+     * 
+     * @param Sequence $sequence The sequence to convert to array
+     * @param array    $array    The expected array
+     */
+    public function testToArray( Sequence $sequence, array $array )
+    {
+        $this->assertEquals(
+            $sequence->toArray(),
+            $array,
+            'Sequence->toArray() did not return the expected array'
+        );
+    }
+
+
+    /**
+     * Provides data for array tests
+     * 
+     * @return array
+     */
+    public function getToArrayData(): array
+    {
+        $data = [];
+
+        // Empty sequence
+        $data[ 'Empty Sequence' ] = [
+            new Sequence(),
+            []
+        ];
+
+        // Sequence with two entries
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+        $data[ 'Sequence with two entries' ] = [
+            $sequence,
+            [
+                0 => 0,
+                1 => 1
+            ]
+        ];
+
+        return $data;
     }
 }
