@@ -224,6 +224,71 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                            Collection->getKeys()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getKeys() returns a sequence
+     * 
+     * @dataProvider getCollectionData
+     * 
+     * @param Collection $collection The collection
+     */
+    public function testGetKeysReturnType( Collection $collection )
+    {
+        $this->assertInstanceOf(
+            Sequence::class,
+            $collection->getKeys(),
+            'Collection->getKeys() should always return a Sequence'
+        );
+    }
+
+
+    /**
+     * Ensure getKeys() returns the correct results
+     * 
+     * @dataProvider getGetKeysData
+     * 
+     * @param Collection $collection The collection
+     */
+    public function testGetKeys( Collection $collection, array $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->getKeys()->toArray(),
+            'Collection->getKeys() didn\'t return the correct results'
+        );
+    }
+    
+    
+    /**
+     * Retrieve test data for getKeys() test
+     * 
+     * @todo Test Dictionary->getKeys() does not return strings for integer keys
+     */
+    public function getGetKeysData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 'foo',   'bar' );
+        $dictionary->set( 'false', true );
+        $dictionary->set( '1',     0 );
+
+        $sequence = new Sequence();
+        $sequence->add( 2 );
+        $sequence->add( '1' );
+        $sequence->add( false );
+
+        return [
+            [ $dictionary, [ 'foo', 'false', '1' ] ],
+            [ $sequence,   [ 0, 1, 2 ] ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                          Collection->getKeyType()
     ***************************************************************************/
 
@@ -662,5 +727,26 @@ class CollectionTest extends CollectionsTestCase
                 "Expected {$name}->set() to reject keys with the wrong type"
             );
         }
+    }
+
+
+
+
+    /***************************************************************************
+    *                       ReadOnlyCollection->getKeys()
+    ***************************************************************************/
+
+
+    /**
+     * Retrieve collection data
+     * 
+     * @return array
+     */
+    public function getCollectionData(): array
+    {
+        return [
+            'Dictionary' => [ new Dictionary() ],
+            'Sequence'   => [ new Sequence() ]
+        ];
     }
 }
