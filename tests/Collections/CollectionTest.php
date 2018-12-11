@@ -140,6 +140,90 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                            Collection->get()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Collection->get() returns the correct value
+     * 
+     * @dataProvider getGetData
+     * 
+     * @param Collection $collection The collection to test
+     * @param mixed      $key        The key to access
+     * @param mixed      $expected   The expected value
+     **/
+    public function testGet( Collection $collection, $key, $expected )
+    {
+        $this->assertTrue(
+            $expected === $collection->get( $key ),
+            'Collection->get() was incorrect'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for get tests
+     * 
+     * @return array
+     */
+    public function getGetData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 0, 'foo' );
+        $dictionary->set( 1, true );
+        $dictionary->set( 2, 'bar' );
+
+        $sequence = new Sequence();
+        $sequence->add( 'foo' );
+        $sequence->add( true );
+        $sequence->add( 'bar' );
+
+        return [
+            [ $dictionary, 1, true ],
+            [ $sequence,   1, true ]
+        ];
+    }
+
+
+    /**
+     * Ensure Collection->get() throws an exception on missing key
+     * 
+     * @dataProvider      getGetExceptionData
+     * @expectedException InvalidArgumentException
+     * 
+     * @param Collection $collection The collection to test
+     * @param mixed      $key        The key to access
+     **/
+    public function testGetException( Collection $collection, $key )
+    {
+        $collection->get( $key );
+    }
+
+
+    /**
+     * Retrieve test data for get tests
+     * 
+     * @return array
+     */
+    public function getGetExceptionData(): array
+    {
+        return [
+
+            // Missing keys
+            [ new Dictionary(), 0 ],
+            [ new Sequence(),   0 ],
+
+            // null cannot be a key
+            [ new Dictionary(), null ],
+            [ new Sequence(),   null ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                          Collection->getKeyType()
     ***************************************************************************/
 
