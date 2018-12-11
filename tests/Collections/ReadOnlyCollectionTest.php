@@ -17,43 +17,6 @@ class ReadOnlyCollectionTest extends CollectionsTestCase
     
     
     /***************************************************************************
-    *                       ReadOnlyCollection->count()
-    ***************************************************************************/
-    
-    /**
-     * Ensure that count() returns the number of items
-     */
-    public function testCountIsAccurate()
-    {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
-            $name = self::getClassName( $collection );
-            $this->assertEquals(
-                self::countElements( $collection ),
-                $collection->count(),
-                "Expected {$name}->count() to return zero for empty collections"
-            );
-        }
-    }
-    
-    /**
-    * Ensure that count() returns an integer value
-    */
-    public function testCountReturnsInt()
-    {
-        foreach ( ReadOnlyCollectionData::Get() as $collection ) {
-            $name = self::getClassName( $collection );
-            $this->assertTrue(
-                is( $collection->count(), 'integer' ),
-                "Expected {$name}->count() to return an integer value"
-            );
-        }
-    }
-    
-    
-    
-    
-    
-    /***************************************************************************
     *                         ReadOnlyCollection->get()
     ***************************************************************************/
     

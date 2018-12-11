@@ -1,7 +1,9 @@
 <?php
 namespace PHP\Tests;
 
+use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
+use PHP\Collections\Sequence;
 
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
@@ -63,6 +65,7 @@ class CollectionTest extends CollectionsTestCase
 
 
 
+
     /***************************************************************************
     *                           Collection->clear()
     ***************************************************************************/
@@ -82,6 +85,57 @@ class CollectionTest extends CollectionsTestCase
             );
         }
     }
+
+
+
+
+    /***************************************************************************
+    *                            Collection->count()
+    ***************************************************************************/
+
+    /**
+     * Ensure Collection->count() returns the correct count
+     * 
+     * @dataProvider getCountData
+     * 
+     * @param Collection $collection The collection to test
+     * @param int        $expected   The expected count
+     **/
+    public function testCount( Collection $collection, int $expected )
+    {
+        $this->assertTrue(
+            $expected === $collection->count(),
+            'Collection->count() was incorrect'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for count tests
+     * 
+     * @return array
+     */
+    public function getCountData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 0, 0 );
+        $dictionary->set( 1, 1 );
+        $dictionary->set( 2, 2 );
+
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+        $sequence->add( 2 );
+
+        return [
+            [ ( new Dictionary() ), 0 ],
+            [ $dictionary,          3 ],
+            [ ( new Sequence() ),   0 ],
+            [ $sequence,            3 ]
+
+        ];
+    }
+
 
 
 
