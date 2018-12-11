@@ -586,6 +586,117 @@ class SequenceTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                              Sequence->split()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Sequence->split() returns a Sequence
+     **/
+    public function testSplitReturnType()
+    {
+        $this->assertInstanceOf(
+            Sequence::class,
+            ( new Sequence() )->split( '1' ),
+            'Sequence->split() should return a new Sequence instance'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->split() returns an inner Sequence
+     **/
+    public function testSplitInnerReturnType()
+    {
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+
+        $this->assertInstanceOf(
+            Sequence::class,
+            $sequence->split( 1 )->get( 0 ),
+            'Sequence->split() should return inner Sequence instances'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->split() returns the correct results
+     * 
+     * @dataProvider getSplitResultsData
+     * 
+     *
+     **/
+    public function testSplitResults( Sequence $sequence,
+                                               $delimiter,
+                                      int      $limit,
+                                      array    $expected )
+    {
+        // Variables
+        $errorMessage = '';
+        $isSame       = true;
+        $result       = $sequence->split( $delimiter, $limit );
+
+        // Ensure both have the same number of entry groups
+        $isSame = ( $result->count() === count( $expected ) );
+        if ( !$isSame ) {
+            $errorMessage = 'Sequence->split() returned the wrong number of entries';
+        }
+
+        // Ensure both entry groupings are identical
+        else {
+            foreach ( $result as $index => $innerSequence ) {
+                $isSame = ( $expected[ $index ] === $innerSequence->toArray() );
+                if ( !$isSame ) {
+                    $errorMessage = 'Sequence->split() returned the wrong sub-entries';
+                }
+            }
+        }
+
+        // Assert equality
+        $this->assertTrue( $isSame, $errorMessage );
+    }
+
+
+    /**
+     * Retrieve test data for Sequence->split()
+     * 
+     * @return array
+     */
+    public function getSplitResultsData(): array
+    {
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+        $sequence->add( 1 );
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+        $sequence->add( 0 );
+
+
+        return [
+            'Delimiter 0, Limit max' => [
+                $sequence, 0, PHP_INT_MAX, [ [ 1, 1 ], [ 1 ] ]
+            ],
+            'Delimiter 1, Limit max' => [
+                $sequence, 1, PHP_INT_MAX, [ [ 0 ], [ 0 ], [ 0 ] ]
+            ],
+            'Delimiter 1, Limit 0' => [
+                $sequence, 1, 0, []
+            ],
+            'Delimiter 1, Limit 2' => [
+                $sequence, 1, 2, [ [ 0 ], [ 0 ] ]
+            ],
+            'Unfound delimiter' => [
+                $sequence, 5, PHP_INT_MAX, [ [ 0, 1, 1, 0, 1, 0 ] ]
+            ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                             Sequence->toArray()
     ***************************************************************************/
     
