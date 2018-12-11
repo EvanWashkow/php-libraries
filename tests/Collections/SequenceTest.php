@@ -470,6 +470,122 @@ class SequenceTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                              Sequence->slice()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Sequence->slice() returns a Sequence
+     **/
+    public function testSliceReturnType()
+    {
+        $this->assertInstanceOf(
+            Sequence::class,
+            ( new Sequence() )->slice( 0 ),
+            'Sequence->slice() should return a new Sequence instance'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->slice() returns the correct values
+     * 
+     * @dataProvider getTestSliceResultsData
+     * 
+     * @param Sequence $sequence The sequence
+     * @param int      $offset   Where to start the split
+     * @param int      $count    Number of entries to return
+     * @param array    $expected The expected result
+     **/
+    public function testSliceResults( Sequence $sequence,
+                                      int      $offset,
+                                      int      $count,
+                                      array    $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $sequence->slice( $offset, $count )->toArray(),
+            'Sequence->slice() did not return the correct results'
+        );
+    }
+
+
+    /**
+     * Retrieve test slice results data
+     *
+     * @return array
+     **/
+    public function getTestSliceResultsData(): array
+    {
+        $sequence = new Sequence();
+        $sequence->add(1);
+        $sequence->add(2);
+        $sequence->add(3);
+        $sequence->add(4);
+        $sequence->add(5);
+
+        return [
+            'Offset 0, Count max' => [
+                $sequence, 0, PHP_INT_MAX, [ 1, 2, 3, 4, 5 ]
+            ],
+            'Offset 1, Count max' => [
+                $sequence, 1, PHP_INT_MAX, [ 2, 3, 4, 5 ]
+            ],
+            'Offset 0, Count 0' => [
+                $sequence, 0, 0, []
+            ],
+            'Offset 0, Count 1' => [
+                $sequence, 0, 1, [ 1 ]
+            ],
+            'Offset 0, Count 3' => [
+                $sequence, 0, 3, [ 1, 2, 3 ]
+            ],
+            'Offset 1, Count 3' => [
+                $sequence, 1, 3, [ 2, 3, 4 ]
+            ],
+        ];
+    }
+
+
+    /**
+     * Ensure Sequence->slice() errors on bad offset
+     **/
+    public function testSliceOffetError()
+    {
+        try {
+            ( new Sequence() )->slice( -1 );
+        } catch (\Throwable $th) {
+            $isError = true;
+        }
+
+        $this->assertTrue(
+            $isError,
+            'Sequence->split() should throw error on bad offset'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->slice() errors on bad count
+     **/
+    public function testSliceCountError()
+    {
+        try {
+            ( new Sequence() )->slice( 0, -1 );
+        } catch (\Throwable $th) {
+            $isError = true;
+        }
+
+        $this->assertTrue(
+            $isError,
+            'Sequence->split() should throw error on bad count'
+        );
+    }
+
+
+
+
+    /***************************************************************************
     *                             Sequence->toArray()
     ***************************************************************************/
     
