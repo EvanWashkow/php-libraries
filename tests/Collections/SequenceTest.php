@@ -181,7 +181,7 @@ class SequenceTest extends CollectionsTestCase
     /**
      * Ensure ReadOnlySequence->getLastKey() returns one less than count
      * 
-     * @dataProvider getLastKeyData
+     * @dataProvider getSequenceData
      */
     public function testGetLastKey( Sequence $sequence )
     {
@@ -190,34 +190,6 @@ class SequenceTest extends CollectionsTestCase
             $sequence->count() - 1,
             'Sequence->getLastKey() should always return one less than the count'
         );
-    }
-
-
-    /**
-     * Retrieve test data for testing getLastKey()
-     *
-     * @return array
-     **/
-    public function getLastKeyData(): array
-    {
-        $data = [];
-
-        // Empty sequence
-        $data[ 'Empty Sequence' ] = [ new Sequence() ];
-
-        // Sequence with one entry
-        $sequence = new Sequence();
-        $sequence->add(0);
-        $data[ 'Sequence with one entry' ] = [ $sequence ];
-
-        // Sequence with multiple entries
-        $sequence = new Sequence();
-        $sequence->add(0);
-        $sequence->add(1);
-        $sequence->add(2);
-        $data[ 'Sequence with multiple entries' ] = [ $sequence ];
-
-        return $data;
     }
     
     
@@ -507,6 +479,40 @@ class SequenceTest extends CollectionsTestCase
                 1 => 1
             ]
         ];
+
+        return $data;
+    }
+
+
+
+    
+    /****************************************************************************                               SHARED DATA PROVIDERS
+    ***************************************************************************/
+
+
+    /**
+     * Retrieve test data for sequences
+     *
+     * @return array
+     **/
+    public function getSequenceData(): array
+    {
+        $data = [];
+
+        // Empty sequence
+        $data[ 'Empty Sequence' ] = [ new Sequence() ];
+
+        // Sequence with one entry
+        $sequence = new Sequence();
+        $sequence->add(0);
+        $data[ 'Sequence with one entry' ] = [ $sequence ];
+
+        // Sequence with multiple entries
+        $sequence = new Sequence();
+        $sequence->add(0);
+        $sequence->add(1);
+        $sequence->add(2);
+        $data[ 'Sequence with multiple entries' ] = [ $sequence ];
 
         return $data;
     }
