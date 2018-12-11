@@ -548,7 +548,7 @@ class SequenceTest extends CollectionsTestCase
 
 
     /**
-     * Ensure Sequence->slice() errors on bad offset
+     * Ensure Sequence->slice() errors on negative offset
      **/
     public function testSliceOffetError()
     {
@@ -560,13 +560,13 @@ class SequenceTest extends CollectionsTestCase
 
         $this->assertTrue(
             $isError,
-            'Sequence->split() should throw error on bad offset'
+            'Sequence->split() should throw error on negative offset'
         );
     }
 
 
     /**
-     * Ensure Sequence->slice() errors on bad count
+     * Ensure Sequence->slice() errors on negative count
      **/
     public function testSliceCountError()
     {
@@ -578,7 +578,7 @@ class SequenceTest extends CollectionsTestCase
 
         $this->assertTrue(
             $isError,
-            'Sequence->split() should throw error on bad count'
+            'Sequence->split() should throw error on negative count'
         );
     }
 
