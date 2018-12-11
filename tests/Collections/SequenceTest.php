@@ -432,6 +432,44 @@ class SequenceTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                             Sequence->reverse()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Sequence->reverse() returns a Sequence
+     **/
+    public function testReverseReturnType()
+    {
+        $this->assertInstanceOf(
+            Sequence::class,
+            ( new Sequence() )->reverse(),
+            'Sequence->reverse() should return a new Sequence instance'
+        );
+    }
+
+
+    /**
+     * Ensure Sequence->reverse() has the keys in reverse
+     * 
+     * @dataProvider getSequenceData
+     * 
+     * @param Sequence $sequence Original sequence
+     **/
+    public function testReverse( Sequence $sequence )
+    {
+        $reversedArray = array_reverse( $sequence->toArray() );
+        $this->assertEquals(
+            $reversedArray,
+            $sequence->reverse()->toArray(),
+            'Sequence->reverse() should reverse the entries\' order'
+        );
+    }
+
+
+
+
+    /***************************************************************************
     *                             Sequence->toArray()
     ***************************************************************************/
     
