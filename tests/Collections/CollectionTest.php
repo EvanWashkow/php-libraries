@@ -411,10 +411,61 @@ class CollectionTest extends CollectionsTestCase
             'Expected Collection->getValueType() to return a wildcard type'
         );
     }
-    
-    
-    
-    
+
+
+
+
+    /***************************************************************************
+    *                            Collection->hasKey()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Collection->hasKey() returns the correct values
+     * 
+     * @dataProvider getHasKeyData
+     * 
+     * @param Collection $collection The collection
+     * @param mixed      $key        The key to check
+     * @param bool       $expected   The expected result
+     */
+    public function testHasKey( Collection $collection, $key, bool $expected )
+    {
+        $this->assertTrue(
+            $expected === $collection->hasKey( $key ),
+            'Collection->hasKey() returned the wrong value'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for hasKey() test
+     * 
+     * @todo Test Dictionary->hasKey() with mixure of strings and integers
+     */
+    public function getHasKeyData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 'foo',   'bar' );
+        $dictionary->set( 'false', true );
+        $dictionary->set( '1',     0 );
+
+        $sequence = new Sequence();
+        $sequence->add( 2 );
+        $sequence->add( '1' );
+        $sequence->add( false );
+
+        return [
+            [ $dictionary, 'false', true ],
+            [ $dictionary, 'dog',   false ],
+            [ $sequence,   0,       true ],
+            [ $sequence,   5,       false ]
+        ];
+    }
+
+
+
+
     /***************************************************************************
     *                         Collection->isOfKeyType()
     ***************************************************************************/
