@@ -320,6 +320,70 @@ class CollectionTest extends CollectionsTestCase
 
 
 
+
+    /***************************************************************************
+    *                            Collection->getValues()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure getValues() returns a sequence
+     * 
+     * @dataProvider getCollectionData
+     * 
+     * @param Collection $collection The collection
+     */
+    public function testGetValuesReturnType( Collection $collection )
+    {
+        $this->assertInstanceOf(
+            Sequence::class,
+            $collection->getValues(),
+            'Collection->getValues() should always return a Sequence'
+        );
+    }
+
+
+    /**
+     * Ensure getValues() returns the correct results
+     * 
+     * @dataProvider getGetValuesData
+     * 
+     * @param Collection $collection The collection
+     */
+    public function testGetValues( Collection $collection, array $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->getValues()->toArray(),
+            'Collection->getValues() didn\'t return the correct results'
+        );
+    }
+    
+    
+    /**
+     * Retrieve test data for getValues() test
+     */
+    public function getGetValuesData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 'foo',   'bar' );
+        $dictionary->set( 'false', true );
+        $dictionary->set( '1',     0 );
+
+        $sequence = new Sequence();
+        $sequence->add( 2 );
+        $sequence->add( '1' );
+        $sequence->add( false );
+
+        return [
+            [ $dictionary, [ 'bar', true, 0 ] ],
+            [ $sequence,   [ 2, '1', false ] ]
+        ];
+    }
+
+
+
+
     /***************************************************************************
     *                          Collection->getValueType()
     ***************************************************************************/
