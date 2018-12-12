@@ -140,7 +140,7 @@ class Dictionary extends Collection implements IDictionary
     {
         return (
             $this->getValueType()->equals( $value ) &&
-            in_array( $value, $this->entries )
+            in_array( $value, $this->entries, true )
         );
     }
     
