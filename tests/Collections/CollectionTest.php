@@ -467,6 +467,57 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                            Collection->hasValue()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Collection->hasValue() returns the correct values
+     * 
+     * @dataProvider getHasValueData
+     * 
+     * @param Collection $collection The collection
+     * @param mixed      $value      The value to check
+     * @param bool       $expected   The expected result
+     */
+    public function testHasValue( Collection $collection, $value, bool $expected )
+    {
+        $this->assertTrue(
+            $expected === $collection->hasValue( $value ),
+            'Collection->hasValue() returned the wrong value'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for hasValue() test
+     * 
+     * @todo Test Dictionary->hasValue() with mixure of strings and integers
+     */
+    public function getHasValueData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 'foo',   'bar' );
+        $dictionary->set( 'false', true );
+        $dictionary->set( '1',     0 );
+
+        $sequence = new Sequence();
+        $sequence->add( 2 );
+        $sequence->add( '1' );
+        $sequence->add( false );
+
+        return [
+            [ $dictionary, true,  true ],
+            [ $dictionary, 'cat', false ],
+            [ $sequence,   false, true ],
+            [ $sequence,   5,     false ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                         Collection->isOfKeyType()
     ***************************************************************************/
 
