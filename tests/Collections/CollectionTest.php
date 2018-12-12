@@ -254,9 +254,8 @@ class CollectionTest extends CollectionsTestCase
      */
     public function testGetKeys( Collection $collection, array $expected )
     {
-        $this->assertEquals(
-            $expected,
-            $collection->getKeys()->toArray(),
+        $this->assertTrue(
+            $expected === $collection->getKeys()->toArray(),
             'Collection->getKeys() didn\'t return the correct results'
         );
     }
@@ -352,9 +351,8 @@ class CollectionTest extends CollectionsTestCase
      */
     public function testGetValues( Collection $collection, array $expected )
     {
-        $this->assertEquals(
-            $expected,
-            $collection->getValues()->toArray(),
+        $this->assertTrue(
+            $expected === $collection->getValues()->toArray(),
             'Collection->getValues() didn\'t return the correct results'
         );
     }
