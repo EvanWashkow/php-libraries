@@ -508,9 +508,9 @@ class CollectionTest extends CollectionsTestCase
 
         return [
             [ $dictionary, true,  true ],
-            [ $dictionary, 'cat', false ],
+            [ $dictionary, false, false ],
             [ $sequence,   false, true ],
-            [ $sequence,   5,     false ]
+            [ $sequence,   1,     false ]
         ];
     }
 

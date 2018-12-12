@@ -252,7 +252,7 @@ class Sequence extends Collection implements ISequence
     {
         return (
             $this->getValueType()->equals( $value ) &&
-            in_array( $value, $this->entries )
+            in_array( $value, $this->entries, true )
         );
     }
     
