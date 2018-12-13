@@ -1029,17 +1029,29 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestKeyData(): array
     {
-        $dictionary = new Dictionary();
-        $dictionary->set( 0, 'foo' );
-        $dictionary->set( 1, 'bar' );
-        $dictionary->next();
+        $dictionaryWithKey = new Dictionary();
+        $dictionaryWithKey->set( 0, 'foo' );
+        $dictionaryWithKey->set( 1, 'bar' );
+        $dictionaryWithKey->next();
 
-        $sequence = new Sequence();
-        $sequence->add( 'foo' );
-        $sequence->add( 'bar' );
-        $sequence->add( 'baz' );
-        $sequence->next();
-        $sequence->next();
+        $dictionaryWithoutKey = new Dictionary();
+        $dictionaryWithoutKey->set( 0, 'foo' );
+        $dictionaryWithoutKey->set( 1, 'bar' );
+        $dictionaryWithoutKey->next();
+        $dictionaryWithoutKey->next();
+        
+        $sequenceWithKey = new Sequence();
+        $sequenceWithKey->add( 'foo' );
+        $sequenceWithKey->add( 'bar' );
+        $sequenceWithKey->add( 'baz' );
+        $sequenceWithKey->next();
+        $sequenceWithKey->next();
+
+        $sequenceWithoutKey = new Sequence();
+        $sequenceWithoutKey->add( 'foo' );
+        $sequenceWithoutKey->add( 'bar' );
+        $sequenceWithoutKey->next();
+        $sequenceWithoutKey->next();
 
         return [
 
@@ -1047,12 +1059,22 @@ class CollectionTest extends CollectionsTestCase
              * All collections with a bad key() should return NULL
              * (This is the default functionality of arrays)
              */
-            'Dictionary with no key()' => [ ( new Dictionary() ), NULL ],
-            'Sequence with no key()'   => [ ( new Sequence() ),   NULL ],
+            'Dictionary with no entries' => [
+                ( new Dictionary() ), NULL
+            ],
+            'Sequence with no entries'   => [
+                ( new Sequence() ), NULL
+            ],
+            'Dictionary without key()'   => [
+                $dictionaryWithoutKey, NULL
+            ],
+            'Sequence without key()'     => [
+                $sequenceWithoutKey, NULL
+            ],
 
             // Valid key
-            'Dictionary with key' => [ $dictionary, 1 ],
-            'Sequence with key'   => [ $sequence,   2 ]
+            'Dictionary with key()' => [ $dictionaryWithKey, 1 ],
+            'Sequence with key()'   => [ $sequenceWithKey,   2 ]
         ];
     }
 
