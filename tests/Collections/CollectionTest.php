@@ -947,17 +947,29 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestCurrentData(): array
     {
-        $dictionary = new Dictionary();
-        $dictionary->set( 0, 'foo' );
-        $dictionary->set( 1, 'bar' );
-        $dictionary->next();
+        $dictionaryWithCurrent = new Dictionary();
+        $dictionaryWithCurrent->set( 0, 'foo' );
+        $dictionaryWithCurrent->set( 1, 'bar' );
+        $dictionaryWithCurrent->next();
 
-        $sequence = new Sequence();
-        $sequence->add( 'foo' );
-        $sequence->add( 'bar' );
-        $sequence->add( 'baz' );
-        $sequence->next();
-        $sequence->next();
+        $dictionaryWithoutCurrent = new Dictionary();
+        $dictionaryWithoutCurrent->set( 0, 'foo' );
+        $dictionaryWithoutCurrent->set( 1, 'bar' );
+        $dictionaryWithoutCurrent->next();
+        $dictionaryWithoutCurrent->next();
+        
+        $sequenceWithCurrent = new Sequence();
+        $sequenceWithCurrent->add( 'foo' );
+        $sequenceWithCurrent->add( 'bar' );
+        $sequenceWithCurrent->add( 'baz' );
+        $sequenceWithCurrent->next();
+        $sequenceWithCurrent->next();
+
+        $sequenceWithoutCurrent = new Sequence();
+        $sequenceWithoutCurrent->add( 'foo' );
+        $sequenceWithoutCurrent->add( 'bar' );
+        $sequenceWithoutCurrent->next();
+        $sequenceWithoutCurrent->next();
 
         return [
 
@@ -965,12 +977,22 @@ class CollectionTest extends CollectionsTestCase
              * All collections with a bad current() should return false
              * (This is the default functionality of arrays)
              */
-            'Dictionary with no current()' => [ ( new Dictionary() ), false ],
-            'Sequence with no current()'   => [ ( new Sequence() ),   false ],
+            'Dictionary with no entries'        => [
+                ( new Dictionary() ), false
+            ],
+            'Sequence with no entries'          => [
+                ( new Sequence() ), false
+            ],
+            'Dictionary without current()' => [
+                $dictionaryWithoutCurrent, false
+            ],
+            'Sequence without current()'   => [
+                $sequenceWithoutCurrent, false
+            ],
 
             // Valid current
-            'Dictionary with current' => [ $dictionary, 'bar' ],
-            'Sequence with current'   => [ $sequence,   'baz' ]
+            'Dictionary with current()' => [ $dictionaryWithCurrent, 'bar' ],
+            'Sequence with current()'   => [ $sequenceWithCurrent,   'baz' ]
         ];
     }
 
