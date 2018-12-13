@@ -10,58 +10,6 @@ require_once( __DIR__ . '/IteratorData.php' );
 class IteratorTest extends CollectionsTestCase
 {
     
-    /***************************************************************************
-    *                        Iterator->current()
-    ***************************************************************************/
-    
-    /**
-     * Ensure current() returns false on invalid key
-     */
-    public function testCurrentReturnsFalseOnInvalidKey()
-    {
-        foreach ( IteratorData::Get() as $iterator ) {
-            
-            // Get last key
-            $key = null;
-            $iterator->loop(function( $k, $v ) use ( &$key ) {
-                $key = $k;
-            });
-            
-            // Seek to an invalid entry
-            if ( $key !== null ) {
-                $iterator->seek( $key );
-                $iterator->next();
-            }
-            
-            // Test if current() is false
-            $class = self::getClassName( $iterator );
-            $this->assertFalse(
-                $iterator->current(),
-                "Expected {$class}->current() to return false on invalid key"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure current() always matches the current value in a loop
-     */
-    public function testCurrentMatchesValue()
-    {
-        foreach ( IteratorData::Get() as $iterator ) {
-            $name = self::getClassName( $iterator );
-            foreach ( $iterator as $value ) {
-                $this->assertEquals(
-                    $value,
-                    $iterator->current(),
-                    "Expected {$name}->current() to return the current value in the iteration"
-                );
-            }
-        }
-    }
-    
-    
-    
     
     /***************************************************************************
     *                        ReadOnlyCollection->key()

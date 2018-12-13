@@ -140,7 +140,7 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
-    *                            Collection->get()
+    *                              Collection->get()
     ***************************************************************************/
 
 
@@ -911,6 +911,66 @@ class CollectionTest extends CollectionsTestCase
         return [
             'Dictionary' => [ new Dictionary() ],
             'Sequence'   => [ new Sequence() ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
+    *                            Iterator->current()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Collection->current() returns the correct value
+     * 
+     * @dataProvider getTestCurrentData
+     * 
+     * @param Collection $collection The collection to test
+     * @param mixed      $expected   The expected value from current()
+     */
+    public function testCurrent( Collection $collection, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->current(),
+            'Collection->current() didn\'t return the correct result'
+        );
+    }
+
+
+    /**
+     * Retrieve data for Collection->current() test
+     * 
+     * @return array
+     */
+    public function getTestCurrentData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 0, 'foo' );
+        $dictionary->set( 1, 'bar' );
+        $dictionary->next();
+
+        $sequence = new Sequence();
+        $sequence->add( 'foo' );
+        $sequence->add( 'bar' );
+        $sequence->add( 'baz' );
+        $sequence->next();
+        $sequence->next();
+
+        return [
+
+            /**
+             * All collections with a bad current() should return false
+             * (This is the default functionality of arrays)
+             */
+            'Dictionary with no current()' => [ ( new Dictionary() ), false ],
+            'Sequence with no current()'   => [ ( new Sequence() ),   false ],
+
+            // Valid current
+            'Dictionary with current' => [ $dictionary, 'bar' ],
+            'Sequence with current'   => [ $sequence,   'baz' ]
         ];
     }
 }
