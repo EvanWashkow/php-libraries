@@ -897,7 +897,7 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
-    *                       ReadOnlyCollection->getKeys()
+    *                            Collection->getKeys()
     ***************************************************************************/
 
 
