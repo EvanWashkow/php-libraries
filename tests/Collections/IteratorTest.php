@@ -102,39 +102,6 @@ class IteratorTest extends CollectionsTestCase
     
     
     /***************************************************************************
-    *                        ReadOnlyCollection->seek()
-    ***************************************************************************/
-    
-    /**
-     * Seeking to a non-existing key should produce an error
-     */
-    public function testSeekReturnsErrorForMissingKey()
-    {
-        foreach ( IteratorData::GetTyped() as $iterator ) {
-            foreach ( $iterator as $value ) {
-                
-                // Set flag if error gets thrown
-                $isError = false;
-                try {
-                    $iterator->seek( $value );
-                } catch ( \Exception $e ) {
-                    $isError = true;
-                }
-                
-                // Write test
-                $this->assertTrue(
-                    $isError,
-                    "Expected an error from Iterator->seek() when seeking to a bad key"
-                );
-                break;
-            }
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                        Iterator->valid()
     ***************************************************************************/
     
