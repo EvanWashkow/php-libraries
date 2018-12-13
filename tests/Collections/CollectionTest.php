@@ -973,4 +973,64 @@ class CollectionTest extends CollectionsTestCase
             'Sequence with current'   => [ $sequence,   'baz' ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                            Iterator->key()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Collection->key() returns the correct value
+     * 
+     * @dataProvider getTestKeyData
+     * 
+     * @param Collection $collection The collection to test
+     * @param mixed      $expected   The expected value from key()
+     */
+    public function testKey( Collection $collection, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->key(),
+            'Collection->key() didn\'t return the correct result'
+        );
+    }
+
+
+    /**
+     * Retrieve data for Collection->key() test
+     * 
+     * @return array
+     */
+    public function getTestKeyData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 0, 'foo' );
+        $dictionary->set( 1, 'bar' );
+        $dictionary->next();
+
+        $sequence = new Sequence();
+        $sequence->add( 'foo' );
+        $sequence->add( 'bar' );
+        $sequence->add( 'baz' );
+        $sequence->next();
+        $sequence->next();
+
+        return [
+
+            /**
+             * All collections with a bad key() should return NULL
+             * (This is the default functionality of arrays)
+             */
+            'Dictionary with no key()' => [ ( new Dictionary() ), NULL ],
+            'Sequence with no key()'   => [ ( new Sequence() ),   NULL ],
+
+            // Valid key
+            'Dictionary with key' => [ $dictionary, 1 ],
+            'Sequence with key'   => [ $sequence,   2 ]
+        ];
+    }
 }
