@@ -102,47 +102,6 @@ class IteratorTest extends CollectionsTestCase
     
     
     /***************************************************************************
-    *                       ReadOnlyCollection->rewind()
-    ***************************************************************************/
-    
-    /**
-     * Ensure rewind() returns to the first key
-     */
-    public function testRewindResetsToFirstKey()
-    {
-        foreach ( IteratorData::Get() as $iterator ) {
-            
-            // Continue on. This iterator is empty.
-            if ( self::countElements( $iterator ) === 0 ) {
-                continue;
-            }
-            
-            // Find the last key and seek to it
-            $firstKey = null;
-            $lastKey  = null;
-            $iterator->loop(function( $key, $value ) use ( &$firstKey, &$lastKey ) {
-                if ( null === $firstKey ) {
-                    $firstKey = $key;
-                }
-                $lastKey = $key;
-            });
-            $iterator->seek( $lastKey );
-            
-            // Test if rewind returns to the first key
-            $name = self::getClassName( $iterator );
-            $iterator->rewind();
-            $this->assertEquals(
-                $firstKey,
-                $iterator->key(),
-                "Expected {$name}->rewind() to reset internal pointer to the first key"
-            );
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
     *                        ReadOnlyCollection->seek()
     ***************************************************************************/
     

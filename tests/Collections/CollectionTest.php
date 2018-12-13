@@ -1033,4 +1033,64 @@ class CollectionTest extends CollectionsTestCase
             'Sequence with key'   => [ $sequence,   2 ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                            Iterator->rewind()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure Collection->rewind() resets to the correct key
+     * 
+     * @dataProvider getTestRewindData
+     * 
+     * @param Collection $collection The collection to test
+     * @param mixed      $expected   The expected key after rewind()
+     */
+    public function testRewind( Collection $collection, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->rewind(),
+            'Collection->rewind() didn\'t reset to the correct key'
+        );
+    }
+
+
+    /**
+     * Retrieve data for Collection->rewind() test
+     * 
+     * @return array
+     */
+    public function getTestRewindData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 0, 'foo' );
+        $dictionary->set( 1, 'bar' );
+        $dictionary->next();
+
+        $sequence = new Sequence();
+        $sequence->add( 'foo' );
+        $sequence->add( 'bar' );
+        $sequence->add( 'baz' );
+        $sequence->next();
+        $sequence->next();
+
+        return [
+
+            /**
+             * All collections with a bad key() should return NULL
+             * (This is the default functionality of arrays)
+             */
+            'Dictionary with no entries' => [ ( new Dictionary() ), NULL ],
+            'Sequence with no entries'   => [ ( new Sequence() ),   NULL ],
+
+            // Valid rewind
+            'Dictionary with entries' => [ $dictionary, 0 ],
+            'Sequence with entries'   => [ $sequence,   0 ]
+        ];
+    }
 }
