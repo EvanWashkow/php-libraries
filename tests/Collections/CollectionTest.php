@@ -947,29 +947,29 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestCurrentData(): array
     {
-        $dictionaryWithCurrent = new Dictionary();
-        $dictionaryWithCurrent->set( 0, 'foo' );
-        $dictionaryWithCurrent->set( 1, 'bar' );
-        $dictionaryWithCurrent->next();
+        $validDictionaryPosition = new Dictionary();
+        $validDictionaryPosition->set( 0, 'foo' );
+        $validDictionaryPosition->set( 1, 'bar' );
+        $validDictionaryPosition->next();
 
-        $dictionaryWithoutCurrent = new Dictionary();
-        $dictionaryWithoutCurrent->set( 0, 'foo' );
-        $dictionaryWithoutCurrent->set( 1, 'bar' );
-        $dictionaryWithoutCurrent->next();
-        $dictionaryWithoutCurrent->next();
+        $invalidDictionaryPosition = new Dictionary();
+        $invalidDictionaryPosition->set( 0, 'foo' );
+        $invalidDictionaryPosition->set( 1, 'bar' );
+        $invalidDictionaryPosition->next();
+        $invalidDictionaryPosition->next();
         
-        $sequenceWithCurrent = new Sequence();
-        $sequenceWithCurrent->add( 'foo' );
-        $sequenceWithCurrent->add( 'bar' );
-        $sequenceWithCurrent->add( 'baz' );
-        $sequenceWithCurrent->next();
-        $sequenceWithCurrent->next();
+        $validSequencePosition = new Sequence();
+        $validSequencePosition->add( 'foo' );
+        $validSequencePosition->add( 'bar' );
+        $validSequencePosition->add( 'baz' );
+        $validSequencePosition->next();
+        $validSequencePosition->next();
 
-        $sequenceWithoutCurrent = new Sequence();
-        $sequenceWithoutCurrent->add( 'foo' );
-        $sequenceWithoutCurrent->add( 'bar' );
-        $sequenceWithoutCurrent->next();
-        $sequenceWithoutCurrent->next();
+        $invalidSequencePosition = new Sequence();
+        $invalidSequencePosition->add( 'foo' );
+        $invalidSequencePosition->add( 'bar' );
+        $invalidSequencePosition->next();
+        $invalidSequencePosition->next();
 
         return [
 
@@ -984,15 +984,15 @@ class CollectionTest extends CollectionsTestCase
                 ( new Sequence() ), false
             ],
             'Dictionary without current()' => [
-                $dictionaryWithoutCurrent, false
+                $invalidDictionaryPosition, false
             ],
             'Sequence without current()'   => [
-                $sequenceWithoutCurrent, false
+                $invalidSequencePosition, false
             ],
 
             // Valid current
-            'Dictionary with current()' => [ $dictionaryWithCurrent, 'bar' ],
-            'Sequence with current()'   => [ $sequenceWithCurrent,   'baz' ]
+            'Dictionary with current()' => [ $validDictionaryPosition, 'bar' ],
+            'Sequence with current()'   => [ $validSequencePosition,   'baz' ]
         ];
     }
 
@@ -1029,29 +1029,29 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestKeyData(): array
     {
-        $dictionaryWithKey = new Dictionary();
-        $dictionaryWithKey->set( 0, 'foo' );
-        $dictionaryWithKey->set( 1, 'bar' );
-        $dictionaryWithKey->next();
+        $validDictionaryPosition = new Dictionary();
+        $validDictionaryPosition->set( 0, 'foo' );
+        $validDictionaryPosition->set( 1, 'bar' );
+        $validDictionaryPosition->next();
 
-        $dictionaryWithoutKey = new Dictionary();
-        $dictionaryWithoutKey->set( 0, 'foo' );
-        $dictionaryWithoutKey->set( 1, 'bar' );
-        $dictionaryWithoutKey->next();
-        $dictionaryWithoutKey->next();
+        $invalidDictionPosition = new Dictionary();
+        $invalidDictionPosition->set( 0, 'foo' );
+        $invalidDictionPosition->set( 1, 'bar' );
+        $invalidDictionPosition->next();
+        $invalidDictionPosition->next();
         
-        $sequenceWithKey = new Sequence();
-        $sequenceWithKey->add( 'foo' );
-        $sequenceWithKey->add( 'bar' );
-        $sequenceWithKey->add( 'baz' );
-        $sequenceWithKey->next();
-        $sequenceWithKey->next();
+        $validSequencePosition = new Sequence();
+        $validSequencePosition->add( 'foo' );
+        $validSequencePosition->add( 'bar' );
+        $validSequencePosition->add( 'baz' );
+        $validSequencePosition->next();
+        $validSequencePosition->next();
 
-        $sequenceWithoutKey = new Sequence();
-        $sequenceWithoutKey->add( 'foo' );
-        $sequenceWithoutKey->add( 'bar' );
-        $sequenceWithoutKey->next();
-        $sequenceWithoutKey->next();
+        $invalidSequencePosition = new Sequence();
+        $invalidSequencePosition->add( 'foo' );
+        $invalidSequencePosition->add( 'bar' );
+        $invalidSequencePosition->next();
+        $invalidSequencePosition->next();
 
         return [
 
@@ -1066,15 +1066,15 @@ class CollectionTest extends CollectionsTestCase
                 ( new Sequence() ), NULL
             ],
             'Dictionary without key()'   => [
-                $dictionaryWithoutKey, NULL
+                $invalidDictionPosition, NULL
             ],
             'Sequence without key()'     => [
-                $sequenceWithoutKey, NULL
+                $invalidSequencePosition, NULL
             ],
 
             // Valid key
-            'Dictionary with key()' => [ $dictionaryWithKey, 1 ],
-            'Sequence with key()'   => [ $sequenceWithKey,   2 ]
+            'Dictionary with key()' => [ $validDictionaryPosition, 1 ],
+            'Sequence with key()'   => [ $validSequencePosition,   2 ]
         ];
     }
 
