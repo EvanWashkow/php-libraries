@@ -518,6 +518,167 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                            Collection->loop()
+    ***************************************************************************/
+
+
+    /**
+     * Test loop() breaks
+     * 
+     * @dataProvider getLoopData
+     * 
+     * @param Collection $collection The collection
+     * @param array      $keys       The expected keys
+     * @param array      $values     The expected values
+     */
+    public function testLoopBreaks( Collection $collection,
+                                    array      $keys,
+                                    array      $values )
+    {
+        $count = 0;
+        $collection->loop(function( $key, $value ) use ( &$count ) {
+            $count++;
+            return false;
+        });
+
+        $expected = ( count( $keys ) === 0 ) ? 0 : 1;
+        $this->assertEquals(
+            $expected,
+            $count,
+            'Collection->loop() did not break early'
+        );
+    }
+
+
+    /**
+     * Test loop() count
+     * 
+     * @dataProvider getLoopData
+     * 
+     * @param Collection $collection The collection
+     * @param array      $keys       The expected keys
+     * @param array      $values     The expected values
+     */
+    public function testLoopCount( Collection $collection,
+                                   array      $keys,
+                                   array      $values )
+    {
+        $count = 0;
+        $collection->loop(function( $key, $value ) use ( &$count ) {
+            $count++;
+        });
+        $this->assertEquals(
+            count( $keys ),
+            $count,
+            'Collection->loop() stopped early'
+        );
+    }
+
+
+    /**
+     * Test loop() keys
+     * 
+     * @dataProvider getLoopData
+     * 
+     * @param Collection $collection The collection
+     * @param array      $keys       The expected keys
+     * @param array      $values     The expected values
+     */
+    public function testLoopKeys( Collection $collection,
+                                  array      $keys,
+                                  array      $values )
+    {
+        $hasKeys = true;
+        $index   = 0;
+        $collection->loop(
+            function( $key, $value ) use ( &$hasKeys, &$index, $keys ) {
+                $hasKeys = $key === $keys[ $index ];
+                if ( !$hasKeys ) {
+                    return false;
+                }
+                $index++;
+            }
+        );
+        $this->assertTrue(
+            $hasKeys,
+            'Collection->loop() did not iterate through all the keys'
+        );
+    }
+
+
+    /**
+     * Test loop() values
+     * 
+     * @dataProvider getLoopData
+     * 
+     * @param Collection $collection The collection
+     * @param array      $keys       The expected keys
+     * @param array      $values     The expected values
+     */
+    public function testLoopValues( Collection $collection,
+                                    array      $keys,
+                                    array      $values )
+    {
+        $hasValues = true;
+        $index     = 0;
+        $collection->loop(
+            function( $key, $value ) use ( &$hasValues, &$index, $values ) {
+                $hasValues = $value === $values[ $index ];
+                if ( !$hasValues ) {
+                    return false;
+                }
+                $index++;
+            }
+        );
+        $this->assertTrue(
+            $hasValues,
+            'Collection->loop() did not iterate through all the values'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for testing loop keys and values
+     * 
+     * @return array
+     */
+    public function getLoopData()
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( '1', 1 );
+        $dictionary->set( '2', 2 );
+        $dictionary->set( '3', 3 );
+
+        $sequence = new Sequence();
+        $sequence->add( '0' );
+        $sequence->add( '1' );
+        $sequence->add( '2' );
+
+
+        return [
+
+            // Empty collections
+            'Empty Dictionary' => [
+                new Dictionary(), [], []
+            ],
+            'Empty Sequence' => [
+                new Sequence(),   [], []
+            ],
+
+            // Non-empty collections
+            'Dictionary string => int' => [
+                $dictionary, [ '1', '2', '3' ], [ 1, 2, 3 ]
+            ],
+            'Sequence int => string' => [
+                $sequence,   [ 0, 1, 2 ],       [ '0', '1', '2' ]
+            ],
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                         Collection->isOfKeyType()
     ***************************************************************************/
 
