@@ -1218,6 +1218,16 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                             Iterator->next()
+    *
+    * No need to test this. The only way to test this is to check current()
+    * after next(). This has already been done in current().
+    ***************************************************************************/
+
+
+
+
+    /***************************************************************************
     *                            Iterator->rewind()
     ***************************************************************************/
 
