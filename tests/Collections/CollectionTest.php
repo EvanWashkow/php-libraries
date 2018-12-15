@@ -551,31 +551,6 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
-     * Test loop() count
-     * 
-     * @dataProvider getLoopData
-     * 
-     * @param Collection $collection The collection
-     * @param array      $keys       The expected keys
-     * @param array      $values     The expected values
-     */
-    public function testLoopCount( Collection $collection,
-                                   array      $keys,
-                                   array      $values )
-    {
-        $count = 0;
-        $collection->loop(function( $key, $value ) use ( &$count ) {
-            $count++;
-        });
-        $this->assertEquals(
-            count( $keys ),
-            $count,
-            'Collection->loop() stopped early'
-        );
-    }
-
-
-    /**
      * Test loop() keys
      * 
      * @dataProvider getLoopData
@@ -588,19 +563,19 @@ class CollectionTest extends CollectionsTestCase
                                   array      $keys,
                                   array      $values )
     {
-        $hasKeys = true;
-        $index   = 0;
-        $collection->loop(
-            function( $key, $value ) use ( &$hasKeys, &$index, $keys ) {
-                $hasKeys = $key === $keys[ $index ];
-                if ( !$hasKeys ) {
-                    return false;
-                }
-                $index++;
+        $index = 0;
+        $collection->loop( function( $key, $value ) use ( &$index, $keys )
+        {
+            // Breaking early keeps the index is pointing to a valid key index
+            if ( $key !== $keys[ $index ] ) {
+                return false;
             }
-        );
+            $index++;
+        });
+
+        // Ensure that the loop finished iterating through ALL the expected keys
         $this->assertTrue(
-            $hasKeys,
+            !array_key_exists( $index, $keys ),
             'Collection->loop() did not iterate through all the keys'
         );
     }
@@ -619,19 +594,19 @@ class CollectionTest extends CollectionsTestCase
                                     array      $keys,
                                     array      $values )
     {
-        $hasValues = true;
-        $index     = 0;
-        $collection->loop(
-            function( $key, $value ) use ( &$hasValues, &$index, $values ) {
-                $hasValues = $value === $values[ $index ];
-                if ( !$hasValues ) {
-                    return false;
-                }
-                $index++;
+        $index = 0;
+        $collection->loop( function( $key, $value ) use ( &$index, $values )
+        {
+            // Breaking early keeps the index is pointing to a valid value index
+            if ( $value !== $values[ $index ] ) {
+                return false;
             }
-        );
+            $index++;
+        });
+
+        // Ensure that the loop finished iterating through ALL the expected values
         $this->assertTrue(
-            $hasValues,
+            !array_key_exists( $index, $values ),
             'Collection->loop() did not iterate through all the values'
         );
     }
