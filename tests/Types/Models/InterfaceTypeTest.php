@@ -64,9 +64,9 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForBaseInterfaceType()
     {
-        $typeName = 'PHP\\Collections\\ICollection';
+        $typeName = 'SeekableIterator';
         $type     = Types::GetByName( $typeName );
-        $baseType = Types::GetByName( 'PHP\\Collections\\Iterator' );
+        $baseType = Types::GetByName( 'Iterator' );
         $this->assertFalse(
             $type->equals( $baseType ),
             'InterfaceType->equals() should return false for a base interface type'
@@ -150,10 +150,10 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsReturnsTrueForBaseInterface()
     {
-        $typeName = 'PHP\\Collections\\ICollection';
+        $typeName = 'SeekableIterator';
         $type     = Types::GetByName( $typeName );
         $this->assertTrue(
-            $type->is( 'PHP\\Collections\\IIterator' ),
+            $type->is( 'Iterator' ),
             'InterfaceType->is() should return true for a base interface name'
         );
     }

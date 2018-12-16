@@ -6,7 +6,7 @@ use PHP\Types\Models\Type;
 /**
  * Specifications for an iterable set of read-only, key-value pairs
  */
-interface IReadOnlyCollection extends \Countable, IIterator
+interface IReadOnlyCollection extends \Countable, \PHP\IPHPObject
 {
     
     /**

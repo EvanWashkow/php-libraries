@@ -7,10 +7,15 @@ use PHP\Types\Models\Type;
 
 /**
  * Defines an iterable set of mutable, key-value pairs
+ * 
+ * Nested foreach() loops are broken. Use $this->loop() instead. PHP does not
+ * clone objects in foreach() loops, therefore, the cursor on the inside loop
+ * messes up the one on the outside loop.
  *
  * @see PHP\Collections\Iterator
  */
-abstract class Collection extends Iterator implements ICollection
+abstract class Collection extends    \PHP\PHPObject
+                          implements \SeekableIterator, ICollection
 {
 
     /** @var Type $keyType Type requirement for all keys */
@@ -113,18 +118,101 @@ abstract class Collection extends Iterator implements ICollection
     /***************************************************************************
     *                              ITERATOR METHODS
     ***************************************************************************/
-    
+
+
+    /**
+     * For each entry in the collection, invoke the callback function with the
+     * key and value
+     *
+     * To break the loop, return a non-NULL value. This value will be
+     * returned by loop().
+     *
+     * Variables can be bound the callback function via the `use` clause
+     *
+     * @param callable $function Callback function to execute for each entry
+     * @return mixed NULL or the value returned by the callback function
+     */
+    final public function loop( callable $function )
+    {
+        // Variables
+        $returnValue = null;
+        
+        // Stash outer loop position (if there is one)
+        $outerLoopKey = null;
+        if ( $this->valid() ) {
+            $outerLoopKey = $this->key();
+        }
+        
+        // Loop through each value, until the return value is not null
+        $this->rewind();
+        while ( $this->valid() ) {
+            
+            // Execute callback function
+            $key         = $this->key();
+            $value       = $this->current();
+            $returnValue = call_user_func_array( $function, [ $key, $value ] );
+            
+            // Go to next entry or stop loop
+            if ( null === $returnValue ) {
+                $this->next();
+            }
+            else {
+                break;
+            }
+        }
+        
+        // Restore outer loop position (if there is one)
+        if ( null !== $outerLoopKey ) {
+            try {
+                $this->seek( $outerLoopKey );
+            } catch ( \Exception $e ) {
+                $this->rewind();
+            }
+        }
+        
+        return $returnValue;
+    }
+
+
     final public function seek( $key )
     {
         if ( $this->hasKey( $key )) {
-            parent::seek( $key );
+            
+            // Variables
+            $isFound = false;
+            
+            // Loop through each key, halting when the given key is found
+            $this->rewind();
+            while ( $this->valid() ) {
+                if ( $this->key() === $key ) {
+                    $isFound = true;
+                    break;
+                }
+                $this->next();
+            }
+            
+            // Error on invalid seek
+            if ( !$isFound ) {
+                $this->throwSeekError( $key );
+            }
         }
         else {
             $this->throwSeekError( $key );
         }
     }
-    
-    
+
+
+    /**
+     * Throws an error when the seek position is not found
+     *
+     * @param mixed $key The key not found
+     */
+    protected function throwSeekError( $key )
+    {
+        throw new \OutOfBoundsException( 'Invalid seek position' );
+    }
+
+
     final public function valid()
     {
         return $this->hasKey( $this->key() );
