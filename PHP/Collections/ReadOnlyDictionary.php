@@ -1,6 +1,9 @@
 <?php
 namespace PHP\Collections;
 
+// Deprecate
+\trigger_error( __NAMESPACE__ . "\\ReadOnlyDictionary is deprecated. Clone a Dictionary instance instead." );
+
 /**
  * Defines a read only, unordered set of key-value pairs
  *
@@ -19,8 +22,6 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements IReadOnlyDictiona
      */
     public function __construct( IDictionary &$dictionary )
     {
-        $dictionaryClass = Dictionary::class;
-        \trigger_error( self::class . " is deprecated. Clone a {$dictionaryClass} instance instead." );
         parent::__construct( $dictionary );
     }
     
