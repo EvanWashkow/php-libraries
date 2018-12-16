@@ -18,9 +18,9 @@ class ReadOnlyDictionary extends ReadOnlyCollection implements IReadOnlyDictiona
      * As entries are added to / removed from the dictionary, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param IDictionary &$dictionary The dictionary to make read-only
+     * @param Dictionary &$dictionary The dictionary to make read-only
      */
-    public function __construct( IDictionary &$dictionary )
+    public function __construct( Dictionary &$dictionary )
     {
         parent::__construct( $dictionary );
     }

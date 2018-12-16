@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Dictionary extends Collection implements IDictionary
+class Dictionary extends Collection
 {
     
     /**
