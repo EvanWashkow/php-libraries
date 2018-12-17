@@ -9,7 +9,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlyDictionary extends ReadOnlyCollection implements IReadOnlyDictionary
+class ReadOnlyDictionary extends ReadOnlyCollection
 {
     
     /**
