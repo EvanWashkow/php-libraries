@@ -48,7 +48,14 @@ class Sequence extends Collection implements ISequence
     /***************************************************************************
     *                              EDITING METHODS
     ***************************************************************************/
-    
+
+
+    /**
+     * Add value to the end of the sequence
+     *
+     * @param mixed $value The value to add
+     * @return bool Whether or not the operation was successful
+     */
     final public function add( $value ): bool
     {
         return $this->set( $this->getLastKey() + 1, $value );
