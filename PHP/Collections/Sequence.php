@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Sequence extends Collection implements ISequence
+class Sequence extends Collection
 {
     
     /**
@@ -67,8 +67,15 @@ class Sequence extends Collection implements ISequence
         $this->entries = [];
         return true;
     }
-    
-    
+
+
+    /**
+     * Insert the value at the key, shifting remaining values up
+     *
+     * @param int   $key The key to insert the value at
+     * @param mixed $value The value
+     * @return bool Whether or not the operation was successful
+     */
     final public function insert( int $key, $value ): bool
     {
         // Variables
@@ -158,7 +165,13 @@ class Sequence extends Collection implements ISequence
     /***************************************************************************
     *                            READ-ONLY METHODS
     ***************************************************************************/
-    
+
+
+    /**
+     * Duplicate every key and value into a new instance
+     *
+     * @return Sequence
+     */
     final public function clone(): IReadOnlyCollection
     {
         return $this->slice( $this->getFirstKey(), $this->count() );
@@ -262,8 +275,13 @@ class Sequence extends Collection implements ISequence
             in_array( $value, $this->entries, true )
         );
     }
-    
-    
+
+
+    /**
+     * Reverse all entries
+     *
+     * @return Sequence
+     */
     public function reverse(): IReadOnlySequence
     {
         $sequence = new self( $this->type );
@@ -273,8 +291,22 @@ class Sequence extends Collection implements ISequence
         }
         return $sequence;
     }
-    
-    
+
+
+    /**
+     * Retrieve a subset of entries from this Sequence
+     *
+     * @internal Why use a start index and a count rather than start / end
+     * indices? Because the starting / ending indices must be inclusive to
+     * retrieve the first / last items respectively. Doing so, however,
+     * prevents an empty list from ever being created, which is to be expected
+     * for certain applications. For this reason, dropping the ending index for
+     * count solves the problem entirely while reducing code complexity.
+     *
+     * @param int $offset Starting key (inclusive)
+     * @param int $limit  Number of items to copy
+     * @return Sequence
+     */
     public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         /**
@@ -306,8 +338,15 @@ class Sequence extends Collection implements ISequence
         
         return $sequence;
     }
-    
-    
+
+
+    /**
+     * Divide entries into groups, using the value as the delimeter
+     *
+     * @param mixed $delimiter Value separating each group
+     * @param int   $limit     Maximum number of entries to return; negative to return all.
+     * @return Sequence
+     */
     public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
     {
         // Variables

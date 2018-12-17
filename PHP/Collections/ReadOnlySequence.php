@@ -18,9 +18,9 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
      * As entries are added to / removed from the sequence, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param ISequence &$sequence The sequence to make read-only
+     * @param Sequence &$sequence The sequence to make read-only
      */
-    public function __construct( ISequence &$sequence )
+    public function __construct( Sequence &$sequence )
     {
         parent::__construct( $sequence );
     }

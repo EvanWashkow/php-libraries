@@ -34,9 +34,9 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsTrueForParentInterfaceType()
     {
-        $typeName   = 'PHP\\Collections\\ICollection';
+        $typeName   = 'SeekableIterator';
         $type       = Types::GetByName( $typeName );
-        $parentType = Types::GetByName( 'PHP\\Collections\\ISequence' );
+        $parentType = Types::GetByName( 'Iterator' );
         $this->assertTrue(
             $type->equals( $parentType ),
             'InterfaceType->equals() should return true for a parent interface type'
@@ -178,10 +178,10 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsReturnsFalseForParentInterface()
     {
-        $typeName = 'PHP\\Collections\\ICollection';
+        $typeName = 'SeekableIterator';
         $type     = Types::GetByName( $typeName );
         $this->assertFalse(
-            $type->is( 'PHP\\Collections\\ISequence' ),
+            $type->is( 'Iterator' ),
             'InterfaceType->is() should return false for a parent interface name'
         );
     }
