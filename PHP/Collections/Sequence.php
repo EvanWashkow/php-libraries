@@ -178,12 +178,6 @@ class Sequence extends Collection implements IReadOnlySequence
     }
     
     
-    final public function toArray(): array
-    {
-        return $this->entries;
-    }
-    
-    
     final public function count(): int
     {
         return count( $this->entries );
@@ -200,20 +194,38 @@ class Sequence extends Collection implements IReadOnlySequence
         }
         return $this->entries[ $key ];
     }
-    
-    
+
+
+    /**
+     * Retrieve the key for the first entry
+     * 
+     * @return int
+     */
     public function getFirstKey(): int
     {
         return 0;
     }
-    
-    
+
+
+    /**
+     * Retrieve the key for the last entry
+     *
+     * @return int
+     */
     final public function getLastKey(): int
     {
         return ( $this->getFirstKey() + ( $this->count() - 1 ));
     }
-    
-    
+
+
+    /**
+     * Retrieve the key of the first value found
+     *
+     * @param mixed $value           Value to get the key for
+     * @param int   $offset          Start search from this key
+     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
+     * @return int The key of the value, or -1
+     */
     final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
     {
         // Variables
@@ -388,6 +400,17 @@ class Sequence extends Collection implements IReadOnlySequence
         }
         
         return $outerSequence;
+    }
+
+
+    /**
+     * Convert to a native PHP array
+     * 
+     * @return array
+     */
+    final public function toArray(): array
+    {
+        return $this->entries;
     }
     
     
