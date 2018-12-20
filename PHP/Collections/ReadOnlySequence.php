@@ -9,7 +9,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
+class ReadOnlySequence extends ReadOnlyCollection
 {
     
     /**
@@ -51,19 +51,19 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function reverse(): IReadOnlySequence
+    public function reverse(): Sequence
     {
         $sequence = $this->collection->reverse();
         return new self( $sequence );
     }
     
-    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): Sequence
     {
         $sequence = $this->collection->slice( $offset, $limit );
         return new self( $sequence );
     }
     
-    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): Sequence
     {
         // Variables
         $splitSequence = $this->collection->split( $delimiter, $limit );

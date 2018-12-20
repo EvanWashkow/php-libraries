@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Sequence extends Collection implements IReadOnlySequence
+class Sequence extends Collection
 {
     
     /**
@@ -294,7 +294,7 @@ class Sequence extends Collection implements IReadOnlySequence
      *
      * @return Sequence
      */
-    public function reverse(): IReadOnlySequence
+    public function reverse(): Sequence
     {
         $sequence = new self( $this->type );
         $entries  = array_reverse( $this->entries, false );
@@ -319,7 +319,7 @@ class Sequence extends Collection implements IReadOnlySequence
      * @param int $limit  Number of items to copy
      * @return Sequence
      */
-    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): Sequence
     {
         /**
          * Even though "array_slice()" supports a negative offset and length,
@@ -359,7 +359,7 @@ class Sequence extends Collection implements IReadOnlySequence
      * @param int   $limit     Maximum number of entries to return; negative to return all.
      * @return Sequence
      */
-    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): Sequence
     {
         // Variables
         $startingKey   = $this->getFirstKey();
