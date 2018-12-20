@@ -6,7 +6,7 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Sequence extends Collection
+class Sequence extends Collection implements IReadOnlySequence
 {
     
     /**
