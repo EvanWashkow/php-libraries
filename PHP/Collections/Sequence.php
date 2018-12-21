@@ -8,7 +8,13 @@ namespace PHP\Collections;
  */
 class Sequence extends Collection
 {
-    
+
+
+    /***************************************************************************
+    *                               PROPERTIES
+    ***************************************************************************/
+
+
     /**
      * List of values
      *
@@ -22,8 +28,15 @@ class Sequence extends Collection
      * @var string
      */
     private $type;
-    
-    
+
+
+
+
+    /***************************************************************************
+    *                               CONSTRUCTOR
+    ***************************************************************************/
+
+
     /**
      * Create a new enumerated instance
      *
@@ -41,12 +54,12 @@ class Sequence extends Collection
         $this->clear();
         $this->type = $type;
     }
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
-    *                              EDITING METHODS
+    *                                 METHODS
     ***************************************************************************/
 
 
@@ -69,110 +82,6 @@ class Sequence extends Collection
         $this->entries = [];
         return true;
     }
-
-
-    /**
-     * Insert the value at the key, shifting remaining values up
-     *
-     * @param int   $key The key to insert the value at
-     * @param mixed $value The value
-     * @return bool Whether or not the operation was successful
-     */
-    final public function insert( int $key, $value ): bool
-    {
-        // Variables
-        $isSuccessful = false;
-        
-        // Key too small
-        if ( $key < $this->getFirstKey() ) {
-            trigger_error( 'Cannot insert value before the beginning' );
-        }
-        
-        // Key too large
-        elseif (( $this->getLastKey() + 1 ) < $key ) {
-            trigger_error( 'Cannot insert value after the end' );
-        }
-        
-        // Invalid value type
-        elseif ( !$this->getValueType()->equals( $value )) {
-            trigger_error( "Wrong value type" );
-        }
-        
-        /**
-         * Insert value at this key, shifting other values
-         *
-         * array_slice() ignores single, empty values, such as null and
-         * stdClass(). First insert a placeholder at that entry and then
-         * set that key.
-         */
-        else {
-            array_splice( $this->entries, $key, 0, 'placeholder' );
-            $this->set( $key, $value );
-            $isSuccessful = true;
-        }
-        
-        return $isSuccessful;
-    }
-
-
-    /**
-     * @see Collection->remove()
-     */
-    final public function remove( $key ): bool
-    {
-        $isSuccessful = false;
-        if ( !is( $key, 'integer' )) {
-            trigger_error( 'Key is not an integer' );
-        }
-        elseif ( !$this->hasKey( $key )) {
-            trigger_error( 'Cannot remove value: the key does not exist.' );
-        }
-        else {
-            unset( $this->entries[ $key ] );
-            $this->entries = array_values( $this->entries );
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-
-
-    /**
-     * @see Collection->set()
-     */
-    final public function set( $key, $value ): bool
-    {
-        // Variables
-        $isSuccessful = false;
-        
-        // Log meaningful errors
-        if ( !$this->getKeyType()->equals( $key )) {
-            trigger_error( 'Wrong key type' );
-        }
-        elseif ( !$this->getValueType()->equals( $value )) {
-            trigger_error( 'Wrong value type' );
-        }
-        elseif ( $key < $this->getFirstKey() ) {
-            trigger_error( 'Key is too small' );
-        }
-        elseif (( $this->getLastKey() + 1 ) < $key ) {
-            trigger_error( 'Key is too large' );
-        }
-        
-        // Set value
-        else {
-            $this->entries[ $key ] = $value;
-            $isSuccessful          = true;
-        }
-        
-        return $isSuccessful;
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                            READ-ONLY METHODS
-    ***************************************************************************/
 
 
     /**
@@ -308,6 +217,71 @@ class Sequence extends Collection
 
 
     /**
+     * Insert the value at the key, shifting remaining values up
+     *
+     * @param int   $key The key to insert the value at
+     * @param mixed $value The value
+     * @return bool Whether or not the operation was successful
+     */
+    final public function insert( int $key, $value ): bool
+    {
+        // Variables
+        $isSuccessful = false;
+        
+        // Key too small
+        if ( $key < $this->getFirstKey() ) {
+            trigger_error( 'Cannot insert value before the beginning' );
+        }
+        
+        // Key too large
+        elseif (( $this->getLastKey() + 1 ) < $key ) {
+            trigger_error( 'Cannot insert value after the end' );
+        }
+        
+        // Invalid value type
+        elseif ( !$this->getValueType()->equals( $value )) {
+            trigger_error( "Wrong value type" );
+        }
+        
+        /**
+         * Insert value at this key, shifting other values
+         *
+         * array_slice() ignores single, empty values, such as null and
+         * stdClass(). First insert a placeholder at that entry and then
+         * set that key.
+         */
+        else {
+            array_splice( $this->entries, $key, 0, 'placeholder' );
+            $this->set( $key, $value );
+            $isSuccessful = true;
+        }
+        
+        return $isSuccessful;
+    }
+
+
+    /**
+     * @see Collection->remove()
+     */
+    final public function remove( $key ): bool
+    {
+        $isSuccessful = false;
+        if ( !is( $key, 'integer' )) {
+            trigger_error( 'Key is not an integer' );
+        }
+        elseif ( !$this->hasKey( $key )) {
+            trigger_error( 'Cannot remove value: the key does not exist.' );
+        }
+        else {
+            unset( $this->entries[ $key ] );
+            $this->entries = array_values( $this->entries );
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+
+
+    /**
      * Reverse all entries
      *
      * @return Sequence
@@ -320,6 +294,38 @@ class Sequence extends Collection
             $sequence->add( $entry );
         }
         return $sequence;
+    }
+
+
+    /**
+     * @see Collection->set()
+     */
+    final public function set( $key, $value ): bool
+    {
+        // Variables
+        $isSuccessful = false;
+        
+        // Log meaningful errors
+        if ( !$this->getKeyType()->equals( $key )) {
+            trigger_error( 'Wrong key type' );
+        }
+        elseif ( !$this->getValueType()->equals( $value )) {
+            trigger_error( 'Wrong value type' );
+        }
+        elseif ( $key < $this->getFirstKey() ) {
+            trigger_error( 'Key is too small' );
+        }
+        elseif (( $this->getLastKey() + 1 ) < $key ) {
+            trigger_error( 'Key is too large' );
+        }
+        
+        // Set value
+        else {
+            $this->entries[ $key ] = $value;
+            $isSuccessful          = true;
+        }
+        
+        return $isSuccessful;
     }
 
 
@@ -430,29 +436,29 @@ class Sequence extends Collection
     {
         return $this->entries;
     }
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
     *                              ITERATOR METHODS
     ***************************************************************************/
-    
+
     final public function current()
     {
         return current( $this->entries );
     }
-    
+
     final public function key()
     {
         return key( $this->entries );
     }
-    
+
     final public function next()
     {
         next( $this->entries );
     }
-    
+
     final public function rewind()
     {
         reset( $this->entries );
