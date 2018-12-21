@@ -95,6 +95,45 @@ abstract class Collection extends    \PHP\PHPObject
     {
         // Reset cursor to the beginning
         $this->rewind();
+
+
+        /**
+         * Clone sub-collections
+         */
+        $valueType = $this->getValueType();
+        if ( $valueType->is( self::class )) {
+
+            // Variables
+            $isWildCardValueType = is(
+                $valueType, Collection\WildcardType::class
+            );
+
+            // Clone each entry that is a collection
+            $this->loop(function( $key, $value ) use ( $isWildCardValueType )
+            {
+                // If the value type is a wildcard, check each value
+                $isValueACollection = true;
+                if ( $isWildCardValueType && !is( $value, self::class )) {
+                    $isValueACollection = false;
+                }
+
+                // Clone the sub-collection.
+                // Don't clone $this again or infinite loop.
+                if ( $isValueACollection ) {
+                    $clonedValue = null;
+                    if ( $value === $this ) {
+                        $clonedValue = $this;
+                    }
+                    else {
+                        $clonedValue = clone $value;
+                    }
+                    $this->set( $key, $value );
+                }
+            });
+
+            // Reset cursor to the beginning, again, since we just looped
+            $this->rewind();
+        }
     }
 
 
