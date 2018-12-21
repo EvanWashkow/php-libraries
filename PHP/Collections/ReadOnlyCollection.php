@@ -35,7 +35,7 @@ class ReadOnlyCollection
     
     public function clone(): ReadOnlyCollection
     {
-        $clone = $this->collection->clone();
+        $clone = clone $this->collection;
         return new self( $clone );
     }
     

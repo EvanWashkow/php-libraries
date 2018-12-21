@@ -70,20 +70,6 @@ class Dictionary extends Collection
 
 
     /**
-     * @see Collection->clone()
-     */
-    public function clone(): Collection
-    {
-        $clone = new self( $this->getKeyType()->getName(),
-                           $this->getValueType()->getName() );
-        $this->loop( function( $key, $value ) use ( &$clone ) {
-            $clone->set( $key, $value );
-        });
-        return $clone;
-    }
-
-
-    /**
      * @see Collection->count()
      */
     final public function count(): int

@@ -84,15 +84,18 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /***************************************************************************
-    *                                   ABSTRACT
+    *                                 ABSTRACT
     ***************************************************************************/
 
     /**
-     * Copy all entries into a new instance
+     * Deprecated. `clone $this` instead.
      *
      * @return static
      */
-    abstract public function clone(): Collection;
+    final public function clone(): Collection {
+        trigger_error( 'Collection->clone() is deprecated. `clone $this` instead.' );
+        return ( clone $this );
+    }
 
     /**
      * Remove all entries

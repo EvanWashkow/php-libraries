@@ -92,7 +92,7 @@ class Type
         }
 
         // Return sequence of names
-        return $this->namesSequence->clone();
+        return ( clone $this->namesSequence );
     }
     
     

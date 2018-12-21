@@ -79,15 +79,6 @@ class Sequence extends Collection
 
 
     /**
-     * @see Collection->clone()
-     */
-    final public function clone(): Collection
-    {
-        return $this->slice( $this->getFirstKey(), $this->count() );
-    }
-
-
-    /**
      * @see Collection->count()
      */
     final public function count(): int
@@ -163,7 +154,7 @@ class Sequence extends Collection
         }
             
         // Get the sub-sequence to traverse
-        $sequence = $isReverseSearch ? $this->reverse() : $this->clone();
+        $sequence = $isReverseSearch ? $this->reverse() : ( clone $this );
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
