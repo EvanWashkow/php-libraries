@@ -181,12 +181,18 @@ class Dictionary extends Collection
     /***************************************************************************
     *                        ITERATOR INTERFACE METHODS
     ***************************************************************************/
-    
+
+    /**
+     * @see Iterator->current()
+     */
     final public function current()
     {
         return current( $this->entries );
     }
-    
+
+    /**
+     * @see Iterator->key()
+     */
     final public function key()
     {
         $key = key( $this->entries );
@@ -202,12 +208,18 @@ class Dictionary extends Collection
         }
         return $key;
     }
-    
+
+    /**
+     * @see Iterator->next()
+     */
     final public function next()
     {
         next( $this->entries );
     }
-    
+
+    /**
+     * @see Iterator->rewind()
+     */
     final public function rewind()
     {
         reset( $this->entries );

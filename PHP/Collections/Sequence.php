@@ -258,11 +258,8 @@ class Sequence extends Collection
     final public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( !is( $key, 'integer' )) {
-            trigger_error( 'Key is not an integer' );
-        }
-        elseif ( !$this->hasKey( $key )) {
-            trigger_error( 'Cannot remove value: the key does not exist.' );
+        if ( !$this->hasKey( $key )) {
+            trigger_error( 'The key does not exist.' );
         }
         else {
             unset( $this->entries[ $key ] );
@@ -433,24 +430,36 @@ class Sequence extends Collection
 
 
     /***************************************************************************
-    *                              ITERATOR METHODS
+    *                       ITERATOR INTERFACE METHODS
     ***************************************************************************/
 
+    /**
+     * @see Iterator->current()
+     */
     final public function current()
     {
         return current( $this->entries );
     }
 
+    /**
+     * @see Iterator->key()
+     */
     final public function key()
     {
         return key( $this->entries );
     }
 
+    /**
+     * @see Iterator->next()
+     */
     final public function next()
     {
         next( $this->entries );
     }
 
+    /**
+     * @see Iterator->rewind()
+     */
     final public function rewind()
     {
         reset( $this->entries );

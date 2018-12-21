@@ -109,12 +109,10 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Retrieve the value
-     * 
-     * An exception will be thrown if the key doesn't exist. Check if the key
-     * exists first.
      *
      * @param mixed $key The key to retrieve the value from
      * @return mixed The value if the key exists. NULL otherwise.
+     * @throws \InvalidArgumentException Thrown if the key doesn't exist
      */
     abstract public function get( $key );
 
@@ -296,10 +294,13 @@ abstract class Collection extends    \PHP\PHPObject
     
     
     /***************************************************************************
-    *                              ITERATOR METHODS
+    *                      ITERATOR INTERFACE METHODS
     ***************************************************************************/
 
 
+    /**
+     * @see Iterator->seek()
+     */
     final public function seek( $key )
     {
         if ( $this->hasKey( $key )) {
@@ -339,7 +340,10 @@ abstract class Collection extends    \PHP\PHPObject
     }
 
 
-    final public function valid()
+    /**
+     * @see Iterator->valid()
+     */
+    final public function valid(): bool
     {
         return $this->hasKey( $this->key() );
     }
