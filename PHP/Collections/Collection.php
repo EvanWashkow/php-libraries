@@ -118,7 +118,7 @@ abstract class Collection extends    \PHP\PHPObject
                 // Don't clone $this again or infinite loop.
                 if ( $isValueACollection ) {
                     $clonedValue = null;
-                    if ( $value === $this ) {
+                    if ( $value == $this ) {
                         $clonedValue = $this;
                     }
                     else {
