@@ -8,15 +8,27 @@ namespace PHP\Collections;
  */
 class Dictionary extends Collection
 {
-    
+
+
+    /***************************************************************************
+    *                               PROPERTIES
+    ***************************************************************************/
+
     /**
      * The set of key-value pairs
      *
      * @var array
      */
     private $entries;
-    
-    
+
+
+
+
+    /***************************************************************************
+    *                               CONSTRUCTOR
+    ***************************************************************************/
+
+
     /**
      * Create a new Dictionary instance
      *
@@ -36,12 +48,12 @@ class Dictionary extends Collection
             throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
         }
     }
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
-    *                              EDITING METHODS
+    *                                 METHODS
     ***************************************************************************/
 
 
@@ -53,53 +65,6 @@ class Dictionary extends Collection
         $this->entries = [];
         return true;
     }
-
-
-    /**
-     * @see Collection->remove()
-     */
-    final public function remove( $key ): bool
-    {
-        $isSuccessful = false;
-        if ( $this->getKeyType()->equals( $key ) && $this->hasKey( $key )) {
-            unset( $this->entries[ $key ] );
-            $isSuccessful = true;
-        }
-        else {
-            trigger_error( "Key does not exist" );
-        }
-        return $isSuccessful;
-    }
-
-
-    /**
-     * @see Collection->set()
-     */
-    final public function set( $key, $value ): bool
-    {
-        // Throw warnings
-        $isSuccessful = false;
-        if ( !$this->getKeyType()->equals( $key )) {
-            trigger_error( 'Wrong key type' );
-        }
-        elseif ( !$this->getValueType()->equals( $value )) {
-            trigger_error( 'Wrong value type' );
-        }
-        
-        // Set the key value pair
-        else {
-            $this->entries[ $key ] = $value;
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                             READ-ONLY METHODS
-    ***************************************************************************/
 
 
     /**
@@ -169,12 +134,52 @@ class Dictionary extends Collection
             in_array( $value, $this->entries, true )
         );
     }
-    
-    
-    
-    
+
+
+    /**
+     * @see Collection->remove()
+     */
+    final public function remove( $key ): bool
+    {
+        $isSuccessful = false;
+        if ( $this->getKeyType()->equals( $key ) && $this->hasKey( $key )) {
+            unset( $this->entries[ $key ] );
+            $isSuccessful = true;
+        }
+        else {
+            trigger_error( "Key does not exist" );
+        }
+        return $isSuccessful;
+    }
+
+
+    /**
+     * @see Collection->set()
+     */
+    final public function set( $key, $value ): bool
+    {
+        // Throw warnings
+        $isSuccessful = false;
+        if ( !$this->getKeyType()->equals( $key )) {
+            trigger_error( 'Wrong key type' );
+        }
+        elseif ( !$this->getValueType()->equals( $value )) {
+            trigger_error( 'Wrong value type' );
+        }
+        
+        // Set the key value pair
+        else {
+            $this->entries[ $key ] = $value;
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+
+
+
+
     /***************************************************************************
-    *                              ITERATOR METHODS
+    *                        ITERATOR INTERFACE METHODS
     ***************************************************************************/
     
     final public function current()
