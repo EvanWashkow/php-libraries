@@ -15,7 +15,7 @@ use PHP\Types\Models\Type;
  * @see PHP\Collections\Iterator
  */
 abstract class Collection extends    \PHP\PHPObject
-                          implements \SeekableIterator, IReadOnlyCollection
+                          implements \Countable, \SeekableIterator
 {
 
     /** @var Type $keyType Type requirement for all keys */
@@ -74,11 +74,53 @@ abstract class Collection extends    \PHP\PHPObject
     ***************************************************************************/
 
     /**
+     * Copy all entries into a new instance
+     *
+     * @return static
+     */
+    abstract public function clone(): Collection;
+
+    /**
      * Remove all entries
      *
      * @return bool
      */
     abstract public function clear(): bool;
+
+
+    /**
+     * Retrieve the number of entries in the collection
+     *
+     * @return int
+     **/
+    abstract public function count(): int;
+
+    /**
+     * Retrieve the value
+     * 
+     * An exception will be thrown if the key doesn't exist. Check if the key
+     * exists first.
+     *
+     * @param mixed $key The key to retrieve the value from
+     * @return mixed The value if the key exists. NULL otherwise.
+     */
+    abstract public function get( $key );
+
+    /**
+     * Determine if the key exists
+     *
+     * @param mixed $key The key to check for
+     * @return bool
+     */
+    abstract public function hasKey( $key ): bool;
+
+    /**
+     * Determine if the value exists
+     *
+     * @param mixed $value The value to check for
+     * @return bool
+     */
+    abstract public function hasValue( $value ): bool;
 
     /**
      * Remove an entry
@@ -108,6 +150,11 @@ abstract class Collection extends    \PHP\PHPObject
     ***************************************************************************/
 
 
+    /**
+     * Retrieve all keys
+     *
+     * @return Sequence
+     */
     final public function getKeys(): Sequence
     {
         $keys = new Sequence( $this->getKeyType()->getName() );
@@ -118,12 +165,22 @@ abstract class Collection extends    \PHP\PHPObject
     }
 
 
+    /**
+     * Retrieve key type
+     * 
+     * @return Type
+     **/
     final public function getKeyType(): Type
     {
         return $this->keyType;
     }
-    
-    
+
+
+    /**
+     * Retrieve all values
+     *
+     * @return Sequence
+     */
     final public function getValues(): Sequence
     {
         $values = new Sequence( $this->getValueType()->getName() );
@@ -134,12 +191,17 @@ abstract class Collection extends    \PHP\PHPObject
     }
 
 
+    /**
+     * Retrieve value type
+     * 
+     * @return Type
+     **/
     final public function getValueType(): Type
     {
         return $this->valueType;
     }
-    
-    
+
+
     final public function isOfKeyType( $key ): bool
     {
         trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.' );

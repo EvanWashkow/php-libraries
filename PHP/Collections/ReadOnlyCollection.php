@@ -11,7 +11,7 @@ use PHP\Types\Models\Type;
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
+class ReadOnlyCollection
 {
     
     /**

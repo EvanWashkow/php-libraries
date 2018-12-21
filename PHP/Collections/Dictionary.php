@@ -100,8 +100,12 @@ class Dictionary extends Collection
     /***************************************************************************
     *                             READ-ONLY METHODS
     ***************************************************************************/
-    
-    public function clone(): IReadOnlyCollection
+
+
+    /**
+     * @see Collection->clone()
+     */
+    public function clone(): Collection
     {
         $clone = new self( $this->getKeyType()->getName(),
                            $this->getValueType()->getName() );
@@ -110,14 +114,20 @@ class Dictionary extends Collection
         });
         return $clone;
     }
-    
-    
+
+
+    /**
+     * @see Collection->count()
+     */
     final public function count(): int
     {
         return count( $this->entries );
     }
-    
-    
+
+
+    /**
+     * @see Collection->get()
+     */
     final public function get( $key )
     {
         if ( !$this->getKeyType()->equals( $key )) {
@@ -128,8 +138,11 @@ class Dictionary extends Collection
         }
         return $this->entries[ $key ];
     }
-    
-    
+
+
+    /**
+     * @see Collection->hasKey()
+     */
     final public function hasKey( $key ): bool
     {
         $hasKey = $this->getKeyType()->equals( $key );
@@ -146,6 +159,9 @@ class Dictionary extends Collection
     }
 
 
+    /**
+     * @see Collection->hasValue()
+     */
     final public function hasValue( $value ): bool
     {
         return (

@@ -176,22 +176,26 @@ class Sequence extends Collection
 
 
     /**
-     * Duplicate every key and value into a new instance
-     *
-     * @return Sequence
+     * @see Collection->clone()
      */
-    final public function clone(): IReadOnlyCollection
+    final public function clone(): Collection
     {
         return $this->slice( $this->getFirstKey(), $this->count() );
     }
-    
-    
+
+
+    /**
+     * @see Collection->count()
+     */
     final public function count(): int
     {
         return count( $this->entries );
     }
-    
-    
+
+
+    /**
+     * @see Collection->get()
+     */
     final public function get( $key )
     {
         if ( !is( $key, 'integer' )) {
@@ -277,8 +281,11 @@ class Sequence extends Collection
     
         return $key;
     }
-    
-    
+
+
+    /**
+     * @see Collection->hasKey()
+     */
     final public function hasKey( $key ): bool
     {
         return (
@@ -288,6 +295,9 @@ class Sequence extends Collection
     }
 
 
+    /**
+     * @see Collection->hasValue()
+     */
     final public function hasValue( $value ): bool
     {
         return (
