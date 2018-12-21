@@ -99,6 +99,11 @@ abstract class Collection extends    \PHP\PHPObject
 
         /**
          * Clone sub-collections
+         * 
+         * Use foreach() rather than loop(). The latter clones before iterating,
+         * which will cause an infinite loop. Also, there should be no danger
+         * of broken nested loops since foreach() is executing on a newly cloned
+         * instance, which is not referenced by anything else.
          */
         $valueType = $this->getValueType();
         if ( $valueType->is( self::class )) {
@@ -107,8 +112,8 @@ abstract class Collection extends    \PHP\PHPObject
             $isWildCardValueType = $valueType->getName() === '*';
 
             // Clone each entry that is a collection
-            $this->loop(function( $key, $value ) use ( $isWildCardValueType )
-            {
+            foreach ( $this as $key => $value ) {
+                
                 // Determine if this value is a collection
                 $isValueACollection = (
                     !$isWildCardValueType || is( $value, self::class )
@@ -126,7 +131,10 @@ abstract class Collection extends    \PHP\PHPObject
                     }
                     $this->set( $key, $value );
                 }
-            });
+            }
+
+            // Reset cursor to the beginning
+            $this->rewind();
         }
     }
 
