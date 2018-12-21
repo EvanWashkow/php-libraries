@@ -95,47 +95,6 @@ abstract class Collection extends    \PHP\PHPObject
     {
         // Reset cursor to the beginning
         $this->rewind();
-
-
-        /**
-         * Clone sub-collections
-         * 
-         * Use foreach() rather than loop(). The latter clones before iterating,
-         * which will cause an infinite loop. Also, there should be no danger
-         * of broken nested loops since foreach() is executing on a newly cloned
-         * instance, which is not referenced by anything else.
-         */
-        $valueType = $this->getValueType();
-        if ( $valueType->is( self::class )) {
-
-            // Variables
-            $isWildCardValueType = $valueType->getName() === '*';
-
-            // Clone each entry that is a collection
-            foreach ( $this as $key => $value ) {
-                
-                // Determine if this value is a collection
-                $isValueACollection = (
-                    !$isWildCardValueType || is( $value, self::class )
-                );
-
-                // Clone the sub-collection.
-                // Don't clone $this again or infinite loop.
-                if ( $isValueACollection ) {
-                    $clonedValue = null;
-                    if ( $value == $this ) {
-                        $clonedValue = $this;
-                    }
-                    else {
-                        $clonedValue = clone $value;
-                    }
-                    $this->set( $key, $value );
-                }
-            }
-
-            // Reset cursor to the beginning
-            $this->rewind();
-        }
     }
 
 
