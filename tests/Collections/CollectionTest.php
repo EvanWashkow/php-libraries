@@ -458,10 +458,12 @@ class CollectionTest extends CollectionsTestCase
         $sequence->add( false );
 
         return [
-            [ $dictionary, 'false', true ],
-            [ $dictionary, 'dog',   false ],
-            [ $sequence,   0,       true ],
-            [ $sequence,   5,       false ]
+            [ $dictionary, 'false',         true ],
+            [ $dictionary, 'dog',           false ],
+            [ $dictionary, new \stdClass(), false ],
+            [ $sequence,   0,               true ],
+            [ $sequence,   5,               false ],
+            [ $sequence,   new \stdClass(), false ]
         ];
     }
 
