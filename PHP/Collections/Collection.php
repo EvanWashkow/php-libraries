@@ -236,11 +236,16 @@ abstract class Collection extends    \PHP\PHPObject
      * returned by loop().
      *
      * Variables can be bound the callback function via the `use` clause
+     * 
+     * @internal Type hint of Closure. This type hint should execute slightly
+     * faster than the "callable" pseudo-type. Also, users **should** be using
+     * closures rather than hard-coded, public functions. Doing this needlessly
+     * dirties class namespaces, and should be discouraged.
      *
-     * @param callable $function Callback function to execute for each entry
+     * @param \Closure $function Callback function to execute for each entry
      * @return mixed NULL or the value returned by the callback function
      */
-    final public function loop( callable $function )
+    final public function loop( \Closure $function )
     {
         // Variables
         $returnValue = null;
