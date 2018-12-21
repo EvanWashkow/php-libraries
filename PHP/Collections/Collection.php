@@ -214,13 +214,19 @@ abstract class Collection extends    \PHP\PHPObject
     }
 
 
+    /**
+     * Deprecated
+     */
     final public function isOfKeyType( $key ): bool
     {
         trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.' );
         return $this->getKeyType()->equals( $key );
     }
-    
-    
+
+
+    /**
+     * Deprecated
+     */
     final public function isOfValueType( $value ): bool
     {
         trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.' );
