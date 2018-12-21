@@ -109,11 +109,10 @@ abstract class Collection extends    \PHP\PHPObject
             // Clone each entry that is a collection
             $this->loop(function( $key, $value ) use ( $isWildCardValueType )
             {
-                // If the value type is a wildcard, check each value
-                $isValueACollection = true;
-                if ( $isWildCardValueType && !is( $value, self::class )) {
-                    $isValueACollection = false;
-                }
+                // Determine if this value is a collection
+                $isValueACollection = (
+                    !$isWildCardValueType || is( $value, self::class )
+                );
 
                 // Clone the sub-collection.
                 // Don't clone $this again or infinite loop.
