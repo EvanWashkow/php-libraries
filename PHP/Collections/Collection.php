@@ -104,9 +104,7 @@ abstract class Collection extends    \PHP\PHPObject
         if ( $valueType->is( self::class )) {
 
             // Variables
-            $isWildCardValueType = is(
-                $valueType, Collection\WildcardType::class
-            );
+            $isWildCardValueType = $valueType->getName() === '*';
 
             // Clone each entry that is a collection
             $this->loop(function( $key, $value ) use ( $isWildCardValueType )
