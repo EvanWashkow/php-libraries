@@ -21,13 +21,6 @@ class Sequence extends Collection
      * @var array
      */
     private $entries;
-    
-    /**
-     * Type requirement for all values
-     *
-     * @var string
-     */
-    private $type;
 
 
 
@@ -52,7 +45,6 @@ class Sequence extends Collection
         // Set properties
         parent::__construct( 'int', $type );
         $this->clear();
-        $this->type = $type;
     }
 
 
@@ -288,7 +280,7 @@ class Sequence extends Collection
      */
     public function reverse(): Sequence
     {
-        $sequence = new self( $this->type );
+        $sequence = new self( $this->getKeyType()->getName() );
         $entries  = array_reverse( $this->entries, false );
         foreach ( $entries as $entry ) {
             $sequence->add( $entry );
@@ -367,7 +359,7 @@ class Sequence extends Collection
         
         // Slice and copy entries to the sub-sequence
         $array    = array_slice( $this->entries, $offset, $limit );
-        $sequence = new self( $this->type );
+        $sequence = new self( $this->getValueType()->getName() );
         foreach ( $array as $value ) {
             $sequence->add( $value );
         }
