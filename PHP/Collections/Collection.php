@@ -127,9 +127,6 @@ abstract class Collection extends    \PHP\PHPObject
                     $this->set( $key, $value );
                 }
             });
-
-            // Reset cursor to the beginning, again, since we just looped
-            $this->rewind();
         }
     }
 
