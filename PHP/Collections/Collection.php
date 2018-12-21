@@ -18,13 +18,25 @@ abstract class Collection extends    \PHP\PHPObject
                           implements \Countable, \SeekableIterator
 {
 
+
+    /***************************************************************************
+    *                               PROPERTIES
+    ***************************************************************************/
+
     /** @var Type $keyType Type requirement for all keys */
     private $keyType;
 
     /** @var Type $valueType Type requirement for all values */
     private $valueType;
-    
-    
+
+
+
+
+    /***************************************************************************
+    *                              CONSTRUCTOR
+    ***************************************************************************/
+
+
     /**
      * Create a new Collection
      *
@@ -214,13 +226,6 @@ abstract class Collection extends    \PHP\PHPObject
         trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.' );
         return ( $this->getValueType()->equals( $value ) );
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                              ITERATOR METHODS
-    ***************************************************************************/
 
 
     /**
@@ -275,6 +280,13 @@ abstract class Collection extends    \PHP\PHPObject
         
         return $returnValue;
     }
+    
+    
+    
+    
+    /***************************************************************************
+    *                              ITERATOR METHODS
+    ***************************************************************************/
 
 
     final public function seek( $key )
