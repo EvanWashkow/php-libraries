@@ -26,7 +26,7 @@ class ReadOnlySequence extends ReadOnlyCollection
     }
     
     
-    public function clone(): IReadOnlyCollection
+    public function clone(): ReadOnlyCollection
     {
         return new self( $this->collection );
     }
@@ -51,19 +51,19 @@ class ReadOnlySequence extends ReadOnlyCollection
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function reverse(): Sequence
+    public function reverse(): ReadOnlySequence
     {
         $sequence = $this->collection->reverse();
         return new self( $sequence );
     }
     
-    public function slice( int $offset, int $limit = PHP_INT_MAX ): Sequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): ReadOnlySequence
     {
         $sequence = $this->collection->slice( $offset, $limit );
         return new self( $sequence );
     }
     
-    public function split( $delimiter, int $limit = PHP_INT_MAX ): Sequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): ReadOnlySequence
     {
         // Variables
         $splitSequence = $this->collection->split( $delimiter, $limit );

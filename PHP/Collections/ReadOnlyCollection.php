@@ -17,7 +17,7 @@ class ReadOnlyCollection
     /**
      * The collection instance
      *
-     * @var ICollection
+     * @var Collection
      */
     protected $collection;
     
@@ -25,15 +25,15 @@ class ReadOnlyCollection
     /**
      * Create a new read-only Collection instance
      *
-     * @param ICollection $collection The collection to make read-only
+     * @param Collection $collection The collection to make read-only
      */
-    public function __construct( ICollection $collection )
+    public function __construct( Collection $collection )
     {
         $this->collection = $collection;
     }
     
     
-    public function clone(): IReadOnlyCollection
+    public function clone(): ReadOnlyCollection
     {
         $clone = $this->collection->clone();
         return new self( $clone );
