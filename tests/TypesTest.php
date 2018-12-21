@@ -31,35 +31,45 @@ class TypesTest extends TestCase
     
     /**
      * Ensure Types::GetByName() returns type with the same name
+     * 
+     * @dataProvider getGetByNameData()
+     * 
+     * @param string $typeName Type name to pass to GetByName()
+     * @param string $expected Expected type name from Type->getName()
      */
-    public function testGetByNameReturnsCorrectName()
+    public function testGetByName( string $typeName, string $expected )
     {
-        $typeNameMap = [
-            'array'                         => 'array',
-            'boolean'                       => 'bool',
-            'integer'                       => 'int',
-            'function'                      => 'function',
-            'substr'                        => 'function',
-            'double'                        => 'float',
-            'null'                          => 'null',
-            'string'                        => 'string',
-            'PHP\\Collections\\Sequence'    => 'PHP\\Collections\\Sequence',
-            'PHP\\Collections\\ICollection' => 'PHP\\Collections\\ICollection',
+        $this->assertEquals(
+            $expected,
+            Types::GetByName( $typeName )->getName(),
+            "Type->getName() did not return the correct name"
+        );
+    }
+
+
+    /**
+     * Provides test data for GetByName() test
+     * 
+     * @return array
+     */
+    public function getGetByNameData(): array
+    {
+        return [
+            [ 'array',                         'array' ],
+            [ 'boolean',                       'bool' ],
+            [ 'integer',                       'int' ],
+            [ 'function',                      'function' ],
+            [ 'substr',                        'function' ],
+            [ 'double',                        'float' ],
+            [ 'null',                          'null' ],
+            [ 'string',                        'string' ],
+            [ 'Iterator',                      'Iterator' ],
+            [ 'PHP\\Collections\\Sequence',    'PHP\\Collections\\Sequence' ],
             
-            // Other
-            'foobar'                        => 'unknown type',
-            'unknown type'                  => 'unknown type'
+            // Unknown types
+            [ 'foobar',       'unknown type' ],
+            [ 'unknown type', 'unknown type' ]
         ];
-        
-        // Ensure each type returns its expected type name
-        foreach ( $typeNameMap as $query => $name ) {
-            $type = Types::GetByName( $query );
-            $this->assertEquals(
-                $name,
-                $type->getName(),
-                "Type->getName() did not return the correct name"
-            );
-        }
     }
     
     
