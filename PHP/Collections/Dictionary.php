@@ -43,14 +43,21 @@ class Dictionary extends Collection
     /***************************************************************************
     *                              EDITING METHODS
     ***************************************************************************/
-    
+
+
+    /**
+     * @see Collection->clear()
+     */
     final public function clear(): bool
     {
         $this->entries = [];
         return true;
     }
-    
-    
+
+
+    /**
+     * @see Collection->remove()
+     */
     final public function remove( $key ): bool
     {
         $isSuccessful = false;
@@ -63,8 +70,11 @@ class Dictionary extends Collection
         }
         return $isSuccessful;
     }
-    
-    
+
+
+    /**
+     * @see Collection->set()
+     */
     final public function set( $key, $value ): bool
     {
         // Throw warnings

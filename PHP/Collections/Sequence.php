@@ -60,8 +60,10 @@ class Sequence extends Collection
     {
         return $this->set( $this->getLastKey() + 1, $value );
     }
-    
-    
+
+    /**
+     * @see Collection->clear()
+     */
     final public function clear(): bool
     {
         $this->entries = [];
@@ -111,8 +113,11 @@ class Sequence extends Collection
         
         return $isSuccessful;
     }
-    
-    
+
+
+    /**
+     * @see Collection->remove()
+     */
     final public function remove( $key ): bool
     {
         $isSuccessful = false;
@@ -129,8 +134,11 @@ class Sequence extends Collection
         }
         return $isSuccessful;
     }
-    
-    
+
+
+    /**
+     * @see Collection->set()
+     */
     final public function set( $key, $value ): bool
     {
         // Variables

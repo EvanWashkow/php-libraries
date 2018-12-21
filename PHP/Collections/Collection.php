@@ -15,7 +15,7 @@ use PHP\Types\Models\Type;
  * @see PHP\Collections\Iterator
  */
 abstract class Collection extends    \PHP\PHPObject
-                          implements \SeekableIterator, ICollection
+                          implements \SeekableIterator, IReadOnlyCollection
 {
 
     /** @var Type $keyType Type requirement for all keys */
@@ -65,8 +65,49 @@ abstract class Collection extends    \PHP\PHPObject
             throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
         }
     }
-    
-    
+
+
+
+
+    /***************************************************************************
+    *                                   ABSTRACT
+    ***************************************************************************/
+
+    /**
+     * Remove all entries
+     *
+     * @return bool
+     */
+    abstract public function clear(): bool;
+
+    /**
+     * Remove an entry
+     *
+     * @param mixed $key The key to remove the value from
+     * @return bool Whether or not the operation was successful
+     */
+    abstract public function remove( $key ): bool;
+
+    /**
+     * Store the value at the key
+     *
+     * Adds a new key or updates existing. Rejects entry if key or value aren't
+     * the right type, returning false.
+     *
+     * @param mixed $key The key to store the value at
+     * @param mixed $value The value to store
+     * @return bool Whether or not the operation was successful
+     */
+    abstract public function set( $key, $value ): bool;
+
+
+
+
+    /***************************************************************************
+    *                                   METHODS
+    ***************************************************************************/
+
+
     final public function getKeys(): Sequence
     {
         $keys = new Sequence( $this->getKeyType()->getName() );
