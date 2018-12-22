@@ -236,12 +236,12 @@ class Sequence extends Collection
      * @param mixed $value           Value to get the key for
      * @param int   $offset          Start search from this key
      * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
-     * @return int The key of the value, or -1
+     * @return mixed The key; NULL if not found
      */
-    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false ): int
+    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false )
     {
         // Variables
-        $key = $this->getFirstKey() - 1;
+        $key = NULL;
     
         // Exit. Offset cannot be negative.
         if ( $offset < $this->getFirstKey() ) {
@@ -413,12 +413,12 @@ class Sequence extends Collection
             // Find the next delimiter
             $end = $this->getKeyOf( $delimiter, $startingKey );
             
-            // If start and end are the same, the current element is the delimiter
+            // If start === end, the current element is the delimiter. Skip it.
             if ( $startingKey !== $end ) {
                 
                 // Get number of items to cut
                 $count = 0;
-                if ( $end < 0 ) {
+                if ( NULL === $end ) {
                     $end   = $this->getLastKey();
                     $count = $this->count() - $startingKey;
                 }

@@ -130,13 +130,13 @@ class SequenceTest extends CollectionsTestCase
      * @param mixed    $value           The value to get the key of
      * @param int      $offset          The offset to start the search from
      * @param bool     $isReverseSearch Start from the end of the sequence?
-     * @param int      $expected        The expected key
+     * @param mixed    $expected        The expected key
      **/
     public function testGetKeyOf( Sequence $sequence,
                                            $value,
                                   int      $offset,
                                   bool     $isReverseSearch,
-                                  int      $expected )
+                                           $expected )
     {
         $this->assertEquals(
             $sequence->getKeyOf( $value, $offset, $isReverseSearch ),
@@ -161,18 +161,32 @@ class SequenceTest extends CollectionsTestCase
         $sequence->add( 1 );    // Index 5, Reverse Index 0
 
         return [
-
+            
             // Non-reverse search
             'Value 0, Offset 0, Reverse false' => [ $sequence, 0, 0, false, 0 ],
             'Value 1, Offset 0, Reverse false' => [ $sequence, 1, 0, false, 1 ],
             'Value 1, Offset 2, Reverse false' => [ $sequence, 1, 2, false, 2 ],
             'Value 0, Offset 1, Reverse false' => [ $sequence, 0, 1, false, 3 ],
-
+            
             // Reverse search
             'Value 1, Offset 0, Reverse true'  => [ $sequence, 1, 0, true,  5 ],
             'Value 0, Offset 0, Reverse true'  => [ $sequence, 0, 0, true,  4 ],
             'Value 0, Offset 2, Reverse true'  => [ $sequence, 0, 2, true,  3 ],
             'Value 1, Offset 1, Reverse true'  => [ $sequence, 1, 1, true,  2 ],
+
+            // Unfound value
+            'Empty sequence unfound value' => [
+                new Sequence(), 0, 0, false, NULL
+            ],
+            'Non-empty sequence unfound value: no offset, no reverse' => [
+                $sequence, 2, 0, false, NULL
+            ],
+            'Non-empty sequence unfound value: offset, no reverse' => [
+                $sequence, 0, 5, false, NULL
+            ],
+            'Non-empty sequence unfound value: offset, reverse' => [
+                $sequence, 1, 5, true, NULL
+            ]
         ];
     }
     
