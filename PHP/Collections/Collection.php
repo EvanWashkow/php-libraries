@@ -293,6 +293,10 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Determine if the key exists
+     * 
+     * @internal Essentially, executes array_key_exists() on toArray().
+     * array_key_exists() requires a string or an integer (see warning when
+     * passing an object). Checking this first is drastically faster.
      *
      * @param mixed $key The key to check for
      * @return bool
@@ -300,8 +304,8 @@ abstract class Collection extends    \PHP\PHPObject
     public function hasKey( $key ): bool
     {
         return (
-            $this->getKeyType()->equals( $key )           &&
-            ( is( $key, 'int' ) || is( $key, 'string' ) ) &&
+            ( is_int( $key ) || is_string( $key ) ) &&
+            $this->getKeyType()->equals( $key )     &&
             array_key_exists( $key, $this->toArray() )
         );
     }
