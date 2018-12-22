@@ -233,6 +233,19 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
+     * Retrieve the key of the first value found
+     *
+     * @param mixed $value The value to find
+     * @return mixed The key; NULL if not found
+     */
+    public function getKeyOf( $value )
+    {
+        $key = array_search( $value, $this->toArray(), true );
+        return ( false === $key ) ? NULL : $key;
+    }
+
+
+    /**
      * Retrieve all keys
      *
      * @return Sequence
