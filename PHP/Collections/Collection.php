@@ -89,7 +89,7 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
-     * Invoked when the collection is cloned
+     * Invoked on shallow collection clone
      **/
     final public function __clone()
     {
