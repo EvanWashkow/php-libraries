@@ -345,11 +345,29 @@ class CollectionTest extends CollectionsTestCase
      **/
     public function getGetKeyOfData(): array
     {
+        $dictionary = new Dictionary();
+        $dictionary->set( '0', 0 );
+        $dictionary->set( '1', 1 );
+
         $sequence = new Sequence();
         $sequence->add( 0 );
         $sequence->add( 1 );
 
         return [
+
+            // Dictionary
+            'Empty Dictionary; unknown value' => [
+                new Dictionary(), 0, NULL
+            ],
+            'Dictionary; unknown value' => [
+                $dictionary, 2, NULL
+            ],
+            'Dictionary; value 0' => [
+                $dictionary, 0, '0'
+            ],
+            'Dictionary; value 1' => [
+                $dictionary, 1, '1'
+            ],
 
             // Sequence
             'Empty Sequence; unknown value' => [
