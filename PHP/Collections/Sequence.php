@@ -101,18 +101,6 @@ class Sequence extends Collection
 
 
     /**
-     * @see Collection->hasValue()
-     */
-    final public function hasValue( $value ): bool
-    {
-        return (
-            $this->getValueType()->equals( $value ) &&
-            in_array( $value, $this->entries, true )
-        );
-    }
-
-
-    /**
      * @see Collection->remove()
      */
     final public function remove( $key ): bool

@@ -129,14 +129,6 @@ abstract class Collection extends    \PHP\PHPObject
     abstract public function get( $key );
 
     /**
-     * Determine if the value exists
-     *
-     * @param mixed $value The value to check for
-     * @return bool
-     */
-    abstract public function hasValue( $value ): bool;
-
-    /**
      * Remove an entry
      *
      * @param mixed $key The key to remove the value from
@@ -307,6 +299,20 @@ abstract class Collection extends    \PHP\PHPObject
             ( is_int( $key ) || is_string( $key ) ) &&
             $this->getKeyType()->equals( $key )     &&
             array_key_exists( $key, $this->toArray() )
+        );
+    }
+
+    /**
+     * Determine if the value exists
+     *
+     * @param mixed $value The value to check for
+     * @return bool
+     */
+    public function hasValue( $value ): bool
+    {
+        return (
+            $this->getValueType()->equals( $value ) &&
+            in_array( $value, $this->toArray(), true )
         );
     }
 
