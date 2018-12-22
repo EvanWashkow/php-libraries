@@ -83,10 +83,7 @@ class Dictionary extends Collection
      */
     final public function get( $key )
     {
-        if ( !$this->getKeyType()->equals( $key )) {
-            throw new \InvalidArgumentException( "Wrong key type" );
-        }
-        elseif ( !$this->hasKey( $key )) {
+        if ( !$this->hasKey( $key )) {
             throw new \InvalidArgumentException( "Key doesn't exist" );
         }
         return $this->entries[ $key ];
