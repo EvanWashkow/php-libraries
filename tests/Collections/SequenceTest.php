@@ -95,6 +95,28 @@ class SequenceTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                            Sequence->getLastKey()
+    ***************************************************************************/
+    
+    
+    /**
+     * Ensure ReadOnlySequence->getLastKey() returns one less than count
+     * 
+     * @dataProvider getSequenceData
+     */
+    public function testGetLastKey( Sequence $sequence )
+    {
+        $this->assertEquals(
+            $sequence->getLastKey(),
+            $sequence->count() - 1,
+            'Sequence->getLastKey() should always return one less than the count'
+        );
+    }
+
+
+
+
+    /***************************************************************************
     *                      ReadOnlySequence->getKeyOf()
     ***************************************************************************/
 
@@ -152,28 +174,6 @@ class SequenceTest extends CollectionsTestCase
             'Value 0, Offset 2, Reverse true'  => [ $sequence, 0, 2, true,  3 ],
             'Value 1, Offset 1, Reverse true'  => [ $sequence, 1, 1, true,  2 ],
         ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                            Sequence->getLastKey()
-    ***************************************************************************/
-    
-    
-    /**
-     * Ensure ReadOnlySequence->getLastKey() returns one less than count
-     * 
-     * @dataProvider getSequenceData
-     */
-    public function testGetLastKey( Sequence $sequence )
-    {
-        $this->assertEquals(
-            $sequence->getLastKey(),
-            $sequence->count() - 1,
-            'Sequence->getLastKey() should always return one less than the count'
-        );
     }
     
     
