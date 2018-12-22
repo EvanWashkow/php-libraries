@@ -304,16 +304,16 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Determine if the value exists
+     * 
+     * @internal Because $type->equals() is slow for class types, it's actually
+     * just faster to check the array directly.
      *
      * @param mixed $value The value to check for
      * @return bool
      */
     public function hasValue( $value ): bool
     {
-        return (
-            $this->getValueType()->equals( $value ) &&
-            in_array( $value, $this->toArray(), true )
-        );
+        return in_array( $value, $this->toArray(), true );
     }
 
 
