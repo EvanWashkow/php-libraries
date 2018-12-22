@@ -319,6 +319,58 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                            Collection->getKeyOf()
+    ***************************************************************************/
+
+
+    /**
+     * Test getKeyOf() return values
+     * 
+     * @dataProvider getGetKeyOfData
+     *
+     * @param Collection $sequence The collection
+     * @param mixed      $value    The value to get the key of
+     * @param mixed      $expected The expected key
+     **/
+    public function testGetKeyOf( Collection $collection, $value, $expected )
+    {
+        $this->assertEquals( $collection->getKeyOf( $value ), $expected );
+    }
+
+
+    /**
+     * Retrieve test data for the getKeyOf() test
+     *
+     * @return array
+     **/
+    public function getGetKeyOfData(): array
+    {
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+
+        return [
+
+            // Sequence
+            'Empty Sequence; unknown value' => [
+                new Sequence(), 0, NULL
+            ],
+            'Sequence; unknown value' => [
+                $sequence, 2, NULL
+            ],
+            'Sequence; value 0' => [
+                $sequence, 0, 0
+            ],
+            'Sequence; value 1' => [
+                $sequence, 1, 1
+            ]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
     *                            Collection->getKeys()
     ***************************************************************************/
 
