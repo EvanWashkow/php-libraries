@@ -362,6 +362,9 @@ class CollectionTest extends CollectionsTestCase
             'Dictionary; unknown value' => [
                 $dictionary, 2, NULL
             ],
+            'Dictionary; wrong value type' => [
+                $dictionary, '0', NULL
+            ],
             'Dictionary; value 0' => [
                 $dictionary, 0, '0'
             ],
@@ -375,6 +378,9 @@ class CollectionTest extends CollectionsTestCase
             ],
             'Sequence; unknown value' => [
                 $sequence, 2, NULL
+            ],
+            'Sequence; wrong value type' => [
+                $sequence, '0', NULL
             ],
             'Sequence; value 0' => [
                 $sequence, 0, 0
