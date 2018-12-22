@@ -127,7 +127,7 @@ class Dictionary extends Collection
     final public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( $this->getKeyType()->equals( $key ) && $this->hasKey( $key )) {
+        if ( $this->hasKey( $key )) {
             unset( $this->entries[ $key ] );
             $isSuccessful = true;
         }
