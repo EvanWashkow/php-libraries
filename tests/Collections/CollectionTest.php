@@ -273,15 +273,26 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getGetExceptionData(): array
     {
+        // Wrong key type
+        $dictionary = new Dictionary( 'int', 'string' );
+        $dictionary->set( 0, '0' );
+        $sequence = new Sequence( 'string' );
+        $sequence->add( '0' );
+
         return [
+
+            // null cannot be a key
+            [ new Dictionary(), null ],
+            [ new Sequence(),   null ],
+            
 
             // Missing keys
             [ new Dictionary(), 0 ],
             [ new Sequence(),   0 ],
 
-            // null cannot be a key
-            [ new Dictionary(), null ],
-            [ new Sequence(),   null ]
+            // Wrong key type
+            [ $dictionary, '0' ],
+            [ $sequence,   '0' ]
         ];
     }
 
