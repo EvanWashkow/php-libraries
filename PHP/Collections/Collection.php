@@ -163,12 +163,70 @@ abstract class Collection extends    \PHP\PHPObject
      * @return bool Whether or not the operation was successful
      */
     abstract public function set( $key, $value ): bool;
+    
+    
+    
+    
+    /***************************************************************************
+    *                      ITERATOR INTERFACE OVERRIDES
+    ***************************************************************************/
+
+
+    /**
+     * @see Iterator->seek()
+     */
+    final public function seek( $key )
+    {
+        if ( $this->hasKey( $key )) {
+            
+            // Variables
+            $isFound = false;
+            
+            // Loop through each key, halting when the given key is found
+            $this->rewind();
+            while ( $this->valid() ) {
+                if ( $this->key() === $key ) {
+                    $isFound = true;
+                    break;
+                }
+                $this->next();
+            }
+            
+            // Error on invalid seek
+            if ( !$isFound ) {
+                $this->throwSeekError( $key );
+            }
+        }
+        else {
+            $this->throwSeekError( $key );
+        }
+    }
+
+
+    /**
+     * Throws an error when the seek position is not found
+     *
+     * @param mixed $key The key not found
+     */
+    protected function throwSeekError( $key )
+    {
+        throw new \OutOfBoundsException( 'Invalid seek position' );
+    }
+
+
+    /**
+     * @see Iterator->valid()
+     */
+    final public function valid(): bool
+    {
+        return $this->hasKey( $this->key() );
+    }
 
 
 
 
     /***************************************************************************
-    *                                   METHODS
+    *                                 OWN METHODS
     ***************************************************************************/
 
 
@@ -311,63 +369,5 @@ abstract class Collection extends    \PHP\PHPObject
         }
         
         return $returnValue;
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                      ITERATOR INTERFACE METHODS
-    ***************************************************************************/
-
-
-    /**
-     * @see Iterator->seek()
-     */
-    final public function seek( $key )
-    {
-        if ( $this->hasKey( $key )) {
-            
-            // Variables
-            $isFound = false;
-            
-            // Loop through each key, halting when the given key is found
-            $this->rewind();
-            while ( $this->valid() ) {
-                if ( $this->key() === $key ) {
-                    $isFound = true;
-                    break;
-                }
-                $this->next();
-            }
-            
-            // Error on invalid seek
-            if ( !$isFound ) {
-                $this->throwSeekError( $key );
-            }
-        }
-        else {
-            $this->throwSeekError( $key );
-        }
-    }
-
-
-    /**
-     * Throws an error when the seek position is not found
-     *
-     * @param mixed $key The key not found
-     */
-    protected function throwSeekError( $key )
-    {
-        throw new \OutOfBoundsException( 'Invalid seek position' );
-    }
-
-
-    /**
-     * @see Iterator->valid()
-     */
-    final public function valid(): bool
-    {
-        return $this->hasKey( $this->key() );
     }
 }

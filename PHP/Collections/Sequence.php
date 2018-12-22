@@ -53,20 +53,9 @@ class Sequence extends Collection
 
 
     /***************************************************************************
-    *                                 METHODS
+    *                             COLLECTION OVERRIDES
     ***************************************************************************/
 
-
-    /**
-     * Add value to the end of the sequence
-     *
-     * @param mixed $value The value to add
-     * @return bool Whether or not the operation was successful
-     */
-    final public function add( $value ): bool
-    {
-        return $this->set( $this->getLastKey() + 1, $value );
-    }
 
     /**
      * @see Collection->clear()
@@ -99,6 +88,138 @@ class Sequence extends Collection
             throw new \InvalidArgumentException( 'Cannot get value from key that does not exist' );
         }
         return $this->entries[ $key ];
+    }
+
+
+    /**
+     * @see Collection->hasKey()
+     */
+    final public function hasKey( $key ): bool
+    {
+        return (
+            $this->getKeyType()->equals( $key ) &&
+            array_key_exists( $key, $this->entries )
+        );
+    }
+
+
+    /**
+     * @see Collection->hasValue()
+     */
+    final public function hasValue( $value ): bool
+    {
+        return (
+            $this->getValueType()->equals( $value ) &&
+            in_array( $value, $this->entries, true )
+        );
+    }
+
+
+    /**
+     * @see Collection->remove()
+     */
+    final public function remove( $key ): bool
+    {
+        $isSuccessful = false;
+        if ( !$this->hasKey( $key )) {
+            trigger_error( 'The key does not exist.' );
+        }
+        else {
+            unset( $this->entries[ $key ] );
+            $this->entries = array_values( $this->entries );
+            $isSuccessful = true;
+        }
+        return $isSuccessful;
+    }
+
+
+    /**
+     * @see Collection->set()
+     */
+    final public function set( $key, $value ): bool
+    {
+        // Variables
+        $isSuccessful = false;
+        
+        // Log meaningful errors
+        if ( !$this->getKeyType()->equals( $key )) {
+            trigger_error( 'Wrong key type' );
+        }
+        elseif ( !$this->getValueType()->equals( $value )) {
+            trigger_error( 'Wrong value type' );
+        }
+        elseif ( $key < $this->getFirstKey() ) {
+            trigger_error( 'Key is too small' );
+        }
+        elseif (( $this->getLastKey() + 1 ) < $key ) {
+            trigger_error( 'Key is too large' );
+        }
+        
+        // Set value
+        else {
+            $this->entries[ $key ] = $value;
+            $isSuccessful          = true;
+        }
+        
+        return $isSuccessful;
+    }
+
+
+
+
+    /***************************************************************************
+    *                     ITERATOR INTERFACE OVERRIDES
+    ***************************************************************************/
+
+    /**
+     * @see Iterator->current()
+     */
+    final public function current()
+    {
+        return current( $this->entries );
+    }
+
+    /**
+     * @see Iterator->key()
+     */
+    final public function key()
+    {
+        return key( $this->entries );
+    }
+
+    /**
+     * @see Iterator->next()
+     */
+    final public function next()
+    {
+        next( $this->entries );
+    }
+
+    /**
+     * @see Iterator->rewind()
+     */
+    final public function rewind()
+    {
+        reset( $this->entries );
+    }
+
+
+
+
+    /***************************************************************************
+    *                               OWN METHODS
+    ***************************************************************************/
+
+
+    /**
+     * Add value to the end of the sequence
+     *
+     * @param mixed $value The value to add
+     * @return bool Whether or not the operation was successful
+     */
+    final public function add( $value ): bool
+    {
+        return $this->set( $this->getLastKey() + 1, $value );
     }
 
 
@@ -178,30 +299,6 @@ class Sequence extends Collection
 
 
     /**
-     * @see Collection->hasKey()
-     */
-    final public function hasKey( $key ): bool
-    {
-        return (
-            $this->getKeyType()->equals( $key ) &&
-            array_key_exists( $key, $this->entries )
-        );
-    }
-
-
-    /**
-     * @see Collection->hasValue()
-     */
-    final public function hasValue( $value ): bool
-    {
-        return (
-            $this->getValueType()->equals( $value ) &&
-            in_array( $value, $this->entries, true )
-        );
-    }
-
-
-    /**
      * Insert the value at the key, shifting remaining values up
      *
      * @param int   $key The key to insert the value at
@@ -246,24 +343,6 @@ class Sequence extends Collection
 
 
     /**
-     * @see Collection->remove()
-     */
-    final public function remove( $key ): bool
-    {
-        $isSuccessful = false;
-        if ( !$this->hasKey( $key )) {
-            trigger_error( 'The key does not exist.' );
-        }
-        else {
-            unset( $this->entries[ $key ] );
-            $this->entries = array_values( $this->entries );
-            $isSuccessful = true;
-        }
-        return $isSuccessful;
-    }
-
-
-    /**
      * Reverse all entries
      *
      * @return Sequence
@@ -276,38 +355,6 @@ class Sequence extends Collection
             $sequence->add( $entry );
         }
         return $sequence;
-    }
-
-
-    /**
-     * @see Collection->set()
-     */
-    final public function set( $key, $value ): bool
-    {
-        // Variables
-        $isSuccessful = false;
-        
-        // Log meaningful errors
-        if ( !$this->getKeyType()->equals( $key )) {
-            trigger_error( 'Wrong key type' );
-        }
-        elseif ( !$this->getValueType()->equals( $value )) {
-            trigger_error( 'Wrong value type' );
-        }
-        elseif ( $key < $this->getFirstKey() ) {
-            trigger_error( 'Key is too small' );
-        }
-        elseif (( $this->getLastKey() + 1 ) < $key ) {
-            trigger_error( 'Key is too large' );
-        }
-        
-        // Set value
-        else {
-            $this->entries[ $key ] = $value;
-            $isSuccessful          = true;
-        }
-        
-        return $isSuccessful;
     }
 
 
@@ -417,44 +464,5 @@ class Sequence extends Collection
     final public function toArray(): array
     {
         return $this->entries;
-    }
-
-
-
-
-    /***************************************************************************
-    *                       ITERATOR INTERFACE METHODS
-    ***************************************************************************/
-
-    /**
-     * @see Iterator->current()
-     */
-    final public function current()
-    {
-        return current( $this->entries );
-    }
-
-    /**
-     * @see Iterator->key()
-     */
-    final public function key()
-    {
-        return key( $this->entries );
-    }
-
-    /**
-     * @see Iterator->next()
-     */
-    final public function next()
-    {
-        next( $this->entries );
-    }
-
-    /**
-     * @see Iterator->rewind()
-     */
-    final public function rewind()
-    {
-        reset( $this->entries );
     }
 }
