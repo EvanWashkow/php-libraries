@@ -91,25 +91,6 @@ class Dictionary extends Collection
 
 
     /**
-     * @see Collection->hasKey()
-     */
-    final public function hasKey( $key ): bool
-    {
-        $hasKey = $this->getKeyType()->equals( $key );
-        if ( $hasKey ) {
-            
-            // If the given key is an object, array_key_exists throws an error
-            try {
-                $hasKey = array_key_exists( $key, $this->entries );
-            } catch ( \Exception $e ) {
-                $hasKey = false;
-            }
-        }
-        return $hasKey;
-    }
-
-
-    /**
      * @see Collection->hasValue()
      */
     final public function hasValue( $value ): bool

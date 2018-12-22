@@ -129,14 +129,6 @@ abstract class Collection extends    \PHP\PHPObject
     abstract public function get( $key );
 
     /**
-     * Determine if the key exists
-     *
-     * @param mixed $key The key to check for
-     * @return bool
-     */
-    abstract public function hasKey( $key ): bool;
-
-    /**
      * Determine if the value exists
      *
      * @param mixed $value The value to check for
@@ -297,6 +289,21 @@ abstract class Collection extends    \PHP\PHPObject
     final public function getValueType(): Type
     {
         return $this->valueType;
+    }
+
+    /**
+     * Determine if the key exists
+     *
+     * @param mixed $key The key to check for
+     * @return bool
+     */
+    public function hasKey( $key ): bool
+    {
+        return (
+            $this->getKeyType()->equals( $key )           &&
+            ( is( $key, 'int' ) || is( $key, 'string' ) ) &&
+            array_key_exists( $key, $this->toArray() )
+        );
     }
 
 
