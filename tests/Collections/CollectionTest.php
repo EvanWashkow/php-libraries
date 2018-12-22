@@ -17,68 +17,6 @@ require_once( __DIR__ . '/CollectionData.php' );
 class CollectionTest extends CollectionsTestCase
 {
 
-    /***************************************************************************
-    *                                clone Collection
-    ***************************************************************************/
-
-
-    /**
-     * Ensure clone rewinds the collection
-     * 
-     * @dataProvider getCloneRewindsData
-     * 
-     * @param Collection $collection       The collection to clone
-     * @param mixed      $expectedFirstKey The first key of the collection
-     */
-    public function testCloneRewinds( Collection $collection, $expectedFirstKey )
-    {
-        $clone = clone $collection;
-        $this->assertEquals(
-            $expectedFirstKey,
-            $clone->key(),
-            'The cloned collection did not rewind to the beginning of the iterator'
-        );
-    }
-
-
-    /**
-     * Retrieve test data for testing that clone rewinds the collection
-     * 
-     * @return array
-     */
-    public function getCloneRewindsData(): array
-    {
-        $dictionary = new Dictionary();
-        $dictionary->set( 'foo', 'bar' );
-        $dictionary->set( 'biz', 'baz' );
-        $dictionary->next();
-
-        $sequence = new Sequence();
-        $sequence->add( 'foo' );
-        $sequence->add( 'bar' );
-        $sequence->add( 'biz' );
-        $sequence->add( 'baz' );
-        $sequence->next();
-        $sequence->next();
-
-        return [
-            'Empty Dictionary' => [
-                new Dictionary(), NULL
-            ],
-            'Non-empty Dictionary' => [
-                $dictionary, 'foo'
-            ],
-            'Empty Sequence' => [
-                new Sequence(), NULL
-            ],
-            'Non-empty Sequence' => [
-                $sequence, 0
-            ]
-        ];
-    }
-
-
-
 
     /***************************************************************************
     *                           Collection->__construct()
@@ -149,6 +87,87 @@ class CollectionTest extends CollectionsTestCase
                 "Expected {$name}->clear() to remove all elements"
             );
         }
+    }
+
+
+
+
+    /***************************************************************************
+    *                           Collection->clone()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure shallow clone $this rewinds the collection
+     * 
+     * @dataProvider getCloneRewindsData
+     * 
+     * @param Collection $collection       The collection to clone
+     * @param mixed      $expectedFirstKey The first key of the collection
+     */
+    public function testShallowCloneRewinds( Collection $collection, $expectedFirstKey )
+    {
+        $clone = clone $collection;
+        $this->assertEquals(
+            $expectedFirstKey,
+            $clone->key(),
+            'The cloned collection did not rewind to the beginning of the iterator'
+        );
+    }
+
+
+    /**
+     * Ensure deep Collection->clone() rewinds the collection
+     * 
+     * @dataProvider getCloneRewindsData
+     * 
+     * @param Collection $collection       The collection to clone
+     * @param mixed      $expectedFirstKey The first key of the collection
+     */
+    public function testDeepCloneRewinds( Collection $collection, $expectedFirstKey )
+    {
+        $this->assertEquals(
+            $expectedFirstKey,
+            $collection->clone()->key(),
+            'Collection->clone() did not rewind to the beginning of the iterator'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for testing that clone rewinds the collection
+     * 
+     * @return array
+     */
+    public function getCloneRewindsData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( 'foo', 'bar' );
+        $dictionary->set( 'biz', 'baz' );
+        $dictionary->next();
+
+        $sequence = new Sequence();
+        $sequence->add( 'foo' );
+        $sequence->add( 'bar' );
+        $sequence->add( 'biz' );
+        $sequence->add( 'baz' );
+        $sequence->next();
+        $sequence->next();
+
+        return [
+            'Empty Dictionary' => [
+                new Dictionary(), NULL
+            ],
+            'Non-empty Dictionary' => [
+                $dictionary, 'foo'
+            ],
+            'Empty Sequence' => [
+                new Sequence(), NULL
+            ],
+            'Non-empty Sequence' => [
+                $sequence, 0
+            ]
+        ];
     }
 
 
