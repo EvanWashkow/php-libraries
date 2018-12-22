@@ -324,9 +324,9 @@ abstract class Collection extends    \PHP\PHPObject
      * @param mixed $value The value to check for
      * @return bool
      */
-    public function hasValue( $value ): bool
+    final public function hasValue( $value ): bool
     {
-        return in_array( $value, $this->toArray(), true );
+        return ( NULL !== $this->getKeyOf( $value ) );
     }
 
 
