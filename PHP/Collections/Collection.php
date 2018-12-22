@@ -163,6 +163,13 @@ abstract class Collection extends    \PHP\PHPObject
      * @return bool Whether or not the operation was successful
      */
     abstract public function set( $key, $value ): bool;
+
+    /**
+     * Convert to a native PHP array
+     * 
+     * @return array
+     */
+    abstract public function toArray(): array;
     
     
     

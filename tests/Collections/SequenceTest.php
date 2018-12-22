@@ -630,61 +630,6 @@ class SequenceTest extends CollectionsTestCase
 
 
 
-
-    /***************************************************************************
-    *                             Sequence->toArray()
-    ***************************************************************************/
-    
-    /**
-     * Ensure Sequence->toArray() returns the array
-     * 
-     * @dataProvider getToArrayData
-     * 
-     * @param Sequence $sequence The sequence to convert to array
-     * @param array    $array    The expected array
-     */
-    public function testToArray( Sequence $sequence, array $array )
-    {
-        $this->assertEquals(
-            $sequence->toArray(),
-            $array,
-            'Sequence->toArray() did not return the expected array'
-        );
-    }
-
-
-    /**
-     * Provides data for array tests
-     * 
-     * @return array
-     */
-    public function getToArrayData(): array
-    {
-        $data = [];
-
-        // Empty sequence
-        $data[ 'Empty Sequence' ] = [
-            new Sequence(),
-            []
-        ];
-
-        // Sequence with two entries
-        $sequence = new Sequence();
-        $sequence->add( 0 );
-        $sequence->add( 1 );
-        $data[ 'Sequence with two entries' ] = [
-            $sequence,
-            [
-                0 => 0,
-                1 => 1
-            ]
-        ];
-
-        return $data;
-    }
-
-
-
     
     /****************************************************************************                               SHARED DATA PROVIDERS
     ***************************************************************************/

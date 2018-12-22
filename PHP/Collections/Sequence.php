@@ -457,9 +457,7 @@ class Sequence extends Collection
 
 
     /**
-     * Convert to a native PHP array
-     * 
-     * @return array
+     * @see Collection->toArray()
      */
     final public function toArray(): array
     {

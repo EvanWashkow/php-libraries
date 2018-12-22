@@ -1130,6 +1130,73 @@ class CollectionTest extends CollectionsTestCase
 
 
     /***************************************************************************
+    *                             Collection->toArray()
+    ***************************************************************************/
+    
+    /**
+     * Ensure Collection->toArray() returns the correct array
+     * 
+     * @dataProvider getToArrayData
+     * 
+     * @param Collection $collection The collection to convert to array
+     * @param array      $array    The expected array
+     */
+    public function testToArray( Collection $collection, array $array )
+    {
+        $this->assertEquals(
+            $collection->toArray(),
+            $array,
+            'Collection->toArray() did not return the expected array'
+        );
+    }
+
+
+    /**
+     * Provides data for array tests
+     * 
+     * @return array
+     */
+    public function getToArrayData(): array
+    {
+        $data = [];
+
+        // Empty sequence
+        $data[ 'Empty Sequence' ] = [  new Sequence(), [] ];
+
+        // Non-empty Sequence
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( '1' );
+        $data[ 'Non-empty Sequence' ] = [
+            $sequence,
+            [
+                0 => 0,
+                1 => '1'
+            ]
+        ];
+
+        // Empty dictionary
+        $data[ 'Empty Dictionary' ] = [  new Dictionary(), [] ];
+
+        // Non-empty dictionary
+        $dictionary = new Dictionary();
+        $dictionary->set( 'foo', 'bar' );
+        $dictionary->set(     1,   '1' );
+        $data[ 'Non-empty Dictionary' ] = [
+            $dictionary,
+            [
+                'foo' => 'bar',
+                    1 => '1'
+            ]
+        ];
+
+        return $data;
+    }
+
+
+
+
+    /***************************************************************************
     *                           Collection Test Data
     ***************************************************************************/
 

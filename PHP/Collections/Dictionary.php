@@ -161,6 +161,15 @@ class Dictionary extends Collection
     }
 
 
+    /**
+     * @see Collection->toArray()
+     */
+    final public function toArray(): array
+    {
+        return $this->entries;
+    }
+
+
 
 
     /***************************************************************************
