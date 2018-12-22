@@ -80,7 +80,7 @@ class SequenceTest extends CollectionsTestCase
     ***************************************************************************/
     
     /**
-     * Ensure ReadOnlySequence->getFirstKey() returns zero
+     * Ensure       Sequence->getFirstKey() returns zero
      */
     public function testGetFirstKeyReturnsZero()
     {
@@ -100,7 +100,7 @@ class SequenceTest extends CollectionsTestCase
     
     
     /**
-     * Ensure ReadOnlySequence->getLastKey() returns one less than count
+     * Ensure       Sequence->getLastKey() returns one less than count
      * 
      * @dataProvider getSequenceData
      */
@@ -117,7 +117,7 @@ class SequenceTest extends CollectionsTestCase
 
 
     /***************************************************************************
-    *                      ReadOnlySequence->getKeyOf()
+    *                            Sequence->getKeyOf()
     ***************************************************************************/
 
 
