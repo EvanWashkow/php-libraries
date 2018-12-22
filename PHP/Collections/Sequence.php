@@ -96,10 +96,7 @@ class Sequence extends Collection
      */
     final public function hasKey( $key ): bool
     {
-        return (
-            $this->getKeyType()->equals( $key ) &&
-            array_key_exists( $key, $this->entries )
-        );
+        return (is_int( $key ) && array_key_exists( $key, $this->entries ));
     }
 
 
