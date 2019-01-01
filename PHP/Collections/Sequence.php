@@ -92,6 +92,59 @@ class Sequence extends Collection
 
 
     /**
+     * Retrieve the key of the first value found
+     *
+     * @param mixed $value           Value to get the key for
+     * @param int   $offset          Start search from this key
+     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
+     * @return mixed The key; NULL if not found
+     */
+    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false )
+    {
+        // Variables
+        $key = NULL;
+    
+        // Exit. Offset cannot be negative.
+        if ( $offset < $this->getFirstKey() ) {
+            trigger_error( 'Offset cannot be less than the first entry\'s key' );
+            return $key;
+        }
+        
+        // Exit. Offset cannot surpass the end of the array.
+        elseif ( $this->getLastKey() < $offset ) {
+            return $key;
+        }
+        
+        // Exit. There are no entries.
+        elseif ( 0 === $this->count() ) {
+            return $key;
+        }
+            
+        // Get the sub-sequence to traverse
+        $sequence = $isReverseSearch ? $this->reverse() : ( clone $this );
+        $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
+        
+        // Search the sub-sequence for the value
+        $searchResult = array_search( $value, $sequence->toArray(), true );
+        if ( false !== $searchResult ) {
+            
+            // Invert key for reverse search. Keep in mind that the last
+            // key is actually the first in the original order.
+            if ( $isReverseSearch ) {
+                $key = $sequence->getLastKey() - $searchResult;
+            }
+            
+            // Add the offset to forward searches
+            else {
+                $key = $searchResult + $offset;
+            }
+        }
+    
+        return $key;
+    }
+
+
+    /**
      * @see Collection->hasKey()
      */
     final public function hasKey( $key ): bool
@@ -227,59 +280,6 @@ class Sequence extends Collection
     final public function getLastKey(): int
     {
         return ( $this->getFirstKey() + ( $this->count() - 1 ));
-    }
-
-
-    /**
-     * Retrieve the key of the first value found
-     *
-     * @param mixed $value           Value to get the key for
-     * @param int   $offset          Start search from this key
-     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
-     * @return mixed The key; NULL if not found
-     */
-    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false )
-    {
-        // Variables
-        $key = NULL;
-    
-        // Exit. Offset cannot be negative.
-        if ( $offset < $this->getFirstKey() ) {
-            trigger_error( 'Offset cannot be less than the first entry\'s key' );
-            return $key;
-        }
-        
-        // Exit. Offset cannot surpass the end of the array.
-        elseif ( $this->getLastKey() < $offset ) {
-            return $key;
-        }
-        
-        // Exit. There are no entries.
-        elseif ( 0 === $this->count() ) {
-            return $key;
-        }
-            
-        // Get the sub-sequence to traverse
-        $sequence = $isReverseSearch ? $this->reverse() : ( clone $this );
-        $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
-        
-        // Search the sub-sequence for the value
-        $searchResult = array_search( $value, $sequence->toArray(), true );
-        if ( false !== $searchResult ) {
-            
-            // Invert key for reverse search. Keep in mind that the last
-            // key is actually the first in the original order.
-            if ( $isReverseSearch ) {
-                $key = $sequence->getLastKey() - $searchResult;
-            }
-            
-            // Add the offset to forward searches
-            else {
-                $key = $searchResult + $offset;
-            }
-        }
-    
-        return $key;
     }
 
 
