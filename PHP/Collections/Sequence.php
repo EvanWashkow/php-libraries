@@ -119,7 +119,7 @@ class Sequence extends Collection
         }
             
         // Get the sub-sequence to traverse
-        $sequence = $isReverse ? $this->reverse() : ( clone $this );
+        $sequence = $isReverse ? $this->reverse() : $this;
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
