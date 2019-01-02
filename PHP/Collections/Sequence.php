@@ -104,6 +104,7 @@ class Sequence extends Collection
         // Variables
         $key      = NULL;
         $firstKey = $this->getFirstKey();
+        $lastKey  = $this->getLastKey();
 
         /**
          * Exit. Invalid offset.
@@ -112,21 +113,28 @@ class Sequence extends Collection
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        if ( ( $offset < $firstKey ) || ( $this->getLastKey() < $offset ) ) {
+        if (( $offset < $firstKey ) || ( $lastKey < $offset )) {
             return $key;
         }
 
         // Get sub-sequence to search
         $sequence = NULL;
         if ( $isReverse ) {
-            $sequence = $this->slice( $firstKey, $offset + 1 );
+            if ( $lastKey === $offset ) {
+                $sequence = $this;
+            }
+            else {
+                $sequence = $this->slice( $firstKey, $offset + 1 );
+            }
             $sequence = $sequence->reverse();
         }
-        elseif ( $firstKey === $offset ) {
-            $sequence = $this;
-        }
         else {
-            $sequence = $this->slice( $offset );
+            if ( $firstKey === $offset ) {
+                $sequence = $this;
+            }
+            else {
+                $sequence = $this->slice( $offset );
+            }
         }
         
         // Search the sub-sequence for the value
