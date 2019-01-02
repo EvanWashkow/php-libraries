@@ -103,20 +103,18 @@ class Sequence extends Collection
     {
         // Variables
         $key = NULL;
-    
-        // Exit. Offset cannot be negative.
-        if ( $offset < $this->getFirstKey() ) {
-            trigger_error( 'Offset cannot be less than the first entry\'s key' );
-            return $key;
-        }
-        
-        // Exit. Offset cannot surpass the end of the array.
-        elseif ( $this->getLastKey() < $offset ) {
-            return $key;
-        }
-        
-        // Exit. There are no entries.
-        elseif ( 0 === $this->count() ) {
+
+        /**
+         * Exit. Invalid offset.
+         * 
+         * Do not try to fix the offset! Prefer correctness over convenience.
+         * A recursive search with an incremental offset will result in an
+         * invalid offset: the returned key should be invalid.
+         */
+        if (
+            ( $offset             < $this->getFirstKey() ) ||
+            ( $this->getLastKey() < $offset )
+        ) {
             return $key;
         }
             
