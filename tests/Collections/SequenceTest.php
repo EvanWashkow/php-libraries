@@ -176,6 +176,12 @@ class SequenceTest extends CollectionsTestCase
             'Value 1, Offset 1, Reverse true'  => [ $sequence, 1, 1, true,  2 ],
 
             // Unfound value
+            'Non-empty sequence with offset too small' => [
+                $sequence, 0, -1, false, NULL
+            ],
+            'Non-empty sequence with offset too large' => [
+                $sequence, 0, 10, false, NULL
+            ],
             'Non-empty sequence unfound value: offset, no reverse' => [
                 $sequence, 0, 5, false, NULL
             ],
