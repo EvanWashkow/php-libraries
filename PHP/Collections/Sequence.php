@@ -94,12 +94,12 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      *
-     * @param mixed $value           Value to get the key for
-     * @param int   $offset          Start search from this key
-     * @param bool  $isReverseSearch Start search from the end, offsetting as necessary from the end of the list.
+     * @param mixed $value     Value to find
+     * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
+     * @param bool  $isReverse Search backwards
      * @return mixed The key; NULL if not found
      */
-    final public function getKeyOf( $value, int $offset = 0, bool $isReverseSearch = false )
+    final public function getKeyOf( $value, int $offset = 0, bool $isReverse = false )
     {
         // Variables
         $key = NULL;
@@ -121,7 +121,7 @@ class Sequence extends Collection
         }
             
         // Get the sub-sequence to traverse
-        $sequence = $isReverseSearch ? $this->reverse() : ( clone $this );
+        $sequence = $isReverse ? $this->reverse() : ( clone $this );
         $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
         
         // Search the sub-sequence for the value
@@ -130,7 +130,7 @@ class Sequence extends Collection
             
             // Invert key for reverse search. Keep in mind that the last
             // key is actually the first in the original order.
-            if ( $isReverseSearch ) {
+            if ( $isReverse ) {
                 $key = $sequence->getLastKey() - $searchResult;
             }
             
