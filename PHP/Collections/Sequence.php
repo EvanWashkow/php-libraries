@@ -102,7 +102,8 @@ class Sequence extends Collection
     final public function getKeyOf( $value, int $offset = 0, bool $isReverse = false )
     {
         // Variables
-        $key = NULL;
+        $key      = NULL;
+        $firstKey = $this->getFirstKey();
 
         /**
          * Exit. Invalid offset.
@@ -111,33 +112,36 @@ class Sequence extends Collection
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        if (
-            ( $offset             < $this->getFirstKey() ) ||
-            ( $this->getLastKey() < $offset )
-        ) {
+        if ( ( $offset < $firstKey ) || ( $this->getLastKey() < $offset ) ) {
             return $key;
         }
-            
-        // Get the sub-sequence to traverse
-        $sequence = $isReverse ? $this->reverse() : $this;
-        $sequence = $sequence->slice( $offset, $sequence->count() - $offset );
+
+        // Get sub-sequence to search
+        $sequence = NULL;
+        if ( $isReverse ) {
+            $sequence = $this->slice( $firstKey, $offset + 1 );
+            $sequence = $sequence->reverse();
+        }
+        elseif ( $firstKey === $offset ) {
+            $sequence = $this;
+        }
+        else {
+            $sequence = $this->slice( $offset );
+        }
         
         // Search the sub-sequence for the value
         $searchResult = array_search( $value, $sequence->toArray(), true );
+
+        // Compensate for the offset and reverse search
         if ( false !== $searchResult ) {
-            
-            // Invert key for reverse search. Keep in mind that the last
-            // key is actually the first in the original order.
             if ( $isReverse ) {
-                $key = $sequence->getLastKey() - $searchResult;
+                $key = $offset - $searchResult;
             }
-            
-            // Add the offset to forward searches
             else {
                 $key = $searchResult + $offset;
             }
         }
-    
+
         return $key;
     }
 
