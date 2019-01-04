@@ -122,12 +122,12 @@ class CollectionTest extends CollectionsTestCase
                 new Sequence( 'string', []), []
             ],
             'Sequence with entries' => [
-                new Sequence( 'string', [ 'foo' => 'bar' ]),
-                [ 'bar' ]
+                new Sequence( 'string', [ 5 => 'bar' ]),
+                [ 0 => 'bar' ]
             ],
             'Sequence with wrong value type' => [
-                new Sequence('string', [ 5, 'foo' => 'bar' ]),
-                [ 'bar' ]
+                new Sequence( 'string', [ 5, 'foo' => 'bar' ]),
+                [ 0 => 'bar' ]
             ],
         ];
         restore_error_handler();
