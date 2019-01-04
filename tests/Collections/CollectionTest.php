@@ -507,19 +507,19 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getGetKeysData(): array
     {
-        $dictionary = new Dictionary();
-        $dictionary->set( 'foo',   'bar' );
-        $dictionary->set( 'false', true );
-        $dictionary->set( '1',     0 );
-
-        $sequence = new Sequence();
-        $sequence->add( 2 );
-        $sequence->add( '1' );
-        $sequence->add( false );
-
         return [
-            [ $dictionary, [ 'foo', 'false', '1' ] ],
-            [ $sequence,   [ 0, 1, 2 ] ]
+            [
+                new Dictionary( '*', '*', [
+                    'foo'   => 'bar',
+                    'false' => true,
+                    '1'     => 0
+                ]),
+                [ 'foo', 'false', '1' ]
+            ],
+            [
+                new Sequence( '*', [ 2, '1', false ] ),
+                [ 0, 1, 2 ]
+            ]
         ];
     }
 

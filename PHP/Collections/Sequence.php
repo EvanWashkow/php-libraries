@@ -102,6 +102,18 @@ class Sequence extends Collection
 
 
     /**
+     * @see Collection->getKeys()
+     */
+    final public function getKeys(): Sequence
+    {
+        return new self(
+            $this->getKeyType()->getName(),
+            array_keys( $this->entries )
+        );
+    }
+
+
+    /**
      * Retrieve the key of the first value found
      *
      * @param mixed $value     Value to find
