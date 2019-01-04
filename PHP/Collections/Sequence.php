@@ -275,7 +275,14 @@ class Sequence extends Collection
      */
     final public function add( $value ): bool
     {
-        return $this->set( $this->getLastKey() + 1, $value );
+        $isSuccessful = $this->getValueType()->equals( $value );
+        if ( $isSuccessful ) {
+            $this->entries[] = $value;
+        }
+        else {
+            trigger_error( 'Wrong value type' );
+        }
+        return $isSuccessful;
     }
 
 
