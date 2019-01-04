@@ -645,7 +645,10 @@ class SequenceTest extends CollectionsTestCase
      * 
      * @dataProvider getSplitResultsData
      * 
-     *
+     * @param Sequence $sequence  The sequence
+     * @param mixed    $delimiter The dilimeter to split sequence over
+     * @param int      $limit     Maximum number of entries to return
+     * @param array    $expected  Expected results
      **/
     public function testSplitResults( Sequence $sequence,
                                                $delimiter,
