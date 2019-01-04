@@ -26,44 +26,40 @@ class CollectionTest extends CollectionsTestCase
     /**
      * Ensure the constructor throws an error for null key types
      * 
-     * @expectedException \InvalidArgumentException
+     * @dataProvider      getConstructorThrowsExceptionsData
+     * @expectedException \Exception
+     * 
+     * @param Closure $function Function callback with the exceptions
      **/
-    public function testConstructorThrowsErrorForNullKey()
+    public function testConstructorThrowsExceptions( \Closure $function )
     {
-        new Dictionary( 'null' );
+        $function();
     }
 
 
     /**
-     * Ensure the constructor throws an error for unknown key types
+     * Get test data for testing constructor throws exception on bad key
      * 
-     * @expectedException \InvalidArgumentException
-     **/
-    public function testConstructorThrowsErrorForUnknownKey()
+     * @return array
+     */
+    public function getConstructorThrowsExceptionsData(): array
     {
-        new Dictionary( 'foobar' );
-    }
+        return [
 
-
-    /**
-     * Ensure the constructor throws an error for null value types
-     * 
-     * @expectedException \InvalidArgumentException
-     **/
-    public function testConstructorThrowsErrorForNullValue()
-    {
-        new Dictionary( '', 'null' );
-    }
-
-
-    /**
-     * Ensure the constructor throws an error for unknown value types
-     * 
-     * @expectedException \InvalidArgumentException
-     **/
-    public function testConstructorThrowsErrorForUnknownValue()
-    {
-        new Dictionary( '', 'foobar' );
+            // Dictionary
+            'new Dictionary( null )'   => [
+                function () { new Dictionary( 'null' ); }
+            ],
+            'new Dictionary( foobar )' => [
+                function () { new Dictionary( 'foobar' ); }
+            ],
+            'new Dictionary( *, null )'   => [
+                function () { new Dictionary( '*', 'null' ); }
+            ],
+            'new Dictionary( *, foobar )' => [
+                function () { new Dictionary( '*', 'foobar' ); }
+            ]
+        ];
     }
 
 
