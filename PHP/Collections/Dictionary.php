@@ -32,16 +32,19 @@ class Dictionary extends Collection
 
 
     /**
-     * Create a new Dictionary instance
+     * Create a new Dictionary
      *
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
+     * @param array  $entries Initial entries for this collection
      */
-    public function __construct( string $keyType = '*', string $valueType = '*' )
+    public function __construct( string $keyType   = '*',
+                                 string $valueType = '*',
+                                 array  $entries   = [] )
     {
         // Set properties
-        parent::__construct( $keyType, $valueType );
-        $this->clear();
+        $this->entries = [];
+        parent::__construct( $keyType, $valueType, $entries );
 
         // Exit. The key type must be either an integer or string.
         if ( !$this->getKeyType()->is( 'int' ) &&
