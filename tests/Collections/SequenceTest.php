@@ -154,19 +154,73 @@ class SequenceTest extends CollectionsTestCase
     /**
      * Test getKeyOf() return values
      * 
-     * @dataProvider getGetKeyOfData
+     * @dataProvider      getGetKeyOfExceptionData
+     * @expectedException \Exception
      *
      * @param Sequence $sequence        The sequence
      * @param mixed    $value           The value to get the key of
      * @param int      $offset          The offset to start the search from
      * @param bool     $isReverseSearch Start from the end of the sequence?
-     * @param mixed    $expected        The expected key
      **/
-    public function testGetKeyOf( Sequence $sequence,
-                                           $value,
-                                  int      $offset,
-                                  bool     $isReverseSearch,
-                                           $expected )
+    public function testGetKeyOfException( Sequence $sequence,
+                                                    $value,
+                                           int      $offset,
+                                           bool     $isReverseSearch )
+    {
+        $sequence->getKeyOf( $value, $offset, $isReverseSearch );
+    }
+
+
+    /**
+     * Retrieve test data for the getKeyOf() test
+     * 
+     * See CollectionTest->testKeyOf() for more tests
+     *
+     * @return array
+     **/
+    public function getGetKeyOfExceptionData(): array
+    {
+        $sequence = new Sequence();
+        $sequence->add( 0 );    // Offset 0
+        $sequence->add( 1 );    // Offset 1
+        $sequence->add( 1 );    // Offset 2
+        $sequence->add( 0 );    // Offset 3
+        $sequence->add( 0 );    // Offset 4
+        $sequence->add( 1 );    // Offset 5
+
+        return [
+            'Non-empty sequence with offset too small' => [
+                $sequence, 0, -1, false
+            ],
+            'Non-empty sequence with offset too large' => [
+                $sequence, 0, 10, false
+            ],
+            'Non-empty sequence unfound value: Offset 5, Reverse false' => [
+                $sequence, 0, 5, false
+            ],
+            'Non-empty sequence unfound value: Offset 0, Reverse true' => [
+                $sequence, 1, 0, true
+            ]
+        ];
+    }
+
+
+    /**
+     * Test getKeyOf() return values
+     * 
+     * @dataProvider getGetKeyOfResultData
+     *
+     * @param Sequence $sequence        The sequence
+     * @param mixed    $value           The value to get the key of
+     * @param int      $offset          The offset to start the search from
+     * @param bool     $isReverseSearch Start from the end of the sequence?
+     * @param int      $expected        The expected key
+     **/
+    public function testGetKeyOfResult( Sequence $sequence,
+                                                 $value,
+                                        int      $offset,
+                                        bool     $isReverseSearch,
+                                        int      $expected )
     {
         $this->assertEquals(
             $sequence->getKeyOf( $value, $offset, $isReverseSearch ),
@@ -182,7 +236,7 @@ class SequenceTest extends CollectionsTestCase
      *
      * @return array
      **/
-    public function getGetKeyOfData(): array
+    public function getGetKeyOfResultData(): array
     {
         $sequence = new Sequence();
         $sequence->add( 0 );    // Offset 0
@@ -203,21 +257,7 @@ class SequenceTest extends CollectionsTestCase
             'Value 1, Offset 5, Reverse true'  => [ $sequence, 1, 5, true,  5 ],
             'Value 0, Offset 5, Reverse true'  => [ $sequence, 0, 5, true,  4 ],
             'Value 0, Offset 3, Reverse true'  => [ $sequence, 0, 3, true,  3 ],
-            'Value 1, Offset 4, Reverse true'  => [ $sequence, 1, 4, true,  2 ],
-
-            // Unfound value
-            'Non-empty sequence with offset too small' => [
-                $sequence, 0, -1, false, NULL
-            ],
-            'Non-empty sequence with offset too large' => [
-                $sequence, 0, 10, false, NULL
-            ],
-            'Non-empty sequence unfound value: Offset 5, Reverse false' => [
-                $sequence, 0, 5, false, NULL
-            ],
-            'Non-empty sequence unfound value: Offset 0, Reverse true' => [
-                $sequence, 1, 0, true, NULL
-            ]
+            'Value 1, Offset 4, Reverse true'  => [ $sequence, 1, 4, true,  2 ]
         ];
     }
     
@@ -646,12 +686,12 @@ class SequenceTest extends CollectionsTestCase
     public function getSplitResultsData(): array
     {
         $sequence = new Sequence();
-        $sequence->add( 0 );
-        $sequence->add( 1 );
-        $sequence->add( 1 );
-        $sequence->add( 0 );
-        $sequence->add( 1 );
-        $sequence->add( 0 );
+        $sequence->add( 0 );    // Index 0
+        $sequence->add( 1 );    // Index 1
+        $sequence->add( 1 );    // Index 2
+        $sequence->add( 0 );    // Index 3
+        $sequence->add( 1 );    // Index 4
+        $sequence->add( 0 );    // Index 5
 
 
         return [

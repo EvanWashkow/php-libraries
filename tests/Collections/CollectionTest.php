@@ -482,26 +482,27 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
-     * Test getKeyOf() return values
+     * Ensure getKeyOf() throws exceptions when expected
      * 
-     * @dataProvider getGetKeyOfData
+     * @dataProvider getGetKeyOfExceptionsData
+     * @expectedException \Exception
      *
      * @param Collection $sequence The collection
-     * @param mixed      $value    The value to get the key of
-     * @param mixed      $expected The expected key
+     * @param mixed      $badValue A bad value to try to find
      **/
-    public function testGetKeyOf( Collection $collection, $value, $expected )
+    public function testGetKeyOfExceptions( Collection $collection,
+                                                       $badValue )
     {
-        $this->assertEquals( $collection->getKeyOf( $value ), $expected );
+        $collection->getKeyOf( $badValue );
     }
 
 
     /**
-     * Retrieve test data for the getKeyOf() test
+     * Retrieve test data for the getKeyOf() result test
      *
      * @return array
      **/
-    public function getGetKeyOfData(): array
+    public function getGetKeyOfExceptionsData(): array
     {
         $dictionary = new Dictionary();
         $dictionary->set( '0', 0 );
@@ -514,15 +515,65 @@ class CollectionTest extends CollectionsTestCase
         return [
 
             // Dictionary
-            'Empty Dictionary; unknown value' => [
-                new Dictionary(), 0, NULL
+            'Empty Dictionary; missing value' => [
+                new Dictionary(), 0
             ],
-            'Dictionary; unknown value' => [
-                $dictionary, 2, NULL
+            'Non-empty Dictionary; missing value' => [
+                $dictionary, 2
             ],
-            'Dictionary; wrong value type' => [
-                $dictionary, '0', NULL
+            'Non-empty Dictionary; wrong value type' => [
+                $dictionary, '0'
             ],
+
+            // Sequence
+            'Empty Sequence; missing value' => [
+                new Sequence(), 0
+            ],
+            'Non-empty Sequence; missing value' => [
+                $sequence, 2
+            ],
+            'Non-empty Sequence; wrong value type' => [
+                $sequence, '0'
+            ]
+        ];
+    }
+
+
+    /**
+     * Test getKeyOf() result
+     * 
+     * @dataProvider getGetKeyOfResultData
+     *
+     * @param Collection $sequence The collection
+     * @param mixed      $value    The value to get the key of
+     * @param mixed      $expected The expected key
+     **/
+    public function testGetKeyOfResult( Collection $collection,
+                                                   $value,
+                                                   $expected )
+    {
+        $this->assertEquals( $collection->getKeyOf( $value ), $expected );
+    }
+
+
+    /**
+     * Retrieve test data for the getKeyOf() result test
+     *
+     * @return array
+     **/
+    public function getGetKeyOfResultData(): array
+    {
+        $dictionary = new Dictionary();
+        $dictionary->set( '0', 0 );
+        $dictionary->set( '1', 1 );
+
+        $sequence = new Sequence();
+        $sequence->add( 0 );
+        $sequence->add( 1 );
+
+        return [
+
+            // Dictionary
             'Dictionary; value 0' => [
                 $dictionary, 0, '0'
             ],
@@ -531,15 +582,6 @@ class CollectionTest extends CollectionsTestCase
             ],
 
             // Sequence
-            'Empty Sequence; unknown value' => [
-                new Sequence(), 0, NULL
-            ],
-            'Sequence; unknown value' => [
-                $sequence, 2, NULL
-            ],
-            'Sequence; wrong value type' => [
-                $sequence, '0', NULL
-            ],
             'Sequence; value 0' => [
                 $sequence, 0, 0
             ],

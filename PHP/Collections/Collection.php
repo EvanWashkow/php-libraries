@@ -242,14 +242,22 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Retrieve the key of the first value found
+     * 
+     * Throws exception when key not found. This *always* has to be handled by
+     * the caller, even if a default value was returned. Throwing an exception
+     * provides more information to the caller about what happened.
      *
      * @param mixed $value The value to find
-     * @return mixed The key; NULL if not found
+     * @return mixed The key
+     * @throws \Exception When key not found
      */
     public function getKeyOf( $value )
     {
         $key = array_search( $value, $this->toArray(), true );
-        return ( false === $key ) ? NULL : $key;
+        if ( false === $key ) {
+            throw new \Exception( 'Key not found' );
+        }
+        return $key;
     }
 
 
@@ -334,7 +342,15 @@ abstract class Collection extends    \PHP\PHPObject
      */
     final public function hasValue( $value ): bool
     {
-        return ( NULL !== $this->getKeyOf( $value ) );
+        $hasValue;
+        try {
+            $this->getKeyOf( $value );
+            $hasValue = true;
+        }
+        catch ( \Throwable $th ) {
+            $hasValue = false;
+        }
+        return $hasValue;
     }
 
 

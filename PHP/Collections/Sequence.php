@@ -115,57 +115,73 @@ class Sequence extends Collection
 
     /**
      * Retrieve the key of the first value found
+     * 
+     * Throws exception when key not found, or offset is too large or too small.
+     * This *always* has to be handled by the caller, even if a default value
+     * was returned. Throwing an exception provides more information to the
+     * caller about what happened.
      *
      * @param mixed $value     Value to find
      * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
      * @param bool  $isReverse Search backwards
      * @return mixed The key; NULL if not found
+     * @throws \Exception If key not found or offset too large or too small
      */
     final public function getKeyOf( $value, int $offset = 0, bool $isReverse = false )
     {
         // Variables
-        $key      = NULL;
+        $key;
         $firstKey = $this->getFirstKey();
         $lastKey  = $this->getLastKey();
 
         /**
+         * Throw exceptions for a bad offset
+         * 
          * Do not try to fix the offset! Prefer correctness over convenience.
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        if (( $firstKey <= $offset ) && ( $offset <= $lastKey ))
-        {
-            // Get sub-sequence to search
-            $sequence = NULL;
-            if ( $isReverse ) {
-                if ( $lastKey === $offset ) {
-                    $sequence = $this;
-                }
-                else {
-                    $sequence = $this->slice( $firstKey, $offset + 1 );
-                }
-                $sequence = $sequence->reverse();
+        if ( $offset < $firstKey ) {
+            throw new \InvalidArgumentException( 'Offset too small' );
+            
+        }
+        elseif ( $lastKey < $offset ) {
+            throw new \InvalidArgumentException( 'Offset too large' );
+        }
+
+        // Get sub-sequence to search
+        $sequence;
+        if ( $isReverse ) {
+            if ( $lastKey === $offset ) {
+                $sequence = $this;
             }
             else {
-                if ( $firstKey === $offset ) {
-                    $sequence = $this;
-                }
-                else {
-                    $sequence = $this->slice( $offset );
-                }
+                $sequence = $this->slice( $firstKey, $offset + 1 );
             }
-            
-            // Search the sub-sequence for the value
-            $searchResult = array_search( $value, $sequence->toArray(), true );
-    
-            // Compensate for the offset and reverse search
-            if ( false !== $searchResult ) {
-                if ( $isReverse ) {
-                    $key = $offset - $searchResult;
-                }
-                else {
-                    $key = $searchResult + $offset;
-                }
+            $sequence = $sequence->reverse();
+        }
+        else {
+            if ( $firstKey === $offset ) {
+                $sequence = $this;
+            }
+            else {
+                $sequence = $this->slice( $offset );
+            }
+        }
+        
+        // Search the sub-sequence for the value
+        $searchResult = array_search( $value, $sequence->toArray(), true );
+
+        // Compensate for the offset and reverse search
+        if ( false === $searchResult ) {
+            throw new \Exception( 'Value not found' );
+        }
+        else {
+            if ( $isReverse ) {
+                $key = $offset - $searchResult;
+            }
+            else {
+                $key = $searchResult + $offset;
             }
         }
 
@@ -452,41 +468,36 @@ class Sequence extends Collection
     public function split( $delimiter, int $limit = PHP_INT_MAX ): Sequence
     {
         // Variables
-        $startingKey   = $this->getFirstKey();
+        $start         = $this->getFirstKey();
         $outerSequence = new self( get_class( $this ) );
         
         while (
             // Haven't exceeded requested items
             ( $outerSequence->count() < $limit ) &&
             // Starting index is not past the end of this sequence
-            ( $startingKey <= $this->getLastKey() )
+            ( $start <= $this->getLastKey() )
         ) {
             
-            // Find the next delimiter
-            $end = $this->getKeyOf( $delimiter, $startingKey );
+            // Try to find the next delimiter
+            try {
+                $end   = $this->getKeyOf( $delimiter, $start );
+                $count = $end - $start;
+            }
+
+            // Delimiter not found: gather all the remaining entries
+            catch ( \Throwable $th ) {
+                $end   = $this->getLastKey();
+                $count = ( $end + 1 ) - $start;
+            }
             
-            // If start === end, the current element is the delimiter. Skip it.
-            if ( $startingKey !== $end ) {
-                
-                // Get number of items to cut
-                $count = 0;
-                if ( NULL === $end ) {
-                    $end   = $this->getLastKey();
-                    $count = $this->count() - $startingKey;
-                }
-                else {
-                    $count = $end - $startingKey;
-                }
-                
-                // Cut out the sub-section of this sequence
-                if ( 0 < $count ) {
-                    $innerSequence = $this->slice( $startingKey, $count );
-                    $outerSequence->add( $innerSequence );
-                }
+            // There are items to slice and add to the outer sequence
+            if ( 0 < $count ) {
+                $innerSequence = $this->slice( $start, $count );
+                $outerSequence->add( $innerSequence );
             }
             
             // Move to next entry
-            $startingKey = $end + 1;
+            $start = $end + 1;
         }
         
         return $outerSequence;
