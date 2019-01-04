@@ -699,22 +699,34 @@ class SequenceTest extends CollectionsTestCase
         ]);
 
         return [
-            'Empty Sequence' => [
+            'No entries' => [
                 new Sequence(), 0, PHP_INT_MAX, []
             ],
-            'Non-empty Sequence, Delimiter 0, Limit max' => [
+            'One entry, found delimiter' => [
+                new Sequence( '*', [ 1 ] ),
+                1,
+                PHP_INT_MAX, 
+                []
+            ],
+            'One entry, unfound delimiter' => [
+                new Sequence( '*', [ 1 ] ),
+                0,
+                PHP_INT_MAX,
+                [ [ 1 ] ]
+            ],
+            'Multiple entries, Delimiter 0, Limit max' => [
                 $sequence, 0, PHP_INT_MAX, [ [ 1, 1 ], [ 1 ] ]
             ],
-            'Non-empty Sequence, Delimiter 1, Limit max' => [
+            'Multiple entries, Delimiter 1, Limit max' => [
                 $sequence, 1, PHP_INT_MAX, [ [ 0 ], [ 0 ], [ 0, 0 ] ]
             ],
-            'Non-empty Sequence, Delimiter 1, Limit 0' => [
+            'Multiple entries, Delimiter 1, Limit 0' => [
                 $sequence, 1, 0, []
             ],
-            'Non-empty Sequence, Delimiter 1, Limit 2' => [
+            'Multiple entries, Delimiter 1, Limit 2' => [
                 $sequence, 1, 2, [ [ 0 ], [ 0 ] ]
             ],
-            'Non-empty Sequence, Unfound delimiter' => [
+            'Multiple entries, Unfound delimiter' => [
                 $sequence, 5, PHP_INT_MAX, [ [ 0, 1, 1, 0, 1, 0, 0 ] ]
             ]
         ];
