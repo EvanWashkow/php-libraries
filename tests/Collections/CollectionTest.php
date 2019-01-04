@@ -209,16 +209,18 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getCloneRewindsData(): array
     {
-        $dictionary = new Dictionary();
-        $dictionary->set( 'foo', 'bar' );
-        $dictionary->set( 'biz', 'baz' );
+        $dictionary = new Dictionary( '*', '*', [
+            'foo' => 'bar',
+            'biz' => 'baz'
+        ]);
         $dictionary->next();
 
-        $sequence = new Sequence();
-        $sequence->add( 'foo' );
-        $sequence->add( 'bar' );
-        $sequence->add( 'biz' );
-        $sequence->add( 'baz' );
+        $sequence = new Sequence( '*', [
+            'foo',
+            'bar',
+            'biz',
+            'baz'
+        ]);
         $sequence->next();
         $sequence->next();
 
