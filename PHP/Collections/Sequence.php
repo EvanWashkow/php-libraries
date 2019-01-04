@@ -124,10 +124,12 @@ class Sequence extends Collection
      * @param mixed $value     Value to find
      * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
      * @param bool  $isReverse Search backwards
-     * @return mixed The key; NULL if not found
+     * @return int The key
      * @throws \Exception If key not found or offset too large or too small
      */
-    final public function getKeyOf( $value, int $offset = 0, bool $isReverse = false )
+    final public function getKeyOf(      $value,
+                                    int  $offset = 0,
+                                    bool $isReverse = false ): int
     {
         // Variables
         $key;
