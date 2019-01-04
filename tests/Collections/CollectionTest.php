@@ -26,12 +26,12 @@ class CollectionTest extends CollectionsTestCase
     /**
      * Ensure the constructor throws an error for null key types
      * 
-     * @dataProvider      getConstructorThrowsExceptionsData
+     * @dataProvider      getConstructorExceptionsData
      * @expectedException \Exception
      * 
      * @param Closure $function Function callback with the exceptions
      **/
-    public function testConstructorThrowsExceptions( \Closure $function )
+    public function testConstructorExceptions( \Closure $function )
     {
         $function();
     }
@@ -42,7 +42,7 @@ class CollectionTest extends CollectionsTestCase
      * 
      * @return array
      */
-    public function getConstructorThrowsExceptionsData(): array
+    public function getConstructorExceptionsData(): array
     {
         return [
 
