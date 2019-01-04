@@ -258,7 +258,7 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @return Sequence
      */
-    final public function getKeys(): Sequence
+    public function getKeys(): Sequence
     {
         $keys = new Sequence( $this->getKeyType()->getName() );
         $this->loop( function( $key, $value ) use ( &$keys ) {
@@ -284,7 +284,7 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @return Sequence
      */
-    final public function getValues(): Sequence
+    public function getValues(): Sequence
     {
         $values = new Sequence( $this->getValueType()->getName() );
         $this->loop( function( $key, $value ) use ( &$values ) {
