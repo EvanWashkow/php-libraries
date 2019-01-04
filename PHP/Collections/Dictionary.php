@@ -43,7 +43,7 @@ class Dictionary extends Collection
                                  array  $entries   = [] )
     {
         // Set properties
-        $this->entries = [];
+        $this->clear();
         parent::__construct( $keyType, $valueType, $entries );
 
         // Exit. The key type must be either an integer or string.
