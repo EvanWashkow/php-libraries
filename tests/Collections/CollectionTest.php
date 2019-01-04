@@ -115,7 +115,20 @@ class CollectionTest extends CollectionsTestCase
             'Dictionary with wrong value type' => [
                 new Dictionary('string', 'int', [ 'foo' => 'bar' ]),
                 []
-            ]
+            ],
+
+            // Sequence
+            'Sequence with no entries' => [
+                new Sequence( 'string', []), []
+            ],
+            'Sequence with entries' => [
+                new Sequence( 'string', [ 'foo' => 'bar' ]),
+                [ 'bar' ]
+            ],
+            'Sequence with wrong value type' => [
+                new Sequence('string', [ 5, 'foo' => 'bar' ]),
+                [ 'bar' ]
+            ],
         ];
         restore_error_handler();
         return $array;

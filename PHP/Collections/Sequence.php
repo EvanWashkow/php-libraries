@@ -36,8 +36,9 @@ class Sequence extends Collection
      * Create a new enumerated instance
      *
      * @param string $type Specifies the type requirement for all values (see `is()`). An empty string permits all types.
+     * @param array  $entries Initial entries
      */
-    public function __construct( string $type = '*' )
+    public function __construct( string $type = '*', array $entries = [] )
     {
         // Set parent properties
         parent::__construct( 'int', $type );
@@ -51,9 +52,17 @@ class Sequence extends Collection
         if ( 'null' === $this->getValueType()->getName() ) {
             throw new \InvalidArgumentException( 'Sequence values cannot be NULL' );
         }
-        
-        // Set own properties
-        $this->clear();
+
+        // For each entry, make sure it is the right type
+        foreach ( $entries as $key => $value ) {
+            if ( !$this->getValueType()->equals( $value )) {
+                trigger_error( 'Wrong value type' );
+                unset( $entries[ $key ] );
+            }
+        }
+
+        // Initialize entries
+        $this->entries = array_values( $entries );
     }
 
 
@@ -223,7 +232,7 @@ class Sequence extends Collection
 
 
     /***************************************************************************
-    *                     ITERATOR INTERFACE OVERRIDES
+    *                       ITERATOR INTERFACE OVERRIDES
     ***************************************************************************/
 
     /**
