@@ -68,6 +68,7 @@ class Dictionary extends Collection
     final public function clear(): bool
     {
         $this->entries = [];
+        $this->rewind();
         return true;
     }
 

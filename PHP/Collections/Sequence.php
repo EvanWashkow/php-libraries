@@ -71,6 +71,7 @@ class Sequence extends Collection
     final public function clear(): bool
     {
         $this->entries = [];
+        $this->rewind();
         return true;
     }
 
