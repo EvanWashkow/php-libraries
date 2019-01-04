@@ -54,10 +54,12 @@ class Sequence extends Collection
         }
 
         // For each entry, make sure it is the right type
-        foreach ( $entries as $key => $value ) {
-            if ( !$this->getValueType()->equals( $value )) {
-                trigger_error( 'Wrong value type' );
-                unset( $entries[ $key ] );
+        if ( !is_a( $this->getValueType(), Collection\WildcardType::class )) {
+            foreach ( $entries as $key => $value ) {
+                if ( !$this->getValueType()->equals( $value )) {
+                    trigger_error( 'Wrong value type' );
+                    unset( $entries[ $key ] );
+                }
             }
         }
 
