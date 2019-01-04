@@ -97,7 +97,8 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getConstructorEntriesData(): array
     {
-        return [
+        set_error_handler(function() {});
+        $array = [
 
             // Dictionary
             'Dictionary with no entries' => [
@@ -116,6 +117,8 @@ class CollectionTest extends CollectionsTestCase
                 []
             ]
         ];
+        restore_error_handler();
+        return $array;
     }
 
 
