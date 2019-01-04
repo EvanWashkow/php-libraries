@@ -416,18 +416,23 @@ class Sequence extends Collection
     /**
      * Retrieve a subset of entries from this Sequence
      *
-     * @internal Why use a start index and a count rather than start / end
-     * indices? Because the starting / ending indices must be inclusive to
-     * retrieve the first / last items respectively. Doing so, however,
-     * prevents an empty list from ever being created, which is to be expected
-     * for certain applications. For this reason, dropping the ending index for
-     * count solves the problem entirely while reducing code complexity.
+     * @internal Why was the decision made to use a starting key and a count
+     * as the parameters, rather than starting and ending keys? There are two
+     * main reasons:
+     * 1. That's how humans do it, because that's how math works. When given a
+     * ruler, starting at the 3rd inch, and told to measure 5 inches, humans
+     * count (add) another 5 inches to the 3 inch mark: 8 inches.
+     * 2. Starting and ending keys have a fatal flaw: In order for them to
+     * be able to (respectively) specify the first / last items in the sequence,
+     * they *must* be inclusive. However, this inclusivity prevents them from
+     * ever selecting an empty list---which is completely valid---without
+     * specifying some erroneous state (such as start = 5 and end = 4).
      *
      * @param int $offset Starting key (inclusive)
-     * @param int $limit  Number of items to copy
+     * @param int $count  Number of items to copy
      * @return Sequence
      */
-    public function slice( int $offset, int $limit = PHP_INT_MAX ): Sequence
+    public function slice( int $offset, int $count = PHP_INT_MAX ): Sequence
     {
         /**
          * Even though "array_slice()" supports a negative offset and length,
@@ -444,13 +449,13 @@ class Sequence extends Collection
         }
         
         // Sanitize count
-        if ( $limit < 0 ) {
+        if ( $count < 0 ) {
             trigger_error( 'Cannot copy a negative number of items.' );
-            $limit = 0;
+            $count = 0;
         }
         
         // Slice and copy entries to the sub-sequence
-        $entries  = array_slice( $this->entries, $offset, $limit );
+        $entries  = array_slice( $this->entries, $offset, $count );
         $sequence = new self( $this->getValueType()->getName(), $entries );
         
         // Return sub-sequence
