@@ -241,6 +241,15 @@ class Sequence extends Collection
     }
 
 
+    /**
+     * @see Collection->toArray()
+     */
+    final public function toArray(): array
+    {
+        return $this->entries;
+    }
+
+
 
 
     /***************************************************************************
@@ -481,14 +490,5 @@ class Sequence extends Collection
         }
         
         return $outerSequence;
-    }
-
-
-    /**
-     * @see Collection->toArray()
-     */
-    final public function toArray(): array
-    {
-        return $this->entries;
     }
 }
