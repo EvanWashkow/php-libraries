@@ -43,16 +43,6 @@ class Sequence extends Collection
         // Set parent properties
         parent::__construct( 'int', $type );
 
-        /**
-         * Throw error for NULL value types.
-         * 
-         * Do not use $this->getValueType()->is( 'null' ), which will return
-         * true for wildcard types.
-         */ 
-        if ( 'null' === $this->getValueType()->getName() ) {
-            throw new \InvalidArgumentException( 'Sequence values cannot be NULL' );
-        }
-
         // For each entry, make sure it is the right type
         if ( !is_a( $this->getValueType(), Collection\WildcardType::class )) {
             foreach ( $entries as $key => $value ) {
