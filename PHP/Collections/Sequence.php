@@ -129,46 +129,43 @@ class Sequence extends Collection
         $lastKey  = $this->getLastKey();
 
         /**
-         * Exit. Invalid offset.
-         * 
          * Do not try to fix the offset! Prefer correctness over convenience.
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        if (( $offset < $firstKey ) || ( $lastKey < $offset )) {
-            return $key;
-        }
-
-        // Get sub-sequence to search
-        $sequence = NULL;
-        if ( $isReverse ) {
-            if ( $lastKey === $offset ) {
-                $sequence = $this;
-            }
-            else {
-                $sequence = $this->slice( $firstKey, $offset + 1 );
-            }
-            $sequence = $sequence->reverse();
-        }
-        else {
-            if ( $firstKey === $offset ) {
-                $sequence = $this;
-            }
-            else {
-                $sequence = $this->slice( $offset );
-            }
-        }
-        
-        // Search the sub-sequence for the value
-        $searchResult = array_search( $value, $sequence->toArray(), true );
-
-        // Compensate for the offset and reverse search
-        if ( false !== $searchResult ) {
+        if (( $firstKey <= $offset ) && ( $offset <= $lastKey ))
+        {
+            // Get sub-sequence to search
+            $sequence = NULL;
             if ( $isReverse ) {
-                $key = $offset - $searchResult;
+                if ( $lastKey === $offset ) {
+                    $sequence = $this;
+                }
+                else {
+                    $sequence = $this->slice( $firstKey, $offset + 1 );
+                }
+                $sequence = $sequence->reverse();
             }
             else {
-                $key = $searchResult + $offset;
+                if ( $firstKey === $offset ) {
+                    $sequence = $this;
+                }
+                else {
+                    $sequence = $this->slice( $offset );
+                }
+            }
+            
+            // Search the sub-sequence for the value
+            $searchResult = array_search( $value, $sequence->toArray(), true );
+    
+            // Compensate for the offset and reverse search
+            if ( false !== $searchResult ) {
+                if ( $isReverse ) {
+                    $key = $offset - $searchResult;
+                }
+                else {
+                    $key = $searchResult + $offset;
+                }
             }
         }
 
