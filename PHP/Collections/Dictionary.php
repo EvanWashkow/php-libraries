@@ -36,7 +36,7 @@ class Dictionary extends Collection
      *
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
-     * @param array  $entries Initial entries for this collection [ key => value ]
+     * @param array  $entries Initial entries [ key => value ]
      */
     public function __construct( string $keyType   = '*',
                                  string $valueType = '*',
