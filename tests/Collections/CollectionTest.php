@@ -166,6 +166,94 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
+     * Ensure shallow clone $this has the same entries
+     * 
+     * @dataProvider getCloneEntriesData
+     * 
+     * @param Collection $collection The collection to clone
+     * @param array      $expected   The expected entries
+     */
+    public function testShallowCloneEntries( Collection $collection,
+                                             array      $expected )
+    {
+        $clone = clone $collection;
+        $this->assertEquals(
+            $expected,
+            $clone->toArray(),
+            'The cloned collection does not have the same entries'
+        );
+    }
+
+
+    /**
+     * Ensure shallow clone $this has the same entries
+     * 
+     * @dataProvider getCloneEntriesData
+     * 
+     * @param Collection $collection The collection to clone
+     * @param array      $expected   The expected entries
+     */
+    public function testDeepCloneEntries( Collection $collection,
+                                          array      $expected )
+    {
+        $clone = $collection->clone();
+        $this->assertEquals(
+            $expected,
+            $clone->toArray(),
+            'The cloned collection does not have the same entries'
+        );
+    }
+
+
+    /**
+     * Retrieve test data for testing that clone rewinds the collection
+     * 
+     * @return array
+     */
+    public function getCloneEntriesData(): array
+    {
+        return [
+
+            // Dictionary
+            'Empty Dictionary' => [
+                new Dictionary(),
+                []
+            ],
+            'Non-empty Dictionary' => [
+                new Dictionary( '*', '*', [
+                    'foo' => 'bar',
+                    'biz' => 'baz'
+                ]),
+                [
+                    'foo' => 'bar',
+                    'biz' => 'baz'
+                ]
+            ],
+
+            // Sequence
+            'Empty Sequence' => [
+                new Sequence(),
+                []
+            ],
+            'Non-empty Sequence' => [
+                new Sequence( '*', [
+                    'foo',
+                    'bar',
+                    'biz',
+                    'baz'
+                ]),
+                [
+                    'foo',
+                    'bar',
+                    'biz',
+                    'baz'
+                ]
+            ]
+        ];
+    }
+
+
+    /**
      * Ensure shallow clone $this rewinds the collection
      * 
      * @dataProvider getCloneRewindsData
