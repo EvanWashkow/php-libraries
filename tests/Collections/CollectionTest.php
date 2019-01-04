@@ -71,6 +71,54 @@ class CollectionTest extends CollectionsTestCase
     }
 
 
+    /**
+     * Ensure the constructor sets initial entries
+     * 
+     * @dataProvider getConstructorEntriesData
+     * 
+     * @param Collection $collection The collection instance
+     * @param array      $expected   The expected entries
+     **/
+    public function testConstructorEntries( Collection $collection,
+                                            array      $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->toArray(),
+            'Collection constructor did not set the initial entries'
+        );
+    }
+
+
+    /**
+     * Get test data for testing constructor sets initial entries
+     * 
+     * @return array
+     */
+    public function getConstructorEntriesData(): array
+    {
+        return [
+
+            // Dictionary
+            'Dictionary with no entries' => [
+                new Dictionary('string', 'string', []), []
+            ],
+            'Dictionary with entries' => [
+                new Dictionary('string', 'string', [ 'foo' => 'bar' ]),
+                [ 'foo' => 'bar' ]
+            ],
+            'Dictionary with wrong key type' => [
+                new Dictionary('int', 'string', [ 'foo' => 'bar' ]),
+                []
+            ],
+            'Dictionary with wrong value type' => [
+                new Dictionary('string', 'int', [ 'foo' => 'bar' ]),
+                []
+            ]
+        ];
+    }
+
+
 
 
     /***************************************************************************
