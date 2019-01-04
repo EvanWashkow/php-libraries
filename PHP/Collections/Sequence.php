@@ -39,13 +39,20 @@ class Sequence extends Collection
      */
     public function __construct( string $type = '*' )
     {
-        // Throw error for NULL value types
-        if ( 'null' === strtolower( $type )) {
-            throw new \Exception( 'Sequence values cannot be NULL' );
+        // Set parent properties
+        parent::__construct( 'int', $type );
+
+        /**
+         * Throw error for NULL value types.
+         * 
+         * Do not use $this->getValueType()->is( 'null' ), which will return
+         * true for wildcard types.
+         */ 
+        if ( 'null' === $this->getValueType()->getName() ) {
+            throw new \InvalidArgumentException( 'Sequence values cannot be NULL' );
         }
         
-        // Set properties
-        parent::__construct( 'int', $type );
+        // Set own properties
         $this->clear();
     }
 
