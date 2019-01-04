@@ -459,48 +459,46 @@ class Sequence extends Collection
 
 
     /**
-     * Divide entries into groups, using the value as the delimeter
+     * Split this sequence into sub-sequences, using a value as the delimiter
+     * 
+     * The delimiter is not included in the resulting sub-sequences
      *
-     * @param mixed $delimiter Value separating each group
-     * @param int   $limit     Maximum number of entries to return; negative to return all.
+     * @param mixed $delimiter Value to divide the sequence over
+     * @param int   $limit     Maximum number of entries to return
      * @return Sequence
      */
     public function split( $delimiter, int $limit = PHP_INT_MAX ): Sequence
     {
         // Variables
-        $start         = $this->getFirstKey();
-        $lastKey       = $this->getLastKey();
-        $outerSequence = new self( get_class( $this ) );
+        $start    = $this->getFirstKey();
+        $lastKey  = $this->getLastKey();
+        $sequence = new self( self::class );
         
-        while (
-            // Starting index is not past the end of this sequence
-            ( $start <= $lastKey ) &&
-            // Haven't exceeded requested items
-            ( $outerSequence->count() < $limit )
-        ) {
+        // Continue looping until all the requirements are satisfied
+        while (( $start <= $lastKey ) && ( $sequence->count() < $limit )) {
             
-            // Try to find the next delimiter
+            // Try to find the next delimiter value
             try {
                 $end   = $this->getKeyOf( $delimiter, $start );
                 $count = $end - $start;
             }
 
-            // Delimiter not found: gather all the remaining entries
+            // Value not found: gather all the remaining entries
             catch ( \Throwable $th ) {
                 $end   = $lastKey;
                 $count = ( $end + 1 ) - $start;
             }
             
-            // There are items to slice and add to the outer sequence
+            // Append entry group to the outer sequence, excluding the delimiter
             if ( 0 < $count ) {
                 $innerSequence = $this->slice( $start, $count );
-                $outerSequence->add( $innerSequence );
+                $sequence->add( $innerSequence );
             }
             
-            // Move to next entry
+            // Move one past the delimiter
             $start = $end + 1;
         }
         
-        return $outerSequence;
+        return $sequence;
     }
 }
