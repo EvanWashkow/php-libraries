@@ -471,13 +471,14 @@ class Sequence extends Collection
     {
         // Variables
         $start         = $this->getFirstKey();
+        $lastKey       = $this->getLastKey();
         $outerSequence = new self( get_class( $this ) );
         
         while (
-            // Haven't exceeded requested items
-            ( $outerSequence->count() < $limit ) &&
             // Starting index is not past the end of this sequence
-            ( $start <= $this->getLastKey() )
+            ( $start <= $lastKey ) &&
+            // Haven't exceeded requested items
+            ( $outerSequence->count() < $limit )
         ) {
             
             // Try to find the next delimiter
@@ -488,7 +489,7 @@ class Sequence extends Collection
 
             // Delimiter not found: gather all the remaining entries
             catch ( \Throwable $th ) {
-                $end   = $this->getLastKey();
+                $end   = $lastKey;
                 $count = ( $end + 1 ) - $start;
             }
             
