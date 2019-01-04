@@ -44,9 +44,10 @@ class Sequence extends Collection
         parent::__construct( 'int', $type );
 
         // For each entry, make sure it is the right type
-        if ( !is_a( $this->getValueType(), Collection\WildcardType::class )) {
+        $valueType = $this->getValueType();
+        if ( !is_a( $valueType, Collection\WildcardType::class )) {
             foreach ( $entries as $key => $value ) {
-                if ( !$this->getValueType()->equals( $value )) {
+                if ( !$valueType->equals( $value )) {
                     trigger_error( 'Wrong value type' );
                     unset( $entries[ $key ] );
                 }
