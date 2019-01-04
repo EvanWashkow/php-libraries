@@ -427,6 +427,12 @@ class Sequence extends Collection
      * they *must* be inclusive. However, this inclusivity prevents them from
      * ever selecting an empty list---which is completely valid---without
      * specifying some erroneous state (such as start = 5 and end = 4).
+     * 
+     * @internal Even though "array_slice()" supports a negative offset and
+     * length, we don't. It is a bad practice to specify starting keys before
+     * the beginning of the array and negative lengths. They are not only
+     * impossible, but confusing and prevent useful errors when there is an
+     * arithmetic error in the caller's logic.
      *
      * @param int $offset Starting key (inclusive)
      * @param int $count  Number of items to copy
@@ -434,14 +440,6 @@ class Sequence extends Collection
      */
     public function slice( int $offset, int $count = PHP_INT_MAX ): Sequence
     {
-        /**
-         * Even though "array_slice()" supports a negative offset and length,
-         * we don't support that. It is a bad practice to specify starting keys
-         * before the beginning of the array and negative lengths. Not only are
-         * they impossible (in that they do not exist), but are confusing and
-         * prevent useful errors when there is an arithmetic error in the caller.
-         */
-        
         // Sanitize the starting key
         if ( $offset < $this->getFirstKey() ) {
             trigger_error( 'Starting key cannot be before the first key of the sequence.' );
