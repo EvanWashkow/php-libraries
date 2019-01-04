@@ -17,59 +17,89 @@ class SequenceTest extends CollectionsTestCase
     /***************************************************************************
     *                            Sequence->add()
     ***************************************************************************/
-    
-    
+
     /**
-     * Ensure Sequence->add() has the same value at the end
+     * Ensure Sequence->add() returns the correct results
+     * 
+     * @dataProvider getAddData
+     * 
+     * @param Sequence $sequence        The sequence to test
+     * @param array    $newValues       The values to add to the sequence
+     * @param array    $expectedValues  The expected values from toArray()
+     * @param bool     $isErrorExpected If an error should be thrown
      */
-    public function testAddValueIsSame()
+    public function testAdd( Sequence $sequence,
+                             array    $newValues,
+                             array    $expectedValues,
+                             bool     $isErrorExpected )
     {
-        foreach ( SequenceData::Get() as $type => $sequences ) {
-            $value = CollectionsTestData::Get()[ $type ][ 0 ];
-            foreach ( $sequences as $sequence ) {
-                $before = $sequence->count();
-                $class  = self::getClassName( $sequence );
+        // Tests
+        $isError = false;
+        try {
+            foreach ( $newValues as $value ) {
                 $sequence->add( $value );
-                $this->assertEquals(
-                    $value,
-                    $sequence->get( $sequence->getLastKey() ),
-                    "Expected {$class}->add() to have the same value at the end"
-                );
             }
+        } catch ( \Throwable $th ) {
+            $isError = true;
         }
+
+        // Assert same values
+        $this->assertEquals(
+            $expectedValues,
+            $sequence->toArray(),
+            'Sequence->add() did not add the values properly'
+        );
+
+        // Assert error
+        $postMessage = $isErrorExpected
+            ? 'did not throw an error, as expected'
+            : 'threw an error, which was not expected';
+        $this->assertEquals(
+            $isErrorExpected,
+            $isError,
+            "Sequence->add() {$postMessage}"
+        );
     }
-    
-    
-    /**
-     * Ensure Sequence->add() errors on the wrong value type
-     */
-    public function testAddErrorsOnWrongType()
+
+
+    public function getAddData(): array
     {
-        foreach ( SequenceData::Get() as $type => $sequences ) {
-            if ( '' === $type ) {
-                continue;
-            }
-            
-            foreach ( $sequences as $sequence ) {
-                foreach ( CollectionsTestData::Get() as $valueType => $values ) {
-                    if ( in_array( $valueType, [ '', $type ] )) {
-                        continue;
-                    }
-                    
-                    $isError = false;
-                    try {
-                        $sequence->add( $values[ 0 ] );
-                    } catch (\Exception $e) {
-                        $isError = true;
-                    }
-                    $class = self::getClassName( $sequence );
-                    $this->assertTrue(
-                        $isError,
-                        "Expected {$class}->insert() to error on wrong value type"
-                    );
-                }
-            }
-        }
+        return [
+
+            // Non-errors
+            'Empty Sequence, adding no values' => [
+                new Sequence( 'string' ),
+                [],
+                [],
+                false
+            ],
+            'Empty Sequence, adding right value types' => [
+                new Sequence( 'string' ),
+                [ 'foo', 'bar' ],
+                [ 'foo', 'bar' ],
+                false
+            ],
+            'Non-empty Sequence, adding right value types' => [
+                new Sequence( 'string', [ 'foo', 'bar' ] ),
+                [ 'biz', 'baz' ],
+                [ 'foo', 'bar', 'biz', 'baz' ],
+                false
+            ],
+
+            // Errors
+            'Empty Sequence, adding wrong value types' => [
+                new Sequence( 'string' ),
+                [ 1, 2 ],
+                [],
+                true
+            ],
+            'Non-empty Sequence, adding wrong value types' => [
+                new Sequence( 'string', [ 'foo', 'bar' ] ),
+                [ 1, 2 ],
+                [ 'foo', 'bar' ],
+                true
+            ]
+        ];
     }
 
 
