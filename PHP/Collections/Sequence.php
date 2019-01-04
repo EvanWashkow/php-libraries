@@ -296,7 +296,7 @@ class Sequence extends Collection
      * @param mixed $value The value to add
      * @return bool Whether or not the operation was successful
      */
-    final public function add( $value ): bool
+    public function add( $value ): bool
     {
         $isSuccessful = $this->getValueType()->equals( $value );
         if ( $isSuccessful ) {
