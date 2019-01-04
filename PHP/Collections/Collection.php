@@ -84,12 +84,7 @@ abstract class Collection extends    \PHP\PHPObject
 
         // For each initial entry, add it to this collection
         foreach ( $entries as $key => $value ) {
-            if (
-                $this->keyType->equals(   $key   ) &&
-                $this->valueType->equals( $value )
-            ) {
-                $this->set( $key, $value );
-            }
+            $this->set( $key, $value );
         }
     }
 
