@@ -360,12 +360,10 @@ class Sequence extends Collection
      */
     public function reverse(): Sequence
     {
-        $sequence = new self( $this->getKeyType()->getName() );
-        $entries  = array_reverse( $this->entries, false );
-        foreach ( $entries as $entry ) {
-            $sequence->add( $entry );
-        }
-        return $sequence;
+        return new self(
+            $this->getKeyType()->getName(),
+            array_reverse( $this->entries, false )
+        );
     }
 
 
