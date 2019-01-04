@@ -602,19 +602,19 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getGetValuesData(): array
     {
-        $dictionary = new Dictionary();
-        $dictionary->set( 'foo',   'bar' );
-        $dictionary->set( 'false', true );
-        $dictionary->set( '1',     0 );
-
-        $sequence = new Sequence();
-        $sequence->add( 2 );
-        $sequence->add( '1' );
-        $sequence->add( false );
-
         return [
-            [ $dictionary, [ 'bar', true, 0 ] ],
-            [ $sequence,   [ 2, '1', false ] ]
+            [
+                new Dictionary( '*', '*', [
+                    'foo'   => 'bar',
+                    'false' => true,
+                    '1'     => 0
+                ]),
+                [ 'bar', true, 0 ]
+            ],
+            [
+                new Sequence( '*', [ 2, '1', false ] ),
+                [ 2, '1', false ]
+            ]
         ];
     }
 
