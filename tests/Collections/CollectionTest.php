@@ -58,7 +58,15 @@ class CollectionTest extends CollectionsTestCase
             ],
             'new Dictionary( *, foobar )' => [
                 function () { new Dictionary( '*', 'foobar' ); }
-            ]
+            ],
+
+            // Sequence
+            'new Sequence( null )'   => [
+                function () { new Sequence( 'null' ); }
+            ],
+            'new Sequence( foobar )' => [
+                function () { new Sequence( 'foobar' ); }
+            ],
         ];
     }
 
