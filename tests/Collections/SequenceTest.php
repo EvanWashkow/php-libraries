@@ -685,21 +685,22 @@ class SequenceTest extends CollectionsTestCase
      */
     public function getSplitResultsData(): array
     {
-        $sequence = new Sequence();
-        $sequence->add( 0 );    // Index 0
-        $sequence->add( 1 );    // Index 1
-        $sequence->add( 1 );    // Index 2
-        $sequence->add( 0 );    // Index 3
-        $sequence->add( 1 );    // Index 4
-        $sequence->add( 0 );    // Index 5
-
+        $sequence = new Sequence( 'int', [
+            0 => 0,
+            1 => 1,
+            2 => 1,
+            3 => 0,
+            4 => 1,
+            5 => 0,
+            6 => 0
+        ]);
 
         return [
             'Delimiter 0, Limit max' => [
                 $sequence, 0, PHP_INT_MAX, [ [ 1, 1 ], [ 1 ] ]
             ],
             'Delimiter 1, Limit max' => [
-                $sequence, 1, PHP_INT_MAX, [ [ 0 ], [ 0 ], [ 0 ] ]
+                $sequence, 1, PHP_INT_MAX, [ [ 0 ], [ 0 ], [ 0, 0 ] ]
             ],
             'Delimiter 1, Limit 0' => [
                 $sequence, 1, 0, []
@@ -708,7 +709,7 @@ class SequenceTest extends CollectionsTestCase
                 $sequence, 1, 2, [ [ 0 ], [ 0 ] ]
             ],
             'Unfound delimiter' => [
-                $sequence, 5, PHP_INT_MAX, [ [ 0, 1, 1, 0, 1, 0 ] ]
+                $sequence, 5, PHP_INT_MAX, [ [ 0, 1, 1, 0, 1, 0, 0 ] ]
             ]
         ];
     }
