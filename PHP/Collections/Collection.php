@@ -44,8 +44,11 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
      * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
+     * @param array  $entries Initial entries for this collection
      */
-    public function __construct( string $keyType = '*', string $valueType = '*' )
+    public function __construct( string $keyType   = '*',
+                                 string $valueType = '*',
+                                 array  $entries   = [] )
     {
         // Lookup key type
         $keyType = trim( $keyType );
@@ -77,6 +80,16 @@ abstract class Collection extends    \PHP\PHPObject
         }
         elseif ( in_array( $valueType, $invalidTypes )) {
             throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
+        }
+
+        // For each initial entry, add it to this collection
+        foreach ( $entries as $key => $value ) {
+            if (
+                $this->keyType->equals(   $key   ) &&
+                $this->valueType->equals( $value )
+            ) {
+                $this->set( $key, $value );
+            }
         }
     }
 
