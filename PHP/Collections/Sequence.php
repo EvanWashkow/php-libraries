@@ -450,12 +450,10 @@ class Sequence extends Collection
         }
         
         // Slice and copy entries to the sub-sequence
-        $array    = array_slice( $this->entries, $offset, $limit );
-        $sequence = new self( $this->getValueType()->getName() );
-        foreach ( $array as $value ) {
-            $sequence->add( $value );
-        }
+        $entries  = array_slice( $this->entries, $offset, $limit );
+        $sequence = new self( $this->getValueType()->getName(), $entries );
         
+        // Return sub-sequence
         return $sequence;
     }
 
