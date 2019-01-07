@@ -72,6 +72,7 @@ class ReadOnlySequence extends ReadOnlyCollection
         // For each inner sequence, make it read-only and add it to the outer
         $splitSequence->loop( function( $key, $innerSequence ) use ( &$outerSequence ) {
             $outerSequence->add( new self( $innerSequence ));
+            return true;
         });
         return new self( $outerSequence );
     }

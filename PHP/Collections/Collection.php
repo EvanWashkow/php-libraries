@@ -276,6 +276,7 @@ abstract class Collection extends    \PHP\PHPObject
         $keys = new Sequence( $this->getKeyType()->getName() );
         $this->loop( function( $key, $value ) use ( &$keys ) {
             $keys->add( $key );
+            return true;
         });
         return $keys;
     }
@@ -302,6 +303,7 @@ abstract class Collection extends    \PHP\PHPObject
         $values = new Sequence( $this->getValueType()->getName() );
         $this->loop( function( $key, $value ) use ( &$values ) {
             $values->add( $value );
+            return true;
         });
         return $values;
     }

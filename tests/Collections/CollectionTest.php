@@ -939,11 +939,19 @@ class CollectionTest extends CollectionsTestCase
         $index = 0;
         $collection->loop( function( $key, $value ) use ( &$index, $keys )
         {
-            // Breaking early keeps the index is pointing to a valid key index
-            if ( $key !== $keys[ $index ] ) {
-                return false;
+            // Variables
+            $continue;
+
+            // Breaking early keeps the index pointing to a valid key index
+            if ( $key === $keys[ $index ] ) {
+                $continue = true;
+                $index++;
             }
-            $index++;
+            else {
+                $continue = false;
+            }
+
+            return $continue;
         });
 
         // Ensure that the loop finished iterating through ALL the expected keys
@@ -970,11 +978,19 @@ class CollectionTest extends CollectionsTestCase
         $index = 0;
         $collection->loop( function( $key, $value ) use ( &$index, $values )
         {
-            // Breaking early keeps the index is pointing to a valid value index
-            if ( $value !== $values[ $index ] ) {
-                return false;
+            // Variables
+            $continue;
+
+            // Breaking early keeps the index pointing to a valid value index
+            if ( $value === $values[ $index ] ) {
+                $continue = true;
+                $index++;
             }
-            $index++;
+            else {
+                $continue = false;
+            }
+
+            return $continue;
         });
 
         // Ensure that the loop finished iterating through ALL the expected values
@@ -1096,7 +1112,7 @@ class CollectionTest extends CollectionsTestCase
             }
             $collection->loop( function( $key, $value ) use ( $collection ) {
                 $collection->remove( $key );
-                return 1;
+                return false;
             });
             $after = $collection->count();
             
@@ -1165,8 +1181,10 @@ class CollectionTest extends CollectionsTestCase
     public function testRemoveTriggersErrorForWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
-            $value = $collection->loop(function( $key, $value ) {
-                return $value;
+            $value;
+            $collection->loop(function( $key, $v ) use ( &$value ) {
+                $value = $v;
+                return false;
             });
             $previous = $collection->count();
             $isError  = false;
@@ -1192,8 +1210,10 @@ class CollectionTest extends CollectionsTestCase
     public function testRemoveHasSameCountForWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
-            $value = $collection->loop(function( $key, $value ) {
-                return $value;
+            $value;
+            $collection->loop(function( $key, $v ) use ( &$value ) {
+                $value = $v;
+                return false;
             });
             $previous = $collection->count();
             $isError  = false;
@@ -1237,7 +1257,7 @@ class CollectionTest extends CollectionsTestCase
             $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
                 $key   = $k;
                 $value = $v;
-                return 1;
+                return false;
             });
             $collection->clear();
             
@@ -1273,6 +1293,7 @@ class CollectionTest extends CollectionsTestCase
                     $key = $k;
                 }
                 $value = $v;
+                return true;
             });
             $collection->set( $key, $value );
             
@@ -1298,7 +1319,7 @@ class CollectionTest extends CollectionsTestCase
             $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
                 $key   = $k;
                 $value = $v;
-                return 1;
+                return false;
             });
             
             $isError = false;
@@ -1328,7 +1349,7 @@ class CollectionTest extends CollectionsTestCase
             $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
                 $key   = $k;
                 $value = $v;
-                return 1;
+                return false;
             });
             try {
                 $collection->set( $value, $value );
@@ -1354,7 +1375,7 @@ class CollectionTest extends CollectionsTestCase
             $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
                 $key   = $k;
                 $value = $v;
-                return 1;
+                return false;
             });
             
             $isError = false;
@@ -1388,7 +1409,7 @@ class CollectionTest extends CollectionsTestCase
             $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
                 $key   = $k;
                 $value = $v;
-                return 1;
+                return false;
             });
             try {
                 $collection->set( $key, $key );

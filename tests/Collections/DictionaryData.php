@@ -34,6 +34,7 @@ class DictionaryData
         foreach ( self::GetTyped() as $typedDictionary ) {
             $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
                 $dictionary->set( $key, $value );
+                return true;
             });
         }
         return [
