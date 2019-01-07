@@ -1000,6 +1000,38 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
+     * Test loop() iterates correctly over nested loops
+     * 
+     * @dataProvider getLoopData
+     * 
+     * @param Collection $collection     The collection
+     * @param array      $expectedKeys   The expected keys
+     * @param array      $expectedValues The expected values
+     */
+    public function testNestedLoops( Collection $collection,
+                                     array      $expectedKeys,
+                                     array      $expectedValues )
+    {
+        $keys = [];
+        $collection->loop( function( $key, $value ) use ( $collection, &$keys )
+        {
+            $keys[] = $key;
+            $collection->loop(function( $key, $value ) {
+                return true;
+            });
+            return true;
+        });
+
+        // Ensure that the loop iterated through ALL the expected keys
+        $this->assertEquals(
+            $expectedKeys,
+            $keys,
+            'Nested Collection->loop() did not iterate through all the keys'
+        );
+    }
+
+
+    /**
      * Retrieve test data for testing loop keys and values
      * 
      * @return array
