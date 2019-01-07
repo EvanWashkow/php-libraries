@@ -409,7 +409,11 @@ abstract class Collection extends    \PHP\PHPObject
             $outerLoopKey = $this->key();
         }
         
-        // Loop through each value, until the return value is not null
+        /**
+         * Loop through each value, until the return value is not null
+         * 
+         * Do not use iterator_apply(). It is at least twice as slow as this.
+         */
         $this->rewind();
         while ( $this->valid() ) {
             
