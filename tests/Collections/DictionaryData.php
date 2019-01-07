@@ -30,7 +30,7 @@ class DictionaryData
      */
     public static function GetMixed(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         foreach ( self::GetTyped() as $typedDictionary ) {
             $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
                 $dictionary->set( $key, $value );

@@ -32,15 +32,17 @@ class Dictionary extends Collection
 
 
     /**
-     * Create a new Dictionary
+     * Create a new collection of entries, stored in key-value pairs
+     * 
+     * Only supports string and integer keys, for the time being.
      *
-     * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
-     * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
-     * @param array  $entries Initial entries [ key => value ]
+     * @param string $keyType   Type requirement for keys. '*' allows all types.
+     * @param string $valueType Type requirement for values. '*' allows all types.
+     * @param array  $entries   Initial entries [ key => value ]
      */
-    public function __construct( string $keyType   = '*',
-                                 string $valueType = '*',
-                                 array  $entries   = [] )
+    public function __construct( string $keyType,
+                                 string $valueType,
+                                 array  $entries = [] )
     {
         // Set properties
         $this->clear();

@@ -42,12 +42,12 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Create a new Collection
      *
-     * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
-     * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
-     * @param array  $entries Initial entries [ key => value ]
+     * @param string $keyType   Type requirement for keys. '*' allows all types.
+     * @param string $valueType Type requirement for values. '*' allows all types.
+     * @param array  $entries   Initial entries [ key => value ]
      */
-    public function __construct( string $keyType   = '*',
-                                 string $valueType = '*',
+    public function __construct( string $keyType,
+                                 string $valueType,
                                  array  $entries   = [] )
     {
         // Lookup key type

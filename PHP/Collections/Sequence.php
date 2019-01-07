@@ -33,12 +33,12 @@ class Sequence extends Collection
 
 
     /**
-     * Create a new enumerated instance
+     * Create a new collection of entries, stored sequentially
      *
-     * @param string $type Specifies the type requirement for all values (see `is()`). An empty string permits all types.
-     * @param array  $entries Initial entries
+     * @param string $type    Type requirement for values. '*' allows all types.
+     * @param array  $entries Initial entries [ key => value ]
      */
-    public function __construct( string $type = '*', array $entries = [] )
+    public function __construct( string $type, array $entries = [] )
     {
         // Set parent properties
         parent::__construct( 'int', $type );
