@@ -403,43 +403,29 @@ abstract class Collection extends    \PHP\PHPObject
      */
     final public function loop( \Closure $function )
     {
-        // Stash outer loop position (if there is one)
-        $outerLoopKey = null;
-        if ( $this->valid() ) {
-            $outerLoopKey = $this->key();
-        }
-        
         /**
          * Loop through each value, until the return value is not null
          * 
          * Do not use iterator_apply(). It is at least twice as slow as this.
          */
-        $this->rewind();
-        while ( $this->valid() ) {
+        $collection = clone $this;
+        $collection->rewind();
+        while ( $collection->valid() ) {
             
             // Execute callback function
-            $key            = $this->key();
-            $value          = $this->current();
+            $key            = $collection->key();
+            $value          = $collection->current();
             $shouldContinue = $function( $key, $value );
             
             // Handle return value
             if ( true === $shouldContinue ) {
-                $this->next();
+                $collection->next();
             }
             elseif ( false === $shouldContinue ) {
                 break;
             }
             else {
                 throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
-            }
-        }
-        
-        // Restore outer loop position (if there is one)
-        if ( null !== $outerLoopKey ) {
-            try {
-                $this->seek( $outerLoopKey );
-            } catch ( \Exception $e ) {
-                $this->rewind();
             }
         }
     }
