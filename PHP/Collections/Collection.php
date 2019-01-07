@@ -401,7 +401,7 @@ abstract class Collection extends    \PHP\PHPObject
      * @return void
      * @throws \TypeError If the callback does not return a boolean value
      */
-    final public function loop( \Closure $function ): void
+    final public function loop( \Closure $function )
     {
         // Stash outer loop position (if there is one)
         $outerLoopKey = null;
