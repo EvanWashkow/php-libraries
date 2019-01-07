@@ -398,14 +398,11 @@ abstract class Collection extends    \PHP\PHPObject
      * dirties class namespaces, and should be discouraged.
      *
      * @param \Closure $function Callback function to execute for each entry
-     * @return mixed NULL or the value returned by the callback function
+     * @return void
      * @throws \TypeError If the callback does not return a boolean value
      */
-    final public function loop( \Closure $function )
+    final public function loop( \Closure $function ): void
     {
-        // Variables
-        $returnValue = null;
-        
         // Stash outer loop position (if there is one)
         $outerLoopKey = null;
         if ( $this->valid() ) {
@@ -441,7 +438,5 @@ abstract class Collection extends    \PHP\PHPObject
                 $this->rewind();
             }
         }
-        
-        return $returnValue;
     }
 }
