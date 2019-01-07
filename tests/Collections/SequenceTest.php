@@ -115,7 +115,7 @@ class SequenceTest extends CollectionsTestCase
     public function testGetFirstKeyReturnsZero()
     {
         $this->assertEquals(
-            (new Sequence( '*' ))->getFirstKey(),
+            (new Sequence())->getFirstKey(),
             0,
             'The first key of a Sequence should always be zero'
         );
@@ -180,7 +180,7 @@ class SequenceTest extends CollectionsTestCase
      **/
     public function getGetKeyOfExceptionData(): array
     {
-        $sequence = new Sequence( '*' );
+        $sequence = new Sequence();
         $sequence->add( 0 );    // Offset 0
         $sequence->add( 1 );    // Offset 1
         $sequence->add( 1 );    // Offset 2
@@ -238,7 +238,7 @@ class SequenceTest extends CollectionsTestCase
      **/
     public function getGetKeyOfResultData(): array
     {
-        $sequence = new Sequence( '*' );
+        $sequence = new Sequence();
         $sequence->add( 0 );    // Offset 0
         $sequence->add( 1 );    // Offset 1
         $sequence->add( 1 );    // Offset 2
@@ -463,7 +463,7 @@ class SequenceTest extends CollectionsTestCase
     {
         $this->assertInstanceOf(
             Sequence::class,
-            ( new Sequence( '*' ) )->reverse(),
+            ( new Sequence() )->reverse(),
             'Sequence->reverse() should return a new Sequence instance'
         );
     }
@@ -501,7 +501,7 @@ class SequenceTest extends CollectionsTestCase
     {
         $this->assertInstanceOf(
             Sequence::class,
-            ( new Sequence( '*' ) )->slice( 0 ),
+            ( new Sequence() )->slice( 0 ),
             'Sequence->slice() should return a new Sequence instance'
         );
     }
@@ -537,7 +537,7 @@ class SequenceTest extends CollectionsTestCase
      **/
     public function getTestSliceResultsData(): array
     {
-        $sequence = new Sequence( '*' );
+        $sequence = new Sequence();
         $sequence->add(1);
         $sequence->add(2);
         $sequence->add(3);
@@ -573,7 +573,7 @@ class SequenceTest extends CollectionsTestCase
     public function testSliceOffetError()
     {
         try {
-            ( new Sequence( '*' ) )->slice( -1 );
+            ( new Sequence() )->slice( -1 );
         } catch (\Throwable $th) {
             $isError = true;
         }
@@ -591,7 +591,7 @@ class SequenceTest extends CollectionsTestCase
     public function testSliceCountError()
     {
         try {
-            ( new Sequence( '*' ) )->slice( 0, -1 );
+            ( new Sequence() )->slice( 0, -1 );
         } catch (\Throwable $th) {
             $isError = true;
         }
@@ -617,7 +617,7 @@ class SequenceTest extends CollectionsTestCase
     {
         $this->assertInstanceOf(
             Sequence::class,
-            ( new Sequence( '*' ) )->split( '1' ),
+            ( new Sequence() )->split( '1' ),
             'Sequence->split() should return a new Sequence instance'
         );
     }
@@ -628,7 +628,7 @@ class SequenceTest extends CollectionsTestCase
      **/
     public function testSplitInnerReturnType()
     {
-        $sequence = new Sequence( '*' );
+        $sequence = new Sequence();
         $sequence->add( 0 );
         $sequence->add( 1 );
 
@@ -700,7 +700,7 @@ class SequenceTest extends CollectionsTestCase
 
         return [
             'No entries' => [
-                new Sequence( '*' ), 0, PHP_INT_MAX, []
+                new Sequence(), 0, PHP_INT_MAX, []
             ],
             'One entry, found delimiter' => [
                 new Sequence( '*', [ 1 ] ),
@@ -749,15 +749,15 @@ class SequenceTest extends CollectionsTestCase
         $data = [];
 
         // Empty sequence
-        $data[ 'Empty Sequence' ] = [ new Sequence( '*' ) ];
+        $data[ 'Empty Sequence' ] = [ new Sequence() ];
 
         // Sequence with one entry
-        $sequence = new Sequence( '*' );
+        $sequence = new Sequence();
         $sequence->add(0);
         $data[ 'Sequence with one entry' ] = [ $sequence ];
 
         // Sequence with multiple entries
-        $sequence = new Sequence( '*' );
+        $sequence = new Sequence();
         $sequence->add(0);
         $sequence->add(1);
         $sequence->add(2);

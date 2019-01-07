@@ -42,9 +42,9 @@ class Dictionary extends Collection
      * @param array  $entries   Initial entries [ key => value ]
      * @throws \InvalidArgumentException On bad key / value type
      */
-    public function __construct( string $keyType,
-                                 string $valueType,
-                                 array  $entries = [] )
+    public function __construct( string $keyType   = '*',
+                                 string $valueType = '*',
+                                 array  $entries   = [] )
     {
         // Set properties
         $this->clear();
