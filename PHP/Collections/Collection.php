@@ -396,6 +396,8 @@ abstract class Collection extends    \PHP\PHPObject
      * faster than the "callable" pseudo-type. Also, users **should** be using
      * closures rather than hard-coded, public functions. Doing this needlessly
      * dirties class namespaces, and should be discouraged.
+     * 
+     * @internal Do not use iterator_apply(). It is at least twice as slow as this.
      *
      * @param \Closure $function Callback function to execute for each entry
      * @return void
@@ -403,11 +405,8 @@ abstract class Collection extends    \PHP\PHPObject
      */
     final public function loop( \Closure $function )
     {
-        /**
-         * Loop through each value, until the return value is not null
-         * 
-         * Do not use iterator_apply(). It is at least twice as slow as this.
-         */
+        // Loop through each value, until the end of the collection is reached,
+        // or caller wants to stop the loop
         $collection = clone $this;
         $collection->rewind();
         while ( $collection->valid() ) {
