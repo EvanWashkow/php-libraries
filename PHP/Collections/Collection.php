@@ -407,21 +407,23 @@ abstract class Collection extends    \PHP\PHPObject
     {
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
-        $collection  = clone $this;
-        $canContinue = true;
-        while ( $canContinue && $collection->valid() ) {
+        $collection = clone $this;
+        while ( $collection->valid() ) {
             
             // Execute callback function
-            $key         = $collection->key();
-            $value       = $collection->current();
-            $canContinue = $function( $key, $value );
+            $key            = $collection->key();
+            $value          = $collection->current();
+            $shouldContinue = $function( $key, $value );
             
             // Handle return value
-            if ( !is_bool( $canContinue )) {
-                throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
-            }
-            elseif ( $canContinue ) {
+            if ( true === $shouldContinue ) {
                 $collection->next();
+            }
+            elseif ( false === $shouldContinue ) {
+                break;
+            }
+            else {
+                throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
             }
         }
     }
