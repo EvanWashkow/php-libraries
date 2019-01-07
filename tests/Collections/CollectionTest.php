@@ -1000,6 +1000,36 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
+     * Test loop() rewinds before iterating throu entries
+     * 
+     * @dataProvider getLoopData
+     * 
+     * @param Collection $collection     The collection
+     * @param array      $expectedKeys   The expected keys
+     * @param array      $expectedValues The expected values
+     */
+    public function testLoopRewindsFirst( Collection $collection,
+                                          array      $expectedKeys,
+                                          array      $expectedValues )
+    {
+        $keys = [];
+        $collection->next();
+        $collection->loop( function( $key, $value ) use ( &$keys )
+        {
+            $keys[] = $key;
+            return true;
+        });
+
+        // Ensure that the loop iterated through ALL the expected keys
+        $this->assertEquals(
+            $expectedKeys,
+            $keys,
+            'Collection->loop() did not rewind before iterating through entries'
+        );
+    }
+
+
+    /**
      * Test loop() iterates correctly over nested loops
      * 
      * @dataProvider getLoopData
