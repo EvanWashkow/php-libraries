@@ -946,35 +946,25 @@ class CollectionTest extends CollectionsTestCase
      * 
      * @dataProvider getLoopData
      * 
-     * @param Collection $collection The collection
-     * @param array      $keys       The expected keys
-     * @param array      $values     The expected values
+     * @param Collection $collection     The collection
+     * @param array      $expectedKeys   The expected keys
+     * @param array      $expectedValues The expected values
      */
     public function testLoopKeys( Collection $collection,
-                                  array      $keys,
-                                  array      $values )
+                                  array      $expectedKeys,
+                                  array      $expectedValues )
     {
-        $index = 0;
-        $collection->loop( function( $key, $value ) use ( &$index, $keys )
+        $keys = [];
+        $collection->loop( function( $key, $value ) use ( &$keys )
         {
-            // Variables
-            $continue;
-
-            // Breaking early keeps the index pointing to a valid key index
-            if ( $key === $keys[ $index ] ) {
-                $continue = true;
-                $index++;
-            }
-            else {
-                $continue = false;
-            }
-
-            return $continue;
+            $keys[] = $key;
+            return true;
         });
 
-        // Ensure that the loop finished iterating through ALL the expected keys
-        $this->assertTrue(
-            !array_key_exists( $index, $keys ),
+        // Ensure that the loop iterated through ALL the expected keys
+        $this->assertEquals(
+            $expectedKeys,
+            $keys,
             'Collection->loop() did not iterate through all the keys'
         );
     }
@@ -985,35 +975,25 @@ class CollectionTest extends CollectionsTestCase
      * 
      * @dataProvider getLoopData
      * 
-     * @param Collection $collection The collection
-     * @param array      $keys       The expected keys
-     * @param array      $values     The expected values
+     * @param Collection $collection     The collection
+     * @param array      $expectedKeys   The expected keys
+     * @param array      $expectedValues The expected values
      */
     public function testLoopValues( Collection $collection,
-                                    array      $keys,
-                                    array      $values )
+                                    array      $expectedKeys,
+                                    array      $expectedValues )
     {
-        $index = 0;
-        $collection->loop( function( $key, $value ) use ( &$index, $values )
+        $values = [];
+        $collection->loop( function( $key, $value ) use ( &$values )
         {
-            // Variables
-            $continue;
-
-            // Breaking early keeps the index pointing to a valid value index
-            if ( $value === $values[ $index ] ) {
-                $continue = true;
-                $index++;
-            }
-            else {
-                $continue = false;
-            }
-
-            return $continue;
+            $values[] = $value;
+            return true;
         });
 
-        // Ensure that the loop finished iterating through ALL the expected values
-        $this->assertTrue(
-            !array_key_exists( $index, $values ),
+        // Ensure that the loop iterated through ALL the expected values
+        $this->assertEquals(
+            $expectedValues,
+            $values,
             'Collection->loop() did not iterate through all the values'
         );
     }
@@ -1026,16 +1006,10 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getLoopData()
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( 'string', 'int' );
         $dictionary->set( '1', 1 );
         $dictionary->set( '2', 2 );
         $dictionary->set( '3', 3 );
-
-        $sequence = new Sequence();
-        $sequence->add( '0' );
-        $sequence->add( '1' );
-        $sequence->add( '2' );
-
 
         return [
 
@@ -1052,7 +1026,9 @@ class CollectionTest extends CollectionsTestCase
                 $dictionary, [ '1', '2', '3' ], [ 1, 2, 3 ]
             ],
             'Sequence int => string' => [
-                $sequence,   [ 0, 1, 2 ],       [ '0', '1', '2' ]
+                new Sequence( 'string', [ '1', '2', '3' ]),
+                [ 0, 1, 2 ],
+                [ '1', '2', '3' ]
             ],
         ];
     }
