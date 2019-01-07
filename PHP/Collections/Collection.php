@@ -380,13 +380,15 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
-     * For each entry in the collection, invoke the callback function with the
-     * key and value
+     * Invoke the callback function for each entry in the collection.
      *
-     * To break the loop, return a non-NULL value. This value will be
-     * returned by loop().
-     *
-     * Variables can be bound the callback function via the `use` clause
+     * Callback function requires two parameters: 1) the key and 2) the value.
+     * Callback function must return a boolean value: "true" to continue,
+     * "false" to break/stop the loop.
+     * To access variables outside the callback function, use the "use" clase:
+     * function() use ( $outerVar ) { $outerVar; }
+     * 
+     * Throws an exception if the callback function does not return a boolean
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
@@ -395,6 +397,7 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @param \Closure $function Callback function to execute for each entry
      * @return mixed NULL or the value returned by the callback function
+     * @throws \TypeError If the callback does not return a boolean value
      */
     final public function loop( \Closure $function )
     {
@@ -412,16 +415,19 @@ abstract class Collection extends    \PHP\PHPObject
         while ( $this->valid() ) {
             
             // Execute callback function
-            $key         = $this->key();
-            $value       = $this->current();
-            $returnValue = call_user_func_array( $function, [ $key, $value ] );
+            $key            = $this->key();
+            $value          = $this->current();
+            $shouldContinue = $function( $key, $value );
             
-            // Go to next entry or stop loop
-            if ( null === $returnValue ) {
+            // Handle return value
+            if ( true === $shouldContinue ) {
                 $this->next();
             }
-            else {
+            elseif ( false === $shouldContinue ) {
                 break;
+            }
+            else {
+                throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
             }
         }
         
