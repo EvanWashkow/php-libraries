@@ -1096,6 +1096,113 @@ class CollectionTest extends CollectionsTestCase
     }
 
 
+    /**
+     * Ensure loop() works correctly when modifying the collection on the inside
+     * 
+     * @dataProvider getLoopWhileModifyingEntriesData
+     * 
+     * @param Collection $collection   The collection
+     * @param array      $toRemove     The keys to remove while in the loop
+     * @param array      $toSet        The key => value entries to set while in the loop
+     */
+    public function testLoopWhileModifyingEntries( Collection $collection,
+                                                   array      $toRemove,
+                                                   array      $toSet )
+    {
+        $expectedKeys = $collection->getKeys()->toArray();
+        $keys         = [];
+        $isFirstLoop  = true;
+        $collection->loop( function( $key, $value ) use ( $collection,
+                                                          $toRemove,
+                                                          $toSet,
+                                                          &$keys,
+                                                          &$isFirstLoop )
+        {
+            $keys[] = $key;
+            if ( $isFirstLoop ) {
+                foreach ( $toRemove as $key ) {
+                    $collection->remove( $key );
+                }
+                foreach ( $toSet as $key => $value ) {
+                    $collection->set( $key, $value );
+                }
+                $isFirstLoop = false;
+            }
+            return true;
+        });
+
+        // Ensure that the loop iterated through ALL the expected keys
+        $this->assertEquals(
+            $expectedKeys,
+            $keys,
+            'Nested Collection->loop() did not iterate through all the entries while modifying the collection'
+        );
+    }
+
+    /**
+     * Get data to test modifying collection while looping
+     * 
+     * @return array
+     */
+    public function getLoopWhileModifyingEntriesData(): array
+    {
+        $dictionary = new Dictionary( 'int', 'string', [
+            1 => 'foo-1',
+            2 => 'foo-2',
+            3 => 'foo-3',
+            4 => 'foo-4',
+            5 => 'foo-5',
+            6 => 'foo-6'
+        ]);
+
+        $sequence = new Sequence( 'string', [
+            'foo-0',
+            'foo-1',
+            'foo-2',
+            'foo-3',
+            'foo-4',
+            'foo-5'
+        ]);
+
+        return [
+
+            // Dictionary
+            'Dictionary: removing entries' => [
+                ( clone $dictionary ),
+                [ 2, 3, 5 ],
+                []
+            ],
+            'Dictionary: setting entries' => [
+                ( clone $dictionary ),
+                [],
+                [ 7 => 'foo-7', 8 => 'foo-8' ]
+            ],
+            'Dictionary: setting and removing entries' => [
+                ( clone $dictionary ),
+                [ 2, 3, 5 ],
+                [ 7 => 'foo-7', 8 => 'foo-8' ]
+            ],
+
+            // Sequence
+            'Sequence: removing entries' => [
+                ( clone $sequence ),
+                [ 1, 2 ],
+                []
+            ],
+            'Sequence: setting entries' => [
+                ( clone $sequence ),
+                [],
+                [ 6 => 'foo-6', 7 => 'foo-7' ]
+            ],
+            'Sequence: setting and removing entries' => [
+                ( clone $sequence ),
+                [ 1, 2 ],
+                [ 4 => 'foo-4', 5 => 'foo-5' ]
+            ]
+        ];
+    }
+
+
 
 
     /***************************************************************************
