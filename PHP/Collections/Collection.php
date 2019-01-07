@@ -408,7 +408,6 @@ abstract class Collection extends    \PHP\PHPObject
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
         $collection = clone $this;
-        $collection->rewind();
         while ( $collection->valid() ) {
             
             // Execute callback function
