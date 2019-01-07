@@ -34,9 +34,12 @@ class Sequence extends Collection
 
     /**
      * Create a new collection of entries, stored sequentially
+     * 
+     * Throws exception when value type is NULL or unknown.
      *
      * @param string $type    Type requirement for values. '*' allows all types.
      * @param array  $entries Initial entries [ key => value ]
+     * @throws \InvalidArgumentException On bad value type
      */
     public function __construct( string $type, array $entries = [] )
     {
