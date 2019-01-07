@@ -896,6 +896,24 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
+     * Test loop() throws exception when callback doesn't return bool
+     * 
+     * @expectedException \TypeError
+     * 
+     * @param Collection $collection The collection
+     * @param array      $keys       The expected keys
+     * @param array      $values     The expected values
+     */
+    public function testLoopException()
+    {
+        $collection = new Sequence( 'string', [ '1', '2', '3' ]);
+        $collection->loop(function( $key, $value ) use ( &$count ) {
+            return;
+        });
+    }
+
+
+    /**
      * Test loop() breaks
      * 
      * @dataProvider getLoopData
