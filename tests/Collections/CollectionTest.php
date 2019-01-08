@@ -1169,7 +1169,7 @@ class CollectionTest extends CollectionsTestCase
             // Dictionary
             'Dictionary: removing entries' => [
                 ( clone $dictionary ),
-                [ 2, 3, 5 ],
+                [ 1, 2, 3, 5 ],
                 []
             ],
             'Dictionary: setting entries' => [
@@ -1179,14 +1179,14 @@ class CollectionTest extends CollectionsTestCase
             ],
             'Dictionary: setting and removing entries' => [
                 ( clone $dictionary ),
-                [ 2, 3, 5 ],
+                [ 1, 2, 3, 5 ],
                 [ 7 => 'foo-7', 8 => 'foo-8' ]
             ],
 
             // Sequence
             'Sequence: removing entries' => [
                 ( clone $sequence ),
-                [ 1, 2 ],
+                [ 0, 1, 2 ],
                 []
             ],
             'Sequence: setting entries' => [
@@ -1196,8 +1196,8 @@ class CollectionTest extends CollectionsTestCase
             ],
             'Sequence: setting and removing entries' => [
                 ( clone $sequence ),
-                [ 1, 2 ],
-                [ 4 => 'foo-4', 5 => 'foo-5' ]
+                [ 0, 1, 2 ],
+                [ 3 => 'foo-3', 4 => 'foo-4' ]
             ]
         ];
     }
