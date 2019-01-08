@@ -111,18 +111,6 @@ class Dictionary extends Collection
 
 
     /**
-     * @see Collection->getValues()
-     */
-    final public function getValues(): Sequence
-    {
-        return new Sequence(
-            $this->getValueType()->getName(),
-            array_values( $this->entries )
-        );
-    }
-
-
-    /**
      * @see Collection->remove()
      */
     final public function remove( $key ): bool

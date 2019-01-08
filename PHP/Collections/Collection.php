@@ -260,14 +260,12 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @return Sequence
      */
-    public function getValues(): Sequence
+    final public function getValues(): Sequence
     {
-        $values = new Sequence( $this->getValueType()->getName() );
-        $this->loop( function( $key, $value ) use ( &$values ) {
-            $values->add( $value );
-            return true;
-        });
-        return $values;
+        return new Sequence(
+            $this->getValueType()->getName(),
+            array_values( $this->toArray() )
+        );
     }
 
 

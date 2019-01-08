@@ -195,15 +195,6 @@ class Sequence extends Collection
 
 
     /**
-     * @see Collection->getValues()
-     */
-    final public function getValues(): Sequence
-    {
-        return ( clone $this );
-    }
-
-
-    /**
      * @see Collection->hasKey()
      */
     final public function hasKey( $key ): bool
