@@ -141,6 +141,17 @@ abstract class Collection extends    \PHP\PHPObject
      */
     abstract public function get( $key );
 
+
+    /**
+     * Retrieve all keys
+     * 
+     * @internal There's no way to write an optimal solution for this (using
+     * toArray()) without also making it incorrect.
+     *
+     * @return Sequence
+     */
+    abstract public function getKeys(): Sequence;
+
     /**
      * Remove an entry
      *
@@ -230,22 +241,6 @@ abstract class Collection extends    \PHP\PHPObject
             throw new \Exception( 'Key not found' );
         }
         return $key;
-    }
-
-
-    /**
-     * Retrieve all keys
-     *
-     * @return Sequence
-     */
-    public function getKeys(): Sequence
-    {
-        $keys = new Sequence( $this->getKeyType()->getName() );
-        $this->loop( function( $key, $value ) use ( &$keys ) {
-            $keys->add( $key );
-            return true;
-        });
-        return $keys;
     }
 
 
