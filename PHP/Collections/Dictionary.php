@@ -99,6 +99,18 @@ class Dictionary extends Collection
 
 
     /**
+     * @see Collection->getKeys()
+     */
+    final public function getKeys(): Sequence
+    {
+        return new Sequence(
+            $this->getKeyType()->getName(),
+            array_keys( $this->entries )
+        );
+    }
+
+
+    /**
      * @see Collection->remove()
      */
     final public function remove( $key ): bool

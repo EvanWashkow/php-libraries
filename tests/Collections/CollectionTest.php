@@ -625,8 +625,9 @@ class CollectionTest extends CollectionsTestCase
      */
     public function testGetKeys( Collection $collection, array $expected )
     {
-        $this->assertTrue(
-            $expected === $collection->getKeys()->toArray(),
+        $this->assertEquals(
+            $expected,
+            $collection->getKeys()->toArray(),
             'Collection->getKeys() didn\'t return the correct results'
         );
     }
