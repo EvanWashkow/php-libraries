@@ -17,7 +17,7 @@ use PHP\Types\Models\Type;
  * @see PHP\Collections\Iterator
  */
 abstract class Collection extends    \PHP\PHPObject
-                          implements \Countable, \SeekableIterator
+                          implements \Countable, \Iterator
 {
 
 
