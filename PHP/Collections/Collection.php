@@ -198,7 +198,7 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Invoked on shallow collection clone
      **/
-    final public function __clone()
+    public function __clone()
     {
         // Reset cursor to the beginning
         $this->rewind();
@@ -210,7 +210,7 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @return static
      */
-    final public function clone(): Collection
+    public function clone(): Collection
     {
         return ( clone $this );
     }
