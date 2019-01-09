@@ -16,12 +16,7 @@ class Sequence extends Collection
     *                               PROPERTIES
     ***************************************************************************/
 
-
-    /**
-     * List of values
-     *
-     * @var array
-     */
+    /** @var array List of values */
     private $entries;
 
 
