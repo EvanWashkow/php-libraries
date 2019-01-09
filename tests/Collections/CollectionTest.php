@@ -819,9 +819,9 @@ class CollectionTest extends CollectionsTestCase
     public function getHasKeyData(): array
     {
         $dictionary = new Dictionary( '*', '*' );
-        $dictionary->set( 'foo',   'bar' );
         $dictionary->set( 'false', true );
         $dictionary->set( '1',     0 );
+        $dictionary->set( 'foobar', 'foobar' );
 
         $sequence = new Sequence( '*' );
         $sequence->add( 2 );
@@ -829,12 +829,11 @@ class CollectionTest extends CollectionsTestCase
         $sequence->add( false );
 
         return [
-            [ $dictionary, 'false',         true ],
-            [ $dictionary, 'dog',           false ],
-            [ $dictionary, new \stdClass(), false ],
-            [ $sequence,   0,               true ],
-            [ $sequence,   5,               false ],
-            [ $sequence,   new \stdClass(), false ]
+            'Dictionary valid'   => [ $dictionary, 'false',         true ],
+            'Dictionary unknown' => [ $dictionary, new \stdClass(), false ],
+            'Dictionary partial' => [ $dictionary, 'foo',           false ],
+            'Sequence valid'     => [ $sequence,   0,               true ],
+            'Sequence unknown'   => [ $sequence,   5,               false ]
         ];
     }
 
