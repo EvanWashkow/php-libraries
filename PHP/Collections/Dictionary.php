@@ -16,11 +16,7 @@ class Dictionary extends Collection
     *                               PROPERTIES
     ***************************************************************************/
 
-    /**
-     * The set of key-value pairs
-     *
-     * @var array
-     */
+    /** @var array The set of key-value pairs */
     private $entries;
 
 
