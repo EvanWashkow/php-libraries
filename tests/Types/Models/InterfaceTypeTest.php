@@ -54,7 +54,7 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
                 'Iterator', Types::GetByName( \PHP\Collections\Collection::class ), true
             ],
             'Parent->equals( child class instance )' => [
-                'Iterator', new \PHP\Collections\Dictionary(), true
+                'Iterator', new \PHP\Collections\Dictionary( '*', '*' ), true
             ],
 
             // Invalid

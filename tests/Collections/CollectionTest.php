@@ -48,10 +48,10 @@ class CollectionTest extends CollectionsTestCase
 
             // Dictionary
             'new Dictionary( null )'   => [
-                function () { new Dictionary( 'null' ); }
+                function () { new Dictionary( 'null', '*' ); }
             ],
             'new Dictionary( foobar )' => [
-                function () { new Dictionary( 'foobar' ); }
+                function () { new Dictionary( 'foobar', '*' ); }
             ],
             'new Dictionary( *, null )'   => [
                 function () { new Dictionary( '*', 'null' ); }
@@ -216,7 +216,7 @@ class CollectionTest extends CollectionsTestCase
 
             // Dictionary
             'Empty Dictionary' => [
-                new Dictionary(),
+                new Dictionary( '*', '*' ),
                 []
             ],
             'Non-empty Dictionary' => [
@@ -232,7 +232,7 @@ class CollectionTest extends CollectionsTestCase
 
             // Sequence
             'Empty Sequence' => [
-                new Sequence(),
+                new Sequence( '*' ),
                 []
             ],
             'Non-empty Sequence' => [
@@ -314,13 +314,13 @@ class CollectionTest extends CollectionsTestCase
 
         return [
             'Empty Dictionary' => [
-                new Dictionary(), NULL
+                new Dictionary( '*', '*' ), NULL
             ],
             'Non-empty Dictionary' => [
                 $dictionary, 'foo'
             ],
             'Empty Sequence' => [
-                new Sequence(), NULL
+                new Sequence( '*' ), NULL
             ],
             'Non-empty Sequence' => [
                 $sequence, 0
@@ -359,20 +359,20 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getCountData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( 0, 0 );
         $dictionary->set( 1, 1 );
         $dictionary->set( 2, 2 );
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 0 );
         $sequence->add( 1 );
         $sequence->add( 2 );
 
         return [
-            [ ( new Dictionary() ), 0 ],
+            [ ( new Dictionary( '*', '*' ) ), 0 ],
             [ $dictionary,          3 ],
-            [ ( new Sequence() ),   0 ],
+            [ ( new Sequence( '*' ) ),   0 ],
             [ $sequence,            3 ]
 
         ];
@@ -411,12 +411,12 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getGetData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( 0, 'foo' );
         $dictionary->set( 1, true );
         $dictionary->set( 2, 'bar' );
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 'foo' );
         $sequence->add( true );
         $sequence->add( 'bar' );
@@ -459,13 +459,13 @@ class CollectionTest extends CollectionsTestCase
         return [
 
             // null cannot be a key
-            [ new Dictionary(), null ],
-            [ new Sequence(),   null ],
+            [ new Dictionary( '*', '*' ), null ],
+            [ new Sequence( '*' ),   null ],
             
 
             // Missing keys
-            [ new Dictionary(), 0 ],
-            [ new Sequence(),   0 ],
+            [ new Dictionary( '*', '*' ), 0 ],
+            [ new Sequence( '*' ),   0 ],
 
             // Wrong key type
             [ $dictionary, '0' ],
@@ -504,11 +504,11 @@ class CollectionTest extends CollectionsTestCase
      **/
     public function getGetKeyOfExceptionsData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( '0', 0 );
         $dictionary->set( '1', 1 );
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 0 );
         $sequence->add( 1 );
 
@@ -516,7 +516,7 @@ class CollectionTest extends CollectionsTestCase
 
             // Dictionary
             'Empty Dictionary; missing value' => [
-                new Dictionary(), 0
+                new Dictionary( '*', '*' ), 0
             ],
             'Non-empty Dictionary; missing value' => [
                 $dictionary, 2
@@ -527,7 +527,7 @@ class CollectionTest extends CollectionsTestCase
 
             // Sequence
             'Empty Sequence; missing value' => [
-                new Sequence(), 0
+                new Sequence( '*' ), 0
             ],
             'Non-empty Sequence; missing value' => [
                 $sequence, 2
@@ -563,11 +563,11 @@ class CollectionTest extends CollectionsTestCase
      **/
     public function getGetKeyOfResultData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( '0', 0 );
         $dictionary->set( '1', 1 );
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 0 );
         $sequence->add( 1 );
 
@@ -671,7 +671,7 @@ class CollectionTest extends CollectionsTestCase
     {
         $this->assertEquals(
             'int',
-            ( new Dictionary( 'integer' ) )->getKeyType()->getName(),
+            ( new Dictionary( 'integer', '*' ) )->getKeyType()->getName(),
             'Collection->getKeyType() return the wrong key type'
         );
     }
@@ -684,7 +684,7 @@ class CollectionTest extends CollectionsTestCase
     {
         $this->assertInstanceOf(
             'PHP\\Collections\\Collection\\WildcardType',
-            ( new Dictionary( '' ) )->getKeyType(),
+            ( new Dictionary( '*', '*' ) )->getKeyType(),
             'Expected Collection->getKeyType() to return a wildcard type'
         );
     }
@@ -818,12 +818,12 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getHasKeyData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( 'foo',   'bar' );
         $dictionary->set( 'false', true );
         $dictionary->set( '1',     0 );
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 2 );
         $sequence->add( '1' );
         $sequence->add( false );
@@ -871,12 +871,12 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getHasValueData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( 'foo',   'bar' );
         $dictionary->set( 'false', true );
         $dictionary->set( '1',     0 );
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 2 );
         $sequence->add( '1' );
         $sequence->add( false );
@@ -1079,10 +1079,10 @@ class CollectionTest extends CollectionsTestCase
 
             // Empty collections
             'Empty Dictionary' => [
-                new Dictionary(), [], []
+                new Dictionary( '*', '*' ), [], []
             ],
             'Empty Sequence' => [
-                new Sequence(),   [], []
+                new Sequence( '*' ),   [], []
             ],
 
             // Non-empty collections
@@ -1219,7 +1219,7 @@ class CollectionTest extends CollectionsTestCase
     {
         $isError = false;
         try {
-            $collection = new \PHP\Collections\Sequence();
+            $collection = new Sequence( 'int' );
             $collection->isOfKeyType( 'int' );
         }
         catch ( \Exception $e ) {
@@ -1246,7 +1246,7 @@ class CollectionTest extends CollectionsTestCase
     {
         $isError = false;
         try {
-            $collection = new \PHP\Collections\Sequence();
+            $collection = new Sequence( 'int' );
             $collection->isOfValueType( 'int' );
         }
         catch ( \Exception $e ) {
@@ -1623,10 +1623,10 @@ class CollectionTest extends CollectionsTestCase
         $data = [];
 
         // Empty sequence
-        $data[ 'Empty Sequence' ] = [  new Sequence(), [] ];
+        $data[ 'Empty Sequence' ] = [  new Sequence( '*' ), [] ];
 
         // Non-empty Sequence
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 0 );
         $sequence->add( '1' );
         $data[ 'Non-empty Sequence' ] = [
@@ -1638,10 +1638,10 @@ class CollectionTest extends CollectionsTestCase
         ];
 
         // Empty dictionary
-        $data[ 'Empty Dictionary' ] = [  new Dictionary(), [] ];
+        $data[ 'Empty Dictionary' ] = [  new Dictionary( '*', '*' ), [] ];
 
         // Non-empty dictionary
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( 'foo', 'bar' );
         $dictionary->set(     1,   '1' );
         $data[ 'Non-empty Dictionary' ] = [
@@ -1671,8 +1671,8 @@ class CollectionTest extends CollectionsTestCase
     public function getCollectionData(): array
     {
         return [
-            'Dictionary' => [ new Dictionary() ],
-            'Sequence'   => [ new Sequence() ]
+            'Dictionary' => [ new Dictionary( '*', '*' ) ],
+            'Sequence'   => [ new Sequence( '*' ) ]
         ];
     }
 
@@ -1709,25 +1709,25 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestCurrentData(): array
     {
-        $validDictionaryPosition = new Dictionary();
+        $validDictionaryPosition = new Dictionary( '*', '*' );
         $validDictionaryPosition->set( 0, 'foo' );
         $validDictionaryPosition->set( 1, 'bar' );
         $validDictionaryPosition->next();
 
-        $invalidDictionaryPosition = new Dictionary();
+        $invalidDictionaryPosition = new Dictionary( '*', '*' );
         $invalidDictionaryPosition->set( 0, 'foo' );
         $invalidDictionaryPosition->set( 1, 'bar' );
         $invalidDictionaryPosition->next();
         $invalidDictionaryPosition->next();
         
-        $validSequencePosition = new Sequence();
+        $validSequencePosition = new Sequence( '*' );
         $validSequencePosition->add( 'foo' );
         $validSequencePosition->add( 'bar' );
         $validSequencePosition->add( 'baz' );
         $validSequencePosition->next();
         $validSequencePosition->next();
 
-        $invalidSequencePosition = new Sequence();
+        $invalidSequencePosition = new Sequence( '*' );
         $invalidSequencePosition->add( 'foo' );
         $invalidSequencePosition->add( 'bar' );
         $invalidSequencePosition->next();
@@ -1740,10 +1740,10 @@ class CollectionTest extends CollectionsTestCase
              * (This is the default functionality of arrays)
              */
             'Dictionary with no entries'        => [
-                ( new Dictionary() ), false
+                ( new Dictionary( '*', '*' ) ), false
             ],
             'Sequence with no entries'          => [
-                ( new Sequence() ), false
+                ( new Sequence( '*' ) ), false
             ],
             'Dictionary without current()' => [
                 $invalidDictionaryPosition, false
@@ -1791,25 +1791,25 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestKeyData(): array
     {
-        $validDictionaryPosition = new Dictionary();
+        $validDictionaryPosition = new Dictionary( '*', '*' );
         $validDictionaryPosition->set( 0, 'foo' );
         $validDictionaryPosition->set( 1, 'bar' );
         $validDictionaryPosition->next();
 
-        $invalidDictionPosition = new Dictionary();
+        $invalidDictionPosition = new Dictionary( '*', '*' );
         $invalidDictionPosition->set( 0, 'foo' );
         $invalidDictionPosition->set( 1, 'bar' );
         $invalidDictionPosition->next();
         $invalidDictionPosition->next();
         
-        $validSequencePosition = new Sequence();
+        $validSequencePosition = new Sequence( '*' );
         $validSequencePosition->add( 'foo' );
         $validSequencePosition->add( 'bar' );
         $validSequencePosition->add( 'baz' );
         $validSequencePosition->next();
         $validSequencePosition->next();
 
-        $invalidSequencePosition = new Sequence();
+        $invalidSequencePosition = new Sequence( '*' );
         $invalidSequencePosition->add( 'foo' );
         $invalidSequencePosition->add( 'bar' );
         $invalidSequencePosition->next();
@@ -1822,10 +1822,10 @@ class CollectionTest extends CollectionsTestCase
              * (This is the default functionality of arrays)
              */
             'Dictionary with no entries' => [
-                ( new Dictionary() ), NULL
+                ( new Dictionary( '*', '*' ) ), NULL
             ],
             'Sequence with no entries'   => [
-                ( new Sequence() ), NULL
+                ( new Sequence( '*' ) ), NULL
             ],
             'Dictionary without key()'   => [
                 $invalidDictionPosition, NULL
@@ -1883,12 +1883,12 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestRewindData(): array
     {
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary( '*', '*' );
         $dictionary->set( 0, 'foo' );
         $dictionary->set( 1, 'bar' );
         $dictionary->next();
 
-        $sequence = new Sequence();
+        $sequence = new Sequence( '*' );
         $sequence->add( 'foo' );
         $sequence->add( 'bar' );
         $sequence->add( 'baz' );
@@ -1901,8 +1901,8 @@ class CollectionTest extends CollectionsTestCase
              * All collections with a bad key() should return NULL
              * (This is the default functionality of arrays)
              */
-            'Dictionary with no entries' => [ ( new Dictionary() ), NULL ],
-            'Sequence with no entries'   => [ ( new Sequence() ),   NULL ],
+            'Dictionary with no entries' => [ ( new Dictionary( '*', '*' ) ), NULL ],
+            'Sequence with no entries'   => [ ( new Sequence( '*' ) ),   NULL ],
 
             // Valid rewind
             'Dictionary with entries' => [ $dictionary, 0 ],
@@ -1943,25 +1943,25 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestValidData(): array
     {
-        $validDictionaryPosition = new Dictionary();
+        $validDictionaryPosition = new Dictionary( '*', '*' );
         $validDictionaryPosition->set( 0, 'foo' );
         $validDictionaryPosition->set( 1, 'bar' );
         $validDictionaryPosition->next();
 
-        $invalidDictionaryPosition = new Dictionary();
+        $invalidDictionaryPosition = new Dictionary( '*', '*' );
         $invalidDictionaryPosition->set( 0, 'foo' );
         $invalidDictionaryPosition->set( 1, 'bar' );
         $invalidDictionaryPosition->next();
         $invalidDictionaryPosition->next();
         
-        $validSequencePosition = new Sequence();
+        $validSequencePosition = new Sequence( '*' );
         $validSequencePosition->add( 'foo' );
         $validSequencePosition->add( 'bar' );
         $validSequencePosition->add( 'baz' );
         $validSequencePosition->next();
         $validSequencePosition->next();
 
-        $invalidSequencePosition = new Sequence();
+        $invalidSequencePosition = new Sequence( '*' );
         $invalidSequencePosition->add( 'foo' );
         $invalidSequencePosition->add( 'bar' );
         $invalidSequencePosition->next();
@@ -1971,10 +1971,10 @@ class CollectionTest extends CollectionsTestCase
 
             // Invalid position
             'Dictionary with no entries' => [
-                ( new Dictionary() ), false
+                ( new Dictionary( '*', '*' ) ), false
             ],
             'Sequence with no entries'   => [
-                ( new Sequence() ), false
+                ( new Sequence( '*' ) ), false
             ],
             'Dictionary at bad position' => [
                 $invalidDictionaryPosition, false

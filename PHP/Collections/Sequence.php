@@ -41,7 +41,7 @@ class Sequence extends Collection
      * @param array  $entries Initial entries [ key => value ]
      * @throws \InvalidArgumentException On bad value type
      */
-    public function __construct( string $type = '*', array $entries = [] )
+    public function __construct( string $type, array $entries = [] )
     {
         // Set parent properties
         parent::__construct( 'int', $type );

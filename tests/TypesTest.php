@@ -186,7 +186,7 @@ class TypesTest extends TestCase
             'float'         => 1.0,
             'null'          => null,
             'string'        => 'foobar',
-            Sequence::class => new Sequence(),
+            Sequence::class => new Sequence( '*' ),
         ];
     }
 }

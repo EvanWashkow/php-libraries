@@ -49,8 +49,8 @@ abstract class Collection extends    \PHP\PHPObject
      * @param array  $entries   Initial entries [ key => value ]
      * @throws \InvalidArgumentException On bad key / value type
      */
-    public function __construct( string $keyType   = '*',
-                                 string $valueType = '*',
+    public function __construct( string $keyType,
+                                 string $valueType,
                                  array  $entries   = [] )
     {
         // Lookup key type
