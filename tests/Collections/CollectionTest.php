@@ -872,20 +872,23 @@ class CollectionTest extends CollectionsTestCase
     public function getHasValueData(): array
     {
         $dictionary = new Dictionary( '*', '*' );
-        $dictionary->set( 'foo',   'bar' );
-        $dictionary->set( 'false', true );
-        $dictionary->set( '1',     0 );
-
+        $dictionary->set( 'false',  true );
+        $dictionary->set( '1',      0 );
+        $dictionary->set( 'foobar', 'foobar' );
+        
         $sequence = new Sequence( '*' );
         $sequence->add( 2 );
         $sequence->add( '1' );
         $sequence->add( false );
+        $sequence->add( 'foobar' );
 
         return [
-            [ $dictionary, true,  true ],   // Valid
-            [ $dictionary, '0',   false ],  // Type-sensitive
-            [ $sequence,   false, true ],   // Valid
-            [ $sequence,   1,     false ]   // Type-sensitive
+            'Dictionary valid'          => [ $dictionary, true,  true ],
+            'Dictionary type-sensitive' => [ $dictionary, '0',   false ],
+            'Dictionary partial'        => [ $dictionary, 'foo', false ],
+            'Sequence valid'            => [ $sequence,   false, true ],
+            'Sequence type-sensitive'   => [ $sequence,   1,     false ],
+            'Sequence partial'          => [ $sequence,   'foo', false ]
         ];
     }
 
