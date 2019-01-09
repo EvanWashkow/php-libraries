@@ -882,10 +882,10 @@ class CollectionTest extends CollectionsTestCase
         $sequence->add( false );
 
         return [
-            [ $dictionary, true,  true ],
-            [ $dictionary, false, false ],
-            [ $sequence,   false, true ],
-            [ $sequence,   1,     false ]
+            [ $dictionary, true,  true ],   // Valid
+            [ $dictionary, '0',   false ],  // Type-sensitive
+            [ $sequence,   false, true ],   // Valid
+            [ $sequence,   1,     false ]   // Type-sensitive
         ];
     }
 
