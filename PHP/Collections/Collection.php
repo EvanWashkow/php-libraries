@@ -342,12 +342,13 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
-     * Invoke the callback function for each entry in the collection.
+     * Invoke the callback function for each entry in the collection, passing
+     * the key and value for each.
      *
-     * Callback function requires two parameters: 1) the key and 2) the value.
-     * Callback function must return a boolean value: "true" to continue,
+     * Callback function requires two parameters (the key and the value), and
+     * must return a boolean value to continue iterating: "true" to continue,
      * "false" to break/stop the loop.
-     * To access variables outside the callback function, use the "use" clase:
+     * To access variables outside the callback function, specify a "use" clase:
      * function() use ( $outerVar ) { $outerVar; }
      * 
      * Throws an exception if the callback function does not return a boolean
@@ -359,7 +360,7 @@ abstract class Collection extends    \PHP\PHPObject
      * 
      * @internal Do not use iterator_apply(). It is at least twice as slow as this.
      *
-     * @param \Closure $function Callback function to execute for each entry
+     * @param \Closure $function Callback functiouse theuse then to execute for each entry
      * @return void
      * @throws \TypeError If the callback does not return a boolean value
      */
