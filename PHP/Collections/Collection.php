@@ -95,23 +95,6 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /***************************************************************************
-    *                                MAGIC METHODS
-    ***************************************************************************/
-
-
-    /**
-     * Invoked on shallow collection clone
-     **/
-    final public function __clone()
-    {
-        // Reset cursor to the beginning
-        $this->rewind();
-    }
-
-
-
-
-    /***************************************************************************
     *                                 ABSTRACT
     ***************************************************************************/
 
@@ -208,8 +191,18 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /***************************************************************************
-    *                                 OWN METHODS
+    *                                   CLONE
     ***************************************************************************/
+
+
+    /**
+     * Invoked on shallow collection clone
+     **/
+    final public function __clone()
+    {
+        // Reset cursor to the beginning
+        $this->rewind();
+    }
 
 
     /**
@@ -221,6 +214,13 @@ abstract class Collection extends    \PHP\PHPObject
     {
         return ( clone $this );
     }
+
+
+
+
+    /***************************************************************************
+    *                                 OWN METHODS
+    ***************************************************************************/
 
 
     /**
