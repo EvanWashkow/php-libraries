@@ -1266,138 +1266,109 @@ class CollectionTest extends CollectionsTestCase
     /***************************************************************************
     *                           Collection->removeKey()
     ***************************************************************************/
-    
+
+
     /**
-     * Ensure remove() has smaller count
+     * Ensure removeKey() has the expected entries
+     * 
+     * @dataProvider getRemoveKeyEntriesData
+     * 
+     * @param Collection $collection   The collection to remove keys from
+     * @param array      $keysToRemove The keys to remove
+     * @param array      $expected     The expected entries
      */
-    public function testRemoveHasSmallerCount()
+    public function testRemoveKeyEntries( Collection $collection,
+                                          array      $keysToRemove,
+                                          array      $expected )
     {
-        foreach ( CollectionData::Get() as $collection ) {
-            $previous = $collection->count();
-            if ( 0 === $previous ) {
-                continue;
-            }
-            $collection->loop( function( $key, $value ) use ( $collection ) {
-                $collection->removeKey( $key );
-                return false;
-            });
-            $after = $collection->count();
-            
-            $name = self::getClassName( $collection );
-            $this->assertLessThan(
-                $previous,
-                $after,
-                "Expected {$name}->removeKey() to have a smaller count"
-            );
+        foreach ( $keysToRemove as $key ) {
+            $collection->removeKey( $key );
         }
+        $this->assertEquals(
+            $expected,
+            $collection->toArray(),
+            'Collection->removeKey() did not remove the key'
+        );
     }
-    
-    
+
+
     /**
-     * Ensure remove() triggers an error on missing key
+     * Get test data for removing key entries
      */
-    public function testRemoveTriggersErrorForBadKey()
+    public function getRemoveKeyEntriesData(): array
     {
-        foreach ( CollectionData::Get() as $collection ) {
-            $previous = $collection->count();
-            $isError  = false;
-            try {
-                $collection->removeKey( 'foobar' );
-            } catch ( \Exception $e ) {
-                $isError = true;
-            }
-            $after = $collection->count();
-            
-            $name = self::getClassName( $collection );
-            $this->assertTrue(
-                $isError,
-                "Expected {$name}->removeKey() to produce an error when invoked with a missing key"
-            );
-        }
+        return [
+            'Dictionary' => [
+                new Dictionary( '*', 'string', [
+                    '0'   => '1',
+                    'foo' => 'bar',
+                    'biz' => 'baz'
+                ]),
+                [ '0', 'foo' ],
+                [ 'biz' => 'baz' ]
+            ],
+            'Sequence' => [
+                new Sequence( 'string', [
+                    'foo',
+                    'bar',
+                    'biz',
+                    'baz'
+                ]),
+                [ 0, 1 ],
+                [ 'bar', 'baz' ]
+            ]
+        ];
     }
-    
-    
+
+
     /**
-     * Ensure remove() has same count when given a missing key
+     * Ensure removeKey() produces errors
+     * 
+     * @dataProvider getRemoveKeyErrorsData
+     * 
+     * @param Collection $collection   The collection to remove keys from
+     * @param mixed      $keyToRemove  The key to remove
      */
-    public function testRemoveHasSameCountForBadKey()
+    public function testRemoveKeyErrors( Collection $collection, $keyToRemove )
     {
-        foreach ( CollectionData::Get() as $collection ) {
-            $previous = $collection->count();
-            $isError  = false;
-            try {
-                $collection->removeKey( 'foobar' );
-            } catch ( \Exception $e ) {
-                $isError = true;
-            }
-            $after = $collection->count();
-            
-            $name = self::getClassName( $collection );
-            $this->assertEquals(
-                $previous,
-                $after,
-                "Expected {$name}->removeKey() with a missing key to have same count as before"
-            );
+        $isError;
+        try {
+            $collection->removeKey( $keyToRemove );
+            $isError = false;
+        } catch (\Throwable $th) {
+            $isError = true;
         }
+        $this->assertTrue(
+            $isError,
+            'Collection->removeKey() did not produce error for missing key'
+        );
     }
-    
-    
+
+
     /**
-     * Ensure remove() triggers an error on wrong key type
+     * Get data for testing removeKey() errors
      */
-    public function testRemoveTriggersErrorForWrongKeyType()
+    public function getRemoveKeyErrorsData(): array
     {
-        foreach ( CollectionData::GetTyped() as $collection ) {
-            $value;
-            $collection->loop(function( $key, $v ) use ( &$value ) {
-                $value = $v;
-                return false;
-            });
-            $previous = $collection->count();
-            $isError  = false;
-            try {
-                $collection->removeKey( $value );
-            } catch ( \Exception $e ) {
-                $isError = true;
-            }
-            $after = $collection->count();
-            
-            $name = self::getClassName( $collection );
-            $this->assertTrue(
-                $isError,
-                "Expected {$name}->removeKey() to trigger an error when given the wrong key type"
-            );
-        }
-    }
-    
-    
-    /**
-     * Ensure remove() has the same count as before when given the wrong key type
-     */
-    public function testRemoveHasSameCountForWrongKeyType()
-    {
-        foreach ( CollectionData::GetTyped() as $collection ) {
-            $value;
-            $collection->loop(function( $key, $v ) use ( &$value ) {
-                $value = $v;
-                return false;
-            });
-            $previous = $collection->count();
-            $isError  = false;
-            try {
-                $collection->removeKey( $value );
-            } catch ( \Exception $e ) {
-                $isError = true;
-            }
-            $after = $collection->count();
-            
-            $name = self::getClassName( $collection );
-            $this->assertEquals(
-                $previous,
-                $after,
-                "Expected {$name}->removeKey() with the wrong key type to have the same count as before"
-            );
-        }
+        return [
+            'Dictionary: non-existing key' => [
+                new Dictionary( '*', 'string', [
+                    '0'   => '1',
+                    'foo' => 'bar',
+                    'biz' => 'baz'
+                ]),
+                'baz'
+            ],
+            'Sequence: non-existing key' => [
+                new Sequence( 'string', [
+                    'foo',
+                    'bar',
+                    'biz',
+                    'baz'
+                ]),
+                4
+            ]
+        ];
     }
     
     
