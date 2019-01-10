@@ -1125,7 +1125,7 @@ class CollectionTest extends CollectionsTestCase
             $keys[] = $key;
             if ( $isFirstLoop ) {
                 foreach ( $toRemove as $key ) {
-                    $collection->removeKey( $key );
+                    $collection->remove( $key );
                 }
                 foreach ( $toSet as $key => $value ) {
                     $collection->set( $key, $value );
@@ -1264,12 +1264,12 @@ class CollectionTest extends CollectionsTestCase
     
     
     /***************************************************************************
-    *                           Collection->removeKey()
+    *                           Collection->remove()
     ***************************************************************************/
 
 
     /**
-     * Ensure removeKey() has the expected entries
+     * Ensure remove() has the expected entries
      * 
      * @dataProvider getRemoveKeyEntriesData
      * 
@@ -1282,12 +1282,12 @@ class CollectionTest extends CollectionsTestCase
                                           array      $expected )
     {
         foreach ( $keysToRemove as $key ) {
-            $collection->removeKey( $key );
+            $collection->remove( $key );
         }
         $this->assertEquals(
             $expected,
             $collection->toArray(),
-            'Collection->removeKey() did not remove the key'
+            'Collection->remove() did not remove the key'
         );
     }
 
@@ -1322,7 +1322,7 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
-     * Ensure removeKey() produces errors
+     * Ensure remove() produces errors
      * 
      * @dataProvider getRemoveKeyErrorsData
      * 
@@ -1333,20 +1333,20 @@ class CollectionTest extends CollectionsTestCase
     {
         $isError;
         try {
-            $collection->removeKey( $keyToRemove );
+            $collection->remove( $keyToRemove );
             $isError = false;
         } catch (\Throwable $th) {
             $isError = true;
         }
         $this->assertTrue(
             $isError,
-            'Collection->removeKey() did not produce error for missing key'
+            'Collection->remove() did not produce error for missing key'
         );
     }
 
 
     /**
-     * Get data for testing removeKey() errors
+     * Get data for testing remove() errors
      */
     public function getRemoveKeyErrorsData(): array
     {

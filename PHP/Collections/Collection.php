@@ -136,12 +136,12 @@ abstract class Collection extends    \PHP\PHPObject
     abstract public function getKeys(): Sequence;
 
     /**
-     * Remove the key from the collection
+     * Remove an entry
      *
-     * @param mixed $key The key to remove
+     * @param mixed $key The key to remove the value from
      * @return bool Whether or not the operation was successful
      */
-    abstract public function removeKey( $key ): bool;
+    abstract public function remove( $key ): bool;
 
     /**
      * Store the value at the key
@@ -387,15 +387,5 @@ abstract class Collection extends    \PHP\PHPObject
                 throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
             }
         }
-    }
-
-
-    /**
-     * Deprecated
-     */
-    final public function remove( $key ): bool
-    {
-        trigger_error( 'remove() is deprecated. Use removeKey() instead.' );
-        return $this->removeKey( $key );
     }
 }

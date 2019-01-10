@@ -199,9 +199,9 @@ class Sequence extends Collection
 
 
     /**
-     * @see Collection->removeKey()
+     * @see Collection->remove()
      */
-    final public function removeKey( $key ): bool
+    final public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !$this->hasKey( $key )) {
