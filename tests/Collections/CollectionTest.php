@@ -1125,7 +1125,7 @@ class CollectionTest extends CollectionsTestCase
             $keys[] = $key;
             if ( $isFirstLoop ) {
                 foreach ( $toRemove as $key ) {
-                    $collection->remove( $key );
+                    $collection->removeKey( $key );
                 }
                 foreach ( $toSet as $key => $value ) {
                     $collection->set( $key, $value );
@@ -1264,7 +1264,7 @@ class CollectionTest extends CollectionsTestCase
     
     
     /***************************************************************************
-    *                           Collection->remove()
+    *                           Collection->removeKey()
     ***************************************************************************/
     
     /**
@@ -1278,7 +1278,7 @@ class CollectionTest extends CollectionsTestCase
                 continue;
             }
             $collection->loop( function( $key, $value ) use ( $collection ) {
-                $collection->remove( $key );
+                $collection->removeKey( $key );
                 return false;
             });
             $after = $collection->count();
@@ -1287,7 +1287,7 @@ class CollectionTest extends CollectionsTestCase
             $this->assertLessThan(
                 $previous,
                 $after,
-                "Expected {$name}->remove() to have a smaller count"
+                "Expected {$name}->removeKey() to have a smaller count"
             );
         }
     }
@@ -1302,7 +1302,7 @@ class CollectionTest extends CollectionsTestCase
             $previous = $collection->count();
             $isError  = false;
             try {
-                $collection->remove( 'foobar' );
+                $collection->removeKey( 'foobar' );
             } catch ( \Exception $e ) {
                 $isError = true;
             }
@@ -1311,7 +1311,7 @@ class CollectionTest extends CollectionsTestCase
             $name = self::getClassName( $collection );
             $this->assertTrue(
                 $isError,
-                "Expected {$name}->remove() to produce an error when invoked with a missing key"
+                "Expected {$name}->removeKey() to produce an error when invoked with a missing key"
             );
         }
     }
@@ -1326,7 +1326,7 @@ class CollectionTest extends CollectionsTestCase
             $previous = $collection->count();
             $isError  = false;
             try {
-                $collection->remove( 'foobar' );
+                $collection->removeKey( 'foobar' );
             } catch ( \Exception $e ) {
                 $isError = true;
             }
@@ -1336,7 +1336,7 @@ class CollectionTest extends CollectionsTestCase
             $this->assertEquals(
                 $previous,
                 $after,
-                "Expected {$name}->remove() with a missing key to have same count as before"
+                "Expected {$name}->removeKey() with a missing key to have same count as before"
             );
         }
     }
@@ -1356,7 +1356,7 @@ class CollectionTest extends CollectionsTestCase
             $previous = $collection->count();
             $isError  = false;
             try {
-                $collection->remove( $value );
+                $collection->removeKey( $value );
             } catch ( \Exception $e ) {
                 $isError = true;
             }
@@ -1365,7 +1365,7 @@ class CollectionTest extends CollectionsTestCase
             $name = self::getClassName( $collection );
             $this->assertTrue(
                 $isError,
-                "Expected {$name}->remove() to trigger an error when given the wrong key type"
+                "Expected {$name}->removeKey() to trigger an error when given the wrong key type"
             );
         }
     }
@@ -1385,7 +1385,7 @@ class CollectionTest extends CollectionsTestCase
             $previous = $collection->count();
             $isError  = false;
             try {
-                $collection->remove( $value );
+                $collection->removeKey( $value );
             } catch ( \Exception $e ) {
                 $isError = true;
             }
@@ -1395,7 +1395,7 @@ class CollectionTest extends CollectionsTestCase
             $this->assertEquals(
                 $previous,
                 $after,
-                "Expected {$name}->remove() with the wrong key type to have the same count as before"
+                "Expected {$name}->removeKey() with the wrong key type to have the same count as before"
             );
         }
     }
