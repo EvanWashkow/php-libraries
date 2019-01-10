@@ -136,7 +136,7 @@ abstract class Collection extends    \PHP\PHPObject
     abstract public function getKeys(): Sequence;
 
     /**
-     * Remove an entry
+     * Remove key (and its corresponding value) from this collection
      *
      * @param mixed $key The key to remove the value from
      * @return bool Whether or not the operation was successful
