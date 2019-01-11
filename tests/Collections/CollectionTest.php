@@ -1961,4 +1961,81 @@ class CollectionTest extends CollectionsTestCase
             'Sequence at good position'   => [ $validSequencePosition,   true ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                           foreach Collection
+    ***************************************************************************/
+
+
+    /**
+     * Ensure foreach loops over Collection entries
+     * 
+     * @dataProvider getForeachData
+     * 
+     * @param Collection $collection The collection to clone
+     * @param array      $expected   The expected entries
+     */
+    public function testForeach( Collection $collection, array $expected )
+    {
+        $actual = [];
+        foreach ( $collection as $key => $value ) {
+            $actual[ $key ] = $value;
+        }
+        $this->assertEquals(
+            $expected,
+            $actual,
+            'foreach did not loop correctly over the Collection entries'
+        );
+    }
+
+
+    /**
+     * Retrieve data for testing foreach loops
+     * 
+     * @return array
+     */
+    public function getForeachData(): array
+    {
+        return [
+
+            // Dictionary
+            'Empty Dictionary' => [
+                new Dictionary( '*', '*' ),
+                []
+            ],
+            'Non-empty Dictionary' => [
+                new Dictionary( '*', '*', [
+                    'foo' => 'bar',
+                    'biz' => 'baz'
+                ]),
+                [
+                    'foo' => 'bar',
+                    'biz' => 'baz'
+                ]
+            ],
+
+            // Sequence
+            'Empty Sequence' => [
+                new Sequence( '*' ),
+                []
+            ],
+            'Non-empty Sequence' => [
+                new Sequence( '*', [
+                    'foo',
+                    'bar',
+                    'biz',
+                    'baz'
+                ]),
+                [
+                    'foo',
+                    'bar',
+                    'biz',
+                    'baz'
+                ]
+            ]
+        ];
+    }
 }
