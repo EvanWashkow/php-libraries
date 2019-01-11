@@ -124,7 +124,6 @@ abstract class Collection extends    \PHP\PHPObject
      */
     abstract public function get( $key );
 
-
     /**
      * Retrieve all keys
      * 
