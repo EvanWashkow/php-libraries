@@ -83,16 +83,10 @@ class Type
      */
     final public function getNames(): Sequence
     {
-        // Build the name sequence
         if ( null === $this->namesSequence ) {
-            $this->namesSequence = new Sequence( 'string' );
-            foreach ( $this->namesArray as $name ) {
-                $this->namesSequence->add( $name );
-            }
+            $this->namesSequence = new Sequence( 'string', $this->namesArray );
         }
-
-        // Return sequence of names
-        return $this->namesSequence->clone();
+        return ( clone $this->namesSequence );
     }
     
     

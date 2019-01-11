@@ -11,102 +11,63 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                       InterfaceType->equals() by Type
+    *                         InterfaceType->equals()
     ***************************************************************************/
 
 
     /**
-     * Ensure InterfaceType->equals() returns true for the same interface type
+     * Test InterfaceType->equals()
+     * 
+     * @dataProvider getEqualsData
+     * 
+     * @param string $typeName    The type name to test
+     * @param mixed  $typeOrValue A Type instance or value
+     * @param bool   $expected    The expected result
      **/
-    public function testEqualsReturnsTrueForSameInterfaceType()
+    public function testEquals( string $typeName, $typeOrValue, bool $expected )
     {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $this->assertTrue(
-            $type->equals( $type ),
-            'InterfaceType->equals() should return true for the same interface type'
+        $this->assertEquals(
+            $expected,
+            Types::GetByName( $typeName )->equals( $typeOrValue ),
+            'InterfaceType->equals() did not return the expected results'
         );
     }
 
 
     /**
-     * Ensure InterfaceType->equals() returns true for a parent interface type
-     **/
-    public function testEqualsReturnsTrueForParentInterfaceType()
+     * Returns equals() test data
+     * 
+     * @return array
+     */
+    public function getEqualsData()
     {
-        $typeName   = 'PHP\\Collections\\ICollection';
-        $type       = Types::GetByName( $typeName );
-        $parentType = Types::GetByName( 'PHP\\Collections\\ISequence' );
-        $this->assertTrue(
-            $type->equals( $parentType ),
-            'InterfaceType->equals() should return true for a parent interface type'
-        );
-    }
+        return [
 
+            // Valid
+            'Same interface' => [
+                'Iterator', Types::GetByName( 'Iterator' ), true
+            ],
+            'Parent->equals( child interface type )' => [
+                'Iterator', Types::GetByName( 'SeekableIterator' ), true
+            ],
+            'Parent->equals( child class type )' => [
+                'Iterator', Types::GetByName( \PHP\Collections\Collection::class ), true
+            ],
+            'Parent->equals( child class instance )' => [
+                'Iterator', new \PHP\Collections\Dictionary( '*', '*' ), true
+            ],
 
-    /**
-     * Ensure InterfaceType->equals() returns true for a child class type
-     **/
-    public function testEqualsReturnsTrueForChildClassType()
-    {
-        $typeName   = 'PHP\\Collections\\ICollection';
-        $type       = Types::GetByName( $typeName );
-        $parentType = Types::GetByName( 'PHP\\Collections\\Sequence' );
-        $this->assertTrue(
-            $type->equals( $parentType ),
-            'InterfaceType->equals() should return true for a child class type'
-        );
-    }
-
-
-    /**
-     * Ensure InterfaceType->equals() returns false for a base interface type
-     **/
-    public function testEqualsReturnsFalseForBaseInterfaceType()
-    {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $baseType = Types::GetByName( 'PHP\\Collections\\Iterator' );
-        $this->assertFalse(
-            $type->equals( $baseType ),
-            'InterfaceType->equals() should return false for a base interface type'
-        );
-    }
-
-
-
-
-    /***************************************************************************
-    *                      InterfaceType->equals() by value
-    ***************************************************************************/
-
-
-    /**
-     * Ensure InterfaceType->equals() returns true for a parent class value
-     **/
-    public function testEqualsReturnsTrueForParentClassValue()
-    {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $value    = new \PHP\Collections\Sequence();
-        $this->assertTrue(
-            $type->equals( $value ),
-            'InterfaceType->equals() should return true for a parent class value'
-        );
-    }
-
-
-    /**
-     * Ensure InterfaceType->equals() returns false for other values
-     **/
-    public function testEqualsReturnsFalseForBaseClassValue()
-    {
-        $value = new \PHP\Collections\Dictionary();
-        $type  = Types::GetByName( 'PHP\\Collections\\Sequence' );
-        $this->assertFalse(
-            $type->equals( $value ),
-            'InterfaceType->equals() should return false for other values'
-        );
+            // Invalid
+            'Child->equals( parent interface type )' => [
+                'SeekableIterator', Types::GetByName( 'Iterator' ), false
+            ],
+            'Child->equals( other type )' => [
+                'SeekableIterator', Types::GetByName( 'int' ), false
+            ],
+            'Child->equals( other type instance )' => [
+                'SeekableIterator', 1, false
+            ],
+        ];
     }
 
 
@@ -118,72 +79,55 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Ensure InterfaceType->is() returns false for basic types (like integers)
-     */
-    public function testIsReturnsFalseForBasicTypes()
+     * Test InterfaceType->is()
+     * 
+     * @dataProvider getIsData
+     * 
+     * @param string $typeA    Type name to check
+     * @param string $typeB    Type name to compare
+     * @param bool   $expected The expected result
+     **/
+    public function testIs( string $typeA, string $typeB, bool $expected )
     {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $this->assertFalse(
-            $type->is( 'int' ),
-            'InterfaceType->is() should return false for basic types (like integers)'
+        $this->assertEquals(
+            $expected,
+            Types::GetByName( $typeA )->is( $typeB ),
+            'InterfaceType->is() did not return the expected results'
         );
     }
 
 
     /**
-     * Ensure InterfaceType->is() returns true for the same interface name
+     * Returns equals() test data
+     * 
+     * @return array
      */
-    public function testIsReturnsTrueForSameInterface()
+    public function getIsData()
     {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $this->assertTrue(
-            $type->is( $typeName ),
-            'InterfaceType->is() should return true for the same interface name'
-        );
-    }
+        return [
 
-
-    /**
-     * Ensure InterfaceType->is() returns true for a base interface name
-     */
-    public function testIsReturnsTrueForBaseInterface()
-    {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $this->assertTrue(
-            $type->is( 'PHP\\Collections\\IIterator' ),
-            'InterfaceType->is() should return true for a base interface name'
-        );
-    }
-
-
-    /**
-     * Ensure InterfaceType->is() returns false for a parent interface name
-     */
-    public function testIsReturnsFalseForParentClass()
-    {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $this->assertFalse(
-            $type->is( 'PHP\\Collections\\Sequence' ),
-            'InterfaceType->is() should return false for a parent interface name'
-        );
-    }
-
-
-    /**
-     * Ensure InterfaceType->is() returns false for a parent interface name
-     */
-    public function testIsReturnsFalseForParentInterface()
-    {
-        $typeName = 'PHP\\Collections\\ICollection';
-        $type     = Types::GetByName( $typeName );
-        $this->assertFalse(
-            $type->is( 'PHP\\Collections\\ISequence' ),
-            'InterfaceType->is() should return false for a parent interface name'
-        );
+            // Valid
+            'Same interface' => [
+                'Iterator', 'Iterator', true
+            ],
+            'Child->is( parent interface type )' => [
+                'SeekableIterator', 'Iterator', true
+            ],
+            
+            // Invalid
+            'Parent->is( child interface type )' => [
+                'Iterator', 'SeekableIterator', false
+            ],
+            'Parent->is( child class type )' => [
+                'Iterator', \PHP\Collections\Collection::class, false
+            ],
+            'Child->is( other type )' => [
+                'SeekableIterator', 'int', false
+            ],
+            'Child->is( other type instance )' => [
+                'SeekableIterator', 1, false
+            ],
+        ];
     }
     
     

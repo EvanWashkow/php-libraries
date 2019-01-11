@@ -1,12 +1,15 @@
 <?php
 namespace PHP\Collections;
 
+// Deprecate
+\trigger_error( __NAMESPACE__ . "\\ReadOnlySequence is deprecated. Clone a Sequence instance instead.", E_USER_DEPRECATED );
+
 /**
  * Defines a read-only, ordered, and iterable set of key-value pairs
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
+class ReadOnlySequence extends ReadOnlyCollection
 {
     
     /**
@@ -15,15 +18,15 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
      * As entries are added to / removed from the sequence, the changes will
      * be reflected here. To change that, simply clone() this after creation.
      *
-     * @param ISequence &$sequence The sequence to make read-only
+     * @param Sequence &$sequence The sequence to make read-only
      */
-    public function __construct( ISequence &$sequence )
+    public function __construct( Sequence &$sequence )
     {
         parent::__construct( $sequence );
     }
     
     
-    public function clone(): IReadOnlyCollection
+    public function clone(): ReadOnlyCollection
     {
         return new self( $this->collection );
     }
@@ -48,19 +51,19 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
         return $this->collection->getKeyOf( $value, $offset, $isReverseSearch );
     }
     
-    public function reverse(): IReadOnlySequence
+    public function reverse(): ReadOnlySequence
     {
         $sequence = $this->collection->reverse();
         return new self( $sequence );
     }
     
-    public function slice( int $offset, int $limit = PHP_INT_MAX ): IReadOnlySequence
+    public function slice( int $offset, int $limit = PHP_INT_MAX ): ReadOnlySequence
     {
         $sequence = $this->collection->slice( $offset, $limit );
         return new self( $sequence );
     }
     
-    public function split( $delimiter, int $limit = PHP_INT_MAX ): IReadOnlySequence
+    public function split( $delimiter, int $limit = PHP_INT_MAX ): ReadOnlySequence
     {
         // Variables
         $splitSequence = $this->collection->split( $delimiter, $limit );
@@ -69,6 +72,7 @@ class ReadOnlySequence extends ReadOnlyCollection implements IReadOnlySequence
         // For each inner sequence, make it read-only and add it to the outer
         $splitSequence->loop( function( $key, $innerSequence ) use ( &$outerSequence ) {
             $outerSequence->add( new self( $innerSequence ));
+            return true;
         });
         return new self( $outerSequence );
     }

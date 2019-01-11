@@ -1,4 +1,6 @@
 <?php
+declare( strict_types = 1 );
+
 namespace PHP\Collections;
 
 /**
@@ -6,28 +8,43 @@ namespace PHP\Collections;
  *
  * @see PHP\Collections\Iterator
  */
-class Dictionary extends Collection implements IDictionary
+class Dictionary extends Collection
 {
-    
-    /**
-     * The set of key-value pairs
-     *
-     * @var array
-     */
+
+
+    /***************************************************************************
+    *                               PROPERTIES
+    ***************************************************************************/
+
+    /** @var array The set of key-value pairs */
     private $entries;
-    
-    
+
+
+
+
+    /***************************************************************************
+    *                               CONSTRUCTOR
+    ***************************************************************************/
+
+
     /**
-     * Create a new Dictionary instance
+     * Create a new collection of entries, stored in key-value pairs
+     * 
+     * Only supports string and integer keys, for the time being.
+     * Throws exception when key or value type is NULL or unknown.
      *
-     * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
-     * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
+     * @param string $keyType   Type requirement for keys. '*' allows all types.
+     * @param string $valueType Type requirement for values. '*' allows all types.
+     * @param array  $entries   Initial entries [ key => value ]
+     * @throws \InvalidArgumentException On bad key / value type
      */
-    public function __construct( string $keyType = '*', string $valueType = '*' )
+    public function __construct( string $keyType,
+                                 string $valueType,
+                                 array  $entries = [] )
     {
         // Set properties
-        parent::__construct( $keyType, $valueType );
         $this->clear();
+        parent::__construct( $keyType, $valueType, $entries );
 
         // Exit. The key type must be either an integer or string.
         if ( !$this->getKeyType()->is( 'int' ) &&
@@ -36,25 +53,66 @@ class Dictionary extends Collection implements IDictionary
             throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
         }
     }
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
-    *                              EDITING METHODS
+    *                            COLLECTION OVERRIDES
     ***************************************************************************/
-    
+
+
+    /**
+     * @see Collection->clear()
+     */
     final public function clear(): bool
     {
         $this->entries = [];
+        $this->rewind();
         return true;
     }
-    
-    
+
+
+    /**
+     * @see Collection->count()
+     */
+    final public function count(): int
+    {
+        return count( $this->entries );
+    }
+
+
+    /**
+     * @see Collection->get()
+     */
+    final public function get( $key )
+    {
+        if ( !$this->hasKey( $key )) {
+            throw new \InvalidArgumentException( "Key doesn't exist" );
+        }
+        return $this->entries[ $key ];
+    }
+
+
+    /**
+     * @see Collection->getKeys()
+     */
+    final public function getKeys(): Sequence
+    {
+        return new Sequence(
+            $this->getKeyType()->getName(),
+            array_keys( $this->entries )
+        );
+    }
+
+
+    /**
+     * @see Collection->remove()
+     */
     final public function remove( $key ): bool
     {
         $isSuccessful = false;
-        if ( $this->getKeyType()->equals( $key ) && $this->hasKey( $key )) {
+        if ( $this->hasKey( $key )) {
             unset( $this->entries[ $key ] );
             $isSuccessful = true;
         }
@@ -63,8 +121,11 @@ class Dictionary extends Collection implements IDictionary
         }
         return $isSuccessful;
     }
-    
-    
+
+
+    /**
+     * @see Collection->set()
+     */
     final public function set( $key, $value ): bool
     {
         // Throw warnings
@@ -83,79 +144,34 @@ class Dictionary extends Collection implements IDictionary
         }
         return $isSuccessful;
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                             READ-ONLY METHODS
-    ***************************************************************************/
-    
-    public function clone(): IReadOnlyCollection
+
+
+    /**
+     * @see Collection->toArray()
+     */
+    final public function toArray(): array
     {
-        $clone = new self( $this->getKeyType()->getName(),
-                           $this->getValueType()->getName() );
-        $this->loop( function( $key, $value ) use ( &$clone ) {
-            $clone->set( $key, $value );
-        });
-        return $clone;
-    }
-    
-    
-    final public function count(): int
-    {
-        return count( $this->entries );
-    }
-    
-    
-    final public function get( $key )
-    {
-        if ( !$this->getKeyType()->equals( $key )) {
-            throw new \InvalidArgumentException( "Wrong key type" );
-        }
-        elseif ( !$this->hasKey( $key )) {
-            throw new \InvalidArgumentException( "Key doesn't exist" );
-        }
-        return $this->entries[ $key ];
-    }
-    
-    
-    final public function hasKey( $key ): bool
-    {
-        $hasKey = $this->getKeyType()->equals( $key );
-        if ( $hasKey ) {
-            
-            // If the given key is an object, array_key_exists throws an error
-            try {
-                $hasKey = array_key_exists( $key, $this->entries );
-            } catch ( \Exception $e ) {
-                $hasKey = false;
-            }
-        }
-        return $hasKey;
+        return $this->entries;
     }
 
 
-    final public function hasValue( $value ): bool
-    {
-        return (
-            $this->getValueType()->equals( $value ) &&
-            in_array( $value, $this->entries )
-        );
-    }
-    
-    
-    
-    
+
+
     /***************************************************************************
-    *                              ITERATOR METHODS
+    *                       ITERATOR INTERFACE OVERRIDES
     ***************************************************************************/
-    
+
+    /**
+     * @see Iterator->current()
+     */
     final public function current()
     {
         return current( $this->entries );
     }
-    
+
+    /**
+     * @see Iterator->key()
+     */
     final public function key()
     {
         $key = key( $this->entries );
@@ -171,12 +187,18 @@ class Dictionary extends Collection implements IDictionary
         }
         return $key;
     }
-    
+
+    /**
+     * @see Iterator->next()
+     */
     final public function next()
     {
         next( $this->entries );
     }
-    
+
+    /**
+     * @see Iterator->rewind()
+     */
     final public function rewind()
     {
         reset( $this->entries );

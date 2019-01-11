@@ -15,15 +15,15 @@ class Cache extends Dictionary
      * @var bool
      */
     private $isComplete;
-    
-    
+
+
     /**
-     * Create a new cache instance
+     * Create a new Collection
      *
-     * @param string $keyType Specifies the type requirement for all keys (see `is()`). An empty string permits all types. Must be 'string' or 'integer'.
-     * @param string $valueType Specifies the type requirement for all values (see `is()`). An empty string permits all types.
+     * @param string $keyType   Type requirement for keys. '*' allows all types.
+     * @param string $valueType Type requirement for values. '*' allows all types.
      */
-    public function __construct( string $keyType = '', string $valueType = '' )
+    public function __construct( string $keyType, string $valueType )
     {
         parent::__construct( $keyType, $valueType );
         $this->markIncomplete();

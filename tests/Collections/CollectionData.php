@@ -15,7 +15,7 @@ final class CollectionData
      * 
      * @return array
      */
-    public function Get(): array
+    public static function Get(): array
     {
         return array_merge(
             DictionaryData::Get(),
@@ -29,7 +29,7 @@ final class CollectionData
      * 
      * @return array
      */
-    public function GetTyped(): array
+    public static function GetTyped(): array
     {
         return array_merge(
             DictionaryData::GetTyped(),
@@ -45,7 +45,7 @@ final class CollectionData
      * 
      * @return array
      */
-    public function GetMixed(): array
+    public static function GetMixed(): array
     {
         return DictionaryData::GetMixed();
     }

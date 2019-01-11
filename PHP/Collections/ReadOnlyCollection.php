@@ -3,18 +3,21 @@ namespace PHP\Collections;
 
 use PHP\Types\Models\Type;
 
+// Deprecate
+\trigger_error( __NAMESPACE__ . "\\ReadOnlyCollection is deprecated.", E_USER_DEPRECATED );
+
 /**
  * Defines an iterable set of read-only, key-value pairs
  *
  * @see PHP\Collections\Iterator
  */
-class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
+class ReadOnlyCollection
 {
     
     /**
      * The collection instance
      *
-     * @var ICollection
+     * @var Collection
      */
     protected $collection;
     
@@ -22,17 +25,17 @@ class ReadOnlyCollection extends Iterator implements IReadOnlyCollection
     /**
      * Create a new read-only Collection instance
      *
-     * @param ICollection $collection The collection to make read-only
+     * @param Collection $collection The collection to make read-only
      */
-    public function __construct( ICollection $collection )
+    public function __construct( Collection $collection )
     {
         $this->collection = $collection;
     }
     
     
-    public function clone(): IReadOnlyCollection
+    public function clone(): ReadOnlyCollection
     {
-        $clone = $this->collection->clone();
+        $clone = clone $this->collection;
         return new self( $clone );
     }
     
