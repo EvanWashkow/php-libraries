@@ -2,7 +2,7 @@
 namespace PHP\Collections;
 
 // Deprecate
-\trigger_error( __NAMESPACE__ . "\\ReadOnlySequence is deprecated. Clone a Sequence instance instead." );
+\trigger_error( __NAMESPACE__ . "\\ReadOnlySequence is deprecated. Clone a Sequence instance instead.", E_USER_DEPRECATED );
 
 /**
  * Defines a read-only, ordered, and iterable set of key-value pairs

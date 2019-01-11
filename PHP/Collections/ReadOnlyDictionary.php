@@ -2,7 +2,7 @@
 namespace PHP\Collections;
 
 // Deprecate
-\trigger_error( __NAMESPACE__ . "\\ReadOnlyDictionary is deprecated. Clone a Dictionary instance instead." );
+\trigger_error( __NAMESPACE__ . "\\ReadOnlyDictionary is deprecated. Clone a Dictionary instance instead.", E_USER_DEPRECATED );
 
 /**
  * Defines a read only, unordered set of key-value pairs

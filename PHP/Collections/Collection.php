@@ -175,7 +175,7 @@ abstract class Collection extends    \PHP\PHPObject
      */
     final public function seek( $key )
     {
-        trigger_error( 'Collection->seek() is deprecated' );
+        trigger_error( 'Collection->seek() is deprecated', E_USER_DEPRECATED );
     }
 
 
@@ -326,7 +326,7 @@ abstract class Collection extends    \PHP\PHPObject
      */
     final public function isOfKeyType( $key ): bool
     {
-        trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.' );
+        trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.', E_USER_DEPRECATED );
         return $this->getKeyType()->equals( $key );
     }
 
@@ -336,7 +336,7 @@ abstract class Collection extends    \PHP\PHPObject
      */
     final public function isOfValueType( $value ): bool
     {
-        trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.' );
+        trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.', E_USER_DEPRECATED );
         return ( $this->getValueType()->equals( $value ) );
     }
 

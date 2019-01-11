@@ -4,7 +4,7 @@ namespace PHP\Collections;
 use PHP\Types\Models\Type;
 
 // Deprecate
-\trigger_error( __NAMESPACE__ . "\\ReadOnlyCollection is deprecated." );
+\trigger_error( __NAMESPACE__ . "\\ReadOnlyCollection is deprecated.", E_USER_DEPRECATED );
 
 /**
  * Defines an iterable set of read-only, key-value pairs
