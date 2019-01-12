@@ -47,10 +47,9 @@ final class FunctionType extends FunctionBaseType
 
     public function equals( $item ): bool
     {
-        $type = \PHP\Types::GetByValue( $item );
         return (
-            $type->is( self::class ) &&
-            ( $item->getFunctionName() === $this->getFunctionName() )
+            is_a( $item, self::class ) &&
+            ( $this->getFunctionName() === $item->getFunctionName() )
         );
     }
 }
