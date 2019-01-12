@@ -148,7 +148,7 @@ final class Types
 
         // Get / cache the unknown type
         $type = null;
-        if ( self::isTypeCached( $name ) ) {
+        if ( self::isTypeCached( TypeNames::UNKNOWN ) ) {
             $type = self::getTypeFromCache( $name );
         }
         else {
