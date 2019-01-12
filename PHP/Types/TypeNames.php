@@ -14,6 +14,12 @@ final class TypeNames
     /** @var string BOOL The boolean type name */
     const BOOL = 'bool';
 
+    /** @var string BOOLEAN The (longer) boolean type name */
+    const BOOLEAN = 'boolean';
+
+    /** @var string DOUBLE Alternate name for a float */
+    const DOUBLE = 'double';
+
     /** @var string FLOAT The float type name */
     const FLOAT = 'float';
 
@@ -22,6 +28,9 @@ final class TypeNames
 
     /** @var string INT The integer type name */
     const INT = 'int';
+
+    /** @var string INTEGER The (longer) integer type name */
+    const INTEGER = 'integer';
 
     /** @var string UNKNOWN The unknown type name (http://php.net/manual/en/function.gettype.php) */
     const UNKNOWN = 'unknown type';
