@@ -84,10 +84,14 @@ final class Types
             
             // Class and interface types
             elseif ( interface_exists( $name )) {
-                $type = new Types\Models\InterfaceType( $name );
+                $type = new Types\Models\InterfaceType(
+                    new \ReflectionClass( $name )
+                );
             }
             elseif ( class_exists( $name )) {
-                $type = new Types\Models\ClassType( $name );
+                $type = new Types\Models\ClassType(
+                    new \ReflectionClass( $name )
+                );
             }
 
             // Unknown type

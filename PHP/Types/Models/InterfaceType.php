@@ -8,20 +8,24 @@ namespace PHP\Types\Models;
  */
 class InterfaceType extends Type
 {
-
-    /** @var \ReflectionClass  Reflection instance with details about the interface */
+    
+    /**
+     * Reflection instance with details about the interface
+     *
+     * @var \ReflectionClass
+     */
     private $reflectionClass;
-
-
+    
+    
     /**
      * Create a new type instance representing a interface
      *
-     * @param string $name The interface name
+     * @param \ReflectionClass $reflectionClass ReflectionClass instance
      */
-    public function __construct( string $name )
+    public function __construct( \ReflectionClass $reflectionClass )
     {
-        parent::__construct( $name );
-        $this->reflectionClass = null;
+        $this->reflectionClass = $reflectionClass;
+        parent::__construct( $this->reflectionClass->getName() );
     }
 
 
@@ -51,9 +55,6 @@ class InterfaceType extends Type
      **/
     final protected function getReflectionClass(): \ReflectionClass
     {
-        if ( null === $this->reflectionClass ) {
-            $this->reflectionClass = new \ReflectionClass( $this->getName() );
-        }
         return $this->reflectionClass;
     }
 }
