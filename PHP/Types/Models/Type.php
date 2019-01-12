@@ -137,7 +137,7 @@ class Type
      **/
     public function is( string $typeName ): bool
     {
-        return in_array( $typeName, $this->namesArray );
+        return in_array( $typeName, $this->namesArray, true );
     }
     
 
