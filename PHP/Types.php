@@ -54,8 +54,8 @@ final class Types
         $type = null;
 
         // Query type cache
-        if ( self::isCached( $name )) {
-            $type = self::getCache( $name );
+        if ( self::isTypeCached( $name )) {
+            $type = self::getTypeFromCache( $name );
         }
 
         // Find type
@@ -99,7 +99,7 @@ final class Types
             }
 
             // Cache the type
-            self::setCache( $type );
+            self::addTypeToCache( $type );
         }
         
         // Return the type
@@ -146,12 +146,12 @@ final class Types
 
         // Get / cache the unknown type
         $type = null;
-        if ( self::isCached( $name ) ) {
-            $type = self::getCache( $name );
+        if ( self::isTypeCached( $name ) ) {
+            $type = self::getTypeFromCache( $name );
         }
         else {
             $type = new Type( TypeNames::UNKNOWN );
-            self::setCache( $type );
+            self::addTypeToCache( $type );
         }
 
         // Return the unknown type
@@ -193,7 +193,7 @@ final class Types
      *
      * @param Type $type The type instance
      **/
-    private static function setCache( Type $type )
+    private static function addTypeToCache( Type $type )
     {
         $name = $type->getName();
         if (
@@ -212,7 +212,7 @@ final class Types
      * @param string $name The type name
      * @return Type
      **/
-    private static function getCache( string $name ): Type
+    private static function getTypeFromCache( string $name ): Type
     {
         return self::$cache[ $name ];
     }
@@ -224,7 +224,7 @@ final class Types
      * @param string $name The type name
      * @return Type
      **/
-    private static function isCached( string $name ): bool
+    private static function isTypeCached( string $name ): bool
     {
         return array_key_exists( $name, self::$cache );
     }
