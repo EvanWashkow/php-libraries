@@ -4,7 +4,7 @@ namespace PHP\Tests;
 /**
  * Test custom PHP functions
  */
-class FunctionsTest extends \PHPUnit\Framework\TestCase
+class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 {
 
     /***************************************************************************
