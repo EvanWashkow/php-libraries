@@ -5,6 +5,7 @@ namespace PHP;
 
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
+use PHP\Types\Models\FunctionType;
 
 /**
  * Lookup type information
@@ -79,7 +80,7 @@ final class Types
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );
-                $type     = new Types\Models\FunctionType( $function );
+                $type     = new FunctionType( $function );
             }
             
             // Class and interface types
@@ -196,14 +197,19 @@ final class Types
      **/
     private static function addTypeToCache( Type $type )
     {
+        // Cache by the primary name
         $name = $type->getName();
-        if (
-            $type->is( TypeNames::FUNCTION ) &&
-            ( '' !== $type->getFunctionName() )
-        ) {
+        if ( is_a( $type, FunctionType::class )) {
             $name = $type->getFunctionName();
         }
         self::$cache[ $name ] = $type;
+
+        // Cache by any aliases
+        if ( array_key_exists( $name, self::$knownTypes )) {
+            foreach ( self::$knownTypes[ $name ] as $alias ) {
+                self::$cache[ $alias ] = $type;
+            }
+        }
     }
 
 
