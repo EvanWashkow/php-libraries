@@ -13,25 +13,105 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 
 
     /**
-     * Ensure is() returns true
+     * Test is() methods
+     * 
+     * @dataProvider getIsData
+     * 
+     * @param mixed  $value    The value to check
+     * @param string $type     The type name to comapare the value to
+     * @param bool   $expected The expected return value of is()
      */
-    public function testIsReturnsTrue()
+    public function testIs( $value, string $type, bool $expected )
     {
-        $this->assertTrue(
-            is( 1, 'int' ),
-            'is() should return true when given a valid query'
+        $this->assertEquals(
+            $expected,
+            is( $value, $type ),
+            'is() did not return the correct value'
         );
     }
 
 
     /**
-     * Ensure is() returns false
-     */
-    public function testIsReturnsFalse()
+     * Get test data for is()
+     * 
+     * @return array
+     **/
+    public function getIsData(): array
     {
-        $this->assertFalse(
-            is( 1, 'bool' ),
-            'is() should return false when given an invalid query'
-        );
+        return [
+
+            // Array
+            "is( [], 'array' )" => [
+                [], 'array', true
+            ],
+
+            // Bool / boolean
+            "is( true, 'bool' )" => [
+                true, 'bool', true
+            ],
+            "is( true, 'boolean' )" => [
+                true, 'bool', true
+            ],
+            "is( true, 'int' )" => [
+                true, 'int', false
+            ],
+
+            // Float / double
+            "is( 1.5, 'float' )" => [
+                1.5, 'float', true
+            ],
+            "is( 1.5, 'double' )" => [
+                1.5, 'double', true
+            ],
+            "is( 1.5, 'int' )" => [
+                1.5, 'int', false
+            ],
+
+            // Function
+            "is( 1, 'function' )" => [
+                1, 'function', false
+            ],
+
+            // String
+            "is( 1, 'int' )" => [
+                1, 'int', true
+            ],
+            "is( 1, 'integer' )" => [
+                1, 'integer', true
+            ],
+            "is( 1, 'bool' )" => [
+                1, 'bool', false
+            ],
+
+            // Unknown type
+            "is( 1, 'unknown type' )" => [
+                1, 'unknown type', false
+            ],
+
+            // Null
+            "is( NULL, 'null' )" => [
+                NULL, 'null', true
+            ],
+            "is( null, 'null' )" => [
+                null, 'null', true
+            ],
+            "is( NULL, 'bool' )" => [
+                NULL, 'bool', false
+            ],
+            "is( NULL, 'int' )" => [
+                NULL, 'int', false
+            ],
+
+            // String
+            "is( '1', 'string' )" => [
+                '1', 'string', true
+            ],
+            "is( '1', 'int' )" => [
+                '1', 'int', false
+            ],
+            "is( '1', 'bool' )" => [
+                '1', 'bool', false
+            ]
+        ];
     }
 }
