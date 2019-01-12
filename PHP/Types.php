@@ -29,9 +29,9 @@ final class Types
     /** @var string[] List of known type names mapped to their aliases */
     private static $knownTypes = [
         TypeNames::ARRAY  => [],
-        TypeNames::BOOL   => [ 'boolean' ],
-        TypeNames::FLOAT  => [ 'double' ],
-        TypeNames::INT    => [ 'integer' ],
+        TypeNames::BOOL   => [ TypeNames::BOOLEAN ],
+        TypeNames::FLOAT  => [ TypeNames::DOUBLE ],
+        TypeNames::INT    => [ TypeNames::INTEGER ],
         TypeNames::NULL   => [],
         TypeNames::STRING => []
     ];
