@@ -4,7 +4,7 @@
     "version":     "0.8.0",
     "autoload": {
         "files": [
-            "PHP/functions.php"
+            "PHP/Functions.php"
         ],
         "psr-4": {
             "PHP\\": "PHP/"
