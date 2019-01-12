@@ -68,10 +68,9 @@ final class Types
                 $aliases = self::$knownTypes[ $name ];
                 $type    = new Type( $name, $aliases );
             }
-            elseif ( '' !== self::getNameByAlias( $name )) {
-                $name    = self::getNameByAlias( $name );
-                $aliases = self::$knownTypes[ $name ];
-                $type    = new Type( $name, $aliases );
+            elseif ( '' !== ( $primaryName = self::getNameByAlias( $name ) )) {
+                $aliases = self::$knownTypes[ $primaryName ];
+                $type    = new Type( $primaryName, $aliases );
             }
             
             // Function types
