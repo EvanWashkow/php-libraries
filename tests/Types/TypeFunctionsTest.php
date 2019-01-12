@@ -40,6 +40,10 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
     {
         return [
 
+            /**
+             * Basic types
+             */
+
             // Array
             "is( [], 'array' )" => [
                 [], 'array', true
@@ -111,6 +115,50 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
             ],
             "is( '1', 'bool' )" => [
                 '1', 'bool', false
+            ],
+
+
+            /**
+             * Classes and interfaces
+             */
+
+            // Classes
+            "is( ReflectionFunction, 'ReflectionFunction' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'ReflectionFunction',
+                true
+            ],
+            "is( ReflectionFunction, 'ReflectionFunctionAbstract' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'ReflectionFunctionAbstract',
+                true
+            ],
+            "is( ReflectionFunction, 'ReflectionClass' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'ReflectionClass',
+                false
+            ],
+            "is( ReflectionFunction, 'int' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'int',
+                false
+            ],
+
+            // Interfaces
+            "is( ReflectionFunction, 'Reflector' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'Reflector',
+                true
+            ],
+            "is( ReflectionFunction, 'Iterator' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'Iterator',
+                false
+            ],
+            "is( ReflectionFunction, 'int' )" => [
+                new \ReflectionFunction( 'substr' ),
+                'int',
+                false
             ]
         ];
     }
