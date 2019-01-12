@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests;
 
+use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
@@ -114,6 +115,23 @@ class CollectionTest extends CollectionsTestCase
             ],
             'Dictionary with wrong value type' => [
                 new Dictionary('string', 'int', [ 'foo' => 'bar' ]),
+                []
+            ],
+
+            // Cache
+            'Cache with no entries' => [
+                new Cache('string', 'string', []), []
+            ],
+            'Cache with entries' => [
+                new Cache('string', 'string', [ 'foo' => 'bar' ]),
+                [ 'foo' => 'bar' ]
+            ],
+            'Cache with wrong key type' => [
+                new Cache('int', 'string', [ 'foo' => 'bar' ]),
+                []
+            ],
+            'Cache with wrong value type' => [
+                new Cache('string', 'int', [ 'foo' => 'bar' ]),
                 []
             ],
 

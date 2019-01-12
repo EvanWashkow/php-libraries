@@ -18,14 +18,17 @@ class Cache extends Dictionary
 
 
     /**
-     * Create a new Collection
+     * Create a new system-memory cache
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
+     * @param array  $entries   Initial entries [ key => value ]
      */
-    public function __construct( string $keyType, string $valueType )
+    public function __construct( string $keyType,
+                                 string $valueType,
+                                 array  $entries )
     {
-        parent::__construct( $keyType, $valueType );
+        parent::__construct( $keyType, $valueType, $entries );
         $this->markIncomplete();
     }
     
