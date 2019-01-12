@@ -103,23 +103,24 @@ class Type
      * Determine if the type or value is derived from the current type
      * 
      * i.e. The given type must have all the same properties and methods;
-     * meaning this type =< that type.
+     * meaning this type <= that type.
      *
      * @param mixed $item A value or PHP\Types\Models\Type instance
      * @return bool
      */
     public function equals( $item ): bool
     {
-        // Get the item type
-        $type = \PHP\Types::GetByValue( $item );
+        return (
 
-        // The item is a Type instance. Evaluate the item as the Type.
-        if ( $type->is( self::class )) {
-            $type = $item;
-        }
-        
-        // Determine if that type is derived from this one
-        return $type->is( $this->getName() );
+            // Value comparison
+            is( $item, $this->getName() ) ||
+
+            // Type object comparison
+            (
+                is_a( $item, get_class( $this )) &&
+                $item->is( $this->getName() )
+            )
+        );
     }
     
     
