@@ -79,8 +79,7 @@ final class Types
                 $type = new Types\Models\FunctionBaseType();
             }
             elseif ( function_exists( $name )) {
-                $function = new \ReflectionFunction( $name );
-                $type     = new FunctionType( $function );
+                $type = new FunctionType( $name );
             }
             
             // Class and interface types

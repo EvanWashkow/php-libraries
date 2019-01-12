@@ -8,19 +8,19 @@ namespace PHP\Types\Models;
  */
 final class FunctionType extends FunctionBaseType
 {
-    
-    /** @var \ReflectionFunctionAbstract $reflectionFunction Reflection instance with details for the function instance */
-    private $reflectionFunction;
+
+    /** @var string $name The function name */
+    private $name;
     
     
     /**
      * Create a new type instance for this function definition
      *
-     * @param \ReflectionFunctionAbstract $reflectionFunction Reflection instance for the function
+     * @param string $name The function name
      */
-    public function __construct( \ReflectionFunctionAbstract $reflectionFunction )
+    public function __construct( string $name )
     {
-        $this->reflectionFunction = $reflectionFunction;
+        $this->name = $name;
         parent::__construct();
     }
 
@@ -34,7 +34,7 @@ final class FunctionType extends FunctionBaseType
 
     public function getFunctionName(): string
     {
-        return $this->reflectionFunction->getName();
+        return $this->name;
     }
 
 
