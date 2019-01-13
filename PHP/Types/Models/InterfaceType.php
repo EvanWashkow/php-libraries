@@ -29,7 +29,7 @@ class InterfaceType extends Type
     }
 
 
-    public function is( string $typeName ): bool
+    final public function is( string $typeName ): bool
     {
         return (
             ( $this->getName() === $typeName ) ||
