@@ -31,13 +31,9 @@ class InterfaceType extends Type
 
     public function is( string $typeName ): bool
     {
-        $typeName = trim( $typeName );
         return (
-            parent::is( $typeName ) ||
-            (
-                interface_exists( $typeName ) &&
-                $this->getReflectionClass()->isSubclassOf( $typeName )
-            )
+            ( $this->getName() === $typeName ) ||
+            is_subclass_of( $this->getName(), $typeName )
         );
     }
     
