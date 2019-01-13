@@ -235,10 +235,20 @@ abstract class Collection extends    \PHP\PHPObject
      */
     public function getKeyOf( $value )
     {
+        // Throw exception for wrong value type
+        if ( !$this->getValueType()->equals( $value ) ) {
+            throw new \InvalidArgumentException( 'Wrong value type' );
+        }
+
+        // Search for the value
         $key = array_search( $value, $this->toArray(), true );
+
+        // Throw exception for key not found
         if ( false === $key ) {
             throw new \Exception( 'Key not found' );
         }
+
+        // Return the key
         return $key;
     }
 

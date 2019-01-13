@@ -134,6 +134,15 @@ class Sequence extends Collection
         $firstKey = $this->getFirstKey();
         $lastKey  = $this->getLastKey();
 
+
+        /**
+         * Throw exception for wrong value type
+         */
+        if ( !$this->getValueType()->equals( $value ) ) {
+            throw new \InvalidArgumentException( 'Wrong value type' );
+        }
+
+
         /**
          * Throw exceptions for a bad offset
          * 
@@ -141,13 +150,14 @@ class Sequence extends Collection
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        if ( $offset < $firstKey ) {
+        elseif ( $offset < $firstKey ) {
             throw new \InvalidArgumentException( 'Offset too small' );
             
         }
         elseif ( $lastKey < $offset ) {
             throw new \InvalidArgumentException( 'Offset too large' );
         }
+
 
         // Get sub-sequence to search
         $sequence;
