@@ -33,6 +33,11 @@ class InterfaceType extends Type
     {
         return (
             ( $this->getName() === $typeName ) ||
+
+            /**
+             * is_subclass_of() tends to be just slightly faster than
+             * $this->getReflectionClass()->isSubClassOf()
+             */
             is_subclass_of( $this->getName(), $typeName )
         );
     }
