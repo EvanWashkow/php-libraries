@@ -8,19 +8,6 @@ namespace PHP\Types\Models;
  */
 final class ClassType extends InterfaceType
 {
-
-
-    final public function is( string $typeName ): bool
-    {
-        $typeName = trim( $typeName );
-        return (
-            parent::is( $typeName ) ||
-            (
-                class_exists( $typeName ) &&
-                $this->getReflectionClass()->isSubclassOf( $typeName )
-            )
-        );
-    }
     
     
     final public function isClass(): bool
