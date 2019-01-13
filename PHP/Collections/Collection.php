@@ -291,8 +291,7 @@ abstract class Collection extends    \PHP\PHPObject
     public function hasKey( $key ): bool
     {
         return (
-            ( is_int( $key ) || is_string( $key ) ) &&
-            $this->getKeyType()->equals( $key )     &&
+            $this->getKeyType()->equals( $key ) &&
             array_key_exists( $key, $this->toArray() )
         );
     }
