@@ -847,11 +847,12 @@ class CollectionTest extends CollectionsTestCase
         $sequence->add( false );
 
         return [
-            'Dictionary valid'   => [ $dictionary, 'false',         true ],
-            'Dictionary unknown' => [ $dictionary, new \stdClass(), false ],
-            'Dictionary partial' => [ $dictionary, 'foo',           false ],
-            'Sequence valid'     => [ $sequence,   0,               true ],
-            'Sequence unknown'   => [ $sequence,   5,               false ]
+            'Dictionary valid'    => [ $dictionary, 'false',         true ],
+            'Dictionary bad type' => [ $dictionary, new \stdClass(), false ],
+            'Dictionary partial'  => [ $dictionary, 'foo',           false ],
+            'Sequence valid'      => [ $sequence,   0,               true ],
+            'Sequence unknown'    => [ $sequence,   5,               false ],
+            'Sequence bad type'   => [ $sequence,   new \stdClass(), false ]
         ];
     }
 
