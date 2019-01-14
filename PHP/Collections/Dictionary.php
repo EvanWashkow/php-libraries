@@ -119,6 +119,18 @@ class Dictionary extends Collection
 
 
     /**
+     * @see Collection->hasKey()
+     */
+    final public function hasKey( $key ): bool
+    {
+        return (
+            $this->getKeyType()->equals( $key ) &&
+            array_key_exists( $key, $this->entries )
+        );
+    }
+
+
+    /**
      * @see Collection->remove()
      */
     final public function remove( $key ): bool
