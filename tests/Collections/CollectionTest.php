@@ -697,14 +697,14 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
-     * Ensure getKeyType() returns a wildcard type
+     * Ensure getKeyType() returns a Anonymous type
      */
-    public function testGetKeyTypeWildcard()
+    public function testGetKeyTypeAnonymous()
     {
         $this->assertInstanceOf(
             AnonymousType::class,
             ( new Dictionary( '*', '*' ) )->getKeyType(),
-            'Expected Collection->getKeyType() to return a wildcard type'
+            'Expected Collection->getKeyType() to return a Anonymous type'
         );
     }
 
@@ -793,14 +793,14 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
-     * Ensure getValueType() returns a wildcard type
+     * Ensure getValueType() returns a Anonymous type
      */
-    public function testGetValueTypeWildcard()
+    public function testGetValueTypeAnonymous()
     {
         $this->assertInstanceOf(
             AnonymousType::class,
             ( new Dictionary( '', '' ) )->getValueType(),
-            'Expected Collection->getValueType() to return a wildcard type'
+            'Expected Collection->getValueType() to return a Anonymous type'
         );
     }
 
