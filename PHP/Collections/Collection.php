@@ -54,13 +54,7 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        $keyType = trim( $keyType );
-        if ( in_array( $keyType, [ '', '*' ] ) ) {
-            $this->keyType = new Collection\AnonymousKeyType();
-        }
-        else {
-            $this->keyType = Types::GetByName( $keyType );
-        }
+        $this->keyType = $this->createKeyType( trim( $keyType ));
         
         // Lookup value type
         $valueType = trim( $valueType );
@@ -78,10 +72,7 @@ abstract class Collection extends    \PHP\PHPObject
             'null',
             Types::GetUnknownType()->getName()
         ];
-        if ( in_array( $keyType, $invalidTypes )) {
-            throw new \InvalidArgumentException( "Key type cannot be {$keyType}" );
-        }
-        elseif ( in_array( $valueType, $invalidTypes )) {
+        if ( in_array( $valueType, $invalidTypes )) {
             throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
         }
 
@@ -89,6 +80,35 @@ abstract class Collection extends    \PHP\PHPObject
         foreach ( $entries as $key => $value ) {
             $this->set( $key, $value );
         }
+    }
+
+
+    /**
+     * Create the key type
+     * 
+     * Throws exception on bad key type
+     *
+     * @param string $typeName The type name
+     * @return Type
+     * @throws \InvalidArgumentException On bad key type
+     **/
+    protected function createKeyType( string $typeName ): Type
+    {
+        // Get the key type
+        $type;
+        if ( in_array( $typeName, [ '', '*' ] ) ) {
+            $type = new Collection\AnonymousKeyType();
+        }
+        else {
+            $type = Types::GetByName( $typeName );
+        }
+        
+        // Throw error on bad key type
+        $typeName = $type->getName();
+        if (in_array($typeName, ['null', Types::GetUnknownType()->getName()])) {
+            throw new \InvalidArgumentException( "Key type cannot be {$typeName}" );
+        }
+        return $type;
     }
 
 
