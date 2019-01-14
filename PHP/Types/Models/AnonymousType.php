@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Collections\Collection;
+namespace PHP\Types\Models;
 
 use PHP\Types\Models\Type;
 

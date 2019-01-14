@@ -1,7 +1,7 @@
 <?php
-namespace PHP\Tests\Collections\Types;
+namespace PHP\Tests\Types\Models;
 
-use PHP\Collections\Collection\AnonymousType;
+use PHP\Types\Models\AnonymousType;
 
 /**
  * Tests AnonymousType

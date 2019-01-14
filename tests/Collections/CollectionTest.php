@@ -7,6 +7,7 @@ use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
+use PHP\Types\Models\AnonymousType;
 
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
@@ -701,7 +702,7 @@ class CollectionTest extends CollectionsTestCase
     public function testGetKeyTypeWildcard()
     {
         $this->assertInstanceOf(
-            'PHP\\Collections\\Collection\\AnonymousType',
+            AnonymousType::class,
             ( new Dictionary( '*', '*' ) )->getKeyType(),
             'Expected Collection->getKeyType() to return a wildcard type'
         );
@@ -797,7 +798,7 @@ class CollectionTest extends CollectionsTestCase
     public function testGetValueTypeWildcard()
     {
         $this->assertInstanceOf(
-            'PHP\\Collections\\Collection\\AnonymousType',
+            AnonymousType::class,
             ( new Dictionary( '', '' ) )->getValueType(),
             'Expected Collection->getValueType() to return a wildcard type'
         );

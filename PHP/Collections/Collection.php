@@ -3,8 +3,8 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\Collections\Collection\AnonymousType;
 use PHP\Types;
+use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
@@ -130,7 +130,7 @@ abstract class Collection extends    \PHP\PHPObject
      **/
     protected function createAnonymousValueType(): AnonymousType
     {
-        return new Collection\AnonymousType();
+        return new AnonymousType();
     }
 
 

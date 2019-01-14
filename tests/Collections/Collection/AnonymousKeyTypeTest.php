@@ -1,14 +1,12 @@
 <?php
 namespace PHP\Tests\Collections\Types;
 
-require_once( __DIR__ . '/AnonymousTypeTest.php' );
-
 use PHP\Collections\Collection\AnonymousKeyType;
 
 /**
  * Tests AnonymousKeyType
  */
-class AnonymousKeyTypeTest extends AnonymousTypeTest
+class AnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
 
 

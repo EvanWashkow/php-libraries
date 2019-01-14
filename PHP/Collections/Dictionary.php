@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Types;
-use PHP\Collections\Collection\AnonymousType;
+use PHP\Types\Models\AnonymousType;
 
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
