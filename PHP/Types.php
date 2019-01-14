@@ -53,7 +53,6 @@ final class Types
     public static function GetByName( string $name ): Type
     {
         // Variables
-        $name = trim( $name );
         $type = null;
 
         // Query type cache

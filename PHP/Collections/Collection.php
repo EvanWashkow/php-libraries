@@ -55,8 +55,8 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        $keyType         = trim( $keyType );
-        $valueType       = trim( $valueType );
+        $keyType         = $keyType;
+        $valueType       = $valueType;
         $this->keyType   = $this->createKeyType( $keyType );
         $this->valueType = $this->createValueType( $valueType );
 
