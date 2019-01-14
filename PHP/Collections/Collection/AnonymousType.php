@@ -4,14 +4,14 @@ namespace PHP\Collections\Collection;
 use PHP\Types\Models\Type;
 
 /**
- * Type wildcard that evaluates to true for any type
+ * Type that evaluates to true for any type
  */
-class WildcardType extends Type
+class AnonymousType extends Type
 {
 
 
     /**
-     * Create a wildcard type which always evaluates to true for any type
+     * Create a type which always evaluates to true for any type
      */
     public function __construct()
     {

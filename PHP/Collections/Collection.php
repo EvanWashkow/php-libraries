@@ -65,7 +65,7 @@ abstract class Collection extends    \PHP\PHPObject
         // Lookup value type
         $valueType = trim( $valueType );
         if ( in_array( $valueType, [ '', '*' ] ) ) {
-            $this->valueType = new Collection\WildcardType();
+            $this->valueType = new Collection\AnonymousType();
         }
         else {
             $this->valueType = Types::GetByName( $valueType );

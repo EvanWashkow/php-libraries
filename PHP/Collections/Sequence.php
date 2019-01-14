@@ -43,7 +43,7 @@ class Sequence extends Collection
 
         // For each entry, make sure it is the right type
         $valueType = $this->getValueType();
-        if ( !is_a( $valueType, Collection\WildcardType::class )) {
+        if ( !is_a( $valueType, Collection\AnonymousType::class )) {
             foreach ( $entries as $key => $value ) {
                 if ( !$valueType->equals( $value )) {
                     trigger_error( 'Wrong value type' );

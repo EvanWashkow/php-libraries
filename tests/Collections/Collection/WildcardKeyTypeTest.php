@@ -1,14 +1,14 @@
 <?php
 namespace PHP\Tests\Collections\Types;
 
-require_once( __DIR__ . '/WildcardTypeTest.php' );
+require_once( __DIR__ . '/AnonymousTypeTest.php' );
 
 use PHP\Collections\Collection\WildcardKeyType;
 
 /**
  * Tests WildcardKeyType
  */
-class WildcardKeyTypeTest extends WildcardTypeTest
+class WildcardKeyTypeTest extends AnonymousTypeTest
 {
 
 

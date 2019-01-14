@@ -701,7 +701,7 @@ class CollectionTest extends CollectionsTestCase
     public function testGetKeyTypeWildcard()
     {
         $this->assertInstanceOf(
-            'PHP\\Collections\\Collection\\WildcardType',
+            'PHP\\Collections\\Collection\\AnonymousType',
             ( new Dictionary( '*', '*' ) )->getKeyType(),
             'Expected Collection->getKeyType() to return a wildcard type'
         );
@@ -797,7 +797,7 @@ class CollectionTest extends CollectionsTestCase
     public function testGetValueTypeWildcard()
     {
         $this->assertInstanceOf(
-            'PHP\\Collections\\Collection\\WildcardType',
+            'PHP\\Collections\\Collection\\AnonymousType',
             ( new Dictionary( '', '' ) )->getValueType(),
             'Expected Collection->getValueType() to return a wildcard type'
         );
