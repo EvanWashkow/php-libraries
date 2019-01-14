@@ -56,7 +56,7 @@ abstract class Collection extends    \PHP\PHPObject
         // Lookup key type
         $keyType = trim( $keyType );
         if ( in_array( $keyType, [ '', '*' ] ) ) {
-            $this->keyType = new Collection\WildcardKeyType();
+            $this->keyType = new Collection\AnonymousKeyType();
         }
         else {
             $this->keyType = Types::GetByName( $keyType );

@@ -2,9 +2,9 @@
 namespace PHP\Collections\Collection;
 
 /**
- * Type wildcard for keys that evaluates to true for any type other than null
+ * Anonymous type for keys that evaluates to true for any type other than null
  */
-class WildcardKeyType extends AnonymousType
+class AnonymousKeyType extends AnonymousType
 {
 
 

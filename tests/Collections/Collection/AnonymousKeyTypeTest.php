@@ -3,12 +3,12 @@ namespace PHP\Tests\Collections\Types;
 
 require_once( __DIR__ . '/AnonymousTypeTest.php' );
 
-use PHP\Collections\Collection\WildcardKeyType;
+use PHP\Collections\Collection\AnonymousKeyType;
 
 /**
- * Tests WildcardKeyType
+ * Tests AnonymousKeyType
  */
-class WildcardKeyTypeTest extends AnonymousTypeTest
+class AnonymousKeyTypeTest extends AnonymousTypeTest
 {
 
 
@@ -18,8 +18,8 @@ class WildcardKeyTypeTest extends AnonymousTypeTest
     public function testEqualsReturnsFalseForNull()
     {
         $this->assertFalse(
-            ( new WildcardKeyType() )->equals( null ),
-            'WildcardKeyType->equals() should return false for a null value'
+            ( new AnonymousKeyType() )->equals( null ),
+            'AnonymousKeyType->equals() should return false for a null value'
         );
     }
 
@@ -31,8 +31,8 @@ class WildcardKeyTypeTest extends AnonymousTypeTest
     {
         $nullType = \PHP\Types::GetByValue( null );
         $this->assertFalse(
-            ( new WildcardKeyType() )->equals( $nullType ),
-            'WildcardKeyType->equals() should return false for a null type'
+            ( new AnonymousKeyType() )->equals( $nullType ),
+            'AnonymousKeyType->equals() should return false for a null type'
         );
     }
 
@@ -43,8 +43,8 @@ class WildcardKeyTypeTest extends AnonymousTypeTest
     public function testIsReturnsFalseForNull()
     {
         $this->assertFalse(
-            ( new WildcardKeyType() )->is( 'null' ),
-            'WildcardKeyType->is() should return false for "null"'
+            ( new AnonymousKeyType() )->is( 'null' ),
+            'AnonymousKeyType->is() should return false for "null"'
         );
     }
 }
