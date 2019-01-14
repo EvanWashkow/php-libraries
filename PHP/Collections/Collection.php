@@ -5,6 +5,7 @@ namespace PHP\Collections;
 
 use PHP\Types;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeNames;
 
 
 /**
@@ -54,8 +55,38 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        $this->keyType   = $this->createKeyType(   trim( $keyType ));
-        $this->valueType = $this->createValueType( trim( $valueType ));
+        $keyType         = trim( $keyType );
+        $valueType       = trim( $valueType );
+        $this->keyType   = $this->createKeyType( $keyType );
+        $this->valueType = $this->createValueType( $valueType );
+
+        // Throw exception on invalid key type
+        switch ( $this->getKeyType()->getName() ) {
+            case TypeNames::NULL:
+                throw new \InvalidArgumentException( 'Key type cannot be "null"' );
+                break;
+            
+            case TypeNames::UNKNOWN:
+                throw new \InvalidArgumentException( "Key type \"{$keyType}\" does not exist" );
+                break;
+            
+            default:
+                break;
+        }
+
+        // Throw exception on invalid value type
+        switch ( $this->getValueType()->getName() ) {
+            case TypeNames::NULL:
+                throw new \InvalidArgumentException( 'Value type cannot be "null"' );
+                break;
+            
+            case TypeNames::UNKNOWN:
+                throw new \InvalidArgumentException( "Value type \"{$valueType}\" does not exist" );
+                break;
+            
+            default:
+                break;
+        }
 
         // For each initial entry, add it to this collection
         foreach ( $entries as $key => $value ) {
@@ -66,12 +97,9 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Create the key type
-     * 
-     * Throws exception on bad key type
      *
      * @param string $typeName The type name
      * @return Type
-     * @throws \InvalidArgumentException On bad key type
      **/
     protected function createKeyType( string $typeName ): Type
     {
@@ -83,24 +111,15 @@ abstract class Collection extends    \PHP\PHPObject
         else {
             $type = Types::GetByName( $typeName );
         }
-        
-        // Throw error on bad key type
-        $typeName = $type->getName();
-        if (in_array($typeName, ['null', Types::GetUnknownType()->getName()])) {
-            throw new \InvalidArgumentException( "Key type cannot be {$typeName}" );
-        }
         return $type;
     }
 
 
     /**
      * Create the value type
-     * 
-     * Throws exception on bad value type
      *
      * @param string $typeName The type name
      * @return Type
-     * @throws \InvalidArgumentException On bad value type
      **/
     protected function createValueType( string $typeName ): Type
     {
@@ -111,12 +130,6 @@ abstract class Collection extends    \PHP\PHPObject
         }
         else {
             $type = Types::GetByName( $typeName );
-        }
-        
-        // Throw error on bad value type
-        $typeName = $type->getName();
-        if (in_array($typeName, ['null', Types::GetUnknownType()->getName()])) {
-            throw new \InvalidArgumentException( "Value type cannot be {$typeName}" );
         }
         return $type;
     }
