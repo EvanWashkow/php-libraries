@@ -64,7 +64,12 @@ abstract class Collection extends    \PHP\PHPObject
         }
 
         // Lookup value type
-        $this->valueType = $this->createValueType( $valueType );
+        if ( in_array( $valueType, [ '', '*' ] )) {
+            $this->valueType = $this->createAnonymousValueType();
+        }
+        else {
+            $this->valueType = Types::GetByName( $valueType );
+        }
 
         // Throw exception on invalid key type
         switch ( $this->getKeyType()->getName() ) {
@@ -116,18 +121,16 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
-     * Create the value type
+     * Create an anonymous value type
+     * 
+     * @internal This allows the child class to customize the anonymous type to
+     * allow / prevent certain types.
      *
-     * @param string $typeName The type name
-     * @return Type
+     * @return AnonymousType
      **/
-    protected function createValueType( string $typeName ): Type
+    protected function createAnonymousValueType(): AnonymousType
     {
-
-        return ( in_array( $typeName, [ '', '*' ] )
-            ? new Collection\AnonymousType()
-            : Types::GetByName( $typeName )
-        );
+        return new Collection\AnonymousType();
     }
 
 
