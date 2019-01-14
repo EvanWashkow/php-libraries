@@ -3,6 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Types;
+use PHP\Types\Models\Type;
+
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
  *
@@ -52,6 +55,18 @@ class Dictionary extends Collection
         {
             throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
         }
+    }
+
+
+    /**
+     * @see Collection->createKeyType()
+     */
+    final protected function createKeyType( string $typeName ): Type
+    {
+        return ( in_array( $typeName, [ '', '*' ] )
+            ? new Dictionary\DictionaryAnonymousKeyType()
+            : Types::GetByName( $typeName )
+        );
     }
 
 
