@@ -1,4 +1,6 @@
 <?php
+declare( strict_types = 1 );
+
 namespace PHP\Collections\Collection;
 
 use PHP\Types\Models\Type;
