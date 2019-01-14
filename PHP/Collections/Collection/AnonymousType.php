@@ -11,13 +11,16 @@ use PHP\Types\Models\Type;
 class AnonymousType extends Type
 {
 
+    /** @var string NAME Name for the anonymous type */
+    const NAME = '*';
+
 
     /**
      * Create a type which always evaluates to true for any type
      */
     public function __construct()
     {
-        parent::__construct( '*' );
+        parent::__construct( self::NAME );
     }
 
 
