@@ -40,4 +40,13 @@ class AnonymousType extends Type
     {
         return true;
     }
+
+
+    /**
+     * @see Type->isClass()
+     */
+    public function isClass(): bool
+    {
+        throw new \TypeError( 'AnonymousType->isClass() is indeterminite.' );
+    }
 }

@@ -61,4 +61,15 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
+
+
+    /**
+     * Ensure AnonymousType->isClass() throws an exception
+     * 
+     * @expectedException \TypeError
+     **/
+    public function testIsClass()
+    {
+        ( new AnonymousType() )->isClass();
+    }
 }
