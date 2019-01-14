@@ -177,6 +177,17 @@ abstract class Collection extends    \PHP\PHPObject
     abstract public function getKeys(): Sequence;
 
     /**
+     * Determine if the key exists
+     * 
+     * @internal There's no way to write a solution for this (using toArray())
+     * without also making it incorrect.
+     *
+     * @param mixed $key The key to check for
+     * @return bool
+     */
+    abstract public function hasKey( $key ): bool;
+
+    /**
      * Remove key (and its corresponding value) from this collection
      *
      * @param mixed $key The key to remove the value from
@@ -330,24 +341,6 @@ abstract class Collection extends    \PHP\PHPObject
         return $this->valueType;
     }
 
-    /**
-     * Determine if the key exists
-     * 
-     * @internal Essentially, executes array_key_exists() on toArray().
-     * array_key_exists() requires a string or an integer (see warning when
-     * passing an object). Checking this first is drastically faster.
-     *
-     * @param mixed $key The key to check for
-     * @return bool
-     */
-    public function hasKey( $key ): bool
-    {
-        return (
-            ( is_int( $key ) || is_string( $key ) ) &&
-            $this->getKeyType()->equals( $key )     &&
-            array_key_exists( $key, $this->toArray() )
-        );
-    }
 
     /**
      * Determine if the value exists
