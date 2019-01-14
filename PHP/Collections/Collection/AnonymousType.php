@@ -24,12 +24,18 @@ class AnonymousType extends Type
     }
 
 
+    /**
+     * @see Type->equals()
+     */
     public function equals( $item ): bool
     {
         return true;
     }
 
 
+    /**
+     * @see Type->is()
+     */
     public function is( string $typeName ): bool
     {
         return true;

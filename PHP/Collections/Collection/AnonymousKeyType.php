@@ -11,7 +11,9 @@ use PHP\Types\Models\Type;
 class AnonymousKeyType extends AnonymousType
 {
 
-
+    /**
+     * @see Type->equals()
+     */
     public function equals( $item ): bool
     {
         $isEqual = true;
@@ -25,6 +27,9 @@ class AnonymousKeyType extends AnonymousType
     }
 
 
+    /**
+     * @see Type->is()
+     */
     public function is( string $typeName ): bool
     {
         return 'null' !== $typeName;

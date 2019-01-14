@@ -12,7 +12,9 @@ use PHP\Collections\Collection\AnonymousKeyType;
 class DictionaryAnonymousKeyType extends AnonymousKeyType
 {
 
-
+    /**
+     * @see Type->equals()
+     */
     public function equals( $item ): bool
     {
         return (
@@ -32,6 +34,9 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
     }
 
 
+    /**
+     * @see Type->is()
+     */
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, [ 'int', 'string' ], true );
