@@ -9,6 +9,10 @@ use PHP\Types\Models\Type;
  * A "typeless type", where the compiler/interpreter has to infer the type from
  * the value, at run-time.
  * 
+ * @internal Name cannot be a valid type or possible function name. Therefore,
+ * the name must be one that PHP does not allow. Also, '*' is pretty
+ * descriptive of an anonymous type.
+ * 
  * @internal Do not use as the base class for Type, even though PHP's default
  * behavior is anonymous typing. Under the hood, an anonymous type is
  * implemented using type inference, which uses strict typing.
