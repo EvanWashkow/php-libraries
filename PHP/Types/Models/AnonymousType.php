@@ -6,8 +6,7 @@ namespace PHP\Types\Models;
 use PHP\Types\Models\Type;
 
 /**
- * A "typeless type", where the compiler/interpreter has to infer the type from
- * the value, at run-time.
+ * A "typeless type", where the compiler/interpreter infers the type from the value.
  * 
  * @internal Name cannot be a valid type name or possible function name.
  * Therefore, the name must be one that PHP does not allow. Also, '*' is pretty
