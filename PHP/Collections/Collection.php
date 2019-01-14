@@ -54,27 +54,8 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        $this->keyType = $this->createKeyType( trim( $keyType ));
-        
-        // Lookup value type
-        $valueType = trim( $valueType );
-        if ( in_array( $valueType, [ '', '*' ] ) ) {
-            $this->valueType = new Collection\AnonymousType();
-        }
-        else {
-            $this->valueType = Types::GetByName( $valueType );
-        }
-
-        // Check for invalid types
-        $keyType   = $this->getKeyType()->getName();
-        $valueType = $this->getValueType()->getName();
-        $invalidTypes = [
-            'null',
-            Types::GetUnknownType()->getName()
-        ];
-        if ( in_array( $valueType, $invalidTypes )) {
-            throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
-        }
+        $this->keyType   = $this->createKeyType(   trim( $keyType ));
+        $this->valueType = $this->createValueType( trim( $valueType ));
 
         // For each initial entry, add it to this collection
         foreach ( $entries as $key => $value ) {
@@ -107,6 +88,35 @@ abstract class Collection extends    \PHP\PHPObject
         $typeName = $type->getName();
         if (in_array($typeName, ['null', Types::GetUnknownType()->getName()])) {
             throw new \InvalidArgumentException( "Key type cannot be {$typeName}" );
+        }
+        return $type;
+    }
+
+
+    /**
+     * Create the value type
+     * 
+     * Throws exception on bad value type
+     *
+     * @param string $typeName The type name
+     * @return Type
+     * @throws \InvalidArgumentException On bad value type
+     **/
+    protected function createValueType( string $typeName ): Type
+    {
+        // Get the value type
+        $type;
+        if ( in_array( $typeName, [ '', '*' ] ) ) {
+            $type = new Collection\AnonymousType();
+        }
+        else {
+            $type = Types::GetByName( $typeName );
+        }
+        
+        // Throw error on bad value type
+        $typeName = $type->getName();
+        if (in_array($typeName, ['null', Types::GetUnknownType()->getName()])) {
+            throw new \InvalidArgumentException( "Value type cannot be {$typeName}" );
         }
         return $type;
     }
