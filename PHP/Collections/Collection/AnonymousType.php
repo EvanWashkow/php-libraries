@@ -49,4 +49,13 @@ class AnonymousType extends Type
     {
         throw new \TypeError( 'AnonymousType->isClass() is indeterminite.' );
     }
+
+
+    /**
+     * @see Type->isInterface()
+     */
+    public function isInterface(): bool
+    {
+        throw new \TypeError( 'AnonymousType->isInterface() is indeterminite.' );
+    }
 }

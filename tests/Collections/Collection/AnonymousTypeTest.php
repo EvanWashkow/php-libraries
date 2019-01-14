@@ -72,4 +72,15 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
     {
         ( new AnonymousType() )->isClass();
     }
+
+
+    /**
+     * Ensure AnonymousType->isInterface() throws an exception
+     * 
+     * @expectedException \TypeError
+     **/
+    public function testIsInterface()
+    {
+        ( new AnonymousType() )->isInterface();
+    }
 }
