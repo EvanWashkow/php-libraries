@@ -7,6 +7,9 @@ use PHP\Types\Models\Type;
 
 /**
  * Type that evaluates to true for any type
+ * 
+ * @internal This should not be the base type for Type, since, under the hood,
+ * an anonymous type is implemented using various types.
  */
 class AnonymousType extends Type
 {
