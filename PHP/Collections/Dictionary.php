@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Types;
-use PHP\Types\Models\Type;
+use PHP\Collections\Collection\AnonymousType;
 
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
@@ -59,14 +59,11 @@ class Dictionary extends Collection
 
 
     /**
-     * @see Collection->createKeyType()
+     * @see Collection->createAnoymousKeyType()
      */
-    final protected function createKeyType( string $typeName ): Type
+    final protected function createAnonymousKeyType(): AnonymousType
     {
-        return ( in_array( $typeName, [ '', '*' ] )
-            ? new Dictionary\DictionaryAnonymousKeyType()
-            : Types::GetByName( $typeName )
-        );
+        return new Dictionary\DictionaryAnonymousKeyType();
     }
 
 

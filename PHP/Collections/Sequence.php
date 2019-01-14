@@ -59,15 +59,6 @@ class Sequence extends Collection
     }
 
 
-    /**
-     * @see Collection->createKeyType()
-     */
-    final protected function createKeyType( string $typeName ): Type
-    {
-        return \PHP\Types::GetByName( $typeName );
-    }
-
-
 
 
     /***************************************************************************

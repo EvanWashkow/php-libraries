@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Collections\Collection\AnonymousType;
 use PHP\Types;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
@@ -55,9 +56,14 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        $keyType         = $keyType;
-        $valueType       = $valueType;
-        $this->keyType   = $this->createKeyType( $keyType );
+        if ( in_array( $keyType, [ '', '*' ] )) {
+            $this->keyType = $this->createAnonymousKeyType();
+        }
+        else {
+            $this->keyType = Types::GetByName( $keyType );
+        }
+
+        // Lookup value type
         $this->valueType = $this->createValueType( $valueType );
 
         // Throw exception on invalid key type
@@ -96,17 +102,16 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
-     * Create the key type
+     * Create an anonymous key type
+     * 
+     * @internal This allows the child class to customize the anonymous type to
+     * allow / prevent certain types.
      *
-     * @param string $typeName The type name
-     * @return Type
+     * @return AnonymousType
      **/
-    protected function createKeyType( string $typeName ): Type
+    protected function createAnonymousKeyType(): AnonymousType
     {
-        return ( in_array( $typeName, [ '', '*' ] )
-            ? new Collection\AnonymousKeyType()
-            : Types::GetByName( $typeName )
-        );
+        return new Collection\AnonymousKeyType();
     }
 
 
