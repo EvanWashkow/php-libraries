@@ -103,15 +103,10 @@ abstract class Collection extends    \PHP\PHPObject
      **/
     protected function createKeyType( string $typeName ): Type
     {
-        // Get the key type
-        $type;
-        if ( in_array( $typeName, [ '', '*' ] ) ) {
-            $type = new Collection\AnonymousKeyType();
-        }
-        else {
-            $type = Types::GetByName( $typeName );
-        }
-        return $type;
+        return ( in_array( $typeName, [ '', '*' ] )
+            ? new Collection\AnonymousKeyType()
+            : Types::GetByName( $typeName )
+        );
     }
 
 
@@ -123,15 +118,11 @@ abstract class Collection extends    \PHP\PHPObject
      **/
     protected function createValueType( string $typeName ): Type
     {
-        // Get the value type
-        $type;
-        if ( in_array( $typeName, [ '', '*' ] ) ) {
-            $type = new Collection\AnonymousType();
-        }
-        else {
-            $type = Types::GetByName( $typeName );
-        }
-        return $type;
+
+        return ( in_array( $typeName, [ '', '*' ] )
+            ? new Collection\AnonymousType()
+            : Types::GetByName( $typeName )
+        );
     }
 
 
