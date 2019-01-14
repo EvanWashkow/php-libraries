@@ -41,4 +41,22 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
     {
         return in_array( $typeName, [ 'int', 'string' ], true );
     }
+
+
+    /**
+     * @see Type->isClass()
+     */
+    public function isClass(): bool
+    {
+        return false;
+    }
+
+
+    /**
+     * @see Type->isInterface()
+     */
+    public function isInterface(): bool
+    {
+        return false;
+    }
 }

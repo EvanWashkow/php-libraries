@@ -54,7 +54,7 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
 
     /***************************************************************************
-    *                                     is()
+    *                                     is()
     ***************************************************************************/
 
 
@@ -88,5 +88,43 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
             [ 'string', true ],
             [ 'float',  false ]
         ];
+    }
+
+
+
+
+    /***************************************************************************
+    *                                  isClass()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure isClass() only returns false
+     **/
+    public function testIsClass()
+    {
+        $this->assertFalse(
+            ( new DictionaryAnonymousKeyType() )->isClass(),
+            'DictionaryAnonymousKeyType->isClass() should only return false'
+        );
+    }
+
+
+
+
+    /***************************************************************************
+    *                                 isInterface()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure isInterface() only returns false
+     **/
+    public function testIsInterface()
+    {
+        $this->assertFalse(
+            ( new DictionaryAnonymousKeyType() )->isInterface(),
+            'DictionaryAnonymousKeyType->isInterface() should only return false'
+        );
     }
 }
