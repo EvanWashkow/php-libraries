@@ -3,6 +3,8 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Types\Models\Type;
+
 /**
  * Defines a mutable, ordered, and iterable set of key-value pairs (similar to Lists in other languages)
  *
@@ -54,6 +56,15 @@ class Sequence extends Collection
 
         // Initialize entries
         $this->entries = array_values( $entries );
+    }
+
+
+    /**
+     * @see Collection->createKeyType()
+     */
+    final protected function createKeyType( string $typeName ): Type
+    {
+        return \PHP\Types::GetByName( $typeName );
     }
 
 
