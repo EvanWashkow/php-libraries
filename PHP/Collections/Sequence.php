@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 
 /**
@@ -45,7 +46,7 @@ class Sequence extends Collection
 
         // For each entry, make sure it is the right type
         $valueType = $this->getValueType();
-        if ( !is_a( $valueType, Collection\AnonymousType::class )) {
+        if ( !is_a( $valueType, AnonymousType::class )) {
             foreach ( $entries as $key => $value ) {
                 if ( !$valueType->equals( $value )) {
                     trigger_error( 'Wrong value type' );

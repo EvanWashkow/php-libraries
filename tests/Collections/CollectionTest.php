@@ -148,6 +148,10 @@ class CollectionTest extends CollectionsTestCase
                 new Sequence( 'string', [ 5, 'foo' => 'bar' ]),
                 [ 0 => 'bar' ]
             ],
+            'Anonymous Sequence with entries' => [
+                new Sequence( '*', [ 5 => 'bar' ]),
+                [ 0 => 'bar' ]
+            ],
         ];
         restore_error_handler();
         return $array;
