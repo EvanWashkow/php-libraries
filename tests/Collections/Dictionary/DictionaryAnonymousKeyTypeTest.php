@@ -10,6 +10,10 @@ use PHP\Collections\Dictionary\DictionaryAnonymousKeyType;
 class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
 
+    /***************************************************************************
+    *                                   equals()
+    ***************************************************************************/
+
 
     /**
      * Ensure equals() only returns true for ints and strings
@@ -45,6 +49,13 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
             [ Types::GetByName( 'float' ),  false ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                                     is()
+    ***************************************************************************/
 
 
     /**
