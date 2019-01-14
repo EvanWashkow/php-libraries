@@ -56,7 +56,7 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        if ( in_array( $keyType, [ '', '*' ] )) {
+        if ( in_array( $keyType, [ '', AnonymousType::NAME ] )) {
             $this->keyType = $this->createAnonymousKeyType();
         }
         else {
@@ -64,7 +64,7 @@ abstract class Collection extends    \PHP\PHPObject
         }
 
         // Lookup value type
-        if ( in_array( $valueType, [ '', '*' ] )) {
+        if ( in_array( $valueType, [ '', AnonymousType::NAME ] )) {
             $this->valueType = $this->createAnonymousValueType();
         }
         else {
