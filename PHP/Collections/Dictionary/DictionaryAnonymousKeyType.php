@@ -34,6 +34,6 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
 
     public function is( string $typeName ): bool
     {
-        return in_array( $typeName, [ 'int', 'string' ] );
+        return in_array( $typeName, [ 'int', 'string' ], true );
     }
 }
