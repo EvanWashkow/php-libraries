@@ -203,8 +203,8 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Determine if the key exists
      * 
-     * @internal There's no way to write a solution for this (using toArray())
-     * without also making it incorrect.
+     * @internal There's no way to write an optimal solution for this
+     * (using getKeys()) without also making it incorrect.
      *
      * @param mixed $key The key to check for
      * @return bool
