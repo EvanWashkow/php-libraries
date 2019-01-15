@@ -185,6 +185,22 @@ abstract class Collection extends    \PHP\PHPObject
     abstract public function getKeys(): Sequence;
 
     /**
+     * Retrieve the key of the first value found
+     * 
+     * Throws exception when key not found. This *always* has to be handled by
+     * the caller, even if a default value was returned. Throwing an exception
+     * provides more information to the caller about what happened.
+     * 
+     * @internal There's no way to write a solution for this (using toArray())
+     * without also making it incorrect.
+     *
+     * @param mixed $value The value to find
+     * @return mixed The key
+     * @throws \Exception When key not found
+     */
+    abstract public function getKeyOf( $value );
+
+    /**
      * Determine if the key exists
      * 
      * @internal There's no way to write a solution for this (using toArray())
@@ -281,37 +297,6 @@ abstract class Collection extends    \PHP\PHPObject
     /***************************************************************************
     *                                 OWN METHODS
     ***************************************************************************/
-
-
-    /**
-     * Retrieve the key of the first value found
-     * 
-     * Throws exception when key not found. This *always* has to be handled by
-     * the caller, even if a default value was returned. Throwing an exception
-     * provides more information to the caller about what happened.
-     *
-     * @param mixed $value The value to find
-     * @return mixed The key
-     * @throws \Exception When key not found
-     */
-    public function getKeyOf( $value )
-    {
-        // Throw exception for wrong value type
-        if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \InvalidArgumentException( 'Wrong value type' );
-        }
-
-        // Search for the value
-        $key = array_search( $value, $this->toArray(), true );
-
-        // Throw exception for key not found
-        if ( false === $key ) {
-            throw new \Exception( 'Key not found' );
-        }
-
-        // Return the key
-        return $key;
-    }
 
 
     /**
