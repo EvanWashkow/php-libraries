@@ -20,13 +20,14 @@ final class SequenceData
     {
         $instances = [];
         foreach ( CollectionsTestData::Get() as $type => $values ) {
-            $sequence = new Sequence( $type );
+            $sequenceType = (( '' === $type ) ? '*' : $type );
+            $sequence     = new Sequence( $sequenceType );
             foreach ( $values as $value ) {
                 $sequence->add( $value );
             }
             
             $instances[ $type ]   = [];
-            $instances[ $type ][] = new Sequence( $type );
+            $instances[ $type ][] = new Sequence( $sequenceType );
             $instances[ $type ][] = $sequence;
         }
         return $instances;

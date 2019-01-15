@@ -790,7 +790,7 @@ class CollectionTest extends CollectionsTestCase
     {
         $this->assertEquals(
             'int',
-            ( new Dictionary( '', 'integer' ) )->getValueType()->getName(),
+            ( new Dictionary( '*', 'integer' ) )->getValueType()->getName(),
             "Collection->getValueType() return the wrong value type"
         );
     }
@@ -803,7 +803,7 @@ class CollectionTest extends CollectionsTestCase
     {
         $this->assertInstanceOf(
             AnonymousType::class,
-            ( new Dictionary( '', '' ) )->getValueType(),
+            ( new Dictionary( '*', '*' ) )->getValueType(),
             'Expected Collection->getValueType() to return a Anonymous type'
         );
     }

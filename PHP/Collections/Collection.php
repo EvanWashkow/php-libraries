@@ -56,7 +56,11 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        if ( in_array( $keyType, [ '', AnonymousType::NAME ] )) {
+        if ( AnonymousType::NAME === $keyType ) {
+            $this->keyType = $this->createAnonymousKeyType();
+        }
+        elseif ( '' === $keyType ) {
+            trigger_error( 'Key types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
             $this->keyType = $this->createAnonymousKeyType();
         }
         else {
@@ -64,8 +68,12 @@ abstract class Collection extends    \PHP\PHPObject
         }
 
         // Lookup value type
-        if ( in_array( $valueType, [ '', AnonymousType::NAME ] )) {
+        if ( AnonymousType::NAME === $valueType ) {
             $this->valueType = $this->createAnonymousValueType();
+        }
+        elseif ( '' === $valueType ) {
+            trigger_error( 'Value types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
+            $this->keyType = $this->createAnonymousValueType();
         }
         else {
             $this->valueType = Types::GetByName( $valueType );
