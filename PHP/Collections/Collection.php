@@ -158,6 +158,9 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Retrieve the number of entries in the collection
+     * 
+     * @internal No way to write an optimal implementation (using toArray()).
+     * Depending on the collection, toArray() may take time to complete.
      *
      * @return int
      **/
