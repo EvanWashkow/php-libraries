@@ -137,57 +137,61 @@ class TypeTest extends \PHP\Tests\TestCase
     /***************************************************************************
     *                                 Type->is()
     ***************************************************************************/
-    
-    
+
+
     /**
-     * Ensure Type->is() returns true for valid type name
+     * Test Type->is()
+     * 
+     * @dataProvider getIsData
+     * 
+     * @param Type   $type     Type to call is() on
+     * @param string $typeName Type name to compare to
+     * @param bool   $expected The expected result of calling $type->is()
      */
-    public function testIsWithValidTypeName()
+    public function testIs( Type $type, string $typeName, bool $expected )
     {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertTrue(
-            $type->is( 'int' ),
-            'Expected Type->is() to return true for a valid type name'
+        $this->assertEquals(
+            $expected,
+            $type->is( $typeName ),
+            'Type->is() did not return the correct value'
         );
     }
-    
-    
+
+
     /**
-     * Ensure Type->is() returns true for aliases
+     * Data provider for is() test
+     *
+     * @return array
      **/
-    public function testIsWithValidAlias()
+    public function getIsData(): array
     {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertTrue(
-            $type->is( 'integer' ),
-            'Expected Type->is() to return true for a valid type alias'
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->is() returns false for invalid type name
-     */
-    public function testIsWithInvalidTypeName()
-    {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertFalse(
-            $type->is( 'bool' ),
-            'Expected Type->is() to return false for an invalid type name'
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->is() returns false for invalid type alias
-     */
-    public function testIsWithInvalidAlias()
-    {
-        $type = \PHP\Types::GetByValue( 1 );
-        $this->assertFalse(
-            $type->is( 'boolean' ),
-            'Expected Type->is() to return false for an invalid type alias'
-        );
+        return [
+            'Valid name' => [
+                \PHP\Types::GetByValue( 1 ),
+                'int',
+                true
+            ],
+            'Valid alias' =>[
+                \PHP\Types::GetByValue( 1 ),
+                'integer',
+                true
+            ],
+            'Partial name' => [
+                \PHP\Types::GetByValue( 1 ),
+                'integ',
+                false
+            ],
+            'Invalid name' => [
+                \PHP\Types::GetByValue( 1 ),
+                'bool',
+                false
+            ],
+            'Invalid alias' => [
+                \PHP\Types::GetByValue( 1 ),
+                'boolean',
+                false
+            ]
+        ];
     }
     
     

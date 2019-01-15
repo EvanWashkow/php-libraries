@@ -7,6 +7,7 @@ use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
+use PHP\Types\Models\AnonymousType;
 
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
@@ -145,6 +146,10 @@ class CollectionTest extends CollectionsTestCase
             ],
             'Sequence with wrong value type' => [
                 new Sequence( 'string', [ 5, 'foo' => 'bar' ]),
+                [ 0 => 'bar' ]
+            ],
+            'Anonymous Sequence with entries' => [
+                new Sequence( '*', [ 5 => 'bar' ]),
                 [ 0 => 'bar' ]
             ],
         ];
@@ -696,14 +701,14 @@ class CollectionTest extends CollectionsTestCase
 
 
     /**
-     * Ensure getKeyType() returns a wildcard type
+     * Ensure getKeyType() returns a Anonymous type
      */
-    public function testGetKeyTypeWildcard()
+    public function testGetKeyTypeAnonymous()
     {
         $this->assertInstanceOf(
-            'PHP\\Collections\\Collection\\WildcardType',
+            AnonymousType::class,
             ( new Dictionary( '*', '*' ) )->getKeyType(),
-            'Expected Collection->getKeyType() to return a wildcard type'
+            'Expected Collection->getKeyType() to return a Anonymous type'
         );
     }
 
@@ -785,21 +790,21 @@ class CollectionTest extends CollectionsTestCase
     {
         $this->assertEquals(
             'int',
-            ( new Dictionary( '', 'integer' ) )->getValueType()->getName(),
+            ( new Dictionary( '*', 'integer' ) )->getValueType()->getName(),
             "Collection->getValueType() return the wrong value type"
         );
     }
 
 
     /**
-     * Ensure getValueType() returns a wildcard type
+     * Ensure getValueType() returns a Anonymous type
      */
-    public function testGetValueTypeWildcard()
+    public function testGetValueTypeAnonymous()
     {
         $this->assertInstanceOf(
-            'PHP\\Collections\\Collection\\WildcardType',
-            ( new Dictionary( '', '' ) )->getValueType(),
-            'Expected Collection->getValueType() to return a wildcard type'
+            AnonymousType::class,
+            ( new Dictionary( '*', '*' ) )->getValueType(),
+            'Expected Collection->getValueType() to return a Anonymous type'
         );
     }
 
@@ -847,11 +852,12 @@ class CollectionTest extends CollectionsTestCase
         $sequence->add( false );
 
         return [
-            'Dictionary valid'   => [ $dictionary, 'false',         true ],
-            'Dictionary unknown' => [ $dictionary, new \stdClass(), false ],
-            'Dictionary partial' => [ $dictionary, 'foo',           false ],
-            'Sequence valid'     => [ $sequence,   0,               true ],
-            'Sequence unknown'   => [ $sequence,   5,               false ]
+            'Dictionary valid'    => [ $dictionary, 'false',         true ],
+            'Dictionary bad type' => [ $dictionary, new \stdClass(), false ],
+            'Dictionary partial'  => [ $dictionary, 'foo',           false ],
+            'Sequence valid'      => [ $sequence,   0,               true ],
+            'Sequence unknown'    => [ $sequence,   5,               false ],
+            'Sequence bad type'   => [ $sequence,   new \stdClass(), false ]
         ];
     }
 

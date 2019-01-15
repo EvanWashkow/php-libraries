@@ -1,8 +1,11 @@
 <?php
+declare( strict_types = 1 );
+
 namespace PHP;
 
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
+use PHP\Types\Models\FunctionType;
 
 /**
  * Lookup type information
@@ -26,9 +29,9 @@ final class Types
     /** @var string[] List of known type names mapped to their aliases */
     private static $knownTypes = [
         TypeNames::ARRAY  => [],
-        TypeNames::BOOL   => [ 'boolean' ],
-        TypeNames::FLOAT  => [ 'double' ],
-        TypeNames::INT    => [ 'integer' ],
+        TypeNames::BOOL   => [ TypeNames::BOOLEAN ],
+        TypeNames::FLOAT  => [ TypeNames::DOUBLE ],
+        TypeNames::INT    => [ TypeNames::INTEGER ],
         TypeNames::NULL   => [],
         TypeNames::STRING => []
     ];
@@ -50,12 +53,11 @@ final class Types
     public static function GetByName( string $name ): Type
     {
         // Variables
-        $name = trim( $name );
         $type = null;
 
         // Query type cache
-        if ( self::isCached( $name )) {
-            $type = self::getCache( $name );
+        if ( self::isTypeCached( $name )) {
+            $type = self::getTypeFromCache( $name );
         }
 
         // Find type
@@ -66,10 +68,9 @@ final class Types
                 $aliases = self::$knownTypes[ $name ];
                 $type    = new Type( $name, $aliases );
             }
-            elseif ( '' !== self::getNameByAlias( $name )) {
-                $name    = self::getNameByAlias( $name );
-                $aliases = self::$knownTypes[ $name ];
-                $type    = new Type( $name, $aliases );
+            elseif ( '' !== ( $primaryName = self::getNameByAlias( $name ) )) {
+                $aliases = self::$knownTypes[ $primaryName ];
+                $type    = new Type( $primaryName, $aliases );
             }
             
             // Function types
@@ -78,7 +79,7 @@ final class Types
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );
-                $type     = new Types\Models\FunctionType( $function );
+                $type     = new FunctionType( $function );
             }
             
             // Class and interface types
@@ -99,7 +100,7 @@ final class Types
             }
 
             // Cache the type
-            self::setCache( $type );
+            self::addTypeToCache( $type );
         }
         
         // Return the type
@@ -146,12 +147,12 @@ final class Types
 
         // Get / cache the unknown type
         $type = null;
-        if ( self::isCached( $name ) ) {
-            $type = self::getCache( $name );
+        if ( self::isTypeCached( TypeNames::UNKNOWN ) ) {
+            $type = self::getTypeFromCache( $name );
         }
         else {
             $type = new Type( TypeNames::UNKNOWN );
-            self::setCache( $type );
+            self::addTypeToCache( $type );
         }
 
         // Return the unknown type
@@ -193,16 +194,21 @@ final class Types
      *
      * @param Type $type The type instance
      **/
-    private static function setCache( Type $type )
+    private static function addTypeToCache( Type $type )
     {
+        // Cache by the primary name
         $name = $type->getName();
-        if (
-            $type->is( TypeNames::FUNCTION ) &&
-            ( '' !== $type->getFunctionName() )
-        ) {
+        if ( is_a( $type, FunctionType::class )) {
             $name = $type->getFunctionName();
         }
         self::$cache[ $name ] = $type;
+
+        // Cache by any aliases
+        if ( array_key_exists( $name, self::$knownTypes )) {
+            foreach ( self::$knownTypes[ $name ] as $alias ) {
+                self::$cache[ $alias ] = $type;
+            }
+        }
     }
 
 
@@ -212,7 +218,7 @@ final class Types
      * @param string $name The type name
      * @return Type
      **/
-    private static function getCache( string $name ): Type
+    private static function getTypeFromCache( string $name ): Type
     {
         return self::$cache[ $name ];
     }
@@ -224,7 +230,7 @@ final class Types
      * @param string $name The type name
      * @return Type
      **/
-    private static function isCached( string $name ): bool
+    private static function isTypeCached( string $name ): bool
     {
         return array_key_exists( $name, self::$cache );
     }

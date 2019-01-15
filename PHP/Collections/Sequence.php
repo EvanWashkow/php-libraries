@@ -3,6 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Types\Models\AnonymousType;
+use PHP\Types\Models\Type;
+
 /**
  * Defines a mutable, ordered, and iterable set of key-value pairs (similar to Lists in other languages)
  *
@@ -43,7 +46,7 @@ class Sequence extends Collection
 
         // For each entry, make sure it is the right type
         $valueType = $this->getValueType();
-        if ( !is_a( $valueType, Collection\WildcardType::class )) {
+        if ( !is_a( $valueType, AnonymousType::class )) {
             foreach ( $entries as $key => $value ) {
                 if ( !$valueType->equals( $value )) {
                     trigger_error( 'Wrong value type' );
@@ -134,6 +137,15 @@ class Sequence extends Collection
         $firstKey = $this->getFirstKey();
         $lastKey  = $this->getLastKey();
 
+
+        /**
+         * Throw exception for wrong value type
+         */
+        if ( !$this->getValueType()->equals( $value ) ) {
+            throw new \InvalidArgumentException( 'Wrong value type' );
+        }
+
+
         /**
          * Throw exceptions for a bad offset
          * 
@@ -141,13 +153,14 @@ class Sequence extends Collection
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        if ( $offset < $firstKey ) {
+        elseif ( $offset < $firstKey ) {
             throw new \InvalidArgumentException( 'Offset too small' );
             
         }
         elseif ( $lastKey < $offset ) {
             throw new \InvalidArgumentException( 'Offset too large' );
         }
+
 
         // Get sub-sequence to search
         $sequence;
@@ -194,7 +207,7 @@ class Sequence extends Collection
      */
     final public function hasKey( $key ): bool
     {
-        return (is_int( $key ) && array_key_exists( $key, $this->entries ));
+        return ( is_int( $key ) && array_key_exists( $key, $this->entries ) );
     }
 
 

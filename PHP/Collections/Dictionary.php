@@ -3,6 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Types;
+use PHP\Types\Models\AnonymousType;
+
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
  *
@@ -55,6 +58,15 @@ class Dictionary extends Collection
     }
 
 
+    /**
+     * @see Collection->createAnoymousKeyType()
+     */
+    final protected function createAnonymousKeyType(): AnonymousType
+    {
+        return new Dictionary\DictionaryAnonymousKeyType();
+    }
+
+
 
 
     /***************************************************************************
@@ -95,6 +107,29 @@ class Dictionary extends Collection
 
 
     /**
+     * @see Collection->getKeyOf()
+     */
+    public function getKeyOf( $value )
+    {
+        // Throw exception for wrong value type
+        if ( !$this->getValueType()->equals( $value ) ) {
+            throw new \InvalidArgumentException( 'Wrong value type' );
+        }
+
+        // Search for the value
+        $key = array_search( $value, $this->entries, true );
+
+        // Throw exception for key not found
+        if ( false === $key ) {
+            throw new \Exception( 'Key not found' );
+        }
+
+        // Return the key
+        return $key;
+    }
+
+
+    /**
      * @see Collection->getKeys()
      */
     final public function getKeys(): Sequence
@@ -102,6 +137,18 @@ class Dictionary extends Collection
         return new Sequence(
             $this->getKeyType()->getName(),
             array_keys( $this->entries )
+        );
+    }
+
+
+    /**
+     * @see Collection->hasKey()
+     */
+    final public function hasKey( $key ): bool
+    {
+        return (
+            $this->getKeyType()->equals( $key ) &&
+            array_key_exists( $key, $this->entries )
         );
     }
 

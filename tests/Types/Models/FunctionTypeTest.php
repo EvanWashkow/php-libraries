@@ -20,9 +20,9 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsTrueForSameFunctionType()
     {
-        $referenceType = Types::GetByName( 'substr' );
+        $type = Types::GetByName( 'substr' );
         $this->assertTrue(
-            $referenceType->equals( $referenceType ),
+            $type->equals( $type ),
             'FunctionType->equals() should return true for same FunctionType'
         );
     }
@@ -33,10 +33,10 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForDifferentType()
     {
-        $referenceType = Types::GetByName( 'substr' );
-        $otherType     = Types::GetByName( 'int' );
+        $type      = Types::GetByName( 'substr' );
+        $otherType = Types::GetByName( 'int' );
         $this->assertFalse(
-            $referenceType->equals( $otherType ),
+            $type->equals( $otherType ),
             'FunctionType->equals() should return false for a different Type'
         );
     }
@@ -47,10 +47,10 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForFunctionType()
     {
-        $referenceType = Types::GetByName( 'substr' );
-        $otherType     = Types::GetByName( 'function' );
+        $type      = Types::GetByName( 'substr' );
+        $otherType = Types::GetByName( 'function' );
         $this->assertFalse(
-            $referenceType->equals( $otherType ),
+            $type->equals( $otherType ),
             'FunctionType->equals() should return false for a generic FunctionType'
         );
     }
@@ -61,10 +61,10 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForDifferentFunctionType()
     {
-        $referenceType = Types::GetByName( 'substr' );
-        $otherType     = Types::GetByName( 'strpos' );
+        $type      = Types::GetByName( 'substr' );
+        $otherType = Types::GetByName( 'strpos' );
         $this->assertFalse(
-            $referenceType->equals( $otherType ),
+            $type->equals( $otherType ),
             'FunctionType->equals() should return false for a different FunctionType'
         );
     }
@@ -75,9 +75,9 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForValues()
     {
-        $referenceType = Types::GetByName( 'substr' );
+        $type = Types::GetByName( 'substr' );
         $this->assertFalse(
-            $referenceType->equals( 'substr' ),
+            $type->equals( 'substr' ),
             'FunctionType->equals() should return false for any values passed in'
         );
     }

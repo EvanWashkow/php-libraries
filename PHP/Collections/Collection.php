@@ -4,7 +4,9 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Types;
+use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeNames;
 
 
 /**
@@ -54,41 +56,89 @@ abstract class Collection extends    \PHP\PHPObject
                                  array  $entries   = [] )
     {
         // Lookup key type
-        $keyType = trim( $keyType );
-        if ( in_array( $keyType, [ '', '*' ] ) ) {
-            $this->keyType = new Collection\WildcardKeyType();
+        if ( AnonymousType::NAME === $keyType ) {
+            $this->keyType = $this->createAnonymousKeyType();
+        }
+        elseif ( '' === $keyType ) {
+            trigger_error( 'Key types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
+            $this->keyType = $this->createAnonymousKeyType();
         }
         else {
             $this->keyType = Types::GetByName( $keyType );
         }
-        
+
         // Lookup value type
-        $valueType = trim( $valueType );
-        if ( in_array( $valueType, [ '', '*' ] ) ) {
-            $this->valueType = new Collection\WildcardType();
+        if ( AnonymousType::NAME === $valueType ) {
+            $this->valueType = $this->createAnonymousValueType();
+        }
+        elseif ( '' === $valueType ) {
+            trigger_error( 'Value types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
+            $this->keyType = $this->createAnonymousValueType();
         }
         else {
             $this->valueType = Types::GetByName( $valueType );
         }
 
-        // Check for invalid types
-        $keyType   = $this->getKeyType()->getName();
-        $valueType = $this->getValueType()->getName();
-        $invalidTypes = [
-            'null',
-            Types::GetUnknownType()->getName()
-        ];
-        if ( in_array( $keyType, $invalidTypes )) {
-            throw new \InvalidArgumentException( "Key type cannot be {$keyType}" );
+        // Throw exception on invalid key type
+        switch ( $this->getKeyType()->getName() ) {
+            case TypeNames::NULL:
+                throw new \InvalidArgumentException( 'Key type cannot be "null"' );
+                break;
+            
+            case TypeNames::UNKNOWN:
+                throw new \InvalidArgumentException( "Key type \"{$keyType}\" does not exist" );
+                break;
+            
+            default:
+                break;
         }
-        elseif ( in_array( $valueType, $invalidTypes )) {
-            throw new \InvalidArgumentException( "Value type cannot be {$valueType}" );
+
+        // Throw exception on invalid value type
+        switch ( $this->getValueType()->getName() ) {
+            case TypeNames::NULL:
+                throw new \InvalidArgumentException( 'Value type cannot be "null"' );
+                break;
+            
+            case TypeNames::UNKNOWN:
+                throw new \InvalidArgumentException( "Value type \"{$valueType}\" does not exist" );
+                break;
+            
+            default:
+                break;
         }
 
         // For each initial entry, add it to this collection
         foreach ( $entries as $key => $value ) {
             $this->set( $key, $value );
         }
+    }
+
+
+    /**
+     * Create an anonymous key type
+     * 
+     * @internal This allows the child class to customize the anonymous type to
+     * allow / prevent certain types.
+     *
+     * @return AnonymousType
+     **/
+    protected function createAnonymousKeyType(): AnonymousType
+    {
+        return new Collection\AnonymousKeyType();
+    }
+
+
+    /**
+     * Create an anonymous value type
+     * 
+     * @internal This allows the child class to customize the anonymous type to
+     * allow / prevent certain types.
+     *
+     * @return AnonymousType
+     **/
+    protected function createAnonymousValueType(): AnonymousType
+    {
+        return new AnonymousType();
     }
 
 
@@ -108,6 +158,9 @@ abstract class Collection extends    \PHP\PHPObject
 
     /**
      * Retrieve the number of entries in the collection
+     * 
+     * @internal No way to write an optimal implementation (using toArray()).
+     * Depending on the collection, toArray() may take time to complete.
      *
      * @return int
      **/
@@ -127,12 +180,39 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve all keys
      * 
-     * @internal There's no way to write an optimal solution for this (using
-     * toArray()) without also making it incorrect.
+     * @internal There's no way to write a solution for this (using toArray())
+     * without also making it incorrect.
      *
      * @return Sequence
      */
     abstract public function getKeys(): Sequence;
+
+    /**
+     * Retrieve the key of the first value found
+     * 
+     * Throws exception when key not found. This *always* has to be handled by
+     * the caller, even if a default value was returned. Throwing an exception
+     * provides more information to the caller about what happened.
+     * 
+     * @internal There's no way to write a solution for this (using toArray())
+     * without also making it incorrect.
+     *
+     * @param mixed $value The value to find
+     * @return mixed The key
+     * @throws \Exception When key not found
+     */
+    abstract public function getKeyOf( $value );
+
+    /**
+     * Determine if the key exists
+     * 
+     * @internal There's no way to write an optimal solution for this
+     * (using getKeys()). getKeys() takes time to complete.
+     *
+     * @param mixed $key The key to check for
+     * @return bool
+     */
+    abstract public function hasKey( $key ): bool;
 
     /**
      * Remove key (and its corresponding value) from this collection
@@ -223,27 +303,6 @@ abstract class Collection extends    \PHP\PHPObject
 
 
     /**
-     * Retrieve the key of the first value found
-     * 
-     * Throws exception when key not found. This *always* has to be handled by
-     * the caller, even if a default value was returned. Throwing an exception
-     * provides more information to the caller about what happened.
-     *
-     * @param mixed $value The value to find
-     * @return mixed The key
-     * @throws \Exception When key not found
-     */
-    public function getKeyOf( $value )
-    {
-        $key = array_search( $value, $this->toArray(), true );
-        if ( false === $key ) {
-            throw new \Exception( 'Key not found' );
-        }
-        return $key;
-    }
-
-
-    /**
      * Retrieve key type
      * 
      * @return Type
@@ -278,24 +337,6 @@ abstract class Collection extends    \PHP\PHPObject
         return $this->valueType;
     }
 
-    /**
-     * Determine if the key exists
-     * 
-     * @internal Essentially, executes array_key_exists() on toArray().
-     * array_key_exists() requires a string or an integer (see warning when
-     * passing an object). Checking this first is drastically faster.
-     *
-     * @param mixed $key The key to check for
-     * @return bool
-     */
-    public function hasKey( $key ): bool
-    {
-        return (
-            ( is_int( $key ) || is_string( $key ) ) &&
-            $this->getKeyType()->equals( $key )     &&
-            array_key_exists( $key, $this->toArray() )
-        );
-    }
 
     /**
      * Determine if the value exists
