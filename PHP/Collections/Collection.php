@@ -169,8 +169,8 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve all keys
      * 
-     * @internal There's no way to write an optimal solution for this (using
-     * toArray()) without also making it incorrect.
+     * @internal There's no way to write a solution for this (using toArray())
+     * without also making it incorrect.
      *
      * @return Sequence
      */
