@@ -79,6 +79,15 @@ class Sequence extends Collection
 
 
     /**
+     * @see Collection->count()
+     */
+    final public function count(): int
+    {
+        return count( $this->entries );
+    }
+
+
+    /**
      * @see Collection->get()
      */
     final public function get( $key )
