@@ -155,14 +155,6 @@ abstract class Collection extends    \PHP\PHPObject
      */
     abstract public function clear(): bool;
 
-
-    /**
-     * Retrieve the number of entries in the collection
-     *
-     * @return int
-     **/
-    abstract public function count(): int;
-
     /**
      * Retrieve the value
      * 
@@ -241,6 +233,24 @@ abstract class Collection extends    \PHP\PHPObject
     
     
     
+    /***************************************************************************
+    *                      COUNTABLE INTERFACE OVERRIDES
+    ***************************************************************************/
+
+
+    /**
+     * Retrieve the number of entries in the collection
+     *
+     * @return int
+     **/
+    public function count(): int
+    {
+        return count( $this->toArray() );
+    }
+
+
+
+
     /***************************************************************************
     *                      ITERATOR INTERFACE OVERRIDES
     ***************************************************************************/
