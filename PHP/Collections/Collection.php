@@ -207,7 +207,7 @@ abstract class Collection extends    \PHP\PHPObject
      * Determine if the key exists
      * 
      * @internal There's no way to write an optimal solution for this
-     * (using getKeys()) without also making it incorrect.
+     * (using getKeys()). getKeys() takes time to complete.
      *
      * @param mixed $key The key to check for
      * @return bool
