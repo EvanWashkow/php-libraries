@@ -26,7 +26,7 @@ class Cache extends Dictionary
      */
     public function __construct( string $keyType,
                                  string $valueType,
-                                 array  $entries )
+                                 array  $entries = [] )
     {
         parent::__construct( $keyType, $valueType, $entries );
         $this->markIncomplete();
