@@ -44,7 +44,7 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Create a new Collection
      * 
-     * Throws exception when key or value type is NULL or unknown.
+     * Throws InvalidArgumentException when key or value type is NULL or unknown.
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
