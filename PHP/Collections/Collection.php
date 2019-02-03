@@ -391,7 +391,7 @@ abstract class Collection extends    \PHP\PHPObject
      * To access variables outside the callback function, specify a "use" clase:
      * function() use ( $outerVar ) { $outerVar; }
      * 
-     * Throws an exception if the callback function does not return a boolean
+     * Throws \TypeError if the callback function does not return a boolean
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
