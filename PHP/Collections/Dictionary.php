@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 
@@ -114,7 +115,7 @@ class Dictionary extends Collection
     {
         // Throw exception for wrong value type
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \RuntimeException( 'Could not find key. Value is the wrong type.' );
+            throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
         }
 
         // Search for the value
@@ -122,7 +123,7 @@ class Dictionary extends Collection
 
         // Throw exception for key not found
         if ( false === $key ) {
-            throw new \RuntimeException( 'Value (and key) not found.' );
+            throw new NotFoundException( 'Value (and key) not found.' );
         }
 
         // Return the key

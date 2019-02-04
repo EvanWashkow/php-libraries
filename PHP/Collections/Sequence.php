@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 
@@ -139,7 +140,7 @@ class Sequence extends Collection
          * Throw exception for wrong value type
          */
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \RuntimeException( 'Could not find key. Value is the wrong type.' );
+            throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
         }
 
 
@@ -151,11 +152,11 @@ class Sequence extends Collection
          * invalid offset: the returned key should be invalid.
          */
         elseif ( $offset < $firstKey ) {
-            throw new \RuntimeException( 'Offset too small.' );
+            throw new NotFoundException( 'Offset too small.' );
             
         }
         elseif ( $lastKey < $offset ) {
-            throw new \RuntimeException( 'Offset too large.' );
+            throw new NotFoundException( 'Offset too large.' );
         }
 
 
@@ -184,7 +185,7 @@ class Sequence extends Collection
 
         // Compensate for the offset and reverse search
         if ( false === $searchResult ) {
-            throw new \RuntimeException( 'Value (and key) not found.' );
+            throw new NotFoundException( 'Value (and key) not found.' );
         }
         else {
             if ( $isReverse ) {

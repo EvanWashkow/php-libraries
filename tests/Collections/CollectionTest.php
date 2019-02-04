@@ -508,7 +508,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure getKeyOf() throws exceptions when expected
      * 
      * @dataProvider getGetKeyOfExceptionsData
-     * @expectedException \RuntimeException
+     * @expectedException \PHP\Exceptions\NotFoundException
      *
      * @param Collection $sequence The collection
      * @param mixed      $badValue A bad value to try to find
