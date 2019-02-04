@@ -508,7 +508,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure getKeyOf() throws exceptions when expected
      * 
      * @dataProvider getGetKeyOfExceptionsData
-     * @expectedException \Exception
+     * @expectedException \RuntimeException
      *
      * @param Collection $sequence The collection
      * @param mixed      $badValue A bad value to try to find

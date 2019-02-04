@@ -117,10 +117,10 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws exception when key not found, or offset is too large or too small.
-     * This *always* has to be handled by the caller, even if a default value
-     * was returned. Throwing an exception provides more information to the
-     * caller about what happened.
+     * Throws \RuntimeException key not found, or offset is too large or too
+     * small. This *always* has to be handled by the caller, even if a default
+     * value was returned. Throwing an exception provides more information to
+     * the caller about what happened.
      *
      * @param mixed $value     Value to find
      * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
@@ -142,7 +142,7 @@ class Sequence extends Collection
          * Throw exception for wrong value type
          */
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \InvalidArgumentException( 'Wrong value type' );
+            throw new \RuntimeException( 'Wrong value type' );
         }
 
 
@@ -154,11 +154,11 @@ class Sequence extends Collection
          * invalid offset: the returned key should be invalid.
          */
         elseif ( $offset < $firstKey ) {
-            throw new \InvalidArgumentException( 'Offset too small' );
+            throw new \RuntimeException( 'Offset too small' );
             
         }
         elseif ( $lastKey < $offset ) {
-            throw new \InvalidArgumentException( 'Offset too large' );
+            throw new \RuntimeException( 'Offset too large' );
         }
 
 
@@ -187,7 +187,7 @@ class Sequence extends Collection
 
         // Compensate for the offset and reverse search
         if ( false === $searchResult ) {
-            throw new \Exception( 'Value not found' );
+            throw new \RuntimeException( 'Value not found' );
         }
         else {
             if ( $isReverse ) {

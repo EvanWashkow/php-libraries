@@ -190,16 +190,16 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws exception when key not found. This *always* has to be handled by
-     * the caller, even if a default value was returned. Throwing an exception
-     * provides more information to the caller about what happened.
+     * Throws \RuntimeException if key not found. This *always* has to be
+     * handled by the caller, even if a default value was returned. Throwing an
+     * exception provides more information to the caller about what happened.
      * 
      * @internal There's no way to write a solution for this (using toArray())
      * without also making it incorrect.
      *
      * @param mixed $value The value to find
      * @return mixed The key
-     * @throws \Exception When key not found
+     * @throws \RuntimeException When key not found
      */
     abstract public function getKeyOf( $value );
 
