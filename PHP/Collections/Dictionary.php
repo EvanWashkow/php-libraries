@@ -114,7 +114,7 @@ class Dictionary extends Collection
     {
         // Throw exception for wrong value type
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \RuntimeException( 'Could not find key with value of wrong type.' );
+            throw new \RuntimeException( 'Could not find key. Value is the wrong type.' );
         }
 
         // Search for the value
