@@ -92,11 +92,8 @@ class Sequence extends Collection
      */
     final public function get( $key )
     {
-        if ( !is( $key, 'integer' )) {
-            throw new \InvalidArgumentException( 'Cannot get value from non-integer key' );
-        }
-        elseif ( !$this->hasKey( $key )) {
-            throw new \InvalidArgumentException( 'Cannot get value from key that does not exist' );
+        if ( !$this->hasKey( $key )) {
+            throw new \OutOfBoundsException( 'Cannot get value from key that does not exist' );
         }
         return $this->entries[ $key ];
     }

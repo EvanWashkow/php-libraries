@@ -455,7 +455,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure Collection->get() throws an exception on missing key
      * 
      * @dataProvider      getGetExceptionData
-     * @expectedException \InvalidArgumentException
+     * @expectedException \OutOfBoundsException
      * 
      * @param Collection $collection The collection to test
      * @param mixed      $key        The key to access
