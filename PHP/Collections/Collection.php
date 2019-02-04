@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
@@ -191,7 +190,7 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws NotFoundException if key not found. This *always* has to be
+     * Throws \PHP\Exceptions\NotFoundException if key not found. This *always* has to be
      * handled by the caller, even if a default value was returned. Throwing an
      * exception provides more information to the caller about what happened.
      * 
@@ -200,7 +199,7 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @param mixed $value The value to find
      * @return mixed The key
-     * @throws NotFoundException When key not found
+     * @throws \PHP\Exceptions\NotFoundException When key not found
      */
     abstract public function getKeyOf( $value );
 
