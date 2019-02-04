@@ -169,7 +169,7 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve the value
      * 
-     * Throws an exception if the key does not exist
+     * Throws \InvalidArgumentException if the key does not exist
      *
      * @param mixed $key The key to retrieve the value from
      * @return mixed The value if the key exists. NULL otherwise.
