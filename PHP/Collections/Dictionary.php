@@ -34,7 +34,8 @@ class Dictionary extends Collection
      * Create a new collection of entries, stored in key-value pairs
      * 
      * Only supports string and integer keys, for the time being.
-     * Throws exception when key or value type is NULL or unknown.
+     * 
+     * Throws \InvalidArgumentException on bad key or value type
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
