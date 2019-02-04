@@ -142,7 +142,7 @@ class Sequence extends Collection
          * Throw exception for wrong value type
          */
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \RuntimeException( 'Wrong value type' );
+            throw new \RuntimeException( 'Could not find value of the wrong type.' );
         }
 
 
@@ -154,11 +154,11 @@ class Sequence extends Collection
          * invalid offset: the returned key should be invalid.
          */
         elseif ( $offset < $firstKey ) {
-            throw new \RuntimeException( 'Offset too small' );
+            throw new \RuntimeException( 'Offset too small.' );
             
         }
         elseif ( $lastKey < $offset ) {
-            throw new \RuntimeException( 'Offset too large' );
+            throw new \RuntimeException( 'Offset too large.' );
         }
 
 
@@ -187,7 +187,7 @@ class Sequence extends Collection
 
         // Compensate for the offset and reverse search
         if ( false === $searchResult ) {
-            throw new \RuntimeException( 'Value not found' );
+            throw new \RuntimeException( 'Value (and key) not found.' );
         }
         else {
             if ( $isReverse ) {
