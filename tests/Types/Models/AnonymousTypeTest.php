@@ -66,7 +66,7 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * Ensure AnonymousType->isClass() throws an exception
      * 
-     * @expectedException \TypeError
+     * @expectedException \BadMethodCallException
      **/
     public function testIsClass()
     {
@@ -77,7 +77,7 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
     /**
      * Ensure AnonymousType->isInterface() throws an exception
      * 
-     * @expectedException \TypeError
+     * @expectedException \BadMethodCallException
      **/
     public function testIsInterface()
     {
