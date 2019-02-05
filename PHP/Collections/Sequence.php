@@ -487,7 +487,7 @@ class Sequence extends Collection
             }
 
             // Value not found: gather all the remaining entries
-            catch ( \Throwable $th ) {
+            catch ( NotFoundException $e ) {
                 $end   = $lastKey;
                 $count = ( $end + 1 ) - $start;
             }

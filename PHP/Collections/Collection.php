@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
@@ -354,7 +355,7 @@ abstract class Collection extends    \PHP\PHPObject
             $this->getKeyOf( $value );
             $hasValue = true;
         }
-        catch ( \Throwable $th ) {
+        catch ( NotFoundException $e ) {
             $hasValue = false;
         }
         return $hasValue;
