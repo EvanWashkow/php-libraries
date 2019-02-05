@@ -102,7 +102,7 @@ class Dictionary extends Collection
     final public function get( $key )
     {
         if ( !$this->hasKey( $key )) {
-            throw new \OutOfBoundsException( "Key doesn't exist" );
+            throw new \OutOfBoundsException( 'Key doesn\'t exist' );
         }
         return $this->entries[ $key ];
     }
