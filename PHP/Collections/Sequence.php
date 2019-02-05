@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 
@@ -92,11 +93,8 @@ class Sequence extends Collection
      */
     final public function get( $key )
     {
-        if ( !is( $key, 'integer' )) {
-            throw new \InvalidArgumentException( 'Cannot get value from non-integer key' );
-        }
-        elseif ( !$this->hasKey( $key )) {
-            throw new \InvalidArgumentException( 'Cannot get value from key that does not exist' );
+        if ( !$this->hasKey( $key )) {
+            throw new \OutOfBoundsException( 'Cannot get value from key that does not exist' );
         }
         return $this->entries[ $key ];
     }
@@ -117,16 +115,16 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws exception when key not found, or offset is too large or too small.
-     * This *always* has to be handled by the caller, even if a default value
-     * was returned. Throwing an exception provides more information to the
-     * caller about what happened.
+     * Throws \PHP\Exceptions\NotFoundException if key not found, or offset is
+     * too large or too small. This *always* has to be handled by the caller,
+     * even if a default value was returned. Throwing an exception provides more
+     * information to the caller about what happened.
      *
      * @param mixed $value     Value to find
      * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
      * @param bool  $isReverse Search backwards
      * @return int The key
-     * @throws \Exception If key not found or offset too large or too small
+     * @throws \PHP\Exceptions\NotFoundException If key not found or offset too large or too small
      */
     final public function getKeyOf(      $value,
                                     int  $offset = 0,
@@ -142,7 +140,7 @@ class Sequence extends Collection
          * Throw exception for wrong value type
          */
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \InvalidArgumentException( 'Wrong value type' );
+            throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
         }
 
 
@@ -154,11 +152,11 @@ class Sequence extends Collection
          * invalid offset: the returned key should be invalid.
          */
         elseif ( $offset < $firstKey ) {
-            throw new \InvalidArgumentException( 'Offset too small' );
+            throw new NotFoundException( 'Offset too small.' );
             
         }
         elseif ( $lastKey < $offset ) {
-            throw new \InvalidArgumentException( 'Offset too large' );
+            throw new NotFoundException( 'Offset too large.' );
         }
 
 
@@ -187,7 +185,7 @@ class Sequence extends Collection
 
         // Compensate for the offset and reverse search
         if ( false === $searchResult ) {
-            throw new \Exception( 'Value not found' );
+            throw new NotFoundException( 'Value (and key) not found.' );
         }
         else {
             if ( $isReverse ) {
@@ -489,7 +487,7 @@ class Sequence extends Collection
             }
 
             // Value not found: gather all the remaining entries
-            catch ( \Throwable $th ) {
+            catch ( NotFoundException $e ) {
                 $end   = $lastKey;
                 $count = ( $end + 1 ) - $start;
             }

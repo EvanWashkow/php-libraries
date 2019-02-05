@@ -60,19 +60,23 @@ class AnonymousType extends Type
 
 
     /**
-     * @see Type->isClass()
+     * Throws \BadMethodCallException
+     * 
+     * @throws \BadMethodCallException
      */
     public function isClass(): bool
     {
-        throw new \TypeError( 'AnonymousType->isClass() is indeterminite.' );
+        throw new \BadMethodCallException( 'AnonymousType->isClass() is indeterminite.' );
     }
 
 
     /**
-     * @see Type->isInterface()
+     * Throws \BadMethodCallException
+     * 
+     * @throws \BadMethodCallException
      */
     public function isInterface(): bool
     {
-        throw new \TypeError( 'AnonymousType->isInterface() is indeterminite.' );
+        throw new \BadMethodCallException( 'AnonymousType->isInterface() is indeterminite.' );
     }
 }

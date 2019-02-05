@@ -29,7 +29,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure the constructor throws an error for null key types
      * 
      * @dataProvider      getConstructorExceptionsData
-     * @expectedException \Exception
+     * @expectedException \InvalidArgumentException
      * 
      * @param Closure $function Function callback with the exceptions
      **/
@@ -455,7 +455,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure Collection->get() throws an exception on missing key
      * 
      * @dataProvider      getGetExceptionData
-     * @expectedException InvalidArgumentException
+     * @expectedException \OutOfBoundsException
      * 
      * @param Collection $collection The collection to test
      * @param mixed      $key        The key to access
@@ -508,7 +508,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure getKeyOf() throws exceptions when expected
      * 
      * @dataProvider getGetKeyOfExceptionsData
-     * @expectedException \Exception
+     * @expectedException \PHP\Exceptions\NotFoundException
      *
      * @param Collection $sequence The collection
      * @param mixed      $badValue A bad value to try to find

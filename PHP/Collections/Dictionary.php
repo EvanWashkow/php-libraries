@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 
@@ -34,7 +35,8 @@ class Dictionary extends Collection
      * Create a new collection of entries, stored in key-value pairs
      * 
      * Only supports string and integer keys, for the time being.
-     * Throws exception when key or value type is NULL or unknown.
+     * 
+     * Throws \InvalidArgumentException on bad key or value type
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
@@ -100,7 +102,7 @@ class Dictionary extends Collection
     final public function get( $key )
     {
         if ( !$this->hasKey( $key )) {
-            throw new \InvalidArgumentException( "Key doesn't exist" );
+            throw new \OutOfBoundsException( 'Key doesn\'t exist' );
         }
         return $this->entries[ $key ];
     }
@@ -113,7 +115,7 @@ class Dictionary extends Collection
     {
         // Throw exception for wrong value type
         if ( !$this->getValueType()->equals( $value ) ) {
-            throw new \InvalidArgumentException( 'Wrong value type' );
+            throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
         }
 
         // Search for the value
@@ -121,7 +123,7 @@ class Dictionary extends Collection
 
         // Throw exception for key not found
         if ( false === $key ) {
-            throw new \Exception( 'Key not found' );
+            throw new NotFoundException( 'Value (and key) not found.' );
         }
 
         // Return the key

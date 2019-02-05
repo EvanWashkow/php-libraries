@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
@@ -44,7 +45,7 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Create a new Collection
      * 
-     * Throws exception when key or value type is NULL or unknown.
+     * Throws \InvalidArgumentException when key or value type is NULL or unknown.
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
@@ -169,11 +170,11 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve the value
      * 
-     * Throws an exception if the key does not exist
+     * Throws \OutOfBoundsException if the key does not exist
      *
      * @param mixed $key The key to retrieve the value from
      * @return mixed The value if the key exists. NULL otherwise.
-     * @throws \InvalidArgumentException Key doesn't exist
+     * @throws \OutOfBoundsException Key doesn't exist
      */
     abstract public function get( $key );
 
@@ -190,16 +191,16 @@ abstract class Collection extends    \PHP\PHPObject
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws exception when key not found. This *always* has to be handled by
-     * the caller, even if a default value was returned. Throwing an exception
-     * provides more information to the caller about what happened.
+     * Throws \PHP\Exceptions\NotFoundException if key not found. This *always* has to be
+     * handled by the caller, even if a default value was returned. Throwing an
+     * exception provides more information to the caller about what happened.
      * 
      * @internal There's no way to write a solution for this (using toArray())
      * without also making it incorrect.
      *
      * @param mixed $value The value to find
      * @return mixed The key
-     * @throws \Exception When key not found
+     * @throws \PHP\Exceptions\NotFoundException When key not found
      */
     abstract public function getKeyOf( $value );
 
@@ -354,7 +355,7 @@ abstract class Collection extends    \PHP\PHPObject
             $this->getKeyOf( $value );
             $hasValue = true;
         }
-        catch ( \Throwable $th ) {
+        catch ( NotFoundException $e ) {
             $hasValue = false;
         }
         return $hasValue;
@@ -391,7 +392,7 @@ abstract class Collection extends    \PHP\PHPObject
      * To access variables outside the callback function, specify a "use" clase:
      * function() use ( $outerVar ) { $outerVar; }
      * 
-     * Throws an exception if the callback function does not return a boolean
+     * Throws \TypeError if the callback function does not return a boolean
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
