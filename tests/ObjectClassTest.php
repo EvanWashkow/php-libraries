@@ -38,4 +38,44 @@ class ObjectClassTest extends TestCase
             [ new Value( [ new Value('a'), new Value('b'), new Value('c') ] ) ]
         ];
     }
+
+
+    /**
+     * Test ObjectClass->equals() returns the expected result
+     * 
+     * @dataProvider getEqualsValues()
+     */
+    public function testEquals( Value $v1, Value $v2, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $v1->equals( $v2 ),
+            'ObjectClass->equals() did not return the expected results'
+        );
+    }
+
+
+    /**
+     * Get ObjectClass->equals() test data
+     * 
+     * @return array
+     */
+    public function getEqualsValues(): array
+    {
+        // Values
+        $string1 = new Value( '1' );
+        $int1    = new Value( 1 );
+
+        return [
+            'value->equals( value )' => [
+                $string1, $string1, true
+            ],
+            'value->equals( value->clone() )' => [
+                $string1, $string1->clone(), true
+            ],
+            'value1->equals( value2 )' => [
+                $string1, $int1, false
+            ]
+        ];
+    }
 }
