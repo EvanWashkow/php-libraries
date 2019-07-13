@@ -1756,6 +1756,24 @@
 					"name": "Sequence"
 				}
 			]
+		},
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFr7GEqGM8iIm4=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Interfaces",
+			"ownedElements": [
+				{
+					"_type": "UMLInterface",
+					"_id": "AAAAAAFr7GFzU88mROk=",
+					"_parent": {
+						"$ref": "AAAAAAFr7GEqGM8iIm4="
+					},
+					"name": "Equatable"
+				}
+			]
 		}
 	]
 }
