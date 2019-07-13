@@ -71,7 +71,7 @@ class ObjectClassTest extends TestCase
                 $string1, $string1, true
             ],
             'value->equals( value->clone() )' => [
-                $string1, $string1->clone(), true
+                $string1, $string1->clone(), false
             ],
             'value1->equals( value2 )' => [
                 $string1, $int1, false

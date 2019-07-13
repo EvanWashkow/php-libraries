@@ -26,6 +26,11 @@ class ObjectClass implements Cloneable, Equatable
     /**
      * Determine if this object equals another object
      * 
+     * @internal Can't use "==" in any fashion. "==" does implicitly converts
+     * types if the object does not have strictly typed properties. For example,
+     * Value->value = '1' and Value->value = 1 are considered equal (==) to
+     * eachother.
+     * 
      * @return bool
      */
     public function equals( $value ): bool
