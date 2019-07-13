@@ -7,7 +7,8 @@
             "PHP/Functions.php"
         ],
         "psr-4": {
-            "PHP\\": "PHP/"
+            "PHP\\": "PHP/",
+            "PHP\\Tests\\": "tests/"
         }
     },
     "require": {
