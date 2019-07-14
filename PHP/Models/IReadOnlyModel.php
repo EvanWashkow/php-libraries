@@ -1,6 +1,8 @@
 <?php
 namespace PHP\Models;
 
+trigger_error( 'IReadOnlyModel is deprecated', E_USER_DEPRECATED );
+
 /**
  * Defines the basic structure for a read-only Model
  */
