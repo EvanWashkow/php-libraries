@@ -52,7 +52,7 @@ class ObjectClass implements Cloneable, Equatable
                 // values for those properties.
                 $properties = $class->getProperties();
                 foreach ( $properties as $property ) {
-                    $property->setAccessible(true);
+                    $property->setAccessible( true );
                     $thisPropValue  = $property->getValue( $this );
                     $valuePropValue = $property->getValue( $value );
                     $equals         = $thisPropValue === $valuePropValue;
