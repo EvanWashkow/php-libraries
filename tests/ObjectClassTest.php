@@ -65,6 +65,7 @@ class ObjectClassTest extends TestCase
         // Values
         $string1 = new Value( '1' );
         $int1    = new Value( 1 );
+        $array   = new Value( [ 1, 2, 3 ] );
 
         return [
             'string1->equals( string1 )' => [
@@ -75,6 +76,16 @@ class ObjectClassTest extends TestCase
             ],
             'string1->equals( int1 )' => [
                 $string1, $int1, false
+            ],
+            'array->equals( array )' => [
+                $array, $array, true
+            ],
+
+            // Keep in mind that cloning the container of an array does not
+            // clone the array itself. Arrays, like objects, are referenced,
+            // and are not values themselves.
+            'array->equals( array->clone() )' => [
+                $array, $array->clone(), true
             ]
         ];
     }
