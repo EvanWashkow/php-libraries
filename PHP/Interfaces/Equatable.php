@@ -10,7 +10,7 @@ interface Equatable
 {
 
     /**
-     * Determine if the value is the same as the current object
+     * Determine if this object is the same as another object or value
      * 
      * @param mixed $value The value to compare this to
      * 
