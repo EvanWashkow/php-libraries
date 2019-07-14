@@ -12,6 +12,8 @@ interface Equatable
     /**
      * Determine if the value is the same as the current object
      * 
+     * @param mixed $value The value to compare this to
+     * 
      * @return bool
      */
     public function equals( $value ): bool;
