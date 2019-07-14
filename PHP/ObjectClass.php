@@ -16,7 +16,7 @@ class ObjectClass implements Cloneable, Equatable
     /**
      * Duplicate this object
      * 
-     * @return ObjectClass
+     * @return static
      */
     public function clone(): Cloneable
     {
