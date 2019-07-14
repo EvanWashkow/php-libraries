@@ -26,10 +26,10 @@ class ObjectClass implements Cloneable, Equatable
     /**
      * Determine if this object equals another object
      * 
-     * @internal Can't use "==" in any fashion. "==" does implicitly converts
-     * types if the object does not have strictly typed properties. For example,
-     * Value->value = '1' and Value->value = 1 are considered equal (==) to
-     * eachother.
+     * @internal Can't use "==" in any fashion. "==" implicitly converts
+     * property types if they aren't typed, which gives the wrong result.
+     * For example, Value->value = '1' and Value->value = 1 are considered equal
+     * (==) to eachother, when they are not.
      * 
      * @return bool
      */
