@@ -3,12 +3,13 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\ObjectClass;
 use PHP\Exceptions\NotFoundException;
+use PHP\Interfaces\Cloneable;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
-
 
 /**
  * Defines an iterable set of mutable, key-value pairs
@@ -19,8 +20,7 @@ use PHP\Types\TypeNames;
  *
  * @see PHP\Collections\Iterator
  */
-abstract class Collection extends    \PHP\PHPObject
-                          implements \Countable, \Iterator
+abstract class Collection extends ObjectClass implements \Countable, \Iterator
 {
 
 
@@ -290,7 +290,7 @@ abstract class Collection extends    \PHP\PHPObject
      *
      * @return static
      */
-    public function clone(): Collection
+    public function clone(): Cloneable
     {
         return ( clone $this );
     }
