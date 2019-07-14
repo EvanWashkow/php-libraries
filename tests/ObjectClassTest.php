@@ -63,19 +63,19 @@ class ObjectClassTest extends TestCase
     public function getEqualsValues(): array
     {
         // Values
-        $string1 = new Value( '1' );
-        $int1    = new Value( 1 );
-        $array   = new Value( [ 1, 2, 3 ] );
+        $string_1 = new Value( '1' );
+        $int_1    = new Value( 1 );
+        $array    = new Value( [ 1, 2, 3 ] );
 
         return [
-            'string1->equals( string1 )' => [
-                $string1, $string1, true
+            'string_1->equals( string_1 )' => [
+                $string_1, $string_1, true
             ],
-            'string1->equals( string1->clone() )' => [
-                $string1, $string1->clone(), true
+            'string_1->equals( string_1->clone() )' => [
+                $string_1, $string_1->clone(), true
             ],
-            'string1->equals( int1 )' => [
-                $string1, $int1, false
+            'string_1->equals( int_1 )' => [
+                $string_1, $int_1, false
             ],
             'array->equals( array )' => [
                 $array, $array, true
