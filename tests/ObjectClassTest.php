@@ -67,13 +67,13 @@ class ObjectClassTest extends TestCase
         $int1    = new Value( 1 );
 
         return [
-            'value->equals( value )' => [
+            'string1->equals( string1 )' => [
                 $string1, $string1, true
             ],
-            'value->equals( value->clone() )' => [
+            'string1->equals( string1->clone() )' => [
                 $string1, $string1->clone(), true
             ],
-            'value1->equals( value2 )' => [
+            'string1->equals( int1 )' => [
                 $string1, $int1, false
             ]
         ];
