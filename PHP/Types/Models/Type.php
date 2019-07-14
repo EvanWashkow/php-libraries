@@ -3,14 +3,14 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
-use PHP\Collections\ReadOnlySequence;
-use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 use PHP\Collections\Sequence;
+use PHP\ObjectClass;
+use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
  * Defines basic type information
  */
-class Type
+class Type extends ObjectClass
 {
     
     /***************************************************************************
