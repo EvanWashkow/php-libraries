@@ -89,6 +89,24 @@ class Sequence extends Collection
 
 
     /**
+     * @see Collection->equals()
+     */
+    public function equals( $value ): bool
+    {
+        $valueArray = NULL;
+        if ( is_array( $value )) {
+            $valueArray = $value;
+        }
+        elseif ( $value instanceof Collection ) {
+            $valueArray = $value->toArray();
+        }
+        return ( NULL === $valueArray )
+            ? false
+            : parent::equals( array_values( $valueArray ) );
+    }
+
+
+    /**
      * @see Collection->get()
      */
     final public function get( $key )
