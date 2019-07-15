@@ -8,7 +8,7 @@ use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
 use PHP\Types\Models\AnonymousType;
-use stdClass;
+
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
@@ -432,7 +432,7 @@ class CollectionTest extends CollectionsTestCase
     {
         // Build collection array
         $array    = [ 1, 2, 3 ];
-        $stdClass = new stdClass();
+        $stdClass = new \stdClass();
         $collectionArray = [
             '1'        => 1,
             '2'        => '2',
