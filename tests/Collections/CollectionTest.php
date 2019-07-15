@@ -8,7 +8,7 @@ use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
 use PHP\Types\Models\AnonymousType;
-
+use stdClass;
 
 require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
@@ -398,6 +398,74 @@ class CollectionTest extends CollectionsTestCase
             [ ( new Sequence( '*' ) ),   0 ],
             [ $sequence,            3 ]
 
+        ];
+    }
+
+
+
+
+    /***************************************************************************
+    *                            Collection->equals()
+    ***************************************************************************/
+
+    /**
+     * Test Collection->equals()
+     * 
+     * @dataProvider getTestEqualsData()
+     */
+    public function testEquals( Collection $collection, $value, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $collection->equals( $value ),
+            'Collection->equals() did not return the correct result.'
+        );
+    }
+
+
+    /**
+     * Retrieve testEquals() data
+     * 
+     * @return array
+     */
+    public function getTestEqualsData(): array
+    {
+        // Build dummy collection data
+        $array    = [ 1, 2, 3 ];
+        $stdClass = new stdClass();
+
+        // Build dictionary
+        $dictionaryArray = [
+            '1'        => 1,
+            '2'        => '2',
+            3          => '3',
+            'array'    => $array,
+            'stdClass' => $stdClass
+        ];
+        $dictionary = new Dictionary( '*', '*', $dictionaryArray );
+
+        // Build sequence
+        $sequenceArray = $dictionaryArray;
+        $sequence      = new Sequence( '*', $sequenceArray );
+
+        // Return test data
+        return [
+
+            // Dictionary tests
+            'dictionary->equals( dictionary )' => [
+                $dictionary, $dictionary, true
+            ],
+            'dictionary->equals( dictionary-clone() )' => [
+                $dictionary, $dictionary->clone(), true
+            ],
+
+            // Sequence tests
+            'sequence->equals( sequence )' => [
+                $sequence, $sequence, true
+            ],
+            'sequence->equals( sequence-clone() )' => [
+                $sequence, $sequence->clone(), true
+            ]
         ];
     }
 
