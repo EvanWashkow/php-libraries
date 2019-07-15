@@ -430,41 +430,65 @@ class CollectionTest extends CollectionsTestCase
      */
     public function getTestEqualsData(): array
     {
-        // Build dummy collection data
+        // Build collection array
         $array    = [ 1, 2, 3 ];
         $stdClass = new stdClass();
-
-        // Build dictionary
-        $dictionaryArray = [
+        $collectionArray = [
             '1'        => 1,
             '2'        => '2',
             3          => '3',
             'array'    => $array,
             'stdClass' => $stdClass
         ];
-        $dictionary = new Dictionary( '*', '*', $dictionaryArray );
+        $misTypedCollectionArray = [
+            1          => '1',
+            2          => 2,
+            '3'        => 3,
+            'array'    => $array,
+            'stdClass' => $stdClass
+        ];
+
+        // Build dictionary
+        $dictionary = new Dictionary( '*', '*', $collectionArray );
 
         // Build sequence
-        $sequenceArray = $dictionaryArray;
-        $sequence      = new Sequence( '*', $sequenceArray );
+        $sequence      = new Sequence( '*', $collectionArray );
 
         // Return test data
         return [
 
             // Dictionary tests
             'dictionary->equals( dictionary )' => [
-                $dictionary, new Dictionary( '*', '*', $dictionaryArray ), true
+                $dictionary, new Dictionary( '*', '*', $collectionArray ), true
             ],
-            'dictionary->equals( dictionaryArray )' => [
-                $dictionary, $dictionaryArray, true
+            'dictionary->equals( collectionArray )' => [
+                $dictionary, $collectionArray, true
+            ],
+            'dictionary->equals( misTypedCollectionArray )' => [
+                $dictionary,
+                new Dictionary( '*', '*',  $misTypedCollectionArray ),
+                false
+            ],
+            'dictionary->equals( wrongKeyCollectionArray )' => [
+                $dictionary,
+                new Dictionary( '*', '*',  array_values( $collectionArray ) ),
+                false
+            ],
+            'dictionary->equals( emptyArray )' => [
+                $dictionary, [], false
             ],
 
             // Sequence tests
             'sequence->equals( sequence )' => [
-                $sequence, new Sequence( '*', $sequenceArray ), true
+                $sequence, new Sequence( '*', $collectionArray ), true
             ],
-            'sequence->equals( sequenceArray )' => [
-                $sequence, $sequenceArray, true
+            'sequence->equals( collectionArray )' => [
+                $sequence, $collectionArray, true
+            ],
+            'sequence->equals( misTypedCollectionArray )' => [
+                $sequence,
+                new Sequence( '*',  $misTypedCollectionArray ),
+                false
             ]
         ];
     }
