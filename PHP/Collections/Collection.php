@@ -246,8 +246,41 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
     
     
     /***************************************************************************
-    *                      ITERATOR INTERFACE OVERRIDES
+    *                                     OVERRIDES
     ***************************************************************************/
+
+
+    /**
+     * Determines if this collection has the same entries
+     * 
+     * @param array|Collection $value The entries to compare this to
+     * @return bool
+     */
+    public function equals( $value ): bool
+    {
+        // Variables
+        $equals     = false;
+        $valueArray = NULL;
+
+        // Get array
+        if ( is_array( $value )) {
+            $valueArray = $value;
+        }
+        elseif ( $value instanceof Collection ) {
+            $valueArray = $value->toArray();
+        }
+
+        /**
+         * Compare the array values
+         * 
+         * Note: "===" actually compares the array entries, not the instances.
+         */
+        if ( NULL !== $valueArray ) {
+            $equals = $this->toArray() === $valueArray;
+        }
+
+        return $equals;
+    }
 
 
     /**

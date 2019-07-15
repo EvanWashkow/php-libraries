@@ -98,6 +98,25 @@ class URL extends ObjectClass
     /***************************************************************************
     *                                   METHODS
     ***************************************************************************/
+
+    /**
+     * Determine if this URL is the same
+     * 
+     * @param string|URL $value The URL to compare to
+     * @return bool
+     */
+    public function equals( $value ): bool
+    {
+        $equals = false;
+        if ( is_string( $value )) {
+            $equals = $this->toString() === $value;
+        }
+        elseif ( $value instanceof URL ) {
+            $equals = $this->toString() === $value->toString();
+        }
+        return $equals;
+    }
+
     
     /**
      * Retrieve the protocol for this URL ("http")

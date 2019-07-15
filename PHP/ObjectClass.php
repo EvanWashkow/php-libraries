@@ -32,6 +32,9 @@ class ObjectClass implements Cloneable, Equatable
      * For example, Value->value = '1' and Value->value = 1 are considered equal
      * (==) to eachother, when they are not.
      * 
+     * @internal Interesting to note, "===" returns "true" for two different
+     * array instances which have the same values.
+     * 
      * @param mixed $value The value to compare this Object to
      * 
      * @return bool
