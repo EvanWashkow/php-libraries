@@ -455,7 +455,7 @@ class CollectionTest extends CollectionsTestCase
             'dictionary->equals( dictionary )' => [
                 $dictionary, $dictionary, true
             ],
-            'dictionary->equals( dictionary-clone() )' => [
+            'dictionary->equals( dictionary->clone() )' => [
                 $dictionary, $dictionary->clone(), true
             ],
 
@@ -463,7 +463,7 @@ class CollectionTest extends CollectionsTestCase
             'sequence->equals( sequence )' => [
                 $sequence, $sequence, true
             ],
-            'sequence->equals( sequence-clone() )' => [
+            'sequence->equals( sequence->clone() )' => [
                 $sequence, $sequence->clone(), true
             ]
         ];
