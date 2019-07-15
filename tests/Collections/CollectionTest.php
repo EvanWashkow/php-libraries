@@ -458,6 +458,9 @@ class CollectionTest extends CollectionsTestCase
             'dictionary->equals( dictionary->clone() )' => [
                 $dictionary, $dictionary->clone(), true
             ],
+            'dictionary->equals( dictionaryArray )' => [
+                $dictionary, $dictionaryArray, true
+            ],
 
             // Sequence tests
             'sequence->equals( sequence )' => [
@@ -465,6 +468,9 @@ class CollectionTest extends CollectionsTestCase
             ],
             'sequence->equals( sequence->clone() )' => [
                 $sequence, $sequence->clone(), true
+            ],
+            'sequence->equals( sequenceArray )' => [
+                $sequence, $sequenceArray, true
             ]
         ];
     }
