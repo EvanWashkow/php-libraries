@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 use PHP\Types\Models\FunctionType;
@@ -49,6 +50,7 @@ final class Types
      *
      * @param string $name The type name
      * @return Type
+     * @throws NotFoundException
      */
     public static function GetByName( string $name ): Type
     {
@@ -94,9 +96,9 @@ final class Types
                 );
             }
 
-            // Unknown type
+            // Throw Exception. Type does not exist.
             else {
-                $type = self::GetUnknownType();
+                throw new NotFoundException( "Type \"{$name}\" does not exist." );
             }
 
             // Cache the type
