@@ -60,10 +60,6 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
         if ( AnonymousType::NAME === $keyType ) {
             $this->keyType = $this->createAnonymousKeyType();
         }
-        elseif ( '' === $keyType ) {
-            trigger_error( 'Key types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
-            $this->keyType = $this->createAnonymousKeyType();
-        }
         else {
             $this->keyType = Types::GetByName( $keyType );
         }
@@ -71,10 +67,6 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
         // Lookup value type
         if ( AnonymousType::NAME === $valueType ) {
             $this->valueType = $this->createAnonymousValueType();
-        }
-        elseif ( '' === $valueType ) {
-            trigger_error( 'Value types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
-            $this->keyType = $this->createAnonymousValueType();
         }
         else {
             $this->valueType = Types::GetByName( $valueType );
@@ -284,15 +276,6 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
 
 
     /**
-     * Deprecated
-     */
-    final public function seek( $key )
-    {
-        trigger_error( 'Collection->seek() is deprecated', E_USER_DEPRECATED );
-    }
-
-
-    /**
      * @see Iterator->valid()
      */
     final public function valid(): bool
@@ -392,26 +375,6 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
             $hasValue = false;
         }
         return $hasValue;
-    }
-
-
-    /**
-     * Deprecated
-     */
-    final public function isOfKeyType( $key ): bool
-    {
-        trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.', E_USER_DEPRECATED );
-        return $this->getKeyType()->equals( $key );
-    }
-
-
-    /**
-     * Deprecated
-     */
-    final public function isOfValueType( $value ): bool
-    {
-        trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.', E_USER_DEPRECATED );
-        return ( $this->getValueType()->equals( $value ) );
     }
 
 

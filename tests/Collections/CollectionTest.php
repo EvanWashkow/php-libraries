@@ -1321,60 +1321,6 @@ class CollectionTest extends CollectionsTestCase
             ]
         ];
     }
-
-
-
-
-    /***************************************************************************
-    *                         Collection->isOfKeyType()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure isOfKeyType throws an error
-     **/
-    public function testIsOfKeyTypeThrowsDeprecatedError()
-    {
-        $isError = false;
-        try {
-            $collection = new Sequence( 'int' );
-            $collection->isOfKeyType( 'int' );
-        }
-        catch ( \Exception $e ) {
-            $isError = true;
-        }
-        $this->assertTrue(
-            $isError,
-            'Ensure Collection->isOfKeyType() throws a deprecation error'
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                         Collection->isOfValueType()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure isOfValueType throws an error
-     **/
-    public function testIsOfValueTypeThrowsDeprecatedError()
-    {
-        $isError = false;
-        try {
-            $collection = new Sequence( 'int' );
-            $collection->isOfValueType( 'int' );
-        }
-        catch ( \Exception $e ) {
-            $isError = true;
-        }
-        $this->assertTrue(
-            $isError,
-            'Ensure Collection->isOfValueType() throws a deprecation error'
-        );
-    }
     
     
     
