@@ -142,20 +142,14 @@ final class Types
      **/
     public static function GetUnknownType(): Type
     {
-        // The unknown type name (http://php.net/manual/en/function.gettype.php)
-        $name = 'unknown type';
-
-        // Get / cache the unknown type
-        $type = null;
+        $type = NULL;
         if ( self::isTypeCached( TypeNames::UNKNOWN ) ) {
-            $type = self::getTypeFromCache( $name );
+            $type = self::getTypeFromCache( TypeNames::UNKNOWN );
         }
         else {
             $type = new Type( TypeNames::UNKNOWN );
             self::addTypeToCache( $type );
         }
-
-        // Return the unknown type
         return $type;
     }
     
