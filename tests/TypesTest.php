@@ -17,19 +17,6 @@ class TypesTest extends TestCase
     
     
     /**
-     * Ensure Types::GetByName() returns a `Type` instance
-     */
-    public function testGetByNameReturnsType()
-    {
-        $this->assertInstanceOf(
-            'PHP\\Types\\Models\\Type',
-            Types::GetByName( 'foobar' ),
-            'Expected Types::GetByName() to return a PHP\\Types\\Models\\Type instance'
-        );
-    }
-    
-    
-    /**
      * Ensure Types::GetByName() returns type with the same name
      * 
      * @dataProvider getGetByNameData()
@@ -64,12 +51,19 @@ class TypesTest extends TestCase
             [ 'null',                          'null' ],
             [ 'string',                        'string' ],
             [ 'Iterator',                      'Iterator' ],
-            [ 'PHP\\Collections\\Sequence',    'PHP\\Collections\\Sequence' ],
-            
-            // Unknown types
-            [ 'foobar',       'unknown type' ],
-            [ 'unknown type', 'unknown type' ]
+            [ 'PHP\\Collections\\Sequence',    'PHP\\Collections\\Sequence' ]
         ];
+    }
+
+
+    /**
+     * Retrieving type 
+     * 
+     * @expectedException \PHP\Exceptions\NotFoundException
+     */
+    public function testGetByUnknownName()
+    {
+        Types::GetByName( 'foobar' );
     }
     
     
