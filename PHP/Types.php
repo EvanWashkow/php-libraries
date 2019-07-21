@@ -144,8 +144,9 @@ final class Types
      **/
     public static function GetUnknownType(): Type
     {
+        // (07-20-2019)
         trigger_error(
-            'Types::GetUnknownType() is deprecated. This is not an actual type. (07-20-2019)',
+            'Types::GetUnknownType() is deprecated. This is not an actual type.',
             E_USER_DEPRECATED
         );
         $name = 'unknown type';
