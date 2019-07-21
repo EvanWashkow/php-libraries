@@ -148,12 +148,13 @@ final class Types
             'Types::GetUnknownType() is deprecated. This is not an actual type. (07-20-2019)',
             E_USER_DEPRECATED
         );
+        $name = 'unknown type';
         $type = NULL;
-        if ( self::isTypeCached( TypeNames::UNKNOWN ) ) {
-            $type = self::getTypeFromCache( TypeNames::UNKNOWN );
+        if ( self::isTypeCached( $name ) ) {
+            $type = self::getTypeFromCache( $name );
         }
         else {
-            $type = new Type( TypeNames::UNKNOWN );
+            $type = new Type( $name );
             self::addTypeToCache( $type );
         }
         return $type;
