@@ -61,7 +61,11 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
             $this->keyType = $this->createAnonymousKeyType();
         }
         else {
-            $this->keyType = Types::GetByName( $keyType );
+            try {
+                $this->keyType = Types::GetByName( $keyType );
+            } catch ( NotFoundException $e ) {
+                throw new \InvalidArgumentException( "\"$keyType\" cannot be used for the key type: it does not exist." );
+            }
         }
 
         // Lookup value type
@@ -69,7 +73,11 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
             $this->valueType = $this->createAnonymousValueType();
         }
         else {
-            $this->valueType = Types::GetByName( $valueType );
+            try {
+                $this->valueType = Types::GetByName( $valueType );
+            } catch ( NotFoundException $e ) {
+                throw new \InvalidArgumentException( "\"$valueType\" cannot be used for the value type: it does not exist." );
+            }
         }
 
         // Throw exception on invalid key type

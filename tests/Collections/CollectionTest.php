@@ -49,6 +49,12 @@ class CollectionTest extends CollectionsTestCase
         return [
 
             // Dictionary
+            "new Dictionary( '', 'int' )" => [
+                function () { new Dictionary( '', 'int' ); }
+            ],
+            "new Dictionary( 'int', '' )" => [
+                function () { new Dictionary( 'int', '' ); }
+            ],
             'new Dictionary( null )'   => [
                 function () { new Dictionary( 'null', '*' ); }
             ],
@@ -63,6 +69,9 @@ class CollectionTest extends CollectionsTestCase
             ],
 
             // Sequence
+            "new Sequence( '' )" => [
+                function () { new Sequence( '' ); }
+            ],
             'new Sequence( null )'   => [
                 function () { new Sequence( 'null' ); }
             ],
