@@ -19,7 +19,7 @@ use PHP\Types\Models\Type;
  * @internal This is not available via Type lookup methods, for several reasons:
  * 1. It's not an actual type. Rather, it's a type container for actual types,
  * which, when queried, results in a non-anonymous type.
- * 2. Strict typing is much preferred: its more secure and faster.
+ * 2. Strict typing is much preferred: it's more secure and faster.
  * 3. However, it is useful when defining generics, like Collections.
  * 
  * @todo Once PHP defines a type name for anonymous types, modify this class

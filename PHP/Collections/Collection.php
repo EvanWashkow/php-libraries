@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\ObjectClass;
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\Cloneable;
+use PHP\ObjectClass;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
@@ -61,7 +61,11 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
             $this->keyType = $this->createAnonymousKeyType();
         }
         else {
-            $this->keyType = Types::GetByName( $keyType );
+            try {
+                $this->keyType = Types::GetByName( $keyType );
+            } catch ( NotFoundException $e ) {
+                throw new \InvalidArgumentException( "\"$keyType\" cannot be used for the key type: it does not exist." );
+            }
         }
 
         // Lookup value type
@@ -69,35 +73,19 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
             $this->valueType = $this->createAnonymousValueType();
         }
         else {
-            $this->valueType = Types::GetByName( $valueType );
+            try {
+                $this->valueType = Types::GetByName( $valueType );
+            } catch ( NotFoundException $e ) {
+                throw new \InvalidArgumentException( "\"$valueType\" cannot be used for the value type: it does not exist." );
+            }
         }
 
-        // Throw exception on invalid key type
-        switch ( $this->getKeyType()->getName() ) {
-            case TypeNames::NULL:
-                throw new \InvalidArgumentException( 'Key type cannot be "null"' );
-                break;
-            
-            case TypeNames::UNKNOWN:
-                throw new \InvalidArgumentException( "Key type \"{$keyType}\" does not exist" );
-                break;
-            
-            default:
-                break;
+        // Throw exception on types
+        if ( TypeNames::NULL === $this->getKeyType()->getName() ) {
+            throw new \InvalidArgumentException( 'Key type cannot be "null"' );
         }
-
-        // Throw exception on invalid value type
-        switch ( $this->getValueType()->getName() ) {
-            case TypeNames::NULL:
-                throw new \InvalidArgumentException( 'Value type cannot be "null"' );
-                break;
-            
-            case TypeNames::UNKNOWN:
-                throw new \InvalidArgumentException( "Value type \"{$valueType}\" does not exist" );
-                break;
-            
-            default:
-                break;
+        if ( TypeNames::NULL === $this->getValueType()->getName() ) {
+            throw new \InvalidArgumentException( 'Value type cannot be "null"' );
         }
 
         // For each initial entry, add it to this collection

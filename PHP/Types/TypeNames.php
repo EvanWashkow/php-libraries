@@ -32,9 +32,6 @@ final class TypeNames
     /** @var string INTEGER The (longer) integer type name */
     const INTEGER = 'integer';
 
-    /** @var string UNKNOWN The unknown type name (http://php.net/manual/en/function.gettype.php) */
-    const UNKNOWN = 'unknown type';
-
     /** @var string NULL The null type name (http://php.net/manual/en/language.types.null.php) */
     const NULL = 'null';
 

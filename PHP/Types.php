@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 use PHP\Types\Models\FunctionType;
@@ -49,6 +50,7 @@ final class Types
      *
      * @param string $name The type name
      * @return Type
+     * @throws NotFoundException
      */
     public static function GetByName( string $name ): Type
     {
@@ -94,9 +96,9 @@ final class Types
                 );
             }
 
-            // Unknown type
+            // Throw Exception. Type does not exist.
             else {
-                $type = self::GetUnknownType();
+                throw new NotFoundException( "Type \"{$name}\" does not exist." );
             }
 
             // Cache the type
@@ -142,20 +144,19 @@ final class Types
      **/
     public static function GetUnknownType(): Type
     {
-        // The unknown type name (http://php.net/manual/en/function.gettype.php)
+        trigger_error(
+            'Types::GetUnknownType() is deprecated. This is not an actual type. (07-20-2019)',
+            E_USER_DEPRECATED
+        );
         $name = 'unknown type';
-
-        // Get / cache the unknown type
-        $type = null;
-        if ( self::isTypeCached( TypeNames::UNKNOWN ) ) {
+        $type = NULL;
+        if ( self::isTypeCached( $name ) ) {
             $type = self::getTypeFromCache( $name );
         }
         else {
-            $type = new Type( TypeNames::UNKNOWN );
+            $type = new Type( $name );
             self::addTypeToCache( $type );
         }
-
-        // Return the unknown type
         return $type;
     }
     
