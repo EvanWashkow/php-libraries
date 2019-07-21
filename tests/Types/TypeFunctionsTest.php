@@ -87,11 +87,6 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
                 1, 'bool', false
             ],
 
-            // Unknown type
-            "is( 1, 'unknown type' )" => [
-                1, 'unknown type', false
-            ],
-
             // Null
             "is( NULL, 'null' )" => [
                 NULL, 'null', true
