@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\ObjectClass;
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\Cloneable;
+use PHP\ObjectClass;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
