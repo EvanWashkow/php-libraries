@@ -80,32 +80,12 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
             }
         }
 
-        // Throw exception on invalid key type
-        switch ( $this->getKeyType()->getName() ) {
-            case TypeNames::NULL:
-                throw new \InvalidArgumentException( 'Key type cannot be "null"' );
-                break;
-            
-            case TypeNames::UNKNOWN:
-                throw new \InvalidArgumentException( "Key type \"{$keyType}\" does not exist" );
-                break;
-            
-            default:
-                break;
+        // Throw exception on types
+        if ( TypeNames::NULL === $this->getKeyType()->getName() ) {
+            throw new \InvalidArgumentException( 'Key type cannot be "null"' );
         }
-
-        // Throw exception on invalid value type
-        switch ( $this->getValueType()->getName() ) {
-            case TypeNames::NULL:
-                throw new \InvalidArgumentException( 'Value type cannot be "null"' );
-                break;
-            
-            case TypeNames::UNKNOWN:
-                throw new \InvalidArgumentException( "Value type \"{$valueType}\" does not exist" );
-                break;
-            
-            default:
-                break;
+        if ( TypeNames::NULL === $this->getValueType()->getName() ) {
+            throw new \InvalidArgumentException( 'Value type cannot be "null"' );
         }
 
         // For each initial entry, add it to this collection
