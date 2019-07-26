@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
-use PHP\Interfaces\Cloneable;
 use PHP\Interfaces\Equatable;
 use ReflectionClass;
 
