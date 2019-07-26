@@ -62,6 +62,12 @@ class ObjectClass implements Equatable
     /**
      * Duplicate this object
      * 
+     * @internal Impossible to type-hint return type. Cannot type hint return
+     * value as Clonable, since this isn't. Also, cannot type-hint as
+     * ObjectClass, since, as of PHP 7.1, a child class that implements Clonable
+     * cannot override the return type of clone() to match the requirements of
+     * Clonable.
+     * 
      * @return static
      */
     protected function clone()
