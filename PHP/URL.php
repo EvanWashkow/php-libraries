@@ -106,7 +106,7 @@ class URL extends ObjectClass implements Cloneable
      */
     public function clone(): Cloneable
     {
-        return parent::clone();
+        return clone $this;
     }
 
 
