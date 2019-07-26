@@ -265,6 +265,9 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
 
     /**
      * @see Iterator->valid()
+     * 
+     * @internal Final. This functionality is derived from sub methods, and
+     * there is no other conceivable behavior to add here.
      */
     final public function valid(): bool
     {
@@ -310,6 +313,9 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
     /**
      * Retrieve key type
      * 
+     * @internal Final. The key type is set in stone by the constructor, and
+     * after construction, is immutible.
+     * 
      * @return Type
      **/
     final public function getKeyType(): Type
@@ -335,6 +341,9 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
     /**
      * Retrieve value type
      * 
+     * @internal Final. The value type is set in stone by the constructor, and
+     * after construction, is immutible.
+     * 
      * @return Type
      **/
     final public function getValueType(): Type
@@ -345,19 +354,15 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
 
     /**
      * Determine if the value exists
-     * 
-     * @internal Because $type->equals() is slow for class types, it's actually
-     * just faster to check the array directly.
      *
      * @param mixed $value The value to check for
      * @return bool
      */
-    final public function hasValue( $value ): bool
+    public function hasValue( $value ): bool
     {
-        $hasValue;
+        $hasValue = true;
         try {
             $this->getKeyOf( $value );
-            $hasValue = true;
         }
         catch ( NotFoundException $e ) {
             $hasValue = false;
@@ -367,16 +372,10 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
 
 
     /**
-     * Invoke the callback function for each entry in the collection, passing
-     * the key and value for each.
-     *
-     * Callback function requires two parameters (the key and the value), and
-     * must return a boolean value to continue iterating: "true" to continue,
-     * "false" to break/stop the loop.
-     * To access variables outside the callback function, specify a "use" clase:
-     * function() use ( $outerVar ) { $outerVar; }
+     * Iterate over the key-value pairs invoking the callback function with them
      * 
-     * Throws \TypeError if the callback function does not return a boolean
+     * @internal Final. This method is performance-critical. Also, messing with
+     * it in any way could mess up nested loops.
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
@@ -385,15 +384,15 @@ abstract class Collection extends ObjectClass implements \Countable, \Iterator
      * 
      * @internal Do not use iterator_apply(). It is at least twice as slow as this.
      *
-     * @param \Closure $function Callback functiouse theuse then to execute for each entry
+     * @param \Closure $function function( $key, $value ) { return true; }
      * @return void
-     * @throws \TypeError If the callback does not return a boolean value
+     * @throws \TypeError If the callback does not return a bool
      */
     final public function loop( \Closure $function )
     {
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
-        $collection = clone $this;
+        $collection = $this->clone();
         while ( $collection->valid() ) {
             
             // Execute callback function
