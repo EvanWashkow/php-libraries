@@ -8,6 +8,10 @@ use ReflectionClass;
 
 /**
  * Defines a basic object
+ * 
+ * @internal This does not implement Cloneable since not all Objects can be. For
+ * example, any type of File I/O should never be cloned since you cannot have
+ * two writers at the same time. This must be determined on a per-case basis.
  */
 class ObjectClass implements Equatable
 {
@@ -56,21 +60,5 @@ class ObjectClass implements Equatable
         }
 
         return $equals;
-    }
-
-    /**
-     * Duplicate this object
-     * 
-     * @internal Impossible to type-hint return type. Cannot type hint return
-     * value as Clonable, since this isn't. Also, cannot type-hint as
-     * ObjectClass, since, as of PHP 7.1, a child class that implements Clonable
-     * cannot override the return type of clone() to match the requirements of
-     * Clonable.
-     * 
-     * @return static
-     */
-    protected function clone()
-    {
-        return clone $this;
     }
 }

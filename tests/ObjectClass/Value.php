@@ -1,10 +1,9 @@
 <?php
 namespace PHP\Tests\ObjectClass;
 
-use PHP\Interfaces\Cloneable;
 use PHP\ObjectClass;
 
-class Value extends ObjectClass implements Cloneable
+class Value extends ObjectClass
 {
 
     private $value;
@@ -12,11 +11,5 @@ class Value extends ObjectClass implements Cloneable
     public function __construct( $value )
     {
         $this->value = $value;
-    }
-
-
-    public function clone(): Cloneable
-    {
-        return parent::clone();
     }
 }
