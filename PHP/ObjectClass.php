@@ -3,25 +3,18 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
-use PHP\Interfaces\Cloneable;
 use PHP\Interfaces\Equatable;
 use ReflectionClass;
 
 /**
  * Defines a basic object
+ * 
+ * @internal This does not implement Cloneable since not all Objects can be. For
+ * example, any type of File I/O should never be cloned since you cannot have
+ * two writers at the same time. This must be determined on a per-case basis.
  */
-class ObjectClass implements Cloneable, Equatable
+class ObjectClass implements Equatable
 {
-
-    /**
-     * Duplicate this object
-     * 
-     * @return static
-     */
-    public function clone(): Cloneable
-    {
-        return clone $this;
-    }
 
 
     /**

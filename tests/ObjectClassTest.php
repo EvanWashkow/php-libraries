@@ -12,35 +12,6 @@ class ObjectClassTest extends TestCase
 
 
     /**
-     * Ensure ObjectClass->clone() returns an exact duplicate
-     * 
-     * @dataProvider getCloneValues()
-     */
-    public function testClone( Value $value )
-    {
-        $this->assertEquals(
-            $value,
-            $value->clone(),
-            'ObjectClass->clone() is not the same as the original value'
-        );
-    }
-
-
-    /**
-     * Get Clone values
-     * 
-     * @return array
-     */
-    public function getCloneValues(): array
-    {
-        return [
-            [ new Value( [ 'a', 'b', 'c' ] ) ],
-            [ new Value( [ new Value('a'), new Value('b'), new Value('c') ] ) ]
-        ];
-    }
-
-
-    /**
      * Test ObjectClass->equals() returns the expected result
      * 
      * @dataProvider getEqualsValues()
@@ -71,8 +42,8 @@ class ObjectClassTest extends TestCase
             'string_1->equals( string_1 )' => [
                 $string_1, $string_1, true
             ],
-            'string_1->equals( string_1->clone() )' => [
-                $string_1, $string_1->clone(), true
+            'string_1->equals( clone string_1 )' => [
+                $string_1, clone $string_1, true
             ],
             'string_1->equals( int_1 )' => [
                 $string_1, $int_1, false
@@ -84,8 +55,8 @@ class ObjectClassTest extends TestCase
             // Keep in mind that cloning the container of an array does not
             // clone the array itself. Arrays, like objects, are referenced,
             // and are not values themselves.
-            'array->equals( array->clone() )' => [
-                $array, $array->clone(), true
+            'array->equals( clone array )' => [
+                $array, clone $array, true
             ]
         ];
     }
