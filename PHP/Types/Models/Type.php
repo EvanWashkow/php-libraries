@@ -88,7 +88,7 @@ class Type extends ObjectClass
         if ( null === $this->namesSequence ) {
             $this->namesSequence = new Sequence( 'string', $this->namesArray );
         }
-        return ( clone $this->namesSequence );
+        return $this->namesSequence->clone();
     }
     
     
