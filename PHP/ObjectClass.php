@@ -10,18 +10,8 @@ use ReflectionClass;
 /**
  * Defines a basic object
  */
-class ObjectClass implements Cloneable, Equatable
+class ObjectClass implements Equatable
 {
-
-    /**
-     * Duplicate this object
-     * 
-     * @return static
-     */
-    public function clone(): Cloneable
-    {
-        return clone $this;
-    }
 
 
     /**
@@ -67,5 +57,15 @@ class ObjectClass implements Cloneable, Equatable
         }
 
         return $equals;
+    }
+
+    /**
+     * Duplicate this object
+     * 
+     * @return static
+     */
+    protected function clone()
+    {
+        return clone $this;
     }
 }
