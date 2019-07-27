@@ -62,6 +62,9 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->createAnoymousKeyType()
+     * 
+     * @internal Final. DictionaryAnonymousKeyType only supports two types,
+     * anything less is just a type that can be specified in the constructor.
      */
     final protected function createAnonymousKeyType(): AnonymousType
     {
@@ -79,7 +82,7 @@ class Dictionary extends Collection
     /**
      * @see Collection->clear()
      */
-    final public function clear(): bool
+    public function clear(): bool
     {
         $this->entries = [];
         $this->rewind();
@@ -89,6 +92,9 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->count()
+     * 
+     * @internal Final: counting items is rather boring work, and other methods
+     * depend on this working correctly.
      */
     final public function count(): int
     {
@@ -99,7 +105,7 @@ class Dictionary extends Collection
     /**
      * @see Collection->get()
      */
-    final public function get( $key )
+    public function get( $key )
     {
         if ( !$this->hasKey( $key )) {
             throw new \OutOfBoundsException( 'Key doesn\'t exist' );
@@ -133,6 +139,9 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->getKeys()
+     * 
+     * @internal Final. Performance sensitive. Also, this functionality is
+     * solely dependant on sub-methods which can be overridden.
      */
     final public function getKeys(): Sequence
     {
@@ -146,7 +155,7 @@ class Dictionary extends Collection
     /**
      * @see Collection->hasKey()
      */
-    final public function hasKey( $key ): bool
+    public function hasKey( $key ): bool
     {
         return (
             $this->getKeyType()->equals( $key ) &&
@@ -158,7 +167,7 @@ class Dictionary extends Collection
     /**
      * @see Collection->remove()
      */
-    final public function remove( $key ): bool
+    public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( $this->hasKey( $key )) {
@@ -175,7 +184,7 @@ class Dictionary extends Collection
     /**
      * @see Collection->set()
      */
-    final public function set( $key, $value ): bool
+    public function set( $key, $value ): bool
     {
         // Throw warnings
         $isSuccessful = false;
@@ -197,6 +206,10 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->toArray()
+     * 
+     * @internal Final. This functionality should not be changed because it
+     * reflects the Dictionary's key-value pairs, and should not return anything
+     * but that.
      */
     final public function toArray(): array
     {
@@ -212,6 +225,8 @@ class Dictionary extends Collection
 
     /**
      * @see Iterator->current()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function current()
     {
@@ -220,6 +235,8 @@ class Dictionary extends Collection
 
     /**
      * @see Iterator->key()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function key()
     {
@@ -239,6 +256,8 @@ class Dictionary extends Collection
 
     /**
      * @see Iterator->next()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function next()
     {
@@ -247,6 +266,8 @@ class Dictionary extends Collection
 
     /**
      * @see Iterator->rewind()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function rewind()
     {
