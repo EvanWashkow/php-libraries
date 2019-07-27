@@ -377,7 +377,9 @@ abstract class Collection extends ObjectClass implements Cloneable,
      * Iterate over the key-value pairs invoking the callback function with them
      * 
      * @internal Final. This method is performance-critical and should not be
-     * overridden for fear of breaking the loop implementation.
+     * overridden for fear of breaking the loop implementation. Also, it is
+     * dependent on sub-methods for operation, which can be changed to correct
+     * this behavior.
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
@@ -397,16 +399,14 @@ abstract class Collection extends ObjectClass implements Cloneable,
         $collection = $this->clone();
         while ( $collection->valid() ) {
             
-            // Execute callback function
-            $key            = $collection->key();
-            $value          = $collection->current();
-            $shouldContinue = $function( $key, $value );
+            // Execute callback function with key and value
+            $canContinue = $function( $collection->key(), $collection->current() );
             
             // Handle return value
-            if ( true === $shouldContinue ) {
+            if ( true === $canContinue ) {
                 $collection->next();
             }
-            elseif ( false === $shouldContinue ) {
+            elseif ( false === $canContinue ) {
                 break;
             }
             else {
