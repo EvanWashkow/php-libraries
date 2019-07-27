@@ -210,9 +210,7 @@ class Dictionary extends Collection
     /**
      * @see Collection->toArray()
      * 
-     * @internal Final. This functionality should not be changed because it
-     * reflects the Dictionary's key-value pairs, and should not return anything
-     * but that.
+     * @internal Final. This functionality should not be changed because it will affect other methods.
      */
     final public function toArray(): array
     {
