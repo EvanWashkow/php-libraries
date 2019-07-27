@@ -376,8 +376,8 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * Iterate over the key-value pairs invoking the callback function with them
      * 
-     * @internal Final. This method is performance-critical. Also, messing with
-     * it in any way could mess up nested loops.
+     * @internal Final. This method is performance-critical and should not be
+     * overridden for fear of breaking the loop implementation.
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
