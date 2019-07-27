@@ -71,7 +71,7 @@ class Sequence extends Collection
     /**
      * @see Collection->clear()
      */
-    final public function clear(): bool
+    public function clear(): bool
     {
         $this->entries = [];
         $this->rewind();
@@ -81,6 +81,9 @@ class Sequence extends Collection
 
     /**
      * @see Collection->count()
+     * 
+     * @internal Final: counting items is rather boring work, and other methods
+     * depend on this working correctly.
      */
     final public function count(): int
     {
@@ -109,7 +112,7 @@ class Sequence extends Collection
     /**
      * @see Collection->get()
      */
-    final public function get( $key )
+    public function get( $key )
     {
         if ( !$this->hasKey( $key )) {
             throw new \OutOfBoundsException( 'Cannot get value from key that does not exist' );
@@ -120,6 +123,9 @@ class Sequence extends Collection
 
     /**
      * @see Collection->getKeys()
+     * 
+     * @internal Final. Performance sensitive. Also, this functionality is
+     * solely dependant on sub-methods which can be overridden.
      */
     final public function getKeys(): Sequence
     {
@@ -133,7 +139,7 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      * 
-     * @internal Final: this method is performance sensitive.
+     * @internal Final: this method is complicated and performance sensitive.
      *
      * @param mixed $value       Value to find
      * @param int   $startingKey Start search from this key. If the value is found at this key, the key will be returned.
