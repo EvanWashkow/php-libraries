@@ -1,10 +1,12 @@
 <?php
 namespace PHP;
 
+use PHP\Interfaces\Cloneable;
+
 /**
  * Defines a URL string
  */
-class URL extends ObjectClass
+class URL extends ObjectClass implements Cloneable
 {
     
     /***************************************************************************
@@ -98,6 +100,15 @@ class URL extends ObjectClass
     /***************************************************************************
     *                                   METHODS
     ***************************************************************************/
+
+    /**
+     * @see parent::clone()
+     */
+    public function clone(): Cloneable
+    {
+        return clone $this;
+    }
+
 
     /**
      * Determine if this URL is the same
