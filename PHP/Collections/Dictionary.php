@@ -210,7 +210,8 @@ class Dictionary extends Collection
     /**
      * @see Collection->toArray()
      * 
-     * @internal Final. This functionality should not be changed because it will affect other methods.
+     * @internal Final. This functionality should not be changed because it
+     * will break other methods.
      */
     final public function toArray(): array
     {
@@ -227,7 +228,8 @@ class Dictionary extends Collection
     /**
      * @see Iterator->current()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function current()
     {
@@ -237,7 +239,8 @@ class Dictionary extends Collection
     /**
      * @see Iterator->key()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function key()
     {
@@ -258,7 +261,8 @@ class Dictionary extends Collection
     /**
      * @see Iterator->next()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function next()
     {
@@ -268,7 +272,8 @@ class Dictionary extends Collection
     /**
      * @see Iterator->rewind()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function rewind()
     {

@@ -287,7 +287,7 @@ class Sequence extends Collection
      * @see Collection->toArray()
      * 
      * @internal Final. This functionality should not be changed because it will
-     * affect other methods.
+     * break other methods.
      */
     final public function toArray(): array
     {
@@ -304,7 +304,8 @@ class Sequence extends Collection
     /**
      * @see Iterator->current()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function current()
     {
@@ -314,7 +315,8 @@ class Sequence extends Collection
     /**
      * @see Iterator->key()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function key()
     {
@@ -324,7 +326,8 @@ class Sequence extends Collection
     /**
      * @see Iterator->next()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function next()
     {
@@ -334,7 +337,8 @@ class Sequence extends Collection
     /**
      * @see Iterator->rewind()
      * 
-     * @internal Final: foreach loops depend on these to work.
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function rewind()
     {
