@@ -133,19 +133,16 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws \PHP\Exceptions\NotFoundException if key not found, or offset is
-     * too large or too small. This *always* has to be handled by the caller,
-     * even if a default value was returned. Throwing an exception provides more
-     * information to the caller about what happened.
+     * @internal Final: this method is performance sensitive.
      *
-     * @param mixed $value     Value to find
-     * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
-     * @param bool  $isReverse Search backwards
+     * @param mixed $value       Value to find
+     * @param int   $startingKey Start search from this key. If the value is found at this key, the key will be returned.
+     * @param bool  $isReverse   Search backwards
      * @return int The key
      * @throws \PHP\Exceptions\NotFoundException If key not found or offset too large or too small
      */
     final public function getKeyOf(      $value,
-                                    int  $offset = 0,
+                                    int  $startingKey = 0,
                                     bool $isReverse = false ): int
     {
         // Variables
@@ -169,11 +166,11 @@ class Sequence extends Collection
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        elseif ( $offset < $firstKey ) {
+        elseif ( $startingKey < $firstKey ) {
             throw new NotFoundException( 'Offset too small.' );
             
         }
-        elseif ( $lastKey < $offset ) {
+        elseif ( $lastKey < $startingKey ) {
             throw new NotFoundException( 'Offset too large.' );
         }
 
@@ -181,20 +178,20 @@ class Sequence extends Collection
         // Get sub-sequence to search
         $sequence;
         if ( $isReverse ) {
-            if ( $lastKey === $offset ) {
+            if ( $lastKey === $startingKey ) {
                 $sequence = $this;
             }
             else {
-                $sequence = $this->slice( $firstKey, $offset + 1 );
+                $sequence = $this->slice( $firstKey, $startingKey + 1 );
             }
             $sequence = $sequence->reverse();
         }
         else {
-            if ( $firstKey === $offset ) {
+            if ( $firstKey === $startingKey ) {
                 $sequence = $this;
             }
             else {
-                $sequence = $this->slice( $offset );
+                $sequence = $this->slice( $startingKey );
             }
         }
         
@@ -207,10 +204,10 @@ class Sequence extends Collection
         }
         else {
             if ( $isReverse ) {
-                $key = $offset - $searchResult;
+                $key = $startingKey - $searchResult;
             }
             else {
-                $key = $searchResult + $offset;
+                $key = $searchResult + $startingKey;
             }
         }
 
