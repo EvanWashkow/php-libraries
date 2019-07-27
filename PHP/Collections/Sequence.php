@@ -223,6 +223,9 @@ class Sequence extends Collection
 
     /**
      * @see Collection->hasKey()
+     * 
+     * @internal Final: this is performance sensitive and will one day be
+     * programmed to use Equatable interfaces for key evaluation.
      */
     final public function hasKey( $key ): bool
     {

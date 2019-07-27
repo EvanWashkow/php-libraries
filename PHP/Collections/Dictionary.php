@@ -154,8 +154,11 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->hasKey()
+     * 
+     * @internal Final: this is performance sensitive and will one day be
+     * controlled by inner Sequences.
      */
-    public function hasKey( $key ): bool
+    final public function hasKey( $key ): bool
     {
         return (
             $this->getKeyType()->equals( $key ) &&
