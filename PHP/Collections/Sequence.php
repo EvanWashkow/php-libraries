@@ -236,7 +236,7 @@ class Sequence extends Collection
     /**
      * @see Collection->remove()
      */
-    final public function remove( $key ): bool
+    public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !$this->hasKey( $key )) {
@@ -254,7 +254,7 @@ class Sequence extends Collection
     /**
      * @see Collection->set()
      */
-    final public function set( $key, $value ): bool
+    public function set( $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
@@ -285,6 +285,10 @@ class Sequence extends Collection
 
     /**
      * @see Collection->toArray()
+     * 
+     * @internal Final. This functionality should not be changed because it
+     * reflects the Sequence's key-value pairs, and should not return anything
+     * but that.
      */
     final public function toArray(): array
     {
@@ -300,6 +304,8 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->current()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function current()
     {
@@ -308,6 +314,8 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->key()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function key()
     {
@@ -316,6 +324,8 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->next()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function next()
     {
@@ -324,6 +334,8 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->rewind()
+     * 
+     * @internal Final: foreach loops depend on these to work.
      */
     final public function rewind()
     {
@@ -370,6 +382,8 @@ class Sequence extends Collection
 
     /**
      * Retrieve the key for the last entry
+     * 
+     * @internal Final: this method is a cumulation of sub-methods.
      *
      * @return int
      */
@@ -386,7 +400,7 @@ class Sequence extends Collection
      * @param mixed $value The value
      * @return bool Whether or not the operation was successful
      */
-    final public function insert( int $key, $value ): bool
+    public function insert( int $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
