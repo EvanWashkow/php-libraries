@@ -150,4 +150,44 @@ class EnumTest extends TestCase
             ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                                    getValue()
+    ***************************************************************************/
+
+
+    /**
+     * Test the construction of Enums
+     * 
+     * @dataProvider getGetValueData()
+     */
+    public function testGetValue( Enum $enum, $value )
+    {
+        $this->assertEquals(
+            $value,
+            $enum->getValue(),
+            'Enum->getValue() did not return the expected value'
+        );
+    }
+
+    public function getGetValueData(): array
+    {
+        return [
+            'new MixedEnum( MixedEnum::STRING )' => [
+                new MixedEnum( MixedEnum::STRING ),
+                MixedEnum::STRING
+            ],
+            'new MixedEnum( MixedEnum::NUMBERS )' => [
+                new MixedEnum( MixedEnum::NUMBERS ),
+                MixedEnum::NUMBERS
+            ],
+            'new MixedEnum( MixedEnum::ARRAY )' => [
+                new MixedEnum( MixedEnum::ARRAY ),
+                MixedEnum::ARRAY
+            ]
+        ];
+    }
 }
