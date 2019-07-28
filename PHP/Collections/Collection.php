@@ -353,6 +353,9 @@ abstract class Collection extends ObjectClass implements Cloneable,
 
     /**
      * Determine if the value exists
+     * 
+     * @internal Not final since a child class may have optimizations to make,
+     * especially if they have a limited data set.
      *
      * @param mixed $value The value to check for
      * @return bool
