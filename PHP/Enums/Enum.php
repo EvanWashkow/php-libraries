@@ -34,6 +34,21 @@ abstract class Enum extends ObjectClass
 
 
     /**
+     * Determine if the current value is equal to another Enum or value
+     * 
+     * @param mixed $value Enum instance or value to compare to
+     * @return bool
+     */
+    public function equals( $value ): bool
+    {
+        if ( $value instanceof Enum ) {
+            $value = $value->getValue();
+        }
+        return $this->getValue() === $value;
+    }
+
+
+    /**
      * Retrieve the current value
      * 
      * @return mixed

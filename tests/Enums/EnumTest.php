@@ -14,6 +14,11 @@ use PHPUnit\Framework\TestCase;
 class EnumTest extends TestCase
 {
 
+    /***************************************************************************
+    *                              __construct()
+    ***************************************************************************/
+
+
     /**
      * Test class inheritance
      */
@@ -30,7 +35,7 @@ class EnumTest extends TestCase
     /**
      * Test the construction of Enums
      * 
-     * @dataProvider getTestConstructorData()
+     * @dataProvider getConstructorData()
      */
     public function testConstructor( \Closure $callback )
     {
@@ -41,7 +46,7 @@ class EnumTest extends TestCase
         );
     }
 
-    public function getTestConstructorData(): array
+    public function getConstructorData(): array
     {
         return [
             'new MixedEnum( MixedEnum::STRING )' => [function() {
@@ -60,7 +65,7 @@ class EnumTest extends TestCase
     /**
      * Test the DomainException when constructing an Enum
      * 
-     * @dataProvider getTestConstructorExceptionData()
+     * @dataProvider getConstructorExceptionData()
      * @expectedException \DomainException
      */
     public function testConstructorException( \Closure $callback )
@@ -68,7 +73,7 @@ class EnumTest extends TestCase
         $callback();
     }
 
-    public function getTestConstructorExceptionData(): array
+    public function getConstructorExceptionData(): array
     {
         return [
             'new MixedEnum( MixedEnum::NUMBERS )' => [function() {
@@ -81,6 +86,68 @@ class EnumTest extends TestCase
                 }
                 return new MixedEnum( $stringArray );
             }]
+        ];
+    }
+
+
+
+
+    /***************************************************************************
+    *                                    equals()
+    ***************************************************************************/
+
+    /**
+     * Test Enum->equals()
+     * 
+     * @dataProvider getEqualsData
+     */
+    public function testEquals( Enum $enum, $value, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $enum->equals( $value ),
+            'Enum->equals() did not return the correct result'
+        );
+    }
+
+    public function getEqualsData(): array
+    {
+        $stringArray = [];
+        foreach ( MixedEnum::ARRAY as $value ) {
+            $stringArray[] = "$value";
+        }
+
+        return [
+            'new MixedEnum( NUMBERS )->equals( NUMBERS )' => [
+                new MixedEnum( MixedEnum::NUMBERS ),
+                MixedEnum::NUMBERS,
+                true
+            ],
+            'new MixedEnum( NUMBERS )->equals( <same enum> )' => [
+                new MixedEnum( MixedEnum::NUMBERS ),
+                new MixedEnum( MixedEnum::NUMBERS ),
+                true
+            ],
+            'new MixedEnum( NUMBERS )->equals( (string) NUMBERS )' => [
+                new MixedEnum( MixedEnum::NUMBERS ),
+                '' . MixedEnum::NUMBERS,
+                false
+            ],
+            'new MixedEnum( ARRAY )->equals( ARRAY )' => [
+                new MixedEnum( MixedEnum::ARRAY ),
+                MixedEnum::ARRAY,
+                true
+            ],
+            'new MixedEnum( ARRAY )->equals( <same enum> )' => [
+                new MixedEnum( MixedEnum::ARRAY ),
+                new MixedEnum( MixedEnum::ARRAY ),
+                true
+            ],
+            'new MixedEnum( ARRAY )->equals( (string) ARRAY )' => [
+                new MixedEnum( MixedEnum::ARRAY ),
+                $stringArray,
+                false
+            ]
         ];
     }
 }
