@@ -139,7 +139,12 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      * 
-     * @internal Final: this method is complicated and performance sensitive.
+     * @internal This will derive its matching functionality from object entries
+     * that implement the Equatable interface
+     * 
+     * @internal This method is not final, since there could be optimizations
+     * that child classes could add to this (such as with an ordered sequence of
+     * integer-based values).
      *
      * @param mixed $value       Value to find
      * @param int   $startingKey Start search from this key. If the value is found at this key, the key will be returned.
@@ -147,9 +152,9 @@ class Sequence extends Collection
      * @return int The key
      * @throws \PHP\Exceptions\NotFoundException If key not found or offset too large or too small
      */
-    final public function getKeyOf(      $value,
-                                    int  $startingKey = 0,
-                                    bool $isReverse = false ): int
+    public function getKeyOf(      $value,
+                              int  $startingKey = 0,
+                              bool $isReverse = false ): int
     {
         // Variables
         $key;
