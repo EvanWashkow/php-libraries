@@ -123,11 +123,8 @@ class Sequence extends Collection
 
     /**
      * @see Collection->getKeys()
-     * 
-     * @internal Final. Performance sensitive. Also, this method will derive all
-     * its functionality from sub-methods.
      */
-    final public function getKeys(): Sequence
+    public function getKeys(): Sequence
     {
         return new self(
             $this->getKeyType()->getName(),

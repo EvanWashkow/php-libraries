@@ -138,11 +138,8 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->getKeys()
-     * 
-     * @internal Final. Performance sensitive. Also, this method will derive all
-     * its functionality from sub-methods.
      */
-    final public function getKeys(): Sequence
+    public function getKeys(): Sequence
     {
         return new Sequence(
             $this->getKeyType()->getName(),
