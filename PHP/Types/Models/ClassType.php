@@ -6,7 +6,7 @@ namespace PHP\Types\Models;
 /**
  * Store and retrieve type information for a class
  */
-final class ClassType extends InterfaceType
+class ClassType extends InterfaceType
 {
 
 
