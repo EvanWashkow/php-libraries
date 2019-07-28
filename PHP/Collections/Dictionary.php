@@ -63,10 +63,9 @@ class Dictionary extends Collection
     /**
      * @see Collection->createAnoymousKeyType()
      * 
-     * @internal Final. DictionaryAnonymousKeyType only supports two types,
-     * anything less is just a type that can be specified in the constructor.
+     * @internal This can be overridden to add more anonymous type support
      */
-    final protected function createAnonymousKeyType(): AnonymousType
+    protected function createAnonymousKeyType(): AnonymousType
     {
         return new Dictionary\DictionaryAnonymousKeyType();
     }
