@@ -131,6 +131,8 @@ class URL extends ObjectClass implements Cloneable
     
     /**
      * Retrieve the protocol for this URL ("http")
+     * 
+     * @interal Final: Protocols must always follow this syntax.
      *
      * @return string
      */
@@ -145,6 +147,8 @@ class URL extends ObjectClass implements Cloneable
     
     /**
      * Retrive the domain for this URL ("www.example.com")
+     * 
+     * @internal Final: Domains must always follow this syntax.
      *
      * @return string
      */
@@ -162,6 +166,8 @@ class URL extends ObjectClass implements Cloneable
     
     /**
      * Retrieve the path, following the domain, for this URL ("url/path")
+     * 
+     * @internal Final: path structure must always follow this syntax.
      *
      * @return string
      */
@@ -186,7 +192,7 @@ class URL extends ObjectClass implements Cloneable
      *
      * @return \PHP\Collections\Dictionary
      */
-    final public function getParameters(): \PHP\Collections\Dictionary
+    public function getParameters(): \PHP\Collections\Dictionary
     {
         // Exit. Parameters already generated.
         if ( null !== $this->parameters ) {
@@ -221,6 +227,8 @@ class URL extends ObjectClass implements Cloneable
     
     /**
      * Convert to a string
+     * 
+     * @internal Final: there is nothing more to be done here.
      *
      * @return string
      */

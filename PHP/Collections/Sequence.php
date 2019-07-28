@@ -71,7 +71,7 @@ class Sequence extends Collection
     /**
      * @see Collection->clear()
      */
-    final public function clear(): bool
+    public function clear(): bool
     {
         $this->entries = [];
         $this->rewind();
@@ -81,6 +81,9 @@ class Sequence extends Collection
 
     /**
      * @see Collection->count()
+     * 
+     * @internal Final: counting items is rather boring work, and this is
+     * critical to other methods working correctly.
      */
     final public function count(): int
     {
@@ -109,7 +112,7 @@ class Sequence extends Collection
     /**
      * @see Collection->get()
      */
-    final public function get( $key )
+    public function get( $key )
     {
         if ( !$this->hasKey( $key )) {
             throw new \OutOfBoundsException( 'Cannot get value from key that does not exist' );
@@ -121,7 +124,7 @@ class Sequence extends Collection
     /**
      * @see Collection->getKeys()
      */
-    final public function getKeys(): Sequence
+    public function getKeys(): Sequence
     {
         return new self(
             $this->getKeyType()->getName(),
@@ -133,20 +136,22 @@ class Sequence extends Collection
     /**
      * Retrieve the key of the first value found
      * 
-     * Throws \PHP\Exceptions\NotFoundException if key not found, or offset is
-     * too large or too small. This *always* has to be handled by the caller,
-     * even if a default value was returned. Throwing an exception provides more
-     * information to the caller about what happened.
+     * @internal This will derive its matching functionality from object entries
+     * that implement the Equatable interface
+     * 
+     * @internal This method is not final, since there could be optimizations
+     * that child classes could add to this (such as with an ordered sequence of
+     * integer-based values).
      *
-     * @param mixed $value     Value to find
-     * @param int   $offset    Start search from this key. If the value is found at this key, the key will be returned.
-     * @param bool  $isReverse Search backwards
+     * @param mixed $value       Value to find
+     * @param int   $startingKey Start search from this key. If the value is found at this key, the key will be returned.
+     * @param bool  $isReverse   Search backwards
      * @return int The key
      * @throws \PHP\Exceptions\NotFoundException If key not found or offset too large or too small
      */
-    final public function getKeyOf(      $value,
-                                    int  $offset = 0,
-                                    bool $isReverse = false ): int
+    public function getKeyOf(      $value,
+                              int  $startingKey = 0,
+                              bool $isReverse = false ): int
     {
         // Variables
         $key;
@@ -169,11 +174,11 @@ class Sequence extends Collection
          * A recursive search with an incremental offset will result in an
          * invalid offset: the returned key should be invalid.
          */
-        elseif ( $offset < $firstKey ) {
+        elseif ( $startingKey < $firstKey ) {
             throw new NotFoundException( 'Offset too small.' );
             
         }
-        elseif ( $lastKey < $offset ) {
+        elseif ( $lastKey < $startingKey ) {
             throw new NotFoundException( 'Offset too large.' );
         }
 
@@ -181,20 +186,20 @@ class Sequence extends Collection
         // Get sub-sequence to search
         $sequence;
         if ( $isReverse ) {
-            if ( $lastKey === $offset ) {
+            if ( $lastKey === $startingKey ) {
                 $sequence = $this;
             }
             else {
-                $sequence = $this->slice( $firstKey, $offset + 1 );
+                $sequence = $this->slice( $firstKey, $startingKey + 1 );
             }
             $sequence = $sequence->reverse();
         }
         else {
-            if ( $firstKey === $offset ) {
+            if ( $firstKey === $startingKey ) {
                 $sequence = $this;
             }
             else {
-                $sequence = $this->slice( $offset );
+                $sequence = $this->slice( $startingKey );
             }
         }
         
@@ -207,10 +212,10 @@ class Sequence extends Collection
         }
         else {
             if ( $isReverse ) {
-                $key = $offset - $searchResult;
+                $key = $startingKey - $searchResult;
             }
             else {
-                $key = $searchResult + $offset;
+                $key = $searchResult + $startingKey;
             }
         }
 
@@ -221,7 +226,7 @@ class Sequence extends Collection
     /**
      * @see Collection->hasKey()
      */
-    final public function hasKey( $key ): bool
+    public function hasKey( $key ): bool
     {
         return ( is_int( $key ) && array_key_exists( $key, $this->entries ) );
     }
@@ -230,7 +235,7 @@ class Sequence extends Collection
     /**
      * @see Collection->remove()
      */
-    final public function remove( $key ): bool
+    public function remove( $key ): bool
     {
         $isSuccessful = false;
         if ( !$this->hasKey( $key )) {
@@ -248,7 +253,7 @@ class Sequence extends Collection
     /**
      * @see Collection->set()
      */
-    final public function set( $key, $value ): bool
+    public function set( $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;
@@ -279,6 +284,9 @@ class Sequence extends Collection
 
     /**
      * @see Collection->toArray()
+     * 
+     * @internal Final: this method should always return an array of the
+     * original values.
      */
     final public function toArray(): array
     {
@@ -294,6 +302,9 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->current()
+     * 
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function current()
     {
@@ -302,6 +313,9 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->key()
+     * 
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function key()
     {
@@ -310,6 +324,9 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->next()
+     * 
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function next()
     {
@@ -318,6 +335,9 @@ class Sequence extends Collection
 
     /**
      * @see Iterator->rewind()
+     * 
+     * @internal Final: this functionality should not be changed otherwise loops
+     * will not work properly.
      */
     final public function rewind()
     {
@@ -364,6 +384,9 @@ class Sequence extends Collection
 
     /**
      * Retrieve the key for the last entry
+     * 
+     * @internal Final: this method is a built-in calculation based off the
+     * properties of this Sequence. This cannot be changed.
      *
      * @return int
      */
@@ -380,7 +403,7 @@ class Sequence extends Collection
      * @param mixed $value The value
      * @return bool Whether or not the operation was successful
      */
-    final public function insert( int $key, $value ): bool
+    public function insert( int $key, $value ): bool
     {
         // Variables
         $isSuccessful = false;

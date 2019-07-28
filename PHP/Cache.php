@@ -45,6 +45,9 @@ class Cache extends Dictionary
      *
      * Useful for flagging an interative cache as "complete", to prevent further
      * lookups.
+     * 
+     * @internal Declared final since it represents the state of the cache.
+     * Override mark(In)Complete() to prevent it from reaching this state.
      *
      * @return bool
      */
@@ -60,7 +63,7 @@ class Cache extends Dictionary
      * Useful for flagging an interative cache as "complete", to prevent further
      * lookups.
      */
-    final public function markComplete()
+    public function markComplete()
     {
         $this->isComplete = true;
     }
@@ -72,7 +75,7 @@ class Cache extends Dictionary
      * Useful for flagging an interative cache as "incomplete", meaning there
      * are still items to fetch
      */
-    final public function markIncomplete()
+    public function markIncomplete()
     {
         $this->isComplete = false;
     }

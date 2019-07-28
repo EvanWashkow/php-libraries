@@ -6,7 +6,7 @@ namespace PHP\Types\Models;
 /**
  * Retrieve type information from a function instance
  */
-final class FunctionType extends FunctionBaseType
+class FunctionType extends FunctionBaseType
 {
     
     /** @var \ReflectionFunctionAbstract $reflectionFunction Reflection instance with details for the function instance */

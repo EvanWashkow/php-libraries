@@ -69,6 +69,8 @@ class Type extends ObjectClass
     
     /**
      * Retrieve the primary type name
+     * 
+     * @internal Final: this type name cannot be changed.
      *
      * @return string
      */
@@ -80,6 +82,8 @@ class Type extends ObjectClass
     
     /**
      * Retrieve all known names for this type
+     * 
+     * @internal Final: the list of type names cannot be changed.
      *
      * @return Sequence
      */
