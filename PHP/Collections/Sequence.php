@@ -82,8 +82,8 @@ class Sequence extends Collection
     /**
      * @see Collection->count()
      * 
-     * @internal Final: counting items is rather boring work, and other methods
-     * depend on this working correctly.
+     * @internal Final: counting items is rather boring work, and this is
+     * critical to other methods working correctly.
      */
     final public function count(): int
     {
