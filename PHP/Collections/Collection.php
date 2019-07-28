@@ -240,13 +240,27 @@ abstract class Collection extends ObjectClass implements Cloneable,
      */
     public function equals( $value ): bool
     {
-        $equals = false;
+        // Variables
+        $equals     = false;
+        $valueArray = NULL;
+
+        // Get array
         if ( is_array( $value )) {
-            $equals = $this->toArray() === $value;
+            $valueArray = $value;
         }
         elseif ( $value instanceof Collection ) {
-            $equals = $value->equals( $this->toArray() );
+            $valueArray = $value->toArray();
         }
+
+        /**
+         * Compare the array values
+         * 
+         * Note: "===" actually compares the array entries, not the instances.
+         */
+        if ( NULL !== $valueArray ) {
+            $equals = $this->toArray() === $valueArray;
+        }
+
         return $equals;
     }
 

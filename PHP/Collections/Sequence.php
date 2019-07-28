@@ -286,10 +286,10 @@ class Sequence extends Collection
     /**
      * @see Collection->toArray()
      * 
-     * @internal Overridding this will break equals(). This will be fixed in a
-     * future version.
+     * @internal Final. This functionality should not be changed because it will
+     * break other methods.
      */
-    public function toArray(): array
+    final public function toArray(): array
     {
         return $this->entries;
     }
