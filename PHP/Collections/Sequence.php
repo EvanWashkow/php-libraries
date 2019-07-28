@@ -286,8 +286,9 @@ class Sequence extends Collection
     /**
      * @see Collection->toArray()
      * 
-     * @internal Final. This functionality should not be changed because it will
-     * break other methods.
+     * @internal Final. This functionality should not be changed because it
+     * reflects the Sequence's key-value pairs, and should not return anything
+     * but that.
      */
     final public function toArray(): array
     {
