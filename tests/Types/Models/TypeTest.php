@@ -116,7 +116,6 @@ class TypeTest extends \PHP\Tests\TestCase
             'string'    => [ 'string' ],
             
             // Other
-            'unknown type'  => [ 'unknown type' ],
             Sequence::class => [ Sequence::class ]
         ];
         

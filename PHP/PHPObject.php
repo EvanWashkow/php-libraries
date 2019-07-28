@@ -1,7 +1,8 @@
 <?php
 namespace PHP;
 
-trigger_error( 'PHP\\PHPObject is deprecated', E_USER_DEPRECATED );
+// (07-20-2019)
+trigger_error( 'PHP\\PHPObject is deprecated.', E_USER_DEPRECATED );
 
 
 /**

@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\ObjectClass;
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\Cloneable;
+use PHP\ObjectClass;
 use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
@@ -62,52 +62,32 @@ abstract class Collection extends ObjectClass implements Cloneable,
         if ( AnonymousType::NAME === $keyType ) {
             $this->keyType = $this->createAnonymousKeyType();
         }
-        elseif ( '' === $keyType ) {
-            trigger_error( 'Key types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
-            $this->keyType = $this->createAnonymousKeyType();
-        }
         else {
-            $this->keyType = Types::GetByName( $keyType );
+            try {
+                $this->keyType = Types::GetByName( $keyType );
+            } catch ( NotFoundException $e ) {
+                throw new \InvalidArgumentException( "\"$keyType\" cannot be used for the key type: it does not exist." );
+            }
         }
 
         // Lookup value type
         if ( AnonymousType::NAME === $valueType ) {
             $this->valueType = $this->createAnonymousValueType();
         }
-        elseif ( '' === $valueType ) {
-            trigger_error( 'Value types of an empty string are no longer supported. Use "*" instead.', E_USER_DEPRECATED );
-            $this->keyType = $this->createAnonymousValueType();
-        }
         else {
-            $this->valueType = Types::GetByName( $valueType );
+            try {
+                $this->valueType = Types::GetByName( $valueType );
+            } catch ( NotFoundException $e ) {
+                throw new \InvalidArgumentException( "\"$valueType\" cannot be used for the value type: it does not exist." );
+            }
         }
 
-        // Throw exception on invalid key type
-        switch ( $this->getKeyType()->getName() ) {
-            case TypeNames::NULL:
-                throw new \InvalidArgumentException( 'Key type cannot be "null"' );
-                break;
-            
-            case TypeNames::UNKNOWN:
-                throw new \InvalidArgumentException( "Key type \"{$keyType}\" does not exist" );
-                break;
-            
-            default:
-                break;
+        // Throw exception on types
+        if ( TypeNames::NULL === $this->getKeyType()->getName() ) {
+            throw new \InvalidArgumentException( 'Key type cannot be "null"' );
         }
-
-        // Throw exception on invalid value type
-        switch ( $this->getValueType()->getName() ) {
-            case TypeNames::NULL:
-                throw new \InvalidArgumentException( 'Value type cannot be "null"' );
-                break;
-            
-            case TypeNames::UNKNOWN:
-                throw new \InvalidArgumentException( "Value type \"{$valueType}\" does not exist" );
-                break;
-            
-            default:
-                break;
+        if ( TypeNames::NULL === $this->getValueType()->getName() ) {
+            throw new \InvalidArgumentException( 'Value type cannot be "null"' );
         }
 
         // For each initial entry, add it to this collection
@@ -286,16 +266,9 @@ abstract class Collection extends ObjectClass implements Cloneable,
 
 
     /**
-     * Deprecated
-     */
-    final public function seek( $key )
-    {
-        trigger_error( 'Collection->seek() is deprecated', E_USER_DEPRECATED );
-    }
-
-
-    /**
      * @see Iterator->valid()
+     * 
+     * @internal Final: this duplicates other methods.
      */
     final public function valid(): bool
     {
@@ -341,6 +314,8 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * Retrieve key type
      * 
+     * @internal Final. The key type cannot be modified after construction.
+     * 
      * @return Type
      **/
     final public function getKeyType(): Type
@@ -366,6 +341,8 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * Retrieve value type
      * 
+     * @internal Final. The value type cannot be modified after construction.
+     * 
      * @return Type
      **/
     final public function getValueType(): Type
@@ -377,18 +354,17 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * Determine if the value exists
      * 
-     * @internal Because $type->equals() is slow for class types, it's actually
-     * just faster to check the array directly.
+     * @internal Not final since a child class may have optimizations to make,
+     * especially if they have a limited data set.
      *
      * @param mixed $value The value to check for
      * @return bool
      */
-    final public function hasValue( $value ): bool
+    public function hasValue( $value ): bool
     {
-        $hasValue;
+        $hasValue = true;
         try {
             $this->getKeyOf( $value );
-            $hasValue = true;
         }
         catch ( NotFoundException $e ) {
             $hasValue = false;
@@ -398,36 +374,12 @@ abstract class Collection extends ObjectClass implements Cloneable,
 
 
     /**
-     * Deprecated
-     */
-    final public function isOfKeyType( $key ): bool
-    {
-        trigger_error( 'isOfKeyType() is deprecated. Use getKeyType() instead.', E_USER_DEPRECATED );
-        return $this->getKeyType()->equals( $key );
-    }
-
-
-    /**
-     * Deprecated
-     */
-    final public function isOfValueType( $value ): bool
-    {
-        trigger_error( 'isOfValueType() is deprecated. Use getValueType() instead.', E_USER_DEPRECATED );
-        return ( $this->getValueType()->equals( $value ) );
-    }
-
-
-    /**
-     * Invoke the callback function for each entry in the collection, passing
-     * the key and value for each.
-     *
-     * Callback function requires two parameters (the key and the value), and
-     * must return a boolean value to continue iterating: "true" to continue,
-     * "false" to break/stop the loop.
-     * To access variables outside the callback function, specify a "use" clase:
-     * function() use ( $outerVar ) { $outerVar; }
+     * Iterate over the key-value pairs invoking the callback function with them
      * 
-     * Throws \TypeError if the callback function does not return a boolean
+     * @internal Final. This method is performance-critical and should not be
+     * overridden for fear of breaking the loop implementation. Also, it is
+     * dependent on sub-methods for operation, which can be changed to correct
+     * this behavior.
      * 
      * @internal Type hint of Closure. This type hint should execute slightly
      * faster than the "callable" pseudo-type. Also, users **should** be using
@@ -436,27 +388,25 @@ abstract class Collection extends ObjectClass implements Cloneable,
      * 
      * @internal Do not use iterator_apply(). It is at least twice as slow as this.
      *
-     * @param \Closure $function Callback functiouse theuse then to execute for each entry
+     * @param \Closure $function function( $key, $value ) { return true; }
      * @return void
-     * @throws \TypeError If the callback does not return a boolean value
+     * @throws \TypeError If the callback does not return a bool
      */
     final public function loop( \Closure $function )
     {
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
-        $collection = clone $this;
+        $collection = $this->clone();
         while ( $collection->valid() ) {
             
-            // Execute callback function
-            $key            = $collection->key();
-            $value          = $collection->current();
-            $shouldContinue = $function( $key, $value );
+            // Execute callback function with key and value
+            $canContinue = $function( $collection->key(), $collection->current() );
             
             // Handle return value
-            if ( true === $shouldContinue ) {
+            if ( true === $canContinue ) {
                 $collection->next();
             }
-            elseif ( false === $shouldContinue ) {
+            elseif ( false === $canContinue ) {
                 break;
             }
             else {

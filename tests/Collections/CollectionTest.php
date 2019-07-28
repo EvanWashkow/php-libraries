@@ -49,6 +49,12 @@ class CollectionTest extends CollectionsTestCase
         return [
 
             // Dictionary
+            "new Dictionary( '', 'int' )" => [
+                function () { new Dictionary( '', 'int' ); }
+            ],
+            "new Dictionary( 'int', '' )" => [
+                function () { new Dictionary( 'int', '' ); }
+            ],
             'new Dictionary( null )'   => [
                 function () { new Dictionary( 'null', '*' ); }
             ],
@@ -63,6 +69,9 @@ class CollectionTest extends CollectionsTestCase
             ],
 
             // Sequence
+            "new Sequence( '' )" => [
+                function () { new Sequence( '' ); }
+            ],
             'new Sequence( null )'   => [
                 function () { new Sequence( 'null' ); }
             ],
@@ -1300,60 +1309,6 @@ class CollectionTest extends CollectionsTestCase
                 [ 3 => 'foo-3', 4 => 'foo-4' ]
             ]
         ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                         Collection->isOfKeyType()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure isOfKeyType throws an error
-     **/
-    public function testIsOfKeyTypeThrowsDeprecatedError()
-    {
-        $isError = false;
-        try {
-            $collection = new Sequence( 'int' );
-            $collection->isOfKeyType( 'int' );
-        }
-        catch ( \Exception $e ) {
-            $isError = true;
-        }
-        $this->assertTrue(
-            $isError,
-            'Ensure Collection->isOfKeyType() throws a deprecation error'
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                         Collection->isOfValueType()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure isOfValueType throws an error
-     **/
-    public function testIsOfValueTypeThrowsDeprecatedError()
-    {
-        $isError = false;
-        try {
-            $collection = new Sequence( 'int' );
-            $collection->isOfValueType( 'int' );
-        }
-        catch ( \Exception $e ) {
-            $isError = true;
-        }
-        $this->assertTrue(
-            $isError,
-            'Ensure Collection->isOfValueType() throws a deprecation error'
-        );
     }
     
     
