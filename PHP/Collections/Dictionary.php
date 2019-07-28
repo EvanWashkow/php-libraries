@@ -210,10 +210,10 @@ class Dictionary extends Collection
     /**
      * @see Collection->toArray()
      * 
-     * @internal Final. This functionality should not be changed because it
-     * will break other methods.
+     * @internal Overridding this will break equals(). This will be fixed in a
+     * future version.
      */
-    final public function toArray(): array
+    public function toArray(): array
     {
         return $this->entries;
     }
