@@ -268,7 +268,7 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * @see Iterator->valid()
      * 
-     * @internal Final: this method duplicates other methods.
+     * @internal Final: this duplicates other methods.
      */
     final public function valid(): bool
     {
