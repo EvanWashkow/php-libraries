@@ -268,8 +268,8 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * @see Iterator->valid()
      * 
-     * @internal Final. This functionality is derived from sub methods, and
-     * there is no other conceivable behavior to add here.
+     * @internal Final. This method derives all its functionality from sub
+     * methods. There is no other conceivable behavior to add here.
      */
     final public function valid(): bool
     {
@@ -315,8 +315,7 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * Retrieve key type
      * 
-     * @internal Final. The key type is set in stone by the constructor, and
-     * after construction, is immutible.
+     * @internal Final. The key type cannot be modified after construction.
      * 
      * @return Type
      **/
@@ -343,8 +342,7 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /**
      * Retrieve value type
      * 
-     * @internal Final. The value type is set in stone by the constructor, and
-     * after construction, is immutible.
+     * @internal Final. The value type cannot be modified after construction.
      * 
      * @return Type
      **/
