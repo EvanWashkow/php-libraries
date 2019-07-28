@@ -139,8 +139,8 @@ class Dictionary extends Collection
     /**
      * @see Collection->getKeys()
      * 
-     * @internal Final. Performance sensitive. Also, this functionality is
-     * solely dependant on sub-methods which can be overridden.
+     * @internal Final. Performance sensitive. Also, this method will derive all
+     * its functionality from sub-methods.
      */
     final public function getKeys(): Sequence
     {
