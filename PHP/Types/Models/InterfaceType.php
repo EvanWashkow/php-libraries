@@ -29,6 +29,9 @@ class InterfaceType extends Type
     }
 
 
+    /**
+     * @internal Final: there is no more to add to this method.
+     */
     final public function is( string $typeName ): bool
     {
         return (
@@ -54,7 +57,7 @@ class InterfaceType extends Type
      *
      * @return \ReflectionClass
      **/
-    final protected function getReflectionClass(): \ReflectionClass
+    protected function getReflectionClass(): \ReflectionClass
     {
         return $this->reflectionClass;
     }
