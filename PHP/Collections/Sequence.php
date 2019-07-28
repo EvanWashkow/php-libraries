@@ -385,7 +385,8 @@ class Sequence extends Collection
     /**
      * Retrieve the key for the last entry
      * 
-     * @internal Final: this method is a cumulation of sub-methods.
+     * @internal Final: this method is a built-in calculation based off the
+     * properties of this Sequence. This cannot be changed.
      *
      * @return int
      */
