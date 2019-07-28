@@ -192,7 +192,7 @@ class Sequence extends Collection
             else {
                 $sequence = $this->slice( $firstKey, $startingKey + 1 );
             }
-            $sequence = $sequence->reverse();
+            $sequence = $sequence->clone()->reverse();
         }
         else {
             if ( $firstKey === $startingKey ) {
@@ -447,10 +447,8 @@ class Sequence extends Collection
      */
     public function reverse(): Sequence
     {
-        return new self(
-            $this->getKeyType()->getName(),
-            array_reverse( $this->entries, false )
-        );
+        $this->entries = array_reverse( $this->entries, false );
+        return $this;
     }
 
 
