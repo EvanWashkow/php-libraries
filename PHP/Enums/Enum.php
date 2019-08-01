@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Enums;
 
+use PHP\Collections\Dictionary;
 use PHP\ObjectClass;
 
 /**
@@ -13,8 +14,23 @@ use PHP\ObjectClass;
 abstract class Enum extends ObjectClass
 {
 
+
+    /***************************************************************************
+    *                                   PROPERTIES
+    ***************************************************************************/
+
+    /** @var Dictionary List of constants in this enumeration */
+    private $constants;
+
     /** @var mixed $value The current value in this set of enumerated constants */
     private $value;
+
+
+
+
+    /***************************************************************************
+    *                              CONSTRUCTOR METHODS
+    ***************************************************************************/
 
 
     /**
@@ -26,11 +42,32 @@ abstract class Enum extends ObjectClass
     public function __construct( $value )
     {
         try {
+            $this->constants = $this->__constructConstantsDictionary(
+                ( new \ReflectionClass( $this ) )->getConstants()
+            );
             $this->setValue( $value );
         } catch ( \DomainException $e ) {
             throw new \DomainException( $e->getMessage(), $e->getCode(), $e->getPrevious() );
         }
     }
+
+
+    /**
+     * Return a new constants dictionary
+     * 
+     * @param array $constants This class's array of constants
+     * @throws \DomainException On bad constant definitions
+     */
+    protected function __constructConstantsDictionary( array $constants )
+    {
+        return new Dictionary( '*', '*', $constants );
+    }
+
+
+
+    /***************************************************************************
+    *                                 MAIN METHODS
+    ***************************************************************************/
 
 
     /**
@@ -70,10 +107,20 @@ abstract class Enum extends ObjectClass
      */
     protected function setValue( $value )
     {
-        $constants = ( new \ReflectionClass( $this ) )->getConstants();
-        if ( !in_array( $value, $constants, true )) {
+        if ( !$this->getConstants()->hasValue( $value )) {
             throw new \DomainException( 'The value is not in the set of enumerated constants.' );
         }
         $this->value = $value;
+    }
+
+
+    /**
+     * Retrieve the list of constants for this class
+     *
+     * @return Dictionary
+     **/
+    protected function getConstants(): Dictionary
+    {
+        return $this->constants;
     }
 }
