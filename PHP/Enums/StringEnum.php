@@ -44,14 +44,15 @@ abstract class StringEnum extends Enum
      * Set the current value
      * 
      * @param string $value A value from the set of enumerated constants
+     * @return string The value that was set
      * @throws \InvalidArgumentException If the value is not a string
      * @throws \DomainException If the value is not in the set of enumerated constants
      */
-    protected function setValue( $value )
+    protected function setValue( $value ): string
     {
         if ( !is_string( $value )) {
             throw new \InvalidArgumentException( 'Given value was not a string.' );
         }
-        parent::setValue( $value );
+        return parent::setValue( $value );
     }
 }
