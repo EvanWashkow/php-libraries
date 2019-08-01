@@ -60,7 +60,7 @@ abstract class Enum extends ObjectClass
      */
     protected function __constructConstantsDictionary( array $constants )
     {
-        return new Dictionary( '*', '*', $constants );
+        return new Dictionary( 'string', '*', $constants );
     }
 
 
