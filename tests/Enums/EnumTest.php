@@ -190,4 +190,85 @@ class EnumTest extends TestCase
             ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                                    setValue()
+    ***************************************************************************/
+
+    /**
+     * Test that setting a value works
+     */
+    public function testSetValue()
+    {
+        $enum = new MixedEnum( MixedEnum::NUMBERS );
+        $enum->setValue( MixedEnum::STRING );
+        $this->assertEquals(
+            MixedEnum::STRING,
+            $enum->getValue(),
+            'Enum->setValue() did not set'
+        );
+    }
+
+    /**
+     * Test that setting a value returns the value
+     */
+    public function testSetValueReturn()
+    {
+        $enum = new MixedEnum( MixedEnum::NUMBERS );
+        $this->assertEquals(
+            MixedEnum::STRING,
+            $enum->setValue( MixedEnum::STRING ),
+            'Enum->setValue() did not return the value that was set'
+        );
+    }
+
+    /**
+     * Test that setting a value throws an exception
+     * 
+     * @expectedException \DomainException
+     */
+    public function testSetValueDomainException()
+    {
+        ( new MixedEnum( MixedEnum::NUMBERS ))->setValue( 'dummy' );
+    }
+
+
+
+
+    /***************************************************************************
+    *                                    getConstants()
+    ***************************************************************************/
+
+
+    /**
+     * Test get constants key type
+     * 
+     * If constants were broken, other tests would prove the same
+     */
+    public function testGetConstantsKeyType()
+    {
+        $this->assertEquals(
+            'string',
+            ( new MixedEnum( MixedEnum::NUMBERS ))->getConstants()->getKeyType()->getName(),
+            "Enum constant dictionary key type was not a string."
+        );
+    }
+
+
+    /**
+     * Test get constants value type
+     * 
+     * If constants were broken, other tests would prove the same
+     */
+    public function testGetConstantsValueType()
+    {
+        $this->assertEquals(
+            '*',
+            ( new MixedEnum( MixedEnum::NUMBERS ))->getConstants()->getValueType()->getName(),
+            "Enum constant dictionary value type was not anonymous."
+        );
+    }
 }
