@@ -21,19 +21,6 @@ class IntegerEnumTest extends TestCase
 
 
     /**
-     * Test class inheritance
-     */
-    public function testIsEnum()
-    {
-        $this->assertInstanceOf(
-            Enum::class,
-            new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-            'IntegerEnum is not an Enum'
-        );
-    }
-
-
-    /**
      * Test bad constant exception
      * 
      * @expectedException \DomainException

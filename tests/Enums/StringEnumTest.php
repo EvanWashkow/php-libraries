@@ -21,19 +21,6 @@ class StringEnumTest extends TestCase
 
 
     /**
-     * Test class inheritance
-     */
-    public function testIsEnum()
-    {
-        $this->assertInstanceOf(
-            Enum::class,
-            new GoodStringEnum( GoodStringEnum::A ),
-            'StringEnum is not an Enum'
-        );
-    }
-
-
-    /**
      * Test bad constant exception
      * 
      * @expectedException \DomainException
