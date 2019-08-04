@@ -16,24 +16,6 @@ class IntegerEnumTest extends TestCase
 {
 
     /***************************************************************************
-    *                              __construct()
-    ***************************************************************************/
-
-
-    /**
-     * Test bad constant exception
-     * 
-     * @expectedException \DomainException
-     */
-    public function testBadConstantException()
-    {
-        new BadIntegerEnum( BadIntegerEnum::A );
-    }
-
-
-
-
-    /***************************************************************************
     *                                    getValue()
     ***************************************************************************/
 

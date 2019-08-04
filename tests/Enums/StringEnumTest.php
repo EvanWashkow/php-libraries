@@ -16,24 +16,6 @@ class StringEnumTest extends TestCase
 {
 
     /***************************************************************************
-    *                              __construct()
-    ***************************************************************************/
-
-
-    /**
-     * Test bad constant exception
-     * 
-     * @expectedException \DomainException
-     */
-    public function testBadConstantException()
-    {
-        new BadStringEnum( BadStringEnum::A );
-    }
-
-
-
-
-    /***************************************************************************
     *                                    getValue()
     ***************************************************************************/
 
