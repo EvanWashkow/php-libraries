@@ -15,43 +15,6 @@ use PHPUnit\Framework\TestCase;
 class StringEnumTest extends TestCase
 {
 
-    /***************************************************************************
-    *                                    getValue()
-    ***************************************************************************/
-
-
-    /**
-     * Test the construction of Enums
-     * 
-     * @dataProvider getGetValueData()
-     */
-    public function testGetValue( StringEnum $enum, $value )
-    {
-        $this->assertEquals(
-            $value,
-            $enum->getValue(),
-            'StringEnum->getValue() did not return the expected value'
-        );
-    }
-
-    public function getGetValueData(): array
-    {
-        return [
-            'new GoodStringEnum( GoodStringEnum::A )' => [
-                new GoodStringEnum( GoodStringEnum::A ),
-               GoodStringEnum::A
-            ],
-            'new GoodStringEnum( GoodStringEnum::B )' => [
-                new GoodStringEnum( GoodStringEnum::B ),
-               GoodStringEnum::B
-            ],
-            'new GoodStringEnum( GoodStringEnum::C )' => [
-                new GoodStringEnum( GoodStringEnum::C ),
-               GoodStringEnum::C
-            ]
-        ];
-    }
-
 
 
 

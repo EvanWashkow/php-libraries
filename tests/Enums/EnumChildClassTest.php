@@ -70,4 +70,60 @@ class EnumChildClassTest extends TestCase
             ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                                    getValue()
+    ***************************************************************************/
+
+
+    /**
+     * Test getting Enum values
+     * 
+     * @dataProvider getGetValueData()
+     */
+    public function testGetValue( Enum $enum, $value )
+    {
+        $this->assertEquals(
+            $value,
+            $enum->getValue(),
+            '<Enum child class>->getValue() did not return the expected value'
+        );
+    }
+
+    public function getGetValueData(): array
+    {
+        return [
+
+            // IntegerEnum
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+               GoodIntegerEnum::ONE
+            ],
+            'new GoodIntegerEnum( GoodIntegerEnum::TWO )' => [
+                new GoodIntegerEnum( GoodIntegerEnum::TWO ),
+               GoodIntegerEnum::TWO
+            ],
+            'new GoodIntegerEnum( GoodIntegerEnum::FOUR )' => [
+                new GoodIntegerEnum( GoodIntegerEnum::FOUR ),
+               GoodIntegerEnum::FOUR
+            ],
+
+            // StringEnum
+            'new GoodStringEnum( GoodStringEnum::A )' => [
+                new GoodStringEnum( GoodStringEnum::A ),
+               GoodStringEnum::A
+            ],
+            'new GoodStringEnum( GoodStringEnum::B )' => [
+                new GoodStringEnum( GoodStringEnum::B ),
+               GoodStringEnum::B
+            ],
+            'new GoodStringEnum( GoodStringEnum::C )' => [
+                new GoodStringEnum( GoodStringEnum::C ),
+               GoodStringEnum::C
+            ]
+        ];
+    }
 }

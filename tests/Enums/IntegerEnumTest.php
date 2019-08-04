@@ -15,43 +15,6 @@ use PHPUnit\Framework\TestCase;
 class IntegerEnumTest extends TestCase
 {
 
-    /***************************************************************************
-    *                                    getValue()
-    ***************************************************************************/
-
-
-    /**
-     * Test the construction of Enums
-     * 
-     * @dataProvider getGetValueData()
-     */
-    public function testGetValue( IntegerEnum $enum, $value )
-    {
-        $this->assertEquals(
-            $value,
-            $enum->getValue(),
-            'IntegerEnum->getValue() did not return the expected value'
-        );
-    }
-
-    public function getGetValueData(): array
-    {
-        return [
-            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-               GoodIntegerEnum::ONE
-            ],
-            'new GoodIntegerEnum( GoodIntegerEnum::TWO )' => [
-                new GoodIntegerEnum( GoodIntegerEnum::TWO ),
-               GoodIntegerEnum::TWO
-            ],
-            'new GoodIntegerEnum( GoodIntegerEnum::FOUR )' => [
-                new GoodIntegerEnum( GoodIntegerEnum::FOUR ),
-               GoodIntegerEnum::FOUR
-            ]
-        ];
-    }
-
 
 
 
