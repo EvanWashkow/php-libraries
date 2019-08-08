@@ -86,9 +86,8 @@ class EnumChildClassTest extends TestCase
      */
     public function testGetValue( Enum $enum, $value )
     {
-        $this->assertEquals(
-            $value,
-            $enum->getValue(),
+        $this->assertTrue(
+            $enum->getValue() === $value,
             '<Enum child class>->getValue() did not return the expected value'
         );
     }
@@ -102,27 +101,11 @@ class EnumChildClassTest extends TestCase
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                GoodIntegerEnum::ONE
             ],
-            'new GoodIntegerEnum( GoodIntegerEnum::TWO )' => [
-                new GoodIntegerEnum( GoodIntegerEnum::TWO ),
-               GoodIntegerEnum::TWO
-            ],
-            'new GoodIntegerEnum( GoodIntegerEnum::FOUR )' => [
-                new GoodIntegerEnum( GoodIntegerEnum::FOUR ),
-               GoodIntegerEnum::FOUR
-            ],
 
             // StringEnum
             'new GoodStringEnum( GoodStringEnum::A )' => [
                 new GoodStringEnum( GoodStringEnum::A ),
                GoodStringEnum::A
-            ],
-            'new GoodStringEnum( GoodStringEnum::B )' => [
-                new GoodStringEnum( GoodStringEnum::B ),
-               GoodStringEnum::B
-            ],
-            'new GoodStringEnum( GoodStringEnum::C )' => [
-                new GoodStringEnum( GoodStringEnum::C ),
-               GoodStringEnum::C
             ]
         ];
     }
