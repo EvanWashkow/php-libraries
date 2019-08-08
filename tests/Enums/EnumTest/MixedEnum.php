@@ -9,7 +9,7 @@ use PHP\Enums\Enum;
 class MixedEnum extends Enum
 {
 
-    const STRING = 'abc';
+    const STRING = '123';
 
     const NUMBERS = 123;
 

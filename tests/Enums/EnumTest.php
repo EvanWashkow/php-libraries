@@ -172,6 +172,11 @@ class EnumTest extends TestCase
                 MixedEnum::STRING,
                 true
             ],
+            'new MixedEnum( MixedEnum::STRING )' => [
+                new MixedEnum( MixedEnum::STRING ),
+                intval( MixedEnum::STRING ),
+                false
+            ],
             'new MixedEnum( MixedEnum::NUMBERS )' => [
                 new MixedEnum( MixedEnum::NUMBERS ),
                 MixedEnum::NUMBERS,
