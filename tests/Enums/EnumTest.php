@@ -164,11 +164,11 @@ class EnumTest extends TestCase
      * 
      * @dataProvider getGetValueData()
      */
-    public function testGetValue( Enum $enum, $value )
+    public function testGetValue( Enum $enum, $value, bool $expected )
     {
         $this->assertEquals(
-            $value,
-            $enum->getValue(),
+            $expected,
+            $enum->getValue() === $value,
             'Enum->getValue() did not return the expected value'
         );
     }
@@ -178,15 +178,23 @@ class EnumTest extends TestCase
         return [
             'new MixedEnum( MixedEnum::STRING )' => [
                 new MixedEnum( MixedEnum::STRING ),
-                MixedEnum::STRING
+                MixedEnum::STRING,
+                true
             ],
             'new MixedEnum( MixedEnum::NUMBERS )' => [
                 new MixedEnum( MixedEnum::NUMBERS ),
-                MixedEnum::NUMBERS
+                MixedEnum::NUMBERS,
+                true
+            ],
+            'new MixedEnum( MixedEnum::NUMBERS )' => [
+                new MixedEnum( MixedEnum::NUMBERS ),
+                ( string ) MixedEnum::NUMBERS,
+                false
             ],
             'new MixedEnum( MixedEnum::ARRAY )' => [
                 new MixedEnum( MixedEnum::ARRAY ),
-                MixedEnum::ARRAY
+                MixedEnum::ARRAY,
+                true
             ]
         ];
     }
