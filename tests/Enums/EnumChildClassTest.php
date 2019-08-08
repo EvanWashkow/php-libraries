@@ -217,4 +217,71 @@ class EnumChildClassTest extends TestCase
             ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                                    getConstants()
+    ***************************************************************************/
+
+
+    /**
+     * Test get constants key type
+     * 
+     * If constants were broken, other tests would prove the same
+     * 
+     * @dataProvider getConstantsKeyTypeData
+     */
+    public function testGetConstantsKeyType( Enum $enum )
+    {
+        $this->assertEquals(
+            'string',
+            $enum->getConstants()->getKeyType()->getName(),
+            "Enum child class constant dictionary key type was not a string."
+        );
+    }
+
+    public function getConstantsKeyTypeData(): array
+    {
+        return [
+            'IntegerEnum' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE )
+            ],
+            'StringEnum' => [
+                new GoodStringEnum( GoodStringEnum::A )
+            ]
+        ];
+    }
+
+
+    /**
+     * Test get constants value type
+     * 
+     * If constants were broken, other tests would prove the same
+     * 
+     * @dataProvider getConstantsValueTypeData
+     */
+    public function testGetConstantsValueType( Enum $enum, string $type )
+    {
+        $this->assertEquals(
+            $type,
+            $enum->getConstants()->getValueType()->getName(),
+            "Enum child class constant dictionary value type was not the expected type."
+        );
+    }
+
+    public function getConstantsValueTypeData(): array
+    {
+        return [
+            'IntegerEnum' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                'int'
+            ],
+            'StringEnum' => [
+                new GoodStringEnum( GoodStringEnum::A ),
+                'string'
+            ]
+        ];
+    }
 }
