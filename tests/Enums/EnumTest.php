@@ -167,26 +167,6 @@ class EnumTest extends TestCase
     public function getGetValueData(): array
     {
         return [
-            'new MixedEnum( MixedEnum::STRING )' => [
-                new MixedEnum( MixedEnum::STRING ),
-                MixedEnum::STRING,
-                true
-            ],
-            'new MixedEnum( MixedEnum::STRING )' => [
-                new MixedEnum( MixedEnum::STRING ),
-                intval( MixedEnum::STRING ),
-                false
-            ],
-            'new MixedEnum( MixedEnum::NUMBERS )' => [
-                new MixedEnum( MixedEnum::NUMBERS ),
-                MixedEnum::NUMBERS,
-                true
-            ],
-            'new MixedEnum( MixedEnum::NUMBERS )' => [
-                new MixedEnum( MixedEnum::NUMBERS ),
-                ( string ) MixedEnum::NUMBERS,
-                false
-            ],
             'new MixedEnum( MixedEnum::ARRAY )' => [
                 new MixedEnum( MixedEnum::ARRAY ),
                 MixedEnum::ARRAY,
