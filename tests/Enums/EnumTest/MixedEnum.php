@@ -16,6 +16,19 @@ class MixedEnum extends Enum
     const ARRAY = [ 1, 2, 3 ];
 
 
+    /**
+     * Converts this integer array to a string array
+     */
+    final public static function GetStringArray(): array
+    {
+        $stringArray = [];
+        foreach ( MixedEnum::ARRAY as $value ) {
+            $stringArray[] = "$value";
+        }
+        return $stringArray;
+    }
+
+
     public function setValue( $value )
     {
         return parent::setValue( $value );

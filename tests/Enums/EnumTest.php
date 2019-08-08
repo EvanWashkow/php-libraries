@@ -80,11 +80,7 @@ class EnumTest extends TestCase
                 return new MixedEnum( "MixedEnum::NUMBERS" );
             }],
             'new MixedEnum( MixedEnum::ARRAY )' => [function() {
-                $stringArray = [];
-                foreach ( MixedEnum::ARRAY as $value ) {
-                    $stringArray[] = "$value";
-                }
-                return new MixedEnum( $stringArray );
+                return new MixedEnum( MixedEnum::GetStringArray() );
             }]
         ];
     }
@@ -112,11 +108,6 @@ class EnumTest extends TestCase
 
     public function getEqualsData(): array
     {
-        $stringArray = [];
-        foreach ( MixedEnum::ARRAY as $value ) {
-            $stringArray[] = "$value";
-        }
-
         return [
             'new MixedEnum( NUMBERS )->equals( NUMBERS )' => [
                 new MixedEnum( MixedEnum::NUMBERS ),
@@ -145,7 +136,7 @@ class EnumTest extends TestCase
             ],
             'new MixedEnum( ARRAY )->equals( (string) ARRAY )' => [
                 new MixedEnum( MixedEnum::ARRAY ),
-                $stringArray,
+                MixedEnum::GetStringArray(),
                 false
             ]
         ];
