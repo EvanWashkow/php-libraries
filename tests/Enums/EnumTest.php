@@ -186,6 +186,11 @@ class EnumTest extends TestCase
                 new MixedEnum( MixedEnum::ARRAY ),
                 MixedEnum::ARRAY,
                 true
+            ],
+            'new MixedEnum( MixedEnum::ARRAY )' => [
+                new MixedEnum( MixedEnum::ARRAY ),
+                MixedEnum::GetStringArray(),
+                false
             ]
         ];
     }
