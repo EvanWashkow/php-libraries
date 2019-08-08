@@ -19,60 +19,6 @@ class IntegerEnumTest extends TestCase
 
 
     /***************************************************************************
-    *                                    setValue()
-    ***************************************************************************/
-
-    /**
-     * Test that setting a value works
-     */
-    public function testSetValue()
-    {
-        $enum = new GoodIntegerEnum( GoodIntegerEnum::ONE );
-        $enum->setValue( GoodIntegerEnum::TWO );
-        $this->assertEquals(
-            GoodIntegerEnum::TWO,
-            $enum->getValue(),
-            'IntegerEnum->setValue() did not set'
-        );
-    }
-
-    /**
-     * Test that setting a value returns the value
-     */
-    public function testSetValueReturn()
-    {
-        $enum = new GoodIntegerEnum( GoodIntegerEnum::ONE );
-        $this->assertEquals(
-            GoodIntegerEnum::TWO,
-            $enum->setValue( GoodIntegerEnum::TWO ),
-            'IntegerEnum->setValue() did not return the value that was set'
-        );
-    }
-
-    /**
-     * Test that setting a value throws an exception
-     * 
-     * @expectedException \DomainException
-     */
-    public function testSetValueDomainException()
-    {
-        ( new GoodIntegerEnum( GoodIntegerEnum::ONE ))->setValue( 3 );
-    }
-
-    /**
-     * Test that setting a value throws an invalid argument exception
-     * 
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetValueInvalidArgumentException()
-    {
-        ( new GoodIntegerEnum( GoodIntegerEnum::ONE ))->setValue( 'string' );
-    }
-
-
-
-
-    /***************************************************************************
     *                                    getConstants()
     ***************************************************************************/
 

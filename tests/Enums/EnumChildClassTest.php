@@ -109,4 +109,112 @@ class EnumChildClassTest extends TestCase
             ]
         ];
     }
+
+
+
+
+    /***************************************************************************
+    *                                    setValue()
+    ***************************************************************************/
+
+    /**
+     * Test that setting a value works
+     * 
+     * @dataProvider getSetValueData
+     */
+    public function testSetValue( Enum $enum, $newValue )
+    {
+        $this->assertTrue(
+            $newValue === $enum->setValue( $newValue )->getValue(),
+            'Enum child class ->setValue() did not set'
+        );
+    }
+
+
+    /**
+     * Test that setting a value returns the value
+     * 
+     * @dataProvider getSetValueData
+     */
+    public function testSetValueReturn( Enum $enum, $newValue )
+    {
+        $this->assertTrue(
+            $enum === $enum->setValue( $newValue ),
+            'Enum child class ->setValue() did not return its own value'
+        );
+    }
+
+
+    /**
+     * Shared setValue() data provider
+     */
+    public function getSetValueData(): array
+    {
+        return [
+            'IntegerEnum' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                GoodIntegerEnum::TWO
+            ],
+            'StringEnum' => [
+                new GoodStringEnum( GoodStringEnum::A ),
+                GoodStringEnum::B
+            ]
+        ];
+    }
+
+
+    /**
+     * Test that setting a value throws an exception
+     * 
+     * @dataProvider getSetValueDomainExceptionData
+     * @expectedException \DomainException
+     */
+    public function testSetValueDomainException( \Closure $callback )
+    {
+        $callback();
+    }
+
+    public function getSetValueDomainExceptionData(): array
+    {
+        return [
+            'IntegerEnum' => [
+                function() {
+                    ( new GoodIntegerEnum( GoodIntegerEnum::ONE ))->setValue( 3 );
+                }
+            ],
+            'StringEnum' => [
+                function() {
+                    ( new GoodStringEnum( GoodStringEnum::A ))->setValue( 'dummy' );
+                }
+            ]
+        ];
+    }
+
+
+    /**
+     * Test that setting a value throws an invalid argument exception
+     * 
+     * @dataProvider getSetValueInvalidArgumentExceptionData
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSetValueInvalidArgumentException( \Closure $callback )
+    {
+        $callback();
+    }
+
+    public function getSetValueInvalidArgumentExceptionData(): array
+    {
+        return [
+            'IntegerEnum' => [
+                function() {
+                    ( new GoodIntegerEnum( GoodIntegerEnum::ONE ))->setValue( 'string' );
+                }
+            ],
+            'StringEnum' => [
+                function() {
+                    ( new GoodStringEnum( GoodStringEnum::A ))->setValue( 1 );
+                }
+            ]
+        ];
+    }
 }

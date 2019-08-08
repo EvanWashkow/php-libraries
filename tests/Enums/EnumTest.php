@@ -207,10 +207,9 @@ class EnumTest extends TestCase
     public function testSetValueReturn()
     {
         $enum = new MixedEnum( MixedEnum::NUMBERS );
-        $this->assertEquals(
-            MixedEnum::STRING,
-            $enum->setValue( MixedEnum::STRING ),
-            'Enum->setValue() did not return the value that was set'
+        $this->assertTrue(
+            $enum === $enum->setValue( MixedEnum::STRING ),
+            'Enum->setValue() did not return itself'
         );
     }
 

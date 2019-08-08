@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Enums\StringEnumTest;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\Enum;
 use PHP\Enums\StringEnum;
 
 class GoodStringEnum extends StringEnum
@@ -16,7 +17,7 @@ class GoodStringEnum extends StringEnum
     const C = 'c';
 
 
-    public function setValue( $value ): string
+    public function setValue( $value ): Enum
     {
         return parent::setValue( $value );
     }

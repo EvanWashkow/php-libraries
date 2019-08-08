@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Enums\IntegerEnumTest;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
 
 class GoodIntegerEnum extends IntegerEnum
@@ -16,7 +17,7 @@ class GoodIntegerEnum extends IntegerEnum
     const FOUR = 4;
 
 
-    public function setValue( $value ): int
+    public function setValue( $value ): Enum
     {
         return parent::setValue( $value );
     }

@@ -44,11 +44,11 @@ abstract class IntegerEnum extends Enum
      * Set the current value
      * 
      * @param int $value A value from the set of enumerated constants
-     * @return int The value that was set
+     * @return IntegerEnum
      * @throws \InvalidArgumentException If the value is not a integer
      * @throws \DomainException If the value is not in the set of enumerated constants
      */
-    protected function setValue( $value ): int
+    protected function setValue( $value ): Enum
     {
         if ( !is_int( $value )) {
             throw new \InvalidArgumentException( 'Given value was not a integer.' );

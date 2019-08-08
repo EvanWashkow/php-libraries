@@ -29,7 +29,7 @@ class MixedEnum extends Enum
     }
 
 
-    public function setValue( $value )
+    public function setValue( $value ): Enum
     {
         return parent::setValue( $value );
     }

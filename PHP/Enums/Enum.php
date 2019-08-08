@@ -103,15 +103,16 @@ abstract class Enum extends ObjectClass
      * immutibility is desired.
      * 
      * @param mixed $value A value from the set of enumerated constants
-     * @return mixed The value that was set
+     * @return Enum This enum instance
      * @throws \DomainException If the value is not in the set of enumerated constants
      */
-    protected function setValue( $value )
+    protected function setValue( $value ): Enum
     {
         if ( !$this->getConstants()->hasValue( $value )) {
             throw new \DomainException( 'The value is not in the set of enumerated constants.' );
         }
-        return $this->value = $value;
+        $this->value = $value;
+        return $this;
     }
 
 
