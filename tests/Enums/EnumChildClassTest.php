@@ -125,7 +125,7 @@ class EnumChildClassTest extends TestCase
     public function testSetValue( Enum $enum, $newValue )
     {
         $this->assertTrue(
-            $newValue === $enum->setValue( $newValue )->getValue(),
+            $enum->setValue( $newValue )->getValue() === $newValue,
             'Enum child class ->setValue() did not set'
         );
     }
@@ -139,7 +139,7 @@ class EnumChildClassTest extends TestCase
     public function testSetValueReturn( Enum $enum, $newValue )
     {
         $this->assertTrue(
-            $enum === $enum->setValue( $newValue ),
+            $enum->setValue( $newValue ) === $enum,
             'Enum child class ->setValue() did not return its own value'
         );
     }
