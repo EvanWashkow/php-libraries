@@ -65,24 +65,10 @@ abstract class Enum extends ObjectClass
 
 
 
+
     /***************************************************************************
-    *                                 MAIN METHODS
+    *                               VALUE ACCESSORS
     ***************************************************************************/
-
-
-    /**
-     * Determine if the current value is equal to another Enum or value
-     * 
-     * @param mixed $value Enum instance or value to compare to
-     * @return bool
-     */
-    public function equals( $value ): bool
-    {
-        if ( $value instanceof Enum ) {
-            $value = $value->getValue();
-        }
-        return $this->getValue() === $value;
-    }
 
 
     /**
@@ -113,6 +99,28 @@ abstract class Enum extends ObjectClass
         }
         $this->value = $value;
         return $this;
+    }
+
+
+
+
+    /***************************************************************************
+    *                                MISCELLANEOUS
+    ***************************************************************************/
+
+
+    /**
+     * Determine if the current value is equal to another Enum or value
+     * 
+     * @param mixed $value Enum instance or value to compare to
+     * @return bool
+     */
+    public function equals( $value ): bool
+    {
+        if ( $value instanceof Enum ) {
+            $value = $value->getValue();
+        }
+        return $this->getValue() === $value;
     }
 
 
