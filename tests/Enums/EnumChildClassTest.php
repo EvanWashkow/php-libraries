@@ -84,9 +84,10 @@ class EnumChildClassTest extends TestCase
      * 
      * @dataProvider getGetValueData()
      */
-    public function testGetValue( Enum $enum, $value )
+    public function testGetValue( Enum $enum, $value, bool $expected )
     {
-        $this->assertTrue(
+        $this->assertEquals(
+            $expected,
             $enum->getValue() === $value,
             '<Enum child class>->getValue() did not return the expected value'
         );
@@ -99,13 +100,25 @@ class EnumChildClassTest extends TestCase
             // IntegerEnum
             'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-               GoodIntegerEnum::ONE
+               GoodIntegerEnum::ONE,
+               true
+            ],
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+               GoodStringEnum::ONE,
+               false
             ],
 
             // StringEnum
             'new GoodStringEnum( GoodStringEnum::ONE )' => [
                 new GoodStringEnum( GoodStringEnum::ONE ),
-               GoodStringEnum::ONE
+               GoodStringEnum::ONE,
+               true
+            ],
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+               GoodIntegerEnum::ONE,
+               false
             ]
         ];
     }
