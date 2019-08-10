@@ -177,35 +177,7 @@ class EnumChildClassTest extends TestCase
 
 
     /**
-     * Test that setting a value throws an exception
-     * 
-     * @dataProvider getSetValueDomainExceptionData
-     * @expectedException \DomainException
-     */
-    public function testSetValueDomainException( \Closure $callback )
-    {
-        $callback();
-    }
-
-    public function getSetValueDomainExceptionData(): array
-    {
-        return [
-            'IntegerEnum' => [
-                function() {
-                    ( new GoodIntegerEnum( GoodIntegerEnum::ONE ))->setValue( 3 );
-                }
-            ],
-            'StringEnum' => [
-                function() {
-                    ( new GoodStringEnum( GoodStringEnum::ONE ))->setValue( 'dummy' );
-                }
-            ]
-        ];
-    }
-
-
-    /**
-     * Test that setting a value throws an invalid argument exception
+     * Test that setting a value throws an InvalidArgumentException on wrong type
      * 
      * @dataProvider getSetValueInvalidArgumentExceptionData
      * @expectedException \InvalidArgumentException
@@ -226,6 +198,34 @@ class EnumChildClassTest extends TestCase
             'StringEnum' => [
                 function() {
                     ( new GoodStringEnum( GoodStringEnum::ONE ))->setValue( 1 );
+                }
+            ]
+        ];
+    }
+
+
+    /**
+     * Test that setting a value outside the constant contraints throws DomainException
+     * 
+     * @dataProvider getSetValueDomainExceptionData
+     * @expectedException \DomainException
+     */
+    public function testSetValueDomainException( \Closure $callback )
+    {
+        $callback();
+    }
+
+    public function getSetValueDomainExceptionData(): array
+    {
+        return [
+            'IntegerEnum' => [
+                function() {
+                    ( new GoodIntegerEnum( GoodIntegerEnum::ONE ))->setValue( 3 );
+                }
+            ],
+            'StringEnum' => [
+                function() {
+                    ( new GoodStringEnum( GoodStringEnum::ONE ))->setValue( 'dummy' );
                 }
             ]
         ];
