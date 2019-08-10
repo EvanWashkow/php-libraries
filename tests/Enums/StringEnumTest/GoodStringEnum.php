@@ -10,11 +10,11 @@ use PHP\Enums\StringEnum;
 class GoodStringEnum extends StringEnum
 {
 
-    const A = 'a';
+    const ONE = '1';
 
-    const B = 'b';
+    const TWO = '2';
 
-    const C = 'c';
+    const FOUR = '4';
 
 
     public function setValue( $value ): Enum

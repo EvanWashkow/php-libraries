@@ -42,7 +42,7 @@ class EnumChildClassTest extends TestCase
                 new GoodIntegerEnum( GoodIntegerEnum::ONE )
             ],
             'StringEnum' => [
-                new GoodStringEnum( GoodStringEnum::A )
+                new GoodStringEnum( GoodStringEnum::ONE )
             ]
         ];
     }
@@ -103,9 +103,9 @@ class EnumChildClassTest extends TestCase
             ],
 
             // StringEnum
-            'new GoodStringEnum( GoodStringEnum::A )' => [
-                new GoodStringEnum( GoodStringEnum::A ),
-               GoodStringEnum::A
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+               GoodStringEnum::ONE
             ]
         ];
     }
@@ -156,8 +156,8 @@ class EnumChildClassTest extends TestCase
                 GoodIntegerEnum::TWO
             ],
             'StringEnum' => [
-                new GoodStringEnum( GoodStringEnum::A ),
-                GoodStringEnum::B
+                new GoodStringEnum( GoodStringEnum::ONE ),
+                GoodStringEnum::ONE
             ]
         ];
     }
@@ -184,7 +184,7 @@ class EnumChildClassTest extends TestCase
             ],
             'StringEnum' => [
                 function() {
-                    ( new GoodStringEnum( GoodStringEnum::A ))->setValue( 'dummy' );
+                    ( new GoodStringEnum( GoodStringEnum::ONE ))->setValue( 'dummy' );
                 }
             ]
         ];
@@ -212,7 +212,7 @@ class EnumChildClassTest extends TestCase
             ],
             'StringEnum' => [
                 function() {
-                    ( new GoodStringEnum( GoodStringEnum::A ))->setValue( 1 );
+                    ( new GoodStringEnum( GoodStringEnum::ONE ))->setValue( 1 );
                 }
             ]
         ];
@@ -249,7 +249,7 @@ class EnumChildClassTest extends TestCase
                 new GoodIntegerEnum( GoodIntegerEnum::ONE )
             ],
             'StringEnum' => [
-                new GoodStringEnum( GoodStringEnum::A )
+                new GoodStringEnum( GoodStringEnum::ONE )
             ]
         ];
     }
@@ -279,7 +279,7 @@ class EnumChildClassTest extends TestCase
                 'int'
             ],
             'StringEnum' => [
-                new GoodStringEnum( GoodStringEnum::A ),
+                new GoodStringEnum( GoodStringEnum::ONE ),
                 'string'
             ]
         ];
