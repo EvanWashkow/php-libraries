@@ -246,7 +246,7 @@
 													"top": 282,
 													"width": 180.2353515625,
 													"height": 13,
-													"text": "#getConstants(): Sequence",
+													"text": "#getConstants(): Dictionary",
 													"horizontalAlignment": 0
 												}
 											],
@@ -1613,9 +1613,7 @@
 											"_parent": {
 												"$ref": "AAAAAAFr7ET4EFLdTFg="
 											},
-											"type": {
-												"$ref": "AAAAAAFr7EmRklMHWwI="
-											},
+											"type": "Dictionary",
 											"direction": "return"
 										}
 									]
