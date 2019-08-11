@@ -25,7 +25,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFr7EWafFLoW9c="
 							},
-							"name": "Sequence"
+							"name": "Dictionary"
 						}
 					]
 				},
@@ -1206,8 +1206,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -1074,
-													"top": -96,
+													"left": -1202,
+													"top": -112,
 													"height": 13
 												},
 												{
@@ -1217,11 +1217,11 @@
 														"$ref": "AAAAAAFr7EmofVMNbSI="
 													},
 													"font": "Arial;13;1",
-													"left": 165,
-													"top": 399,
+													"left": 101,
+													"top": 391,
 													"width": 108.83056640625,
 													"height": 13,
-													"text": "Sequence"
+													"text": "Dictionary"
 												},
 												{
 													"_type": "LabelView",
@@ -1230,8 +1230,8 @@
 														"$ref": "AAAAAAFr7EmofVMNbSI="
 													},
 													"font": "Arial;13;0",
-													"left": 165,
-													"top": 414,
+													"left": 101,
+													"top": 406,
 													"width": 108.83056640625,
 													"height": 13,
 													"text": "(from Collection)"
@@ -1244,15 +1244,15 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -1074,
-													"top": -96,
+													"left": -1202,
+													"top": -112,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 160,
-											"top": 392,
+											"left": 96,
+											"top": 384,
 											"width": 118.83056640625,
 											"height": 40,
 											"stereotypeLabel": {
@@ -1278,8 +1278,8 @@
 												"$ref": "AAAAAAFr7EmRklMHWwI="
 											},
 											"font": "Arial;13;0",
-											"left": 160,
-											"top": 432,
+											"left": 96,
+											"top": 424,
 											"width": 118.83056640625,
 											"height": 10
 										},
@@ -1293,8 +1293,8 @@
 												"$ref": "AAAAAAFr7EmRklMHWwI="
 											},
 											"font": "Arial;13;0",
-											"left": 160,
-											"top": 442,
+											"left": 96,
+											"top": 434,
 											"width": 118.83056640625,
 											"height": 10
 										},
@@ -1309,8 +1309,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -537,
-											"top": -48,
+											"left": -601,
+											"top": -56,
 											"width": 10,
 											"height": 10
 										},
@@ -1325,16 +1325,16 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -537,
-											"top": -48,
+											"left": -601,
+											"top": -56,
 											"width": 10,
 											"height": 10
 										}
 									],
 									"font": "Arial;13;0",
 									"containerChangeable": true,
-									"left": 160,
-									"top": 392,
+									"left": 96,
+									"top": 384,
 									"width": 118.83056640625,
 									"height": 60,
 									"showNamespace": true,
@@ -1375,8 +1375,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 220,
-											"top": 336,
+											"left": 183,
+											"top": 338,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -1396,8 +1396,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 235,
-											"top": 334,
+											"left": 198,
+											"top": 341,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -1417,8 +1417,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 191,
-											"top": 341,
+											"left": 154,
+											"top": 331,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -1436,7 +1436,7 @@
 										"$ref": "AAAAAAFr7Dl8zlD0XYE="
 									},
 									"lineStyle": 1,
-									"points": "199:300;213:391",
+									"points": "178:300;160:383",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFr7En88FM50m0="
