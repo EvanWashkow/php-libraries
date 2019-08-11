@@ -11,6 +11,19 @@ use PHP\Collections\Dictionary;
 abstract class StringEnum extends Enum
 {
 
+
+    /**
+     * Create a new Enumeration string instance
+     * 
+     * @param string $value A value from the set of enumerated constants
+     * @throws \DomainException If the value is not a constant of this class
+     */
+    public function __construct( string $value )
+    {
+        parent::__construct( $value );
+    }
+
+
     /**
      * Modify Constants to only support strings
      * 

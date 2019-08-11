@@ -11,6 +11,19 @@ use PHP\Collections\Dictionary;
 abstract class IntegerEnum extends Enum
 {
 
+
+    /**
+     * Create a new Enumeration integer instance
+     * 
+     * @param int $value A value from the set of enumerated constants
+     * @throws \DomainException If the value is not a constant of this class
+     */
+    public function __construct( int $value )
+    {
+        parent::__construct( $value );
+    }
+
+
     /**
      * Modify Constants to only support integers
      * 

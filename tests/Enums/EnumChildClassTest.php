@@ -63,7 +63,7 @@ class EnumChildClassTest extends TestCase
     {
         return [
             'IntegerEnum' => [
-                function() { new BadIntegerEnum( BadIntegerEnum::A ); }
+                function() { new BadIntegerEnum( BadIntegerEnum::NUMBERS ); }
             ],
             'StringEnum' => [
                 function() { new BadStringEnum( BadStringEnum::A ); }
