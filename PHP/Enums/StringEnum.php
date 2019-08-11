@@ -47,18 +47,19 @@ abstract class StringEnum extends Enum
 
 
     /**
-     * Set the current value
-     * 
-     * @param string $value A value from the set of enumerated constants
-     * @return IntegerEnum
-     * @throws \InvalidArgumentException If the value is not a string
-     * @throws \DomainException If the value is not in the set of enumerated constants
+     * @see parent::maybeGetValueException()
      */
-    protected function setValue( $value ): Enum
+    protected function maybeGetValueException( $value ): ?\Throwable
     {
-        if ( !is_string( $value )) {
-            throw new \InvalidArgumentException( 'Given value was not a string.' );
+        $exception = null;
+        if ( is_string( $value )) {
+            $exception = parent::maybeGetValueException( $value );
         }
-        return parent::setValue( $value );
+        else {
+            $exception = new \InvalidArgumentException(
+                'Given value was not a string.'
+            );
+        }
+        return $exception;
     }
 }

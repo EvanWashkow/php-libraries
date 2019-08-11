@@ -29,12 +29,6 @@ class MixedEnum extends Enum
     }
 
 
-    public function setValue( $value ): Enum
-    {
-        return parent::setValue( $value );
-    }
-
-
     public function getConstants(): Dictionary
     {
         return parent::getConstants();

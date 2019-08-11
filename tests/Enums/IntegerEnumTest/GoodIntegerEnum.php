@@ -17,12 +17,6 @@ class GoodIntegerEnum extends IntegerEnum
     const FOUR = 4;
 
 
-    public function setValue( $value ): Enum
-    {
-        return parent::setValue( $value );
-    }
-
-
     public function getConstants(): Dictionary
     {
         return parent::getConstants();

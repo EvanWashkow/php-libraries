@@ -184,49 +184,6 @@ class EnumTest extends TestCase
 
 
     /***************************************************************************
-    *                                    setValue()
-    ***************************************************************************/
-
-    /**
-     * Test that setting a value works
-     */
-    public function testSetValue()
-    {
-        $enum = new MixedEnum( MixedEnum::NUMBERS );
-        $enum->setValue( MixedEnum::STRING );
-        $this->assertEquals(
-            MixedEnum::STRING,
-            $enum->getValue(),
-            'Enum->setValue() did not set'
-        );
-    }
-
-    /**
-     * Test that setting a value returns the value
-     */
-    public function testSetValueReturn()
-    {
-        $enum = new MixedEnum( MixedEnum::NUMBERS );
-        $this->assertTrue(
-            $enum === $enum->setValue( MixedEnum::STRING ),
-            'Enum->setValue() did not return itself'
-        );
-    }
-
-    /**
-     * Test that setting a value throws an exception
-     * 
-     * @expectedException \DomainException
-     */
-    public function testSetValueDomainException()
-    {
-        ( new MixedEnum( MixedEnum::NUMBERS ))->setValue( 'dummy' );
-    }
-
-
-
-
-    /***************************************************************************
     *                                    getConstants()
     ***************************************************************************/
 

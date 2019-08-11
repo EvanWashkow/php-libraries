@@ -47,18 +47,19 @@ abstract class IntegerEnum extends Enum
 
 
     /**
-     * Set the current value
-     * 
-     * @param int $value A value from the set of enumerated constants
-     * @return IntegerEnum
-     * @throws \InvalidArgumentException If the value is not a integer
-     * @throws \DomainException If the value is not in the set of enumerated constants
+     * @see parent::maybeGetValueException()
      */
-    protected function setValue( $value ): Enum
+    protected function maybeGetValueException( $value ): ?\Throwable
     {
-        if ( !is_int( $value )) {
-            throw new \InvalidArgumentException( 'Given value was not a integer.' );
+        $exception = null;
+        if ( is_int( $value )) {
+            $exception = parent::maybeGetValueException( $value );
         }
-        return parent::setValue( $value );
+        else {
+            $exception = new \InvalidArgumentException(
+                'Given value was not a integer.'
+            );
+        }
+        return $exception;
     }
 }

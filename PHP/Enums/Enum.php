@@ -41,14 +41,18 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        try {
-            $this->constants = $this->__constructConstantsDictionary(
-                ( new \ReflectionClass( $this ) )->getConstants()
-            );
-            $this->setValue( $value );
-        } catch ( \DomainException $e ) {
-            throw new \DomainException( $e->getMessage(), $e->getCode(), $e->getPrevious() );
+        // Set constants
+        $this->constants = $this->__constructConstantsDictionary(
+            ( new \ReflectionClass( $this ) )->getConstants()
+        );
+
+        // Set value
+        $exception = $this->maybeGetValueException( $value );
+        if ( null !== $exception ) {
+            throw $exception;
         }
+        $this->value = $value;
+        return $this;
     }
 
 
@@ -67,39 +71,21 @@ abstract class Enum extends ObjectClass
 
 
     /***************************************************************************
-    *                               VALUE ACCESSORS
+    *                                VALUE ACCESSOR
     ***************************************************************************/
 
 
     /**
      * Retrieve the current value
      * 
+     * @internal setValue() is excluded by design. After an enum is set, it
+     * cannot be changed.
+     * 
      * @return mixed
      */
     public function getValue()
     {
         return $this->value;
-    }
-
-
-    /**
-     * Set the current value
-     * 
-     * @internal By default, this is not publicly-accessible since oftentimes
-     * immutibility is desired.
-     * 
-     * @param mixed $value A value from the set of enumerated constants
-     * @return Enum This enum instance
-     * @throws \DomainException If the value is not in the set of enumerated constants
-     */
-    protected function setValue( $value ): Enum
-    {
-        $exception = $this->maybeGetValueException( $value );
-        if ( null !== $exception ) {
-            throw $exception;
-        }
-        $this->value = $value;
-        return $this;
     }
 
 
