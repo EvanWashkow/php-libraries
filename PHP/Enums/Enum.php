@@ -5,6 +5,7 @@ namespace PHP\Enums;
 
 use PHP\Collections\Dictionary;
 use PHP\ObjectClass;
+use PHP\Types;
 
 /**
  * Allows users to define (and select from) a strict set of constant values
@@ -43,7 +44,7 @@ abstract class Enum extends ObjectClass
     {
         // Set constants
         $this->constants = $this->__constructConstantsDictionary(
-            ( new \ReflectionClass( $this ) )->getConstants()
+            Types::GetByName( static::class )->getConstants()->toArray()
         );
 
         // Set value
