@@ -5,9 +5,9 @@ namespace PHP\Enums;
 
 /**
  * Defines a strict set of bit flags, allowing the user to specify one or more
- * of them in a bitwise OR (|) aggrigation.
+ * of them in a bitwise OR (|) operation.
  */
-class BitwiseEnum extends IntegerEnum
+class BitEnum extends IntegerEnum
 {
     
 }
