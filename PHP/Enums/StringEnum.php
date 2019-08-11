@@ -12,6 +12,11 @@ abstract class StringEnum extends Enum
 {
 
 
+    /***************************************************************************
+    *                              CONSTRUCTOR METHODS
+    ***************************************************************************/
+
+
     /**
      * Create a new Enumeration string instance
      * 
@@ -48,18 +53,6 @@ abstract class StringEnum extends Enum
 
 
     /**
-     * @see parent::getValue()
-     * 
-     * @internal Final: the returned value cannot be modified. It directly
-     * correlates with other underlying methods.
-     */
-    final public function getValue(): string
-    {
-        return parent::getValue();
-    }
-
-
-    /**
      * @see parent::maybeGetValueException()
      */
     protected function maybeGetValueException( $value ): ?\Throwable
@@ -74,5 +67,24 @@ abstract class StringEnum extends Enum
             );
         }
         return $exception;
+    }
+
+
+
+
+    /***************************************************************************
+    *                                    MAIN
+    ***************************************************************************/
+
+
+    /**
+     * @see parent::getValue()
+     * 
+     * @internal Final: the returned value cannot be modified. It directly
+     * correlates with other underlying methods.
+     */
+    final public function getValue(): string
+    {
+        return parent::getValue();
     }
 }

@@ -12,6 +12,11 @@ abstract class IntegerEnum extends Enum
 {
 
 
+    /***************************************************************************
+    *                              CONSTRUCTOR METHODS
+    ***************************************************************************/
+
+
     /**
      * Create a new Enumeration integer instance
      * 
@@ -49,18 +54,6 @@ abstract class IntegerEnum extends Enum
 
 
     /**
-     * @see parent::getValue()
-     * 
-     * @internal Final: the returned value cannot be modified. It directly
-     * correlates with other underlying methods.
-     */
-    final public function getValue(): int
-    {
-        return parent::getValue();
-    }
-
-
-    /**
      * @see parent::maybeGetValueException()
      */
     protected function maybeGetValueException( $value ): ?\Throwable
@@ -75,5 +68,24 @@ abstract class IntegerEnum extends Enum
             );
         }
         return $exception;
+    }
+
+
+
+
+    /***************************************************************************
+    *                                    MAIN
+    ***************************************************************************/
+
+
+    /**
+     * @see parent::getValue()
+     * 
+     * @internal Final: the returned value cannot be modified. It directly
+     * correlates with other underlying methods.
+     */
+    final public function getValue(): int
+    {
+        return parent::getValue();
     }
 }
