@@ -94,11 +94,29 @@ abstract class Enum extends ObjectClass
      */
     protected function setValue( $value ): Enum
     {
-        if ( !$this->getConstants()->hasValue( $value )) {
-            throw new \DomainException( 'The value is not in the set of enumerated constants.' );
+        $exception = $this->maybeGetValueException( $value );
+        if ( null !== $exception ) {
+            throw $exception;
         }
         $this->value = $value;
         return $this;
+    }
+
+
+    /**
+     * Retrieve Exception if there is something wrong with the given value
+     * 
+     * @return ?\Throwable
+     */
+    protected function maybeGetValueException( $value ): ?\Throwable
+    {
+        $exception = null;
+        if ( !$this->getConstants()->hasValue( $value )) {
+            $exception = new \DomainException(
+                'The value is not in the set of enumerated constants.'
+            );
+        }
+        return $exception;
     }
 
 
