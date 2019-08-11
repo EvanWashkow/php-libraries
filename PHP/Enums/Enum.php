@@ -135,6 +135,6 @@ abstract class Enum extends ObjectClass
      **/
     protected function getConstants(): Dictionary
     {
-        return $this->constants;
+        return $this->constants->clone();
     }
 }
