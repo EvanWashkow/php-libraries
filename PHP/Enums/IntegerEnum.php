@@ -34,6 +34,9 @@ abstract class IntegerEnum extends Enum
     }
 
 
+    /**
+     * @see parent::getValue()
+     */
     public function getValue(): int
     {
         return parent::getValue();

@@ -34,6 +34,9 @@ abstract class StringEnum extends Enum
     }
 
 
+    /**
+     * @see parent::getValue()
+     */
     public function getValue(): string
     {
         return parent::getValue();
