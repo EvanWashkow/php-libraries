@@ -51,24 +51,6 @@ abstract class StringEnum extends Enum
     }
 
 
-    /**
-     * @see parent::maybeGetValueException()
-     */
-    protected function maybeGetValueException( $value ): ?\Throwable
-    {
-        $exception = null;
-        if ( is_string( $value )) {
-            $exception = parent::maybeGetValueException( $value );
-        }
-        else {
-            $exception = new \InvalidArgumentException(
-                'Given value was not a string.'
-            );
-        }
-        return $exception;
-    }
-
-
 
 
     /***************************************************************************

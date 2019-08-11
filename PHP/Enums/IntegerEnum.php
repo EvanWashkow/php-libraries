@@ -52,24 +52,6 @@ abstract class IntegerEnum extends Enum
     }
 
 
-    /**
-     * @see parent::maybeGetValueException()
-     */
-    protected function maybeGetValueException( $value ): ?\Throwable
-    {
-        $exception = null;
-        if ( is_int( $value )) {
-            $exception = parent::maybeGetValueException( $value );
-        }
-        else {
-            $exception = new \InvalidArgumentException(
-                'Given value was not a integer.'
-            );
-        }
-        return $exception;
-    }
-
-
 
 
     /***************************************************************************
