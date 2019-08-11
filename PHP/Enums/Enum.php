@@ -69,27 +69,6 @@ abstract class Enum extends ObjectClass
     }
 
 
-
-
-    /***************************************************************************
-    *                                VALUE ACCESSOR
-    ***************************************************************************/
-
-
-    /**
-     * Retrieve the current value
-     * 
-     * @internal setValue() is excluded by design. After an enum is set, it
-     * cannot be changed.
-     * 
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-
     /**
      * Retrieve Exception if there is something wrong with the given value
      * 
@@ -110,7 +89,7 @@ abstract class Enum extends ObjectClass
 
 
     /***************************************************************************
-    *                                MISCELLANEOUS
+    *                                    MAIN
     ***************************************************************************/
 
 
@@ -126,6 +105,20 @@ abstract class Enum extends ObjectClass
             $value = $value->getValue();
         }
         return $this->getValue() === $value;
+    }
+
+
+    /**
+     * Retrieve the current value
+     * 
+     * @internal setValue() is excluded by design. After an enum is set, it
+     * cannot be changed.
+     * 
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 
 
