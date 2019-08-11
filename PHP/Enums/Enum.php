@@ -37,7 +37,7 @@ abstract class Enum extends ObjectClass
      * Create a new Enumeration instance
      *
      * @param mixed $value A value from the set of enumerated constants
-     * @throws \DomainException If the value is not in the set of enumerated constants
+     * @throws \DomainException If the value is not a constant of this class
      **/
     public function __construct( $value )
     {
