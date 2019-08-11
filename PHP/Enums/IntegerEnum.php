@@ -44,7 +44,7 @@ abstract class IntegerEnum extends Enum
         foreach ( parent::createConstants()->toArray() as $key => $value ) {
             if ( !is_int( $value )) {
                 $class = get_class( $this );
-                throw new \DomainException( "$class::$key must be a integer. All constants defined in a IntegerEnum must be integers." );
+                throw new \DomainException( "$class::$key is not an integer. All IntegerEnum Constants must be an integer." );
             }
             $dictionary->set( $key, $value );
         }

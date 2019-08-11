@@ -43,7 +43,7 @@ abstract class StringEnum extends Enum
         foreach ( parent::createConstants()->toArray() as $key => $value ) {
             if ( !is_string( $value )) {
                 $class = get_class( $this );
-                throw new \DomainException( "$class::$key must be a string. All constants defined in a StringEnum must be strings." );
+                throw new \DomainException( "$class::$key is not a string. All StringEnum Constants must be a string." );
             }
             $dictionary->set( $key, $value );
         }
