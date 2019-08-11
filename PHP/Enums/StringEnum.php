@@ -32,13 +32,13 @@ abstract class StringEnum extends Enum
     /**
      * Modify Constants to only support strings
      * 
-     * @internal Final: it is a strict requirement that all constants in a
-     * String Enumeration should be strings.
+     * @internal Not final. Other enums may want to enforce a subset of integer
+     * values.
      * 
      * @param Dictionary $constants This class's constants
      * @throws \DomainException On non-string constant
      */
-    final protected function filterConstants( Dictionary $constants ): Dictionary
+    protected function filterConstants( Dictionary $constants ): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'string' );
         foreach ( $constants->toArray() as $key => $value ) {

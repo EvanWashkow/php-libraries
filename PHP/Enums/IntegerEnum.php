@@ -32,14 +32,14 @@ abstract class IntegerEnum extends Enum
     /**
      * Modify Constants to only support integers
      * 
-     * @internal Final: it is a strict requirement that all constants in a
-     * Integer Enumeration should be integers.
+     * @internal Not final. Other enums may want to enforce a subset of integer
+     * values.
      * 
      * @param Dictionary $constants This class's constants
      * @return Dictionary
      * @throws \DomainException On non-integer constant
      */
-    final protected function filterConstants( Dictionary $constants ): Dictionary
+    protected function filterConstants( Dictionary $constants ): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'integer' );
         foreach ( $constants->toArray() as $key => $value ) {
