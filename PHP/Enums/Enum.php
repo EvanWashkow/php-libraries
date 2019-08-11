@@ -42,15 +42,8 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        // Set constants
         $this->constants = $this->createConstants();
-
-        // Set value
-        $exception = $this->maybeGetValueException( $value );
-        if ( null !== $exception ) {
-            throw $exception;
-        }
-        $this->value = $value;
+        $this->value     = $this->filterValue( $value );
     }
 
 
@@ -67,19 +60,19 @@ abstract class Enum extends ObjectClass
 
 
     /**
-     * Retrieve Exception if there is something wrong with the given value
+     * Filter the value before it is set.
      * 
-     * @return ?\Throwable
+     * @return mixed
+     * @throws \DomainException If the value is not supported
      */
-    protected function maybeGetValueException( $value ): ?\Throwable
+    protected function filterValue( $value )
     {
-        $exception = null;
         if ( !$this->getConstants()->hasValue( $value )) {
-            $exception = new \DomainException(
+            throw new \DomainException(
                 'The value is not in the set of enumerated constants.'
             );
         }
-        return $exception;
+        return $value;
     }
 
 
