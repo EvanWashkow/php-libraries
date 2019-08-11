@@ -52,7 +52,6 @@ abstract class Enum extends ObjectClass
             throw $exception;
         }
         $this->value = $value;
-        return $this;
     }
 
 
