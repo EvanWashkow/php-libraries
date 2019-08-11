@@ -43,8 +43,8 @@ abstract class Enum extends ObjectClass
     public function __construct( $value )
     {
         // Set constants
-        $this->constants = $this->createConstantsDictionary(
-            Types::GetByName( static::class )->getConstants()->toArray()
+        $this->constants = $this->modifyConstantsDictionary(
+            Types::GetByName( static::class )->getConstants()
         );
 
         // Set value
@@ -59,12 +59,13 @@ abstract class Enum extends ObjectClass
     /**
      * Return a new constants dictionary
      * 
-     * @param array $constants This class's array of constants
+     * @param Dictionary $constants This class's constants
+     * @return Dictionary
      * @throws \DomainException On bad constant definitions
      */
-    protected function createConstantsDictionary( array $constants )
+    protected function modifyConstantsDictionary( Dictionary $constants ): Dictionary
     {
-        return new Dictionary( 'string', '*', $constants );
+        return $constants;
     }
 
 
