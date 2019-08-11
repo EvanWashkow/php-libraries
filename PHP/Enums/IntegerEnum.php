@@ -33,7 +33,7 @@ abstract class IntegerEnum extends Enum
      * @param array $constants This class's array of constants
      * @throws \DomainException On non-integer constant
      */
-    final protected function __constructConstantsDictionary( array $constants )
+    final protected function createConstantsDictionary( array $constants )
     {
         $dictionary = new Dictionary( 'string', 'integer' );
         foreach ( $constants as $key => $value ) {

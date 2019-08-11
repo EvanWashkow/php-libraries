@@ -33,7 +33,7 @@ abstract class StringEnum extends Enum
      * @param array $constants This class's array of constants
      * @throws \DomainException On non-string constant
      */
-    final protected function __constructConstantsDictionary( array $constants )
+    final protected function createConstantsDictionary( array $constants )
     {
         $dictionary = new Dictionary( 'string', 'string' );
         foreach ( $constants as $key => $value ) {
