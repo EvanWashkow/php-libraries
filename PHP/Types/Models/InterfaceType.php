@@ -9,11 +9,23 @@ namespace PHP\Types\Models;
 class InterfaceType extends Type
 {
 
+    /***************************************************************************
+    *                                 PROPERTIES
+    ***************************************************************************/
+
+
     /** @var Dictionary $constants The constants belonging to this Interface */
     private $constants;
 
     /**  @var \ReflectionClass Reflection instance containing details about the interface */
     private $reflectionClass;
+
+
+
+
+    /***************************************************************************
+    *                                  CONSTRUCTOR
+    ***************************************************************************/
 
 
     /**
@@ -30,6 +42,33 @@ class InterfaceType extends Type
         // Set lazy-loaded properties
         $this->constants = null;
     }
+
+
+
+
+    /***************************************************************************
+    *                                OWN ACCESSORS
+    ***************************************************************************/
+
+
+    /**
+     * Retrieve the reflection class instance
+     * 
+     * @internal Final: there's really nothing more to do here.
+     *
+     * @return \ReflectionClass
+     **/
+    final protected function getReflectionClass(): \ReflectionClass
+    {
+        return $this->reflectionClass;
+    }
+
+
+
+
+    /***************************************************************************
+    *                                BASE OVERRIDES
+    ***************************************************************************/
 
 
     /**
@@ -55,18 +94,5 @@ class InterfaceType extends Type
     public function isInterface(): bool
     {
         return true;
-    }
-
-
-    /**
-     * Retrieve the reflection class instance
-     * 
-     * @internal Final: there's really nothing more to do here.
-     *
-     * @return \ReflectionClass
-     **/
-    final protected function getReflectionClass(): \ReflectionClass
-    {
-        return $this->reflectionClass;
     }
 }
