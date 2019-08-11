@@ -11,7 +11,7 @@ class MixedEnum extends Enum
 
     const STRING = '123';
 
-    const NUMBERS = 123;
+    const NUMBERS = 234;
 
     const ARRAY = [ 1, 2, 3 ];
 

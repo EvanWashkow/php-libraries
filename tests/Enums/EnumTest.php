@@ -1,5 +1,5 @@
 <?php
-declare( strict_types = 1 );
+declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
@@ -77,7 +77,8 @@ class EnumTest extends TestCase
     {
         return [
             'new MixedEnum( MixedEnum::NUMBERS )' => [function() {
-                return new MixedEnum( "MixedEnum::NUMBERS" );
+                $numbers = MixedEnum::NUMBERS;
+                return new MixedEnum( "$numbers" );
             }],
             'new MixedEnum( MixedEnum::ARRAY )' => [function() {
                 return new MixedEnum( MixedEnum::GetStringArray() );
