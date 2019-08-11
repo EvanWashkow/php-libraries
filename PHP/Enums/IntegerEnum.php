@@ -36,8 +36,11 @@ abstract class IntegerEnum extends Enum
 
     /**
      * @see parent::getValue()
+     * 
+     * @internal Final: the returned value cannot be modified. It directly
+     * correlates with other underlying methods.
      */
-    public function getValue(): int
+    final public function getValue(): int
     {
         return parent::getValue();
     }

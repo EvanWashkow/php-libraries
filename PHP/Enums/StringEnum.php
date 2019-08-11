@@ -36,8 +36,11 @@ abstract class StringEnum extends Enum
 
     /**
      * @see parent::getValue()
+     * 
+     * @internal Final: the returned value cannot be modified. It directly
+     * correlates with other underlying methods.
      */
-    public function getValue(): string
+    final public function getValue(): string
     {
         return parent::getValue();
     }
