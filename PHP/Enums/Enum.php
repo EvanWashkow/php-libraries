@@ -42,20 +42,23 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        $this->constants = $this->createConstants();
-        $this->value     = $this->filterValue( $value );
+        $this->constants = $this->modifyConstantsDictionary(
+            Types::GetByName( get_class( $this ) )->getConstants()
+        );
+        $this->value = $this->filterValue( $value );
     }
 
 
     /**
-     * Filter the constants 
+     * Return a new constants dictionary
      * 
+     * @param Dictionary $constants This class's constants
      * @return Dictionary
      * @throws \DomainException On bad constant definitions
      */
-    protected function createConstants(): Dictionary
+    protected function modifyConstantsDictionary( Dictionary $constants ): Dictionary
     {
-        return Types::GetByName( static::class )->getConstants();
+        return $constants;
     }
 
 

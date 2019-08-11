@@ -35,12 +35,13 @@ abstract class StringEnum extends Enum
      * @internal Final: it is a strict requirement that all constants in a
      * String Enumeration should be strings.
      * 
+     * @param Dictionary $constants This class's constants
      * @throws \DomainException On non-string constant
      */
-    final protected function createConstants(): Dictionary
+    final protected function modifyConstantsDictionary( Dictionary $constants ): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'string' );
-        foreach ( parent::createConstants()->toArray() as $key => $value ) {
+        foreach ( $constants->toArray() as $key => $value ) {
             if ( !is_string( $value )) {
                 $class = get_class( $this );
                 throw new \DomainException( "$class::$key is not a string. All StringEnum Constants must be a string." );

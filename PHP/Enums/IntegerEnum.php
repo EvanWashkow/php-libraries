@@ -35,13 +35,14 @@ abstract class IntegerEnum extends Enum
      * @internal Final: it is a strict requirement that all constants in a
      * Integer Enumeration should be integers.
      * 
+     * @param Dictionary $constants This class's constants
      * @return Dictionary
      * @throws \DomainException On non-integer constant
      */
-    final protected function createConstants(): Dictionary
+    final protected function modifyConstantsDictionary( Dictionary $constants ): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'integer' );
-        foreach ( parent::createConstants()->toArray() as $key => $value ) {
+        foreach ( $constants->toArray() as $key => $value ) {
             if ( !is_int( $value )) {
                 $class = get_class( $this );
                 throw new \DomainException( "$class::$key is not an integer. All IntegerEnum Constants must be an integer." );
