@@ -8,11 +8,11 @@ namespace PHP\Types\Models;
  */
 class InterfaceType extends Type
 {
-    
+
     /**  @var \ReflectionClass Reflection instance containing details about the interface */
     private $reflectionClass;
-    
-    
+
+
     /**
      * Create a new type instance representing a interface
      *
@@ -40,8 +40,8 @@ class InterfaceType extends Type
             is_subclass_of( $this->getName(), $typeName )
         );
     }
-    
-    
+
+
     /**
      * @see parent::isInterface()
      */
