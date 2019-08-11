@@ -39,7 +39,7 @@ abstract class IntegerEnum extends Enum
      * @return Dictionary
      * @throws \DomainException On non-integer constant
      */
-    final protected function modifyConstantsDictionary( Dictionary $constants ): Dictionary
+    final protected function filterConstants( Dictionary $constants ): Dictionary
     {
         $dictionary = new Dictionary( 'string', 'integer' );
         foreach ( $constants->toArray() as $key => $value ) {

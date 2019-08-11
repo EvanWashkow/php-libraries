@@ -42,7 +42,7 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        $this->constants = $this->modifyConstantsDictionary(
+        $this->constants = $this->filterConstants(
             Types::GetByName( get_class( $this ) )->getConstants()
         );
         $this->value = $this->filterValue( $value );
@@ -56,7 +56,7 @@ abstract class Enum extends ObjectClass
      * @return Dictionary
      * @throws \DomainException On bad constant definitions
      */
-    protected function modifyConstantsDictionary( Dictionary $constants ): Dictionary
+    protected function filterConstants( Dictionary $constants ): Dictionary
     {
         return $constants;
     }
