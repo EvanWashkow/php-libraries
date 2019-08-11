@@ -46,6 +46,9 @@ class InterfaceType extends Type
     }
     
     
+    /**
+     * @see parent::isInterface()
+     */
     public function isInterface(): bool
     {
         return true;
