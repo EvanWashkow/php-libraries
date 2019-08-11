@@ -54,10 +54,12 @@ class InterfaceType extends Type
 
     /**
      * Retrieve the reflection class instance
+     * 
+     * @internal Final: there's really nothing more to do here.
      *
      * @return \ReflectionClass
      **/
-    protected function getReflectionClass(): \ReflectionClass
+    final protected function getReflectionClass(): \ReflectionClass
     {
         return $this->reflectionClass;
     }
