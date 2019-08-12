@@ -117,10 +117,13 @@ abstract class Enum extends ObjectClass
 
     /**
      * Retrieve the list of constants for this class
+     * 
+     * @internal Final: the returned value cannot be modified. It is the direct
+     * result of other underlying methods.
      *
      * @return Dictionary
      **/
-    protected function getConstants(): Dictionary
+    final protected function getConstants(): Dictionary
     {
         return $this->constants->clone();
     }
