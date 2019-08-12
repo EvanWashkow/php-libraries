@@ -64,6 +64,8 @@ abstract class StringEnum extends Enum
      * 
      * @internal Final: the returned value cannot be modified. It is the direct
      * result of other underlying methods.
+     * 
+     * @return string
      */
     final public function getValue(): string
     {
