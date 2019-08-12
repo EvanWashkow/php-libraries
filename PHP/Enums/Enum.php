@@ -117,6 +117,8 @@ abstract class Enum extends ObjectClass
 
     /**
      * Retrieve the list of constants for this class
+     * 
+     * @internal Not final. This may want to be exposed through child classes.
      *
      * @return Dictionary
      **/
