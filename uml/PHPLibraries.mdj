@@ -2706,6 +2706,23 @@
 												},
 												{
 													"_type": "UMLOperationView",
+													"_id": "AAAAAAFsiUAPQ0P+Bd0=",
+													"_parent": {
+														"$ref": "AAAAAAFsiSyGgkMVQAs="
+													},
+													"model": {
+														"$ref": "AAAAAAFsiUAPDkP7zaQ="
+													},
+													"font": "Arial;13;0",
+													"left": 445,
+													"top": 631,
+													"width": 186.7607421875,
+													"height": 13,
+													"text": "+__construct(enum: Enum)",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
 													"_id": "AAAAAAFsiS0DEUND73I=",
 													"_parent": {
 														"$ref": "AAAAAAFsiSyGgkMVQAs="
@@ -2715,7 +2732,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 445,
-													"top": 631,
+													"top": 646,
 													"width": 186.7607421875,
 													"height": 13,
 													"text": "+getConstants(): Dictionary",
@@ -2732,7 +2749,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 445,
-													"top": 646,
+													"top": 661,
 													"width": 186.7607421875,
 													"height": 13,
 													"text": "+isValid(value): bool",
@@ -2743,7 +2760,7 @@
 											"left": 440,
 											"top": 611,
 											"width": 196.7607421875,
-											"height": 53
+											"height": 68
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -2783,7 +2800,7 @@
 									"left": 440,
 									"top": 576,
 									"width": 196.7607421875,
-									"height": 88,
+									"height": 103,
 									"nameCompartment": {
 										"$ref": "AAAAAAFsiSyGgUMPpnQ="
 									},
@@ -2822,7 +2839,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 680,
-											"top": 584,
+											"top": 587,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -2842,8 +2859,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 679,
-											"top": 569,
+											"left": 678,
+											"top": 572,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -2864,7 +2881,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 683,
-											"top": 613,
+											"top": 616,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -2882,7 +2899,7 @@
 										"$ref": "AAAAAAFsiSyGgUMO6mM="
 									},
 									"lineStyle": 1,
-									"points": "637:610;727:601",
+									"points": "637:614;727:603",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFsiS2d6kNOpRQ="
@@ -2921,7 +2938,7 @@
 										"$ref": "AAAAAAFsiTGyKEOm6Q0="
 									},
 									"lineStyle": 1,
-									"points": "201:600;439:613"
+									"points": "201:601;439:620"
 								},
 								{
 									"_type": "UMLDependencyView",
@@ -2965,7 +2982,7 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 654,
+											"left": 655,
 											"top": 525,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -3005,7 +3022,7 @@
 										"$ref": "AAAAAAFr7Dl8zlD0XYE="
 									},
 									"lineStyle": 1,
-									"points": "630:153;632:512;576:575",
+									"points": "630:153;632:512;580:575",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFsiTMnmUPpZKo="
@@ -3368,6 +3385,27 @@
 											},
 											"name": "className",
 											"type": "string"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFsiUAPDkP7zaQ=",
+									"_parent": {
+										"$ref": "AAAAAAFsiSyGgUMMT9g="
+									},
+									"name": "__construct",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFsiUBBgEQC4bI=",
+											"_parent": {
+												"$ref": "AAAAAAFsiUAPDkP7zaQ="
+											},
+											"name": "enum",
+											"type": {
+												"$ref": "AAAAAAFr7Dl8zVDyFU8="
+											}
 										}
 									]
 								},
