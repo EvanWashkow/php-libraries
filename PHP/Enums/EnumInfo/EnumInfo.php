@@ -19,40 +19,18 @@ class EnumInfo
 
 
     /**
-     * Create a new instance to retrieve information on an enumerated class
+     * Create information retrieval for an enumerated class
      * 
-     * @param string|Enum $enum The Enum class name or an Enum instance
-     * @throws \InvalidArgumentException When not given an Enum name or instance.
-     * @throws NotFoundException If the type does not exist.
+     * @param string $enumClassName The Enum class name
      * @throws DomainException   If the type does exist, but is not an Enum.
      */
-    public function __construct( $enum )
+    public function __construct( string $enumClassName )
     {
-        // Variables
-        $this->classType = null;
-
-        // Try to get the class type
-        if ( $enum instanceof Enum ) {
-            $this->classType = Types::GetByValue( $enum );
-        }
-        elseif ( is_string( $enum )) {
-            try {
-                $this->classType = Types::GetByName( $enum );
-            } catch ( NotFoundException $e ) {
-                throw new NotFoundException( $e->getMessage() );
-            }
-        }
-        else {
-            throw new \InvalidArgumentException(
-                'Enum or Enum class name expected. None given.'
-            );
-        }
-
-        // Throw exception on non-enum type
-        if ( !$this->getClassType()->is( Enum::class ) ) {
-            $typeName = $this->getClassType()->getName();
-            throw new DomainException(
-                "Enum name or instance expected. None given. \"$typeName\" is not an instance of an Enum."
+        try {
+            $this->classType = Types::GetByName( $enumClassName );
+        } catch ( NotFoundException $e ) {
+            throw DomainException(
+                "Enum class name expected. \"$enumClassName\" is not an Enum."
             );
         }
     }
