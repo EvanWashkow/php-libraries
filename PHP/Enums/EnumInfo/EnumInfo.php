@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Enums;
+namespace PHP\Enums\EnumInfo;
 
 use DomainException;
 use PHP\Exceptions\NotFoundException;
