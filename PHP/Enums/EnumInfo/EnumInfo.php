@@ -22,7 +22,7 @@ class EnumInfo
      * Create information retrieval for an enumerated class
      * 
      * @param string $enumClassName The Enum class name
-     * @throws DomainException   If the type does exist, but is not an Enum.
+     * @throws DomainException If string is not an Enum class name
      */
     public function __construct( string $enumClassName )
     {
