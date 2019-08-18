@@ -26,7 +26,7 @@ class EnumInfoLookup
     {
         $enumInfo = null;
         if ( $enum instanceof Enum ) {
-            $enumInfo = new EnumInfo( $enum::class );
+            $enumInfo = new EnumInfo( get_class( $enum ) );
         }
         elseif ( is_string( $enum ) ) {
             try {
