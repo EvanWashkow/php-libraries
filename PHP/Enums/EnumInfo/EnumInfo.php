@@ -32,7 +32,7 @@ class EnumInfo
         try {
             $this->classType = Types::GetByName( $enumClassName );
         } catch ( NotFoundException $e ) {
-            throw NotFoundException(
+            throw new NotFoundException(
                 "Enum class name expected. \"$enumClassName\" is not a known type."
             );
         }
