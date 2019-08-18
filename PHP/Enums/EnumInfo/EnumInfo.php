@@ -23,7 +23,8 @@ class EnumInfo
      * Create information retrieval for an enumerated class
      * 
      * @param string $enumClassName The Enum class name
-     * @throws DomainException If string is not an Enum class name
+     * @throws NotFoundExeption If the type does not exist
+     * @throws \DomainException If string is not an Enum class name
      */
     public function __construct( string $enumClassName )
     {
@@ -31,7 +32,7 @@ class EnumInfo
         try {
             $this->classType = Types::GetByName( $enumClassName );
         } catch ( NotFoundException $e ) {
-            throw DomainException(
+            throw NotFoundException(
                 "Enum class name expected. \"$enumClassName\" is not a known type."
             );
         }

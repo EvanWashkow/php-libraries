@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums\EnumInfo;
 
 use PHP\Enums\Enum;
+use PHP\Exceptions\NotFoundException;
 
 /**
  * Lookup details about an enumerated class
@@ -17,6 +18,7 @@ class EnumInfoLookup
      * 
      * @param string|Enum $enum The Enum class name or instance
      * @return EnumInfo
+     * @throws NotFoundExeption If the type does not exist
      * @throws \DomainException If string is not an Enum class name
      * @throws \InvalidArgumentException If argument is not a string or Enum instance
      */
@@ -29,6 +31,8 @@ class EnumInfoLookup
         elseif ( is_string( $enum ) ) {
             try {
                 $enumInfo = new EnumInfo( $enum );
+            } catch( NotFoundException $e ) {
+                throw new NotFoundException( $e->getMessage() );
             } catch ( \DomainException $e ) {
                 throw new \DomainException( $e->getMessage() );
             }
