@@ -24,7 +24,7 @@ class EnumInfo
      * 
      * @param string $enumClassName The Enum class name
      * @throws NotFoundExeption If the type does not exist
-     * @throws \DomainException If string is not an Enum class name
+     * @throws \DomainException If type is not an Enum
      */
     public function __construct( string $enumClassName )
     {

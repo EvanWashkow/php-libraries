@@ -19,7 +19,7 @@ class EnumInfoLookup
      * @param string|Enum $enum The Enum class name or instance
      * @return EnumInfo
      * @throws NotFoundExeption If the type does not exist
-     * @throws \DomainException If string is not an Enum class name
+     * @throws \DomainException If the type is not an Enum
      * @throws \InvalidArgumentException If argument is not a string or Enum instance
      */
     public function get( $enum ): EnumInfo
