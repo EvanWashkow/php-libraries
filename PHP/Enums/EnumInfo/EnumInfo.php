@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums\EnumInfo;
 
 use DomainException;
+use PHP\Enums\Enum;
 use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\ClassType;
@@ -26,10 +27,18 @@ class EnumInfo
      */
     public function __construct( string $enumClassName )
     {
+        // Get the type, or fail if it can not be found
         try {
             $this->classType = Types::GetByName( $enumClassName );
         } catch ( NotFoundException $e ) {
             throw DomainException(
+                "Enum class name expected. \"$enumClassName\" is not a known type."
+            );
+        }
+
+        // Fail if the class type is not an Enum
+        if ( !$this->getClassType()->is( Enum::class )) {
+            throw new \DomainException(
                 "Enum class name expected. \"$enumClassName\" is not an Enum."
             );
         }
