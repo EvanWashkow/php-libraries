@@ -5,6 +5,7 @@ namespace PHP\Tests\Enums\EnumInfo;
 
 use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\ObjectClass;
+use PHP\Tests\Enums\EnumTest\MixedEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,6 +18,19 @@ class EnumInfoTest extends TestCase
     /***************************************************************************
     *                                __construct()
     ***************************************************************************/
+
+
+    /**
+     * Test class is an ObjectClass
+     */
+    public function testIsObjectClass()
+    {
+        $this->assertInstanceOf(
+            ObjectClass::class,
+            new EnumInfo( MixedEnum::class ),
+            'EnumInfo does not extend ObjectClass'
+        );
+    }
 
 
     /**

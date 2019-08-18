@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace PHP\Enums\EnumInfo;
 
-use DomainException;
 use PHP\Enums\Enum;
 use PHP\Exceptions\NotFoundException;
+use PHP\ObjectClass;
 use PHP\Types;
 use PHP\Types\Models\ClassType;
 
 /**
  * Retrieves information about an enumeration
  */
-class EnumInfo
+class EnumInfo extends ObjectClass
 {
 
     /** @var ClassType $classType The Enum ClassType */
