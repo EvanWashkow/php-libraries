@@ -20,7 +20,7 @@ class EnumInfoLookupTest extends TestCase
 
 
     /**
-     * Test __construct() throws NotFoundException
+     * Test get() throws NotFoundException
      * 
      * @expectedException \PHP\Exceptions\NotFoundException
      */
@@ -31,7 +31,7 @@ class EnumInfoLookupTest extends TestCase
 
 
     /**
-     * Test __construct() throws DomainException
+     * Test get() throws DomainException
      * 
      * @expectedException \DomainException
      */
@@ -42,7 +42,7 @@ class EnumInfoLookupTest extends TestCase
 
 
     /**
-     * Test __construct() throws InvalidArgumentException
+     * Test get() throws InvalidArgumentException
      * 
      * @expectedException \InvalidArgumentException
      */
