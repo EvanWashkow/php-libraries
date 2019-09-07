@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums\EnumInfo;
 
+use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfoLookup;
 use PHP\ObjectClass;
+use PHP\Tests\Enums\EnumTest\MixedEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,5 +51,18 @@ class EnumInfoLookupTest extends TestCase
     public function testGetThrowsInvalidArgumentException()
     {
         (new EnumInfoLookup())->get( 1 );
+    }
+
+
+    /**
+     * Test get() return an EnumInfo instance
+     */
+    public function testGetReturnsEnumInfo()
+    {
+        $this->assertInstanceOf(
+            EnumInfo::class,
+            ( new EnumInfoLookup() )->get( MixedEnum::class ),
+            "EnumInfoLookup->get() did not return an EnumInfo instance"
+        );
     }
 }
