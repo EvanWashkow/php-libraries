@@ -33,6 +33,9 @@ class EnumInfoLookup
     /**
      * Retrieve information about an Enumerated class
      * 
+     * @internal This method standardizes and sanitizes the argument, throwing
+     * Exceptions as necessary.
+     * 
      * @param string|Enum $enum The Enum class name or instance
      * @return EnumInfo
      * @throws NotFoundExeption If the type does not exist
@@ -107,7 +110,11 @@ class EnumInfoLookup
 
 
     /**
-     * Create a new EnumInfo instance, by the Enum's class type
+     * Create a new EnumInfo instance, by the Enum's ClassType
+     * 
+     * @internal Override this method if you want to return a custom EnumInfo
+     * type. No exceptions should be thrown here, since the ClassType is already
+     * ensured to be an Enum class.
      * 
      * @param ClassType $enumClassType The Enum's ClassType instance
      * @return EnumInfo
