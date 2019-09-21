@@ -78,7 +78,7 @@ class EnumInfoLookup
         }
 
         // Throw DomainException if the Type is not a ClassType
-        if ( ! $enumType instanceof ClassType ) {
+        if ( ! $enumType->isClass() ) {
             throw new \DomainException(
                 "Enum class expected. \"{$enumType->getName()}\" is not a class."
             );
