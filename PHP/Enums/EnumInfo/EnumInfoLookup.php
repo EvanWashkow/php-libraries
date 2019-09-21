@@ -115,7 +115,7 @@ class EnumInfoLookup
     protected function createEnumInfoByClassType( ClassType $enumClassType ): EnumInfo
     {
         if ( $enumClassType->is( Enum::class )) {
-            $enumInfo = new EnumInfo( $enumClassType->getName() );
+            $enumInfo = new EnumInfo( $enumClassType );
         }
         return $enumInfo;
     }

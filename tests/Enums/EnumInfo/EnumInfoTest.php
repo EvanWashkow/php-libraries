@@ -6,6 +6,7 @@ namespace PHP\Tests\Enums\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\EnumTest\MixedEnum;
+use PHP\Types;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,20 +28,9 @@ class EnumInfoTest extends TestCase
     {
         $this->assertInstanceOf(
             ObjectClass::class,
-            new EnumInfo( MixedEnum::class ),
+            new EnumInfo( Types::GetByName( MixedEnum::class ) ),
             'EnumInfo does not extend ObjectClass'
         );
-    }
-
-
-    /**
-     * Test __construct() throws NotFoundException
-     * 
-     * @expectedException \PHP\Exceptions\NotFoundException
-     */
-    public function testConstructThrowsNotFoundException()
-    {
-        new EnumInfo( 'foobar' );
     }
 
 
@@ -51,6 +41,6 @@ class EnumInfoTest extends TestCase
      */
     public function testConstructThrowsDomainException()
     {
-        new EnumInfo( ObjectClass::class );
+        new EnumInfo( Types::GetByName( ObjectClass::class ) );
     }
 }

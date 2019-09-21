@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums\EnumInfo;
 
 use PHP\Enums\Enum;
-use PHP\Exceptions\NotFoundException;
 use PHP\ObjectClass;
-use PHP\Types;
 use PHP\Types\Models\ClassType;
 
 /**
@@ -22,27 +20,20 @@ class EnumInfo extends ObjectClass
     /**
      * Create information retrieval for an enumerated class
      * 
-     * @param string $enumClassName The Enum class name
-     * @throws NotFoundExeption If the type does not exist
+     * @param ClassType $enumClassType The Enum class type
      * @throws \DomainException If type is not an Enum
      */
-    public function __construct( string $enumClassName )
+    public function __construct( ClassType $enumClassType )
     {
-        // Get the type, or fail if it can not be found
-        try {
-            $this->classType = Types::GetByName( $enumClassName );
-        } catch ( NotFoundException $e ) {
-            throw new NotFoundException(
-                "Enum class name expected. \"$enumClassName\" is not a known type."
+        // Throw DomainException if the class type is not an Enum
+        if ( !$enumClassType->is( Enum::class )) {
+            throw new \DomainException(
+                "Enum class expected. \"{$enumClassType->getName()}\" is not derived from the Enum class."
             );
         }
 
-        // Fail if the class type is not an Enum
-        if ( !$this->getClassType()->is( Enum::class )) {
-            throw new \DomainException(
-                "Enum class name expected. \"$enumClassName\" is not an Enum."
-            );
-        }
+        // Set property
+        $this->classType = $enumClassType;
     }
 
 
