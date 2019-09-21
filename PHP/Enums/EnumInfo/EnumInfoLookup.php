@@ -39,8 +39,9 @@ class EnumInfoLookup
      */
     public function get( $enum ): EnumInfo
     {
-        // Get the enum class name
+        // Variables
         $enumClassName = '';
+        $enumType      = null;
 
         /**
          * Convert the argument into the enum class name, throwing an
