@@ -39,29 +39,36 @@ class EnumInfoLookup
      */
     public function get( $enum ): EnumInfo
     {
-        // Convert any Enum instance into the class name
-        if ( $enum instanceof Enum ) {
-            $enum = get_class( $enum );
-        }
+        // Get the enum class name
+        $enumClassName = '';
 
-        // Throw exception on invalid argument
-        elseif ( !is_string( $enum ) ) {
+        /**
+         * Convert the argument into the enum class name, throwing an
+         * Invalid Argument Exception if it is not a valid argument.
+         */
+        if ( $enum instanceof Enum ) {
+            $enumClassName = get_class( $enum );
+        }
+        elseif ( is_string( $enum ) ) {
+            $enumClassName = $enum;
+        }
+        else {
             throw new \InvalidArgumentException(
                 'Enum class name or instance expected. None given.'
             );
         }
 
         // Retrieve the enum info
-        if ( !self::$cache->hasKey( $enum )) {
+        if ( !self::$cache->hasKey( $enumClassName )) {
             try {
-                $enumInfo = new EnumInfo( $enum );
-                self::$cache->set( $enum, $enumInfo );
+                $enumInfo = new EnumInfo( $enumClassName );
+                self::$cache->set( $enumClassName, $enumInfo );
             } catch( NotFoundException $e ) {
                 throw new NotFoundException( $e->getMessage() );
             } catch ( \DomainException $e ) {
                 throw new \DomainException( $e->getMessage() );
             }
         }
-        return self::$cache->get( $enum );;
+        return self::$cache->get( $enumClassName );
     }
 }
