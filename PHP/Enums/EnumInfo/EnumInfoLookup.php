@@ -67,18 +67,14 @@ class EnumInfoLookup
             throw new NotFoundException( $e->getMessage(), $e->getCode() );
         }
 
-
-        // Retrieve the enum info
-        if ( !self::$cache->hasKey( $enumClassName )) {
-            try {
-                $enumInfo = new EnumInfo( $enumClassName );
-                self::$cache->set( $enumClassName, $enumInfo );
-            } catch( NotFoundException $e ) {
-                throw new NotFoundException( $e->getMessage() );
-            } catch ( \DomainException $e ) {
-                throw new \DomainException( $e->getMessage() );
-            }
+        // Switch on enum type to create the desired enum info
+        if ( $enumType->is( Enum::class )) {
+            return new EnumInfo( $enumClassName );
         }
-        return self::$cache->get( $enumClassName );
+        else {
+            throw new \DomainException(
+                "Enum class name expected. \"$enumClassName\" is not an Enum."
+            );
+        }
     }
 }
