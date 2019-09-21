@@ -89,7 +89,7 @@ class EnumInfoLookup
             // Enum class
             elseif ( ! $enumType->is( Enum::class )) {
                 throw new \DomainException(
-                    "Enum class name expected. \"{$enumType->getName()}\" is not an Enum class."
+                    "Enum class name expected. \"{$enumType->getName()}\" is not derived from the Enum class."
                 );
             }
 
