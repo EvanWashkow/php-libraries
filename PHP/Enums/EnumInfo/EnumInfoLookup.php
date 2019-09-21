@@ -40,14 +40,15 @@ class EnumInfoLookup
      */
     public function get( $enum ): EnumInfo
     {
-        // Variables
-        $enumClassName = '';
-        $enumType      = null;
-
         /**
          * Convert the argument into the enum class name, throwing an
          * Invalid Argument Exception if it is not a valid argument.
          */
+
+        // The enum class name
+        $enumClassName = '';
+
+        // Switch on type
         if ( $enum instanceof Enum ) {
             $enumClassName = get_class( $enum );
         }
@@ -60,21 +61,43 @@ class EnumInfoLookup
             );
         }
 
-        // Try to get the enum type
-        try {
-            $enumType = Types::GetByName( $enumClassName );
-        } catch ( NotFoundException $e ) {
-            throw new NotFoundException( $e->getMessage(), $e->getCode() );
+
+        /**
+         * Build Enum Info if it is not cached
+         */
+        if ( !self::$cache->hasKey( $enumClassName ))
+        {
+            // The Enum's ClassType
+            $enumClassType = null;
+
+            // The Enum's EnumInfo
+            $enumInfo = null;
+
+            // Try to get the enum type
+            try {
+                $enumClassType = Types::GetByName( $enumClassName );
+            } catch ( NotFoundException $e ) {
+                throw new NotFoundException( $e->getMessage(), $e->getCode() );
+            }
+    
+            // Switch on enum type to create the desired enum info
+            if ( $enumClassType->is( Enum::class )) {
+                $enumInfo = new EnumInfo( $enumClassName );
+            }
+            else {
+                throw new \DomainException(
+                    "Enum class name expected. \"$enumClassName\" is not an Enum."
+                );
+            }
+
+            // Cache the Enum Info
+            self::$cache->set( $enumClassName, $enumInfo );
         }
 
-        // Switch on enum type to create the desired enum info
-        if ( $enumType->is( Enum::class )) {
-            return new EnumInfo( $enumClassName );
-        }
-        else {
-            throw new \DomainException(
-                "Enum class name expected. \"$enumClassName\" is not an Enum."
-            );
-        }
+
+        /**
+         * Return the Enum Info
+         */
+        return self::$cache->get( $enumClassName );
     }
 }
