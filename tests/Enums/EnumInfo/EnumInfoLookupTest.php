@@ -33,11 +33,22 @@ class EnumInfoLookupTest extends TestCase
 
 
     /**
-     * Test get() throws DomainException
+     * Test get() throws DomainException on non-classes
      * 
      * @expectedException \DomainException
      */
-    public function testGetThrowsDomainException()
+    public function testGetThrowsDomainExceptionOnNonClasses()
+    {
+        (new EnumInfoLookup())->get( 'int' );
+    }
+
+
+    /**
+     * Test get() throws DomainException on non-Enum classes
+     * 
+     * @expectedException \DomainException
+     */
+    public function testGetThrowsDomainExceptionOnNonEnumClasses()
     {
         (new EnumInfoLookup())->get( ObjectClass::class );
     }

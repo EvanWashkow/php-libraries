@@ -7,6 +7,7 @@ use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\Exceptions\NotFoundException;
 use PHP\Types;
+use PHP\Types\Models\ClassType;
 
 /**
  * Lookup details about an enumerated class
@@ -67,30 +68,33 @@ class EnumInfoLookup
          */
         if ( !self::$cache->hasKey( $enumClassName ))
         {
-            // The Enum's ClassType
-            $enumClassType = null;
-
-            // The Enum's EnumInfo
-            $enumInfo = null;
+            // The Enum's Type
+            $enumType = null;
 
             // Try to get the enum type
             try {
-                $enumClassType = Types::GetByName( $enumClassName );
+                $enumType = Types::GetByName( $enumClassName );
             } catch ( NotFoundException $e ) {
                 throw new NotFoundException( $e->getMessage(), $e->getCode() );
             }
-    
-            // Switch on enum type to create the desired enum info
-            if ( $enumClassType->is( Enum::class )) {
-                $enumInfo = new EnumInfo( $enumClassName );
-            }
-            else {
+
+            // Throw DomainException if the Type is not a ClassType
+            if ( ! $enumType instanceof ClassType ) {
                 throw new \DomainException(
-                    "Enum class name expected. \"$enumClassName\" is not an Enum."
+                    "Enum class name expected. \"{$enumType->getName()}\" is not a class."
+                );
+            }
+
+            // Throw DomainException if the ClassType is not derived from the
+            // Enum class
+            elseif ( ! $enumType->is( Enum::class )) {
+                throw new \DomainException(
+                    "Enum class name expected. \"{$enumType->getName()}\" is not an Enum class."
                 );
             }
 
             // Cache the Enum Info
+            $enumInfo = $this->createEnumInfoByClassType( $enumType );
             self::$cache->set( $enumClassName, $enumInfo );
         }
 
@@ -99,5 +103,20 @@ class EnumInfoLookup
          * Return the Enum Info
          */
         return self::$cache->get( $enumClassName );
+    }
+
+
+    /**
+     * Create a new EnumInfo instance, by the Enum's class type
+     * 
+     * @param ClassType $enumClassType The Enum's ClassType instance
+     * @return EnumInfo
+     */
+    protected function createEnumInfoByClassType( ClassType $enumClassType ): EnumInfo
+    {
+        if ( $enumClassType->is( Enum::class )) {
+            $enumInfo = new EnumInfo( $enumClassType->getName() );
+        }
+        return $enumInfo;
     }
 }
