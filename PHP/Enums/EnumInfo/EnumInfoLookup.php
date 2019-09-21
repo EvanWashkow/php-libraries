@@ -19,15 +19,6 @@ class EnumInfoLookup
 
 
     /**
-     * Create a lookup routine for enumerated classes
-     */
-    public function __construct()
-    {
-        return;
-    }
-
-
-    /**
      * Retrieve information about an Enumerated class
      * 
      * @internal This method standardizes and sanitizes the argument, throwing
