@@ -6,6 +6,7 @@ namespace PHP\Enums\EnumInfo;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\Exceptions\NotFoundException;
+use PHP\Types;
 
 /**
  * Lookup details about an enumerated class
@@ -58,6 +59,14 @@ class EnumInfoLookup
                 'Enum class name or instance expected. None given.'
             );
         }
+
+        // Try to get the enum type
+        try {
+            $enumType = Types::GetByName( $enumClassName );
+        } catch ( NotFoundException $e ) {
+            throw new NotFoundException( $e->getMessage(), $e->getCode() );
+        }
+
 
         // Retrieve the enum info
         if ( !self::$cache->hasKey( $enumClassName )) {
