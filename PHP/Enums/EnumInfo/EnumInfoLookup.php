@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace PHP\Enums\EnumInfo;
 
-use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\Exceptions\NotFoundException;
 use PHP\Types;
@@ -11,12 +10,12 @@ use PHP\Types\Models\ClassType;
 
 /**
  * Lookup details about an enumerated class
+ * 
+ * @internal This does not leverage any caching since, at its heart, this based
+ * on the Types lookup system, which is already cached.
  */
 class EnumInfoLookup
 {
-
-    /** @var Dictionary $cache Previously looked-up enumerated classes */
-    private static $cache = null;
 
 
     /**
@@ -24,9 +23,7 @@ class EnumInfoLookup
      */
     public function __construct()
     {
-        if ( null === self::$cache ) {
-            self::$cache = new Dictionary( 'string', EnumInfo::class );
-        }
+        return;
     }
 
 
@@ -46,7 +43,7 @@ class EnumInfoLookup
     {
         /**
          * Convert the argument into the enum class name, throwing an
-         * Invalid Argument Exception if it is not a valid argument.
+         * Invalid Argument Exception on an invalid argument.
          */
 
         // The enum class name
@@ -67,45 +64,39 @@ class EnumInfoLookup
 
 
         /**
-         * Build Enum Info if it is not cached
+         * Check the Enum Type instance to ensure it is for an Enum class
          */
-        if ( !self::$cache->hasKey( $enumClassName ))
-        {
-            // The Enum's Type
-            $enumType = null;
 
-            // Try to get the enum type
-            try {
-                $enumType = Types::GetByName( $enumClassName );
-            } catch ( NotFoundException $e ) {
-                throw new NotFoundException( $e->getMessage(), $e->getCode() );
-            }
+        // The Enum's Type
+        $enumType = null;
 
-            // Throw DomainException if the Type is not a ClassType
-            if ( ! $enumType instanceof ClassType ) {
-                throw new \DomainException(
-                    "Enum class expected. \"{$enumType->getName()}\" is not a class."
-                );
-            }
+        // Try to get the enum type
+        try {
+            $enumType = Types::GetByName( $enumClassName );
+        } catch ( NotFoundException $e ) {
+            throw new NotFoundException( $e->getMessage(), $e->getCode() );
+        }
 
-            // Throw DomainException if the ClassType is not derived from the
-            // Enum class
-            elseif ( ! $enumType->is( Enum::class )) {
-                throw new \DomainException(
-                    "Enum class expected. \"{$enumType->getName()}\" is not derived from the Enum class."
-                );
-            }
+        // Throw DomainException if the Type is not a ClassType
+        if ( ! $enumType instanceof ClassType ) {
+            throw new \DomainException(
+                "Enum class expected. \"{$enumType->getName()}\" is not a class."
+            );
+        }
 
-            // Cache the Enum Info
-            $enumInfo = $this->createEnumInfoByClassType( $enumType );
-            self::$cache->set( $enumClassName, $enumInfo );
+        // Throw DomainException if the ClassType is not derived from the
+        // Enum class
+        elseif ( ! $enumType->is( Enum::class )) {
+            throw new \DomainException(
+                "Enum class expected. \"{$enumType->getName()}\" is not derived from the Enum class."
+            );
         }
 
 
         /**
          * Return the Enum Info
          */
-        return self::$cache->get( $enumClassName );
+        return $this->createEnumInfoByClassType( $enumType );
     }
 
 
