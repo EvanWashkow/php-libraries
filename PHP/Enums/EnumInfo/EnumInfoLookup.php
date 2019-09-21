@@ -81,7 +81,7 @@ class EnumInfoLookup
             // Throw DomainException if the Type is not a ClassType
             if ( ! $enumType instanceof ClassType ) {
                 throw new \DomainException(
-                    "Enum class name expected. \"{$enumType->getName()}\" is not a class."
+                    "Enum class expected. \"{$enumType->getName()}\" is not a class."
                 );
             }
 
@@ -89,7 +89,7 @@ class EnumInfoLookup
             // Enum class
             elseif ( ! $enumType->is( Enum::class )) {
                 throw new \DomainException(
-                    "Enum class name expected. \"{$enumType->getName()}\" is not derived from the Enum class."
+                    "Enum class expected. \"{$enumType->getName()}\" is not derived from the Enum class."
                 );
             }
 
