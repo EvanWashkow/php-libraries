@@ -23,7 +23,7 @@ abstract class Enum extends ObjectClass
     /** @var Dictionary List of constants in this enumeration */
     private $constants;
 
-    /** @var mixed $value The current value in this set of enumerated constants */
+    /** @var mixed $value The current value in the set of enumerated constants */
     private $value;
 
 
