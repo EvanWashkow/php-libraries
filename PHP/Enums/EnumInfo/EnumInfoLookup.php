@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums\EnumInfo;
 
 use PHP\Enums\Enum;
+use PHP\Enums\StringEnum;
 use PHP\Exceptions\NotFoundException;
 use PHP\Types;
 use PHP\Types\Models\ClassType;
@@ -95,7 +96,10 @@ class EnumInfoLookup
      */
     protected function createEnumInfoByClassType( ClassType $enumClassType ): EnumInfo
     {
-        if ( $enumClassType->is( Enum::class )) {
+        if ( $enumClassType->is( StringEnum::class )) {
+            $enumInfo = new StringEnumInfo( $enumClassType );
+        }
+        elseif ( $enumClassType->is( Enum::class )) {
             $enumInfo = new EnumInfo( $enumClassType );
         }
         return $enumInfo;
