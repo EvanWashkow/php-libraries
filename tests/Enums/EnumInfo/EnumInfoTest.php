@@ -7,6 +7,8 @@ use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfoLookup;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\EnumTest\MixedEnum;
+use PHP\Tests\Enums\IntegerEnumTest\GoodIntegerEnum;
+use PHP\Tests\Enums\StringEnumTest\GoodStringEnum;
 use PHP\Types;
 use PHPUnit\Framework\TestCase;
 
@@ -83,6 +85,22 @@ class EnumInfoTest extends TestCase
                     'ARRAY'   => MixedEnum::ARRAY,
                     'NUMBERS' => MixedEnum::NUMBERS,
                     'STRING'  => MixedEnum::STRING
+                ]
+            ],
+            'IntegerEnum' => [
+                $lookup->get( GoodIntegerEnum::class ),
+                [
+                    'ONE'  => GoodIntegerEnum::ONE,
+                    'TWO'  => GoodIntegerEnum::TWO,
+                    'FOUR' => GoodIntegerEnum::FOUR
+                ]
+            ],
+            'StringEnum' => [
+                $lookup->get( GoodStringEnum::class ),
+                [
+                    'ONE'  => GoodStringEnum::ONE,
+                    'TWO'  => GoodStringEnum::TWO,
+                    'FOUR' => GoodStringEnum::FOUR
                 ]
             ]
         ];
