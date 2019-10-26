@@ -1857,8 +1857,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 850,
-											"top": 193,
+											"left": 881,
+											"top": 192,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -1878,8 +1878,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 858,
-											"top": 180,
+											"left": 888,
+											"top": 179,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -1899,8 +1899,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 835,
-											"top": 218,
+											"left": 868,
+											"top": 219,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -1918,7 +1918,7 @@
 										"$ref": "AAAAAAFr7Dl8zlD0XYE="
 									},
 									"lineStyle": 1,
-									"points": "745:153;942:271",
+									"points": "762:153;988:271",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFsiTMnmUPpZKo="
@@ -1971,7 +1971,7 @@
 													"font": "Arial;13;1",
 													"left": 901,
 													"top": 279,
-													"width": 229.30908203125,
+													"width": 376.0859375,
 													"height": 13,
 													"text": "EnumInfoLookup"
 												},
@@ -1984,7 +1984,7 @@
 													"font": "Arial;13;0",
 													"left": 901,
 													"top": 294,
-													"width": 229.30908203125,
+													"width": 376.0859375,
 													"height": 13,
 													"text": "(from EnumInfo)"
 												},
@@ -2005,7 +2005,7 @@
 											"font": "Arial;13;0",
 											"left": 896,
 											"top": 272,
-											"width": 239.30908203125,
+											"width": 386.0859375,
 											"height": 40,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFsoVpcJxexB14="
@@ -2032,7 +2032,7 @@
 											"font": "Arial;13;0",
 											"left": 896,
 											"top": 312,
-											"width": 239.30908203125,
+											"width": 386.0859375,
 											"height": 10
 										},
 										{
@@ -2057,7 +2057,7 @@
 													"font": "Arial;13;0",
 													"left": 901,
 													"top": 327,
-													"width": 229.30908203125,
+													"width": 376.0859375,
 													"height": 13,
 													"text": "+get(className: string): EnumInfo",
 													"horizontalAlignment": 0
@@ -2074,17 +2074,34 @@
 													"font": "Arial;13;0",
 													"left": 901,
 													"top": 342,
-													"width": 229.30908203125,
+													"width": 376.0859375,
 													"height": 13,
 													"text": "+get(enum: Enum): EnumInfo",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFuCdua1aqvMLI=",
+													"_parent": {
+														"$ref": "AAAAAAFsoVpcJxe2PvE="
+													},
+													"model": {
+														"$ref": "AAAAAAFuCduaq6qsG6o="
+													},
+													"font": "Arial;13;0",
+													"left": 901,
+													"top": 357,
+													"width": 376.0859375,
+													"height": 13,
+													"text": "#createEnumInfoByClassType(ClassType $classType): EnumInfo",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 896,
 											"top": 322,
-											"width": 239.30908203125,
-											"height": 38
+											"width": 386.0859375,
+											"height": 53
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -2123,8 +2140,8 @@
 									"containerChangeable": true,
 									"left": 896,
 									"top": 272,
-									"width": 239.30908203125,
-									"height": 88,
+									"width": 386.0859375,
+									"height": 103,
 									"showNamespace": true,
 									"nameCompartment": {
 										"$ref": "AAAAAAFsoVpcJxewobg="
@@ -2655,6 +2672,37 @@
 													"_id": "AAAAAAFsoWFZ5xsdHsk=",
 													"_parent": {
 														"$ref": "AAAAAAFsoWDd0RsV8TY="
+													},
+													"type": {
+														"$ref": "AAAAAAFsiSyGgUMMT9g="
+													},
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFuCduaq6qsG6o=",
+											"_parent": {
+												"$ref": "AAAAAAFsoVnWTBd9dlQ="
+											},
+											"name": "createEnumInfoByClassType",
+											"visibility": "protected",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFuCdvPBaqzhJ8=",
+													"_parent": {
+														"$ref": "AAAAAAFuCduaq6qsG6o="
+													},
+													"name": "ClassType $classType",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFuCdvPBaq00Xc=",
+													"_parent": {
+														"$ref": "AAAAAAFuCduaq6qsG6o="
 													},
 													"type": {
 														"$ref": "AAAAAAFsiSyGgUMMT9g="
