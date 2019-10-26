@@ -59,27 +59,19 @@ class EnumInfoLookup
          */
 
         // The Enum's Type
-        $enumType = null;
+        $type = null;
 
         // Try to get the enum type
         try {
-            $enumType = Types::GetByName( $enumClassName );
+            $type = Types::GetByName( $enumClassName );
         } catch ( NotFoundException $e ) {
             throw new NotFoundException( $e->getMessage(), $e->getCode() );
         }
 
-        // Throw DomainException if the Type is not a ClassType
-        if ( ! $enumType->isClass() ) {
+        // Throw DomainException if the type is not an Enum
+        if ( ! $type->is( Enum::class ) ) {
             throw new \DomainException(
-                "Enum class expected. \"{$enumType->getName()}\" is not a class."
-            );
-        }
-
-        // Throw DomainException if the ClassType is not derived from the
-        // Enum class
-        elseif ( ! $enumType->is( Enum::class )) {
-            throw new \DomainException(
-                "Enum class expected. \"{$enumType->getName()}\" is not derived from the Enum class."
+                "Enum expected. \"{$type->getName()}\" is not an Enum class derivative."
             );
         }
 
@@ -87,7 +79,7 @@ class EnumInfoLookup
         /**
          * Return the Enum Info
          */
-        return $this->createEnumInfoByClassType( $enumType );
+        return $this->createEnumInfoByClassType( $type );
     }
 
 
