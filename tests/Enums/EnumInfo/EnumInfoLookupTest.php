@@ -66,13 +66,26 @@ class EnumInfoLookupTest extends TestCase
 
 
     /**
-     * Test get() return an EnumInfo instance
+     * Test get() return an EnumInfo instance by Enum class name
      */
-    public function testGetReturnsEnumInfo()
+    public function testGetReturnsEnumInfoByClassName()
     {
         $this->assertInstanceOf(
             EnumInfo::class,
             ( new EnumInfoLookup() )->get( MixedEnum::class ),
+            "EnumInfoLookup->get() did not return an EnumInfo instance"
+        );
+    }
+
+
+    /**
+     * Test get() return an EnumInfo instance by Enum instance
+     */
+    public function testGetReturnsEnumInfoByInstance()
+    {
+        $this->assertInstanceOf(
+            EnumInfo::class,
+            ( new EnumInfoLookup() )->get( new MixedEnum( MixedEnum::STRING ) ),
             "EnumInfoLookup->get() did not return an EnumInfo instance"
         );
     }
