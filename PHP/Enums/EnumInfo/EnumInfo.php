@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Enums\EnumInfo;
 
+use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\ObjectClass;
 use PHP\Types\Models\ClassType;
@@ -38,12 +39,14 @@ class EnumInfo extends ObjectClass
 
 
     /**
-     * Retrieve the ClassType for the Enum instance
+     * Retrieve the constans for this Enum
      * 
-     * @return ClassType
+     * @internal Override this method to filter the constants for this Enum type
+     * 
+     * @return Dictionary
      */
-    private function getClassType(): ClassType
+    public function getConstants(): Dictionary
     {
-        return $this->classType;
+        return $this->classType->getConstants();
     }
 }

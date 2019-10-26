@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Tests\Enums\EnumInfo;
 
 use PHP\Enums\EnumInfo\EnumInfo;
+use PHP\Enums\EnumInfo\EnumInfoLookup;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\EnumTest\MixedEnum;
 use PHP\Types;
@@ -42,5 +43,48 @@ class EnumInfoTest extends TestCase
     public function testConstructThrowsDomainException()
     {
         new EnumInfo( Types::GetByName( ObjectClass::class ) );
+    }
+
+
+
+    /***************************************************************************
+    *                                getConstants()
+    ***************************************************************************/
+
+
+    /**
+     * Test the constants returned from EnumInfo->getConstants
+     * 
+     * @dataProvider getEnums()
+     */
+    public function testGetConstants( EnumInfo $enumInfo, array $constants )
+    {
+        $this->assertEquals(
+            $constants,
+            $enumInfo->getConstants()->toArray(),
+            "EnumInfo->getConstants() did not return the correct constants."
+        );
+    }
+
+
+
+    /***************************************************************************
+    *                              ENUMS DATA PROVIDER
+    ***************************************************************************/
+
+
+    public function getEnums(): array
+    {
+        $lookup = new EnumInfoLookup();
+        return [
+            'MixedEnum' => [
+                $lookup->get( MixedEnum::class ),
+                [
+                    'ARRAY'   => MixedEnum::ARRAY,
+                    'NUMBERS' => MixedEnum::NUMBERS,
+                    'STRING'  => MixedEnum::STRING
+                ]
+            ]
+        ];
     }
 }
