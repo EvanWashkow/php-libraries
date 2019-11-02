@@ -6,8 +6,8 @@ namespace PHP\Tests\Enums;
 use PHP\Enums\Enum;
 use PHP\Tests\Enums\TestEnumDefinitions\BadIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
-use PHP\Tests\Enums\StringEnumTest\BadStringEnum;
-use PHP\Tests\Enums\StringEnumTest\GoodStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\BadStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHPUnit\Framework\TestCase;
 
 /**

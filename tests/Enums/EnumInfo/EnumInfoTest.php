@@ -8,7 +8,7 @@ use PHP\Enums\EnumInfo\EnumInfoLookup;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
-use PHP\Tests\Enums\StringEnumTest\GoodStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Types;
 use PHPUnit\Framework\TestCase;
 
