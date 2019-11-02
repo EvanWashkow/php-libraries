@@ -5,7 +5,7 @@ namespace PHP\Tests\Enums;
 
 use PHP\Enums\Enum;
 use PHP\ObjectClass;
-use PHP\Tests\Enums\EnumTest\MixedEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
 use PHPUnit\Framework\TestCase;
 
 /**

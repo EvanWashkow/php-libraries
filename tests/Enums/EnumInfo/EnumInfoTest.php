@@ -6,7 +6,7 @@ namespace PHP\Tests\Enums\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfoLookup;
 use PHP\ObjectClass;
-use PHP\Tests\Enums\EnumTest\MixedEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
 use PHP\Tests\Enums\IntegerEnumTest\GoodIntegerEnum;
 use PHP\Tests\Enums\StringEnumTest\GoodStringEnum;
 use PHP\Types;
