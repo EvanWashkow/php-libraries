@@ -57,7 +57,7 @@ class EnumInfoTest extends TestCase
     /**
      * Test the constants returned from EnumInfo->getConstants
      * 
-     * @dataProvider getEnums()
+     * @dataProvider getConstants()
      */
     public function testGetConstants( EnumInfo $enumInfo, array $constants )
     {
@@ -69,13 +69,7 @@ class EnumInfoTest extends TestCase
     }
 
 
-
-    /***************************************************************************
-    *                              ENUMS DATA PROVIDER
-    ***************************************************************************/
-
-
-    public function getEnums(): array
+    public function getConstants(): array
     {
         $lookup = new EnumInfoLookup();
         return [
