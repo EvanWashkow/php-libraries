@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Enums;
 
 use PHP\Enums\Enum;
-use PHP\Tests\Enums\IntegerEnumTest\BadIntegerEnum;
-use PHP\Tests\Enums\IntegerEnumTest\GoodIntegerEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\BadIntegerEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\StringEnumTest\BadStringEnum;
 use PHP\Tests\Enums\StringEnumTest\GoodStringEnum;
 use PHPUnit\Framework\TestCase;
