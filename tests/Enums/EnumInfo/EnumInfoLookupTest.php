@@ -24,6 +24,17 @@ class EnumInfoLookupTest extends TestCase
 
 
     /**
+     * Test get() throws InvalidArgumentException
+     * 
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetThrowsInvalidArgumentException()
+    {
+        (new EnumInfoLookup())->get( 1 );
+    }
+
+
+    /**
      * Test get() throws NotFoundException
      * 
      * @expectedException \PHP\Exceptions\NotFoundException
@@ -53,17 +64,6 @@ class EnumInfoLookupTest extends TestCase
     public function testGetThrowsDomainExceptionOnNonEnumClasses()
     {
         (new EnumInfoLookup())->get( ObjectClass::class );
-    }
-
-
-    /**
-     * Test get() throws InvalidArgumentException
-     * 
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetThrowsInvalidArgumentException()
-    {
-        (new EnumInfoLookup())->get( 1 );
     }
 
 
