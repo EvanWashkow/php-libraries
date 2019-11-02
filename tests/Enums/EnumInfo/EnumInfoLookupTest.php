@@ -77,7 +77,7 @@ class EnumInfoLookupTest extends TestCase
     /**
      * Test get() return an EnumInfo instance by Enum class name
      * 
-     * @dataProvider getEnumInfo()
+     * @dataProvider getEnumInfoClasses()
      */
     public function testGetReturnsEnumInfoByClassName(
         EnumInfo $enumInfo,
@@ -97,7 +97,7 @@ class EnumInfoLookupTest extends TestCase
      * 
      * @return array
      */
-    public function getEnumInfo(): array
+    public function getEnumInfoClasses(): array
     {
         $lookup = new EnumInfoLookup();
         return [
