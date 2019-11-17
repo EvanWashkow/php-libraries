@@ -8,15 +8,13 @@ use PHP\Tests\Enums\TestEnumDefinitions\BadStringEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the construction / fetching of bad Enum definitions to ensure they
- * throw exceptions
+ * Tests the construction / fetching of bad Enum definitions to ensure they throw exceptions
  */
 class BadEnumDefinitionTest extends TestCase
 {
 
     /**
-     * Test the construction / fetching of bad Enum definitions to ensure they
-     * throw exceptions
+     * Test the construction / fetching of bad Enum definitions to ensure they throw exceptions
      * 
      * @expectedException \DomainException
      * @dataProvider getData()
