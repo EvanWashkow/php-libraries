@@ -6,7 +6,6 @@ namespace PHP\Tests\Enums\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfoLookup;
 use PHP\Enums\EnumInfo\StringEnumInfo;
-use PHP\ObjectClass;
 use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHPUnit\Framework\TestCase;
@@ -42,28 +41,6 @@ class EnumInfoLookupTest extends TestCase
     public function testGetThrowsNotFoundException()
     {
         (new EnumInfoLookup())->get( 'foobar' );
-    }
-
-
-    /**
-     * Test get() throws DomainException on non-classes
-     * 
-     * @expectedException \DomainException
-     */
-    public function testGetThrowsDomainExceptionOnNonClasses()
-    {
-        (new EnumInfoLookup())->get( 'int' );
-    }
-
-
-    /**
-     * Test get() throws DomainException on non-Enum classes
-     * 
-     * @expectedException \DomainException
-     */
-    public function testGetThrowsDomainExceptionOnNonEnumClasses()
-    {
-        (new EnumInfoLookup())->get( ObjectClass::class );
     }
 
 

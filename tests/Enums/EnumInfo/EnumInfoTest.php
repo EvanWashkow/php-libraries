@@ -37,17 +37,6 @@ class EnumInfoTest extends TestCase
     }
 
 
-    /**
-     * Test __construct() throws DomainException
-     * 
-     * @expectedException \DomainException
-     */
-    public function testConstructThrowsDomainException()
-    {
-        new EnumInfo( Types::GetByName( ObjectClass::class ) );
-    }
-
-
 
     /***************************************************************************
     *                                getConstants()

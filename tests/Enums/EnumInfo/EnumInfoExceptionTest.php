@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums\EnumInfo;
 
+use PHP\Enums\EnumInfo\EnumInfo;
 use PHP\Enums\EnumInfo\EnumInfoLookup;
+use PHP\ObjectClass;
 use PHP\Tests\TestCase;
+use PHP\Types;
 
 /**
  * EnumInfo classes should throw exceptions on bad type arguments.
@@ -21,7 +24,7 @@ class EnumInfoExceptionTest extends TestCase
      * @expectedException \DomainException
      * @dataProvider getDomainExceptionData()
      */
-    public function testDomainExceptionOnBadType( \Closure $function ): void
+    public function testDomainExceptionOnWrongType( \Closure $function ): void
     {
         $function();
     }
@@ -32,9 +35,15 @@ class EnumInfoExceptionTest extends TestCase
         $enumInfoLookup = new EnumInfoLookup();
 
         return [
-            'EnumInfoLookup->get( <non-class> )' => function() use ( $enumInfoLookup ) {
-                $enumInfoLookup->get( 'int' );
-            }
+            'EnumInfoLookup->get( int )' => [
+                function() use ( $enumInfoLookup ) { $enumInfoLookup->get( 'int' ); }
+            ],
+            'EnumInfoLookup->get( ObjectClass )' => [
+                function() use ( $enumInfoLookup ) { $enumInfoLookup->get( ObjectClass::class ); }
+            ],
+            'new EnumInfo( ObjectClass )' => [
+                function() { new EnumInfo( Types::GetByName( ObjectClass::class ) ); }
+            ]
         ];
     }
 }
