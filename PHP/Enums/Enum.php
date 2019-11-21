@@ -54,7 +54,7 @@ abstract class Enum extends ObjectClass
      * 
      * @param Dictionary $constants This class's constants
      * @return Dictionary
-     * @throws \DomainException On bad constant definitions
+     * @throws MalformedEnumException On bad constant definitions
      */
     protected function filterConstants( Dictionary $constants ): Dictionary
     {

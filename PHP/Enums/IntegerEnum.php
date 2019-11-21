@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\Exceptions\MalformedEnumException;
 
 /**
  * Allows users to define (and select from) a strict set of constant integers
@@ -37,7 +38,7 @@ abstract class IntegerEnum extends Enum
      * 
      * @param Dictionary $constants This class's constants
      * @return Dictionary
-     * @throws \DomainException On non-integer constant
+     * @throws MalformedEnumException On non-integer constant
      */
     protected function filterConstants( Dictionary $constants ): Dictionary
     {
@@ -45,7 +46,7 @@ abstract class IntegerEnum extends Enum
         foreach ( $constants->toArray() as $key => $value ) {
             if ( !is_int( $value )) {
                 $class = get_class( $this );
-                throw new \DomainException( "$class::$key is not an integer. All IntegerEnum Constants must be an integer." );
+                throw new MalformedEnumException( "$class::$key is not an integer. All IntegerEnum Constants must be an integer." );
             }
             $dictionary->set( $key, $value );
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\Exceptions\MalformedEnumException;
 
 /**
  * Allows users to define (and select from) a strict set of constant strings
@@ -36,7 +37,7 @@ abstract class StringEnum extends Enum
      * values.
      * 
      * @param Dictionary $constants This class's constants
-     * @throws \DomainException On non-string constant
+     * @throws MalformedEnumException On non-string constant
      */
     protected function filterConstants( Dictionary $constants ): Dictionary
     {
@@ -44,7 +45,7 @@ abstract class StringEnum extends Enum
         foreach ( $constants->toArray() as $key => $value ) {
             if ( !is_string( $value )) {
                 $class = get_class( $this );
-                throw new \DomainException( "$class::$key is not a string. All StringEnum Constants must be a string." );
+                throw new MalformedEnumException( "$class::$key is not a string. All StringEnum Constants must be a string." );
             }
             $dictionary->set( $key, $value );
         }
