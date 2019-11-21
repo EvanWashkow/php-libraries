@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums\EnumInfo;
 
 use PHP\Enums\Enum;
+use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Enums\StringEnum;
 use PHP\Exceptions\NotFoundException;
 use PHP\Types;
@@ -29,6 +30,7 @@ class EnumInfoLookup
      * @return EnumInfo
      * @throws \InvalidArgumentException When $enum argument is not the correct type (string or Enum)
      * @throws \DomainException          When $enum class name is not an Enum
+     * @throws MalformedEnumException    If the Enum child class defines constants prohibited by the parent Enum type.
      */
     public function get( $enum ): EnumInfo
     {

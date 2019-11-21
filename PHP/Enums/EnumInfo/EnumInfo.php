@@ -5,6 +5,7 @@ namespace PHP\Enums\EnumInfo;
 
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
+use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\ObjectClass;
 use PHP\Types\Models\ClassType;
 
@@ -33,7 +34,8 @@ class EnumInfo extends ObjectClass
      * Create information retrieval for an enumerated class
      * 
      * @param ClassType $enumClassType The Enum class type
-     * @throws \DomainException If type is not an Enum
+     * @throws \DomainException        If type is not an Enum
+     * @throws \MalformedEnumException If the Enum defines constants prohibited by the parent Enum type.
      */
     public function __construct( ClassType $enumClassType )
     {
@@ -44,8 +46,22 @@ class EnumInfo extends ObjectClass
             );
         }
 
+        // Maybe throw MalformedEnumException if the Enum defines constants prohibited by the parent Enum type.
+        $this->maybeThrowMalformedEnumException();
+
         // Set property
         $this->classType = $enumClassType;
+    }
+
+
+    /**
+     * Throws a MalformedEnumException if the Enum defines constants prohibited by the parent Enum type.
+     * 
+     * @throws MalformedEnumException
+     */
+    protected function maybeThrowMalformedEnumException(): void
+    {
+        return;
     }
 
 
