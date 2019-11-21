@@ -46,11 +46,11 @@ class EnumInfo extends ObjectClass
             );
         }
 
+        // Set Enum ClassType instance
+        $this->classType = $enumClassType;
+
         // Maybe throw MalformedEnumException if the Enum defines constants prohibited by the parent Enum type.
         $this->maybeThrowMalformedEnumException();
-
-        // Set property
-        $this->classType = $enumClassType;
     }
 
 
