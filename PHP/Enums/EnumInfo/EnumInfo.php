@@ -68,7 +68,7 @@ class EnumInfo extends ObjectClass
 
 
     /*******************************************************************************************************************
-    *                                                      ACCESSORS
+    *                                                   PUBLIC ACCESSORS
     *******************************************************************************************************************/
 
 
@@ -81,6 +81,24 @@ class EnumInfo extends ObjectClass
      */
     public function getConstants(): Dictionary
     {
-        return $this->classType->getConstants();
+        return $this->getClassType()->getConstants();
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                  INTERNAL ACCESSORS
+    *******************************************************************************************************************/
+
+
+    /**
+     * Retrieve the ClassType instance for this Enum Info
+     * 
+     * @return ClassType
+     */
+    final protected function getClassType(): ClassType
+    {
+        return $this->classType;
     }
 }
