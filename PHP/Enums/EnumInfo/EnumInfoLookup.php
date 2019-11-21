@@ -28,8 +28,7 @@ class EnumInfoLookup
      * @param string|Enum $enum The Enum class name or instance
      * @return EnumInfo
      * @throws \InvalidArgumentException When $enum argument is not the correct type (string or Enum)
-     * @throws \DomainException          When the $enum string type name is not an Enum
-     * @throws NotFoundExeption          When the $enum string type name does not exist
+     * @throws \DomainException          When $enum class name is not an Enum
      */
     public function get( $enum ): EnumInfo
     {
@@ -66,7 +65,7 @@ class EnumInfoLookup
         try {
             $type = Types::GetByName( $enumClassName );
         } catch ( NotFoundException $e ) {
-            throw new NotFoundException( $e->getMessage(), $e->getCode() );
+            throw new \DomainException( "Enum expected. \"{$enumClassName}\" does not exist." );
         }
 
         // Throw DomainException if the type is not an Enum

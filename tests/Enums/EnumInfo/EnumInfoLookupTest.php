@@ -33,17 +33,6 @@ class EnumInfoLookupTest extends TestCase
     }
 
 
-    /**
-     * Test get() throws NotFoundException
-     * 
-     * @expectedException \PHP\Exceptions\NotFoundException
-     */
-    public function testGetThrowsNotFoundException()
-    {
-        (new EnumInfoLookup())->get( 'foobar' );
-    }
-
-
 
 
     /***************************************************************************

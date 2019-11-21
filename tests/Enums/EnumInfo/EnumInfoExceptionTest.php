@@ -35,6 +35,9 @@ class EnumInfoExceptionTest extends TestCase
         $enumInfoLookup = new EnumInfoLookup();
 
         return [
+            'EnumInfoLookup->get( unknown type )' => [
+                function() use ( $enumInfoLookup ) { $enumInfoLookup->get( 'foobar' ); }
+            ],
             'EnumInfoLookup->get( int )' => [
                 function() use ( $enumInfoLookup ) { $enumInfoLookup->get( 'int' ); }
             ],
