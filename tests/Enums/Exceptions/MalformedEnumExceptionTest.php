@@ -30,20 +30,12 @@ class MalformedEnumExceptionTest extends TestCase
 
     public function getData(): array
     {
-        $enumInfoLookup = new EnumInfoLookup();
-
         return [
             'new BadIntegerEnum()' => [
                 function() { new BadIntegerEnum( BadIntegerEnum::NUMBERS ); }
             ],
             'new BadStringEnum()' => [
                 function() { new BadStringEnum( BadStringEnum::A ); }
-            ],
-            'new StringEnumInfo( BadStringEnum )' => [
-                function() { new StringEnumInfo( Types::GetByName( BadStringEnum::class ) ); }
-            ],
-            'EnumInfoLookup->get( BadStringEnum )' => [
-                function() use ( $enumInfoLookup ) { $enumInfoLookup->get( BadStringEnum::class ); }
             ]
         ];
     }
