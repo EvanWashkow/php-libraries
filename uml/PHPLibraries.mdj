@@ -1233,7 +1233,7 @@
 									"font": "Arial;13;0",
 									"left": 16,
 									"top": 272,
-									"width": 321,
+									"width": 281,
 									"height": 217,
 									"text": "BitMapEnum->equals() does a bit-wise \"|\" comparison.\n\n\n\nExample 1:\nvalue = 3\nargument = 2\nequals = 3 | 2 = 2 = true\n\n\n\nExample 2:\nvalue = 3\nargument = 4\nequals = 3 | 4 = 0 = false\n\n\n\nNote: bit-wise \"&\" comparisons are functionaly identical to IntegerEnum. Use that."
 								},
@@ -1251,7 +1251,7 @@
 										"$ref": "AAAAAAFr7EJR+lJRkJU="
 									},
 									"lineStyle": 1,
-									"points": "447:430;337:410"
+									"points": "447:431;297:405"
 								},
 								{
 									"_type": "UMLInterfaceView",
