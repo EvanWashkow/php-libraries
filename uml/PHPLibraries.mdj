@@ -218,23 +218,6 @@
 												},
 												{
 													"_type": "UMLOperationView",
-													"_id": "AAAAAAFsfkj9z7nPlsM=",
-													"_parent": {
-														"$ref": "AAAAAAFr7Dl8z1D7Kto="
-													},
-													"model": {
-														"$ref": "AAAAAAFsfkj9iLnMVTQ="
-													},
-													"font": "Arial;13;0",
-													"left": 453,
-													"top": 147,
-													"width": 356.92236328125,
-													"height": 13,
-													"text": "#FilterValue(value)",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
 													"_id": "AAAAAAFr7DuEElE3Lcs=",
 													"_parent": {
 														"$ref": "AAAAAAFr7Dl8z1D7Kto="
@@ -244,7 +227,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 453,
-													"top": 162,
+													"top": 147,
 													"width": 356.92236328125,
 													"height": 13,
 													"text": "+Equals(value): bool",
@@ -261,10 +244,27 @@
 													},
 													"font": "Arial;13;0",
 													"left": 453,
-													"top": 177,
+													"top": 162,
 													"width": 356.92236328125,
 													"height": 13,
 													"text": "+GetValue()",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFsfkj9z7nPlsM=",
+													"_parent": {
+														"$ref": "AAAAAAFr7Dl8z1D7Kto="
+													},
+													"model": {
+														"$ref": "AAAAAAFsfkj9iLnMVTQ="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 177,
+													"width": 356.92236328125,
+													"height": 13,
+													"text": "#FilterValue(value)",
 													"horizontalAlignment": 0
 												}
 											],
@@ -849,7 +849,7 @@
 													"top": 464,
 													"width": 135.66845703125,
 													"height": 13,
-													"text": "+equals(value): bool",
+													"text": "+Equals(value): bool",
 													"horizontalAlignment": 0
 												}
 											],
@@ -1677,7 +1677,7 @@
 													"top": 183,
 													"width": 135.66845703125,
 													"height": 13,
-													"text": "+equals(value): bool",
+													"text": "+Equals(value): bool",
 													"horizontalAlignment": 0
 												}
 											],
@@ -1930,26 +1930,6 @@
 								},
 								{
 									"_type": "UMLOperation",
-									"_id": "AAAAAAFsfkj9iLnMVTQ=",
-									"_parent": {
-										"$ref": "AAAAAAFr7Dl8zVDyFU8="
-									},
-									"name": "FilterValue",
-									"documentation": "Should return the value if it is valid. Otherwise, it should throw a DomainException.",
-									"visibility": "protected",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFsfkoFKbnTf/M=",
-											"_parent": {
-												"$ref": "AAAAAAFsfkj9iLnMVTQ="
-											},
-											"name": "value"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
 									"_id": "AAAAAAFr7DuDzVE05vg=",
 									"_parent": {
 										"$ref": "AAAAAAFr7Dl8zVDyFU8="
@@ -1982,6 +1962,26 @@
 										"$ref": "AAAAAAFr7Dl8zVDyFU8="
 									},
 									"name": "GetValue"
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFsfkj9iLnMVTQ=",
+									"_parent": {
+										"$ref": "AAAAAAFr7Dl8zVDyFU8="
+									},
+									"name": "FilterValue",
+									"documentation": "Should return the value if it is valid. Otherwise, it should throw a DomainException.",
+									"visibility": "protected",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFsfkoFKbnTf/M=",
+											"_parent": {
+												"$ref": "AAAAAAFsfkj9iLnMVTQ="
+											},
+											"name": "value"
+										}
+									]
 								}
 							]
 						},
@@ -2102,7 +2102,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFr7EJR+lJPpqI="
 									},
-									"name": "equals",
+									"name": "Equals",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -2110,8 +2110,7 @@
 											"_parent": {
 												"$ref": "AAAAAAFr7Ef2hlLs3ws="
 											},
-											"name": "value",
-											"type": ""
+											"name": "value"
 										},
 										{
 											"_type": "UMLParameter",
@@ -2963,7 +2962,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFr7GRp6s9Cw5Q="
 							},
-							"name": "equals",
+							"name": "Equals",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -2971,8 +2970,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFshEbm2MvlmRc="
 									},
-									"name": "value",
-									"type": ""
+									"name": "value"
 								},
 								{
 									"_type": "UMLParameter",
