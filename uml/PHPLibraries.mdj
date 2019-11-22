@@ -230,7 +230,7 @@
 													"top": 147,
 													"width": 356.92236328125,
 													"height": 13,
-													"text": "#FilterValue(value): ?Throwable",
+													"text": "#FilterValue(value)",
 													"horizontalAlignment": 0
 												},
 												{
@@ -1935,6 +1935,7 @@
 										"$ref": "AAAAAAFr7Dl8zVDyFU8="
 									},
 									"name": "FilterValue",
+									"documentation": "Should return the value if it is valid. Otherwise, it should throw a DomainException.",
 									"visibility": "protected",
 									"parameters": [
 										{
@@ -1944,15 +1945,6 @@
 												"$ref": "AAAAAAFsfkj9iLnMVTQ="
 											},
 											"name": "value"
-										},
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFsfkoFKbnUpnM=",
-											"_parent": {
-												"$ref": "AAAAAAFsfkj9iLnMVTQ="
-											},
-											"type": "?Throwable",
-											"direction": "return"
 										}
 									]
 								},
