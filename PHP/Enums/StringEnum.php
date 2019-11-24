@@ -31,6 +31,19 @@ abstract class StringEnum extends Enum
     }
 
 
+    /**
+     * Filter the value before it is set.
+     * 
+     * @param mixed $value The value to filter before setting.
+     * @return string The value after filtering.
+     * @throws \DomainException If the value is not supported
+     */
+    protected function filterValue( $value ): string
+    {
+        return parent::filterValue( $value );
+    }
+
+
 
 
     /***************************************************************************
