@@ -37,12 +37,23 @@ abstract class Enum extends ObjectClass
         $type      = Types::GetByName( $className );
         $constants = $type->getConstants();
 
-        // Throw MalformedEnumException if this Enum implementation defines illegal constants for its type
+        // Throw MalformedEnumException if an IntegerEnum implementation defines non-integers
         if ( $type->is( IntegerEnum::class ) ) {
             foreach ( $constants->toArray() as $constantName => $value ) {
                 if ( !is_int( $value )) {
                     throw new MalformedEnumException(
                         "IntegerEnum constants must be Integers. {$className}::{$constantName} is not an Integer."
+                    );
+                }
+            }
+        }
+
+        // Throw MalformedEnumException if a StringEnum implementation defines non-strings
+        elseif ( $type->is( StringEnum::class )) {
+            foreach ( $constants->toArray() as $constantName => $value ) {
+                if ( !is_string( $value )) {
+                    throw new MalformedEnumException(
+                        "StringEnum constants must be Strings. {$className}::{$constantName} is not an String."
                     );
                 }
             }
