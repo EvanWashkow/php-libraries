@@ -27,6 +27,7 @@ abstract class Enum extends ObjectClass
      * Retrieve constant key => values for this Enumeration
      * 
      * @return Dictionary
+     * @throws MalformedEnumException If an Enum implementation defines illegal constants for its type
      */
     final public static function GetConstants(): Dictionary
     {
