@@ -71,7 +71,7 @@ abstract class Enum extends ObjectClass
      */
     protected function filterValue( $value )
     {
-        if ( !$this->getConstants()->hasValue( $value )) {
+        if ( !self::GetConstants()->hasValue( $value )) {
             throw new \DomainException(
                 'The value is not in the set of enumerated constants.'
             );
