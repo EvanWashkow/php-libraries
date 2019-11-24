@@ -16,6 +16,26 @@ abstract class Enum extends ObjectClass
 {
 
 
+
+
+    /***************************************************************************
+    *                                 STATIC METHODS
+    ***************************************************************************/
+
+
+    /**
+     * Retrieve constant key => values for this Enumeration
+     * 
+     * @return Dictionary
+     */
+    final public static function GetConstants(): Dictionary
+    {
+        return Types::GetByName( static::class )->getConstants();
+    }
+
+
+
+
     /***************************************************************************
     *                                   PROPERTIES
     ***************************************************************************/
