@@ -95,7 +95,8 @@ abstract class Enum extends ObjectClass
     /**
      * Filter the value before it is set.
      * 
-     * @return mixed
+     * @param mixed $value The value to filter before setting.
+     * @return mixed The value after filtering.
      * @throws \DomainException If the value is not supported
      */
     protected function filterValue( $value )
