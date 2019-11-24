@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\ObjectClass;
 use PHP\Types;
 
@@ -31,7 +32,23 @@ abstract class Enum extends ObjectClass
      */
     final public static function GetConstants(): Dictionary
     {
-        return Types::GetByName( static::class )->getConstants();
+        // Get information about this Enum child class
+        $className = static::class;
+        $type      = Types::GetByName( $className );
+        $constants = $type->getConstants();
+
+        // Throw MalformedEnumException if this Enum implementation defines illegal constants for its type
+        if ( $type->is( IntegerEnum::class ) ) {
+            foreach ( $constants->toArray() as $constantName => $value ) {
+                if ( !is_int( $value )) {
+                    throw new MalformedEnumException(
+                        "IntegerEnum constants must be Integers. {$className}::{$constantName} is not an Integer."
+                    );
+                }
+            }
+        }
+
+        return $constants;
     }
 
 
