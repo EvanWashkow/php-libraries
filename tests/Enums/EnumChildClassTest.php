@@ -48,30 +48,6 @@ class EnumChildClassTest extends TestCase
     }
 
 
-    /**
-     * Test bad constant exception
-     * 
-     * @dataProvider      getBadConstantException
-     * @expectedException \DomainException
-     */
-    public function testBadConstantException( \Closure $callback )
-    {
-        $callback();
-    }
-
-    public function getBadConstantException(): array
-    {
-        return [
-            'IntegerEnum' => [
-                function() { new BadIntegerEnum( BadIntegerEnum::NUMBERS ); }
-            ],
-            'StringEnum' => [
-                function() { new BadStringEnum( BadStringEnum::A ); }
-            ]
-        ];
-    }
-
-
 
 
     /***************************************************************************

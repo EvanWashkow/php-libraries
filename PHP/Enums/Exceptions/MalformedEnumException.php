@@ -8,4 +8,4 @@ namespace PHP\Enums\Exceptions;
  * 
  * For example, when a String Enum attemps to define Integer constants.
  */
-class MalformedEnumException extends \DomainException {}
+class MalformedEnumException extends \LogicException {}
