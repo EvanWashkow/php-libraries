@@ -31,6 +31,19 @@ abstract class IntegerEnum extends Enum
     }
 
 
+    /**
+     * Filter the value before it is set.
+     * 
+     * @param mixed $value The value to filter before setting.
+     * @return int The value after filtering.
+     * @throws \DomainException If the value is not supported
+     */
+    protected function filterValue( $value ): int
+    {
+        return parent::filterValue( $value );
+    }
+
+
 
 
     /***************************************************************************
