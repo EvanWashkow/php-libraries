@@ -23,6 +23,7 @@ abstract class StringEnum extends Enum
      * 
      * @param string $value A value from the set of enumerated constants
      * @throws \DomainException If the value is not a constant of this class
+     * @throws MalformedEnumException If an Enum implementation defines non-string constants for its type
      */
     public function __construct( string $value )
     {
