@@ -27,10 +27,4 @@ class MixedEnum extends Enum
         }
         return $stringArray;
     }
-
-
-    public function getConstants(): Dictionary
-    {
-        return parent::getConstants();
-    }
 }

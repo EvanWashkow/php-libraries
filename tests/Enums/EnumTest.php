@@ -180,41 +180,4 @@ class EnumTest extends TestCase
             ]
         ];
     }
-
-
-
-
-    /***************************************************************************
-    *                                    getConstants()
-    ***************************************************************************/
-
-
-    /**
-     * Test get constants key type
-     * 
-     * If constants were broken, other tests would prove the same
-     */
-    public function testGetConstantsKeyType()
-    {
-        $this->assertEquals(
-            'string',
-            ( new MixedEnum( MixedEnum::NUMBERS ))->getConstants()->getKeyType()->getName(),
-            "Enum constant dictionary key type was not a string."
-        );
-    }
-
-
-    /**
-     * Test get constants value type
-     * 
-     * If constants were broken, other tests would prove the same
-     */
-    public function testGetConstantsValueType()
-    {
-        $this->assertEquals(
-            '*',
-            ( new MixedEnum( MixedEnum::NUMBERS ))->getConstants()->getValueType()->getName(),
-            "Enum constant dictionary value type was not anonymous."
-        );
-    }
 }

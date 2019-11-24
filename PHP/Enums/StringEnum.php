@@ -30,29 +30,6 @@ abstract class StringEnum extends Enum
     }
 
 
-    /**
-     * Modify Constants to only support strings
-     * 
-     * @internal Not final. Other enums may want to enforce a subset of integer
-     * values.
-     * 
-     * @param Dictionary $constants This class's constants
-     * @throws MalformedEnumException On non-string constant
-     */
-    protected function filterConstants( Dictionary $constants ): Dictionary
-    {
-        $dictionary = new Dictionary( 'string', 'string' );
-        foreach ( $constants->toArray() as $key => $value ) {
-            if ( !is_string( $value )) {
-                $class = get_class( $this );
-                throw new MalformedEnumException( "$class::$key is not a string. All StringEnum Constants must be a string." );
-            }
-            $dictionary->set( $key, $value );
-        }
-        return $dictionary;
-    }
-
-
 
 
     /***************************************************************************

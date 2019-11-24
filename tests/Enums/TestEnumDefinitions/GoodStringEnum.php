@@ -15,10 +15,4 @@ class GoodStringEnum extends StringEnum
     const TWO = '2';
 
     const FOUR = '4';
-
-
-    public function getConstants(): Dictionary
-    {
-        return parent::getConstants();
-    }
 }

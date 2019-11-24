@@ -30,30 +30,6 @@ abstract class IntegerEnum extends Enum
     }
 
 
-    /**
-     * Modify Constants to only support integers
-     * 
-     * @internal Not final. Other enums may want to enforce a subset of integer
-     * values.
-     * 
-     * @param Dictionary $constants This class's constants
-     * @return Dictionary
-     * @throws MalformedEnumException On non-integer constant
-     */
-    protected function filterConstants( Dictionary $constants ): Dictionary
-    {
-        $dictionary = new Dictionary( 'string', 'integer' );
-        foreach ( $constants->toArray() as $key => $value ) {
-            if ( !is_int( $value )) {
-                $class = get_class( $this );
-                throw new MalformedEnumException( "$class::$key is not an integer. All IntegerEnum Constants must be an integer." );
-            }
-            $dictionary->set( $key, $value );
-        }
-        return $dictionary;
-    }
-
-
 
 
     /***************************************************************************

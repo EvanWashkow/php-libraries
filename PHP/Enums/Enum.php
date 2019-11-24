@@ -20,9 +20,6 @@ abstract class Enum extends ObjectClass
     *                                   PROPERTIES
     ***************************************************************************/
 
-    /** @var Dictionary List of constants in this enumeration */
-    private $constants;
-
     /** @var mixed $value The current value in the set of enumerated constants */
     private $value;
 
@@ -42,23 +39,7 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        $this->constants = $this->filterConstants(
-            Types::GetByName( get_class( $this ) )->getConstants()
-        );
         $this->value = $this->filterValue( $value );
-    }
-
-
-    /**
-     * Return a new constants dictionary
-     * 
-     * @param Dictionary $constants This class's constants
-     * @return Dictionary
-     * @throws MalformedEnumException On bad constant definitions
-     */
-    protected function filterConstants( Dictionary $constants ): Dictionary
-    {
-        return $constants;
     }
 
 
@@ -112,18 +93,5 @@ abstract class Enum extends ObjectClass
     public function getValue()
     {
         return $this->value;
-    }
-
-
-    /**
-     * Retrieve the list of constants for this class
-     * 
-     * @internal Not final. This may want to be exposed through child classes.
-     *
-     * @return Dictionary
-     **/
-    protected function getConstants(): Dictionary
-    {
-        return $this->constants->clone();
     }
 }
