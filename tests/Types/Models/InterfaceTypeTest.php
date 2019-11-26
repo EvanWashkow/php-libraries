@@ -39,8 +39,8 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
             ->toArray();
         $this->assertEquals(
             [
-                'STRING_ONE' => SampleInterface::STRING_ONE,
-                'INT_ONE'    => SampleInterface::INT_ONE
+                'PUBLIC_STRING' => SampleInterface::PUBLIC_STRING,
+                'PUBLIC_INT'    => SampleInterface::PUBLIC_INT
             ],
             $constants,
             'InterfaceType->getConstants() did not return the same constants as those defined in SampleInterface.'
