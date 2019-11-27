@@ -48,9 +48,9 @@ abstract class StringEnum extends Enum
      * @return string The value after filtering.
      * @throws \DomainException If the value is not supported
      */
-    protected function filterValue( $value ): string
+    protected function SanitizeValue( $value ): string
     {
-        return parent::filterValue( $value );
+        return parent::SanitizeValue( $value );
     }
 
 

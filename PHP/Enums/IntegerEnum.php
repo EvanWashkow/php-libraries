@@ -48,9 +48,9 @@ abstract class IntegerEnum extends Enum
      * @return int The value after filtering.
      * @throws \DomainException If the value is not supported
      */
-    protected function filterValue( $value ): int
+    protected function SanitizeValue( $value ): int
     {
-        return parent::filterValue( $value );
+        return parent::SanitizeValue( $value );
     }
 
 
