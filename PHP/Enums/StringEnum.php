@@ -28,7 +28,7 @@ abstract class StringEnum extends Enum
     public function __construct( string $value )
     {
         // Throw Malformed Enum Exception if non-string constants are defined
-        foreach ( self::GetConstants()->toArray() as $constantName => $value ) {
+        foreach ( $this->getConstants() as $constantName => $value ) {
             if ( !is_string( $value )) {
                 $class = static::class;
                 throw new MalformedEnumException(

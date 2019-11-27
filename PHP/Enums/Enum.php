@@ -6,6 +6,7 @@ namespace PHP\Enums;
 use PHP\Collections\Dictionary;
 use PHP\ObjectClass;
 use PHP\Types;
+use ReflectionClass;
 
 /**
  * Allows users to define (and select from) a strict set of constant values
@@ -52,7 +53,7 @@ abstract class Enum extends ObjectClass
      */
     protected function filterValue( $value )
     {
-        if ( !$this->getConstants()->hasValue( $value )) {
+        if ( !in_array( $value, $this->getConstants(), true )) {
             throw new \DomainException(
                 'The value is not in the set of enumerated constants.'
             );
@@ -94,5 +95,16 @@ abstract class Enum extends ObjectClass
     public function getValue()
     {
         return $this->value;
+    }
+
+
+    /**
+     * Temporary: Retrieve constants for this Enumeration
+     * 
+     * @return array
+     */
+    final protected function getConstants(): array
+    {
+        return ( new ReflectionClass( $this ) )->getConstants();
     }
 }
