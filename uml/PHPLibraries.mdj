@@ -1189,7 +1189,7 @@
 									"top": 64,
 									"width": 169.3798828125,
 									"height": 51,
-									"text": "Uses constants to define enumerated values"
+									"text": "Uses public static constants to define enumerated values"
 								},
 								{
 									"_type": "UMLNoteLinkView",
