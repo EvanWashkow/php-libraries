@@ -1914,7 +1914,7 @@
 										"$ref": "AAAAAAFr7Dl8zVDyFU8="
 									},
 									"name": "sanitizeValue",
-									"documentation": "Should return the value if it is valid. Otherwise, it should throw a DomainException.",
+									"documentation": "Sanitizes the value before it is set by the constructor.\n\nReturns the value if it is valid. Otherwise, it should throw a DomainException.",
 									"visibility": "protected",
 									"parameters": [
 										{
