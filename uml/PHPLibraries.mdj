@@ -1198,35 +1198,6 @@
 								},
 								{
 									"_type": "UMLNoteView",
-									"_id": "AAAAAAFr7EslgFNQXBs=",
-									"_parent": {
-										"$ref": "AAAAAAFF+qBtyKM79qY="
-									},
-									"font": "Arial;13;0",
-									"left": 16,
-									"top": 64,
-									"width": 169.3798828125,
-									"height": 51,
-									"text": "Uses public static constants to define enumerated values"
-								},
-								{
-									"_type": "UMLNoteLinkView",
-									"_id": "AAAAAAFr7EuwvVNXU6g=",
-									"_parent": {
-										"$ref": "AAAAAAFF+qBtyKM79qY="
-									},
-									"font": "Arial;13;0",
-									"head": {
-										"$ref": "AAAAAAFr7Dl8zlD0XYE="
-									},
-									"tail": {
-										"$ref": "AAAAAAFr7EslgFNQXBs="
-									},
-									"lineStyle": 1,
-									"points": "185:95;447:115"
-								},
-								{
-									"_type": "UMLNoteView",
 									"_id": "AAAAAAFr7EwbsVNbfug=",
 									"_parent": {
 										"$ref": "AAAAAAFF+qBtyKM79qY="
@@ -1874,6 +1845,7 @@
 									}
 								}
 							],
+							"documentation": "Defines a set of **public** constants defining a strict set of values to be selected from.\n\nThese constants must be public as this is the  nature of all Enum implementations everywhere. A user must be able to reference enumeration values from outside the class, as this is the entire point of enumerations to begin with.",
 							"attributes": [
 								{
 									"_type": "UMLAttribute",
