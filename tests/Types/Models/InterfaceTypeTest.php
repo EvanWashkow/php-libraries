@@ -2,7 +2,6 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Collections\Dictionary;
-use PHP\Tests\Types\Models\SampleTypes\SampleClass;
 use PHP\Types;
 use PHP\Tests\Types\Models\SampleTypes\SampleInterface;
 
@@ -42,16 +41,7 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
                     'PUBLIC_STRING' => SampleInterface::PUBLIC_STRING,
                     'PUBLIC_INT'    => SampleInterface::PUBLIC_INT
                 ]
-            ],
-            'SampleClass' => [
-                Types::GetByName( SampleClass::class )->getConstants(),
-                [
-                    'PUBLIC_STRING'  => SampleClass::PUBLIC_STRING,
-                    'PUBLIC_INT'     => SampleClass::PUBLIC_INT,
-                    'PRIVATE_STRING' => '1',
-                    'PRIVATE_INT'    => 1
-                ]
-            ],
+            ]
         ];
     }
 
