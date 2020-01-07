@@ -42,10 +42,12 @@ abstract class StringEnum extends Enum
 
 
     /**
-     * Filter the value before it is set.
+     * Sanitizes the value before it is set by the constructor.
      * 
-     * @param mixed $value The value to filter before setting.
-     * @return string The value after filtering.
+     * Returns the value if it is valid. Otherwise, it should throw a DomainException.
+     * 
+     * @param mixed $value The value to sanitize before setting.
+     * @return string The value after sanitizing.
      * @throws \DomainException If the value is not supported
      */
     protected function sanitizeValue( $value ): string
