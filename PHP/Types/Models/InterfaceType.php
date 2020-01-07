@@ -3,8 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
-use PHP\Collections\Dictionary;
-
 /**
  * Store and retrieve type information for a interface
  */
@@ -51,25 +49,6 @@ class InterfaceType extends Type
     /***************************************************************************
     *                                OWN ACCESSORS
     ***************************************************************************/
-
-
-    /**
-     * Retrieve the constants as key => value pairs, where the key is the
-     * constant name, and value is the constant value.
-     * 
-     * @return \Dictionary
-     */
-    public function getConstants(): Dictionary
-    {
-        if ( null === $this->constants ) {
-            $this->constants = new Dictionary(
-                'string',
-                '*',
-                $this->getReflectionClass()->getConstants()
-            );
-        }
-        return $this->constants;
-    }
 
 
     /**
