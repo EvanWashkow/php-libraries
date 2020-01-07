@@ -40,7 +40,7 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        $this->value = $this->SanitizeValue( $value );
+        $this->value = $this->sanitizeValue( $value );
     }
 
 
@@ -51,7 +51,7 @@ abstract class Enum extends ObjectClass
      * @return mixed The value after filtering.
      * @throws \DomainException If the value is not supported
      */
-    protected function SanitizeValue( $value )
+    protected function sanitizeValue( $value )
     {
         if ( !in_array( $value, $this->getConstants(), true )) {
             throw new \DomainException(
