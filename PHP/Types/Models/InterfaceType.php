@@ -9,9 +9,6 @@ namespace PHP\Types\Models;
 class InterfaceType extends Type
 {
 
-    /** @var Dictionary $constants The constants belonging to this Interface */
-    private $constants;
-
     /**  @var \ReflectionClass Reflection instance containing details about the interface */
     private $reflectionClass;
 
@@ -23,12 +20,8 @@ class InterfaceType extends Type
      */
     public function __construct( \ReflectionClass $reflectionClass )
     {
-        // Set primary properties
         $this->reflectionClass = $reflectionClass;
         parent::__construct( $this->reflectionClass->getName() );
-
-        // Set lazy-loaded properties
-        $this->constants = null;
     }
 
 
