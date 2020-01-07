@@ -1,7 +1,6 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Collections\Dictionary;
 use PHP\Types;
 use PHP\Tests\Types\Models\SampleTypes\SampleInterface;
 
@@ -18,31 +17,34 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
 
 
     /**
-     * Test getConstants() returned values
-     * 
-     * @dataProvider getConstantsData()
+     * Test getConstants() count
      */
-    public function testConstants( Dictionary $constants, array $expected )
+    public function testConstantsCount()
     {
         $this->assertEquals(
-            $expected,
-            $constants->toArray(),
-            'InterfaceType->getConstants() did not return the same constants as those defined in SampleInterface.'
+            2,
+            Types::GetByName( SampleInterface::class )->getConstants()->count(),
+            'InterfaceType->getConstants() did not return the correct number of constants.'
         );
     }
 
 
-    public function getConstantsData(): array
+    /**
+     * Test getConstants() returned values
+     */
+    public function testConstantsValues()
     {
-        return [
-            'SampleInterface' => [
-                Types::GetByName( SampleInterface::class )->getConstants(),
-                [
-                    'PUBLIC_STRING' => SampleInterface::PUBLIC_STRING,
-                    'PUBLIC_INT'    => SampleInterface::PUBLIC_INT
-                ]
-            ]
-        ];
+        $constants = Types::GetByName( SampleInterface::class )
+            ->getConstants()
+            ->toArray();
+        $this->assertEquals(
+            [
+                'PUBLIC_STRING' => SampleInterface::PUBLIC_STRING,
+                'PUBLIC_INT'    => SampleInterface::PUBLIC_INT
+            ],
+            $constants,
+            'InterfaceType->getConstants() did not return the same constants as those defined in SampleInterface.'
+        );
     }
 
 
