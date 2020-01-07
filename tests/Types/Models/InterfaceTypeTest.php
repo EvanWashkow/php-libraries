@@ -2,51 +2,12 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
-use PHP\Tests\Types\Models\SampleTypes\SampleInterface;
 
 /**
  * Tests the \PHP\Types\InterfaceType functionality
  */
 class InterfaceTypeTest extends \PHP\Tests\TestCase
 {
-
-
-    /***************************************************************************
-    *                                getConstants()
-    ***************************************************************************/
-
-
-    /**
-     * Test getConstants() count
-     */
-    public function testConstantsCount()
-    {
-        $this->assertEquals(
-            2,
-            Types::GetByName( SampleInterface::class )->getConstants()->count(),
-            'InterfaceType->getConstants() did not return the correct number of constants.'
-        );
-    }
-
-
-    /**
-     * Test getConstants() returned values
-     */
-    public function testConstantsValues()
-    {
-        $constants = Types::GetByName( SampleInterface::class )
-            ->getConstants()
-            ->toArray();
-        $this->assertEquals(
-            [
-                'STRING_ONE' => SampleInterface::STRING_ONE,
-                'INT_ONE'    => SampleInterface::INT_ONE
-            ],
-            $constants,
-            'InterfaceType->getConstants() did not return the same constants as those defined in SampleInterface.'
-        );
-    }
-
 
 
     /***************************************************************************
