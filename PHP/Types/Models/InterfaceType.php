@@ -9,7 +9,11 @@ namespace PHP\Types\Models;
 class InterfaceType extends Type
 {
     
-    /**  @var \ReflectionClass Reflection instance containing details about the interface */
+    /**
+     * Reflection instance with details about the interface
+     *
+     * @var \ReflectionClass
+     */
     private $reflectionClass;
     
     
