@@ -5,7 +5,7 @@ namespace PHP\Tests\Types\Models\SampleTypes;
 
 interface SampleInterface
 {
-    const PUBLIC_STRING = '1';
+    const STRING_ONE = '1';
 
-    const PUBLIC_INT = 1;
+    const INT_ONE = 1;
 }
