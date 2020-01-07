@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Enums;
 
-use PHP\Collections\Dictionary;
 use PHP\ObjectClass;
-use PHP\Types;
 use ReflectionClass;
 
 /**
