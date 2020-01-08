@@ -16,6 +16,24 @@ abstract class Enum extends ObjectClass
 
 
     /*******************************************************************************************************************
+    *                                               STATIC UTILITY METHODS
+    *******************************************************************************************************************/
+
+
+    /**
+     * Returns the list of public constants defined on this Enumeration class as name => value
+     * 
+     * @return array
+     */
+    public static function getConstants(): array
+    {
+        return ( new ReflectionClass( static::class ) )->getConstants();
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                   PROPERTIES
     *******************************************************************************************************************/
 
@@ -53,7 +71,7 @@ abstract class Enum extends ObjectClass
      */
     protected function sanitizeValue( $value )
     {
-        if ( !in_array( $value, $this->getConstants(), true )) {
+        if ( !in_array( $value, self::getConstants(), true )) {
             throw new \DomainException(
                 'The value is not in the set of enumerated constants.'
             );
@@ -95,16 +113,5 @@ abstract class Enum extends ObjectClass
     public function getValue()
     {
         return $this->value;
-    }
-
-
-    /**
-     * Temporary: Retrieve constants for this Enumeration
-     * 
-     * @return array
-     */
-    final protected function getConstants(): array
-    {
-        return ( new ReflectionClass( $this ) )->getConstants();
     }
 }
