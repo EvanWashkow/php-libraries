@@ -28,8 +28,14 @@ abstract class Enum extends ObjectClass
      */
     final public static function getConstants(): Dictionary
     {
-        $constants = ( new ReflectionClass( static::class ) )->getConstants();
-        return new Dictionary( 'string', '*', $constants );
+        $constantsArray      = ( new ReflectionClass( static::class ) )->getReflectionConstants();
+        $constantsDictionary = new Dictionary( 'string', '*' );
+        foreach ( $constantsArray as $constant ) {
+            if ( $constant->isPublic() ) {
+                $constantsDictionary->set( $constant->getName(), $constant->getValue() );
+            }
+        }
+        return $constantsDictionary;
     }
 
 
