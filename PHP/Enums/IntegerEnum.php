@@ -6,7 +6,9 @@ namespace PHP\Enums;
 use PHP\Enums\Exceptions\MalformedEnumException;
 
 /**
- * Allows users to define (and select from) a strict set of constant integers
+ * Allows users to define (and select from) a strict set of constant integers.
+ * 
+ * All constants must be public. Any non-public constants will be ignored.
  */
 abstract class IntegerEnum extends Enum
 {

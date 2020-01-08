@@ -8,7 +8,9 @@ use PHP\ObjectClass;
 use ReflectionClass;
 
 /**
- * Allows users to define (and select from) a strict set of constant values
+ * Allows users to define (and select from) a strict set of constant values.
+ * 
+ * All constants must be public. Any non-public constants will be ignored.
  * 
  * @internal Defaults must be defined and handled in the child class.
  */
