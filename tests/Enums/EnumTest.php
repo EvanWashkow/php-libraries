@@ -3,8 +3,13 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
+use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\ObjectClass;
+use PHP\Tests\Enums\TestEnumDefinitions\BadIntegerEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\BadStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
 use PHPUnit\Framework\TestCase;
 
@@ -13,6 +18,77 @@ use PHPUnit\Framework\TestCase;
  */
 class EnumTest extends TestCase
 {
+
+    /*******************************************************************************************************************
+    *                                                  getConstants()
+    ********************************************************************************************************************/
+
+
+    /**
+     * Test the results of getConstants()
+     * 
+     * @dataProvider getConstantsData()
+     */
+    public function testGetConstants( Dictionary $constants, array $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $constants->toArray(),
+            'Enum::getConstants() did not return the expected results.'
+        );
+    }
+
+
+    public function getConstantsData(): array
+    {
+        return [
+
+            // Test good enums
+            'MixedEnum' => [
+                MixedEnum::getConstants(),
+                [
+                    'STRING'  => MixedEnum::STRING,
+                    'NUMBERS' => MixedEnum::NUMBERS,
+                    'ARRAY'   => MixedEnum::ARRAY
+                ]
+            ],
+            'GoodIntegerEnum' => [
+                GoodIntegerEnum::getConstants(),
+                [
+                    'ONE' => GoodIntegerEnum::ONE,
+                    'TWO' => GoodIntegerEnum::TWO,
+                    'FOUR' => GoodIntegerEnum::FOUR
+                ]
+            ],
+            'GoodStringEnum' => [
+                GoodStringEnum::getConstants(),
+                [
+                    'ONE' => GoodStringEnum::ONE,
+                    'TWO' => GoodStringEnum::TWO,
+                    'FOUR' => GoodStringEnum::FOUR
+                ]
+            ],
+
+            // Test bad enums (yes, these should work)
+            'BadIntegerEnum' => [
+                BadIntegerEnum::getConstants(),
+                [
+                    'A' => BadIntegerEnum::A,
+                    'NUMBERS' => BadIntegerEnum::NUMBERS
+                ]
+            ],
+            'BadStringEnum' => [
+                BadStringEnum::getConstants(),
+                [
+                    'A' => BadStringEnum::A,
+                    'NUMBERS' => BadStringEnum::NUMBERS
+                ]
+            ]
+        ];
+    }
+
+
+
 
     /*******************************************************************************************************************
     *                                                  __construct()
