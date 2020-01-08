@@ -26,7 +26,7 @@ abstract class Enum extends ObjectClass
      * 
      * @return Dictionary
      */
-    public static function getConstants(): Dictionary
+    final public static function getConstants(): Dictionary
     {
         $constants = ( new ReflectionClass( static::class ) )->getConstants();
         return new Dictionary( 'string', '*', $constants );
