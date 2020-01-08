@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Enums;
 
+use PHP\Collections\Dictionary;
 use PHP\ObjectClass;
 use ReflectionClass;
 
@@ -23,11 +24,12 @@ abstract class Enum extends ObjectClass
     /**
      * Returns the list of public constants defined on this Enumeration class as name => value
      * 
-     * @return array
+     * @return Dictionary
      */
-    public static function getConstants(): array
+    public static function getConstants(): Dictionary
     {
-        return ( new ReflectionClass( static::class ) )->getConstants();
+        $constants = ( new ReflectionClass( static::class ) )->getConstants();
+        return new Dictionary( 'string', '*', $constants );
     }
 
 
@@ -71,7 +73,7 @@ abstract class Enum extends ObjectClass
      */
     protected function sanitizeValue( $value )
     {
-        if ( !in_array( $value, self::getConstants(), true )) {
+        if ( !self::getConstants()->hasValue( $value )) {
             throw new \DomainException(
                 'The value is not in the set of enumerated constants.'
             );

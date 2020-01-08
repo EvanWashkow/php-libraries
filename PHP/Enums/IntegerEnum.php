@@ -27,14 +27,15 @@ abstract class IntegerEnum extends Enum
     public function __construct( int $value )
     {
         // Throw Malformed Enum Exception if non-integer constants are defined
-        foreach ( self::getConstants() as $constantName => $value ) {
+        self::getConstants()->loop( function( string $constantName, $value ) {
             if ( !is_int( $value )) {
                 $class = static::class;
                 throw new MalformedEnumException(
                     "IntegerEnum constants must be Integers. {$class}::{$constantName} is not an Integer."
                 );
             }
-        }
+            return true;
+        });
 
         parent::__construct( $value );
     }
