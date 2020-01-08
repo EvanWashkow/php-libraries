@@ -22,7 +22,7 @@ abstract class Enum extends ObjectClass
 
 
     /**
-     * Returns the list of public constants defined on this Enumeration class as name => value
+     * Returns the list of _public_ constants defined on this Enumeration class as name => value pairs
      * 
      * @return Dictionary
      */

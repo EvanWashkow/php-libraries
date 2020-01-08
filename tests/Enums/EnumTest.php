@@ -43,7 +43,11 @@ class EnumTest extends TestCase
     {
         return [
 
-            // Test good enums
+            /**
+             * Test good enums
+             * 
+             * Note: private constants should NOT be returned.
+             */
             'MixedEnum' => [
                 MixedEnum::getConstants(),
                 [

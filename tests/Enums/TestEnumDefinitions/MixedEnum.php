@@ -15,6 +15,8 @@ class MixedEnum extends Enum
 
     const ARRAY = [ 1, 2, 3 ];
 
+    private const PRIVATE_CONSTANT = 1;
+
 
     /**
      * Converts this integer array to a string array

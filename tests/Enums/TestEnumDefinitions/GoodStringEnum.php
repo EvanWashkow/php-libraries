@@ -15,4 +15,6 @@ class GoodStringEnum extends StringEnum
     const TWO = '2';
 
     const FOUR = '4';
+
+    private const PRIVATE_CONSTANT = 1;
 }
