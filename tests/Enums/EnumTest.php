@@ -190,6 +190,8 @@ class EnumTest extends TestCase
     public function getEqualsData(): array
     {
         return [
+
+            // MixedEnum
             'new MixedEnum( NUMBERS )->equals( NUMBERS )' => [
                 new MixedEnum( MixedEnum::NUMBERS ),
                 MixedEnum::NUMBERS,
@@ -219,6 +221,31 @@ class EnumTest extends TestCase
                 new MixedEnum( MixedEnum::ARRAY ),
                 MixedEnum::GetStringArray(),
                 false
+            ],
+
+
+            // IntegerEnum
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+               GoodIntegerEnum::ONE,
+               true
+            ],
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+               GoodStringEnum::ONE,
+               false
+            ],
+
+            // StringEnum
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+               GoodStringEnum::ONE,
+               true
+            ],
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+               GoodIntegerEnum::ONE,
+               false
             ]
         ];
     }
