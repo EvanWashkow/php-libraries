@@ -19,6 +19,29 @@ use PHPUnit\Framework\TestCase;
 class EnumTest extends TestCase
 {
 
+
+
+
+    /*******************************************************************************************************************
+    *                                                  INHERITANCE
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test class inheritance
+     */
+    public function testIsObjectClass()
+    {
+        $this->assertInstanceOf(
+            ObjectClass::class,
+            new MixedEnum( MixedEnum::NUMBERS ),
+            'Enum is not an ObjectClass'
+        );
+    }
+
+
+
+
     /*******************************************************************************************************************
     *                                                  getConstants()
     *******************************************************************************************************************/
@@ -97,19 +120,6 @@ class EnumTest extends TestCase
     /*******************************************************************************************************************
     *                                                  __construct()
     *******************************************************************************************************************/
-
-
-    /**
-     * Test class inheritance
-     */
-    public function testIsObjectClass()
-    {
-        $this->assertInstanceOf(
-            ObjectClass::class,
-            new MixedEnum( MixedEnum::NUMBERS ),
-            'Enum is not an ObjectClass'
-        );
-    }
 
 
     /**
