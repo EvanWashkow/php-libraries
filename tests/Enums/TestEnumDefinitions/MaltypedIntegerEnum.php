@@ -5,7 +5,7 @@ namespace PHP\Tests\Enums\TestEnumDefinitions;
 
 use PHP\Enums\IntegerEnum;
 
-class BadIntegerEnum extends IntegerEnum
+class MaltypedIntegerEnum extends IntegerEnum
 {
 
     const ONE = 1;

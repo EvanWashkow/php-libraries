@@ -3,8 +3,8 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Enums\Exceptions;
 
-use PHP\Tests\Enums\TestEnumDefinitions\BadIntegerEnum;
-use PHP\Tests\Enums\TestEnumDefinitions\BadStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,11 +28,11 @@ class MalformedEnumExceptionTest extends TestCase
     public function getData(): array
     {
         return [
-            'new BadIntegerEnum()' => [
-                function() { new BadIntegerEnum( BadIntegerEnum::ONE ); }
+            'new MaltypedIntegerEnum()' => [
+                function() { new MaltypedIntegerEnum( MaltypedIntegerEnum::ONE ); }
             ],
-            'new BadStringEnum()' => [
-                function() { new BadStringEnum( BadStringEnum::ONE ); }
+            'new MaltypedStringEnum()' => [
+                function() { new MaltypedStringEnum( MaltypedStringEnum::ONE ); }
             ]
         ];
     }

@@ -6,8 +6,8 @@ namespace PHP\Tests\Enums;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\ObjectClass;
-use PHP\Tests\Enums\TestEnumDefinitions\BadIntegerEnum;
-use PHP\Tests\Enums\TestEnumDefinitions\BadStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
@@ -97,18 +97,18 @@ class EnumTest extends TestCase
             ],
 
             // Test bad enums (yes, these should work)
-            'BadIntegerEnum' => [
-                BadIntegerEnum::getConstants(),
+            'MaltypedIntegerEnum' => [
+                MaltypedIntegerEnum::getConstants(),
                 [
-                    'ONE' => BadIntegerEnum::ONE,
-                    'TWO' => BadIntegerEnum::TWO
+                    'ONE' => MaltypedIntegerEnum::ONE,
+                    'TWO' => MaltypedIntegerEnum::TWO
                 ]
             ],
-            'BadStringEnum' => [
-                BadStringEnum::getConstants(),
+            'MaltypedStringEnum' => [
+                MaltypedStringEnum::getConstants(),
                 [
-                    'ONE' => BadStringEnum::ONE,
-                    'TWO' => BadStringEnum::TWO
+                    'ONE' => MaltypedStringEnum::ONE,
+                    'TWO' => MaltypedStringEnum::TWO
                 ]
             ]
         ];
