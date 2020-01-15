@@ -8,7 +8,7 @@ use PHP\Enums\IntegerEnum;
 class MaltypedIntegerEnum extends IntegerEnum
 {
 
-    const ONE = 1;
+    const GOOD = 1;
 
-    const TWO = '2';
+    const BAD = '2';
 }

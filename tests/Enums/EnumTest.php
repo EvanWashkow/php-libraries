@@ -100,15 +100,15 @@ class EnumTest extends TestCase
             'MaltypedIntegerEnum' => [
                 MaltypedIntegerEnum::getConstants(),
                 [
-                    'ONE' => MaltypedIntegerEnum::ONE,
-                    'TWO' => MaltypedIntegerEnum::TWO
+                    'GOOD' => MaltypedIntegerEnum::GOOD,
+                    'BAD' => MaltypedIntegerEnum::BAD
                 ]
             ],
             'MaltypedStringEnum' => [
                 MaltypedStringEnum::getConstants(),
                 [
-                    'ONE' => MaltypedStringEnum::ONE,
-                    'TWO' => MaltypedStringEnum::TWO
+                    'GOOD' => MaltypedStringEnum::GOOD,
+                    'BAD' => MaltypedStringEnum::BAD
                 ]
             ]
         ];
