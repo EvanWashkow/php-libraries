@@ -100,15 +100,15 @@ class EnumTest extends TestCase
             'BadIntegerEnum' => [
                 BadIntegerEnum::getConstants(),
                 [
-                    'A' => BadIntegerEnum::A,
-                    'NUMBERS' => BadIntegerEnum::NUMBERS
+                    'ONE' => BadIntegerEnum::ONE,
+                    'TWO' => BadIntegerEnum::TWO
                 ]
             ],
             'BadStringEnum' => [
                 BadStringEnum::getConstants(),
                 [
-                    'A' => BadStringEnum::A,
-                    'NUMBERS' => BadStringEnum::NUMBERS
+                    'ONE' => BadStringEnum::ONE,
+                    'TWO' => BadStringEnum::TWO
                 ]
             ]
         ];

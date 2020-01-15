@@ -8,7 +8,7 @@ use PHP\Enums\IntegerEnum;
 class BadIntegerEnum extends IntegerEnum
 {
 
-    const A = 'a';
+    const ONE = 1;
 
-    const NUMBERS = 123;
+    const TWO = '2';
 }

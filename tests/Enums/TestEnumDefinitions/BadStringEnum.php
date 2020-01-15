@@ -8,7 +8,7 @@ use PHP\Enums\StringEnum;
 class BadStringEnum extends StringEnum
 {
 
-    const A = 'a';
+    const ONE = '1';
 
-    const NUMBERS = 123;
+    const TWO = 2;
 }

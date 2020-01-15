@@ -29,10 +29,10 @@ class MalformedEnumExceptionTest extends TestCase
     {
         return [
             'new BadIntegerEnum()' => [
-                function() { new BadIntegerEnum( BadIntegerEnum::NUMBERS ); }
+                function() { new BadIntegerEnum( BadIntegerEnum::ONE ); }
             ],
             'new BadStringEnum()' => [
-                function() { new BadStringEnum( BadStringEnum::A ); }
+                function() { new BadStringEnum( BadStringEnum::ONE ); }
             ]
         ];
     }
