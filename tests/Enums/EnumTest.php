@@ -147,6 +147,12 @@ class EnumTest extends TestCase
             }],
             'new MixedEnum( MixedEnum::ARRAY )' => [function() {
                 return new MixedEnum( MixedEnum::ARRAY );
+            }],
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [function() {
+                return new GoodIntegerEnum( GoodIntegerEnum::ONE );
+            }],
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [function() {
+                return new GoodStringEnum( GoodStringEnum::ONE );
             }]
         ];
     }
