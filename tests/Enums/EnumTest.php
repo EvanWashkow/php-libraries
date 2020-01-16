@@ -139,15 +139,15 @@ class EnumTest extends TestCase
     /**
      * Test the DomainException when constructing an Enum
      * 
-     * @dataProvider getConstructorExceptionData()
+     * @dataProvider getConstructorDomainExceptionData()
      * @expectedException \DomainException
      */
-    public function testConstructorException( \Closure $callback )
+    public function testConstructorDomainException( \Closure $callback )
     {
         $callback();
     }
 
-    public function getConstructorExceptionData(): array
+    public function getConstructorDomainExceptionData(): array
     {
         return [
             'new GoodEnum( GoodEnum::NUMBERS )' => [function() {
