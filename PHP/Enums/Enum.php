@@ -41,18 +41,26 @@ abstract class Enum extends ObjectClass
         $constantsDictionary = new Dictionary( 'string', '*' );
 
         // For each constant in this class, verify its validity and add it to the dictionary
-        foreach ( $constantsArray as $constant ) {
+        foreach ( $constantsArray as $constant )
+        {
+            // Get constant properties
+            $constantName  = $constant->getName();
+            $constantValue = $constant->getValue();
+
+            // Verify the constants
             if ( !$constant->isPublic() ) {
                 throw new MalformedEnumException(
-                    "All Enum constants should be public. {$thisClass->getName()}::{$constant->getName()} is not public."
+                    "All Enum constants should be public. {$thisClass->getName()}::{$constantName} is not public."
                 );
             }
-            elseif ( $isIntegerEnum && !is_int( $constant->getValue() )) {
+            elseif ( $isIntegerEnum && !is_int( $constantValue )) {
                 throw new MalformedEnumException(
-                    "All IntegerEnum constants must be integers. {$thisClass->getName()}::{$constant->getName()} is not an Integer."
+                    "All IntegerEnum constants must be integers. {$thisClass->getName()}::{$constantName} is not an Integer."
                 );
             }
-            $constantsDictionary->set( $constant->getName(), $constant->getValue() );
+
+            // Add (valid) constant to the dictionary
+            $constantsDictionary->set( $constantName, $constantValue );
         }
 
         // Return result
