@@ -94,22 +94,6 @@ class EnumTest extends TestCase
                     'TWO' => GoodStringEnum::TWO,
                     'FOUR' => GoodStringEnum::FOUR
                 ]
-            ],
-
-            // Test bad enums (yes, these should work)
-            'MaltypedIntegerEnum' => [
-                MaltypedIntegerEnum::getConstants(),
-                [
-                    'GOOD' => MaltypedIntegerEnum::GOOD,
-                    'BAD' => MaltypedIntegerEnum::BAD
-                ]
-            ],
-            'MaltypedStringEnum' => [
-                MaltypedStringEnum::getConstants(),
-                [
-                    'GOOD' => MaltypedStringEnum::GOOD,
-                    'BAD' => MaltypedStringEnum::BAD
-                ]
             ]
         ];
     }
