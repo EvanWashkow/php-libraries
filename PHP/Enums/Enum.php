@@ -11,7 +11,7 @@ use ReflectionClass;
 /**
  * Allows users to define (and select from) a strict set of constant values.
  * 
- * All constants must be public. Any non-public constants will be ignored.
+ * All constants must be public.
  * 
  * @internal Defaults must be defined and handled in the child class.
  */
