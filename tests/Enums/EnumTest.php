@@ -65,12 +65,6 @@ class EnumTest extends TestCase
     public function getConstantsData(): array
     {
         return [
-
-            /**
-             * Test good enums
-             * 
-             * Note: private constants should NOT be returned.
-             */
             'GoodEnum' => [
                 GoodEnum::getConstants(),
                 [
