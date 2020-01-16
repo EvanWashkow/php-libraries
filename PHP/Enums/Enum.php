@@ -51,17 +51,17 @@ abstract class Enum extends ObjectClass
             // Verify the constants
             if ( !$constant->isPublic() ) {
                 throw new MalformedEnumException(
-                    "All Enum constants should be public. {$thisClass->getName()}::{$constantName} is not public."
+                    "All Enum constants must be public. {$thisClass->getName()}::{$constantName} is not public."
                 );
             }
             elseif ( $isIntegerEnum && !is_int( $constantValue )) {
                 throw new MalformedEnumException(
-                    "All IntegerEnum constants must be integers. {$thisClass->getName()}::{$constantName} is not an Integer."
+                    "All IntegerEnum constants must be Integers. {$thisClass->getName()}::{$constantName} is not an Integer."
                 );
             }
             elseif ( $isStringEnum && !is_string( $constantValue )) {
                 throw new MalformedEnumException(
-                    "All StringEnum constants must be strings. {$thisClass->getName()}::{$constantName} is not a String."
+                    "All StringEnum constants must be Strings. {$thisClass->getName()}::{$constantName} is not a String."
                 );
             }
 
