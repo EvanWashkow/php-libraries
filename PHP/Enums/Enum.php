@@ -33,8 +33,8 @@ abstract class Enum extends ObjectClass
     final public static function getConstants(): Dictionary
     {
         // Get properties about this class
-        $thisClass      = static::class;
-        $constantsArray = ( new ReflectionClass( $thisClass ) )->getReflectionConstants();
+        $thisClass      = new ReflectionClass( static::class );
+        $constantsArray = $thisClass->getReflectionConstants();
 
         // Create return value
         $constantsDictionary = new Dictionary( 'string', '*' );
@@ -43,7 +43,7 @@ abstract class Enum extends ObjectClass
         foreach ( $constantsArray as $constant ) {
             if ( !$constant->isPublic() ) {
                 throw new MalformedEnumException(
-                    "All Enum constants should be public. {$thisClass}::{$constant->getName()} is not public."
+                    "All Enum constants should be public. {$thisClass->getName()}::{$constant->getName()} is not public."
                 );
             }
             $constantsDictionary->set( $constant->getName(), $constant->getValue() );
