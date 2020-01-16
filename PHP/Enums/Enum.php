@@ -28,12 +28,18 @@ abstract class Enum extends ObjectClass
      * Returns the list of _public_ constants defined on this Enumeration class as name => value pairs
      * 
      * @return Dictionary
+     * @throws MalformedEnumException If a constant is not public or does not match the Enum type restrictions
      */
     final public static function getConstants(): Dictionary
     {
+        // Get properties about this class
         $thisClass           = static::class;
         $constantsArray      = ( new ReflectionClass( $thisClass ) )->getReflectionConstants();
+
+        // Create return value
         $constantsDictionary = new Dictionary( 'string', '*' );
+
+        // For each constant in this class, verify its validity and add it to the dictionary
         foreach ( $constantsArray as $constant ) {
             if ( !$constant->isPublic() ) {
                 throw new MalformedEnumException(
@@ -42,6 +48,8 @@ abstract class Enum extends ObjectClass
             }
             $constantsDictionary->set( $constant->getName(), $constant->getValue() );
         }
+
+        // Return result
         return $constantsDictionary;
     }
 
