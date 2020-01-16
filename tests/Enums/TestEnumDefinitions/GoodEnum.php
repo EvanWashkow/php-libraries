@@ -6,7 +6,7 @@ namespace PHP\Tests\Enums\TestEnumDefinitions;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 
-class MixedEnum extends Enum
+class GoodEnum extends Enum
 {
 
     const STRING = '123';
@@ -24,7 +24,7 @@ class MixedEnum extends Enum
     final public static function GetStringArray(): array
     {
         $stringArray = [];
-        foreach ( MixedEnum::ARRAY as $value ) {
+        foreach ( GoodEnum::ARRAY as $value ) {
             $stringArray[] = "$value";
         }
         return $stringArray;

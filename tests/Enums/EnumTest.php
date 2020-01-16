@@ -10,7 +10,7 @@ use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
-use PHP\Tests\Enums\TestEnumDefinitions\MixedEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -34,7 +34,7 @@ class EnumTest extends TestCase
     {
         $this->assertInstanceOf(
             ObjectClass::class,
-            new MixedEnum( MixedEnum::NUMBERS ),
+            new GoodEnum( GoodEnum::NUMBERS ),
             'Enum is not an ObjectClass'
         );
     }
@@ -71,12 +71,12 @@ class EnumTest extends TestCase
              * 
              * Note: private constants should NOT be returned.
              */
-            'MixedEnum' => [
-                MixedEnum::getConstants(),
+            'GoodEnum' => [
+                GoodEnum::getConstants(),
                 [
-                    'STRING'  => MixedEnum::STRING,
-                    'NUMBERS' => MixedEnum::NUMBERS,
-                    'ARRAY'   => MixedEnum::ARRAY
+                    'STRING'  => GoodEnum::STRING,
+                    'NUMBERS' => GoodEnum::NUMBERS,
+                    'ARRAY'   => GoodEnum::ARRAY
                 ]
             ],
             'GoodIntegerEnum' => [
@@ -139,14 +139,14 @@ class EnumTest extends TestCase
     public function getConstructorData(): array
     {
         return [
-            'new MixedEnum( MixedEnum::STRING )' => [function() {
-                return new MixedEnum( MixedEnum::STRING );
+            'new GoodEnum( GoodEnum::STRING )' => [function() {
+                return new GoodEnum( GoodEnum::STRING );
             }],
-            'new MixedEnum( MixedEnum::NUMBERS )' => [function() {
-                return new MixedEnum( MixedEnum::NUMBERS );
+            'new GoodEnum( GoodEnum::NUMBERS )' => [function() {
+                return new GoodEnum( GoodEnum::NUMBERS );
             }],
-            'new MixedEnum( MixedEnum::ARRAY )' => [function() {
-                return new MixedEnum( MixedEnum::ARRAY );
+            'new GoodEnum( GoodEnum::ARRAY )' => [function() {
+                return new GoodEnum( GoodEnum::ARRAY );
             }],
             'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [function() {
                 return new GoodIntegerEnum( GoodIntegerEnum::ONE );
@@ -172,12 +172,12 @@ class EnumTest extends TestCase
     public function getConstructorExceptionData(): array
     {
         return [
-            'new MixedEnum( MixedEnum::NUMBERS )' => [function() {
-                $numbers = MixedEnum::NUMBERS;
-                return new MixedEnum( "$numbers" );
+            'new GoodEnum( GoodEnum::NUMBERS )' => [function() {
+                $numbers = GoodEnum::NUMBERS;
+                return new GoodEnum( "$numbers" );
             }],
-            'new MixedEnum( MixedEnum::ARRAY )' => [function() {
-                return new MixedEnum( MixedEnum::GetStringArray() );
+            'new GoodEnum( GoodEnum::ARRAY )' => [function() {
+                return new GoodEnum( GoodEnum::GetStringArray() );
             }],
             'new GoodIntegerEnum( 100 )' => [function() {
                 return new GoodIntegerEnum( 100 );
@@ -213,35 +213,35 @@ class EnumTest extends TestCase
     {
         return [
 
-            // MixedEnum
-            'new MixedEnum( NUMBERS )->equals( NUMBERS )' => [
-                new MixedEnum( MixedEnum::NUMBERS ),
-                MixedEnum::NUMBERS,
+            // GoodEnum
+            'new GoodEnum( NUMBERS )->equals( NUMBERS )' => [
+                new GoodEnum( GoodEnum::NUMBERS ),
+                GoodEnum::NUMBERS,
                 true
             ],
-            'new MixedEnum( NUMBERS )->equals( <same enum> )' => [
-                new MixedEnum( MixedEnum::NUMBERS ),
-                new MixedEnum( MixedEnum::NUMBERS ),
+            'new GoodEnum( NUMBERS )->equals( <same enum> )' => [
+                new GoodEnum( GoodEnum::NUMBERS ),
+                new GoodEnum( GoodEnum::NUMBERS ),
                 true
             ],
-            'new MixedEnum( NUMBERS )->equals( (string) NUMBERS )' => [
-                new MixedEnum( MixedEnum::NUMBERS ),
-                '' . MixedEnum::NUMBERS,
+            'new GoodEnum( NUMBERS )->equals( (string) NUMBERS )' => [
+                new GoodEnum( GoodEnum::NUMBERS ),
+                '' . GoodEnum::NUMBERS,
                 false
             ],
-            'new MixedEnum( ARRAY )->equals( ARRAY )' => [
-                new MixedEnum( MixedEnum::ARRAY ),
-                MixedEnum::ARRAY,
+            'new GoodEnum( ARRAY )->equals( ARRAY )' => [
+                new GoodEnum( GoodEnum::ARRAY ),
+                GoodEnum::ARRAY,
                 true
             ],
-            'new MixedEnum( ARRAY )->equals( <same enum> )' => [
-                new MixedEnum( MixedEnum::ARRAY ),
-                new MixedEnum( MixedEnum::ARRAY ),
+            'new GoodEnum( ARRAY )->equals( <same enum> )' => [
+                new GoodEnum( GoodEnum::ARRAY ),
+                new GoodEnum( GoodEnum::ARRAY ),
                 true
             ],
-            'new MixedEnum( ARRAY )->equals( (string) ARRAY )' => [
-                new MixedEnum( MixedEnum::ARRAY ),
-                MixedEnum::GetStringArray(),
+            'new GoodEnum( ARRAY )->equals( (string) ARRAY )' => [
+                new GoodEnum( GoodEnum::ARRAY ),
+                GoodEnum::GetStringArray(),
                 false
             ],
 
@@ -297,14 +297,14 @@ class EnumTest extends TestCase
     public function getGetValueData(): array
     {
         return [
-            'MixedEnum::ARRAY' => [
-                new MixedEnum( MixedEnum::ARRAY ),
-                MixedEnum::ARRAY,
+            'GoodEnum::ARRAY' => [
+                new GoodEnum( GoodEnum::ARRAY ),
+                GoodEnum::ARRAY,
                 true
             ],
-            'MixedEnum::GetStringArray()' => [
-                new MixedEnum( MixedEnum::ARRAY ),
-                MixedEnum::GetStringArray(),
+            'GoodEnum::GetStringArray()' => [
+                new GoodEnum( GoodEnum::ARRAY ),
+                GoodEnum::GetStringArray(),
                 false
             ]
         ];
