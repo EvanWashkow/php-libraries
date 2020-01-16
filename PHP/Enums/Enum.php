@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\ObjectClass;
 use ReflectionClass;
 
@@ -30,12 +31,16 @@ abstract class Enum extends ObjectClass
      */
     final public static function getConstants(): Dictionary
     {
-        $constantsArray      = ( new ReflectionClass( static::class ) )->getReflectionConstants();
+        $thisClass           = static::class;
+        $constantsArray      = ( new ReflectionClass( $thisClass ) )->getReflectionConstants();
         $constantsDictionary = new Dictionary( 'string', '*' );
         foreach ( $constantsArray as $constant ) {
-            if ( $constant->isPublic() ) {
-                $constantsDictionary->set( $constant->getName(), $constant->getValue() );
+            if ( !$constant->isPublic() ) {
+                throw new MalformedEnumException(
+                    "All Enum constants should be public. {$thisClass}::{$constant->getName()} is not public."
+                );
             }
+            $constantsDictionary->set( $constant->getName(), $constant->getValue() );
         }
         return $constantsDictionary;
     }
