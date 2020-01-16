@@ -34,6 +34,7 @@ abstract class Enum extends ObjectClass
     {
         // Get properties about this class
         $thisClass      = new ReflectionClass( static::class );
+        $isIntegerEnum  = $thisClass->isSubclassOf( IntegerEnum::class );
         $constantsArray = $thisClass->getReflectionConstants();
 
         // Create return value
@@ -44,6 +45,11 @@ abstract class Enum extends ObjectClass
             if ( !$constant->isPublic() ) {
                 throw new MalformedEnumException(
                     "All Enum constants should be public. {$thisClass->getName()}::{$constant->getName()} is not public."
+                );
+            }
+            elseif ( $isIntegerEnum && !is_int( $constant->getValue() )) {
+                throw new MalformedEnumException(
+                    "All IntegerEnum constants must be integers. {$thisClass->getName()}::{$constant->getName()} is not an Integer."
                 );
             }
             $constantsDictionary->set( $constant->getName(), $constant->getValue() );
