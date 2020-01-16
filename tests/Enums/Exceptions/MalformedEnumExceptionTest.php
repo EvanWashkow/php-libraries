@@ -38,6 +38,12 @@ class MalformedEnumExceptionTest extends TestCase
             'PrivateConstantEnum::getConstants()' => [
                 function() { PrivateConstantEnum::getConstants(); }
             ],
+            'MaltypedIntegerEnum::getConstants()' => [
+                function() { MaltypedIntegerEnum::getConstants(); }
+            ],
+            'MaltypedStringEnum::getConstants()' => [
+                function() { MaltypedStringEnum::getConstants(); }
+            ],
 
             // __construct()
             'new MaltypedIntegerEnum()' => [
