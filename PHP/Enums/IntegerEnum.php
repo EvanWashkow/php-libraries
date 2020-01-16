@@ -55,8 +55,6 @@ abstract class IntegerEnum extends Enum
 
 
     /**
-     * @see parent::getValue()
-     * 
      * @internal Final: the returned value cannot be modified.
      * 
      * @return int
