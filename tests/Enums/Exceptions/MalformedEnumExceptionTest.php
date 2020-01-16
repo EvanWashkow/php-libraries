@@ -5,6 +5,8 @@ namespace PHP\Tests\Enums\Exceptions;
 
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\PrivateConstantEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\ProtectedConstantEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,6 +30,16 @@ class MalformedEnumExceptionTest extends TestCase
     public function getData(): array
     {
         return [
+
+            // getConstants()
+            'ProtectedConstantEnum::getConstants()' => [
+                function() { ProtectedConstantEnum::getConstants(); }
+            ],
+            'PrivateConstantEnum::getConstants()' => [
+                function() { PrivateConstantEnum::getConstants(); }
+            ],
+
+            // __construct()
             'new MaltypedIntegerEnum()' => [
                 function() { new MaltypedIntegerEnum( MaltypedIntegerEnum::GOOD ); }
             ],
