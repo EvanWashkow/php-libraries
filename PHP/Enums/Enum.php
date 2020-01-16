@@ -115,9 +115,7 @@ abstract class Enum extends ObjectClass
     protected function sanitizeValue( $value )
     {
         if ( !self::getConstants()->hasValue( $value )) {
-            throw new \DomainException(
-                'The value is not in the set of enumerated constants.'
-            );
+            throw new \DomainException( 'The value is not in the set of enumerated constants.' );
         }
         return $value;
     }
