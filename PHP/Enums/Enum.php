@@ -33,8 +33,8 @@ abstract class Enum extends ObjectClass
     final public static function getConstants(): Dictionary
     {
         // Get properties about this class
-        $thisClass           = static::class;
-        $constantsArray      = ( new ReflectionClass( $thisClass ) )->getReflectionConstants();
+        $thisClass      = static::class;
+        $constantsArray = ( new ReflectionClass( $thisClass ) )->getReflectionConstants();
 
         // Create return value
         $constantsDictionary = new Dictionary( 'string', '*' );
