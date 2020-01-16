@@ -1,6 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
+namespace PHP\Interfaces;
+
 /**
  * Describes any object that can be (implicitly) converted to a string.
  * 
