@@ -146,8 +146,8 @@ abstract class Enum extends ObjectClass
     /**
      * Retrieve the current value
      * 
-     * @internal setValue() is excluded by design. After an enum is set, it
-     * cannot be changed.
+     * @internal getValue() is not final so that Integer and String Enum can declare a return type.
+     * setValue() is excluded by design. After an enum is set, it cannot be changed.
      * 
      * @return mixed
      */
