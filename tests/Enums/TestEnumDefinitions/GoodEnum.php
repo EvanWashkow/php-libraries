@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Enums\TestEnumDefinitions;
 
-use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 
 class GoodEnum extends Enum
