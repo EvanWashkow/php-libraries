@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Enums\Exceptions;
 
+use PHP\Tests\Enums\TestEnumDefinitions\EmptyEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\PrivateConstantEnum;
@@ -32,6 +33,9 @@ class MalformedEnumExceptionTest extends TestCase
         return [
 
             // getConstants()
+            'EmptyEnum::getConstants()' => [
+                function() { EmptyEnum::getConstants(); }
+            ],
             'MaltypedIntegerEnum::getConstants()' => [
                 function() { MaltypedIntegerEnum::getConstants(); }
             ],
