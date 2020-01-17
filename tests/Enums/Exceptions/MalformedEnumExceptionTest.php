@@ -32,17 +32,17 @@ class MalformedEnumExceptionTest extends TestCase
         return [
 
             // getConstants()
-            'ProtectedConstantEnum::getConstants()' => [
-                function() { ProtectedConstantEnum::getConstants(); }
-            ],
-            'PrivateConstantEnum::getConstants()' => [
-                function() { PrivateConstantEnum::getConstants(); }
-            ],
             'MaltypedIntegerEnum::getConstants()' => [
                 function() { MaltypedIntegerEnum::getConstants(); }
             ],
             'MaltypedStringEnum::getConstants()' => [
                 function() { MaltypedStringEnum::getConstants(); }
+            ],
+            'ProtectedConstantEnum::getConstants()' => [
+                function() { ProtectedConstantEnum::getConstants(); }
+            ],
+            'PrivateConstantEnum::getConstants()' => [
+                function() { PrivateConstantEnum::getConstants(); }
             ],
 
             // __construct()
