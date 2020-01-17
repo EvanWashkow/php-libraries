@@ -14,13 +14,6 @@ class StringEnumTest extends TestCase
 {
 
 
-
-
-    /*******************************************************************************************************************
-    *                                                  INHERITANCE
-    *******************************************************************************************************************/
-
-
     /**
      * Ensure that StringEnum is Stringable
      * 
@@ -32,6 +25,20 @@ class StringEnumTest extends TestCase
             Stringable::class,
             new GoodStringEnum( GoodStringEnum::ONE ),
             'StringEnum is not Stringable.'
+        );
+    }
+
+
+    /**
+     * Ensure that StringEnum->__toString() returns the current value
+     * 
+     * @return void
+     */
+    public function testToString(): void
+    {
+        $this->assertTrue(
+            ( string )( new GoodStringEnum( GoodStringEnum::ONE )) === GoodStringEnum::ONE,
+            'StringEnum->__toString() did not return the current value.'
         );
     }
 }
