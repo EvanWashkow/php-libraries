@@ -275,12 +275,12 @@ class EnumTest extends TestCase
     public function getGetValueData(): array
     {
         return [
-            'GoodEnum::ARRAY' => [
+            'GoodEnum::ARRAY === GoodEnum::ARRAY' => [
                 new GoodEnum( GoodEnum::ARRAY ),
                 GoodEnum::ARRAY,
                 true
             ],
-            'GoodEnum::GetStringArray()' => [
+            'GoodEnum::ARRAY === GoodEnum::GetStringArray()' => [
                 new GoodEnum( GoodEnum::ARRAY ),
                 GoodEnum::GetStringArray(),
                 false
