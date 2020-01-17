@@ -284,6 +284,26 @@ class EnumTest extends TestCase
                 new GoodEnum( GoodEnum::ARRAY ),
                 GoodEnum::GetStringArray(),
                 false
+            ],
+            'GoodIntegerEnum::ONE === GoodIntegerEnum::ONE' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                GoodIntegerEnum::ONE,
+                true
+            ],
+            'GoodIntegerEnum::ONE === GoodStringEnum::ONE' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                GoodStringEnum::ONE,
+                false
+            ],
+            'GoodStringEnum::ONE === GoodStringEnum::ONE' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+                GoodStringEnum::ONE,
+                true
+            ],
+            'GoodStringEnum::ONE === GoodIntegerEnum::ONE' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+                GoodIntegerEnum::ONE,
+                false
             ]
         ];
     }
