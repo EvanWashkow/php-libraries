@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Enums\Exceptions\MalformedEnumException;
+use PHP\Interfaces\Stringable;
 
 /**
  * Allows users to define (and select from) a strict set of constant strings.
  * 
  * All constants must be public and strings.
  */
-abstract class StringEnum extends Enum
+abstract class StringEnum extends Enum implements Stringable
 {
 
 
@@ -62,5 +63,16 @@ abstract class StringEnum extends Enum
     final public function getValue(): string
     {
         return parent::getValue();
+    }
+
+
+    /**
+     * Returns the current value of this Enumeration
+     * 
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getValue();
     }
 }
