@@ -32,11 +32,11 @@ class EnumTest extends TestCase
      * 
      * @dataProvider getEnumTypeData()
      */
-    public function testEnumType( \Closure $callback, string $enumClass )
+    public function testEnumType( Enum $enum, string $enumClass )
     {
         $this->assertInstanceOf(
             $enumClass,
-            $callback(),
+            $enum,
             'Enum Parent Type was not correct'
         );
     }
@@ -46,27 +46,19 @@ class EnumTest extends TestCase
     {
         return [
             'new GoodEnum( GoodEnum::STRING )' => [
-                function() {
-                    return new GoodEnum( GoodEnum::STRING );
-                },
+                new GoodEnum( GoodEnum::STRING ),
                 ObjectClass::class
             ],
             'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                function() {
-                    return new GoodBitMapEnum( GoodBitMapEnum::ONE );
-                },
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                 IntegerEnum::class
             ],
             'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                function() {
-                    return new GoodIntegerEnum( GoodIntegerEnum::ONE );
-                },
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                 Enum::class
             ],
             'new GoodStringEnum( GoodStringEnum::ONE )' => [
-                function() {
-                    return new GoodStringEnum( GoodStringEnum::ONE );
-                },
+                new GoodStringEnum( GoodStringEnum::ONE ),
                 Enum::class
             ],
         ];
