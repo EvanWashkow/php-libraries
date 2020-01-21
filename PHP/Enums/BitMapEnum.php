@@ -10,5 +10,29 @@ namespace PHP\Enums;
  */
 abstract class BitMapEnum extends IntegerEnum
 {
-    
+
+
+    /**
+     * Sanitizes the value before it is set by the constructor.
+     * 
+     * Returns the value if it is valid. Otherwise, it should throw a DomainException.
+     * 
+     * @param mixed $value The value to sanitize before setting.
+     * @return int The value after sanitizing.
+     * @throws \DomainException If the value is not supported
+     * @throws MalformedEnumException If an Enum constant is not public or not an integer
+     */
+    protected function sanitizeValue( $value ): int
+    {
+        $constantBitMap = 0;
+        foreach ( self::getConstants()->toArray() as $constantValue ) {
+            $constantBitMap = $constantBitMap | $constantValue;
+        }
+        if ( 0 === ( $constantBitMap & $value )) {
+            throw new \DomainException(
+                'The value is not a Bit Map pair of the set of enumerated constants.'
+            );
+        }
+        return $value;
+    }
 }
