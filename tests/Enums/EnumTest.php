@@ -6,6 +6,7 @@ namespace PHP\Tests\Enums;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\ObjectClass;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
@@ -69,6 +70,14 @@ class EnumTest extends TestCase
                     'STRING'  => GoodEnum::STRING,
                     'NUMBERS' => GoodEnum::NUMBERS,
                     'ARRAY'   => GoodEnum::ARRAY
+                ]
+            ],
+            'GoodBitMapEnum' => [
+                GoodBitMapEnum::getConstants(),
+                [
+                    'ONE' => GoodBitMapEnum::ONE,
+                    'TWO' => GoodBitMapEnum::TWO,
+                    'FOUR' => GoodBitMapEnum::FOUR
                 ]
             ],
             'GoodIntegerEnum' => [
