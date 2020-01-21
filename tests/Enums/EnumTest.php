@@ -245,10 +245,85 @@ class EnumTest extends TestCase
                 ],
 
                 // IntegerEnum
+                'new GoodIntegerEnum( GoodIntegerEnum::ONE ) === <same enum>' => [
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    true
+                ],
+                'new GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodStringEnum( GoodStringEnum::ONE )' => [
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    false
+                ],
 
                 // StringEnum
+                'new GoodStringEnum( GoodStringEnum::ONE ) === <same enum>' => [
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    true
+                ],
+                'new GoodStringEnum( GoodStringEnum::ONE ) === GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    false
+                ],
 
                 // BitMapEnum
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::TWO ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::TWO ),
+                    new GoodBitMapEnum( GoodBitMapEnum::TWO ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::FOUR ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
+                    new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
+                    new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ) === <same enum>' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::TWO ) === new GoodIntegerEnum( GoodIntegerEnum::TWO )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::TWO ),
+                    new GoodIntegerEnum( GoodIntegerEnum::TWO ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::FOUR ) === new GoodIntegerEnum( GoodIntegerEnum::FOUR )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
+                    new GoodIntegerEnum( GoodIntegerEnum::FOUR ),
+                    true
+                ],
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodStringEnum( GoodStringEnum::ONE )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    false
+                ]
             ]
         );
     }
