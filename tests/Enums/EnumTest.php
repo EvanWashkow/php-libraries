@@ -5,6 +5,7 @@ namespace PHP\Tests\Enums;
 
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
+use PHP\Enums\IntegerEnum;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
@@ -112,10 +113,10 @@ class EnumTest extends TestCase
      * 
      * @dataProvider getConstructorData()
      */
-    public function testConstructor( \Closure $callback )
+    public function testConstructor( \Closure $callback, string $enumClass )
     {
         $this->assertInstanceOf(
-            Enum::class,
+            $enumClass,
             $callback(),
             'Enum Constructor failed unexpectedly'
         );
@@ -124,21 +125,42 @@ class EnumTest extends TestCase
     public function getConstructorData(): array
     {
         return [
-            'new GoodEnum( GoodEnum::STRING )' => [function() {
-                return new GoodEnum( GoodEnum::STRING );
-            }],
-            'new GoodEnum( GoodEnum::NUMBERS )' => [function() {
-                return new GoodEnum( GoodEnum::NUMBERS );
-            }],
-            'new GoodEnum( GoodEnum::ARRAY )' => [function() {
-                return new GoodEnum( GoodEnum::ARRAY );
-            }],
-            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [function() {
-                return new GoodIntegerEnum( GoodIntegerEnum::ONE );
-            }],
-            'new GoodStringEnum( GoodStringEnum::ONE )' => [function() {
-                return new GoodStringEnum( GoodStringEnum::ONE );
-            }]
+            'new GoodEnum( GoodEnum::STRING )' => [
+                function() {
+                    return new GoodEnum( GoodEnum::STRING );
+                },
+                Enum::class
+            ],
+            'new GoodEnum( GoodEnum::NUMBERS )' => [
+                function() {
+                    return new GoodEnum( GoodEnum::NUMBERS );
+                },
+                Enum::class
+            ],
+            'new GoodEnum( GoodEnum::ARRAY )' => [
+                function() {
+                    return new GoodEnum( GoodEnum::ARRAY );
+                },
+                Enum::class
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                function() {
+                    return new GoodBitMapEnum( GoodBitMapEnum::ONE );
+                },
+                IntegerEnum::class
+            ],
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                function() {
+                    return new GoodIntegerEnum( GoodIntegerEnum::ONE );
+                },
+                Enum::class
+            ],
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+                function() {
+                    return new GoodStringEnum( GoodStringEnum::ONE );
+                },
+                Enum::class
+            ],
         ];
     }
 
