@@ -28,15 +28,48 @@ class EnumTest extends TestCase
 
 
     /**
-     * Test class inheritance
+     * Test the construction of Enums
+     * 
+     * @dataProvider getEnumTypeData()
      */
-    public function testIsObjectClass()
+    public function testEnumType( \Closure $callback, string $enumClass )
     {
         $this->assertInstanceOf(
-            ObjectClass::class,
-            new GoodEnum( GoodEnum::NUMBERS ),
-            'Enum is not an ObjectClass'
+            $enumClass,
+            $callback(),
+            'Enum Parent Type was not correct'
         );
+    }
+
+
+    public function getEnumTypeData(): array
+    {
+        return [
+            'new GoodEnum( GoodEnum::STRING )' => [
+                function() {
+                    return new GoodEnum( GoodEnum::STRING );
+                },
+                ObjectClass::class
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                function() {
+                    return new GoodBitMapEnum( GoodBitMapEnum::ONE );
+                },
+                IntegerEnum::class
+            ],
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                function() {
+                    return new GoodIntegerEnum( GoodIntegerEnum::ONE );
+                },
+                Enum::class
+            ],
+            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+                function() {
+                    return new GoodStringEnum( GoodStringEnum::ONE );
+                },
+                Enum::class
+            ],
+        ];
     }
 
 
@@ -106,63 +139,6 @@ class EnumTest extends TestCase
     /*******************************************************************************************************************
     *                                                  __construct()
     *******************************************************************************************************************/
-
-
-    /**
-     * Test the construction of Enums
-     * 
-     * @dataProvider getConstructorData()
-     */
-    public function testConstructor( \Closure $callback, string $enumClass )
-    {
-        $this->assertInstanceOf(
-            $enumClass,
-            $callback(),
-            'Enum Constructor failed unexpectedly'
-        );
-    }
-
-    public function getConstructorData(): array
-    {
-        return [
-            'new GoodEnum( GoodEnum::STRING )' => [
-                function() {
-                    return new GoodEnum( GoodEnum::STRING );
-                },
-                Enum::class
-            ],
-            'new GoodEnum( GoodEnum::NUMBERS )' => [
-                function() {
-                    return new GoodEnum( GoodEnum::NUMBERS );
-                },
-                Enum::class
-            ],
-            'new GoodEnum( GoodEnum::ARRAY )' => [
-                function() {
-                    return new GoodEnum( GoodEnum::ARRAY );
-                },
-                Enum::class
-            ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                function() {
-                    return new GoodBitMapEnum( GoodBitMapEnum::ONE );
-                },
-                IntegerEnum::class
-            ],
-            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                function() {
-                    return new GoodIntegerEnum( GoodIntegerEnum::ONE );
-                },
-                Enum::class
-            ],
-            'new GoodStringEnum( GoodStringEnum::ONE )' => [
-                function() {
-                    return new GoodStringEnum( GoodStringEnum::ONE );
-                },
-                Enum::class
-            ],
-        ];
-    }
 
 
     /**
