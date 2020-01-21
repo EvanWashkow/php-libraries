@@ -24,7 +24,7 @@ abstract class IntegerEnum extends Enum
      * 
      * @param int $value A value from the set of enumerated constants
      * @throws \DomainException If the value is not a constant of this class
-     * @throws MalformedEnumException If an Enum implementation defines non-integer constants for its type
+     * @throws MalformedEnumException If an Enum constant is not public or not an integer
      */
     public function __construct( int $value )
     {
@@ -40,6 +40,7 @@ abstract class IntegerEnum extends Enum
      * @param mixed $value The value to sanitize before setting.
      * @return int The value after sanitizing.
      * @throws \DomainException If the value is not supported
+     * @throws MalformedEnumException If an Enum constant is not public or not an integer
      */
     protected function sanitizeValue( $value ): int
     {

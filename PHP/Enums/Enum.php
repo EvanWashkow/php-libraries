@@ -96,6 +96,7 @@ abstract class Enum extends ObjectClass
      *
      * @param mixed $value A value from the set of enumerated constants
      * @throws \DomainException If the value is not a constant of this class
+     * @throws MalformedEnumException If an Enum constant is not public
      **/
     public function __construct( $value )
     {
@@ -111,6 +112,7 @@ abstract class Enum extends ObjectClass
      * @param mixed $value The value to sanitize before setting.
      * @return mixed The value after sanitizing.
      * @throws \DomainException If the value is not supported
+     * @throws MalformedEnumException If an Enum constant is not public
      */
     protected function sanitizeValue( $value )
     {

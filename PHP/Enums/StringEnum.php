@@ -25,7 +25,7 @@ abstract class StringEnum extends Enum implements Stringable
      * 
      * @param string $value A value from the set of enumerated constants
      * @throws \DomainException If the value is not a constant of this class
-     * @throws MalformedEnumException If an Enum implementation defines non-string constants for its type
+     * @throws MalformedEnumException If an Enum constant is not public or not a string
      */
     public function __construct( string $value )
     {
@@ -41,6 +41,7 @@ abstract class StringEnum extends Enum implements Stringable
      * @param mixed $value The value to sanitize before setting.
      * @return string The value after sanitizing.
      * @throws \DomainException If the value is not supported
+     * @throws MalformedEnumException If an Enum constant is not public or not a string
      */
     protected function sanitizeValue( $value ): string
     {
