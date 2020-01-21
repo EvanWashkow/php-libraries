@@ -192,47 +192,47 @@ class EnumTest extends TestCase
         return [
 
             // GoodEnum
-            'new GoodEnum( NUMBERS )->equals( NUMBERS )' => [
+            'new GoodEnum( NUMBERS ) === <value>' => [
                 new GoodEnum( GoodEnum::NUMBERS ),
                 GoodEnum::NUMBERS,
                 true
             ],
-            'new GoodEnum( NUMBERS )->equals( <same enum> )' => [
+            'new GoodEnum( NUMBERS ) === <same enum>' => [
                 new GoodEnum( GoodEnum::NUMBERS ),
                 new GoodEnum( GoodEnum::NUMBERS ),
                 true
             ],
-            'new GoodEnum( NUMBERS )->equals( (string) NUMBERS )' => [
+            'new GoodEnum( NUMBERS ) === (string) <value>' => [
                 new GoodEnum( GoodEnum::NUMBERS ),
                 '' . GoodEnum::NUMBERS,
                 false
             ],
-            'new GoodEnum( STRING )->equals( STRING )' => [
+            'new GoodEnum( STRING ) === <value>' => [
                 new GoodEnum( GoodEnum::STRING ),
                 GoodEnum::STRING,
                 true
             ],
-            'new GoodEnum( STRING )->equals( <same enum> )' => [
+            'new GoodEnum( STRING ) === <same enum>' => [
                 new GoodEnum( GoodEnum::STRING ),
                 new GoodEnum( GoodEnum::STRING ),
                 true
             ],
-            'new GoodEnum( STRING )->equals( (int) STRING )' => [
+            'new GoodEnum( STRING ) === (int) <value>' => [
                 new GoodEnum( GoodEnum::STRING ),
                 intval( GoodEnum::STRING ),
                 false
             ],
-            'new GoodEnum( ARRAY )->equals( ARRAY )' => [
+            'new GoodEnum( ARRAY ) === <value>' => [
                 new GoodEnum( GoodEnum::ARRAY ),
                 GoodEnum::ARRAY,
                 true
             ],
-            'new GoodEnum( ARRAY )->equals( <same enum> )' => [
+            'new GoodEnum( ARRAY ) === <same enum>' => [
                 new GoodEnum( GoodEnum::ARRAY ),
                 new GoodEnum( GoodEnum::ARRAY ),
                 true
             ],
-            'new GoodEnum( ARRAY )->equals( (string) ARRAY )' => [
+            'new GoodEnum( ARRAY ) === (string) <value>' => [
                 new GoodEnum( GoodEnum::ARRAY ),
                 GoodEnum::GetStringArray(),
                 false
@@ -240,24 +240,24 @@ class EnumTest extends TestCase
 
 
             // IntegerEnum
-            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE ) === <value>' => [
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                GoodIntegerEnum::ONE,
                true
             ],
-            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+            'new GoodIntegerEnum( GoodIntegerEnum::ONE ) === (string) <value>' => [
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                GoodStringEnum::ONE,
                false
             ],
 
             // StringEnum
-            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+            'new GoodStringEnum( GoodStringEnum::ONE ) === <value>' => [
                 new GoodStringEnum( GoodStringEnum::ONE ),
                GoodStringEnum::ONE,
                true
             ],
-            'new GoodStringEnum( GoodStringEnum::ONE )' => [
+            'new GoodStringEnum( GoodStringEnum::ONE ) === (int) <value>' => [
                 new GoodStringEnum( GoodStringEnum::ONE ),
                GoodIntegerEnum::ONE,
                false
