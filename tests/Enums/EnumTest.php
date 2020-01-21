@@ -6,8 +6,6 @@ namespace PHP\Tests\Enums;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Enum;
 use PHP\ObjectClass;
-use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
-use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
