@@ -33,14 +33,14 @@ class MalformedEnumExceptionTest extends TestCase
         return [
 
             // getConstants()
-            'MaltypedBitMapEnum::getConstants()' => [
-                function() { MaltypedBitMapEnum::getConstants(); }
-            ],
             'MaltypedIntegerEnum::getConstants()' => [
                 function() { MaltypedIntegerEnum::getConstants(); }
             ],
             'MaltypedStringEnum::getConstants()' => [
                 function() { MaltypedStringEnum::getConstants(); }
+            ],
+            'MaltypedBitMapEnum::getConstants()' => [
+                function() { MaltypedBitMapEnum::getConstants(); }
             ],
             'ProtectedConstantEnum::getConstants()' => [
                 function() { ProtectedConstantEnum::getConstants(); }

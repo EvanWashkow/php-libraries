@@ -49,10 +49,6 @@ class EnumTest extends TestCase
                 new GoodEnum( GoodEnum::STRING ),
                 ObjectClass::class
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                IntegerEnum::class
-            ],
             'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                 Enum::class
@@ -61,6 +57,10 @@ class EnumTest extends TestCase
                 new GoodStringEnum( GoodStringEnum::ONE ),
                 Enum::class
             ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                IntegerEnum::class
+            ]
         ];
     }
 
@@ -98,14 +98,6 @@ class EnumTest extends TestCase
                     'ARRAY'   => GoodEnum::ARRAY
                 ]
             ],
-            'GoodBitMapEnum' => [
-                GoodBitMapEnum::getConstants(),
-                [
-                    'ONE' => GoodBitMapEnum::ONE,
-                    'TWO' => GoodBitMapEnum::TWO,
-                    'FOUR' => GoodBitMapEnum::FOUR
-                ]
-            ],
             'GoodIntegerEnum' => [
                 GoodIntegerEnum::getConstants(),
                 [
@@ -120,6 +112,14 @@ class EnumTest extends TestCase
                     'ONE' => GoodStringEnum::ONE,
                     'TWO' => GoodStringEnum::TWO,
                     'FOUR' => GoodStringEnum::FOUR
+                ]
+            ],
+            'GoodBitMapEnum' => [
+                GoodBitMapEnum::getConstants(),
+                [
+                    'ONE' => GoodBitMapEnum::ONE,
+                    'TWO' => GoodBitMapEnum::TWO,
+                    'FOUR' => GoodBitMapEnum::FOUR
                 ]
             ]
         ];
