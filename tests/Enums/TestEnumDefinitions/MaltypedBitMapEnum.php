@@ -5,7 +5,7 @@ namespace PHP\Tests\Enums\TestEnumDefinitions;
 
 use PHP\Enums\BitMapEnum;
 
-class MaltypedIntegerEnum extends BitMapEnum
+class MaltypedBitMapEnum extends BitMapEnum
 {
 
     const GOOD = 1;

@@ -5,7 +5,7 @@ namespace PHP\Tests\Enums\TestEnumDefinitions;
 
 use PHP\Enums\BitMapEnum;
 
-class GoodIntegerEnum extends BitMapEnum
+class GoodBitMapEnum extends BitMapEnum
 {
 
     const ONE = 1;
