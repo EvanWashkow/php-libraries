@@ -176,7 +176,7 @@ class EnumTest extends TestCase
     /**
      * Test Enum->equals()
      * 
-     * @dataProvider getEqualsData
+     * @dataProvider getEnumAndPrimitiveComparisonData()
      */
     public function testEquals( Enum $enum, $value, bool $expected )
     {
@@ -187,10 +187,45 @@ class EnumTest extends TestCase
         );
     }
 
-    public function getEqualsData(): array
+
+
+
+    /*******************************************************************************************************************
+    *                                                     getValue()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test the construction of Enums
+     * 
+     * @dataProvider getPrimitiveValueComparisonData()
+     */
+    public function testGetValue( Enum $enum, $value, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $enum->getValue() === $value,
+            'Enum->getValue() did not return the expected value'
+        );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                 Comparison Data
+    *******************************************************************************************************************/
+
+
+    /**
+     * Returns Enum comparison data against other Enums and Primitive data types
+     * 
+     * @return array
+     */
+    public function getEnumAndPrimitiveComparisonData(): array
     {
         return array_merge(
-            $this->getGetValueData(),
+            $this->getPrimitiveValueComparisonData(),
             [
                 // GoodEnum
                 'new GoodEnum( NUMBERS ) === <same enum>' => [
@@ -219,28 +254,12 @@ class EnumTest extends TestCase
     }
 
 
-
-
-    /*******************************************************************************************************************
-    *                                                     getValue()
-    *******************************************************************************************************************/
-
-
     /**
-     * Test the construction of Enums
+     * Returns Enum comparison data against Primitive data types
      * 
-     * @dataProvider getGetValueData()
+     * @return array
      */
-    public function testGetValue( Enum $enum, $value, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $enum->getValue() === $value,
-            'Enum->getValue() did not return the expected value'
-        );
-    }
-
-    public function getGetValueData(): array
+    public function getPrimitiveValueComparisonData(): array
     {
         return [
 
