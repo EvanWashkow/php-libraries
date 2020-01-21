@@ -159,7 +159,10 @@ class EnumTest extends TestCase
             }],
             'new GoodStringEnum( \'stryng\' )' => [function() {
                 return new GoodStringEnum( 'stryng' );
-            }]
+            }],
+            'new GoodBitMapEnum( 8 )' => [function() {
+                return new GoodBitMapEnum( 8 );
+            }],
         ];
     }
 
