@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Enums\Exceptions;
 
+use PHP\Tests\Enums\TestEnumDefinitions\MaltypedBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\PrivateConstantEnum;
@@ -32,6 +33,9 @@ class MalformedEnumExceptionTest extends TestCase
         return [
 
             // getConstants()
+            'MaltypedBitMapEnum::getConstants()' => [
+                function() { MaltypedBitMapEnum::getConstants(); }
+            ],
             'MaltypedIntegerEnum::getConstants()' => [
                 function() { MaltypedIntegerEnum::getConstants(); }
             ],
@@ -46,6 +50,9 @@ class MalformedEnumExceptionTest extends TestCase
             ],
 
             // __construct()
+            'new MaltypedIntegerEnum()' => [
+                function() { new MaltypedIntegerEnum( MaltypedIntegerEnum::GOOD ); }
+            ],
             'new MaltypedIntegerEnum()' => [
                 function() { new MaltypedIntegerEnum( MaltypedIntegerEnum::GOOD ); }
             ],
