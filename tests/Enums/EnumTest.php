@@ -309,16 +309,6 @@ class EnumTest extends TestCase
                     new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                     true
                 ],
-                'new GoodBitMapEnum( GoodBitMapEnum::TWO ) === new GoodIntegerEnum( GoodIntegerEnum::TWO )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::TWO ),
-                    new GoodIntegerEnum( GoodIntegerEnum::TWO ),
-                    true
-                ],
-                'new GoodBitMapEnum( GoodBitMapEnum::FOUR ) === new GoodIntegerEnum( GoodIntegerEnum::FOUR )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
-                    new GoodIntegerEnum( GoodIntegerEnum::FOUR ),
-                    true
-                ],
                 'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodStringEnum( GoodStringEnum::ONE )' => [
                     new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                     new GoodStringEnum( GoodStringEnum::ONE ),
