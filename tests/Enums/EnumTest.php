@@ -308,7 +308,7 @@ class EnumTest extends TestCase
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 '' . ( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 false
-            ],
+            ]
         ];
     }
 
