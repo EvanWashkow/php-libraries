@@ -264,44 +264,49 @@ class EnumTest extends TestCase
             ],
 
             // BitMapEnum
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                 GoodBitMapEnum::ONE,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::TWO )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::TWO ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::TWO ),
                 GoodBitMapEnum::TWO,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::FOUR )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::FOUR ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::FOUR,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ),
                 GoodBitMapEnum::ONE | GoodBitMapEnum::TWO,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR )' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
                 true
             ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === ( string ) GoodBitMapEnum::ONE' => [
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === ( string ) <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                 '' . GoodBitMapEnum::ONE,
+                false
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === ( string ) <value>' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
+                '' . ( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 false
             ],
         ];
