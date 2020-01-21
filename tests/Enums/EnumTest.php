@@ -261,7 +261,49 @@ class EnumTest extends TestCase
                 new GoodStringEnum( GoodStringEnum::ONE ),
                GoodIntegerEnum::ONE,
                false
-            ]
+            ],
+
+            // BitMapEnum
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                GoodBitMapEnum::ONE,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::TWO )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::TWO ),
+                GoodBitMapEnum::TWO,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::FOUR )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
+                GoodBitMapEnum::FOUR,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ),
+                GoodBitMapEnum::ONE | GoodBitMapEnum::TWO,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
+                GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
+                GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
+                GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
+                true
+            ],
+            'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === ( string ) GoodBitMapEnum::ONE' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                '' . GoodBitMapEnum::ONE,
+                false
+            ],
         ];
     }
 
