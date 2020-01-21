@@ -53,11 +53,11 @@ class MalformedEnumExceptionTest extends TestCase
             'new MaltypedIntegerEnum()' => [
                 function() { new MaltypedIntegerEnum( MaltypedIntegerEnum::GOOD ); }
             ],
-            'new MaltypedIntegerEnum()' => [
-                function() { new MaltypedIntegerEnum( MaltypedIntegerEnum::GOOD ); }
-            ],
             'new MaltypedStringEnum()' => [
                 function() { new MaltypedStringEnum( MaltypedStringEnum::GOOD ); }
+            ],
+            'new MaltypedBitMapEnum()' => [
+                function() { new MaltypedBitMapEnum( MaltypedBitMapEnum::GOOD ); }
             ]
         ];
     }
