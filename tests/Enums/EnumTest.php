@@ -284,6 +284,11 @@ class EnumTest extends TestCase
                     new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
                     true
                 ],
+                'new GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
+                    false
+                ],
                 'new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === <same enum>' => [
                     new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                     new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
