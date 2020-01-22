@@ -851,13 +851,30 @@
 													"height": 13,
 													"text": "+equals(value): bool",
 													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFvy6/CBn0qYdI=",
+													"_parent": {
+														"$ref": "AAAAAAFr7EJR+lJYcEg="
+													},
+													"model": {
+														"$ref": "AAAAAAFvy6/B9n0n+JY="
+													},
+													"font": "Arial;13;0",
+													"left": 21,
+													"top": 479,
+													"width": 135.66845703125,
+													"height": 13,
+													"text": "+isSet(int bit): bool",
+													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 459,
 											"width": 145.66845703125,
-											"height": 23
+											"height": 38
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -897,7 +914,7 @@
 									"left": 16,
 									"top": 424,
 									"width": 145.66845703125,
-									"height": 58,
+									"height": 73,
 									"nameCompartment": {
 										"$ref": "AAAAAAFr7EJR+lJSOtc="
 									},
@@ -1886,7 +1903,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFr7DuDzVE05vg="
 											},
-											"name": "value"
+											"name": "value",
+											"type": ""
 										},
 										{
 											"_type": "UMLParameter",
@@ -1923,7 +1941,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFsfkj9iLnMVTQ="
 											},
-											"name": "value"
+											"name": "value",
+											"type": ""
 										}
 									]
 								}
@@ -2055,13 +2074,42 @@
 											"_parent": {
 												"$ref": "AAAAAAFr7Ef2hlLs3ws="
 											},
-											"name": "value"
+											"name": "value",
+											"type": ""
 										},
 										{
 											"_type": "UMLParameter",
 											"_id": "AAAAAAFr7EgbolL0th4=",
 											"_parent": {
 												"$ref": "AAAAAAFr7Ef2hlLs3ws="
+											},
+											"type": "bool",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFvy6/B9n0n+JY=",
+									"_parent": {
+										"$ref": "AAAAAAFr7EJR+lJPpqI="
+									},
+									"name": "isSet",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFvy6/oAH0uCfI=",
+											"_parent": {
+												"$ref": "AAAAAAFvy6/B9n0n+JY="
+											},
+											"name": "int bit",
+											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFvy6/oAH0vpG0=",
+											"_parent": {
+												"$ref": "AAAAAAFvy6/B9n0n+JY="
 											},
 											"type": "bool",
 											"direction": "return"
@@ -2210,14 +2258,14 @@
 											"top": 200,
 											"width": 117.43798828125,
 											"height": 13,
-											"text": "+Equals(value): bool",
+											"text": "+equals(value): bool",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 192,
 									"top": 195,
-									"width": 131.9271240234375,
+									"width": 127.43798828125,
 									"height": 23
 								},
 								{
@@ -2708,7 +2756,7 @@
 									"font": "Arial;13;0",
 									"left": 432,
 									"top": 159,
-									"width": 133.0321044921875,
+									"width": 130.326171875,
 									"height": 23
 								},
 								{
@@ -2915,7 +2963,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFshEbm2MvlmRc="
 									},
-									"name": "value"
+									"name": "value",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
