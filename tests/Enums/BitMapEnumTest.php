@@ -38,8 +38,8 @@ class BitMapEnumTest extends TestCase
                 true
             ],
             'GoodBitMapEnum( GoodBitMapEnum::ONE )->isSet( GoodBitMapEnum::FOUR )' => [
-                new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
-                GoodBitMapEnum::ONE,
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                GoodBitMapEnum::FOUR,
                 false
             ],
             'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR )->isSet( GoodBitMapEnum::ONE )' => [
@@ -65,7 +65,7 @@ class BitMapEnumTest extends TestCase
             'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR )->isSet( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR )' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
-                true
+                false
             ]
         ];
     }
