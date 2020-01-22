@@ -35,4 +35,16 @@ abstract class BitMapEnum extends IntegerEnum
         }
         return $value;
     }
+
+
+    /**
+     * Returns true if all the bits in the given bit map are set. False otherwise.
+     * 
+     * @param int $bitMap The bits to check
+     * @return bool
+     */
+    public function isSet( int $bitMap ): bool
+    {
+        return ( ( $this->getValue() & $bitMap ) === $bitMap );
+    }
 }
