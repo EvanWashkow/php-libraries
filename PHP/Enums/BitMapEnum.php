@@ -38,7 +38,7 @@ abstract class BitMapEnum extends IntegerEnum
 
 
     /**
-     * Returns true if all the bits in the given bit map are set. False otherwise.
+     * Returns true if **all** the bits in the given bit map are set. False otherwise.
      * 
      * @param int $bitMap The bits to check
      * @return bool
