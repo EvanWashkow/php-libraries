@@ -32,6 +32,16 @@ class BitMapEnumTest extends TestCase
     public function getIsSetData(): array
     {
         return [
+            'GoodBitMapEnum( GoodBitMapEnum::ONE )->isSet( GoodBitMapEnum::ONE )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                GoodBitMapEnum::ONE,
+                true
+            ],
+            'GoodBitMapEnum( GoodBitMapEnum::ONE )->isSet( GoodBitMapEnum::FOUR )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
+                GoodBitMapEnum::ONE,
+                false
+            ],
             'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR )->isSet( GoodBitMapEnum::ONE )' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::ONE,
