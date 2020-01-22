@@ -45,6 +45,11 @@ abstract class BitMapEnum extends IntegerEnum
      */
     public function isSet( int $bitMap ): bool
     {
+        /**
+         * If all the bits in the given bitmap are set on the current value, then ANDing the two together will result in
+         * the originally-given bitmap. Otherwise, if the given bitmap has one bit that is not set, then ANDing the two
+         * together will result in a different result than the orignal bitmap.
+         */
         return ( ( $this->getValue() & $bitMap ) === $bitMap );
     }
 }
