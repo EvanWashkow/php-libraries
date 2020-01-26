@@ -373,9 +373,9 @@ class EnumTest extends TestCase
                 GoodEnum::ONE_INTEGER,
                 true
             ],
-            'GoodEnum( ONE_INTEGER ) === (string) <value>' => [
+            'GoodEnum( ONE_INTEGER ) === GoodEnum::ONE_STRING' => [
                 new GoodEnum( GoodEnum::ONE_INTEGER ),
-                '' . GoodEnum::ONE_INTEGER,
+                GoodEnum::ONE_STRING,
                 false
             ],
             'GoodEnum( ONE_STRING ) === <value>' => [
@@ -383,9 +383,9 @@ class EnumTest extends TestCase
                 GoodEnum::ONE_STRING,
                 true
             ],
-            'GoodEnum( ONE_STRING ) === (int) <value>' => [
+            'GoodEnum( ONE_STRING ) === GoodEnum::ONE_INTEGER' => [
                 new GoodEnum( GoodEnum::ONE_STRING ),
-                intval( GoodEnum::ONE_STRING ),
+                GoodEnum::ONE_INTEGER,
                 false
             ],
             'GoodEnum( ARRAY ) === <value>' => [
