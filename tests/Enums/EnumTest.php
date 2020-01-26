@@ -261,7 +261,9 @@ class EnumTest extends TestCase
         return array_merge(
             $this->getPrimitiveValueComparisonData(),
             [
-                // GoodEnum
+                /**
+                 * GoodEnum
+                 */
                 'GoodEnum( ONE_INTEGER ) === <same enum>' => [
                     new GoodEnum( GoodEnum::ONE_INTEGER ),
                     new GoodEnum( GoodEnum::ONE_INTEGER ),
@@ -278,7 +280,42 @@ class EnumTest extends TestCase
                     true
                 ],
 
-                // IntegerEnum
+                // Enum cross-Enum equality checks
+                'GoodEnum( GoodEnum::ONE_INTEGER ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    true
+                ],
+                'GoodEnum( GoodEnum::ONE_STRING ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                    new GoodEnum( GoodEnum::ONE_STRING ),
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    false
+                ],
+                'GoodEnum( GoodEnum::ONE_STRING ) === new GoodStringEnum( GoodStringEnum::ONE )' => [
+                    new GoodEnum( GoodEnum::ONE_STRING ),
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    true
+                ],
+                'GoodEnum( GoodEnum::ONE_INTEGER ) === new GoodStringEnum( GoodStringEnum::ONE )' => [
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    false
+                ],
+                'GoodEnum( GoodEnum::ONE_INTEGER ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    true
+                ],
+                'GoodEnum( GoodEnum::ONE_STRING ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                    new GoodEnum( GoodEnum::ONE_STRING ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    false
+                ],
+
+
+                /**
+                 * IntegerEnum
+                 */
                 'GoodIntegerEnum( GoodIntegerEnum::ONE ) === <same enum>' => [
                     new GoodIntegerEnum( GoodIntegerEnum::ONE ),
                     new GoodIntegerEnum( GoodIntegerEnum::ONE ),
@@ -290,7 +327,27 @@ class EnumTest extends TestCase
                     false
                 ],
 
-                // StringEnum
+                // IntegerEnum cross-Enum equality checks
+                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    true
+                ],
+                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    new GoodEnum( GoodEnum::ONE_STRING ),
+                    false
+                ],
+                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    true
+                ],
+
+
+                /**
+                 * StringEnum
+                 */
                 'GoodStringEnum( GoodStringEnum::ONE ) === <same enum>' => [
                     new GoodStringEnum( GoodStringEnum::ONE ),
                     new GoodStringEnum( GoodStringEnum::ONE ),
@@ -302,7 +359,22 @@ class EnumTest extends TestCase
                     false
                 ],
 
-                // BitMapEnum
+                // StringEnum cross-Enum equality checks
+                'GoodStringEnum( GoodStringEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    new GoodEnum( GoodEnum::ONE_STRING ),
+                    true
+                ],
+                'GoodStringEnum( GoodStringEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
+                    new GoodStringEnum( GoodStringEnum::ONE ),
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    false
+                ],
+
+
+                /**
+                 * BitMapEnum
+                 */
                 'GoodBitMapEnum( GoodBitMapEnum::ONE ) === <same enum>' => [
                     new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                     new GoodBitMapEnum( GoodBitMapEnum::ONE ),
@@ -351,6 +423,23 @@ class EnumTest extends TestCase
                 'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodStringEnum( GoodStringEnum::ONE )' => [
                     new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                     new GoodStringEnum( GoodStringEnum::ONE ),
+                    false
+                ],
+
+                // BitEnum cross-Enum equality checks
+                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    true
+                ],
+                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                    true
+                ],
+                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
+                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                    new GoodEnum( GoodEnum::ONE_STRING ),
                     false
                 ]
             ]
