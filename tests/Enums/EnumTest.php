@@ -4,14 +4,17 @@ declare(strict_types=1);
 namespace PHP\Tests\Enums;
 
 use PHP\Collections\Dictionary;
+use PHP\Enums\BitMapEnum;
 use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
+use PHP\Enums\StringEnum;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * Test Enum class
@@ -23,7 +26,7 @@ class EnumTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                  INHERITANCE
+    *                                                     INHERITANCE
     *******************************************************************************************************************/
 
 
@@ -66,9 +69,41 @@ class EnumTest extends TestCase
 
 
 
+    /*******************************************************************************************************************
+    *                                                 ABSTRACT CLASS TEST
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure that all base Enum class definitions are abstract
+     * 
+     * @dataProvider getEnumClassNames()
+     * @return void
+     **/
+    public function testAbstractClass( string $className )
+    {
+        $this->assertTrue(
+            ( new ReflectionClass( $className ) )->isAbstract(),
+            "All Enum base classes should be abstract. {$className} is not abstract."
+        );
+    }
+
+
+    public function getEnumClassNames(): array
+    {
+        return [
+            [ Enum::class ],
+            [ IntegerEnum::class ],
+            [ StringEnum::class ],
+            [ BitMapEnum::class ]
+        ];
+    }
+
+
+
 
     /*******************************************************************************************************************
-    *                                                  getConstants()
+    *                                                    getConstants()
     *******************************************************************************************************************/
 
 
