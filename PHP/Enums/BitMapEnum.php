@@ -38,7 +38,7 @@ abstract class BitMapEnum extends IntegerEnum
 
 
     /**
-     * Returns true if **all** the bits in the given bit map are set. False otherwise.
+     * Determines if the given bits are set in the current value
      * 
      * @param int $bitMap The bits to check
      * @return bool
@@ -46,9 +46,8 @@ abstract class BitMapEnum extends IntegerEnum
     public function isSet( int $bitMap ): bool
     {
         /**
-         * If all the bits in the given bitmap are set on the current value, then ANDing the two together will result in
-         * the originally-given bitmap. Otherwise, if the given bitmap has one bit that is not set, then ANDing the two
-         * together will result in a different result than the orignal bitmap.
+         * If all the given bits are set on the current value, ANDing these two together will result in the originally-
+         * given bits.
          */
         return ( ( $this->getValue() & $bitMap ) === $bitMap );
     }
