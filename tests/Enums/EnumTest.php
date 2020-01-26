@@ -367,7 +367,9 @@ class EnumTest extends TestCase
     {
         return [
 
-            // GoodEnum
+            /**
+             * GoodEnum
+             */
             'GoodEnum( ONE_INTEGER ) === <value>' => [
                 new GoodEnum( GoodEnum::ONE_INTEGER ),
                 GoodEnum::ONE_INTEGER,
@@ -399,32 +401,101 @@ class EnumTest extends TestCase
                 false
             ],
 
+            // Enum cross-Enum equality checks
+            'GoodEnum( GoodEnum::ONE_INTEGER ) === GoodIntegerEnum::ONE' => [
+                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                GoodIntegerEnum::ONE,
+                true
+            ],
+            'GoodEnum( GoodEnum::ONE_STRING ) === GoodIntegerEnum::ONE' => [
+                new GoodEnum( GoodEnum::ONE_STRING ),
+                GoodIntegerEnum::ONE,
+                false
+            ],
+            'GoodEnum( GoodEnum::ONE_STRING ) === GoodStringEnum::ONE' => [
+                new GoodEnum( GoodEnum::ONE_STRING ),
+                GoodStringEnum::ONE,
+                true
+            ],
+            'GoodEnum( GoodEnum::ONE_INTEGER ) === GoodStringEnum::ONE' => [
+                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                GoodStringEnum::ONE,
+                false
+            ],
+            'GoodEnum( GoodEnum::ONE_INTEGER ) === GoodBitMapEnum::ONE' => [
+                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                GoodBitMapEnum::ONE,
+                true
+            ],
+            'GoodEnum( GoodEnum::ONE_STRING ) === GoodBitMapEnum::ONE' => [
+                new GoodEnum( GoodEnum::ONE_STRING ),
+                GoodBitMapEnum::ONE,
+                false
+            ],
 
-            // IntegerEnum
+
+            /**
+             * IntegerEnum
+             */
             'GoodIntegerEnum( GoodIntegerEnum::ONE ) === <value>' => [
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-               GoodIntegerEnum::ONE,
-               true
+                GoodIntegerEnum::ONE,
+                true
             ],
             'GoodIntegerEnum( GoodIntegerEnum::ONE ) === (string) <value>' => [
                 new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-               '' . GoodIntegerEnum::ONE,
-               false
+                '' . GoodIntegerEnum::ONE,
+                false
             ],
 
-            // StringEnum
+            // IntegerEnum cross-Enum equality checks
+            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodEnum::ONE_INTEGER' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                GoodEnum::ONE_INTEGER,
+                true
+            ],
+            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodEnum::ONE_STRING' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                GoodEnum::ONE_STRING,
+                false
+            ],
+            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodBitMapEnum::ONE' => [
+                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                GoodBitMapEnum::ONE,
+                true
+            ],
+
+
+            /** 
+             * StringEnum
+             */
             'GoodStringEnum( GoodStringEnum::ONE ) === <value>' => [
                 new GoodStringEnum( GoodStringEnum::ONE ),
-               GoodStringEnum::ONE,
-               true
+                GoodStringEnum::ONE,
+                true
             ],
             'GoodStringEnum( GoodStringEnum::ONE ) === (int) <value>' => [
                 new GoodStringEnum( GoodStringEnum::ONE ),
-               intval( GoodStringEnum::ONE ),
-               false
+                intval( GoodStringEnum::ONE ),
+                false
             ],
 
-            // BitMapEnum
+            // StringEnum cross-Enum equality checks
+            'GoodStringEnum( GoodStringEnum::ONE ) === GoodEnum::ONE_STRING' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+                GoodEnum::ONE_STRING,
+                true
+            ],
+            'GoodStringEnum( GoodStringEnum::ONE ) === GoodEnum::ONE_INTEGER' => [
+                new GoodStringEnum( GoodStringEnum::ONE ),
+                GoodEnum::ONE_INTEGER,
+                false
+            ],
+
+
+            /**
+             * BitMapEnum
+             */
             'GoodBitMapEnum( GoodBitMapEnum::ONE ) === <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                 GoodBitMapEnum::ONE,
@@ -468,6 +539,23 @@ class EnumTest extends TestCase
             'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === ( ONE_string ) <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 '' . ( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
+                false
+            ],
+
+            // BitEnum cross-Enum equality checks
+            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodEnum::ONE_INTEGER' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                GoodEnum::ONE_INTEGER,
+                true
+            ],
+            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodIntegerEnum::ONE' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                GoodIntegerEnum::ONE,
+                true
+            ],
+            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodEnum::ONE_STRING' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                GoodEnum::ONE_STRING,
                 false
             ]
         ];
