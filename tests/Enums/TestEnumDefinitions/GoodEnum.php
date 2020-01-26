@@ -8,9 +8,9 @@ use PHP\Enums\Enum;
 class GoodEnum extends Enum
 {
 
-    const STRING = '123';
+    const ONE_INTEGER = 1;
 
-    const NUMBERS = 234;
+    const ONE_STRING = '1';
 
     const ARRAY = [ 1, 2, 3 ];
 

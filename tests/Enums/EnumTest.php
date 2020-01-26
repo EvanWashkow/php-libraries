@@ -48,8 +48,8 @@ class EnumTest extends TestCase
     public function getEnumTypeData(): array
     {
         return [
-            'new GoodEnum( GoodEnum::STRING )' => [
-                new GoodEnum( GoodEnum::STRING ),
+            'new GoodEnum( GoodEnum::ONE_STRING )' => [
+                new GoodEnum( GoodEnum::ONE_STRING ),
                 ObjectClass::class
             ],
             'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
@@ -128,9 +128,9 @@ class EnumTest extends TestCase
             'GoodEnum' => [
                 GoodEnum::getConstants(),
                 [
-                    'STRING'  => GoodEnum::STRING,
-                    'NUMBERS' => GoodEnum::NUMBERS,
-                    'ARRAY'   => GoodEnum::ARRAY
+                    'ONE_INTEGER' => GoodEnum::ONE_INTEGER,
+                    'ONE_STRING'  => GoodEnum::ONE_STRING,
+                    'ARRAY'       => GoodEnum::ARRAY
                 ]
             ],
             'GoodIntegerEnum' => [
@@ -182,9 +182,8 @@ class EnumTest extends TestCase
     public function getConstructorDomainExceptionData(): array
     {
         return [
-            'new GoodEnum( GoodEnum::NUMBERS )' => [function() {
-                $numbers = GoodEnum::NUMBERS;
-                return new GoodEnum( "$numbers" );
+            'new GoodEnum( GoodEnum::ONE_INTEGER )' => [function() {
+                return new GoodEnum( 'foobar' );
             }],
             'new GoodEnum( GoodEnum::ARRAY )' => [function() {
                 return new GoodEnum( GoodEnum::GetStringArray() );
@@ -264,13 +263,13 @@ class EnumTest extends TestCase
             [
                 // GoodEnum
                 'GoodEnum( NUMBERS ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::NUMBERS ),
-                    new GoodEnum( GoodEnum::NUMBERS ),
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                    new GoodEnum( GoodEnum::ONE_INTEGER ),
                     true
                 ],
                 'GoodEnum( STRING ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::STRING ),
-                    new GoodEnum( GoodEnum::STRING ),
+                    new GoodEnum( GoodEnum::ONE_STRING ),
+                    new GoodEnum( GoodEnum::ONE_STRING ),
                     true
                 ],
                 'GoodEnum( ARRAY ) === <same enum>' => [
@@ -370,23 +369,23 @@ class EnumTest extends TestCase
 
             // GoodEnum
             'GoodEnum( NUMBERS ) === <value>' => [
-                new GoodEnum( GoodEnum::NUMBERS ),
-                GoodEnum::NUMBERS,
+                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                GoodEnum::ONE_INTEGER,
                 true
             ],
             'GoodEnum( NUMBERS ) === (string) <value>' => [
-                new GoodEnum( GoodEnum::NUMBERS ),
-                '' . GoodEnum::NUMBERS,
+                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                '' . GoodEnum::ONE_INTEGER,
                 false
             ],
             'GoodEnum( STRING ) === <value>' => [
-                new GoodEnum( GoodEnum::STRING ),
-                GoodEnum::STRING,
+                new GoodEnum( GoodEnum::ONE_STRING ),
+                GoodEnum::ONE_STRING,
                 true
             ],
             'GoodEnum( STRING ) === (int) <value>' => [
-                new GoodEnum( GoodEnum::STRING ),
-                intval( GoodEnum::STRING ),
+                new GoodEnum( GoodEnum::ONE_STRING ),
+                intval( GoodEnum::ONE_STRING ),
                 false
             ],
             'GoodEnum( ARRAY ) === <value>' => [
