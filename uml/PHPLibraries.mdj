@@ -760,7 +760,7 @@
 													"font": "Arial;13;1",
 													"left": 21,
 													"top": 431,
-													"width": 135.66845703125,
+													"width": 140.50416564941406,
 													"height": 13,
 													"text": "BitMapEnum"
 												},
@@ -795,7 +795,7 @@
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 424,
-											"width": 145.66845703125,
+											"width": 150.50416564941406,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFr7EJR+lJTK1c="
@@ -822,7 +822,7 @@
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 449,
-											"width": 145.66845703125,
+											"width": 150.50416564941406,
 											"height": 10
 										},
 										{
@@ -847,7 +847,7 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 464,
-													"width": 135.66845703125,
+													"width": 140.50416564941406,
 													"height": 13,
 													"text": "+equals(value): bool",
 													"horizontalAlignment": 0
@@ -864,7 +864,7 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 479,
-													"width": 135.66845703125,
+													"width": 140.50416564941406,
 													"height": 13,
 													"text": "+isSet(int bitMap): bool",
 													"horizontalAlignment": 0
@@ -873,7 +873,7 @@
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 459,
-											"width": 145.66845703125,
+											"width": 150.50416564941406,
 											"height": 38
 										},
 										{
@@ -913,7 +913,7 @@
 									"containerChangeable": true,
 									"left": 16,
 									"top": 424,
-									"width": 145.66845703125,
+									"width": 150.50416564941406,
 									"height": 73,
 									"nameCompartment": {
 										"$ref": "AAAAAAFr7EJR+lJSOtc="
@@ -1140,7 +1140,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 78,
+											"left": 79,
 											"top": 388,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -1161,7 +1161,7 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 63,
+											"left": 64,
 											"top": 387,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -1182,7 +1182,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 107,
+											"left": 108,
 											"top": 391,
 											"height": 13,
 											"alpha": -1.5707963267948966,
@@ -1201,7 +1201,7 @@
 										"$ref": "AAAAAAFr7EJR+lJRkJU="
 									},
 									"lineStyle": 1,
-									"points": "91:423;95:369",
+									"points": "92:423;96:369",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFr7EKbbFKfmH4="
@@ -2095,7 +2095,7 @@
 										"$ref": "AAAAAAFr7EJR+lJPpqI="
 									},
 									"name": "isSet",
-									"documentation": "Returns true if **all** the bits in the given bit map are set. False otherwise.",
+									"documentation": "Determines if the given bits are set in the current value",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -2103,7 +2103,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFvy6/B9n0n+JY="
 											},
-											"name": "int bitMap"
+											"name": "int bitMap",
+											"type": ""
 										},
 										{
 											"_type": "UMLParameter",
@@ -2265,7 +2266,7 @@
 									"font": "Arial;13;0",
 									"left": 192,
 									"top": 195,
-									"width": 127.43798828125,
+									"width": 132.03111267089844,
 									"height": 23
 								},
 								{
@@ -2756,7 +2757,7 @@
 									"font": "Arial;13;0",
 									"left": 432,
 									"top": 159,
-									"width": 130.326171875,
+									"width": 133.0321044921875,
 									"height": 23
 								},
 								{
