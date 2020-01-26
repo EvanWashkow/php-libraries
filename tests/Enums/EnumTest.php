@@ -262,12 +262,12 @@ class EnumTest extends TestCase
             $this->getPrimitiveValueComparisonData(),
             [
                 // GoodEnum
-                'GoodEnum( NUMBERS ) === <same enum>' => [
+                'GoodEnum( ONE_INTEGER ) === <same enum>' => [
                     new GoodEnum( GoodEnum::ONE_INTEGER ),
                     new GoodEnum( GoodEnum::ONE_INTEGER ),
                     true
                 ],
-                'GoodEnum( STRING ) === <same enum>' => [
+                'GoodEnum( ONE_STRING ) === <same enum>' => [
                     new GoodEnum( GoodEnum::ONE_STRING ),
                     new GoodEnum( GoodEnum::ONE_STRING ),
                     true
@@ -368,22 +368,22 @@ class EnumTest extends TestCase
         return [
 
             // GoodEnum
-            'GoodEnum( NUMBERS ) === <value>' => [
+            'GoodEnum( ONE_INTEGER ) === <value>' => [
                 new GoodEnum( GoodEnum::ONE_INTEGER ),
                 GoodEnum::ONE_INTEGER,
                 true
             ],
-            'GoodEnum( NUMBERS ) === (string) <value>' => [
+            'GoodEnum( ONE_INTEGER ) === (string) <value>' => [
                 new GoodEnum( GoodEnum::ONE_INTEGER ),
                 '' . GoodEnum::ONE_INTEGER,
                 false
             ],
-            'GoodEnum( STRING ) === <value>' => [
+            'GoodEnum( ONE_STRING ) === <value>' => [
                 new GoodEnum( GoodEnum::ONE_STRING ),
                 GoodEnum::ONE_STRING,
                 true
             ],
-            'GoodEnum( STRING ) === (int) <value>' => [
+            'GoodEnum( ONE_STRING ) === (int) <value>' => [
                 new GoodEnum( GoodEnum::ONE_STRING ),
                 intval( GoodEnum::ONE_STRING ),
                 false
@@ -460,12 +460,12 @@ class EnumTest extends TestCase
                 GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
                 true
             ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === ( string ) <value>' => [
+            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === ( ONE_string ) <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                 '' . GoodBitMapEnum::ONE,
                 false
             ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === ( string ) <value>' => [
+            'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === ( ONE_string ) <value>' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 '' . ( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 false
