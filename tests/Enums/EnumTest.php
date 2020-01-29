@@ -197,6 +197,9 @@ class EnumTest extends TestCase
             'new GoodBitMapEnum( 8 )' => [function() {
                 return new GoodBitMapEnum( 8 );
             }],
+            'new GoodBitMapEnum( 4 | 8 )' => [function() {
+                return new GoodBitMapEnum( 4 | 8 );
+            }]
         ];
     }
 
