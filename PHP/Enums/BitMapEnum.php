@@ -30,7 +30,7 @@ abstract class BitMapEnum extends IntegerEnum
         }
         if ( !$this->isSubset( $constantBitMap, $value )) {
             throw new \DomainException(
-                'The value is not a Bit Map pair of the set of enumerated constants.'
+                'The value is not a set of the bitmapped constants.'
             );
         }
         return $value;
