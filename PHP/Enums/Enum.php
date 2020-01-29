@@ -25,7 +25,7 @@ abstract class Enum extends ObjectClass
 
 
     /**
-     * Returns the list of _public_ constants defined on this Enumeration class as name => value pairs
+     * Returns the list of public constants defined on this Enumeration class as name => value pairs
      * 
      * @return Dictionary
      * @throws MalformedEnumException If a constant is not public or does not match the Enum type restrictions
