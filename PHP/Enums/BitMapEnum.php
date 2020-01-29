@@ -17,7 +17,7 @@ abstract class BitMapEnum extends IntegerEnum
      * 
      * Returns the value if it is valid. Otherwise, it should throw a DomainException.
      * 
-     * @param mixed $value The value to sanitize before setting.
+     * @param mixed $value The bitmap value to sanitize before setting.
      * @return int The value after sanitizing.
      * @throws \DomainException If the value is not supported
      * @throws MalformedEnumException If an Enum constant is not public or not an integer
@@ -28,7 +28,7 @@ abstract class BitMapEnum extends IntegerEnum
         foreach ( self::getConstants()->toArray() as $constantValue ) {
             $constantBitMap = $constantBitMap | $constantValue;
         }
-        if ( 0 === ( $constantBitMap & $value )) {
+        if (( $constantBitMap & $value ) !== $value ) {
             throw new \DomainException(
                 'The value is not a Bit Map pair of the set of enumerated constants.'
             );
