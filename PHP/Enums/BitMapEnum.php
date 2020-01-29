@@ -28,7 +28,7 @@ abstract class BitMapEnum extends IntegerEnum
         foreach ( self::getConstants()->toArray() as $constantValue ) {
             $constantBitMap = $constantBitMap | $constantValue;
         }
-        if (( $constantBitMap & $value ) !== $value ) {
+        if ( !$this->isSubset( $constantBitMap, $value )) {
             throw new \DomainException(
                 'The value is not a Bit Map pair of the set of enumerated constants.'
             );
@@ -45,10 +45,20 @@ abstract class BitMapEnum extends IntegerEnum
      */
     public function isSet( int $bitMap ): bool
     {
-        /**
-         * If all the given bits are set on the current value, ANDing these two together will result in the originally-
-         * given bits.
-         */
-        return ( ( $this->getValue() & $bitMap ) === $bitMap );
+        return $this->isSubset( $this->getValue(), $bitMap );
+    }
+
+
+    /**
+     * Determine if B is a bitwise subset of A
+     * 
+     * @param int $a The master bitmap to compare against
+     * @param int $b The bitmap to be compared against $a
+     * @return bool
+     */
+    private function isSubset( int $a, int $b ): bool
+    {
+        // If B is a subset of A, ANDing them together should produce B.
+        return ( ( $a & $b ) === $b );
     }
 }
