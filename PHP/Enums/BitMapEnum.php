@@ -29,8 +29,9 @@ abstract class BitMapEnum extends IntegerEnum
             $constantBitMap = $constantBitMap | $constantValue;
         }
         if ( !$this->isSubset( $constantBitMap, $value )) {
+            $className = static::class;
             throw new \DomainException(
-                'The value is not a set of the bitmapped constants.'
+                "The value is not a bitmap of the constants defined on the class {$className}."
             );
         }
         return $value;
