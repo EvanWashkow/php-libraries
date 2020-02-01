@@ -32,11 +32,11 @@ class BitMapEnumTest extends TestCase
      * 
      * @dataProvider getIsSetReturnData()
      */
-    public function testIsSetReturn( BitMapEnum $enum, int $bit, bool $expected ): void
+    public function testIsSetReturn( BitMapEnum $enum, $bitMap, bool $expected ): void
     {
         $this->assertEquals(
             $expected,
-            $enum->isSet( $bit ),
+            $enum->isSet( $bitMap ),
             'BitMapEnum->isSet() did not return the expected result'
         );
     }
@@ -45,6 +45,8 @@ class BitMapEnumTest extends TestCase
     public function getIsSetReturnData(): array
     {
         return [
+
+            // BitMapEnum->isSet( int )
             'GoodBitMapEnum( GoodBitMapEnum::ONE )->isSet( GoodBitMapEnum::ONE )' => [
                 new GoodBitMapEnum( GoodBitMapEnum::ONE ),
                 GoodBitMapEnum::ONE,
@@ -79,6 +81,13 @@ class BitMapEnumTest extends TestCase
                 new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
                 GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
                 false
+            ],
+
+            // BitMapEnum->isSet( BitMapEnum )
+            'GoodBitMapEnum( GoodBitMapEnum::ONE )->isSet( GoodBitMapEnum( GoodBitMapEnum::ONE ) )' => [
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                true
             ]
         ];
     }
