@@ -3,10 +3,12 @@ declare( strict_types = 1 );
 
 namespace PHP\Types;
 
+use PHP\Enums\StringEnum;
+
 /**
  * Defines list of known type names
  */
-final class TypeNames
+final class TypeNames extends StringEnum
 {
     /** @var string ARRAY The array type name */
     const ARRAY = 'array';
