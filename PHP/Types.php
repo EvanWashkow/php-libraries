@@ -135,31 +135,6 @@ final class Types
         }
         return self::GetByName( $name );
     }
-
-
-    /**
-     * Retrieve unknown type
-     *
-     * @return Type
-     **/
-    public static function GetUnknownType(): Type
-    {
-        // (07-20-2019)
-        trigger_error(
-            'Types::GetUnknownType() is deprecated. This is not an actual type.',
-            E_USER_DEPRECATED
-        );
-        $name = 'unknown type';
-        $type = NULL;
-        if ( self::isTypeCached( $name ) ) {
-            $type = self::getTypeFromCache( $name );
-        }
-        else {
-            $type = new Type( $name );
-            self::addTypeToCache( $type );
-        }
-        return $type;
-    }
     
     
     /**
