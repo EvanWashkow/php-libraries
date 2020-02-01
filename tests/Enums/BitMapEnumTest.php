@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
+use PHP\Collections\Sequence;
 use PHP\Enums\BitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHPUnit\Framework\TestCase;
@@ -15,11 +16,23 @@ class BitMapEnumTest extends TestCase
 
 
     /**
+     * Ensure isSet() throws InvalidArgumentException
+     * 
+     * @expectedException \InvalidArgumentException
+     */
+    public function testIsSetException(): void
+    {
+        $enum = new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR );
+        $enum->isSet( new Sequence( 'int', [ GoodBitMapEnum::FOUR ] ) );
+    }
+
+
+    /**
      * Test the isSet() function
      * 
-     * @dataProvider getIsSetData()
+     * @dataProvider getIsSetReturnData()
      */
-    public function testIsSet( BitMapEnum $enum, int $bit, bool $expected ): void
+    public function testIsSetReturn( BitMapEnum $enum, int $bit, bool $expected ): void
     {
         $this->assertEquals(
             $expected,
@@ -29,7 +42,7 @@ class BitMapEnumTest extends TestCase
     }
 
 
-    public function getIsSetData(): array
+    public function getIsSetReturnData(): array
     {
         return [
             'GoodBitMapEnum( GoodBitMapEnum::ONE )->isSet( GoodBitMapEnum::ONE )' => [
