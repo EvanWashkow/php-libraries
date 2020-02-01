@@ -56,7 +56,7 @@ abstract class IntegerEnum extends Enum
 
 
     /**
-     * @internal Final: the returned value cannot be modified.
+     * @internal Final: the value is non-mutable once it is set by the constructor.
      * 
      * @return int
      */
