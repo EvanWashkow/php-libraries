@@ -44,7 +44,7 @@ abstract class BitMapEnum extends IntegerEnum
      * @param int $bitMap The bits to check
      * @return bool
      */
-    public function contains( int $bitMap ): bool
+    public function isSet( int $bitMap ): bool
     {
         return $this->isSubset( $this->getValue(), $bitMap );
     }
