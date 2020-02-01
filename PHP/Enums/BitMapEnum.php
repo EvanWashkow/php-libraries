@@ -41,10 +41,10 @@ abstract class BitMapEnum extends IntegerEnum
     /**
      * Determines if the given bits are set in the current value
      * 
-     * @param int $bitMap The bits to check
+     * @param int|BitMapEnum $bitMap The bits to check
      * @return bool
      */
-    public function isSet( int $bitMap ): bool
+    public function isSet( $bitMap ): bool
     {
         return $this->isSubset( $this->getValue(), $bitMap );
     }
