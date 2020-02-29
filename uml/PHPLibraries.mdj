@@ -1,7 +1,7 @@
 {
 	"_type": "Project",
 	"_id": "AAAAAAFF+h6SjaM2Hec=",
-	"name": "PHP Libraries",
+	"name": "\\",
 	"ownedElements": [
 		{
 			"_type": "UMLModel",
@@ -2139,6 +2139,25 @@
 									]
 								}
 							]
+						}
+					]
+				},
+				{
+					"_type": "UMLModel",
+					"_id": "AAAAAAFwkkIepkSju2A=",
+					"_parent": {
+						"$ref": "AAAAAAFr7GOFZ881VCo="
+					},
+					"name": "Exceptions",
+					"ownedElements": [
+						{
+							"_type": "UMLClass",
+							"_id": "AAAAAAFwkkKAbESrVy0=",
+							"_parent": {
+								"$ref": "AAAAAAFwkkIepkSju2A="
+							},
+							"name": "NotFoundException",
+							"documentation": "Extends \\RuntimeException"
 						}
 					]
 				},
@@ -6010,6 +6029,11 @@
 											"name": "string name",
 											"type": ""
 										}
+									],
+									"raisedExceptions": [
+										{
+											"$ref": "AAAAAAFwkkZmuUSzQoY="
+										}
 									]
 								},
 								{
@@ -6373,6 +6397,14 @@
 					]
 				}
 			]
+		},
+		{
+			"_type": "UMLClass",
+			"_id": "AAAAAAFwkkZmuUSzQoY=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "DomainException"
 		}
 	]
 }
