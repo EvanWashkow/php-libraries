@@ -36,7 +36,22 @@ class TypeLookupTest extends TestCase
 
 
     /**
-     * Ensure TypeLookup->getByName() returns a Type with the same name
+     * Ensure TypeLookup->getByName() returns a Type with the same primary name
+     * 
+     * @dataProvider getGetByNameTypeNamesData()
+     */
+    public function testGetByNameTypeName( string $typeName, string $expected ): void
+    {
+        $this->assertEquals(
+            $expected,
+            $this->getTypeLookup()->getByName( $typeName )->getName(),
+            'TypeLookup->getByName() returned a Type instance with the wrong name.'
+        );
+    }
+
+
+    /**
+     * Ensure TypeLookup->getByNames() returns a Type with the same names (primary + aliases)
      * 
      * @dataProvider getGetByNameTypeNamesData()
      */
