@@ -3360,7 +3360,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFsfvxC3MTX0Z0="
 									},
-									"name": "FunctionInstanceType",
+									"name": "FunctionType",
 									"ownedElements": [
 										{
 											"_type": "UMLGeneralization",
@@ -3719,7 +3719,7 @@
 													"top": 191,
 													"width": 500.7864990234375,
 													"height": 13,
-													"text": "#createFunctionInstanceType(function: ReflectionFunction): FunctionInstanceType",
+													"text": "#createFunctionType(function: ReflectionFunction): FunctionType",
 													"horizontalAlignment": 0
 												},
 												{
@@ -5019,7 +5019,7 @@
 													"top": 631,
 													"width": 255.52828979492188,
 													"height": 13,
-													"text": "FunctionInstanceType"
+													"text": "FunctionType"
 												},
 												{
 													"_type": "LabelView",
@@ -5934,7 +5934,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFwAt6+qLnhB88="
 									},
-									"name": "createFunctionInstanceType",
+									"name": "createFunctionType",
 									"visibility": "protected",
 									"parameters": [
 										{

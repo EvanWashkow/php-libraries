@@ -64,6 +64,74 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     }
 
 
+    /**
+     * Ensure FunctionType equals its own FunctionType
+     **/
+    public function testEqualsReturnsTrueForSameFunctionType()
+    {
+        $type = Types::GetByName( 'substr' );
+        $this->assertTrue(
+            $type->equals( $type ),
+            'FunctionType->equals() should return true for same FunctionType'
+        );
+    }
+
+
+    /**
+     * Ensure FunctionType does not equal a different Type
+     **/
+    public function testEqualsReturnsFalseForDifferentType()
+    {
+        $type      = Types::GetByName( 'substr' );
+        $otherType = Types::GetByName( 'int' );
+        $this->assertFalse(
+            $type->equals( $otherType ),
+            'FunctionType->equals() should return false for a different Type'
+        );
+    }
+
+
+    /**
+     * Ensure FunctionType does not equal a generic FunctionType
+     **/
+    public function testEqualsReturnsFalseForFunctionType()
+    {
+        $type      = Types::GetByName( 'substr' );
+        $otherType = Types::GetByName( 'function' );
+        $this->assertFalse(
+            $type->equals( $otherType ),
+            'FunctionType->equals() should return false for a generic FunctionType'
+        );
+    }
+
+
+    /**
+     * Ensure FunctionType does not equal a different FunctionType
+     **/
+    public function testEqualsReturnsFalseForDifferentFunctionType()
+    {
+        $type      = Types::GetByName( 'substr' );
+        $otherType = Types::GetByName( 'strpos' );
+        $this->assertFalse(
+            $type->equals( $otherType ),
+            'FunctionType->equals() should return false for a different FunctionType'
+        );
+    }
+
+
+    /**
+     * Ensure FunctionType does not equal any values passed in
+     **/
+    public function testEqualsReturnsFalseForValues()
+    {
+        $type = Types::GetByName( 'substr' );
+        $this->assertFalse(
+            $type->equals( 'substr' ),
+            'FunctionType->equals() should return false for any values passed in'
+        );
+    }
+
+
 
 
     /***************************************************************************
@@ -115,6 +183,26 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
+    *                      FunctionType->getFunctionName()
+    ***************************************************************************/
+
+
+    /**
+     * Ensure FunctionType->getFunctionName() returns the function name
+     **/
+    public function testGetFunctionNameReturnsName()
+    {
+        $this->assertEquals(
+            'substr',
+            Types::GetByName( 'substr' )->getFunctionName(),
+            'Expected FunctionType->getFunctionName() to return the function name'
+        );
+    }
+
+
+
+
+    /***************************************************************************
     *                                    DATA
     ***************************************************************************/
 
@@ -128,7 +216,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     {
         return [
             'FunctionType'         => [ Types::GetByName( 'function' ) ],
-            'FunctionInstanceType' => [ Types::GetByName( 'substr' ) ]
+            'FunctionType' => [ Types::GetByName( 'substr' ) ]
         ];
     }
 }

@@ -6,7 +6,7 @@ namespace PHP;
 use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
-use PHP\Types\Models\FunctionInstanceType;
+use PHP\Types\Models\FunctionType;
 
 /**
  * Lookup type information
@@ -81,7 +81,7 @@ final class Types
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );
-                $type     = new FunctionInstanceType( $function );
+                $type     = new FunctionType( $function );
             }
             
             // Class and interface types
@@ -175,7 +175,7 @@ final class Types
     {
         // Cache by the primary name
         $name = $type->getName();
-        if ( is_a( $type, FunctionInstanceType::class )) {
+        if ( is_a( $type, FunctionType::class )) {
             $name = $type->getFunctionName();
         }
         self::$cache[ $name ] = $type;
