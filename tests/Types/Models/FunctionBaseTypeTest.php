@@ -147,7 +147,7 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
     {
         return [
             'FunctionBaseType' => [ Types::GetByName( 'function' ) ],
-            'FunctionType' =>     [ Types::GetByName( 'substr' ) ]
+            'FunctionInstanceType' =>     [ Types::GetByName( 'substr' ) ]
         ];
     }
 }

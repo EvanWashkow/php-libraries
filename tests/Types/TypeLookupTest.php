@@ -3,7 +3,7 @@ namespace PHP\Tests;
 
 use PHP\Collections\Sequence;
 use PHP\Types\Models\ClassType;
-use PHP\Types\Models\FunctionType;
+use PHP\Types\Models\FunctionInstanceType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookup;
@@ -118,8 +118,8 @@ class TypeLookupTest extends TestCase
             'boolean'       => [ 'boolean',       Type::class ],
             'int'           => [ 'int',           Type::class ],
             'integer'       => [ 'integer',       Type::class ],
-            'function'      => [ 'function',      FunctionType::class ],
-            'substr'        => [ 'substr',        FunctionType::class ],
+            'function'      => [ 'function',      FunctionInstanceType::class ],
+            'substr'        => [ 'substr',        FunctionInstanceType::class ],
             'double'        => [ 'double',        Type::class ],
             'float'         => [ 'float',         Type::class ],
             'null'          => [ 'null',          Type::class ],
