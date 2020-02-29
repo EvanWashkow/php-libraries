@@ -3,10 +3,12 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
+use PHP\Types\TypeNames;
+
 /**
  * Retrieve type information from a function instance
  */
-class FunctionInstanceType extends FunctionType
+class FunctionInstanceType extends Type
 {
     
     /** @var \ReflectionFunctionAbstract $reflectionFunction Reflection instance with details for the function instance */
@@ -21,7 +23,7 @@ class FunctionInstanceType extends FunctionType
     public function __construct( \ReflectionFunctionAbstract $reflectionFunction )
     {
         $this->reflectionFunction = $reflectionFunction;
-        parent::__construct();
+        parent::__construct( TypeNames::FUNCTION );
     }
 
 

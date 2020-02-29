@@ -188,9 +188,9 @@ class TypeLookup
      * 
      * @return Type
      */
-    protected function createFunctionType(): FunctionType
+    protected function createFunctionType(): Type
     {
-        return new FunctionType();
+        return new Type( TypeNames::FUNCTION );
     }
 
 

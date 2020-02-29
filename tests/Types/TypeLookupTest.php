@@ -119,7 +119,7 @@ class TypeLookupTest extends TestCase
             'boolean'       => [ 'boolean',       Type::class ],
             'int'           => [ 'int',           Type::class ],
             'integer'       => [ 'integer',       Type::class ],
-            'function'      => [ 'function',      FunctionType::class ],
+            'function'      => [ 'function',      Type::class ],
             'substr'        => [ 'substr',        FunctionInstanceType::class ],
             'double'        => [ 'double',        Type::class ],
             'float'         => [ 'float',         Type::class ],
