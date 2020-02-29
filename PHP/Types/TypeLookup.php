@@ -3,7 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Types;
 
+use PHP\Types\Models\ClassType;
 use PHP\Types\Models\FunctionType;
+use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
@@ -86,15 +88,21 @@ class TypeLookup
         /**
          * Advanced types
          */
-        if ( function_exists( $typeName ) ) {
+        if ( function_exists( $typeName )) {
             $type = $this->createFunctionInstanceType( new \ReflectionFunction( $typeName ) );
+        }
+        elseif ( interface_exists( $typeName )) {
+            $type = $this->createInterfaceType( new \ReflectionClass( $typeName ) );
+        }
+        elseif ( class_exists( $typeName )) {
+            $type = $this->createClassType( new \ReflectionClass( $typeName ) );
         }
 
 
         /**
          * @throws \DomainException
          */
-        if ( null === $type ) {
+        else {
             throw new \DomainException( "Type does not exist for the type name \"{$typeName}\"" );
         }
 
@@ -202,5 +210,36 @@ class TypeLookup
     protected function createFunctionInstanceType( \ReflectionFunction $function ): FunctionType
     {
         return new FunctionType( $function );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                           INTERFACE / CLASS TYPE FACTORIES
+    *******************************************************************************************************************/
+
+
+    /**
+     * Create a Interface type instance
+     * 
+     * @param \ReflectionClass $interface The ReflectionClass instance for the interface
+     * @return InterfaceType
+     */
+    protected function createInterfaceType( \ReflectionClass $interface ): InterfaceType
+    {
+        return new InterfaceType( $interface );
+    }
+
+
+    /**
+     * Create a Class type instance
+     * 
+     * @param \ReflectionClass $class The ReflectionClass instance for the class
+     * @return ClassType
+     */
+    protected function createClassType( \ReflectionClass $class ): ClassType
+    {
+        return new ClassType( $class );
     }
 }
