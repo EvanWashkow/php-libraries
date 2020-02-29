@@ -113,19 +113,19 @@ class TypeLookupTest extends TestCase
     public function getGetByNameReturnTypeData(): array
     {
         return [
-            'array'         => [ 'array',         Type::class ],
-            'bool'          => [ 'bool',          Type::class ],
-            'boolean'       => [ 'boolean',       Type::class ],
-            'int'           => [ 'int',           Type::class ],
-            'integer'       => [ 'integer',       Type::class ],
-            'function'      => [ 'function',      Type::class ],
-            'substr'        => [ 'substr',        FunctionType::class ],
-            'double'        => [ 'double',        Type::class ],
-            'float'         => [ 'float',         Type::class ],
-            'null'          => [ 'null',          Type::class ],
-            'string'        => [ 'string',        Type::class ],
-            'Iterator'      => [ 'Iterator',      InterfaceType::class ],
-            Sequence::class => [ Sequence::class, ClassType::class ]
+            TypeNames::ARRAY    => [ TypeNames::ARRAY,         Type::class ],
+            TypeNames::BOOL     => [ TypeNames::BOOL,          Type::class ],
+            TypeNames::BOOLEAN  => [ TypeNames::BOOLEAN,       Type::class ],
+            TypeNames::INT      => [ TypeNames::INT,           Type::class ],
+            TypeNames::INTEGER  => [ TypeNames::INTEGER,       Type::class ],
+            TypeNames::FUNCTION => [ TypeNames::FUNCTION,      Type::class ],
+            'substr'            => [ 'substr',                 FunctionType::class ],
+            TypeNames::DOUBLE   => [ TypeNames::DOUBLE,        Type::class ],
+            TypeNames::FLOAT    => [ TypeNames::FLOAT,         Type::class ],
+            TypeNames::NULL     => [ TypeNames::NULL,          Type::class ],
+            TypeNames::STRING   => [ TypeNames::STRING,        Type::class ],
+            'Iterator'          => [ 'Iterator',               InterfaceType::class ],
+            Sequence::class     => [ Sequence::class,          ClassType::class ]
         ];
     }
 
