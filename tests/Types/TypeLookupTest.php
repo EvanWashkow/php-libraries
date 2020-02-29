@@ -21,8 +21,19 @@ class TypeLookupTest extends TestCase
     /*******************************************************************************************************************
     *                                                    getByName()
     *******************************************************************************************************************/
-    
-    
+
+
+    /**
+     * Ensure TypeLookup->getByName() throws a DomainException
+     * 
+     * @expectedException \DomainException
+     */
+    public function testGetByNameDomainException(): void
+    {
+        $this->getTypeLookup()->getByName( 'foobar' );
+    }
+
+
     /**
      * Ensure TypeLookup->getByName() returns a Type with the same name
      * 
