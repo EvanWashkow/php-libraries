@@ -2,6 +2,10 @@
 namespace PHP\Tests;
 
 use PHP\Collections\Sequence;
+use PHP\Types\Models\ClassType;
+use PHP\Types\Models\FunctionType;
+use PHP\Types\Models\InterfaceType;
+use PHP\Types\Models\Type;
 use PHPUnit\Framework\TestCase;
 use TypeLookup;
 
@@ -50,12 +54,53 @@ class TypeLookupTest extends TestCase
             'function'      => [ 'function',      'function' ],
             'substr'        => [ 'substr',        'function' ],
             'double'        => [ 'double',        'float' ],
-            'float'         => [ 'float',        'float' ],
+            'float'         => [ 'float',         'float' ],
             'null'          => [ 'null',          'null' ],
             'NULL'          => [ 'NULL',          'null' ],
             'string'        => [ 'string',        'string' ],
             'Iterator'      => [ 'Iterator',      'Iterator' ],
             Sequence::class => [ Sequence::class, Sequence::class ]
+        ];
+    }
+    
+    
+    /**
+     * Ensure TypeLookup->getByName() returns the correct type
+     * 
+     * @dataProvider getGetByNameReturnTypeData()
+     */
+    public function testGetByNameReturnType( string $typeName, string $expected )
+    {
+        $this->assertInstanceOf(
+            $expected,
+            $this->getTypeLookup()->getByName( $typeName ),
+            'TypeLookup->getByName() returned the wrong type.'
+        );
+    }
+
+
+    /**
+     * Provides test data for GetByNameReturnType() test
+     * 
+     * @return array
+     */
+    public function getGetByNameReturnTypeData(): array
+    {
+        return [
+            'array'         => [ 'array',         Type::class ],
+            'bool'          => [ 'bool',          Type::class ],
+            'boolean'       => [ 'boolean',       Type::class ],
+            'int'           => [ 'int',           Type::class ],
+            'integer'       => [ 'integer',       Type::class ],
+            'function'      => [ 'function',      FunctionType::class ],
+            'substr'        => [ 'substr',        FunctionType::class ],
+            'double'        => [ 'double',        Type::class ],
+            'float'         => [ 'float',         Type::class ],
+            'null'          => [ 'null',          Type::class ],
+            'NULL'          => [ 'NULL',          Type::class ],
+            'string'        => [ 'string',        Type::class ],
+            'Iterator'      => [ 'Iterator',      InterfaceType::class ],
+            Sequence::class => [ Sequence::class, ClassType::class ]
         ];
     }
 
