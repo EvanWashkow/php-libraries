@@ -3,6 +3,8 @@ declare( strict_types = 1 );
 
 namespace PHP\Types;
 
+use PHP\Types\Models\FunctionBaseType;
+use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
@@ -52,6 +54,10 @@ class TypeLookup
                 $type = $this->createFloatType();
                 break;
 
+            case TypeNames::FUNCTION:
+                $type = $this->createFunctionType();
+                break;
+
             case TypeNames::INT:
             case TypeNames::INTEGER:
                 $type = $this->createIntegerType();
@@ -67,6 +73,22 @@ class TypeLookup
 
             default:
                 break;
+        }
+
+
+        /**
+         * Exit. Primitive type was found. No need for further processing.
+         */
+        if ( $type instanceof Type ) {
+            return $type;
+        }
+
+
+        /**
+         * Advanced types
+         */
+        if ( function_exists( $typeName ) ) {
+            $type = $this->createFunctionInstanceType( new \ReflectionFunction( $typeName ) );
         }
 
 
@@ -151,5 +173,35 @@ class TypeLookup
     protected function createStringType(): Type
     {
         return new Type( TypeNames::STRING );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                               FUNCTION TYPE FACTORIES
+    *******************************************************************************************************************/
+
+
+    /**
+     * Create a Function type instance
+     * 
+     * @return Type
+     */
+    protected function createFunctionType(): FunctionBaseType
+    {
+        return new FunctionBaseType();
+    }
+
+
+    /**
+     * Create a FunctionInstance type instance
+     * 
+     * @param \ReflectionFunction $function The ReflectionFunction instance for the function instance
+     * @return Type
+     */
+    protected function createFunctionInstanceType( \ReflectionFunction $function ): FunctionType
+    {
+        return new FunctionType( $function );
     }
 }
