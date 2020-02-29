@@ -39,7 +39,7 @@ class TypeLookupTest extends TestCase
      * 
      * @dataProvider getGetByNameTypeNameData()
      */
-    public function testGetByNameTypeName( string $typeName, string $expected )
+    public function testGetByNameTypeName( string $typeName, string $expected ): void
     {
         $this->assertEquals(
             $expected,
@@ -80,7 +80,7 @@ class TypeLookupTest extends TestCase
      * 
      * @dataProvider getGetByNameReturnTypeData()
      */
-    public function testGetByNameReturnType( string $typeName, string $expected )
+    public function testGetByNameReturnType( string $typeName, string $expected ): void
     {
         $this->assertInstanceOf(
             $expected,
