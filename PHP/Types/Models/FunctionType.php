@@ -8,7 +8,7 @@ use PHP\Types\TypeNames;
 /**
  * Defines the base type for a function
  */
-class FunctionBaseType extends Type
+class FunctionType extends Type
 {
 
 

@@ -77,7 +77,7 @@ final class Types
             
             // Function types
             elseif ( TypeNames::FUNCTION === $name ) {
-                $type = new Types\Models\FunctionBaseType();
+                $type = new Types\Models\FunctionType();
             }
             elseif ( function_exists( $name )) {
                 $function = new \ReflectionFunction( $name );

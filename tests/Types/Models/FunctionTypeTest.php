@@ -2,64 +2,64 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Types;
-use PHP\Types\Models\FunctionBaseType;
+use PHP\Types\Models\FunctionType;
 
 /**
- * Tests the \PHP\Types\FunctionBaseType functionality
+ * Tests the \PHP\Types\FunctionType functionality
  */
-class FunctionBaseTypeTest extends \PHP\Tests\TestCase
+class FunctionTypeTest extends \PHP\Tests\TestCase
 {
     
     
     /***************************************************************************
-    *                           FunctionBaseType->equals()
+    *                           FunctionType->equals()
     ***************************************************************************/
     
     
     /**
-     * Ensure FunctionBaseType->equals() returns true for a FunctionBaseType
+     * Ensure FunctionType->equals() returns true for a FunctionType
      * 
      * @dataProvider typesProvider
      * 
-     * @param FunctionBaseType The function base type instance
+     * @param FunctionType The function base type instance
      */
-    public function testEqualsForFunctionBaseType( FunctionBaseType $type )
+    public function testEqualsForFunctionType( FunctionType $type )
     {
         $this->assertTrue(
             Types::GetByName( 'function' )->equals( $type ),
-            "FunctionBaseType->equals() should return return true for a FunctionBaseType instance"
+            "FunctionType->equals() should return return true for a FunctionType instance"
         );
     }
     
     
     /**
-     * Ensure FunctionBaseType->equals() returns false for different Type
+     * Ensure FunctionType->equals() returns false for different Type
      * 
      * @dataProvider typesProvider
      * 
-     * @param FunctionBaseType The function base type instance
+     * @param FunctionType The function base type instance
      */
-    public function testEqualsForDifferentType( FunctionBaseType $type )
+    public function testEqualsForDifferentType( FunctionType $type )
     {
         $this->assertFalse(
             $type->equals( Types::GetByName( 'null' )),
-            "FunctionBaseType->equals() should return false for the different Type instance"
+            "FunctionType->equals() should return false for the different Type instance"
         );
     }
     
     
     /**
-     * Ensure FunctionBaseType->equals() returns false for a value of a different type
+     * Ensure FunctionType->equals() returns false for a value of a different type
      * 
      * @dataProvider typesProvider
      * 
-     * @param FunctionBaseType The function base type instance
+     * @param FunctionType The function base type instance
      */
-    public function testEqualsForDifferentValueType( FunctionBaseType $type )
+    public function testEqualsForDifferentValueType( FunctionType $type )
     {
         $this->assertFalse(
             $type->equals( 'function' ),
-            "FunctionBaseType->equals() should return false for a value of a different type"
+            "FunctionType->equals() should return false for a value of a different type"
         );
     }
 
@@ -67,18 +67,18 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                      FunctionBaseType->getFunctionName()
+    *                      FunctionType->getFunctionName()
     ***************************************************************************/
 
 
     /**
-     * Ensure FunctionBaseType->getFunctionName() returns an empty string
+     * Ensure FunctionType->getFunctionName() returns an empty string
      **/
     public function testGetFunctionNameReturnsEmptyString()
     {
         $this->assertTrue(
             '' === Types::GetByName( 'function' )->getFunctionName(),
-            'Expected FunctionBaseType->getFunctionName() to always return an empty string'
+            'Expected FunctionType->getFunctionName() to always return an empty string'
         );
     }
 
@@ -86,7 +86,7 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                         FunctionBaseType->getNames()
+    *                         FunctionType->getNames()
     ***************************************************************************/
 
 
@@ -95,14 +95,14 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider typesProvider
      * 
-     * @param FunctionBaseType $type The type instance to check
+     * @param FunctionType $type The type instance to check
      **/
-    public function testGetNames( FunctionBaseType $type )
+    public function testGetNames( FunctionType $type )
     {
         $class = self::getClassName( $type );
         $this->assertTrue(
             $type->getNames()->hasValue( 'function' ),
-            "{$class} implements a FunctionBaseType, therefore {$class}->getNames() should contain 'function'"
+            "{$class} implements a FunctionType, therefore {$class}->getNames() should contain 'function'"
         );
     }
 
@@ -110,7 +110,7 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                            FunctionBaseType->is()
+    *                            FunctionType->is()
     ***************************************************************************/
 
 
@@ -119,14 +119,14 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider typesProvider
      * 
-     * @param FunctionBaseType $type The type instance to check
+     * @param FunctionType $type The type instance to check
      **/
-    public function testIs( FunctionBaseType $type )
+    public function testIs( FunctionType $type )
     {
         $class = self::getClassName( $type );
         $this->assertTrue(
             $type->is( 'function' ),
-            "{$class} implements a FunctionBaseType, therefore {$class}->is( 'function' ) should return true"
+            "{$class} implements a FunctionType, therefore {$class}->is( 'function' ) should return true"
         );
     }
 
@@ -146,7 +146,7 @@ class FunctionBaseTypeTest extends \PHP\Tests\TestCase
     public function typesProvider(): array
     {
         return [
-            'FunctionBaseType' => [ Types::GetByName( 'function' ) ],
+            'FunctionType' => [ Types::GetByName( 'function' ) ],
             'FunctionInstanceType' =>     [ Types::GetByName( 'substr' ) ]
         ];
     }

@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Types;
 
-use PHP\Types\Models\FunctionBaseType;
+use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\FunctionInstanceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
@@ -188,9 +188,9 @@ class TypeLookup
      * 
      * @return Type
      */
-    protected function createFunctionType(): FunctionBaseType
+    protected function createFunctionType(): FunctionType
     {
-        return new FunctionBaseType();
+        return new FunctionType();
     }
 
 
