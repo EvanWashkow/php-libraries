@@ -6,5 +6,17 @@ declare( strict_types = 1 );
  */
 class TypeLookup
 {
-    
+
+
+    /**
+     * Retrieve the type information by name
+     *
+     * @param string $name The type name
+     * @return Type
+     * @throws NotFoundException
+     */
+    public function getByName( string $name ): Type
+    {
+
+    }
 }
