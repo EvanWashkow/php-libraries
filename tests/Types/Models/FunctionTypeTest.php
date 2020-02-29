@@ -67,25 +67,6 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
 
 
     /***************************************************************************
-    *                      FunctionType->getFunctionName()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure FunctionType->getFunctionName() returns an empty string
-     **/
-    public function testGetFunctionNameReturnsEmptyString()
-    {
-        $this->assertTrue(
-            '' === Types::GetByName( 'function' )->getFunctionName(),
-            'Expected FunctionType->getFunctionName() to always return an empty string'
-        );
-    }
-
-
-
-
-    /***************************************************************************
     *                         FunctionType->getNames()
     ***************************************************************************/
 
@@ -146,8 +127,8 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     public function typesProvider(): array
     {
         return [
-            'FunctionType' => [ Types::GetByName( 'function' ) ],
-            'FunctionInstanceType' =>     [ Types::GetByName( 'substr' ) ]
+            'FunctionType'         => [ Types::GetByName( 'function' ) ],
+            'FunctionInstanceType' => [ Types::GetByName( 'substr' ) ]
         ];
     }
 }

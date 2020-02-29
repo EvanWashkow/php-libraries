@@ -101,44 +101,4 @@ class FunctionInstanceTypeTest extends \PHP\Tests\TestCase
             'Expected FunctionInstanceType->getFunctionName() to return the function name'
         );
     }
-
-
-
-
-    /***************************************************************************
-    *                         FunctionInstanceType->getNames()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure getNames() returns the function name
-     **/
-    public function testGetNames()
-    {
-        $functionName = 'substr';
-        $type         = Types::GetByName( $functionName );
-        $this->assertTrue(
-            $type->getNames()->hasValue( $functionName ),
-            'Expected FunctionInstanceType->getNames() to return "function" and the function name'
-        );
-    }
-
-
-
-
-    /***************************************************************************
-    *                             FunctionInstanceType->is()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure is() returns true for the function name
-     **/
-    public function testIsReturnsTrueForTheFunctionName()
-    {
-        $this->assertTrue(
-            Types::GetByName( 'substr' )->is( 'substr' ),
-            'FunctionInstanceType->is() should return true for the function name'
-        );
-    }
 }
