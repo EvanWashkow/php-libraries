@@ -28,19 +28,21 @@ class TypeLookup
      *
      * @param string $typeName The type name
      * @return Type
-     * @throws \DomainException
+     * @throws \DomainException If domain name could not be found
      */
     public function getByName( string $typeName ): Type
     {
         // Type result
         $type = null;
 
-
-        /**
-         * Primitive Types
-         */
+        // Switch on the type name to create the appropriate Type instance
         switch ( $typeName )
         {
+
+
+            /**
+             * Primitive Types
+             */
             case TypeNames::ARRAY:
                 $type = $this->createArrayType();
                 break;
@@ -72,38 +74,26 @@ class TypeLookup
                 $type = $this->createStringType();
                 break;
 
+
+            /**
+             * Advanced types
+             * 
+             * @throws \DomainException If tyoe could not be found
+             */
             default:
+                if ( function_exists( $typeName )) {
+                    $type = $this->createFunctionInstanceType( new \ReflectionFunction( $typeName ) );
+                }
+                elseif ( interface_exists( $typeName )) {
+                    $type = $this->createInterfaceType( new \ReflectionClass( $typeName ) );
+                }
+                elseif ( class_exists( $typeName )) {
+                    $type = $this->createClassType( new \ReflectionClass( $typeName ) );
+                }
+                else {
+                    throw new \DomainException( "Type does not exist for the type name \"{$typeName}\"" );
+                }
                 break;
-        }
-
-
-        /**
-         * Exit. Primitive type was found. No need for further processing.
-         */
-        if ( $type instanceof Type ) {
-            return $type;
-        }
-
-
-        /**
-         * Advanced types
-         */
-        if ( function_exists( $typeName )) {
-            $type = $this->createFunctionInstanceType( new \ReflectionFunction( $typeName ) );
-        }
-        elseif ( interface_exists( $typeName )) {
-            $type = $this->createInterfaceType( new \ReflectionClass( $typeName ) );
-        }
-        elseif ( class_exists( $typeName )) {
-            $type = $this->createClassType( new \ReflectionClass( $typeName ) );
-        }
-
-
-        /**
-         * @throws \DomainException
-         */
-        else {
-            throw new \DomainException( "Type does not exist for the type name \"{$typeName}\"" );
         }
 
         return $type;
