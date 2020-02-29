@@ -67,7 +67,6 @@ class TypeLookupTest extends TestCase
             'double'        => [ 'double',        'float' ],
             'float'         => [ 'float',         'float' ],
             'null'          => [ 'null',          'null' ],
-            'NULL'          => [ 'NULL',          'null' ],
             'string'        => [ 'string',        'string' ],
             'Iterator'      => [ 'Iterator',      'Iterator' ],
             Sequence::class => [ Sequence::class, Sequence::class ]
@@ -108,7 +107,6 @@ class TypeLookupTest extends TestCase
             'double'        => [ 'double',        Type::class ],
             'float'         => [ 'float',         Type::class ],
             'null'          => [ 'null',          Type::class ],
-            'NULL'          => [ 'NULL',          Type::class ],
             'string'        => [ 'string',        Type::class ],
             'Iterator'      => [ 'Iterator',      InterfaceType::class ],
             Sequence::class => [ Sequence::class, ClassType::class ]
