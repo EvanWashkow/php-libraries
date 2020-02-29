@@ -7,6 +7,7 @@ use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookup;
+use PHP\Types\TypeNames;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,39 +38,39 @@ class TypeLookupTest extends TestCase
     /**
      * Ensure TypeLookup->getByName() returns a Type with the same name
      * 
-     * @dataProvider getGetByNameTypeNameData()
+     * @dataProvider getGetByNameTypeNamesData()
      */
-    public function testGetByNameTypeName( string $typeName, string $expected ): void
+    public function testGetByNameTypeNames( string $typeName, string ...$expected ): void
     {
         $this->assertEquals(
             $expected,
-            $this->getTypeLookup()->getByName( $typeName )->getName(),
+            $this->getTypeLookup()->getByName( $typeName )->getNames()->toArray(),
             'TypeLookup->getByName() returned a Type instance with the wrong name.'
         );
     }
 
 
     /**
-     * Provides test data for GetByNameTypeName() test
+     * Provides test data for GetByNameTypeNames() test
      * 
      * @return array
      */
-    public function getGetByNameTypeNameData(): array
+    public function getGetByNameTypeNamesData(): array
     {
         return [
-            'array'         => [ 'array',         'array' ],
-            'bool'          => [ 'bool',          'bool' ],
-            'boolean'       => [ 'boolean',       'bool' ],
-            'int'           => [ 'int',           'int' ],
-            'integer'       => [ 'integer',       'int' ],
-            'function'      => [ 'function',      'function' ],
-            'substr'        => [ 'substr',        'function' ],
-            'double'        => [ 'double',        'float' ],
-            'float'         => [ 'float',         'float' ],
-            'null'          => [ 'null',          'null' ],
-            'string'        => [ 'string',        'string' ],
-            'Iterator'      => [ 'Iterator',      'Iterator' ],
-            Sequence::class => [ Sequence::class, Sequence::class ]
+            TypeNames::ARRAY    => [ TypeNames::ARRAY,    TypeNames::ARRAY ],
+            TypeNames::BOOL     => [ TypeNames::BOOL,     TypeNames::BOOL,  TypeNames::BOOLEAN ],
+            TypeNames::BOOLEAN  => [ TypeNames::BOOLEAN,  TypeNames::BOOL,  TypeNames::BOOLEAN ],
+            TypeNames::INT      => [ TypeNames::INT,      TypeNames::INT,   TypeNames::INTEGER ],
+            TypeNames::INTEGER  => [ TypeNames::INTEGER,  TypeNames::INT,   TypeNames::INTEGER ],
+            TypeNames::FUNCTION => [ TypeNames::FUNCTION, TypeNames::FUNCTION ],
+            'substr'            => [ 'substr',            TypeNames::FUNCTION ],
+            TypeNames::DOUBLE   => [ TypeNames::DOUBLE,   TypeNames::FLOAT, TypeNames::DOUBLE ],
+            TypeNames::FLOAT    => [ TypeNames::FLOAT,    TypeNames::FLOAT, TypeNames::DOUBLE ],
+            TypeNames::NULL     => [ TypeNames::NULL,     TypeNames::NULL ],
+            TypeNames::STRING   => [ TypeNames::STRING,   TypeNames::STRING ],
+            'Iterator'      => [ 'Iterator',              'Iterator' ],
+            Sequence::class => [ Sequence::class,         Sequence::class ]
         ];
     }
     
