@@ -1,6 +1,8 @@
 <?php
 declare( strict_types = 1 );
 
+use PHP\Types\Models\Type;
+
 /**
  * Retrieves type information based on the type name or value
  */
