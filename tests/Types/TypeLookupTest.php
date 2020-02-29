@@ -6,8 +6,8 @@ use PHP\Types\Models\ClassType;
 use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeLookup;
 use PHPUnit\Framework\TestCase;
-use TypeLookup;
 
 /**
  * Test TypeLookup class
