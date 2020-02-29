@@ -3171,6 +3171,7 @@
 												"$ref": "AAAAAAFwAt8B6boLDyw="
 											},
 											"name": "getName",
+											"documentation": "Retrieve the primary type name",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
@@ -3190,6 +3191,7 @@
 												"$ref": "AAAAAAFwAt8B6boLDyw="
 											},
 											"name": "getNames",
+											"documentation": "Retrieve all known names for this type",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
@@ -3297,6 +3299,7 @@
 												"$ref": "AAAAAAFwAt8B6boLDyw="
 											},
 											"name": "isClass",
+											"documentation": "Shorthand method for determining if this Type instance is a ClassType.\n\nFinal. Should only accomplish the above shorthand implementation, which should never be changed.",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
@@ -3316,6 +3319,7 @@
 												"$ref": "AAAAAAFwAt8B6boLDyw="
 											},
 											"name": "isInterface",
+											"documentation": "Shorthand method for determining if this Type instance is an InterfaceType.\n\nFinal. Should only accomplish the above shorthand implementation, which should never be changed.",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
