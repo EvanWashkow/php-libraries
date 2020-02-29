@@ -11,7 +11,7 @@ class TypeLookup
 
 
     /**
-     * Retrieve the type information by name
+     * Lookup Type information by its name
      *
      * @param string $name The type name
      * @return Type
