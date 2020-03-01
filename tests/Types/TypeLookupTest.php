@@ -158,6 +158,47 @@ class TypeLookupTest extends TestCase
             'TypeLookup->getByName( Sequence::class )' => [
                 $typeLookup->getByName( Sequence::class ),
                 new ClassTypeDetails( Sequence::class )
+            ],
+
+
+            /**
+             * TypeLookup->getByValue()
+             */
+            'TypeLookup->getByValue( [ 1 ] )' => [
+                $typeLookup->getByValue( [ 1 ] ),
+                new ArrayTypeDetails()
+            ],
+            'TypeLookup->getByValue( true )' => [
+                $typeLookup->getByValue( true ),
+                new BooleanTypeDetails()
+            ],
+            'TypeLookup->getByValue( 0.0 )' => [
+                $typeLookup->getByValue( 0.0 ),
+                new FloatTypeDetails()
+            ],
+            'TypeLookup->getByValue( 1.0 )' => [
+                $typeLookup->getByValue( 1.0 ),
+                new FloatTypeDetails()
+            ],
+            'TypeLookup->getByValue( 0 )' => [
+                $typeLookup->getByValue( 0 ),
+                new IntegerTypeDetails()
+            ],
+            'TypeLookup->getByValue( 1 )' => [
+                $typeLookup->getByValue( 1 ),
+                new IntegerTypeDetails()
+            ],
+            'TypeLookup->getByValue( NULL )' => [
+                $typeLookup->getByValue( NULL ),
+                new NullTypeDetails()
+            ],
+            'TypeLookup->getByValue( \'1\' )' => [
+                $typeLookup->getByValue( '1' ),
+                new StringTypeDetails()
+            ],
+            'TypeLookup->getByValue( new Sequence( \'int\', [ 1 ] ))' => [
+                $typeLookup->getByValue( new Sequence( 'int', [ 1 ] )),
+                new ClassTypeDetails( Sequence::class )
             ]
         ];
     }
