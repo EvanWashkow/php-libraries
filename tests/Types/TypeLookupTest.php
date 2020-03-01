@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests;
+namespace PHP\Tests\Types;
 
 use PHP\Collections\Sequence;
 use PHP\Types\Models\ClassType;
