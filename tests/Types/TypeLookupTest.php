@@ -119,14 +119,6 @@ class TypeLookupTest extends TestCase
                 $typeLookup->getByName( TypeNames::BOOLEAN ),
                 new BooleanTypeDetails()
             ],
-            'TypeLookup->getByName( TypeNames::INT )' => [
-                $typeLookup->getByName( TypeNames::INT ),
-                new IntegerTypeDetails()
-            ],
-            'TypeLookup->getByName( TypeNames::INTEGER )' => [
-                $typeLookup->getByName( TypeNames::INTEGER ),
-                new IntegerTypeDetails()
-            ],
             'TypeLookup->getByName( TypeNames::FUNCTION )' => [
                 $typeLookup->getByName( TypeNames::FUNCTION ),
                 new FunctionTypeDetails()
@@ -142,6 +134,14 @@ class TypeLookupTest extends TestCase
             'TypeLookup->getByName( TypeNames::FLOAT )' => [
                 $typeLookup->getByName( TypeNames::FLOAT ),
                 new FloatTypeDetails()
+            ],
+            'TypeLookup->getByName( TypeNames::INT )' => [
+                $typeLookup->getByName( TypeNames::INT ),
+                new IntegerTypeDetails()
+            ],
+            'TypeLookup->getByName( TypeNames::INTEGER )' => [
+                $typeLookup->getByName( TypeNames::INTEGER ),
+                new IntegerTypeDetails()
             ],
             'TypeLookup->getByName( TypeNames::NULL )' => [
                 $typeLookup->getByName( TypeNames::NULL ),
