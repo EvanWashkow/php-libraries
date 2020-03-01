@@ -98,6 +98,25 @@ class TypeLookup
 
         return $type;
     }
+    
+    
+    /**
+     * Lookup Type information by its value
+     *
+     * @param mixed $value The value to lookup Type information for
+     * @return Type
+     */
+    public function getByValue( $value ): Type
+    {
+        $typeName = gettype( $value );
+        if ( 'NULL' === $typeName ) {
+            $typeName = TypeNames::NULL;
+        }
+        elseif ( 'object' === $typeName ) {
+            $typeName = get_class( $value );
+        }
+        return $this->getByName( $typeName );
+    }
 
 
 
