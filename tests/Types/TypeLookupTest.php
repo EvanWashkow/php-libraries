@@ -230,6 +230,17 @@ class TypeLookupTest extends TestCase
     }
 
 
+    /**
+     * Retrieve ExpectedTypeDetails to run tests against
+     * 
+     * @return array
+     */
+    public function getExpectedTypeDetails(): array
+    {
+        return [];
+    }
+
+
 
 
     /*******************************************************************************************************************
