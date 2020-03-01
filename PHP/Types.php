@@ -8,26 +8,30 @@ use PHP\Types\Models\Type;
 use PHP\Types\TypeLookup;
 
 /**
- * Lookup type information
+ * @deprecated 2020-02-29
+ */
+trigger_error( '\\PHP\\Types is deprecated. Use \\PHP\\Types\\TypeLookup instead.', E_USER_DEPRECATED );
+
+/**
+ * Deprecated
  * 
- * Callables are not types. They evaluate variables at runtime using reflection,
- * to determine if they reference a function. For example, 'substr' is callable,
- * but 'foobar' is not. Both are of the string type, but one is "callable" and
- * the other is not.
+ * @deprecated 2020-02-29
  */
 final class Types
 {
 
 
     /**
-     * Retrieve the type information by name
-     *
-     * @param string $name The type name
-     * @return Type
-     * @throws NotFoundException
+     * Deprecated
+     * 
+     * @deprecated 2020-02-29
      */
     public static function GetByName( string $name ): Type
     {
+        trigger_error(
+            '\\PHP\\Types::GetByName() is deprecated. Use \\PHP\\Types\\TypeLookup->getByName() instead.',
+            E_USER_DEPRECATED
+        );
         try {
             $type = ( new TypeLookup() )->getByName( $name );
         } catch ( \DomainException $de ) {
@@ -38,13 +42,16 @@ final class Types
 
 
     /**
-     * Retrieve the type information by value
-     *
-     * @param mixed $value The value to retrieve type information for
-     * @return Type
+     * Deprecated
+     * 
+     * @deprecated 2020-02-29
      */
     public static function GetByValue( $value ): Type
     {
+        trigger_error(
+            '\\PHP\\Types::GetByValue() is deprecated. Use \\PHP\\Types\\TypeLookup->getByValue() instead.',
+            E_USER_DEPRECATED
+        );
         return ( new TypeLookup() )->getByValue( $value );
     }
 }
