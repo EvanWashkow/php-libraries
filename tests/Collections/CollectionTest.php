@@ -29,7 +29,7 @@ class CollectionTest extends CollectionsTestCase
      * Ensure the constructor throws an error for null key types
      * 
      * @dataProvider      getConstructorExceptionsData
-     * @expectedException \InvalidArgumentException
+     * @expectedException \DomainException
      * 
      * @param Closure $function Function callback with the exceptions
      **/
