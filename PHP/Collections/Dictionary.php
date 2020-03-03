@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Exceptions\NotFoundException;
-use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 
 /**
