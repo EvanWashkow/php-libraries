@@ -1,13 +1,13 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Types;
+use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
 
 /**
  * Tests the \PHP\Types\FunctionType functionality
  */
-class FunctionTypeTest extends \PHP\Tests\TestCase
+class FunctionTypeTest extends TypeTestCase
 {
     
     
@@ -26,7 +26,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     public function testEqualsForFunctionType( Type $type )
     {
         $this->assertTrue(
-            Types::GetByName( 'function' )->equals( $type ),
+            $this->getTypeLookup()->getByName( 'function' )->equals( $type ),
             "FunctionType->equals() should return return true for a Type instance"
         );
     }
@@ -42,7 +42,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     public function testEqualsForDifferentType( Type $type )
     {
         $this->assertFalse(
-            $type->equals( Types::GetByName( 'null' )),
+            $type->equals( $this->getTypeLookup()->getByName( 'null' )),
             "FunctionType->equals() should return false for the different Type instance"
         );
     }
@@ -69,7 +69,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsTrueForSameFunctionType()
     {
-        $type = Types::GetByName( 'substr' );
+        $type = $this->getTypeLookup()->getByName( 'substr' );
         $this->assertTrue(
             $type->equals( $type ),
             'FunctionType->equals() should return true for same FunctionType'
@@ -82,8 +82,8 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForDifferentType()
     {
-        $type      = Types::GetByName( 'substr' );
-        $otherType = Types::GetByName( 'int' );
+        $type      = $this->getTypeLookup()->getByName( 'substr' );
+        $otherType = $this->getTypeLookup()->getByName( 'int' );
         $this->assertFalse(
             $type->equals( $otherType ),
             'FunctionType->equals() should return false for a different Type'
@@ -96,8 +96,8 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForFunctionType()
     {
-        $type      = Types::GetByName( 'substr' );
-        $otherType = Types::GetByName( 'function' );
+        $type      = $this->getTypeLookup()->getByName( 'substr' );
+        $otherType = $this->getTypeLookup()->getByName( 'function' );
         $this->assertFalse(
             $type->equals( $otherType ),
             'FunctionType->equals() should return false for a generic FunctionType'
@@ -110,8 +110,8 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForDifferentFunctionType()
     {
-        $type      = Types::GetByName( 'substr' );
-        $otherType = Types::GetByName( 'strpos' );
+        $type      = $this->getTypeLookup()->getByName( 'substr' );
+        $otherType = $this->getTypeLookup()->getByName( 'strpos' );
         $this->assertFalse(
             $type->equals( $otherType ),
             'FunctionType->equals() should return false for a different FunctionType'
@@ -124,7 +124,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testEqualsReturnsFalseForValues()
     {
-        $type = Types::GetByName( 'substr' );
+        $type = $this->getTypeLookup()->getByName( 'substr' );
         $this->assertFalse(
             $type->equals( 'substr' ),
             'FunctionType->equals() should return false for any values passed in'
@@ -148,7 +148,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testGetNames( Type $type )
     {
-        $class = self::getClassName( $type );
+        $class = get_class( $type );
         $this->assertTrue(
             $type->getNames()->hasValue( 'function' ),
             "{$class} implements a Type, therefore {$class}->getNames() should contain 'function'"
@@ -172,7 +172,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
      **/
     public function testIs( Type $type )
     {
-        $class = self::getClassName( $type );
+        $class = get_class( $type );
         $this->assertTrue(
             $type->is( 'function' ),
             "{$class} implements a Type, therefore {$class}->is( 'function' ) should return true"
@@ -194,7 +194,7 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     {
         $this->assertEquals(
             'substr',
-            Types::GetByName( 'substr' )->getFunctionName(),
+            $this->getTypeLookup()->getByName( 'substr' )->getFunctionName(),
             'Expected FunctionType->getFunctionName() to return the function name'
         );
     }
@@ -215,8 +215,8 @@ class FunctionTypeTest extends \PHP\Tests\TestCase
     public function typesProvider(): array
     {
         return [
-            'FunctionType'         => [ Types::GetByName( 'function' ) ],
-            'FunctionType' => [ Types::GetByName( 'substr' ) ]
+            'FunctionType'         => [ $this->getTypeLookup()->getByName( 'function' ) ],
+            'FunctionType' => [ $this->getTypeLookup()->getByName( 'substr' ) ]
         ];
     }
 }
