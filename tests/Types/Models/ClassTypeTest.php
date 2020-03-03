@@ -2,7 +2,6 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Tests\Types\TypeTestCase;
-use PHP\Types;
 use PHP\Types\Models\ClassType;
 use PHP\Types\Models\Type;
 
