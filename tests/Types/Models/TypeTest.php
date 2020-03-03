@@ -1,15 +1,14 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Types;
-use PHP\Collections\Sequence;
+use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
 
 
 /**
  * Tests the base Type functionality
  */
-class TypeTest extends \PHP\Tests\TestCase
+class TypeTest extends TypeTestCase
 {
     
     
@@ -42,7 +41,7 @@ class TypeTest extends \PHP\Tests\TestCase
     public function testEqualsReturnsTrueForSameType()
     {
         $this->assertTrue(
-            Types::GetByValue( 1 )->equals( Types::GetByName( 'int' )),
+            $this->getTypeLookup()->getByValue( 1 )->equals( $this->getTypeLookup()->getByName( 'int' )),
             "Expected Type->equals() to return true for the same Type instance"
         );
     }
@@ -54,7 +53,7 @@ class TypeTest extends \PHP\Tests\TestCase
     public function testEqualsReturnsTrueForSameValueType()
     {
         $this->assertTrue(
-            Types::GetByValue( 1 )->equals( 2 ),
+            $this->getTypeLookup()->getByValue( 1 )->equals( 2 ),
             "Expected Type->equals() to return true for a value of that type"
         );
     }
@@ -66,7 +65,7 @@ class TypeTest extends \PHP\Tests\TestCase
     public function testEqualsReturnsFalseForDifferentType()
     {
         $this->assertFalse(
-            Types::GetByValue( 1 )->equals( Types::GetByName( 'bool' )),
+            $this->getTypeLookup()->getByValue( 1 )->equals( $this->getTypeLookup()->getByName( 'bool' )),
             "Expected Type->equals() to return false for the different Type instance"
         );
     }
@@ -78,7 +77,7 @@ class TypeTest extends \PHP\Tests\TestCase
     public function testEqualsReturnsFalseForDifferentValueType()
     {
         $this->assertFalse(
-            Types::GetByValue( 1 )->equals( true ),
+            $this->getTypeLookup()->getByValue( 1 )->equals( true ),
             "Expected Type->equals() to return false for a value of a different type"
         );
     }
@@ -129,27 +128,27 @@ class TypeTest extends \PHP\Tests\TestCase
     {
         return [
             'Valid name' => [
-                \PHP\Types::GetByValue( 1 ),
+                $this->getTypeLookup()->getByValue( 1 ),
                 'int',
                 true
             ],
             'Valid alias' =>[
-                \PHP\Types::GetByValue( 1 ),
+                $this->getTypeLookup()->getByValue( 1 ),
                 'integer',
                 true
             ],
             'Partial name' => [
-                \PHP\Types::GetByValue( 1 ),
+                $this->getTypeLookup()->getByValue( 1 ),
                 'integ',
                 false
             ],
             'Invalid name' => [
-                \PHP\Types::GetByValue( 1 ),
+                $this->getTypeLookup()->getByValue( 1 ),
                 'bool',
                 false
             ],
             'Invalid alias' => [
-                \PHP\Types::GetByValue( 1 ),
+                $this->getTypeLookup()->getByValue( 1 ),
                 'boolean',
                 false
             ]
@@ -169,7 +168,7 @@ class TypeTest extends \PHP\Tests\TestCase
      */
     public function testIsClassReturnsFalse()
     {
-        $type = \PHP\Types::GetByValue( 1 );
+        $type = $this->getTypeLookup()->getByValue( 1 );
         $this->assertFalse(
             $type->isClass(),
             'Expected Type->isClass() to return false for basic types'
@@ -189,7 +188,7 @@ class TypeTest extends \PHP\Tests\TestCase
      */
     public function testIsInterfaceReturnsFalse()
     {
-        $type = \PHP\Types::GetByValue( 1 );
+        $type = $this->getTypeLookup()->getByValue( 1 );
         $this->assertFalse(
             $type->isInterface(),
             'Expected Type->isInterface() to return false for basic types'
