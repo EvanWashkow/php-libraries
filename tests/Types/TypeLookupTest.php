@@ -16,14 +16,12 @@ use PHP\Tests\Types\TypeLookupTest\InterfaceTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\NullTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\StringTypeDetails;
 use PHP\Types\Models\Type;
-use PHP\Types\TypeLookup;
 use PHP\Types\TypeNames;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Test TypeLookup class
  */
-class TypeLookupTest extends TestCase
+class TypeLookupTest extends TypeTestCase
 {
 
 
@@ -198,27 +196,5 @@ class TypeLookupTest extends TestCase
                 new ClassTypeDetails( Sequence::class )
             ]
         ];
-    }
-
-
-
-
-    /*******************************************************************************************************************
-    *                                                  UTILITY METHODS
-    *******************************************************************************************************************/
-
-
-    /**
-     * Retrieve a (singleton) instance of the TypeLookup
-     * 
-     * @return TypeLookup
-     */
-    private function getTypeLookup(): TypeLookup
-    {
-        static $typeLookup = null;
-        if ( null === $typeLookup ) {
-            $typeLookup = new TypeLookup();
-        }
-        return $typeLookup;
     }
 }
