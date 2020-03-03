@@ -1,6 +1,7 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
+use PHP\Tests\Types\TypeTestCase;
 use PHP\Types;
 use PHP\Types\Models\ClassType;
 use PHP\Types\Models\Type;
@@ -8,7 +9,7 @@ use PHP\Types\Models\Type;
 /**
  * Ensure all ClassTypes have same basic functionality
  */
-class ClassTypeTest extends \PHP\Tests\TestCase
+class ClassTypeTest extends TypeTestCase
 {
 
 
@@ -28,7 +29,7 @@ class ClassTypeTest extends \PHP\Tests\TestCase
     {
         $this->assertInstanceOf(
             ClassType::class,
-            Types::GetByName( $className ),
+            $this->getTypeLookup()->getByName( $className ),
             'Types lookup should return a ClassType instance when given a class name'
         );
     }
@@ -81,33 +82,33 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
             // ClassType
             'ClassType->equals( int )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'int' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'int' ),
                 false
             ],
             'ClassType->equals( other class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                Types::GetByName( 'ReflectionFunction' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionFunction' ),
                 false
             ],
             'ClassType->equals( child class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 true
             ],
             'ClassType->equals( same class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 true
             ],
             'ClassType->equals( parent class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
                 false
             ],
             'ClassType->equals( parent interface )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'Reflector' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'Reflector' ),
                 false
             ]
         ];
@@ -149,27 +150,27 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
             // ClassType
             'ClassType->equals( int )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 1,
                 false
             ],
             'ClassType->equals( other class )' => [
-                Types::GetByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
                 new \ReflectionFunction( function() {} ),
                 false
             ],
             'ClassType->equals( child class )' => [
-                Types::GetByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
                 new \ReflectionObject( $this ),
                 true
             ],
             'ClassType->equals( same class )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 new \ReflectionObject( $this ),
                 true
             ],
             'ClassType->equals( parent class )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 new \ReflectionClass( self::class ),
                 false
             ]
@@ -195,8 +196,8 @@ class ClassTypeTest extends \PHP\Tests\TestCase
     {
         $this->assertSame(
             $className,
-            Types::GetByName( $className )->getName(),
-            "Types::GetByName( '{$className}' )->getName() did not return the class name"
+            $this->getTypeLookup()->getByName( $className )->getName(),
+            "$this->getTypeLookup()->getByName( '{$className}' )->getName() did not return the class name"
         );
     }
 
@@ -236,32 +237,32 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
             // ClassType
             'ClassType->is( int )' => [
-                Types::GetByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
                 'int',
                 false
             ],
             'ClassType->is( other class )' => [
-                Types::GetByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
                 'ReflectionFunction',
                 false
             ],
             'ClassType->is( child class )' => [
-                Types::GetByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
                 'ReflectionObject',
                 false
             ],
             'ClassType->is( same class )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 'ReflectionObject',
                 true
             ],
             'ClassType->is( parent class )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 'ReflectionClass',
                 true
             ],
             'ClassType->is( parent interface )' => [
-                Types::GetByName( 'ReflectionObject' ),
+                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
                 'Reflector',
                 true
             ]
@@ -284,7 +285,7 @@ class ClassTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsClass( ClassType $type )
     {
-        $class = self::getClassName( $type );
+        $class = get_class( $type );
         $this->assertTrue(
             $type->isClass(),
             "{$class} implements ClassType: {$class}->isClass() should return true"
@@ -308,7 +309,7 @@ class ClassTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsInterface( ClassType $type )
     {
-        $class = self::getClassName( $type );
+        $class = get_class( $type );
         $this->assertFalse(
             $type->isInterface(),
             "{$class} implements ClassType: {$class}->isInterface() should return false"
@@ -333,7 +334,7 @@ class ClassTypeTest extends \PHP\Tests\TestCase
         $types = [];
         foreach ( $this->classNamesProvider() as $array ) {
             $name = $array[ 0 ];
-            $types[] = [ Types::GetByName( $name ) ];
+            $types[] = [ $this->getTypeLookup()->getByName( $name ) ];
         }
         return $types;
     }
