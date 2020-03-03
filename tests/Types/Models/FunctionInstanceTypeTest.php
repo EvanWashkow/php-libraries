@@ -5,9 +5,9 @@ use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
 
 /**
- * Tests the \PHP\Types\FunctionType functionality
+ * Tests the \PHP\Types\FunctionInstanceType functionality
  */
-class FunctionTypeTest extends TypeTestCase
+class FunctionInstanceTypeTest extends TypeTestCase
 {
     
     
@@ -23,11 +23,11 @@ class FunctionTypeTest extends TypeTestCase
      * 
      * @param Type The function base type instance
      */
-    public function testEqualsForFunctionType( Type $type )
+    public function testEqualsForFunctionInstanceType( Type $type )
     {
         $this->assertTrue(
             $this->getTypeLookup()->getByName( 'function' )->equals( $type ),
-            "FunctionType->equals() should return return true for a Type instance"
+            "FunctionInstanceType->equals() should return return true for a Type instance"
         );
     }
     
@@ -43,7 +43,7 @@ class FunctionTypeTest extends TypeTestCase
     {
         $this->assertFalse(
             $type->equals( $this->getTypeLookup()->getByName( 'null' )),
-            "FunctionType->equals() should return false for the different Type instance"
+            "FunctionInstanceType->equals() should return false for the different Type instance"
         );
     }
     
@@ -59,26 +59,26 @@ class FunctionTypeTest extends TypeTestCase
     {
         $this->assertFalse(
             $type->equals( 'function' ),
-            "FunctionType->equals() should return false for a value of a different type"
+            "FunctionInstanceType->equals() should return false for a value of a different type"
         );
     }
 
 
     /**
-     * Ensure FunctionType equals its own FunctionType
+     * Ensure FunctionInstanceType equals its own FunctionInstanceType
      **/
-    public function testEqualsReturnsTrueForSameFunctionType()
+    public function testEqualsReturnsTrueForSameFunctionInstanceType()
     {
         $type = $this->getTypeLookup()->getByName( 'substr' );
         $this->assertTrue(
             $type->equals( $type ),
-            'FunctionType->equals() should return true for same FunctionType'
+            'FunctionInstanceType->equals() should return true for same FunctionInstanceType'
         );
     }
 
 
     /**
-     * Ensure FunctionType does not equal a different Type
+     * Ensure FunctionInstanceType does not equal a different Type
      **/
     public function testEqualsReturnsFalseForDifferentType()
     {
@@ -86,48 +86,48 @@ class FunctionTypeTest extends TypeTestCase
         $otherType = $this->getTypeLookup()->getByName( 'int' );
         $this->assertFalse(
             $type->equals( $otherType ),
-            'FunctionType->equals() should return false for a different Type'
+            'FunctionInstanceType->equals() should return false for a different Type'
         );
     }
 
 
     /**
-     * Ensure FunctionType does not equal a generic FunctionType
+     * Ensure FunctionInstanceType does not equal a generic FunctionInstanceType
      **/
-    public function testEqualsReturnsFalseForFunctionType()
+    public function testEqualsReturnsFalseForFunctionInstanceType()
     {
         $type      = $this->getTypeLookup()->getByName( 'substr' );
         $otherType = $this->getTypeLookup()->getByName( 'function' );
         $this->assertFalse(
             $type->equals( $otherType ),
-            'FunctionType->equals() should return false for a generic FunctionType'
+            'FunctionInstanceType->equals() should return false for a generic FunctionInstanceType'
         );
     }
 
 
     /**
-     * Ensure FunctionType does not equal a different FunctionType
+     * Ensure FunctionInstanceType does not equal a different FunctionInstanceType
      **/
-    public function testEqualsReturnsFalseForDifferentFunctionType()
+    public function testEqualsReturnsFalseForDifferentFunctionInstanceType()
     {
         $type      = $this->getTypeLookup()->getByName( 'substr' );
         $otherType = $this->getTypeLookup()->getByName( 'strpos' );
         $this->assertFalse(
             $type->equals( $otherType ),
-            'FunctionType->equals() should return false for a different FunctionType'
+            'FunctionInstanceType->equals() should return false for a different FunctionInstanceType'
         );
     }
 
 
     /**
-     * Ensure FunctionType does not equal any values passed in
+     * Ensure FunctionInstanceType does not equal any values passed in
      **/
     public function testEqualsReturnsFalseForValues()
     {
         $type = $this->getTypeLookup()->getByName( 'substr' );
         $this->assertFalse(
             $type->equals( 'substr' ),
-            'FunctionType->equals() should return false for any values passed in'
+            'FunctionInstanceType->equals() should return false for any values passed in'
         );
     }
 
@@ -183,19 +183,19 @@ class FunctionTypeTest extends TypeTestCase
 
 
     /***************************************************************************
-    *                      FunctionType->getFunctionName()
+    *                      FunctionInstanceType->getFunctionName()
     ***************************************************************************/
 
 
     /**
-     * Ensure FunctionType->getFunctionName() returns the function name
+     * Ensure FunctionInstanceType->getFunctionName() returns the function name
      **/
     public function testGetFunctionNameReturnsName()
     {
         $this->assertEquals(
             'substr',
             $this->getTypeLookup()->getByName( 'substr' )->getFunctionName(),
-            'Expected FunctionType->getFunctionName() to return the function name'
+            'Expected FunctionInstanceType->getFunctionName() to return the function name'
         );
     }
 
@@ -215,8 +215,8 @@ class FunctionTypeTest extends TypeTestCase
     public function typesProvider(): array
     {
         return [
-            'FunctionType'         => [ $this->getTypeLookup()->getByName( 'function' ) ],
-            'FunctionType' => [ $this->getTypeLookup()->getByName( 'substr' ) ]
+            'FunctionInstanceType'         => [ $this->getTypeLookup()->getByName( 'function' ) ],
+            'FunctionInstanceType' => [ $this->getTypeLookup()->getByName( 'substr' ) ]
         ];
     }
 }

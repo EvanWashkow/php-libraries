@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Types;
 
 use PHP\Types\Models\ClassType;
-use PHP\Types\Models\FunctionType;
+use PHP\Types\Models\FunctionInstanceType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
@@ -211,14 +211,14 @@ class TypeLookup
 
 
     /**
-     * Create a FunctionType instance
+     * Create a FunctionInstanceType instance
      * 
      * @param \ReflectionFunction $function The ReflectionFunction instance for the function instance
      * @return Type
      */
-    protected function createFunctionInstanceType( \ReflectionFunction $function ): FunctionType
+    protected function createFunctionInstanceType( \ReflectionFunction $function ): FunctionInstanceType
     {
-        return new FunctionType( $function );
+        return new FunctionInstanceType( $function );
     }
 
 

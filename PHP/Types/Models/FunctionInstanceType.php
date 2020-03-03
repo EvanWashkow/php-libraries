@@ -8,7 +8,7 @@ use PHP\Types\TypeNames;
 /**
  * Retrieve type information from a function instance
  */
-class FunctionType extends Type
+class FunctionInstanceType extends Type
 {
     
     /** @var \ReflectionFunctionAbstract $reflectionFunction Reflection instance with details for the function instance */
