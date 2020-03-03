@@ -196,7 +196,7 @@ class ClassTypeTest extends TypeTestCase
         $this->assertSame(
             $className,
             $this->getTypeLookup()->getByName( $className )->getName(),
-            "$this->getTypeLookup()->getByName( '{$className}' )->getName() did not return the class name"
+            "TypeLookup->getByName( '{$className}' )->getName() did not return the class name"
         );
     }
 
