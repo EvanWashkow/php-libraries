@@ -6,9 +6,9 @@ namespace PHP\Collections;
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\Cloneable;
 use PHP\ObjectClass;
-use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeLookup;
 use PHP\Types\TypeNames;
 
 /**
@@ -58,13 +58,16 @@ abstract class Collection extends ObjectClass implements Cloneable,
                                  string $valueType,
                                  array  $entries   = [] )
     {
+        // Create type lookup
+        $typeLookup = new TypeLookup();
+
         // Lookup key type
         if ( AnonymousType::NAME === $keyType ) {
             $this->keyType = $this->createAnonymousKeyType();
         }
         else {
             try {
-                $this->keyType = Types::GetByName( $keyType );
+                $this->keyType = $typeLookup->getByName( $keyType );
             } catch ( NotFoundException $e ) {
                 throw new \InvalidArgumentException( "\"$keyType\" cannot be used for the key type: it does not exist." );
             }
@@ -76,7 +79,7 @@ abstract class Collection extends ObjectClass implements Cloneable,
         }
         else {
             try {
-                $this->valueType = Types::GetByName( $valueType );
+                $this->valueType = $typeLookup->getByName( $valueType );
             } catch ( NotFoundException $e ) {
                 throw new \InvalidArgumentException( "\"$valueType\" cannot be used for the value type: it does not exist." );
             }

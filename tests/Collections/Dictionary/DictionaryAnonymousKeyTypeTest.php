@@ -1,8 +1,8 @@
 <?php
 namespace PHP\Tests\Collections\Dictionary;
 
-use PHP\Types;
 use PHP\Collections\Dictionary\DictionaryAnonymousKeyType;
+use PHP\Types\TypeLookup;
 
 /**
  * Tests DictionaryAnonymousKeyType
@@ -40,13 +40,14 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function getEqualsData(): array
     {
+        $typeLookup = new TypeLookup();
         return [
             [ 1,                            true ],
             [ 'string',                     true ],
-            [ Types::GetByName( 'int' ),    true ],
-            [ Types::GetByName( 'string' ), true ],
+            [ $typeLookup->getByName( 'int' ),    true ],
+            [ $typeLookup->getByName( 'string' ), true ],
             [ 1.5,                          false ],
-            [ Types::GetByName( 'float' ),  false ]
+            [ $typeLookup->getByName( 'float' ),  false ]
         ];
     }
 
