@@ -5,6 +5,7 @@ namespace PHP\Types;
 
 use PHP\Types\Models\ClassType;
 use PHP\Types\Models\FunctionInstanceType;
+use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
@@ -202,11 +203,11 @@ class TypeLookup
     /**
      * Create a Function type instance
      * 
-     * @return Type
+     * @return FunctionType
      */
-    protected function createFunctionType(): Type
+    protected function createFunctionType(): FunctionType
     {
-        return new Type( TypeNames::FUNCTION );
+        return new FunctionType();
     }
 
 
