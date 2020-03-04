@@ -6,13 +6,13 @@ namespace PHP\Types\Models;
 use PHP\Types\TypeNames;
 
 /**
- * Defines function type information
+ * Retrieve type information for a function
  */
 class FunctionType extends Type
 {
 
     /**
-     * Create a new type instance representing a function type
+     * Create a function type representation to retrieve information from
      */
     public function __construct()
     {

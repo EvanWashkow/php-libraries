@@ -8,7 +8,7 @@ use PHP\ObjectClass;
 use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
- * Defines basic type information
+ * Retrieve information for a system type
  */
 class Type extends ObjectClass
 {
@@ -35,7 +35,7 @@ class Type extends ObjectClass
     
     
     /**
-     * Create a Type representation to retrieve information from
+     * Create a type representation to retrieve information from
      * 
      * @internal Do not instantiantiate collections in the type constructor:
      * collections rely on types.
