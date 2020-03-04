@@ -215,7 +215,7 @@ class FunctionInstanceTypeTest extends TypeTestCase
     public function typesProvider(): array
     {
         return [
-            'FunctionInstanceType'         => [ $this->getTypeLookup()->getByName( 'function' ) ],
+            'FunctionInstanceType' => [ $this->getTypeLookup()->getByName( 'function' ) ],
             'FunctionInstanceType' => [ $this->getTypeLookup()->getByName( 'substr' ) ]
         ];
     }
