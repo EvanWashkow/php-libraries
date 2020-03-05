@@ -2,11 +2,11 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Tests\Types\TypeTestCase;
-use PHP\Types\Models\FunctionType;
+use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
 /**
- * Tests the \PHP\Types\FunctionType functionality
+ * Tests the \PHP\Types\Type functionality for functions
  */
 class FunctionTypeTest extends TypeTestCase
 {
@@ -92,9 +92,9 @@ class FunctionTypeTest extends TypeTestCase
     /**
      * Provides types for testing
      *
-     * @return FunctionType
+     * @return Type
      **/
-    public function getFunctionType(): FunctionType
+    public function getFunctionType(): Type
     {
         static $functionType = null;
         if ( null === $functionType ) {
