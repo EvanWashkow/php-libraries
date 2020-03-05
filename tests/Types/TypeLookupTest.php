@@ -8,7 +8,6 @@ use PHP\Tests\Types\TypeLookupTest\ArrayTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\BooleanTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\ClassTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\FloatTypeDetails;
-use PHP\Tests\Types\TypeLookupTest\FunctionInstanceTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\FunctionTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\IExpectedTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\IntegerTypeDetails;

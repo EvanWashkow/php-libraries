@@ -3,11 +3,10 @@ namespace PHP\Tests\Types\Models;
 
 use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\FunctionType;
-use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
 /**
- * Tests the \PHP\Types\FunctionInstanceType functionality
+ * Tests the \PHP\Types\FunctionType functionality
  */
 class FunctionTypeTest extends TypeTestCase
 {
@@ -21,12 +20,12 @@ class FunctionTypeTest extends TypeTestCase
     /**
      * Ensure Type->equals() returns true for a FunctionType
      */
-    public function testEqualsForFunctionInstanceType()
+    public function testEqualsForFunctionType()
     {
         $functionType = $this->getFunctionType();
         $this->assertTrue(
             $functionType->equals( $functionType ),
-            "FunctionInstanceType->equals() should return return true for a Type instance"
+            "FunctionType->equals() should return return true for a Type instance"
         );
     }
     
@@ -38,7 +37,7 @@ class FunctionTypeTest extends TypeTestCase
     {
         $this->assertFalse(
             $this->getFunctionType()->equals( $this->getTypeLookup()->getByName( 'null' ) ),
-            "FunctionInstanceType->equals() should return false for the different Type instance"
+            "FunctionType->equals() should return false for the different Type instance"
         );
     }
     
@@ -50,7 +49,7 @@ class FunctionTypeTest extends TypeTestCase
     {
         $this->assertFalse(
             $this->getFunctionType()->equals( 'function' ),
-            "FunctionInstanceType->equals() should return false for a value of a different type"
+            "FunctionType->equals() should return false for a value of a different type"
         );
     }
 

@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Types;
 
 use PHP\Types\Models\ClassType;
-use PHP\Types\Models\FunctionInstanceType;
 use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
@@ -82,10 +81,7 @@ class TypeLookup
              * @throws \DomainException If tyoe could not be found
              */
             default:
-                if ( function_exists( $typeName )) {
-                    $type = $this->createFunctionInstanceType( new \ReflectionFunction( $typeName ) );
-                }
-                elseif ( interface_exists( $typeName )) {
+                if ( interface_exists( $typeName )) {
                     $type = $this->createInterfaceType( new \ReflectionClass( $typeName ) );
                 }
                 elseif ( class_exists( $typeName )) {
@@ -208,18 +204,6 @@ class TypeLookup
     protected function createFunctionType(): FunctionType
     {
         return new FunctionType();
-    }
-
-
-    /**
-     * Create a FunctionInstanceType instance
-     * 
-     * @param \ReflectionFunction $function The ReflectionFunction instance for the function instance
-     * @return Type
-     */
-    protected function createFunctionInstanceType( \ReflectionFunction $function ): FunctionInstanceType
-    {
-        return new FunctionInstanceType( $function );
     }
 
 
