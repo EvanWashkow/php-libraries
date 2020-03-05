@@ -120,10 +120,6 @@ class TypeLookupTest extends TypeTestCase
                 $typeLookup->getByName( TypeNames::FUNCTION ),
                 new FunctionTypeDetails()
             ],
-            'TypeLookup->getByName( \'substr\' )' => [
-                $typeLookup->getByName( 'substr' ),
-                new FunctionInstanceTypeDetails()
-            ],
             'TypeLookup->getByName( TypeNames::DOUBLE )' => [
                 $typeLookup->getByName( TypeNames::DOUBLE ),
                 new FloatTypeDetails()
