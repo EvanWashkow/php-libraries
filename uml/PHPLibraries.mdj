@@ -3029,6 +3029,334 @@
 					"name": "Types",
 					"ownedElements": [
 						{
+							"_type": "UMLModel",
+							"_id": "AAAAAAFsfvxC3MTX0Z0=",
+							"_parent": {
+								"$ref": "AAAAAAFsfvwjTsTTbWQ="
+							},
+							"name": "Models",
+							"ownedElements": [
+								{
+									"_type": "UMLClass",
+									"_id": "AAAAAAFsfv3aYMVU0AI=",
+									"_parent": {
+										"$ref": "AAAAAAFsfvxC3MTX0Z0="
+									},
+									"name": "ClassType",
+									"ownedElements": [
+										{
+											"_type": "UMLGeneralization",
+											"_id": "AAAAAAFsfv5uosWB5MM=",
+											"_parent": {
+												"$ref": "AAAAAAFsfv3aYMVU0AI="
+											},
+											"source": {
+												"$ref": "AAAAAAFsfv3aYMVU0AI="
+											},
+											"target": {
+												"$ref": "AAAAAAFsfvxpLcTbV78="
+											}
+										}
+									]
+								},
+								{
+									"_type": "UMLClass",
+									"_id": "AAAAAAFsfvxpLcTbV78=",
+									"_parent": {
+										"$ref": "AAAAAAFsfvxC3MTX0Z0="
+									},
+									"name": "InterfaceType",
+									"ownedElements": [
+										{
+											"_type": "UMLDependency",
+											"_id": "AAAAAAFsfv1DisU0fr4=",
+											"_parent": {
+												"$ref": "AAAAAAFsfvxpLcTbV78="
+											},
+											"source": {
+												"$ref": "AAAAAAFsfvxpLcTbV78="
+											},
+											"target": {
+												"$ref": "AAAAAAFr7EmRklMHWwI="
+											}
+										},
+										{
+											"_type": "UMLGeneralization",
+											"_id": "AAAAAAFwAuAGZLqe1tU=",
+											"_parent": {
+												"$ref": "AAAAAAFsfvxpLcTbV78="
+											},
+											"source": {
+												"$ref": "AAAAAAFsfvxpLcTbV78="
+											},
+											"target": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											}
+										}
+									]
+								},
+								{
+									"_type": "UMLClass",
+									"_id": "AAAAAAFwAt8B6boLDyw=",
+									"_parent": {
+										"$ref": "AAAAAAFsfvxC3MTX0Z0="
+									},
+									"name": "Type",
+									"ownedElements": [
+										{
+											"_type": "UMLGeneralization",
+											"_id": "AAAAAAFwkjORFUQyks0=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"source": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"target": {
+												"$ref": "AAAAAAFr7GRp6s9Cw5Q="
+											}
+										},
+										{
+											"_type": "UMLDependency",
+											"_id": "AAAAAAFwkjP6XURF7Do=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"source": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"target": {
+												"$ref": "AAAAAAFwkh6KGkJam2o="
+											}
+										}
+									],
+									"attributes": [
+										{
+											"_type": "UMLAttribute",
+											"_id": "AAAAAAFwkiD5OEKvKQ8=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "name",
+											"visibility": "private",
+											"type": "string"
+										},
+										{
+											"_type": "UMLAttribute",
+											"_id": "AAAAAAFwkiETi0K2oYs=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "aliases",
+											"visibility": "private",
+											"type": "string",
+											"multiplicity": "0..*"
+										}
+									],
+									"operations": [
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkhzGf0HVlFo=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "__construct",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkh0erEHcQV8=",
+													"_parent": {
+														"$ref": "AAAAAAFwkhzGf0HVlFo="
+													},
+													"name": "name",
+													"type": "string"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkh0erEHdYuo=",
+													"_parent": {
+														"$ref": "AAAAAAFwkhzGf0HVlFo="
+													},
+													"name": "aliases",
+													"type": "string",
+													"multiplicity": "0..*"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkh7KEUKG0rk=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "getName",
+											"documentation": "Retrieve the primary type name",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkh7bhkKN2jw=",
+													"_parent": {
+														"$ref": "AAAAAAFwkh7KEUKG0rk="
+													},
+													"type": "string",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkh7b2kKPrKE=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "getNames",
+											"documentation": "Retrieve all known names for this type",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkh71JEKWdbc=",
+													"_parent": {
+														"$ref": "AAAAAAFwkh7b2kKPrKE="
+													},
+													"type": {
+														"$ref": "AAAAAAFwkh6KGkJam2o="
+													},
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkjWS3kRWgJk=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "equals",
+											"documentation": "Determine if the type or value is (derived from) this type",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjXCu0RdsX8=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjWS3kRWgJk="
+													},
+													"name": "item ",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjXCu0RenF8=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjWS3kRWgJk="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkjYpIURij2Q=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "is",
+											"documentation": "Determine if this type is (derived from) the given type",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjZYHURpwVU=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjYpIURij2Q="
+													},
+													"name": "typeName",
+													"type": "string"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjZYHURqh5E=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjYpIURij2Q="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkjbGsERuZ9o=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "is",
+											"documentation": "Determine if this type is (derived from) the given type",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjbwUUR18M8=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjbGsERuZ9o="
+													},
+													"name": "type",
+													"type": "Type"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjbwUUR2jCc=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjbGsERuZ9o="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkjc850R6H/A=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "isClass",
+											"documentation": "Shorthand method for determining if this Type instance is a ClassType.\n\nFinal. Should only accomplish the above shorthand implementation, which should never be changed.",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjdqi0SBmVQ=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjc850R6H/A="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFwkjdq60SDf30=",
+											"_parent": {
+												"$ref": "AAAAAAFwAt8B6boLDyw="
+											},
+											"name": "isInterface",
+											"documentation": "Shorthand method for determining if this Type instance is an InterfaceType.\n\nFinal. Should only accomplish the above shorthand implementation, which should never be changed.",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFwkjeWGUSK6tM=",
+													"_parent": {
+														"$ref": "AAAAAAFwkjdq60SDf30="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
 							"_type": "UMLClassDiagram",
 							"_id": "AAAAAAFwAt6Vi7ndURA=",
 							"_parent": {
@@ -3470,7 +3798,7 @@
 													"top": 640,
 													"width": 85.34507751464844,
 													"height": 13,
-													"text": "(from Types)"
+													"text": "(from Models)"
 												},
 												{
 													"_type": "LabelView",
@@ -3819,7 +4147,7 @@
 													"top": 710,
 													"width": 85.34507751464844,
 													"height": 13,
-													"text": "(from Types)"
+													"text": "(from Models)"
 												},
 												{
 													"_type": "LabelView",
@@ -3995,7 +4323,7 @@
 													"top": 598,
 													"width": 157.87255859375,
 													"height": 13,
-													"text": "(from Types)"
+													"text": "(from Models)"
 												},
 												{
 													"_type": "LabelView",
@@ -5290,324 +5618,6 @@
 											},
 											"name": "class",
 											"type": "ReflectionClass"
-										}
-									]
-								}
-							]
-						},
-						{
-							"_type": "UMLClass",
-							"_id": "AAAAAAFsfv3aYMVU0AI=",
-							"_parent": {
-								"$ref": "AAAAAAFsfvwjTsTTbWQ="
-							},
-							"name": "ClassType",
-							"ownedElements": [
-								{
-									"_type": "UMLGeneralization",
-									"_id": "AAAAAAFsfv5uosWB5MM=",
-									"_parent": {
-										"$ref": "AAAAAAFsfv3aYMVU0AI="
-									},
-									"source": {
-										"$ref": "AAAAAAFsfv3aYMVU0AI="
-									},
-									"target": {
-										"$ref": "AAAAAAFsfvxpLcTbV78="
-									}
-								}
-							]
-						},
-						{
-							"_type": "UMLClass",
-							"_id": "AAAAAAFsfvxpLcTbV78=",
-							"_parent": {
-								"$ref": "AAAAAAFsfvwjTsTTbWQ="
-							},
-							"name": "InterfaceType",
-							"ownedElements": [
-								{
-									"_type": "UMLDependency",
-									"_id": "AAAAAAFsfv1DisU0fr4=",
-									"_parent": {
-										"$ref": "AAAAAAFsfvxpLcTbV78="
-									},
-									"source": {
-										"$ref": "AAAAAAFsfvxpLcTbV78="
-									},
-									"target": {
-										"$ref": "AAAAAAFr7EmRklMHWwI="
-									}
-								},
-								{
-									"_type": "UMLGeneralization",
-									"_id": "AAAAAAFwAuAGZLqe1tU=",
-									"_parent": {
-										"$ref": "AAAAAAFsfvxpLcTbV78="
-									},
-									"source": {
-										"$ref": "AAAAAAFsfvxpLcTbV78="
-									},
-									"target": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									}
-								}
-							]
-						},
-						{
-							"_type": "UMLClass",
-							"_id": "AAAAAAFwAt8B6boLDyw=",
-							"_parent": {
-								"$ref": "AAAAAAFsfvwjTsTTbWQ="
-							},
-							"name": "Type",
-							"ownedElements": [
-								{
-									"_type": "UMLGeneralization",
-									"_id": "AAAAAAFwkjORFUQyks0=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"source": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"target": {
-										"$ref": "AAAAAAFr7GRp6s9Cw5Q="
-									}
-								},
-								{
-									"_type": "UMLDependency",
-									"_id": "AAAAAAFwkjP6XURF7Do=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"source": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"target": {
-										"$ref": "AAAAAAFwkh6KGkJam2o="
-									}
-								}
-							],
-							"attributes": [
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAFwkiD5OEKvKQ8=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "name",
-									"visibility": "private",
-									"type": "string"
-								},
-								{
-									"_type": "UMLAttribute",
-									"_id": "AAAAAAFwkiETi0K2oYs=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "aliases",
-									"visibility": "private",
-									"type": "string",
-									"multiplicity": "0..*"
-								}
-							],
-							"operations": [
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkhzGf0HVlFo=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "__construct",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkh0erEHcQV8=",
-											"_parent": {
-												"$ref": "AAAAAAFwkhzGf0HVlFo="
-											},
-											"name": "name",
-											"type": "string"
-										},
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkh0erEHdYuo=",
-											"_parent": {
-												"$ref": "AAAAAAFwkhzGf0HVlFo="
-											},
-											"name": "aliases",
-											"type": "string",
-											"multiplicity": "0..*"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkh7KEUKG0rk=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "getName",
-									"documentation": "Retrieve the primary type name",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkh7bhkKN2jw=",
-											"_parent": {
-												"$ref": "AAAAAAFwkh7KEUKG0rk="
-											},
-											"type": "string",
-											"direction": "return"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkh7b2kKPrKE=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "getNames",
-									"documentation": "Retrieve all known names for this type",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkh71JEKWdbc=",
-											"_parent": {
-												"$ref": "AAAAAAFwkh7b2kKPrKE="
-											},
-											"type": {
-												"$ref": "AAAAAAFwkh6KGkJam2o="
-											},
-											"direction": "return"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkjWS3kRWgJk=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "equals",
-									"documentation": "Determine if the type or value is (derived from) this type",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjXCu0RdsX8=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjWS3kRWgJk="
-											},
-											"name": "item ",
-											"type": ""
-										},
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjXCu0RenF8=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjWS3kRWgJk="
-											},
-											"type": "bool",
-											"direction": "return"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkjYpIURij2Q=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "is",
-									"documentation": "Determine if this type is (derived from) the given type",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjZYHURpwVU=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjYpIURij2Q="
-											},
-											"name": "typeName",
-											"type": "string"
-										},
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjZYHURqh5E=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjYpIURij2Q="
-											},
-											"type": "bool",
-											"direction": "return"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkjbGsERuZ9o=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "is",
-									"documentation": "Determine if this type is (derived from) the given type",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjbwUUR18M8=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjbGsERuZ9o="
-											},
-											"name": "type",
-											"type": "Type"
-										},
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjbwUUR2jCc=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjbGsERuZ9o="
-											},
-											"type": "bool",
-											"direction": "return"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkjc850R6H/A=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "isClass",
-									"documentation": "Shorthand method for determining if this Type instance is a ClassType.\n\nFinal. Should only accomplish the above shorthand implementation, which should never be changed.",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjdqi0SBmVQ=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjc850R6H/A="
-											},
-											"type": "bool",
-											"direction": "return"
-										}
-									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFwkjdq60SDf30=",
-									"_parent": {
-										"$ref": "AAAAAAFwAt8B6boLDyw="
-									},
-									"name": "isInterface",
-									"documentation": "Shorthand method for determining if this Type instance is an InterfaceType.\n\nFinal. Should only accomplish the above shorthand implementation, which should never be changed.",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFwkjeWGUSK6tM=",
-											"_parent": {
-												"$ref": "AAAAAAFwkjdq60SDf30="
-											},
-											"type": "bool",
-											"direction": "return"
 										}
 									]
 								}
