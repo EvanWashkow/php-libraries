@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Types;
 
 use PHP\Types\Models\ClassType;
-use PHP\Types\Models\FunctionType;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
@@ -157,6 +156,17 @@ class TypeLookup
 
 
     /**
+     * Create a Function type instance
+     * 
+     * @return Type
+     */
+    protected function createFunctionType(): Type
+    {
+        return new Type( TypeNames::FUNCTION );
+    }
+
+
+    /**
      * Create a Integer type instance
      * 
      * @return Type
@@ -186,24 +196,6 @@ class TypeLookup
     protected function createStringType(): Type
     {
         return new Type( TypeNames::STRING );
-    }
-
-
-
-
-    /*******************************************************************************************************************
-    *                                               FUNCTION TYPE FACTORIES
-    *******************************************************************************************************************/
-
-
-    /**
-     * Create a Function type instance
-     * 
-     * @return FunctionType
-     */
-    protected function createFunctionType(): FunctionType
-    {
-        return new FunctionType();
     }
 
 
