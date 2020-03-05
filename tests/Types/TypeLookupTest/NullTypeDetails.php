@@ -10,7 +10,7 @@ class NullTypeDetails implements IExpectedTypeDetails
 {
 
 
-    public function getTypeNames(): array
+    public function getNames(): array
     {
         return [ TypeNames::NULL ];
     }

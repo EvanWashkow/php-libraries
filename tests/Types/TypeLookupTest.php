@@ -51,7 +51,7 @@ class TypeLookupTest extends TypeTestCase
     public function testGetByXTypeName( Type $type, IExpectedTypeDetails $expected ): void
     {
         $this->assertEquals(
-            $expected->getTypeNames()[ 0 ],
+            $expected->getNames()[ 0 ],
             $type->getName(),
             'TypeLookup->getByX() returned a Type instance with the wrong name.'
         );
@@ -66,7 +66,7 @@ class TypeLookupTest extends TypeTestCase
     public function testGetByXTypeNames( Type $type, IExpectedTypeDetails $expected ): void
     {
         $this->assertEquals(
-            $expected->getTypeNames(),
+            $expected->getNames(),
             $type->getNames()->toArray(),
             'TypeLookup->getByX() returned a Type instance with the wrong name.'
         );

@@ -17,7 +17,7 @@ class InterfaceTypeDetails implements IExpectedTypeDetails
     }
 
 
-    public function getTypeNames(): array
+    public function getNames(): array
     {
         return [ $this->interfaceName ];
     }

@@ -11,7 +11,7 @@ interface IExpectedTypeDetails
      * 
      * @return string[]
      */
-    public function getTypeNames(): array;
+    public function getNames(): array;
 
     /**
      * Return the expected classes / interfaces a Type instance should be
