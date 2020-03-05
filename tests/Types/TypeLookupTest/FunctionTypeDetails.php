@@ -17,7 +17,7 @@ class FunctionTypeDetails implements IExpectedTypeDetails
     }
 
 
-    public function getTypeTypes(): array
+    public function getTypeNames(): array
     {
         return [ FunctionType::class, Type::class ];
     }

@@ -9,7 +9,7 @@ use PHP\Types\Models\FunctionType;
 class FunctionInstanceTypeDetails extends FunctionTypeDetails
 {
 
-    public function getTypeTypes(): array
+    public function getTypeNames(): array
     {
         return [ FunctionInstanceType::class, FunctionType::class ];
     }

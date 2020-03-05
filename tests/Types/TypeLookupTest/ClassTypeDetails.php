@@ -15,7 +15,7 @@ class ClassTypeDetails extends InterfaceTypeDetails
     }
 
 
-    public function getTypeTypes(): array
+    public function getTypeNames(): array
     {
         return [ ClassType::class, InterfaceType::class ];
     }

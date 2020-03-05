@@ -23,7 +23,7 @@ class InterfaceTypeDetails implements IExpectedTypeDetails
     }
 
 
-    public function getTypeTypes(): array
+    public function getTypeNames(): array
     {
         return [ InterfaceType::class, Type::class ];
     }

@@ -16,7 +16,7 @@ class BooleanTypeDetails implements IExpectedTypeDetails
     }
 
 
-    public function getTypeTypes(): array
+    public function getTypeNames(): array
     {
         return [ Type::class ];
     }
