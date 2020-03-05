@@ -14,9 +14,9 @@ interface IExpectedTypeDetails
     public function getTypeNames(): array;
 
     /**
-     * Return the expected Type::class (class name) as a string
+     * Return the expected classes / interfaces a Type instance should be
      * 
-     * @return string
+     * @return string[]
      */
-    public function getTypeClassName(): string;
+    public function getTypeTypes(): array;
 }

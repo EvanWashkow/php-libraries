@@ -16,8 +16,8 @@ class IntegerTypeDetails implements IExpectedTypeDetails
     }
 
 
-    public function getTypeClassName(): string
+    public function getTypeTypes(): array
     {
-        return Type::class;
+        return [ Type::class ];
     }
 }

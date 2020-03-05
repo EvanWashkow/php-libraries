@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Types\TypeLookupTest;
 
 use PHP\Types\Models\InterfaceType;
+use PHP\Types\Models\Type;
 
 class InterfaceTypeDetails implements IExpectedTypeDetails
 {
@@ -22,8 +23,8 @@ class InterfaceTypeDetails implements IExpectedTypeDetails
     }
 
 
-    public function getTypeClassName(): string
+    public function getTypeTypes(): array
     {
-        return InterfaceType::class;
+        return [ InterfaceType::class, Type::class ];
     }
 }

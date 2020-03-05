@@ -80,11 +80,13 @@ class TypeLookupTest extends TypeTestCase
      */
     public function testGetByXReturnType( Type $type, IExpectedTypeDetails $expected ): void
     {
-        $this->assertInstanceOf(
-            $expected->getTypeClassName(),
-            $type,
-            'TypeLookup->getByX() returned the wrong type.'
-        );
+        foreach ( $expected->getTypeTypes() as $typeName ) {
+            $this->assertInstanceOf(
+                $typeName,
+                $type,
+                'TypeLookup->getByX() returned the wrong type.'
+            );
+        }
     }
 
 

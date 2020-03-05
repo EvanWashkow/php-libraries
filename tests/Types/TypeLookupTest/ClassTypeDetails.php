@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Types\TypeLookupTest;
 
 use PHP\Types\Models\ClassType;
+use PHP\Types\Models\InterfaceType;
 
 class ClassTypeDetails extends InterfaceTypeDetails
 {
@@ -14,8 +15,8 @@ class ClassTypeDetails extends InterfaceTypeDetails
     }
 
 
-    public function getTypeClassName(): string
+    public function getTypeTypes(): array
     {
-        return ClassType::class;
+        return [ ClassType::class, InterfaceType::class ];
     }
 }
