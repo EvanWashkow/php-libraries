@@ -9,11 +9,11 @@ use PHP\Tests\Types\TypeLookupTest\BooleanTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\ClassTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\FloatTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\FunctionTypeDetails;
-use PHP\Tests\Types\TypeLookupTest\IExpectedTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\IntegerTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\InterfaceTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\NullTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\StringTypeDetails;
+use PHP\Tests\Types\TypeLookupTest\TypeDetails;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
@@ -47,7 +47,7 @@ class TypeLookupTest extends TypeTestCase
      * 
      * @dataProvider getExpectedTypeDetails()
      */
-    public function testGetByXTypeName( Type $type, IExpectedTypeDetails $expected ): void
+    public function testGetByXTypeName( Type $type, TypeDetails $expected ): void
     {
         $this->assertEquals(
             $expected->getNames()[ 0 ],
@@ -62,7 +62,7 @@ class TypeLookupTest extends TypeTestCase
      * 
      * @dataProvider getExpectedTypeDetails()
      */
-    public function testGetByXTypeNames( Type $type, IExpectedTypeDetails $expected ): void
+    public function testGetByXTypeNames( Type $type, TypeDetails $expected ): void
     {
         $this->assertEquals(
             $expected->getNames(),
@@ -77,7 +77,7 @@ class TypeLookupTest extends TypeTestCase
      * 
      * @dataProvider getExpectedTypeDetails()
      */
-    public function testGetByXReturnType( Type $type, IExpectedTypeDetails $expected ): void
+    public function testGetByXReturnType( Type $type, TypeDetails $expected ): void
     {
         foreach ( $expected->getTypeNames() as $typeName ) {
             $this->assertInstanceOf(
@@ -90,7 +90,7 @@ class TypeLookupTest extends TypeTestCase
 
 
     /**
-     * Retrieve IExpectedTypeDetails to run tests against
+     * Retrieve TypeDetails to run tests against
      * 
      * @return array
      */

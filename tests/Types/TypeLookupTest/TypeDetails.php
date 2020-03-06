@@ -3,7 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Types\TypeLookupTest;
 
-interface IExpectedTypeDetails
+use PHP\Types\Models\Type;
+
+abstract class TypeDetails
 {
 
     /**
@@ -11,12 +13,15 @@ interface IExpectedTypeDetails
      * 
      * @return string[]
      */
-    public function getNames(): array;
+    abstract public function getNames(): array;
 
     /**
      * Return the expected classes / interface names for a Type instance
      * 
      * @return string[]
      */
-    public function getTypeNames(): array;
+    public function getTypeNames(): array
+    {
+        return [ Type::class ];
+    }
 }

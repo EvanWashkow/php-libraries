@@ -6,7 +6,7 @@ namespace PHP\Tests\Types\TypeLookupTest;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeNames;
 
-class ArrayTypeDetails implements IExpectedTypeDetails
+class ArrayTypeDetails extends TypeDetails
 {
 
 

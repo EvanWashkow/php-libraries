@@ -6,7 +6,7 @@ namespace PHP\Tests\Types\TypeLookupTest;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\Models\Type;
 
-class InterfaceTypeDetails implements IExpectedTypeDetails
+class InterfaceTypeDetails extends TypeDetails
 {
 
     private $interfaceName;
