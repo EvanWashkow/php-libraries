@@ -106,6 +106,23 @@ class TypeTest extends TypeTestCase
                 $this->getTypeLookup()->getByValue( '1' ),
                 true,
                 false
+            ],
+
+            // Booleans
+            'getByValue( true )->equals( getByName("bool") )' => [
+                $this->getTypeLookup()->getByValue( true ),
+                $this->getTypeLookup()->getByName( 'bool' ),
+                true
+            ],
+            'getByValue( true )->equals( false )' => [
+                $this->getTypeLookup()->getByValue( true ),
+                false,
+                true
+            ],
+            'getByValue( true )->equals( 1 )' => [
+                $this->getTypeLookup()->getByValue( true ),
+                1,
+                false
             ]
         ];
     }
