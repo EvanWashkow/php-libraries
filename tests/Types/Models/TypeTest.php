@@ -63,11 +63,11 @@ class TypeTest extends TypeTestCase
      * 
      * @dataProvider getEqualsData
      */
-    public function testEquals( Type $type, $value, bool $expected )
+    public function testEquals( Type $type, $typeOrValue, bool $expected )
     {
         $this->assertEquals(
             $expected,
-            $type->equals( $value ),
+            $type->equals( $typeOrValue ),
             'Type->equals() did not return the correct result'
         );
     }
@@ -75,75 +75,77 @@ class TypeTest extends TypeTestCase
 
     public function getEqualsData(): array
     {
+        $typeLookup = $this->getTypeLookup();
+
         return [
 
             // Integer
             'getByValue(1)->equals( getByName("int") )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
-                $this->getTypeLookup()->getByName( 'int' ),
+                $typeLookup->getByValue( 1 ),
+                $typeLookup->getByName( 'int' ),
                 true
             ],
             'getByValue(1)->equals( 2 )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                $typeLookup->getByValue( 1 ),
                 2,
                 true
             ],
             'getByValue(1)->equals( "1" )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                $typeLookup->getByValue( 1 ),
                 "1",
                 false
             ],
             'getByValue(1)->equals( getByName("bool") )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
-                $this->getTypeLookup()->getByName( 'bool' ),
+                $typeLookup->getByValue( 1 ),
+                $typeLookup->getByName( 'bool' ),
                 false
             ],
             'getByValue(1)->equals( true )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                $typeLookup->getByValue( 1 ),
                 true,
                 false
             ],
 
             // Strings
             'getByValue( "1" )->equals( getByName("string") )' => [
-                $this->getTypeLookup()->getByValue( '1' ),
-                $this->getTypeLookup()->getByName( 'string' ),
+                $typeLookup->getByValue( '1' ),
+                $typeLookup->getByName( 'string' ),
                 true
             ],
             'getByValue( "1" )->equals( "2" )' => [
-                $this->getTypeLookup()->getByValue( '1' ),
+                $typeLookup->getByValue( '1' ),
                 "2",
                 true
             ],
             'getByValue( "1" )->equals( 1 )' => [
-                $this->getTypeLookup()->getByValue( '1' ),
+                $typeLookup->getByValue( '1' ),
                 1,
                 false
             ],
             'getByValue( "1" )->equals( getByName( "bool" ) )' => [
-                $this->getTypeLookup()->getByValue( '1' ),
-                $this->getTypeLookup()->getByName( 'bool' ),
+                $typeLookup->getByValue( '1' ),
+                $typeLookup->getByName( 'bool' ),
                 false
             ],
             'getByValue( "1" )->equals( true )' => [
-                $this->getTypeLookup()->getByValue( '1' ),
+                $typeLookup->getByValue( '1' ),
                 true,
                 false
             ],
 
             // Booleans
             'getByValue( true )->equals( getByName("bool") )' => [
-                $this->getTypeLookup()->getByValue( true ),
-                $this->getTypeLookup()->getByName( 'bool' ),
+                $typeLookup->getByValue( true ),
+                $typeLookup->getByName( 'bool' ),
                 true
             ],
             'getByValue( true )->equals( false )' => [
-                $this->getTypeLookup()->getByValue( true ),
+                $typeLookup->getByValue( true ),
                 false,
                 true
             ],
             'getByValue( true )->equals( 1 )' => [
-                $this->getTypeLookup()->getByValue( true ),
+                $typeLookup->getByValue( true ),
                 1,
                 false
             ]
