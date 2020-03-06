@@ -3,45 +3,12 @@ namespace PHP\Tests\Types\Models;
 
 use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\ClassType;
-use PHP\Types\Models\Type;
 
 /**
  * Ensure all ClassTypes have same basic functionality
  */
 class ClassTypeTest extends TypeTestCase
 {
-
-
-    /***************************************************************************
-    *                                 TYPE CHECK
-    ***************************************************************************/
-
-
-    /**
-     * Ensure that a type lookup returns a ClassType instance
-     * 
-     * @dataProvider classNamesProvider
-     * 
-     * @param string $className The class name
-     **/
-    public function testTypesLookup( string $className )
-    {
-        $this->assertInstanceOf(
-            ClassType::class,
-            $this->getTypeLookup()->getByName( $className ),
-            'Types lookup should return a ClassType instance when given a class name'
-        );
-    }
-
-
-
-
-    /***************************************************************************
-    *                            ClassType->getName()
-    *
-    * This was already tested when testing type lookup in Types Test. Nothing to
-    * do here.
-    ***************************************************************************/
 
 
 
@@ -52,62 +19,61 @@ class ClassTypeTest extends TypeTestCase
 
     /**
      * Test ClassType->equals()
-     * 
-     * @dataProvider equalsByTypeProvider
-     * 
-     * @param ClassType $typeA    Class type instance
-     * @param Type       $typeB    Class type instance to compare A to
-     * @param bool       $expected The expected result
+     *
+     * @dataProvider getEqualsTypeData
+     *
+     * @param ClassType $type        Class type instance
+     * @param mixed     $typeOrValue Class type instance to compare A to
+     * @param bool      $expected    The expected result
      */
-    public function testEqualsByType( ClassType $typeA,
-                                      Type      $typeB,
-                                      bool      $expected )
+    public function testEquals( ClassType $type, $typeOrValue, bool $expected )
     {
-        $this->assertSame(
+        $this->assertEquals(
             $expected,
-            $typeA->equals( $typeB )
+            $type->equals( $typeOrValue ),
+            'ClassType->equals() did not return the expected value'
         );
     }
 
 
     /**
-     * Data provider for is() test
+     * Data provider for equals() test
      *
      * @return array
      **/
-    public function equalsByTypeProvider(): array
+    public function getEqualsTypeData(): array
     {
-        return [
+        $typeLookup = $this->getTypeLookup();
 
-            // ClassType
-            'ClassType->equals( int )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
-                $this->getTypeLookup()->getByName( 'int' ),
-                false
-            ],
-            'ClassType->equals( other class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
-                $this->getTypeLookup()->getByName( 'ReflectionFunction' ),
-                false
-            ],
-            'ClassType->equals( child class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
-                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
+        return [
+            '->getByName( \ReflectionClass::class )->equals( \ReflectionObject::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( \ReflectionObject::class ),
                 true
             ],
-            'ClassType->equals( same class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
-                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
+            '->getByName( \ReflectionClass::class )->equals( \ReflectionClass::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( \ReflectionClass::class ),
                 true
             ],
-            'ClassType->equals( parent class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+            '->getByName( \ReflectionClass::class )->equals( "int" )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( 'int' ),
                 false
             ],
-            'ClassType->equals( parent interface )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionObject' ),
-                $this->getTypeLookup()->getByName( 'Reflector' ),
+            '->getByName( \ReflectionClass::class )->equals( \ReflectionFunction::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( \ReflectionFunction::class ),
+                false
+            ],
+            '->getByName( \ReflectionObject::class )->equals( \ReflectionClass::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName( \ReflectionClass::class ),
+                false
+            ],
+            '->getByName( \ReflectionObject::class )->equals( \Reflector::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName( \Reflector::class ),
                 false
             ]
         ];
@@ -122,12 +88,12 @@ class ClassTypeTest extends TypeTestCase
 
     /**
      * Test ClassType->equals() by value
-     * 
+     *
      * @dataProvider equalsByValueProvider
-     * 
+     *
      * @param ClassType $type     Class type instance
-     * @param mixed      $value    Value to compare the type to
-     * @param bool       $expected The expected result
+     * @param mixed     $value    Value to compare the type to
+     * @param bool      $expected The expected result
      */
     public function testEqualsByValue( ClassType $type, $value, bool $expected )
     {
@@ -154,12 +120,12 @@ class ClassTypeTest extends TypeTestCase
                 false
             ],
             'ClassType->equals( other class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
                 new \ReflectionFunction( function() {} ),
                 false
             ],
             'ClassType->equals( child class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
                 new \ReflectionObject( $this ),
                 true
             ],
@@ -186,7 +152,7 @@ class ClassTypeTest extends TypeTestCase
 
     /**
      * Ensure ClassType->getName() returns the class name
-     * 
+     *
      * @dataProvider classNamesProvider
      *
      * @param string $className The class name
@@ -209,9 +175,9 @@ class ClassTypeTest extends TypeTestCase
 
     /**
      * Test ClassType->is()
-     * 
+     *
      * @dataProvider isProvider
-     * 
+     *
      * @param ClassType $typeA    Class type
      * @param string     $typeB    Class name to compare A to
      * @param bool       $expected The expected result
@@ -236,17 +202,17 @@ class ClassTypeTest extends TypeTestCase
 
             // ClassType
             'ClassType->is( int )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
                 'int',
                 false
             ],
             'ClassType->is( other class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
-                'ReflectionFunction',
+                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
+                \ReflectionFunction::class,
                 false
             ],
             'ClassType->is( child class )' => [
-                $this->getTypeLookup()->getByName( 'ReflectionClass' ),
+                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
                 'ReflectionObject',
                 false
             ],
@@ -257,7 +223,7 @@ class ClassTypeTest extends TypeTestCase
             ],
             'ClassType->is( parent class )' => [
                 $this->getTypeLookup()->getByName( 'ReflectionObject' ),
-                'ReflectionClass',
+                \ReflectionClass::class,
                 true
             ],
             'ClassType->is( parent interface )' => [
@@ -273,13 +239,13 @@ class ClassTypeTest extends TypeTestCase
     /***************************************************************************
     *                             ClassType->isClass()
     ***************************************************************************/
-    
-    
+
+
     /**
      * Ensure ClassType->isClass() returns true for classes
-     * 
+     *
      * @dataProvider classTypesProvider
-     * 
+     *
      * @param ClassType $type The class type to check
      */
     public function testIsClass( ClassType $type )
@@ -290,20 +256,20 @@ class ClassTypeTest extends TypeTestCase
             "{$class} implements ClassType: {$class}->isClass() should return true"
         );
     }
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
     *                            ClassType->isInterface()
     ***************************************************************************/
-    
-    
+
+
     /**
      * Ensure ClassType->isInterface() returns false for class types
-     * 
+     *
      * @dataProvider classTypesProvider
-     * 
+     *
      * @param ClassType $type The class type to check
      */
     public function testIsInterface( ClassType $type )
@@ -325,7 +291,7 @@ class ClassTypeTest extends TypeTestCase
 
     /**
      * Retrieve a list of types as a data provider
-     * 
+     *
      * @return ClassType[]
      **/
     public function classTypesProvider(): array
@@ -341,7 +307,7 @@ class ClassTypeTest extends TypeTestCase
 
     /**
      * Provides test name data
-     * 
+     *
      * @return string[]
      **/
     public function classNamesProvider(): array
