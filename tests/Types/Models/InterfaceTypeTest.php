@@ -2,6 +2,7 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\Tests\Types\TypeTestCase;
+use PHP\Types\Models\InterfaceType;
 
 /**
  * Tests the \PHP\Types\InterfaceType functionality
@@ -20,15 +21,15 @@ class InterfaceTypeTest extends TypeTestCase
      * 
      * @dataProvider getEqualsData
      * 
-     * @param string $typeName    The type name to test
-     * @param mixed  $typeOrValue A Type instance or value
-     * @param bool   $expected    The expected result
+     * @param InterfaceType $type        The interface type to test
+     * @param mixed         $typeOrValue A Type instance or value
+     * @param bool          $expected    The expected result
      **/
-    public function testEquals( string $typeName, $typeOrValue, bool $expected )
+    public function testEquals( InterfaceType $type, $typeOrValue, bool $expected )
     {
         $this->assertEquals(
             $expected,
-            $this->getTypeLookup()->getByName( $typeName )->equals( $typeOrValue ),
+            $type->equals( $typeOrValue ),
             'InterfaceType->equals() did not return the expected results'
         );
     }
@@ -41,32 +42,44 @@ class InterfaceTypeTest extends TypeTestCase
      */
     public function getEqualsData()
     {
-        return [
+        $typeLookup = $this->getTypeLookup();
 
-            // Valid
+        return [
             'Same interface' => [
-                'Iterator', $this->getTypeLookup()->getByName( 'Iterator' ), true
+                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \Iterator::class ),
+                true
             ],
             'Parent->equals( child interface type )' => [
-                'Iterator', $this->getTypeLookup()->getByName( 'SeekableIterator' ), true
+                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \SeekableIterator::class ),
+                true
             ],
             'Parent->equals( child class type )' => [
-                'Iterator', $this->getTypeLookup()->getByName( \PHP\Collections\Collection::class ), true
+                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \PHP\Collections\Collection::class ),
+                true
             ],
             'Parent->equals( child class instance )' => [
-                'Iterator', new \PHP\Collections\Dictionary( '*', '*' ), true
+                $typeLookup->getByName( \Iterator::class ),
+                new \PHP\Collections\Dictionary( '*', '*' ),
+                true
             ],
-
-            // Invalid
             'Child->equals( parent interface type )' => [
-                'SeekableIterator', $this->getTypeLookup()->getByName( 'Iterator' ), false
+                $typeLookup->getByName( \SeekableIterator::class ),
+                $typeLookup->getByName( \Iterator::class ),
+                false
             ],
             'Child->equals( other type )' => [
-                'SeekableIterator', $this->getTypeLookup()->getByName( 'int' ), false
+                $typeLookup->getByName( \SeekableIterator::class ),
+                $typeLookup->getByName( 'int' ),
+                false
             ],
             'Child->equals( other type instance )' => [
-                'SeekableIterator', 1, false
-            ],
+                $typeLookup->getByName( \SeekableIterator::class ),
+                1,
+                false
+            ]
         ];
     }
 
