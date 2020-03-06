@@ -53,6 +53,8 @@ class TypeTest extends TypeTestCase
     public function getEqualsData(): array
     {
         return [
+
+            // Integer
             'getByValue(1)->equals( getByName("int") )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 $this->getTypeLookup()->getByName( 'int' ),
@@ -63,6 +65,11 @@ class TypeTest extends TypeTestCase
                 2,
                 true
             ],
+            'getByValue(1)->equals( "1" )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
+                "1",
+                false
+            ],
             'getByValue(1)->equals( getByName("bool") )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 $this->getTypeLookup()->getByName( 'bool' ),
@@ -70,6 +77,33 @@ class TypeTest extends TypeTestCase
             ],
             'getByValue(1)->equals( true )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
+                true,
+                false
+            ],
+
+            // Strings
+            'getByValue( "1" )->equals( getByName("string") )' => [
+                $this->getTypeLookup()->getByValue( '1' ),
+                $this->getTypeLookup()->getByName( 'string' ),
+                true
+            ],
+            'getByValue( "1" )->equals( "2" )' => [
+                $this->getTypeLookup()->getByValue( '1' ),
+                "2",
+                true
+            ],
+            'getByValue( "1" )->equals( 1 )' => [
+                $this->getTypeLookup()->getByValue( '1' ),
+                1,
+                false
+            ],
+            'getByValue( "1" )->equals( getByName( "bool" ) )' => [
+                $this->getTypeLookup()->getByValue( '1' ),
+                $this->getTypeLookup()->getByName( 'bool' ),
+                false
+            ],
+            'getByValue( "1" )->equals( true )' => [
+                $this->getTypeLookup()->getByValue( '1' ),
                 true,
                 false
             ]
