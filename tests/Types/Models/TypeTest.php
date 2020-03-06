@@ -20,7 +20,7 @@ class TypeTest extends TypeTestCase
     /**
      * Ensure Type->__construct throws an exception on an empty name
      * 
-     * @expectedException InvalidArgumentException
+     * @expectedException \DomainException
      **/
     public function testConstructThrowsExceptionOnEmptyName()
     {

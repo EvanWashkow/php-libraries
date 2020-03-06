@@ -42,12 +42,13 @@ class Type extends ObjectClass
      *
      * @param string   $name    The primary type name
      * @param string[] $aliases Alternate names for this type
+     * @throws \DomainException
      */
     public function __construct( string $name, array $aliases = [] )
     {
         // Set name
         if ( '' === ( $name = trim( $name ) )) {
-            throw new InvalidArgumentException( 'Type name cannot be empty' );
+            throw new \DomainException( 'Type name cannot be empty' );
         }
         
         // Set properties
