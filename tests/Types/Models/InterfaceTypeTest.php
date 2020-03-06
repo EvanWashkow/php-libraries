@@ -1,6 +1,7 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
+use ArrayAccess;
 use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\InterfaceType;
 
@@ -166,7 +167,7 @@ class InterfaceTypeTest extends TypeTestCase
      */
     public function testIsInterfaceReturnsTrue()
     {
-        $type = $this->getTypeLookup()->getByName( 'ArrayAccess' );
+        $type = $this->getTypeLookup()->getByName( ArrayAccess::class );
         $this->assertTrue(
             $type->isInterface(),
             'Expected InterfaceType->isInterface() to return true for interface types'
