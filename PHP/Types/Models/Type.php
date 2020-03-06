@@ -105,7 +105,7 @@ class Type extends ObjectClass
     
     
     /**
-     * Determine if the type or value is derived from the current type
+     * Determine if the type or value is (derived from) this type
      * 
      * i.e. The given type must have all the same properties and methods;
      * meaning this type <= that type.
@@ -130,7 +130,7 @@ class Type extends ObjectClass
     
     
     /**
-     * Determine if this type is derived from the given type
+     * Determine if this type is (derived from) the given type
      * 
      * i.e. This type has all the same properties and methods as the given type;
      * meaning this type >= that type.
