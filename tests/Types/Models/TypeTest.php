@@ -195,27 +195,27 @@ class TypeTest extends TypeTestCase
     public function getIsData(): array
     {
         return [
-            'Valid name' => [
+            'getByValue( 1 )->is( "int" )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 'int',
                 true
             ],
-            'Valid alias' =>[
+            'getByValue( 1 )->is( "integer" )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 'integer',
                 true
             ],
-            'Partial name' => [
+            'getByValue( 1 )->is( "integ" )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 'integ',
                 false
             ],
-            'Invalid name' => [
+            'getByValue( 1 )->is( "bool" )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 'bool',
                 false
             ],
-            'Invalid alias' => [
+            'getByValue( 1 )->is( "boolean" )' => [
                 $this->getTypeLookup()->getByValue( 1 ),
                 'boolean',
                 false
