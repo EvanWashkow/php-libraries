@@ -14,10 +14,4 @@ class StringTypeDetails extends TypeDetails
     {
         return [ TypeNames::STRING ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }

@@ -14,10 +14,4 @@ class FunctionTypeDetails extends TypeDetails
     {
         return [ TypeNames::FUNCTION ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }

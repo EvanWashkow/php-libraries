@@ -14,10 +14,4 @@ class FloatTypeDetails extends TypeDetails
     {
         return [ TypeNames::FLOAT, TypeNames::DOUBLE ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }

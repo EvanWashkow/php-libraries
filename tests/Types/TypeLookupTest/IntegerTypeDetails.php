@@ -14,10 +14,4 @@ class IntegerTypeDetails extends TypeDetails
     {
         return [ TypeNames::INT, TypeNames::INTEGER ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }

@@ -14,10 +14,4 @@ class NullTypeDetails extends TypeDetails
     {
         return [ TypeNames::NULL ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }

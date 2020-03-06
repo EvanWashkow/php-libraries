@@ -14,10 +14,4 @@ class ArrayTypeDetails extends TypeDetails
     {
         return [ TypeNames::ARRAY ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }

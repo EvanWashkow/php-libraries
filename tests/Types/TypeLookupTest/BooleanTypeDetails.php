@@ -14,10 +14,4 @@ class BooleanTypeDetails extends TypeDetails
     {
         return [ TypeNames::BOOL, TypeNames::BOOLEAN ];
     }
-
-
-    public function getTypeNames(): array
-    {
-        return [ Type::class ];
-    }
 }
