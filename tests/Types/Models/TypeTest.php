@@ -33,53 +33,47 @@ class TypeTest extends TypeTestCase
     /*******************************************************************************************************************
     *                                                  Type->equals()
     *******************************************************************************************************************/
-    
-    
+
+
     /**
-     * Ensure Type->equals() returns true for same Type
+     * Test the Type->equals() method
+     * 
+     * @dataProvider getEqualsData
      */
-    public function testEqualsReturnsTrueForSameType()
+    public function testEquals( Type $type, $value, bool $expected )
     {
-        $this->assertTrue(
-            $this->getTypeLookup()->getByValue( 1 )->equals( $this->getTypeLookup()->getByName( 'int' )),
-            "Expected Type->equals() to return true for the same Type instance"
+        $this->assertEquals(
+            $expected,
+            $type->equals( $value ),
+            'Type->equals() did not return the correct result'
         );
     }
-    
-    
-    /**
-     * Ensure Type->equals() returns true for a value of that type
-     */
-    public function testEqualsReturnsTrueForSameValueType()
+
+
+    public function getEqualsData(): array
     {
-        $this->assertTrue(
-            $this->getTypeLookup()->getByValue( 1 )->equals( 2 ),
-            "Expected Type->equals() to return true for a value of that type"
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->equals() returns false for different Type
-     */
-    public function testEqualsReturnsFalseForDifferentType()
-    {
-        $this->assertFalse(
-            $this->getTypeLookup()->getByValue( 1 )->equals( $this->getTypeLookup()->getByName( 'bool' )),
-            "Expected Type->equals() to return false for the different Type instance"
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->equals() returns false for a value of a different type
-     */
-    public function testEqualsReturnsFalseForDifferentValueType()
-    {
-        $this->assertFalse(
-            $this->getTypeLookup()->getByValue( 1 )->equals( true ),
-            "Expected Type->equals() to return false for a value of a different type"
-        );
+        return [
+            'getByValue(1)->equals( getByName("int") )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
+                $this->getTypeLookup()->getByName( 'int' ),
+                true
+            ],
+            'getByValue(1)->equals( 2 )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
+                2,
+                true
+            ],
+            'getByValue(1)->equals( getByName("bool") )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
+                $this->getTypeLookup()->getByName( 'bool' ),
+                false
+            ],
+            'getByValue(1)->equals( true )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
+                true,
+                false
+            ]
+        ];
     }
     
     
