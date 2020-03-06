@@ -139,38 +139,38 @@ class ClassTypeTest extends TypeTestCase
      **/
     public function isProvider(): array
     {
-        return [
+        $typeLookup = $this->getTypeLookup();
 
-            // ClassType
-            'ClassType->is( int )' => [
-                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
-                'int',
-                false
-            ],
-            'ClassType->is( other class )' => [
-                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
-                \ReflectionFunction::class,
-                false
-            ],
-            'ClassType->is( child class )' => [
-                $this->getTypeLookup()->getByName( \ReflectionClass::class ),
-                \ReflectionObject::class,
-                false
-            ],
-            'ClassType->is( same class )' => [
-                $this->getTypeLookup()->getByName( \ReflectionObject::class ),
+        return [
+            '->getByName( \ReflectionObject::class )->is( \ReflectionObject::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
                 \ReflectionObject::class,
                 true
             ],
-            'ClassType->is( parent class )' => [
-                $this->getTypeLookup()->getByName( \ReflectionObject::class ),
+            '->getByName( \ReflectionObject::class )->is( \ReflectionClass::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
                 \ReflectionClass::class,
                 true
             ],
-            'ClassType->is( parent interface )' => [
-                $this->getTypeLookup()->getByName( \ReflectionObject::class ),
-                'Reflector',
+            '->getByName( \ReflectionObject::class )->is( \Reflector::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                \Reflector::class,
                 true
+            ],
+            '->getByName( \ReflectionClass::class )->is( "int" )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                'int',
+                false
+            ],
+            '->getByName( \ReflectionClass::class )->is( \ReflectionFunction::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                \ReflectionFunction::class,
+                false
+            ],
+            '->getByName( \ReflectionClass::class )->is( \ReflectionObject::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                \ReflectionObject::class,
+                false
             ]
         ];
     }
