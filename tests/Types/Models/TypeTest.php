@@ -1,17 +1,40 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
+use PHP\ObjectClass;
 use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
-
+use PHP\Types\TypeNames;
 
 /**
  * Tests the base Type functionality
  */
 class TypeTest extends TypeTestCase
 {
-    
-    
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                  Type inheritance
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure Type is an ObjectClass
+     */
+    public function testTypeIsObjectClass(): void
+    {
+        $this->assertInstanceOf(
+            ObjectClass::class,
+            $this->getTypeLookup()->getByName( TypeNames::INT ),
+            'Type is not an ObjectClass'
+        );
+    }
+
+
+
+
     /*******************************************************************************************************************
     *                                                Type->__construct()
     *******************************************************************************************************************/
