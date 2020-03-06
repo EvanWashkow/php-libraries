@@ -15,8 +15,11 @@ abstract class TypeDetails
      */
     abstract public function getNames(): array;
 
+
     /**
      * Return the expected classes / interface names for a Type instance
+     * 
+     * Testing that a Type is an ObjectClass is done once, in the TypeTest
      * 
      * @return string[]
      */
