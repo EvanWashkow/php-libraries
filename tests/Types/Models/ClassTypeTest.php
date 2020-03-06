@@ -178,14 +178,14 @@ class ClassTypeTest extends TypeTestCase
 
 
     /*******************************************************************************************************************
-    *                                                   ClassType->isClass()
+    *                                       ClassType->isClass() and ->isInterface()
     *******************************************************************************************************************/
 
 
     /**
      * Ensure ClassType->isClass() returns true for classes
      *
-     * @dataProvider classTypesProvider
+     * @dataProvider getClassTypes
      *
      * @param ClassType $type The class type to check
      */
@@ -199,17 +199,10 @@ class ClassTypeTest extends TypeTestCase
     }
 
 
-
-
-    /*******************************************************************************************************************
-    *                                                ClassType->isInterface()
-    *******************************************************************************************************************/
-
-
     /**
      * Ensure ClassType->isInterface() returns false for class types
      *
-     * @dataProvider classTypesProvider
+     * @dataProvider getClassTypes
      *
      * @param ClassType $type The class type to check
      */
@@ -235,7 +228,7 @@ class ClassTypeTest extends TypeTestCase
      *
      * @return ClassType[]
      **/
-    public function classTypesProvider(): array
+    public function getClassTypes(): array
     {
         return [
             [ $this->getTypeLookup()->getByName( \PHP\Collections\Dictionary::class ) ]
