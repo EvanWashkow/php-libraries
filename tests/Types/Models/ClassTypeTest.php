@@ -111,30 +111,6 @@ class ClassTypeTest extends TypeTestCase
 
 
     /*******************************************************************************************************************
-    *                                                ClassType->getName()
-    *******************************************************************************************************************/
-
-
-    /**
-     * Ensure ClassType->getName() returns the class name
-     *
-     * @dataProvider classNamesProvider
-     *
-     * @param string $className The class name
-     **/
-    public function testGetName( string $className )
-    {
-        $this->assertSame(
-            $className,
-            $this->getTypeLookup()->getByName( $className )->getName(),
-            "TypeLookup->getByName( '{$className}' )->getName() did not return the class name"
-        );
-    }
-
-
-
-
-    /*******************************************************************************************************************
     *                                                   ClassType->is()
     *******************************************************************************************************************/
 
@@ -261,24 +237,8 @@ class ClassTypeTest extends TypeTestCase
      **/
     public function classTypesProvider(): array
     {
-        $types = [];
-        foreach ( $this->classNamesProvider() as $array ) {
-            $name = $array[ 0 ];
-            $types[] = [ $this->getTypeLookup()->getByName( $name ) ];
-        }
-        return $types;
-    }
-
-
-    /**
-     * Provides test name data
-     *
-     * @return string[]
-     **/
-    public function classNamesProvider(): array
-    {
         return [
-            [ \PHP\Collections\Dictionary::class ]
+            [ $this->getTypeLookup()->getByName( \PHP\Collections\Dictionary::class ) ]
         ];
     }
 }
