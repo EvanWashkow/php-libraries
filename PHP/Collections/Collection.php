@@ -6,9 +6,9 @@ namespace PHP\Collections;
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\Cloneable;
 use PHP\ObjectClass;
-use PHP\Types;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeLookup;
 use PHP\Types\TypeNames;
 
 /**
@@ -46,27 +46,28 @@ abstract class Collection extends ObjectClass implements Cloneable,
 
     /**
      * Create a new Collection
-     * 
-     * Throws \InvalidArgumentException when key or value type is NULL or unknown.
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
      * @param array  $entries   Initial entries [ key => value ]
-     * @throws \InvalidArgumentException On bad key / value type
+     * @throws \DomainException When key or value type either does not exist or is null.
      */
     public function __construct( string $keyType,
                                  string $valueType,
                                  array  $entries   = [] )
     {
+        // Create type lookup
+        $typeLookup = new TypeLookup();
+
         // Lookup key type
         if ( AnonymousType::NAME === $keyType ) {
             $this->keyType = $this->createAnonymousKeyType();
         }
         else {
             try {
-                $this->keyType = Types::GetByName( $keyType );
-            } catch ( NotFoundException $e ) {
-                throw new \InvalidArgumentException( "\"$keyType\" cannot be used for the key type: it does not exist." );
+                $this->keyType = $typeLookup->getByName( $keyType );
+            } catch ( \DomainException $e ) {
+                throw new \DomainException( "\"$keyType\" cannot be used for the key type: it does not exist." );
             }
         }
 
@@ -76,18 +77,18 @@ abstract class Collection extends ObjectClass implements Cloneable,
         }
         else {
             try {
-                $this->valueType = Types::GetByName( $valueType );
-            } catch ( NotFoundException $e ) {
-                throw new \InvalidArgumentException( "\"$valueType\" cannot be used for the value type: it does not exist." );
+                $this->valueType = $typeLookup->getByName( $valueType );
+            } catch ( \DomainException $e ) {
+                throw new \DomainException( "\"$valueType\" cannot be used for the value type: it does not exist." );
             }
         }
 
         // Throw exception on types
         if ( TypeNames::NULL === $this->getKeyType()->getName() ) {
-            throw new \InvalidArgumentException( 'Key type cannot be "null"' );
+            throw new \DomainException( 'Key type cannot be "null"' );
         }
         if ( TypeNames::NULL === $this->getValueType()->getName() ) {
-            throw new \InvalidArgumentException( 'Value type cannot be "null"' );
+            throw new \DomainException( 'Value type cannot be "null"' );
         }
 
         // For each initial entry, add it to this collection

@@ -8,14 +8,14 @@ use PHP\ObjectClass;
 use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
- * Defines basic type information
+ * Retrieve information for a system type
  */
 class Type extends ObjectClass
 {
     
-    /***************************************************************************
-    *                                  PROPERTIES
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                      PROPERTIES
+    *******************************************************************************************************************/
 
     /** @var string $name The primary type name */
     private $name;
@@ -29,25 +29,26 @@ class Type extends ObjectClass
 
 
 
-    /***************************************************************************
-    *                                 CONSTRUCTOR
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                      CONSTRUCTOR
+    *******************************************************************************************************************/
     
     
     /**
-     * Create a Type representation to retrieve information from
+     * Create a type representation to retrieve information from
      * 
      * @internal Do not instantiantiate collections in the type constructor:
      * collections rely on types.
      *
      * @param string   $name    The primary type name
      * @param string[] $aliases Alternate names for this type
+     * @throws \DomainException
      */
     public function __construct( string $name, array $aliases = [] )
     {
         // Set name
         if ( '' === ( $name = trim( $name ) )) {
-            throw new InvalidArgumentException( 'Type name cannot be empty' );
+            throw new \DomainException( 'Type name cannot be empty' );
         }
         
         // Set properties
@@ -62,9 +63,9 @@ class Type extends ObjectClass
     
     
     
-    /***************************************************************************
-    *                                   ACCESSORS
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                       ACCESSORS
+    *******************************************************************************************************************/
     
     
     /**
@@ -98,13 +99,13 @@ class Type extends ObjectClass
     
     
     
-    /***************************************************************************
-    *                                 COMPARISON
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                     COMPARISON
+    *******************************************************************************************************************/
     
     
     /**
-     * Determine if the type or value is derived from the current type
+     * Determine if the type or value is (derived from) this type
      * 
      * i.e. The given type must have all the same properties and methods;
      * meaning this type <= that type.
@@ -129,7 +130,7 @@ class Type extends ObjectClass
     
     
     /**
-     * Determine if this type is derived from the given type
+     * Determine if this type is (derived from) the given type
      * 
      * i.e. This type has all the same properties and methods as the given type;
      * meaning this type >= that type.

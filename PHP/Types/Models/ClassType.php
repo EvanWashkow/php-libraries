@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Types\Models;
 
 /**
- * Store and retrieve type information for a class
+ * Retrieve type information for a class
  */
 class ClassType extends InterfaceType
 {

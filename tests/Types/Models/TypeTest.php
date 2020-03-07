@@ -1,27 +1,49 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Types;
-use PHP\Collections\Sequence;
+use PHP\ObjectClass;
+use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
-
+use PHP\Types\TypeNames;
 
 /**
  * Tests the base Type functionality
  */
-class TypeTest extends \PHP\Tests\TestCase
+class TypeTest extends TypeTestCase
 {
-    
-    
-    /***************************************************************************
-    *                            Type->__construct()
-    ***************************************************************************/
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                  Type inheritance
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure Type is an ObjectClass
+     */
+    public function testTypeIsObjectClass(): void
+    {
+        $this->assertInstanceOf(
+            ObjectClass::class,
+            $this->getTypeLookup()->getByName( TypeNames::INT ),
+            'Type is not an ObjectClass'
+        );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                Type->__construct()
+    *******************************************************************************************************************/
 
 
     /**
      * Ensure Type->__construct throws an exception on an empty name
      * 
-     * @expectedException InvalidArgumentException
+     * @expectedException \DomainException
      **/
     public function testConstructThrowsExceptionOnEmptyName()
     {
@@ -31,111 +53,121 @@ class TypeTest extends \PHP\Tests\TestCase
 
 
 
-    /***************************************************************************
-    *                               Type->equals()
-    ***************************************************************************/
-    
-    
+    /*******************************************************************************************************************
+    *                                                  Type->equals()
+    *******************************************************************************************************************/
+
+
     /**
-     * Ensure Type->equals() returns true for same Type
+     * Test the Type->equals() method
+     * 
+     * @dataProvider getEqualsData
      */
-    public function testEqualsReturnsTrueForSameType()
+    public function testEquals( Type $type, $typeOrValue, bool $expected )
     {
-        $this->assertTrue(
-            Types::GetByValue( 1 )->equals( Types::GetByName( 'int' )),
-            "Expected Type->equals() to return true for the same Type instance"
+        $this->assertEquals(
+            $expected,
+            $type->equals( $typeOrValue ),
+            'Type->equals() did not return the correct result'
         );
+    }
+
+
+    public function getEqualsData(): array
+    {
+        $typeLookup = $this->getTypeLookup();
+
+        return [
+
+            // Integer
+            'getByValue(1)->equals( getByName("int") )' => [
+                $typeLookup->getByValue( 1 ),
+                $typeLookup->getByName( 'int' ),
+                true
+            ],
+            'getByValue(1)->equals( 2 )' => [
+                $typeLookup->getByValue( 1 ),
+                2,
+                true
+            ],
+            'getByValue(1)->equals( "1" )' => [
+                $typeLookup->getByValue( 1 ),
+                "1",
+                false
+            ],
+            'getByValue(1)->equals( getByName("bool") )' => [
+                $typeLookup->getByValue( 1 ),
+                $typeLookup->getByName( 'bool' ),
+                false
+            ],
+            'getByValue(1)->equals( true )' => [
+                $typeLookup->getByValue( 1 ),
+                true,
+                false
+            ],
+
+            // Strings
+            'getByValue( "1" )->equals( getByName("string") )' => [
+                $typeLookup->getByValue( '1' ),
+                $typeLookup->getByName( 'string' ),
+                true
+            ],
+            'getByValue( "1" )->equals( "2" )' => [
+                $typeLookup->getByValue( '1' ),
+                "2",
+                true
+            ],
+            'getByValue( "1" )->equals( 1 )' => [
+                $typeLookup->getByValue( '1' ),
+                1,
+                false
+            ],
+            'getByValue( "1" )->equals( getByName( "bool" ) )' => [
+                $typeLookup->getByValue( '1' ),
+                $typeLookup->getByName( 'bool' ),
+                false
+            ],
+            'getByValue( "1" )->equals( true )' => [
+                $typeLookup->getByValue( '1' ),
+                true,
+                false
+            ],
+
+            // Booleans
+            'getByValue( true )->equals( getByName("bool") )' => [
+                $typeLookup->getByValue( true ),
+                $typeLookup->getByName( 'bool' ),
+                true
+            ],
+            'getByValue( true )->equals( false )' => [
+                $typeLookup->getByValue( true ),
+                false,
+                true
+            ],
+            'getByValue( true )->equals( 1 )' => [
+                $typeLookup->getByValue( true ),
+                1,
+                false
+            ]
+        ];
     }
     
     
-    /**
-     * Ensure Type->equals() returns true for a value of that type
-     */
-    public function testEqualsReturnsTrueForSameValueType()
-    {
-        $this->assertTrue(
-            Types::GetByValue( 1 )->equals( 2 ),
-            "Expected Type->equals() to return true for a value of that type"
-        );
-    }
     
     
-    /**
-     * Ensure Type->equals() returns false for different Type
-     */
-    public function testEqualsReturnsFalseForDifferentType()
-    {
-        $this->assertFalse(
-            Types::GetByValue( 1 )->equals( Types::GetByName( 'bool' )),
-            "Expected Type->equals() to return false for the different Type instance"
-        );
-    }
-    
-    
-    /**
-     * Ensure Type->equals() returns false for a value of a different type
-     */
-    public function testEqualsReturnsFalseForDifferentValueType()
-    {
-        $this->assertFalse(
-            Types::GetByValue( 1 )->equals( true ),
-            "Expected Type->equals() to return false for a value of a different type"
-        );
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                             Type->getName()
+    /*******************************************************************************************************************
+    *                                             Type->getName() and getNames()
     *
     * This was already tested when testing type lookup in TypesTest. Nothing to
     * do here.
-    ***************************************************************************/
+    *******************************************************************************************************************/
     
     
     
     
-    /***************************************************************************
-    *                             Type->getNames()
-    ***************************************************************************/
-    
-    /**
-     * Ensure each type has the correct names
-     */
-    public function testGetNames()
-    {
-        $namesMap = [
-            
-            // Basic types
-            'array'     => [ 'array' ],
-            'bool'      => [ 'bool', 'boolean' ],
-            'int'       => [ 'int', 'integer' ],
-            'float'     => [ 'float', 'double' ],
-            'null'      => [ 'null' ],
-            'string'    => [ 'string' ],
-            
-            // Other
-            Sequence::class => [ Sequence::class ]
-        ];
-        
-        // Ensure each type has the correct names
-        foreach ( $namesMap as $typeName => $names ) {
-            $type = Types::GetByName( $typeName );
-            $this->assertEquals(
-                $names,
-                $type->getNames()->toArray(),
-                "Type->getNames() did not return the correct names"
-            );
-        }
-    }
-    
-    
-    
-    
-    /***************************************************************************
-    *                                 Type->is()
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                      Type->is()
+    *******************************************************************************************************************/
 
 
     /**
@@ -165,28 +197,28 @@ class TypeTest extends \PHP\Tests\TestCase
     public function getIsData(): array
     {
         return [
-            'Valid name' => [
-                \PHP\Types::GetByValue( 1 ),
+            'getByValue( 1 )->is( "int" )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
                 'int',
                 true
             ],
-            'Valid alias' =>[
-                \PHP\Types::GetByValue( 1 ),
+            'getByValue( 1 )->is( "integer" )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
                 'integer',
                 true
             ],
-            'Partial name' => [
-                \PHP\Types::GetByValue( 1 ),
+            'getByValue( 1 )->is( "integ" )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
                 'integ',
                 false
             ],
-            'Invalid name' => [
-                \PHP\Types::GetByValue( 1 ),
+            'getByValue( 1 )->is( "bool" )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
                 'bool',
                 false
             ],
-            'Invalid alias' => [
-                \PHP\Types::GetByValue( 1 ),
+            'getByValue( 1 )->is( "boolean" )' => [
+                $this->getTypeLookup()->getByValue( 1 ),
                 'boolean',
                 false
             ]
@@ -196,9 +228,9 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     
-    /***************************************************************************
-    *                                Type->isClass()
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                    Type->isClass()
+    *******************************************************************************************************************/
     
     
     /**
@@ -206,7 +238,7 @@ class TypeTest extends \PHP\Tests\TestCase
      */
     public function testIsClassReturnsFalse()
     {
-        $type = \PHP\Types::GetByValue( 1 );
+        $type = $this->getTypeLookup()->getByValue( 1 );
         $this->assertFalse(
             $type->isClass(),
             'Expected Type->isClass() to return false for basic types'
@@ -216,9 +248,9 @@ class TypeTest extends \PHP\Tests\TestCase
     
     
     
-    /***************************************************************************
+    /*******************************************************************************************************************
     *                              Type->isInterface()
-    ***************************************************************************/
+    *******************************************************************************************************************/
     
     
     /**
@@ -226,7 +258,7 @@ class TypeTest extends \PHP\Tests\TestCase
      */
     public function testIsInterfaceReturnsFalse()
     {
-        $type = \PHP\Types::GetByValue( 1 );
+        $type = $this->getTypeLookup()->getByValue( 1 );
         $this->assertFalse(
             $type->isInterface(),
             'Expected Type->isInterface() to return false for basic types'

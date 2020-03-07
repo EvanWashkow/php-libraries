@@ -1,175 +1,106 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Types;
+use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\ClassType;
-use PHP\Types\Models\Type;
 
 /**
  * Ensure all ClassTypes have same basic functionality
  */
-class ClassTypeTest extends \PHP\Tests\TestCase
+class ClassTypeTest extends TypeTestCase
 {
 
 
-    /***************************************************************************
-    *                                 TYPE CHECK
-    ***************************************************************************/
 
 
-    /**
-     * Ensure that a type lookup returns a ClassType instance
-     * 
-     * @dataProvider classNamesProvider
-     * 
-     * @param string $className The class name
-     **/
-    public function testTypesLookup( string $className )
-    {
-        $this->assertInstanceOf(
-            ClassType::class,
-            Types::GetByName( $className ),
-            'Types lookup should return a ClassType instance when given a class name'
-        );
-    }
-
-
-
-
-    /***************************************************************************
-    *                            ClassType->getName()
-    *
-    * This was already tested when testing type lookup in Types Test. Nothing to
-    * do here.
-    ***************************************************************************/
-
-
-
-
-    /***************************************************************************
-    *                        ClassType->equals() by type
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                  ClassType->equals()
+    *******************************************************************************************************************/
 
     /**
      * Test ClassType->equals()
-     * 
-     * @dataProvider equalsByTypeProvider
-     * 
-     * @param ClassType $typeA    Class type instance
-     * @param Type       $typeB    Class type instance to compare A to
-     * @param bool       $expected The expected result
+     *
+     * @dataProvider getEqualsTypeData
+     * @dataProvider getEqualsValueData
+     *
+     * @param ClassType $type        Class type instance
+     * @param mixed     $typeOrValue Class type instance to compare A to
+     * @param bool      $expected    The expected result
      */
-    public function testEqualsByType( ClassType $typeA,
-                                      Type      $typeB,
-                                      bool      $expected )
+    public function testEquals( ClassType $type, $typeOrValue, bool $expected )
     {
-        $this->assertSame(
+        $this->assertEquals(
             $expected,
-            $typeA->equals( $typeB )
+            $type->equals( $typeOrValue ),
+            'ClassType->equals() did not return the expected value'
         );
     }
 
-
-    /**
-     * Data provider for is() test
-     *
-     * @return array
-     **/
-    public function equalsByTypeProvider(): array
+    public function getEqualsTypeData(): array
     {
-        return [
+        $typeLookup = $this->getTypeLookup();
 
-            // ClassType
-            'ClassType->equals( int )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'int' ),
-                false
-            ],
-            'ClassType->equals( other class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                Types::GetByName( 'ReflectionFunction' ),
-                false
-            ],
-            'ClassType->equals( child class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                Types::GetByName( 'ReflectionObject' ),
+        return [
+            '->getByName( \ReflectionClass::class )->equals( \ReflectionObject::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( \ReflectionObject::class ),
                 true
             ],
-            'ClassType->equals( same class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'ReflectionObject' ),
+            '->getByName( \ReflectionClass::class )->equals( \ReflectionClass::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( \ReflectionClass::class ),
                 true
             ],
-            'ClassType->equals( parent class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'ReflectionClass' ),
+            '->getByName( \ReflectionClass::class )->equals( "int" )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( 'int' ),
                 false
             ],
-            'ClassType->equals( parent interface )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                Types::GetByName( 'Reflector' ),
+            '->getByName( \ReflectionClass::class )->equals( \ReflectionFunction::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName( \ReflectionFunction::class ),
+                false
+            ],
+            '->getByName( \ReflectionObject::class )->equals( \ReflectionClass::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName( \ReflectionClass::class ),
+                false
+            ],
+            '->getByName( \ReflectionObject::class )->equals( \Reflector::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName( \Reflector::class ),
                 false
             ]
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                        ClassType->equals() by value
-    ***************************************************************************/
-
-    /**
-     * Test ClassType->equals() by value
-     * 
-     * @dataProvider equalsByValueProvider
-     * 
-     * @param ClassType $type     Class type instance
-     * @param mixed      $value    Value to compare the type to
-     * @param bool       $expected The expected result
-     */
-    public function testEqualsByValue( ClassType $type, $value, bool $expected )
+    public function getEqualsValueData(): array
     {
-        $this->assertSame(
-            $expected,
-            $type->equals( $value )
-        );
-    }
+        $typeLookup = $this->getTypeLookup();
 
-
-    /**
-     * Data provider for is() test
-     *
-     * @return array
-     **/
-    public function equalsByValueProvider(): array
-    {
         return [
-
-            // ClassType
-            'ClassType->equals( int )' => [
-                Types::GetByName( 'ReflectionObject' ),
+            '->getByName( \ReflectionClass::class )->equals( new \ReflectionObject( $this ) )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                new \ReflectionObject( $this ),
+                true
+            ],
+            '->getByName( \ReflectionClass::class )->equals( new \ReflectionClass( $this ) )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                new \ReflectionClass( $this ),
+                true
+            ],
+            '->getByName( \ReflectionClass::class )->equals( 1 )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
                 1,
                 false
             ],
-            'ClassType->equals( other class )' => [
-                Types::GetByName( 'ReflectionClass' ),
+            '->getByName( \ReflectionClass::class )->equals( new \ReflectionFunction( function() {} ) )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
                 new \ReflectionFunction( function() {} ),
                 false
             ],
-            'ClassType->equals( child class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                new \ReflectionObject( $this ),
-                true
-            ],
-            'ClassType->equals( same class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                new \ReflectionObject( $this ),
-                true
-            ],
-            'ClassType->equals( parent class )' => [
-                Types::GetByName( 'ReflectionObject' ),
+            '->getByName( \ReflectionObject::class )->equals( new \ReflectionClass( self::class ) )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
                 new \ReflectionClass( self::class ),
                 false
             ]
@@ -179,39 +110,15 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
 
 
-    /***************************************************************************
-    *                           ClassType->getName()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure ClassType->getName() returns the class name
-     * 
-     * @dataProvider classNamesProvider
-     *
-     * @param string $className The class name
-     **/
-    public function testGetName( string $className )
-    {
-        $this->assertSame(
-            $className,
-            Types::GetByName( $className )->getName(),
-            "Types::GetByName( '{$className}' )->getName() did not return the class name"
-        );
-    }
-
-
-
-
-    /***************************************************************************
-    *                               ClassType->is()
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                   ClassType->is()
+    *******************************************************************************************************************/
 
     /**
      * Test ClassType->is()
-     * 
+     *
      * @dataProvider isProvider
-     * 
+     *
      * @param ClassType $typeA    Class type
      * @param string     $typeB    Class name to compare A to
      * @param bool       $expected The expected result
@@ -232,83 +139,76 @@ class ClassTypeTest extends \PHP\Tests\TestCase
      **/
     public function isProvider(): array
     {
-        return [
+        $typeLookup = $this->getTypeLookup();
 
-            // ClassType
-            'ClassType->is( int )' => [
-                Types::GetByName( 'ReflectionClass' ),
+        return [
+            '->getByName( \ReflectionObject::class )->is( \ReflectionObject::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                \ReflectionObject::class,
+                true
+            ],
+            '->getByName( \ReflectionObject::class )->is( \ReflectionClass::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                \ReflectionClass::class,
+                true
+            ],
+            '->getByName( \ReflectionObject::class )->is( \Reflector::class )' => [
+                $typeLookup->getByName( \ReflectionObject::class ),
+                \Reflector::class,
+                true
+            ],
+            '->getByName( \ReflectionClass::class )->is( "int" )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
                 'int',
                 false
             ],
-            'ClassType->is( other class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                'ReflectionFunction',
+            '->getByName( \ReflectionClass::class )->is( \ReflectionFunction::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                \ReflectionFunction::class,
                 false
             ],
-            'ClassType->is( child class )' => [
-                Types::GetByName( 'ReflectionClass' ),
-                'ReflectionObject',
+            '->getByName( \ReflectionClass::class )->is( \ReflectionObject::class )' => [
+                $typeLookup->getByName( \ReflectionClass::class ),
+                \ReflectionObject::class,
                 false
-            ],
-            'ClassType->is( same class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                'ReflectionObject',
-                true
-            ],
-            'ClassType->is( parent class )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                'ReflectionClass',
-                true
-            ],
-            'ClassType->is( parent interface )' => [
-                Types::GetByName( 'ReflectionObject' ),
-                'Reflector',
-                true
             ]
         ];
     }
 
 
 
-    /***************************************************************************
-    *                             ClassType->isClass()
-    ***************************************************************************/
-    
-    
+    /*******************************************************************************************************************
+    *                                       ClassType->isClass() and ->isInterface()
+    *******************************************************************************************************************/
+
+
     /**
      * Ensure ClassType->isClass() returns true for classes
-     * 
-     * @dataProvider classTypesProvider
-     * 
+     *
+     * @dataProvider getClassTypes
+     *
      * @param ClassType $type The class type to check
      */
     public function testIsClass( ClassType $type )
     {
-        $class = self::getClassName( $type );
+        $class = get_class( $type );
         $this->assertTrue(
             $type->isClass(),
             "{$class} implements ClassType: {$class}->isClass() should return true"
         );
     }
-    
-    
-    
-    
-    /***************************************************************************
-    *                            ClassType->isInterface()
-    ***************************************************************************/
-    
-    
+
+
     /**
      * Ensure ClassType->isInterface() returns false for class types
-     * 
-     * @dataProvider classTypesProvider
-     * 
+     *
+     * @dataProvider getClassTypes
+     *
      * @param ClassType $type The class type to check
      */
     public function testIsInterface( ClassType $type )
     {
-        $class = self::getClassName( $type );
+        $class = get_class( $type );
         $this->assertFalse(
             $type->isInterface(),
             "{$class} implements ClassType: {$class}->isInterface() should return false"
@@ -318,36 +218,20 @@ class ClassTypeTest extends \PHP\Tests\TestCase
 
 
 
-    /***************************************************************************
-    *                                  DATA
-    ***************************************************************************/
+    /*******************************************************************************************************************
+    *                                                 SHARED DATA PROVIDERS
+    *******************************************************************************************************************/
 
 
     /**
      * Retrieve a list of types as a data provider
-     * 
+     *
      * @return ClassType[]
      **/
-    public function classTypesProvider(): array
-    {
-        $types = [];
-        foreach ( $this->classNamesProvider() as $array ) {
-            $name = $array[ 0 ];
-            $types[] = [ Types::GetByName( $name ) ];
-        }
-        return $types;
-    }
-
-
-    /**
-     * Provides test name data
-     * 
-     * @return string[]
-     **/
-    public function classNamesProvider(): array
+    public function getClassTypes(): array
     {
         return [
-            [ \PHP\Collections\Dictionary::class ] // ClassType
+            [ $this->getTypeLookup()->getByName( \PHP\Collections\Dictionary::class ) ]
         ];
     }
 }
