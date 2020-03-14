@@ -17,11 +17,12 @@ use PHP\Tests\Types\TypeLookupTest\TypeDetails;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test TypeLookup class
  */
-class TypeLookupTest extends TypeTestCase
+class TypeLookupTest extends TestCase
 {
 
 

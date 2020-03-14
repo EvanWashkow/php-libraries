@@ -2,14 +2,14 @@
 namespace PHP\Tests\Types\Models;
 
 use ArrayAccess;
-use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\TypeLookupSingleton;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the \PHP\Types\InterfaceType functionality
  */
-class InterfaceTypeTest extends TypeTestCase
+class InterfaceTypeTest extends TestCase
 {
 
 

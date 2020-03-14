@@ -2,15 +2,15 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\ObjectClass;
-use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the base Type functionality
  */
-class TypeTest extends TypeTestCase
+class TypeTest extends TestCase
 {
 
 

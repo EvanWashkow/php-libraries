@@ -1,14 +1,14 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\ClassType;
 use PHP\Types\TypeLookupSingleton;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Ensure all ClassTypes have same basic functionality
  */
-class ClassTypeTest extends TypeTestCase
+class ClassTypeTest extends TestCase
 {
 
 
