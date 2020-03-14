@@ -3,10 +3,10 @@
     "description": "Foundational shared libraries for PHP",
     "autoload": {
         "files": [
-            "PHP/Functions.php"
+            "src/Functions.php"
         ],
         "psr-4": {
-            "PHP\\": "PHP/",
+            "PHP\\": "src/",
             "PHP\\Tests\\": "tests/"
         }
     },
