@@ -1,12 +1,15 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
-use PHP\Types;
+use ArrayAccess;
+use PHP\Types\Models\InterfaceType;
+use PHP\Types\TypeLookupSingleton;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the \PHP\Types\InterfaceType functionality
  */
-class InterfaceTypeTest extends \PHP\Tests\TestCase
+class InterfaceTypeTest extends TestCase
 {
 
 
@@ -20,15 +23,15 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider getEqualsData
      * 
-     * @param string $typeName    The type name to test
-     * @param mixed  $typeOrValue A Type instance or value
-     * @param bool   $expected    The expected result
+     * @param InterfaceType $type        The interface type to test
+     * @param mixed         $typeOrValue A Type instance or value
+     * @param bool          $expected    The expected result
      **/
-    public function testEquals( string $typeName, $typeOrValue, bool $expected )
+    public function testEquals( InterfaceType $type, $typeOrValue, bool $expected )
     {
         $this->assertEquals(
             $expected,
-            Types::GetByName( $typeName )->equals( $typeOrValue ),
+            $type->equals( $typeOrValue ),
             'InterfaceType->equals() did not return the expected results'
         );
     }
@@ -41,32 +44,44 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      */
     public function getEqualsData()
     {
-        return [
+        $typeLookup = TypeLookupSingleton::getInstance();
 
-            // Valid
+        return [
             'Same interface' => [
-                'Iterator', Types::GetByName( 'Iterator' ), true
+                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \Iterator::class ),
+                true
             ],
             'Parent->equals( child interface type )' => [
-                'Iterator', Types::GetByName( 'SeekableIterator' ), true
+                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \SeekableIterator::class ),
+                true
             ],
             'Parent->equals( child class type )' => [
-                'Iterator', Types::GetByName( \PHP\Collections\Collection::class ), true
+                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \PHP\Collections\Collection::class ),
+                true
             ],
             'Parent->equals( child class instance )' => [
-                'Iterator', new \PHP\Collections\Dictionary( '*', '*' ), true
+                $typeLookup->getByName( \Iterator::class ),
+                new \PHP\Collections\Dictionary( '*', '*' ),
+                true
             ],
-
-            // Invalid
             'Child->equals( parent interface type )' => [
-                'SeekableIterator', Types::GetByName( 'Iterator' ), false
+                $typeLookup->getByName( \SeekableIterator::class ),
+                $typeLookup->getByName( \Iterator::class ),
+                false
             ],
             'Child->equals( other type )' => [
-                'SeekableIterator', Types::GetByName( 'int' ), false
+                $typeLookup->getByName( \SeekableIterator::class ),
+                $typeLookup->getByName( 'int' ),
+                false
             ],
             'Child->equals( other type instance )' => [
-                'SeekableIterator', 1, false
-            ],
+                $typeLookup->getByName( \SeekableIterator::class ),
+                1,
+                false
+            ]
         ];
     }
 
@@ -83,15 +98,15 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      * 
      * @dataProvider getIsData
      * 
-     * @param string $typeA    Type name to check
-     * @param string $typeB    Type name to compare
-     * @param bool   $expected The expected result
+     * @param InterfaceType $type     The interface type instance
+     * @param string        $typeName Type name to compare
+     * @param bool          $expected The expected result
      **/
-    public function testIs( string $typeA, string $typeB, bool $expected )
+    public function testIs( InterfaceType $type, string $typeName, bool $expected )
     {
         $this->assertEquals(
             $expected,
-            Types::GetByName( $typeA )->is( $typeB ),
+            $type->is( $typeName ),
             'InterfaceType->is() did not return the expected results'
         );
     }
@@ -104,29 +119,39 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      */
     public function getIsData()
     {
-        return [
+        $typeLookup = TypeLookupSingleton::getInstance();
 
-            // Valid
-            'Same interface' => [
-                'Iterator', 'Iterator', true
+        return [
+            '->getByName( \Iterator::class )->is( "Iterator" )' => [
+                $typeLookup->getByName( \Iterator::class ),
+                'Iterator',
+                true
             ],
-            'Child->is( parent interface type )' => [
-                'SeekableIterator', 'Iterator', true
+            '->getByName( \SeekableIterator::class )->is( "Iterator" )' => [
+                $typeLookup->getByName( \SeekableIterator::class ),
+                'Iterator',
+                true
             ],
-            
-            // Invalid
-            'Parent->is( child interface type )' => [
-                'Iterator', 'SeekableIterator', false
+            '->getByName( \Iterator::class )->is( "SeekableIterator" )' => [
+                $typeLookup->getByName( \Iterator::class ),
+                'SeekableIterator',
+                false
             ],
-            'Parent->is( child class type )' => [
-                'Iterator', \PHP\Collections\Collection::class, false
+            '->getByName( \Iterator::class )->is( \PHP\Collections\Collection::class )' => [
+                $typeLookup->getByName( \Iterator::class ),
+                \PHP\Collections\Collection::class,
+                false
             ],
-            'Child->is( other type )' => [
-                'SeekableIterator', 'int', false
+            '->getByName( \SeekableIterator::class )->is( "int" )' => [
+                $typeLookup->getByName( \SeekableIterator::class ),
+                'int',
+                false
             ],
-            'Child->is( other type instance )' => [
-                'SeekableIterator', 1, false
-            ],
+            '->getByName( \SeekableIterator::class )->is( 1 )' => [
+                $typeLookup->getByName( \SeekableIterator::class ),
+                1,
+                false
+            ]
         ];
     }
     
@@ -143,7 +168,7 @@ class InterfaceTypeTest extends \PHP\Tests\TestCase
      */
     public function testIsInterfaceReturnsTrue()
     {
-        $type = \PHP\Types::GetByName( 'ArrayAccess' );
+        $type = TypeLookupSingleton::getInstance()->getByName( ArrayAccess::class );
         $this->assertTrue(
             $type->isInterface(),
             'Expected InterfaceType->isInterface() to return true for interface types'

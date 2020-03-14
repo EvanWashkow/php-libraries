@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Types\Models;
 
 /**
- * Store and retrieve type information for a interface
+ * Retrieve type information for a interface
  */
 class InterfaceType extends Type
 {
@@ -18,7 +18,7 @@ class InterfaceType extends Type
     
     
     /**
-     * Create a new type instance representing a interface
+     * Create an interface representation to retrieve information from
      *
      * @param \ReflectionClass $reflectionClass ReflectionClass instance
      */

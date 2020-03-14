@@ -2,8 +2,7 @@
 namespace PHP\Tests;
 
 use PHP\URL;
-
-require_once( __DIR__ . '/TestCase.php' );
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the URL class functions

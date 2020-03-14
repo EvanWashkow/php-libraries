@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 namespace PHP\Tests;
 
 use PHP\Collections\Sequence;
+use PHPUnit\Framework\TestCase;
 
 require_once( __DIR__ . '/SequenceData.php' );
-require_once( __DIR__ . '/CollectionsTestCase.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
  */
-class SequenceTest extends CollectionsTestCase
+class SequenceTest extends TestCase
 {
     
     /***************************************************************************
@@ -280,7 +280,7 @@ class SequenceTest extends CollectionsTestCase
             $value = $values[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
                 $key   = $sequence->getFirstKey();
-                $class = self::getClassName( $sequence );
+                $class = get_class( $sequence );
                 $sequence->insert( $key, $value );
                 $this->assertEquals(
                     $value,
@@ -303,7 +303,7 @@ class SequenceTest extends CollectionsTestCase
             $value = $values[ $type ][ 0 ];
             foreach ( $sequences as $sequence ) {
                 $key   = $sequence->getLastKey() + 1;
-                $class = self::getClassName( $sequence );
+                $class = get_class( $sequence );
                 $sequence->insert( $key, $value );
                 $this->assertEquals(
                     $value,
@@ -329,7 +329,7 @@ class SequenceTest extends CollectionsTestCase
                 $value         = $values[ $type ][ 0 ];
                 $key           = $sequence->getFirstKey();
                 $previousValue = $sequence->get( $key );
-                $class         = self::getClassName( $sequence );
+                $class         = get_class( $sequence );
                 $sequence->insert( $key, $value );
                 $this->assertEquals(
                     $previousValue,
@@ -356,7 +356,7 @@ class SequenceTest extends CollectionsTestCase
                 } catch (\Exception $e) {
                     $isError = true;
                 }
-                $class = self::getClassName( $sequence );
+                $class = get_class( $sequence );
                 $this->assertTrue(
                     $isError,
                     "Expected {$class}->insert() to error on key too small"
@@ -381,7 +381,7 @@ class SequenceTest extends CollectionsTestCase
                 } catch (\Exception $e) {
                     $isError = true;
                 }
-                $class = self::getClassName( $sequence );
+                $class = get_class( $sequence );
                 $this->assertTrue(
                     $isError,
                     "Expected {$class}->insert() to error on key too large"
@@ -406,7 +406,7 @@ class SequenceTest extends CollectionsTestCase
                 } catch (\TypeError $e) {
                     $isError = true;
                 }
-                $class = self::getClassName( $sequence );
+                $class = get_class( $sequence );
                 $this->assertTrue(
                     $isError,
                     "Expected {$class}->insert() to error on wrong key type"
@@ -438,7 +438,7 @@ class SequenceTest extends CollectionsTestCase
                     } catch (\Exception $e) {
                         $isError = true;
                     }
-                    $class = self::getClassName( $sequence );
+                    $class = get_class( $sequence );
                     $this->assertTrue(
                         $isError,
                         "Expected {$class}->insert() to error on wrong value type"
