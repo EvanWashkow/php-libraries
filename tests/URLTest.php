@@ -2,6 +2,7 @@
 namespace PHP\Tests;
 
 use PHP\URL;
+use PHPUnit\Framework\TestCase;
 
 require_once( __DIR__ . '/TestCase.php' );
 
