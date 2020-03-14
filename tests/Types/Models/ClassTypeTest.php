@@ -3,6 +3,7 @@ namespace PHP\Tests\Types\Models;
 
 use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\ClassType;
+use PHP\Types\TypeLookupSingleton;
 
 /**
  * Ensure all ClassTypes have same basic functionality
@@ -38,7 +39,7 @@ class ClassTypeTest extends TypeTestCase
 
     public function getEqualsTypeData(): array
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
             '->getByName( \ReflectionClass::class )->equals( \ReflectionObject::class )' => [
@@ -76,7 +77,7 @@ class ClassTypeTest extends TypeTestCase
 
     public function getEqualsValueData(): array
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
             '->getByName( \ReflectionClass::class )->equals( new \ReflectionObject( $this ) )' => [
@@ -139,7 +140,7 @@ class ClassTypeTest extends TypeTestCase
      **/
     public function isProvider(): array
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
             '->getByName( \ReflectionObject::class )->is( \ReflectionObject::class )' => [
@@ -231,7 +232,7 @@ class ClassTypeTest extends TypeTestCase
     public function getClassTypes(): array
     {
         return [
-            [ $this->getTypeLookup()->getByName( \PHP\Collections\Dictionary::class ) ]
+            [ TypeLookupSingleton::getInstance()->getByName( \PHP\Collections\Dictionary::class ) ]
         ];
     }
 }

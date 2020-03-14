@@ -4,6 +4,7 @@ namespace PHP\Tests\Types\Models;
 use ArrayAccess;
 use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\InterfaceType;
+use PHP\Types\TypeLookupSingleton;
 
 /**
  * Tests the \PHP\Types\InterfaceType functionality
@@ -43,7 +44,7 @@ class InterfaceTypeTest extends TypeTestCase
      */
     public function getEqualsData()
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
             'Same interface' => [
@@ -118,7 +119,7 @@ class InterfaceTypeTest extends TypeTestCase
      */
     public function getIsData()
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
             '->getByName( \Iterator::class )->is( "Iterator" )' => [
@@ -167,7 +168,7 @@ class InterfaceTypeTest extends TypeTestCase
      */
     public function testIsInterfaceReturnsTrue()
     {
-        $type = $this->getTypeLookup()->getByName( ArrayAccess::class );
+        $type = TypeLookupSingleton::getInstance()->getByName( ArrayAccess::class );
         $this->assertTrue(
             $type->isInterface(),
             'Expected InterfaceType->isInterface() to return true for interface types'
