@@ -8,19 +8,19 @@
 cd $(dirname "$0")
 
 # Variables
-phpUnitPath="vendor/bin/phpunit"
+phpUnitBin="vendor/bin/phpunit"
 
 # If PHPUnit is not installed, install it (via Composer) now
-if [[ ! -f $phpUnitPath ]]
+if [[ ! -f $phpUnitBin ]]
 then
     sudo composer install
 fi
 
 # Run the PHPUnit test
-if [[ -f $phpUnitPath ]]
+if [[ -f $phpUnitBin ]]
 then
-    sudo chmod 775 $phpUnitPath
-    $phpUnitPath
+    chmod 775 $phpUnitBin
+    $phpUnitBin
 else
     echo "PHPUnit has not been added to composer. Do so in order to run these tests."
 fi
