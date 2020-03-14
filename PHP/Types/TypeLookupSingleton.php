@@ -12,10 +12,16 @@ final class TypeLookupSingleton extends TypeLookup
 
     /**
      * Retrieve a singleton instance of the default Type Lookup implementation
+     * 
+     * @return self
      */
     public static function getInstance(): self
     {
-        return new self();
+        static $instance = null;
+        if ( null === $instance ) {
+            $instance = new self();
+        }
+        return $instance;
     }
 
 

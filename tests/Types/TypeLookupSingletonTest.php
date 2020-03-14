@@ -15,7 +15,7 @@ class TypeLookupSingletonTest extends TestCase
 
 
     /**
-     * Test that TypeLookup::getInstance() returns an instance of TypeLookup
+     * Test that TypeLookupSingleton::getInstance() returns an instance of TypeLookup
      */
     public function testIsTypeLookup()
     {
@@ -23,6 +23,18 @@ class TypeLookupSingletonTest extends TestCase
             TypeLookup::class,
             TypeLookupSingleton::getInstance(),
             "TypeLookupSingleton::getInstance() did not return an instance of a TypeLookup."
+        );
+    }
+
+
+    /**
+     * Test that multiple calls to TypeLookupSingleton::getInstance() returns the same instance
+     */
+    public function testIsSingletonInstance()
+    {
+        $this->assertTrue(
+            TypeLookupSingleton::getInstance() === TypeLookupSingleton::getInstance(),
+            "Multiple calls to TypeLookupSingleton::getInstance() did not return the same instance."
         );
     }
 }
