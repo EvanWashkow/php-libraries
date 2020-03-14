@@ -2,7 +2,7 @@
 namespace PHP\Tests\Collections\Dictionary;
 
 use PHP\Collections\Dictionary\DictionaryAnonymousKeyType;
-use PHP\Types\TypeLookup;
+use PHP\Types\TypeLookupSingleton;
 
 /**
  * Tests DictionaryAnonymousKeyType
@@ -40,7 +40,7 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function getEqualsData(): array
     {
-        $typeLookup = new TypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
         return [
             [ 1,                            true ],
             [ 'string',                     true ],

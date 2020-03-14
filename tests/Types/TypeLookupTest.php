@@ -15,12 +15,14 @@ use PHP\Tests\Types\TypeLookupTest\NullTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\StringTypeDetails;
 use PHP\Tests\Types\TypeLookupTest\TypeDetails;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test TypeLookup class
  */
-class TypeLookupTest extends TypeTestCase
+class TypeLookupTest extends TestCase
 {
 
 
@@ -38,7 +40,7 @@ class TypeLookupTest extends TypeTestCase
      */
     public function testGetByXDomainException(): void
     {
-        $this->getTypeLookup()->getByName( 'foobar' );
+        TypeLookupSingleton::getInstance()->getByName( 'foobar' );
     }
 
 
@@ -96,7 +98,7 @@ class TypeLookupTest extends TypeTestCase
      */
     public function getExpectedTypeDetails(): array
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
 

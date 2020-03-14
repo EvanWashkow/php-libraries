@@ -2,7 +2,7 @@
 namespace PHP\Tests\Collections\Types;
 
 use PHP\Collections\Collection\AnonymousKeyType;
-use PHP\Types\TypeLookup;
+use PHP\Types\TypeLookupSingleton;
 
 /**
  * Tests AnonymousKeyType
@@ -28,7 +28,7 @@ class AnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
      **/
     public function testEqualsReturnsFalseForNullType()
     {
-        $nullType = ( new TypeLookup() )->getByValue( null );
+        $nullType = TypeLookupSingleton::getInstance()->getByValue( null );
         $this->assertFalse(
             ( new AnonymousKeyType() )->equals( $nullType ),
             'AnonymousKeyType->equals() should return false for a null type'

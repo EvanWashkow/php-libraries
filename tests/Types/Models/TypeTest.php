@@ -2,14 +2,15 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\ObjectClass;
-use PHP\Tests\Types\TypeTestCase;
 use PHP\Types\Models\Type;
+use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the base Type functionality
  */
-class TypeTest extends TypeTestCase
+class TypeTest extends TestCase
 {
 
 
@@ -27,7 +28,7 @@ class TypeTest extends TypeTestCase
     {
         $this->assertInstanceOf(
             ObjectClass::class,
-            $this->getTypeLookup()->getByName( TypeNames::INT ),
+            TypeLookupSingleton::getInstance()->getByName( TypeNames::INT ),
             'Type is not an ObjectClass'
         );
     }
@@ -75,7 +76,7 @@ class TypeTest extends TypeTestCase
 
     public function getEqualsData(): array
     {
-        $typeLookup = $this->getTypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
 
@@ -198,27 +199,27 @@ class TypeTest extends TypeTestCase
     {
         return [
             'getByValue( 1 )->is( "int" )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue( 1 ),
                 'int',
                 true
             ],
             'getByValue( 1 )->is( "integer" )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue( 1 ),
                 'integer',
                 true
             ],
             'getByValue( 1 )->is( "integ" )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue( 1 ),
                 'integ',
                 false
             ],
             'getByValue( 1 )->is( "bool" )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue( 1 ),
                 'bool',
                 false
             ],
             'getByValue( 1 )->is( "boolean" )' => [
-                $this->getTypeLookup()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue( 1 ),
                 'boolean',
                 false
             ]
@@ -238,7 +239,7 @@ class TypeTest extends TypeTestCase
      */
     public function testIsClassReturnsFalse()
     {
-        $type = $this->getTypeLookup()->getByValue( 1 );
+        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
         $this->assertFalse(
             $type->isClass(),
             'Expected Type->isClass() to return false for basic types'
@@ -258,7 +259,7 @@ class TypeTest extends TypeTestCase
      */
     public function testIsInterfaceReturnsFalse()
     {
-        $type = $this->getTypeLookup()->getByValue( 1 );
+        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
         $this->assertFalse(
             $type->isInterface(),
             'Expected Type->isInterface() to return false for basic types'
