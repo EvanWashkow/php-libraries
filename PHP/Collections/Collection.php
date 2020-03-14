@@ -8,7 +8,7 @@ use PHP\Interfaces\Cloneable;
 use PHP\ObjectClass;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
-use PHP\Types\TypeLookup;
+use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
 
 /**
@@ -57,7 +57,7 @@ abstract class Collection extends ObjectClass implements Cloneable,
                                  array  $entries   = [] )
     {
         // Create type lookup
-        $typeLookup = new TypeLookup();
+        $typeLookup = TypeLookupSingleton::getInstance();
 
         // Lookup key type
         if ( AnonymousType::NAME === $keyType ) {

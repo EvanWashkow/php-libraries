@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Types;
 
-use PHP\Types\TypeLookup;
+use PHP\Types\TypeLookupSingleton;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,14 +16,10 @@ class TypeTestCase extends TestCase
     /**
      * Retrieve a (singleton) instance of the TypeLookup
      * 
-     * @return TypeLookup
+     * @return TypeLookupSingleton
      */
-    final protected function getTypeLookup(): TypeLookup
+    final protected function getTypeLookup(): TypeLookupSingleton
     {
-        static $typeLookup = null;
-        if ( null === $typeLookup ) {
-            $typeLookup = new TypeLookup();
-        }
-        return $typeLookup;
+        return TypeLookupSingleton::getInstance();
     }
 }

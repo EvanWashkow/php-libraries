@@ -5,7 +5,7 @@ namespace PHP;
 
 use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\Type;
-use PHP\Types\TypeLookup;
+use PHP\Types\TypeLookupSingleton;
 
 /**
  * @deprecated 2020-02-29
@@ -33,7 +33,7 @@ final class Types
             E_USER_DEPRECATED
         );
         try {
-            $type = ( new TypeLookup() )->getByName( $name );
+            $type = TypeLookupSingleton::getInstance()->getByName( $name );
         } catch ( \DomainException $de ) {
             throw new NotFoundException( $de->getMessage() );
         }
@@ -52,6 +52,6 @@ final class Types
             '\\PHP\\Types::GetByValue() is deprecated. Use \\PHP\\Types\\TypeLookup->getByValue() instead.',
             E_USER_DEPRECATED
         );
-        return ( new TypeLookup() )->getByValue( $value );
+        return TypeLookupSingleton::getInstance()->getByValue( $value );
     }
 }
