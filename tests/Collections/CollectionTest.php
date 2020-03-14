@@ -8,15 +8,14 @@ use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
 use PHP\Types\Models\AnonymousType;
+use PHPUnit\Framework\TestCase;
 
-
-require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
 
 /**
  * Test all Collection methods to ensure consistent functionality
  */
-class CollectionTest extends CollectionsTestCase
+class CollectionTest extends TestCase
 {
 
 
@@ -180,7 +179,7 @@ class CollectionTest extends CollectionsTestCase
     {
         foreach ( CollectionData::Get() as $collection ) {
             $collection->clear();
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertEquals(
                 0,
                 $collection->count(),
@@ -1452,7 +1451,7 @@ class CollectionTest extends CollectionsTestCase
             
             // Test if set works
             $collection->set( $key, $value );
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertGreaterThan(
                 0,
                 $collection->count(),
@@ -1487,7 +1486,7 @@ class CollectionTest extends CollectionsTestCase
             $collection->set( $key, $value );
             
             // Assert test
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertEquals(
                 $value,
                 $collection->get( $key ),
@@ -1518,7 +1517,7 @@ class CollectionTest extends CollectionsTestCase
                 $isError = true;
             }
             
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertTrue(
                 $isError,
                 "Expected {$name}->set() to error on keys with the wrong type"
@@ -1544,7 +1543,7 @@ class CollectionTest extends CollectionsTestCase
                 $collection->set( $value, $value );
             } catch (\Exception $e) {}
             
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertFalse(
                 $collection->hasKey( $value ),
                 "Expected {$name}->set() to reject keys with the wrong type"
@@ -1574,7 +1573,7 @@ class CollectionTest extends CollectionsTestCase
                 $isError = true;
             }
             
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertTrue(
                 $isError,
                 "Expected {$name}->set() to error on keys with the wrong type"
@@ -1604,7 +1603,7 @@ class CollectionTest extends CollectionsTestCase
                 $collection->set( $key, $key );
             } catch (\Exception $e) {}
             
-            $name = self::getClassName( $collection );
+            $name = get_class( $collection );
             $this->assertFalse(
                 ( $key === $collection->get( $key ) ),
                 "Expected {$name}->set() to reject keys with the wrong type"
