@@ -5,6 +5,8 @@ namespace PHP\Types;
 
 /**
  * Retrieves a singleton instance of the default Type Lookup implementation
+ * 
+ * Marked as final. See README.md.
  */
 final class TypeLookupSingleton extends TypeLookup
 {
@@ -26,7 +28,7 @@ final class TypeLookupSingleton extends TypeLookup
 
 
     /**
-     * Private: only 
+     * Private: only to be used by ::getInstance()
      */
     private function __construct()
     {
