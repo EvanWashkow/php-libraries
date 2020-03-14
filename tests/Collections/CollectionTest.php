@@ -8,15 +8,14 @@ use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Sequence;
 use PHP\Types\Models\AnonymousType;
+use PHPUnit\Framework\TestCase;
 
-
-require_once( __DIR__ . '/CollectionsTestCase.php' );
 require_once( __DIR__ . '/CollectionData.php' );
 
 /**
  * Test all Collection methods to ensure consistent functionality
  */
-class CollectionTest extends CollectionsTestCase
+class CollectionTest extends TestCase
 {
 
 

@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 namespace PHP\Tests;
 
 use PHP\Collections\Sequence;
+use PHPUnit\Framework\TestCase;
 
 require_once( __DIR__ . '/SequenceData.php' );
-require_once( __DIR__ . '/CollectionsTestCase.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
  */
-class SequenceTest extends CollectionsTestCase
+class SequenceTest extends TestCase
 {
     
     /***************************************************************************
