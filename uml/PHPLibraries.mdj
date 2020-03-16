@@ -4128,7 +4128,7 @@
 													"top": 264,
 													"width": 168.974609375,
 													"height": 13,
-													"text": "+getCurrent(): ?IteratedValue",
+													"text": "+getCurrent(): ?Value",
 													"horizontalAlignment": 0
 												},
 												{
@@ -4213,7 +4213,7 @@
 													"top": 339,
 													"width": 168.974609375,
 													"height": 13,
-													"text": "+current(): ?IteratedValue",
+													"text": "+current(): ?Value",
 													"horizontalAlignment": 0
 												},
 												{
@@ -4839,7 +4839,7 @@
 													"top": 471,
 													"width": 114.53076171875,
 													"height": 13,
-													"text": "IteratedValue"
+													"text": "Value"
 												},
 												{
 													"_type": "LabelView",
@@ -5159,7 +5159,7 @@
 													"top": 607,
 													"width": 141.01953125,
 													"height": 13,
-													"text": "IteratedKeyValue"
+													"text": "KeyValuePair"
 												},
 												{
 													"_type": "LabelView",
@@ -5799,6 +5799,7 @@
 									}
 								}
 							],
+							"documentation": "This class is here to:\n1. Map to the appropriate \\Iterator methods.\n2. In doing so, modernize the method names.\n3. Clarify the relationship between Iterable and Iterator.\n4. Enforce strict foreach() loop behavior by having a consistent object for the current item.",
 							"operations": [
 								{
 									"_type": "UMLOperation",
@@ -5815,7 +5816,7 @@
 											"_parent": {
 												"$ref": "AAAAAAFw5CmOX9+lCn4="
 											},
-											"type": "?IteratedValue",
+											"type": "?Value",
 											"direction": "return"
 										}
 									],
@@ -5915,7 +5916,7 @@
 											"_parent": {
 												"$ref": "AAAAAAFw5DkOxeA3o2A="
 											},
-											"type": "?IteratedValue",
+											"type": "?Value",
 											"direction": "return"
 										}
 									],
@@ -6048,7 +6049,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFw3xGoh3U4Zyk="
 							},
-							"name": "IteratedValue",
+							"name": "Value",
 							"attributes": [
 								{
 									"_type": "UMLAttribute",
@@ -6096,7 +6097,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFw3xGoh3U4Zyk="
 							},
-							"name": "IteratedKeyValue",
+							"name": "KeyValuePair",
 							"ownedElements": [
 								{
 									"_type": "UMLGeneralization",
