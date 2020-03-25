@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Exceptions;
 
+use PHP\Exceptions\NotFoundException;
 use PHP\Exceptions\NotImplementedException;
 use PHPUnit\Framework\TestCase;
 
@@ -30,6 +31,10 @@ class ExceptionsTest extends TestCase
     public function getClassInheritanceData(): array
     {
         return [
+            'NotFoundException' => [
+                new NotFoundException(),
+                \RuntimeException::class
+            ],
             'NotImplementedException' => [
                 new NotImplementedException(),
                 \RuntimeException::class
