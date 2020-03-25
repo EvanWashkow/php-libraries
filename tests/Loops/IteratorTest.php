@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Loops;
 
+use PHP\Exceptions\NotImplementedException;
 use PHP\Loops\Iterator;
 use PHPUnit\Framework\TestCase;
 
@@ -25,6 +26,28 @@ class IteratorTest extends TestCase
             \Iterator::class,
             $iterator,
             Iterator::class . ' is not an instance of \\Iterator.'
+        );
+    }
+
+
+    /**
+     * Ensure next() forwards the call to goToNext()
+     */
+    public function testNext()
+    {
+        $isRun = false;
+        $mock = $this->createMock( Iterator::class );
+        // $mock->method( 'goToNext' )->will(
+        //     $this->throwException( new NotImplementedException( 'goToNext() is stubbed for testing.' ) )
+        // );
+        $mock->method( 'goToNext' )->willReturnCallback( function() use ( &$isRun ) {
+            $isRun = true;
+        });
+        $mock->next();
+
+        $this->assertTrue(
+            $isRun,
+            'Iterator->next() did not call goToNext().'
         );
     }
 
