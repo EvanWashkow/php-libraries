@@ -5487,6 +5487,23 @@
 												},
 												{
 													"_type": "UMLOperationView",
+													"_id": "AAAAAAFw5IatDeUrtz0=",
+													"_parent": {
+														"$ref": "AAAAAAFw5HTMP+QhcTE="
+													},
+													"model": {
+														"$ref": "AAAAAAFw5Ias4eUoPCI="
+													},
+													"font": "Arial;13;0",
+													"left": 21,
+													"top": 243,
+													"width": 279.6822509765625,
+													"height": 13,
+													"text": "+rewind(): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
 													"_id": "AAAAAAFxCHySjXjVk4o=",
 													"_parent": {
 														"$ref": "AAAAAAFw5HTMP+QhcTE="
@@ -5496,7 +5513,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 21,
-													"top": 243,
+													"top": 258,
 													"width": 279.6822509765625,
 													"height": 13,
 													"text": "+hasCurrent(): bool",
@@ -5513,7 +5530,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 21,
-													"top": 258,
+													"top": 273,
 													"width": 279.6822509765625,
 													"height": 13,
 													"text": "+getKey(): scalar",
@@ -5530,27 +5547,10 @@
 													},
 													"font": "Arial;13;0",
 													"left": 21,
-													"top": 273,
-													"width": 279.6822509765625,
-													"height": 13,
-													"text": "+goToNext(): void",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
-													"_id": "AAAAAAFw5IatDeUrtz0=",
-													"_parent": {
-														"$ref": "AAAAAAFw5HTMP+QhcTE="
-													},
-													"model": {
-														"$ref": "AAAAAAFw5Ias4eUoPCI="
-													},
-													"font": "Arial;13;0",
-													"left": 21,
 													"top": 288,
 													"width": 279.6822509765625,
 													"height": 13,
-													"text": "+rewind(): void",
+													"text": "+goToNext(): void",
 													"horizontalAlignment": 0
 												}
 											],
@@ -5921,6 +5921,23 @@
 											"subViews": [
 												{
 													"_type": "UMLOperationView",
+													"_id": "AAAAAAFxCHNKaXe62nw=",
+													"_parent": {
+														"$ref": "AAAAAAFxCHH2pXeCm+s="
+													},
+													"model": {
+														"$ref": "AAAAAAFxCHNKO3e3mCA="
+													},
+													"font": "Arial;13;2",
+													"left": 373,
+													"top": 200,
+													"width": 134.30313110351562,
+													"height": 13,
+													"text": "+rewind(): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
 													"_id": "AAAAAAFxCHIjEHemVrs=",
 													"_parent": {
 														"$ref": "AAAAAAFxCHH2pXeCm+s="
@@ -5930,7 +5947,7 @@
 													},
 													"font": "Arial;13;2",
 													"left": 373,
-													"top": 200,
+													"top": 215,
 													"width": 134.30313110351562,
 													"height": 13,
 													"text": "+hasCurrent(): bool",
@@ -5947,7 +5964,7 @@
 													},
 													"font": "Arial;13;2",
 													"left": 373,
-													"top": 215,
+													"top": 230,
 													"width": 134.30313110351562,
 													"height": 13,
 													"text": "+getValue(): mixed",
@@ -5964,7 +5981,7 @@
 													},
 													"font": "Arial;13;2",
 													"left": 373,
-													"top": 230,
+													"top": 245,
 													"width": 134.30313110351562,
 													"height": 13,
 													"text": "+getKey(): scalar",
@@ -5981,27 +5998,10 @@
 													},
 													"font": "Arial;13;2",
 													"left": 373,
-													"top": 245,
-													"width": 134.30313110351562,
-													"height": 13,
-													"text": "+goToNext(): void",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
-													"_id": "AAAAAAFxCHNKaXe62nw=",
-													"_parent": {
-														"$ref": "AAAAAAFxCHH2pXeCm+s="
-													},
-													"model": {
-														"$ref": "AAAAAAFxCHNKO3e3mCA="
-													},
-													"font": "Arial;13;2",
-													"left": 373,
 													"top": 260,
 													"width": 134.30313110351562,
 													"height": 13,
-													"text": "+rewind(): void",
+													"text": "+goToNext(): void",
 													"horizontalAlignment": 0
 												},
 												{
@@ -6441,6 +6441,25 @@
 								},
 								{
 									"_type": "UMLOperation",
+									"_id": "AAAAAAFw5Ias4eUoPCI=",
+									"_parent": {
+										"$ref": "AAAAAAFw5HTMP+QYUNc="
+									},
+									"name": "rewind",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFw5IbCCeUvI9c=",
+											"_parent": {
+												"$ref": "AAAAAAFw5Ias4eUoPCI="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
 									"_id": "AAAAAAFxCHySW3jSzGY=",
 									"_parent": {
 										"$ref": "AAAAAAFw5HTMP+QYUNc="
@@ -6495,25 +6514,6 @@
 											"direction": "return"
 										}
 									]
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFw5Ias4eUoPCI=",
-									"_parent": {
-										"$ref": "AAAAAAFw5HTMP+QYUNc="
-									},
-									"name": "rewind",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFw5IbCCeUvI9c=",
-											"_parent": {
-												"$ref": "AAAAAAFw5Ias4eUoPCI="
-											},
-											"type": "void",
-											"direction": "return"
-										}
-									]
 								}
 							]
 						},
@@ -6541,6 +6541,26 @@
 							],
 							"documentation": "The purpose of this class is to provide a more modern wrapper for the ugly PHP implementation. The advantages with this wrapper are:\n1. It uses proper function naming techniques.\n2. Throws meaningful exceptions if the Iterator is at an invalid position.",
 							"operations": [
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFxCHNKO3e3mCA=",
+									"_parent": {
+										"$ref": "AAAAAAFxCHH2pHd5OMc="
+									},
+									"name": "rewind",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFxCHNW4ne+cwE=",
+											"_parent": {
+												"$ref": "AAAAAAFxCHNKO3e3mCA="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									],
+									"isAbstract": true
+								},
 								{
 									"_type": "UMLOperation",
 									"_id": "AAAAAAFxCHIi3HejmEQ=",
@@ -6616,26 +6636,6 @@
 											"_id": "AAAAAAFxCHaq03gMQ0g=",
 											"_parent": {
 												"$ref": "AAAAAAFxCHaVtHgFr2M="
-											},
-											"type": "void",
-											"direction": "return"
-										}
-									],
-									"isAbstract": true
-								},
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFxCHNKO3e3mCA=",
-									"_parent": {
-										"$ref": "AAAAAAFxCHH2pHd5OMc="
-									},
-									"name": "rewind",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFxCHNW4ne+cwE=",
-											"_parent": {
-												"$ref": "AAAAAAFxCHNKO3e3mCA="
 											},
 											"type": "void",
 											"direction": "return"
