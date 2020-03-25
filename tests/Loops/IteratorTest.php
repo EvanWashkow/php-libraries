@@ -27,4 +27,34 @@ class IteratorTest extends TestCase
             Iterator::class . ' is not an instance of \\Iterator.'
         );
     }
+
+
+    /**
+     * Ensure valid() reflects hasCurrent()
+     * 
+     * @dataProvider getValidTestData
+     */
+    public function testValid( Iterator $iterator )
+    {
+        $this->assertTrue(
+            $iterator->hasCurrent() === $iterator->valid(),
+            'Iterator->valid() and Iterator->hasCurrent() should return the same result.'
+        );
+    }
+
+    public function getValidTestData(): array
+    {
+        // hasCurrent() returns "true"
+        $returnsTrue = $this->createMock( Iterator::class );
+        $returnsTrue->method( 'hasCurrent' )->willReturn( true );
+
+        // hasCurrent() returns "false"
+        $returnsFalse = $this->createMock( Iterator::class );
+        $returnsFalse->method( 'hasCurrent' )->willReturn( false );
+
+        return [
+            'hasCurrent() returns true'  => [ $returnsTrue ],
+            'hasCurrent() returns false' => [ $returnsFalse ]
+        ];
+    }
 }

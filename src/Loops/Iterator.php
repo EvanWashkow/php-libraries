@@ -76,6 +76,6 @@ abstract class Iterator implements \Iterator
 
     final public function valid(): bool
     {
-        throw new NotImplementedException( __FUNCTION__ . '() is not implemented, yet.' );
+        return $this->hasCurrent();
     }
 }
