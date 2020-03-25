@@ -47,8 +47,9 @@ abstract class Iterator implements \Iterator
      * Proceed to the next item (regardless if it exists or not)
      * 
      * @internal This is one of the inherit design flaws of PHP: you must increment to an invalid position and then
-     * report it as such. This is why getKey() and getValue() throw \OutOfBoundExceptions, and why this interim class
-     * was added. Unfortunately, this design problem cannot be solved.
+     * report it as such. This is why hasCurrent() was added for validating the current position, why getKey() and
+     * getValue() throw \OutOfBoundExceptions, and why this interim class was added. Unfortunately, this design problem
+     * cannot be solved in a child implementation.
      * 
      * @return void
      */
