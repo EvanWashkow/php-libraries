@@ -11,6 +11,11 @@ use PHP\Exceptions\NotImplementedException;
 abstract class Iterator implements \Iterator
 {
 
+    /**
+     * @internal Initialize starting position here, rather than the constructor.
+     */
+    abstract public function rewind(): void;
+
 
     final public function current()
     {
