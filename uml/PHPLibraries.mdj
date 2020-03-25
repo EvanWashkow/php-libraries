@@ -5955,23 +5955,6 @@
 												},
 												{
 													"_type": "UMLOperationView",
-													"_id": "AAAAAAFxCHSOcXfdU0o=",
-													"_parent": {
-														"$ref": "AAAAAAFxCHH2pXeCm+s="
-													},
-													"model": {
-														"$ref": "AAAAAAFxCHSOO3fafkk="
-													},
-													"font": "Arial;13;2",
-													"left": 373,
-													"top": 230,
-													"width": 134.30313110351562,
-													"height": 13,
-													"text": "+getValue(): mixed",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
 													"_id": "AAAAAAFxCHP783fQRW4=",
 													"_parent": {
 														"$ref": "AAAAAAFxCHH2pXeCm+s="
@@ -5981,10 +5964,27 @@
 													},
 													"font": "Arial;13;2",
 													"left": 373,
-													"top": 245,
+													"top": 230,
 													"width": 134.30313110351562,
 													"height": 13,
 													"text": "+getKey(): scalar",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFxCHSOcXfdU0o=",
+													"_parent": {
+														"$ref": "AAAAAAFxCHH2pXeCm+s="
+													},
+													"model": {
+														"$ref": "AAAAAAFxCHSOO3fafkk="
+													},
+													"font": "Arial;13;2",
+													"left": 373,
+													"top": 245,
+													"width": 134.30313110351562,
+													"height": 13,
+													"text": "+getValue(): mixed",
 													"horizontalAlignment": 0
 												},
 												{
@@ -6583,27 +6583,6 @@
 								},
 								{
 									"_type": "UMLOperation",
-									"_id": "AAAAAAFxCHSOO3fafkk=",
-									"_parent": {
-										"$ref": "AAAAAAFxCHH2pHd5OMc="
-									},
-									"name": "getValue",
-									"documentation": "Throws OutOfBoundsException if hasCurrent() returns false",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFxCHSph3fhYxY=",
-											"_parent": {
-												"$ref": "AAAAAAFxCHSOO3fafkk="
-											},
-											"type": "mixed",
-											"direction": "return"
-										}
-									],
-									"isAbstract": true
-								},
-								{
-									"_type": "UMLOperation",
 									"_id": "AAAAAAFxCHP7xHfN03U=",
 									"_parent": {
 										"$ref": "AAAAAAFxCHH2pHd5OMc="
@@ -6618,6 +6597,27 @@
 												"$ref": "AAAAAAFxCHP7xHfN03U="
 											},
 											"type": "scalar",
+											"direction": "return"
+										}
+									],
+									"isAbstract": true
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFxCHSOO3fafkk=",
+									"_parent": {
+										"$ref": "AAAAAAFxCHH2pHd5OMc="
+									},
+									"name": "getValue",
+									"documentation": "Throws OutOfBoundsException if hasCurrent() returns false",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFxCHSph3fhYxY=",
+											"_parent": {
+												"$ref": "AAAAAAFxCHSOO3fafkk="
+											},
+											"type": "mixed",
 											"direction": "return"
 										}
 									],
