@@ -62,18 +62,27 @@ abstract class Iterator implements \Iterator
     }
 
 
+    /**
+     * @internal Final. This method's implementation is determined by hasCurrent() and getKey().
+     */
     final public function key()
     {
         return $this->hasCurrent() ? $this->getKey() : null;
     }
 
 
+    /**
+     * @internal Final. This method's implementation is determined by goToNext().
+     */
     final public function next(): void
     {
         $this->goToNext();
     }
 
 
+    /**
+     * @internal Final. This method's implementation is determined by hasCurrent().
+     */
     final public function valid(): bool
     {
         return $this->hasCurrent();
