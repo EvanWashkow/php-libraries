@@ -70,9 +70,12 @@ abstract class Iterator implements \Iterator
     *******************************************************************************************************************/
 
 
+    /**
+     * @internal Final. This method's implementation is determined by hasCurrent() and getValue().
+     */
     final public function current()
     {
-        throw new NotImplementedException( __FUNCTION__ . '() is not implemented, yet.' );
+        return $this->hasCurrent() ? $this->getValue() : null;
     }
 
 

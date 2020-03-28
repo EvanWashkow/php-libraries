@@ -39,6 +39,66 @@ class IteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                       current()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure current() returns the expected value
+     * 
+     * @dataProvider getCurrentReturnValues
+     */
+    public function testCurrentReturnValue( Iterator $iterator, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->current(),
+            'Iterator->current() returned the wrong value.'
+        );
+    }
+
+    public function getCurrentReturnValues(): array
+    {
+        return [
+
+            'getValue() === 1' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( true );
+                    $mock->method( 'getValue' )->willReturn( 1 );
+                    return $mock;
+                })(),
+                1
+            ],
+
+            'getValue() === 2' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( true );
+                    $mock->method( 'getValue' )->willReturn( 2 );
+                    return $mock;
+                })(),
+                2
+            ],
+
+            'hasCurrent() === false' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( false );
+                    $mock->method( 'getValue' )->willThrowException(
+                        new \OutOfBoundsException( 'Key does not exist at this position.' )
+                    );
+                    return $mock;
+                })(),
+                null
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                         key()
     *******************************************************************************************************************/
 
