@@ -11,6 +11,13 @@ use PHP\Exceptions\NotImplementedException;
 abstract class Iterator implements \Iterator
 {
 
+
+
+
+    /*******************************************************************************************************************
+    *                                                 ABSTRACT METHODS
+    *******************************************************************************************************************/
+
     /**
      * @internal Initialize starting position here, rather than the constructor.
      */
@@ -54,6 +61,13 @@ abstract class Iterator implements \Iterator
      * @return void
      */
     abstract public function goToNext(): void;
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                  FINAL METHODS
+    *******************************************************************************************************************/
 
 
     final public function current()
