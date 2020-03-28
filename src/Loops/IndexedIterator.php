@@ -14,6 +14,19 @@ abstract class IndexedIterator extends Iterator
 {
 
 
+    /**
+     * Create a new integer-indexed iterator to traverse an Iterable
+     * 
+     * @param int  $startingIndex The index to start at
+     * @param int  $endingIndex   The index to stop at
+     * @param bool $isForward     The direction of the index increment. "true" to increment, "false" to decrement.
+     */
+    public function __construct( int $startingIndex, int $endingIndex, bool $isForward = true )
+    {
+        return;
+    }
+
+
     public function rewind(): void
     {
         throw new NotFoundException( __FUNCTION__ . '() is not implemented, yet.' );
