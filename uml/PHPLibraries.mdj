@@ -5357,7 +5357,7 @@
 													"font": "Arial;13;3",
 													"left": 21,
 													"top": 167,
-													"width": 381.1767578125,
+													"width": 361.28955078125,
 													"height": 13,
 													"text": "IndexedIterator"
 												},
@@ -5392,7 +5392,7 @@
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 160,
-											"width": 391.1767578125,
+											"width": 371.28955078125,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFw5HTMP+QcIAM="
@@ -5419,7 +5419,7 @@
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 185,
-											"width": 391.1767578125,
+											"width": 371.28955078125,
 											"height": 10
 										},
 										{
@@ -5444,9 +5444,9 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 200,
-													"width": 381.1767578125,
+													"width": 361.28955078125,
 													"height": 13,
-													"text": "+__construct(startingIndex: int, endingIndex: int, isForward: ?bool)",
+													"text": "+__construct(startingIndex: int, count: int, incrementBy: int = 1)",
 													"horizontalAlignment": 0
 												},
 												{
@@ -5461,7 +5461,7 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 215,
-													"width": 381.1767578125,
+													"width": 361.28955078125,
 													"height": 13,
 													"text": "+rewind(): void",
 													"horizontalAlignment": 0
@@ -5478,7 +5478,7 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 230,
-													"width": 381.1767578125,
+													"width": 361.28955078125,
 													"height": 13,
 													"text": "+hasCurrent(): bool",
 													"horizontalAlignment": 0
@@ -5495,7 +5495,7 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 245,
-													"width": 381.1767578125,
+													"width": 361.28955078125,
 													"height": 13,
 													"text": "+getKey(): scalar",
 													"horizontalAlignment": 0
@@ -5512,7 +5512,7 @@
 													"font": "Arial;13;0",
 													"left": 21,
 													"top": 260,
-													"width": 381.1767578125,
+													"width": 361.28955078125,
 													"height": 13,
 													"text": "+goToNext(): void",
 													"horizontalAlignment": 0
@@ -5521,7 +5521,7 @@
 											"font": "Arial;13;0",
 											"left": 16,
 											"top": 195,
-											"width": 391.1767578125,
+											"width": 371.28955078125,
 											"height": 83
 										},
 										{
@@ -5561,7 +5561,7 @@
 									"containerChangeable": true,
 									"left": 16,
 									"top": 160,
-									"width": 391.1767578125,
+									"width": 371.28955078125,
 									"height": 118,
 									"nameCompartment": {
 										"$ref": "AAAAAAFw5HTMP+Qb42E="
@@ -5600,8 +5600,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 436,
-											"top": 218,
+											"left": 418,
+											"top": 217,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -5621,8 +5621,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 438,
-											"top": 203,
+											"left": 419,
+											"top": 202,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -5642,8 +5642,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 433,
-											"top": 247,
+											"left": 415,
+											"top": 246,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -5661,7 +5661,7 @@
 										"$ref": "AAAAAAFw5HTMP+Qa4kY="
 									},
 									"lineStyle": 1,
-									"points": "407:237;463:242",
+									"points": "387:235;463:242",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFw5HUQn+RH87c="
@@ -6376,7 +6376,7 @@
 											"_parent": {
 												"$ref": "AAAAAAFw5HZHyeSGLrw="
 											},
-											"name": "endingIndex",
+											"name": "count",
 											"type": "int"
 										},
 										{
@@ -6385,8 +6385,9 @@
 											"_parent": {
 												"$ref": "AAAAAAFw5HZHyeSGLrw="
 											},
-											"name": "isForward",
-											"type": "?bool"
+											"name": "incrementBy",
+											"type": "int",
+											"defaultValue": "1"
 										}
 									]
 								},
