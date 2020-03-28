@@ -26,8 +26,6 @@ class IteratorTest extends TestCase
     public function testIsIteratorInterface()
     {
         $iterator = $this->createMock( Iterator::class );
-        $iterator->method( 'rewind' );
-
         $this->assertInstanceOf(
             \Iterator::class,
             $iterator,
