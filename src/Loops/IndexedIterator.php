@@ -7,8 +7,10 @@ use PHP\Exceptions\NotFoundException;
 
 /**
  * Uses integer indices to traverse an Iterable item in a foreach() loop, retrieving the item's value for that index.
+ * 
+ * In order to use this class, extend it and define getValue()
  */
-class IndexedIterator extends Iterator
+abstract class IndexedIterator extends Iterator
 {
 
 
@@ -25,12 +27,6 @@ class IndexedIterator extends Iterator
 
 
     public function getKey()
-    {
-        throw new NotFoundException( __FUNCTION__ . '() is not implemented, yet.' );
-    }
-
-
-    public function getValue()
     {
         throw new NotFoundException( __FUNCTION__ . '() is not implemented, yet.' );
     }

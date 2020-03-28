@@ -26,9 +26,12 @@ class IndexedIteratorTest extends TestCase
      */
     public function testIsIterator()
     {
+        $indexedIterator = $this->createMock( IndexedIterator::class );
+        $indexedIterator->method( 'getValue' )->willReturn( 1 );
+
         $this->assertInstanceOf(
             Iterator::class,
-            new IndexedIterator(),
+            $indexedIterator,
             'IndexedIterator does not extend Iterator.'
         );
     }
