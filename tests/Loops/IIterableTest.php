@@ -3,13 +3,13 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Loops;
 
-use PHP\Loops\Enumerable;
+use PHP\Loops\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the Enumerable definition
+ * Tests the IIterable definition
  */
-class EnumerableTest extends TestCase
+class IIterableTest extends TestCase
 {
 
 
@@ -25,11 +25,11 @@ class EnumerableTest extends TestCase
      */
     public function testIsIteratorAggregate()
     {
-        $enumerable = $this->createMock( Enumerable::class );
+        $iterable = $this->createMock( IIterable::class );
         $this->assertInstanceOf(
             \IteratorAggregate::class,
-            $enumerable,
-            Enumerable::class . ' is not an instance of \\IteratorAggregate.'
+            $iterable,
+            IIterable::class . ' is not an instance of \\IteratorAggregate.'
         );
     }
 
@@ -42,41 +42,41 @@ class EnumerableTest extends TestCase
 
 
     /**
-     * Ensure Enumerable works in a single-level foreach loop
+     * Ensure IIterable works in a single-level foreach loop
      * 
-     * @dataProvider getEnumerables
+     * @dataProvider getIIterables
      */
-    public function testSingleLevelForEachLoop( Enumerable $enumerable, array $expected )
+    public function testSingleLevelForEachLoop( IIterable $iterable, array $expected )
     {
         $iterated = [];
-        foreach ( $enumerable as $key => $value ) {
+        foreach ( $iterable as $key => $value ) {
             $iterated[ $key ] = $value;
         }
 
         $this->assertEquals(
             $expected,
             $iterated,
-            'Enumerable did not traverse the expected values.'
+            'Single-level foreach() loop did not traverse the expected IIterable values.'
         );
     }
 
 
     /**
-     * Ensure Enumerable works in a nested foreach loop structure
+     * Ensure IIterable works in a nested foreach loop structure
      * 
-     * @dataProvider getEnumerables
+     * @dataProvider getIIterables
      */
-    public function testNestedForEachLoops( Enumerable $enumerable, array $expected )
+    public function testNestedForEachLoops( IIterable $iterable, array $expected )
     {
         // Registers for each loop
         $outerIterated = [];
         $innerIterated = [];
 
         // Nest the loop structures and add entries to the registers for each loop
-        foreach ( $enumerable as $outerKey => $outerValue ) {
+        foreach ( $iterable as $outerKey => $outerValue ) {
             $outerIterated[ $outerKey ] = $outerValue;
 
-            foreach ( $enumerable as $innerKey => $innerValue ) {
+            foreach ( $iterable as $innerKey => $innerValue ) {
                 $innerIterated[ $innerKey ] = $innerValue;
             }
         }
@@ -84,26 +84,26 @@ class EnumerableTest extends TestCase
         $this->assertEquals(
             $expected,
             $outerIterated,
-            'Enumerable did not traverse the expected values in the outer loop.'
+            'Outer foreach() loop did not traverse the expected IIterable values.'
         );
         $this->assertEquals(
             $expected,
             $innerIterated,
-            'Enumerable did not traverse the expected values in the inner loop.'
+            'Inner foreach() loop did not traverse the expected IIterable values.'
         );
     }
 
 
     /**
-     * Retrieve sample Enumerable test data
+     * Retrieve sample IIterable test data
      */
-    public function getEnumerables(): array
+    public function getIIterables(): array
     {
         return [
 
-            'SampleEnumerable' => [
-                new SampleEnumerable,
-                SampleEnumerable::VALUES
+            'SampleIterable' => [
+                new SampleIterable,
+                SampleIterable::VALUES
             ]
         ];
     }

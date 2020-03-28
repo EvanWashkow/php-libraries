@@ -3,10 +3,10 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Loops;
 
-use PHP\Loops\Enumerable;
+use PHP\Loops\IIterable;
 use PHP\Loops\Enumerator;
 
-class SampleEnumerable implements Enumerable
+class SampleIterable implements IIterable
 {
 
 

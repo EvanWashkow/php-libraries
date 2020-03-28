@@ -6,7 +6,7 @@ namespace PHP\Loops;
 /**
  * Describes a set of values that can be traversed by a foreach() loop
  */
-interface Enumerable extends \IteratorAggregate
+interface IIterable extends \IteratorAggregate
 {
 
 
