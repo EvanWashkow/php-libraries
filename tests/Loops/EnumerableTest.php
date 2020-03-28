@@ -49,7 +49,7 @@ class EnumerableTest extends TestCase
     public function testSingleLevelForEachLoop( Enumerable $enumerable, array $expected )
     {
         $iterated = [];
-        foreach ( $enumerable as $key => $value) {
+        foreach ( $enumerable as $key => $value ) {
             $iterated[ $key ] = $value;
         }
 
@@ -60,6 +60,43 @@ class EnumerableTest extends TestCase
         );
     }
 
+
+    /**
+     * Ensure Enumerable works in a nested foreach loop structure
+     * 
+     * @dataProvider getEnumerables
+     */
+    public function testNestedForEachLoops( Enumerable $enumerable, array $expected )
+    {
+        // Registers for each loop
+        $outerIterated = [];
+        $innerIterated = [];
+
+        // Nest the loop structures and add entries to the registers for each loop
+        foreach ( $enumerable as $outerKey => $outerValue ) {
+            $outerIterated[ $outerKey ] = $outerValue;
+
+            foreach ( $enumerable as $innerKey => $innerValue ) {
+                $innerIterated[ $innerKey ] = $innerValue;
+            }
+        }
+
+        $this->assertEquals(
+            $expected,
+            $outerIterated,
+            'Enumerable did not traverse the expected values in the outer loop.'
+        );
+        $this->assertEquals(
+            $expected,
+            $innerIterated,
+            'Enumerable did not traverse the expected values in the inner loop.'
+        );
+    }
+
+
+    /**
+     * Retrieve sample Enumerable test data
+     */
     public function getEnumerables(): array
     {
         return [
