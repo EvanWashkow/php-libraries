@@ -144,17 +144,23 @@ class IteratorTest extends TestCase
 
     public function getValidTestData(): array
     {
-        // hasCurrent() returns "true"
-        $returnsTrue = $this->createMock( Iterator::class );
-        $returnsTrue->method( 'hasCurrent' )->willReturn( true );
-
-        // hasCurrent() returns "false"
-        $returnsFalse = $this->createMock( Iterator::class );
-        $returnsFalse->method( 'hasCurrent' )->willReturn( false );
-
         return [
-            'hasCurrent() returns true'  => [ $returnsTrue ],
-            'hasCurrent() returns false' => [ $returnsFalse ]
+
+            'hasCurrent() === true'  => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( true );
+                    return $mock;
+                })()
+            ],
+
+            'hasCurrent() === false' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( false );
+                    return $mock;
+                })()
+            ]
         ];
     }
 }
