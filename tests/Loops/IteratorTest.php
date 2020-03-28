@@ -39,6 +39,66 @@ class IteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                         key()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure key() returns the expected value
+     * 
+     * @dataProvider getKeyReturnValues
+     */
+    public function testKeyReturnValue( Iterator $iterator, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->key(),
+            'Iterator->key() returned the wrong value.'
+        );
+    }
+
+    public function getKeyReturnValues(): array
+    {
+        return [
+
+            'getKey() === 1' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( true );
+                    $mock->method( 'getKey' )->willReturn( 1 );
+                    return $mock;
+                })(),
+                1
+            ],
+
+            'getKey() === 2' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( true );
+                    $mock->method( 'getKey' )->willReturn( 2 );
+                    return $mock;
+                })(),
+                2
+            ],
+
+            'hasCurrent() === false' => [
+                (function() {
+                    $mock = $this->createMock( Iterator::class );
+                    $mock->method( 'hasCurrent' )->willReturn( false );
+                    $mock->method( 'getKey' )->willThrowException(
+                        new \OutOfBoundsException( 'Key does not exist at this position.' )
+                    );
+                    return $mock;
+                })(),
+                null
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                         next()
     *******************************************************************************************************************/
 

@@ -64,7 +64,7 @@ abstract class Iterator implements \Iterator
 
     final public function key()
     {
-        throw new NotImplementedException( __FUNCTION__ . '() is not implemented, yet.' );
+        return $this->hasCurrent() ? $this->getKey() : null;
     }
 
 
