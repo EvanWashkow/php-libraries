@@ -32,4 +32,42 @@ class EnumerableTest extends TestCase
             Enumerable::class . ' is not an instance of \\IteratorAggregate.'
         );
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                   foreach() loop test
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure Enumerable works in a single-level foreach loop
+     * 
+     * @dataProvider getEnumerables
+     */
+    public function testSingleLevelForEachLoop( Enumerable $enumerable, array $expected )
+    {
+        $iterated = [];
+        foreach ( $enumerable as $key => $value) {
+            $iterated[ $key ] = $value;
+        }
+
+        $this->assertEquals(
+            $expected,
+            $iterated,
+            'Enumerable did not traverse the expected values.'
+        );
+    }
+
+    public function getEnumerables(): array
+    {
+        return [
+
+            'SampleEnumerable' => [
+                new SampleEnumerable,
+                SampleEnumerable::VALUES
+            ]
+        ];
+    }
 }
