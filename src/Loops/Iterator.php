@@ -4,9 +4,9 @@ declare( strict_types = 1 );
 namespace PHP\Loops;
 
 /**
- * Traverses an Enumerable item in a foreach() loop, retrieving that item's key and value.
+ * Traverses an Iterable item in a foreach() loop, retrieving that item's key and value.
  */
-abstract class Enumerator implements \Iterator
+abstract class Iterator implements \Iterator
 {
 
 

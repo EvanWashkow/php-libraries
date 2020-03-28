@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Loops;
 
-use PHP\Loops\Enumerator;
+use PHP\Loops\Iterator;
 
-class SampleEnumerator extends Enumerator
+class SampleIterator extends Iterator
 {
 
     /** @var int $index The current index */
@@ -16,7 +16,7 @@ class SampleEnumerator extends Enumerator
 
 
     /**
-     * Create a new Sample Enumerator
+     * Create a new Sample Iterator
      * 
      * @param array $values The values to traverse
      */

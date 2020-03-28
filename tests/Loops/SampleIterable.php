@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Loops;
 
 use PHP\Loops\IIterable;
-use PHP\Loops\Enumerator;
+use PHP\Loops\Iterator;
 
 class SampleIterable implements IIterable
 {
@@ -13,8 +13,8 @@ class SampleIterable implements IIterable
     const VALUES = [ 1, 2, 3 ];
 
 
-    public function getIterator(): Enumerator
+    public function getIterator(): Iterator
     {
-        return new SampleEnumerator( self::VALUES );
+        return new SampleIterator( self::VALUES );
     }
 }

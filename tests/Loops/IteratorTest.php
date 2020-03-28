@@ -3,13 +3,13 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Loops;
 
-use PHP\Loops\Enumerator;
+use PHP\Loops\Iterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the Enumerator definition
+ * Tests the Iterator definition
  */
-class EnumeratorTest extends TestCase
+class IteratorTest extends TestCase
 {
 
 
@@ -21,15 +21,15 @@ class EnumeratorTest extends TestCase
 
 
     /**
-     * Ensure class implements the \Enumerator interface
+     * Ensure class implements the \Iterator interface
      */
-    public function testIsEnumeratorInterface()
+    public function testIsIterator()
     {
-        $enumerator = $this->createMock( Enumerator::class );
+        $iterator = $this->createMock( Iterator::class );
         $this->assertInstanceOf(
             \Iterator::class,
-            $enumerator,
-            Enumerator::class . ' is not an instance of \\Iterator.'
+            $iterator,
+            Iterator::class . ' is not an instance of \\Iterator.'
         );
     }
 
@@ -46,12 +46,12 @@ class EnumeratorTest extends TestCase
      * 
      * @dataProvider getCurrentReturnValues
      */
-    public function testCurrentReturnValue( Enumerator $enumerator, $expected )
+    public function testCurrentReturnValue( Iterator $iterator, $expected )
     {
         $this->assertEquals(
             $expected,
-            $enumerator->current(),
-            'Enumerator->current() returned the wrong value.'
+            $iterator->current(),
+            'Iterator->current() returned the wrong value.'
         );
     }
 
@@ -61,7 +61,7 @@ class EnumeratorTest extends TestCase
 
             'getValue() === 1' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( true );
                     $mock->method( 'getValue' )->willReturn( 1 );
                     return $mock;
@@ -71,7 +71,7 @@ class EnumeratorTest extends TestCase
 
             'getValue() === 2' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( true );
                     $mock->method( 'getValue' )->willReturn( 2 );
                     return $mock;
@@ -81,7 +81,7 @@ class EnumeratorTest extends TestCase
 
             'hasCurrent() === false' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( false );
                     $mock->method( 'getValue' )->willThrowException(
                         new \OutOfBoundsException( 'Key does not exist at this position.' )
@@ -106,12 +106,12 @@ class EnumeratorTest extends TestCase
      * 
      * @dataProvider getKeyReturnValues
      */
-    public function testKeyReturnValue( Enumerator $enumerator, $expected )
+    public function testKeyReturnValue( Iterator $iterator, $expected )
     {
         $this->assertEquals(
             $expected,
-            $enumerator->key(),
-            'Enumerator->key() returned the wrong value.'
+            $iterator->key(),
+            'Iterator->key() returned the wrong value.'
         );
     }
 
@@ -121,7 +121,7 @@ class EnumeratorTest extends TestCase
 
             'getKey() === 1' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( true );
                     $mock->method( 'getKey' )->willReturn( 1 );
                     return $mock;
@@ -131,7 +131,7 @@ class EnumeratorTest extends TestCase
 
             'getKey() === 2' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( true );
                     $mock->method( 'getKey' )->willReturn( 2 );
                     return $mock;
@@ -141,7 +141,7 @@ class EnumeratorTest extends TestCase
 
             'hasCurrent() === false' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( false );
                     $mock->method( 'getKey' )->willThrowException(
                         new \OutOfBoundsException( 'Key does not exist at this position.' )
@@ -167,7 +167,7 @@ class EnumeratorTest extends TestCase
     public function testNext()
     {
         $isRun = false;
-        $mock = $this->createMock( Enumerator::class );
+        $mock = $this->createMock( Iterator::class );
         $mock->method( 'goToNext' )->willReturnCallback( function() use ( &$isRun ) {
             $isRun = true;
         });
@@ -175,7 +175,7 @@ class EnumeratorTest extends TestCase
 
         $this->assertTrue(
             $isRun,
-            'Enumerator->next() did not call goToNext().'
+            'Iterator->next() did not call goToNext().'
         );
     }
 
@@ -192,11 +192,11 @@ class EnumeratorTest extends TestCase
      * 
      * @dataProvider getValidTestData
      */
-    public function testValid( Enumerator $enumerator )
+    public function testValid( Iterator $iterator )
     {
         $this->assertTrue(
-            $enumerator->hasCurrent() === $enumerator->valid(),
-            'Enumerator->valid() and Enumerator->hasCurrent() should return the same result.'
+            $iterator->hasCurrent() === $iterator->valid(),
+            'Iterator->valid() and Iterator->hasCurrent() should return the same result.'
         );
     }
 
@@ -206,7 +206,7 @@ class EnumeratorTest extends TestCase
 
             'hasCurrent() === true'  => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( true );
                     return $mock;
                 })()
@@ -214,7 +214,7 @@ class EnumeratorTest extends TestCase
 
             'hasCurrent() === false' => [
                 (function() {
-                    $mock = $this->createMock( Enumerator::class );
+                    $mock = $this->createMock( Iterator::class );
                     $mock->method( 'hasCurrent' )->willReturn( false );
                     return $mock;
                 })()
