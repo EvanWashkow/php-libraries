@@ -16,9 +16,6 @@ abstract class IndexedIterator extends Iterator
     /** @var int $current The current index position. */
     private $current;
 
-    /** @var int $start The index to start at. */
-    private $start;
-
     /** @var int $end The index to end at. */
     private $end;
 
@@ -27,6 +24,9 @@ abstract class IndexedIterator extends Iterator
 
     /** @var bool $isForward Determines the direction of the increment. Optimizes hasCurrent() check. */
     private $isForward;
+
+    /** @var int $start The index to start at. */
+    private $start;
 
 
     /**
