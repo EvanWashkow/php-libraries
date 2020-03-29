@@ -93,6 +93,47 @@ class IndexedIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                       getKey()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure getKey() returns the correct values
+     * 
+     * @dataProvider getKeyReturnData
+     */
+    public function testGetKeyReturn( IndexedIterator $iterator, int $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->getKey(),
+            'IndexedIterator->getKey() returned the wrong value.'
+        );
+    }
+
+    public function getKeyReturnData(): array
+    {
+        return [
+
+            'start = 0, end = 0, increment = 1' => [
+                $this->createIndexedIterator( 0, 0, 1 ),
+                0
+            ],
+            'start = 1, end = 1, increment = 1' => [
+                $this->createIndexedIterator( 1, 1, 1 ),
+                1
+            ],
+            'start = 2, end = 1, increment = 1' => [
+                $this->createIndexedIterator( 2, 1, 1 ),
+                2
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                      UTILITIES
     *******************************************************************************************************************/
 

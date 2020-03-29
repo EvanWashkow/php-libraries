@@ -57,7 +57,7 @@ abstract class IndexedIterator extends Iterator
 
     public function getKey()
     {
-        throw new NotFoundException( __FUNCTION__ . '() is not implemented, yet.' );
+        return $this->start;
     }
 
 
