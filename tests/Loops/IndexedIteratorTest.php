@@ -160,6 +160,33 @@ class IndexedIteratorTest extends TestCase
                 })(),
                 false
             ],
+            '(0, 2, 2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 2, 2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '(0, 3, 2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 3, 2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '(0, 1, 2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 1, 2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ],
 
 
             // Reverse - First Rewind
@@ -210,6 +237,33 @@ class IndexedIteratorTest extends TestCase
             '(0, 0, -1)->rewind()->goToNext()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 0, -1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ],
+            '(0, -2, -2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -2, -2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '(0, -3, -2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -3, -2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '(0, -1, -2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -1, -2 );
                     $iterator->rewind();
                     $iterator->goToNext();
                     return $iterator;
@@ -292,6 +346,44 @@ class IndexedIteratorTest extends TestCase
                 })(),
                 2
             ],
+            '(0, 4, 2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 4, 2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                2
+            ],
+            '(0, 4, 2)->rewind()->goToNext()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 4, 2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                4
+            ],
+            '(0, 6, 3)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 6, 3 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                3
+            ],
+            '(0, 6, 3)->rewind()->goToNext()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 6, 3 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                6
+            ],
 
 
             // Reverse - Go To Next
@@ -313,6 +405,44 @@ class IndexedIteratorTest extends TestCase
                     return $iterator;
                 })(),
                 -2
+            ],
+            '(0, -4, -2)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -4, -2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                -2
+            ],
+            '(0, -4, -2)->rewind()->goToNext()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -4, -2 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                -4
+            ],
+            '(0, -6, -3)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -6, -3 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                -3
+            ],
+            '(0, -6, -3)->rewind()->goToNext()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -6, -3 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                -6
             ]
         ];
     }
