@@ -75,7 +75,7 @@ abstract class IndexedIterator extends Iterator
         if ( !$this->hasCurrent() ) {
             throw new \OutOfBoundsException( 'Iterator at an invalid position. There is no key.' );
         }
-        return $this->start;
+        return $this->current;
     }
 
 
