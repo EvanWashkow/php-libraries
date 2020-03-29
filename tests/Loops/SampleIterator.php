@@ -3,10 +3,16 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Loops;
 
-use PHP\Loops\IndexedIterator;
+use PHP\Loops\Iterator;
 
-class SampleIterator extends IndexedIterator
+class SampleIterator extends Iterator
 {
+
+    /** @var int $index The current index */
+    private $index;
+
+    /** @var array $values The values to traverse */
+    private $values;
 
 
     /**
@@ -16,10 +22,28 @@ class SampleIterator extends IndexedIterator
      */
     public function __construct( array $values )
     {
-        $start = 0;
-        $end   = ( $start + count( $values )) - 1;
-        parent::__construct( $start, $end, 1 );
         $this->values = $values;
+    }
+
+
+    public function rewind(): void
+    {
+        $this->index  = 0;
+    }
+
+
+    public function hasCurrent(): bool
+    {
+        return array_key_exists( $this->index, $this->values );
+    }
+
+
+    public function getKey(): int
+    {
+        if ( !$this->hasCurrent() ) {
+            throw new \OutOfBoundsException( 'There is no key at the current position.' );
+        }
+        return $this->index;
     }
 
 
@@ -29,5 +53,11 @@ class SampleIterator extends IndexedIterator
             throw new \OutOfBoundsException( 'There is no value at the current position.' );
         }
         return $this->values[ $this->getKey() ];
+    }
+
+
+    public function goToNext(): void
+    {
+        $this->index++;
     }
 }
