@@ -103,6 +103,106 @@ class IndexedIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                       hasCurrent()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure hasCurrent() returns the expected results
+     * 
+     * @dataProvider getHasCurrentData
+     */
+    public function testHasCurrent( IndexedIterator $iterator, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->hasCurrent(),
+            'IndexedIterator->hasCurrent() did not return the correct result.'
+        );
+    }
+
+    public function getHasCurrentData(): array
+    {
+        return [
+
+            // No rewind()
+            '( 0, 0, 1 ), no rewind()' => [
+                $this->createIndexedIterator( 0, 0, 1 ),
+                false
+            ],
+            '( 0, 0, -1 ), no rewind()' => [
+                $this->createIndexedIterator( 0, 0, -1 ),
+                false
+            ],
+            '( -5, 24, 3 ), no rewind()' => [
+                $this->createIndexedIterator( -5, 24, 3 ),
+                false
+            ],
+            '( 7, -8, -2 ), no rewind()' => [
+                $this->createIndexedIterator( 7, -8, -2 ),
+                false
+            ],
+
+
+            // Current is past the end
+            '( 4, 3, 1 )' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 4, 3, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                false
+            ],
+            '( 8, 9, -1 )' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 8, 9, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                false
+            ],
+
+
+            // Current is at or before the end
+            '( 3, 3, 1 )' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 3, 3, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '( 3, 4, 1 )' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 3, 4, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '( 8, 8, -1 )' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 8, 8, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '( 9, 8, -1 )' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 9, 8, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                true
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                              hasCurrent() and getKey()
     *******************************************************************************************************************/
 
