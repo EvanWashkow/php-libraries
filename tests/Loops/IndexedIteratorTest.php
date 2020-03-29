@@ -123,9 +123,31 @@ class IndexedIteratorTest extends TestCase
                 $this->createIndexedIterator( 1, 1, 1 ),
                 1
             ],
-            'start = 2, end = 1, increment = 1' => [
-                $this->createIndexedIterator( 2, 1, 1 ),
+            'start = 2, end = 2, increment = 1' => [
+                $this->createIndexedIterator( 2, 2, 1 ),
                 2
+            ]
+        ];
+    }
+
+
+    /**
+     * Ensure getKey() throws an OutOfBoundsException
+     * 
+     * @dataProvider getKeyOutOfBoundsExceptionData
+     */
+    public function testGetKeyOutOfBoundsException( IndexedIterator $iterator )
+    {
+        $this->expectException( \OutOfBoundsException::class );
+        $iterator->getKey();
+    }
+
+    public function getKeyOutOfBoundsExceptionData(): array
+    {
+        return [
+
+            'start = 0, end = 1, increment = -1' => [
+                $this->createIndexedIterator( 0, 1, -1 )
             ]
         ];
     }
