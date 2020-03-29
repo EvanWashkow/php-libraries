@@ -39,6 +39,23 @@ class IndexedIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                    __construct()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure __construct() throws DomainException on zero increments
+     */
+    public function testConstructThrowsDomainExceptionOnIncrementOfZero()
+    {
+        $this->expectException( \DomainException::class );
+        $this->createIndexedIterator( 0, 0, 0 );
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                       rewind()
     *
     * This method is tested in due course of testing hasCurrent() and getKey()
@@ -79,8 +96,12 @@ class IndexedIteratorTest extends TestCase
                 $this->createIndexedIterator( 1, 2, 1 ),
                 false
             ],
-            '(2, 3, 1)' => [
-                $this->createIndexedIterator( 2, 3, 1 ),
+            '(0, -1, -1)' => [
+                $this->createIndexedIterator( 0, -1, -1 ),
+                false
+            ],
+            '(-1, -2, -1)' => [
+                $this->createIndexedIterator( -1, -2, -1 ),
                 false
             ],
 

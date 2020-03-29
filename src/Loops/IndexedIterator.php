@@ -35,12 +35,18 @@ abstract class IndexedIterator extends Iterator
      * @param int $start     The index to start at.
      * @param int $end       The index to end at. Will return the value at that index.
      * @param int $increment Value to increment (or decrement) the index by (on goToNext()).
+     * @throws \DomainException If increment is zero.
      */
     public function __construct( int $start, int $end, int $increment )
     {
+        // Handle increment
+        $this->increment = $increment;
+        if ( $increment === 0 ) {
+            throw new \DomainException( 'Index increment cannot be zero.' );
+        }
+
         $this->start     = $start;
         $this->end       = $end;
-        $this->increment = $increment;
         $this->current   = null;
     }
 
