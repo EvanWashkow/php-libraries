@@ -39,14 +39,15 @@ abstract class IndexedIterator extends Iterator
      */
     public function __construct( int $start, int $end, int $increment )
     {
-        // Handle increment
-        $this->increment = $increment;
-        if ( $increment === 0 ) {
+        // Throw DomainException on invalid increment
+        if ( 0 === $increment ) {
             throw new \DomainException( 'Index increment cannot be zero.' );
         }
-
+        
+        // Set properties
         $this->start     = $start;
         $this->end       = $end;
+        $this->increment = $increment;
         $this->current   = null;
     }
 
