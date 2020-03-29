@@ -57,9 +57,47 @@ class IndexedIteratorTest extends TestCase
 
     /*******************************************************************************************************************
     *                                                       rewind()
-    *
-    * This method is tested in due course of testing hasCurrent() and getKey()
     *******************************************************************************************************************/
+
+
+    /**
+     * Ensure rewind() resets the index to the start
+     * 
+     * @dataProvider getRewindData
+     */
+    public function testRewind( IndexedIterator $iterator, int $start )
+    {
+        $iterator->rewind();
+        $this->assertEquals(
+            $start,
+            $iterator->getKey(),
+            'IndexedIterator->rewind() did not set current to start.'
+        );
+    }
+
+    public function getRewindData(): array
+    {
+        return [
+            'Brand new iterator' => [
+                $this->createIndexedIterator( 20, 40, 1 ),
+                20
+            ],
+            'Dirty iterator' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 18, 20, 1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                18
+            ]
+        ];
+    }
 
 
 
