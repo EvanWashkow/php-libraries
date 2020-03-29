@@ -13,7 +13,7 @@ use PHP\Exceptions\NotFoundException;
 abstract class IndexedIterator extends Iterator
 {
 
-    /** @var ?int $current The current index position. */
+    /** @var int $current The current index position. */
     private $current;
 
     /** @var int $start The index to start at. */
@@ -52,7 +52,9 @@ abstract class IndexedIterator extends Iterator
         $this->end       = $end;
         $this->increment = $increment;
         $this->isForward = 0 < $increment;
-        $this->current   = null;
+
+        // Set current to an invalid position: rewind() must _always_ be called before attempting to access anything.
+        $this->current = $end + $increment;
     }
 
 
@@ -64,10 +66,7 @@ abstract class IndexedIterator extends Iterator
 
     public function hasCurrent(): bool
     {
-        return (
-            ( null !== $this->current ) &&
-            ( $this->isForward ? $this->current <= $this->end : $this->end <= $this->current )
-        );
+        return $this->isForward ? $this->current <= $this->end : $this->end <= $this->current;
     }
 
 
@@ -82,8 +81,6 @@ abstract class IndexedIterator extends Iterator
 
     public function goToNext(): void
     {
-        if ( $this->hasCurrent() ) {
-            $this->current += $this->increment;
-        }
+        $this->current += $this->increment;
     }
 }
