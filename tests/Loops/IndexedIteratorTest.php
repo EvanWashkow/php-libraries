@@ -61,28 +61,28 @@ class IndexedIteratorTest extends TestCase
     {
         return [
 
-            'start = 0, end = 1, increment = 1 )' => [
+            'start = 0, end = 1, increment = 1' => [
                 $this->createIndexedIterator( 0, 1, 1 ),
                 true
             ],
-            'start = 0, end = 0, increment = 1 )' => [
+            'start = 0, end = 0, increment = 1' => [
                 $this->createIndexedIterator( 0, 0, 1 ),
                 true
             ],
-            'start = 0, end = -1, increment = 1 )' => [
+            'start = 0, end = -1, increment = 1' => [
                 $this->createIndexedIterator( 0, -1, 1 ),
                 false
             ],
 
-            'start = 0, end = -1, increment = -1 )' => [
+            'start = 0, end = -1, increment = -1' => [
                 $this->createIndexedIterator( 0, -1, -1 ),
                 true
             ],
-            'start = 0, end = 0, increment = -1 )' => [
+            'start = 0, end = 0, increment = -1' => [
                 $this->createIndexedIterator( 0, 0, -1 ),
                 true
             ],
-            'start = 0, end = 1, increment = -1 )' => [
+            'start = 0, end = 1, increment = -1' => [
                 $this->createIndexedIterator( 0, 1, -1 ),
                 false
             ]
