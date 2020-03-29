@@ -66,7 +66,7 @@ abstract class IndexedIterator extends Iterator
     {
         return (
             ( null !== $this->current ) &&
-            ( $this->isForward ? $this->start <= $this->end : $this->end <= $this->start )
+            ( $this->isForward ? $this->current <= $this->end : $this->end <= $this->current )
         );
     }
 
@@ -82,6 +82,8 @@ abstract class IndexedIterator extends Iterator
 
     public function goToNext(): void
     {
-        throw new NotFoundException( __FUNCTION__ . '() is not implemented, yet.' );
+        if ( $this->hasCurrent() ) {
+            $this->current += $this->increment;
+        }
     }
 }

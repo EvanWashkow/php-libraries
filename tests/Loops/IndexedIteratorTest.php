@@ -132,6 +132,36 @@ class IndexedIteratorTest extends TestCase
                 false
             ],
 
+
+            // Forward - Go To Next
+            '(0, 1, 1)->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 1, 1 );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ],
+            '(0, 1, 1)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 1, 1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '(0, 0, 1)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, 1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ],
+
+
             // Reverse - First Rewind
             '(0, -1, -1)->rewind()' => [
                 (function() {
@@ -153,6 +183,35 @@ class IndexedIteratorTest extends TestCase
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 1, -1 );
                     $iterator->rewind();
+                    return $iterator;
+                })(),
+                false
+            ],
+
+
+            // Reverse - Go To Next
+            '(0, -1, -1)->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -1, -1 );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ],
+            '(0, -1, -1)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -1, -1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            '(0, 0, -1)->rewind()->goToNext()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, -1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
                     return $iterator;
                 })(),
                 false
