@@ -85,7 +85,7 @@ class IndexedIteratorTest extends TestCase
             ],
 
 
-            // Forward
+            // Forward - First Rewind
             '0, 1, 1 - First rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 1, 1 );
@@ -111,7 +111,7 @@ class IndexedIteratorTest extends TestCase
                 false
             ],
 
-            // Reverse
+            // Reverse - First Rewind
             '0, -1, -1 - First rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, -1, -1 );
@@ -165,6 +165,7 @@ class IndexedIteratorTest extends TestCase
     {
         return [
 
+            // Forward - First Rewind
             '0, 0, 1 - First rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 0, 1 );
@@ -208,6 +209,7 @@ class IndexedIteratorTest extends TestCase
     {
         return [
 
+            // Forward - First Rewind
             '0, -1, 1 - First rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, -1, 1 );
