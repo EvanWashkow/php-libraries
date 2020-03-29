@@ -88,25 +88,21 @@ class IndexedIteratorTest extends TestCase
         return [
 
             // Not rewound
-            '(0, 1, 1)' => [
-                $this->createIndexedIterator( 0, 1, 1 ),
+            '(-1, -1, -1)' => [
+                $this->createIndexedIterator( -1, -1, -1 ),
                 false
             ],
-            '(1, 2, 1)' => [
-                $this->createIndexedIterator( 1, 2, 1 ),
+            '(0, 0, 1)' => [
+                $this->createIndexedIterator( 0, 0, 1 ),
                 false
             ],
-            '(0, -1, -1)' => [
-                $this->createIndexedIterator( 0, -1, -1 ),
-                false
-            ],
-            '(-1, -2, -1)' => [
-                $this->createIndexedIterator( -1, -2, -1 ),
+            '(1, 1, 1)' => [
+                $this->createIndexedIterator( 1, 1, 1 ),
                 false
             ],
 
 
-            // Forward - First Rewind
+            // Forward - Rewind
             '(0, 1, 1)->rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 1, 1 );
@@ -169,15 +165,6 @@ class IndexedIteratorTest extends TestCase
                 })(),
                 true
             ],
-            '(0, 3, 2)->rewind()->goToNext()' => [
-                (function() {
-                    $iterator = $this->createIndexedIterator( 0, 3, 2 );
-                    $iterator->rewind();
-                    $iterator->goToNext();
-                    return $iterator;
-                })(),
-                true
-            ],
             '(0, 1, 2)->rewind()->goToNext()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 1, 2 );
@@ -186,6 +173,19 @@ class IndexedIteratorTest extends TestCase
                     return $iterator;
                 })(),
                 false
+            ],
+
+
+            // Forward - Go to invalid position, and rewind
+            '(0, 0, 1)->rewind()-goToNext()->rewind()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, 1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                true
             ],
 
 
@@ -252,15 +252,6 @@ class IndexedIteratorTest extends TestCase
                 })(),
                 true
             ],
-            '(0, -3, -2)->rewind()->goToNext()' => [
-                (function() {
-                    $iterator = $this->createIndexedIterator( 0, -3, -2 );
-                    $iterator->rewind();
-                    $iterator->goToNext();
-                    return $iterator;
-                })(),
-                true
-            ],
             '(0, -1, -2)->rewind()->goToNext()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, -1, -2 );
@@ -269,6 +260,19 @@ class IndexedIteratorTest extends TestCase
                     return $iterator;
                 })(),
                 false
+            ],
+
+
+            // Reverse - Go to invalid position, and rewind
+            '(0, 0, -1)->rewind()-goToNext()->rewind()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, -1 );
+                    $iterator->rewind();
+                    $iterator->goToNext();
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                true
             ]
         ];
     }
