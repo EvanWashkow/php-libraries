@@ -13,11 +13,14 @@ use PHP\Exceptions\NotFoundException;
 abstract class IndexedIterator extends Iterator
 {
 
-    /** @var int $end The index to end at. */
-    private $end;
+    /** @var ?int $current The current index position. */
+    private $current;
 
     /** @var int $start The index to start at. */
     private $start;
+
+    /** @var int $end The index to end at. */
+    private $end;
 
     /** @var int $increment Value to increment (or decrement) the index by (on goToNext()) */
     private $increment;
@@ -38,20 +41,26 @@ abstract class IndexedIterator extends Iterator
         $this->start     = $start;
         $this->end       = $end;
         $this->increment = $increment;
+        $this->current   = null;
     }
 
 
     public function rewind(): void
     {
-        throw new NotFoundException( __FUNCTION__ . '() is not implemented, yet.' );
+        $this->current = $this->start;
     }
 
 
     public function hasCurrent(): bool
     {
-        return ( 0 < $this->increment )
-            ? $this->start <= $this->end    // Iterating forwards
-            : $this->end   <= $this->start; // Iterating backwards
+        return (
+            ( null !== $this->current ) &&
+            (
+                ( 0 < $this->increment )
+                    ? $this->start <= $this->end   // Iterating forwards
+                    : $this->end   <= $this->start // Iterating backwards
+            )
+        );
     }
 
 

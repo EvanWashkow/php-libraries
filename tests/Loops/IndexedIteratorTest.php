@@ -39,6 +39,45 @@ class IndexedIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                       rewind()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure rewind() sets the initial current index
+     * 
+     * @dataProvider getRewindData
+     */
+    public function testRewind( IndexedIterator $iterator, int $expectedIndex )
+    {
+        $this->assertFalse(
+            $iterator->hasCurrent(),
+            '( new IndexedIterator )->hasCurrent() should return false because it has not been rewound.'
+        );
+    }
+
+    public function getRewindData(): array
+    {
+        return [
+            'start = 0' => [
+                $this->createIndexedIterator( 0, 0, 1 ),
+                0
+            ],
+            'start = 1' => [
+                $this->createIndexedIterator( 1, 1, 1 ),
+                1
+            ],
+            'start = 2' => [
+                $this->createIndexedIterator( 2, 2, 1 ),
+                2
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                     hasCurrent()
     *******************************************************************************************************************/
 
@@ -61,29 +100,56 @@ class IndexedIteratorTest extends TestCase
     {
         return [
 
-            'start = 0, end = 1, increment = 1' => [
-                $this->createIndexedIterator( 0, 1, 1 ),
+
+            // Forward
+            'start = 0, end = 1, increment = 1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 1, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 true
             ],
-            'start = 0, end = 0, increment = 1' => [
-                $this->createIndexedIterator( 0, 0, 1 ),
+            'start = 0, end = 0, increment = 1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 true
             ],
-            'start = 0, end = -1, increment = 1' => [
-                $this->createIndexedIterator( 0, -1, 1 ),
+            'start = 0, end = -1, increment = 1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -1, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 false
             ],
 
-            'start = 0, end = -1, increment = -1' => [
-                $this->createIndexedIterator( 0, -1, -1 ),
+            // Reverse
+            'start = 0, end = -1, increment = -1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, -1, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 true
             ],
-            'start = 0, end = 0, increment = -1' => [
-                $this->createIndexedIterator( 0, 0, -1 ),
+            'start = 0, end = 0, increment = -1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 true
             ],
-            'start = 0, end = 1, increment = -1' => [
-                $this->createIndexedIterator( 0, 1, -1 ),
+            'start = 0, end = 1, increment = -1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 1, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 false
             ]
         ];
@@ -115,16 +181,28 @@ class IndexedIteratorTest extends TestCase
     {
         return [
 
-            'start = 0, end = 0, increment = 1' => [
-                $this->createIndexedIterator( 0, 0, 1 ),
+            'start = 0, end = 0, increment = 1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 0, 0, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 0
             ],
-            'start = 1, end = 1, increment = 1' => [
-                $this->createIndexedIterator( 1, 1, 1 ),
+            'start = 1, end = 1, increment = 1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 1, 1, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 1
             ],
-            'start = 2, end = 2, increment = 1' => [
-                $this->createIndexedIterator( 2, 2, 1 ),
+            'start = 2, end = 2, increment = 1, rewind' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator( 2, 2, 1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
                 2
             ]
         ];
