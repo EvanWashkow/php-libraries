@@ -36,7 +36,7 @@ abstract class IndexedIterator extends Iterator
      * @param int $end       The index to end at. Will return the value at that index.
      * @param int $increment Value to increment (or decrement) the index by (on goToNext()).
      */
-    public function __construct( int $start, int $end, int $increment = 1 )
+    public function __construct( int $start, int $end, int $increment )
     {
         $this->start     = $start;
         $this->end       = $end;

@@ -27,7 +27,7 @@ class IndexedIteratorTest extends TestCase
      */
     public function testIsIterator()
     {
-        $indexedIterator = $this->createIndexedIterator( 0, 1 );
+        $indexedIterator = $this->createIndexedIterator( 0, 1, 1 );
         $this->assertInstanceOf(
             Iterator::class,
             $indexedIterator,
@@ -225,7 +225,7 @@ class IndexedIteratorTest extends TestCase
      * @param int $increment
      * @return MockObject
      */
-    private function createIndexedIterator( int $start, int $end, int $increment = 1 ): MockObject
+    private function createIndexedIterator( int $start, int $end, int $increment ): MockObject
     {
         $iterator = $this->getMockBuilder( IndexedIterator::class )
             ->setConstructorArgs([ $start, $end, $increment ])
