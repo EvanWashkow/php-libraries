@@ -187,6 +187,14 @@ class IndexedIteratorTest extends TestCase
         return [
 
             // First Rewind
+            '(-1, -1, -1)->rewind()' => [
+                (function() {
+                    $iterator = $this->createIndexedIterator(  -1, -1, -1 );
+                    $iterator->rewind();
+                    return $iterator;
+                })(),
+                -1
+            ],
             '(0, 0, 1)->rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 0, 1 );
@@ -202,14 +210,6 @@ class IndexedIteratorTest extends TestCase
                     return $iterator;
                 })(),
                 1
-            ],
-            '(2, 2, 1)->rewind()' => [
-                (function() {
-                    $iterator = $this->createIndexedIterator( 2, 2, 1 );
-                    $iterator->rewind();
-                    return $iterator;
-                })(),
-                2
             ]
         ];
     }
