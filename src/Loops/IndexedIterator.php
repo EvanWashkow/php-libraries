@@ -25,6 +25,9 @@ abstract class IndexedIterator extends Iterator
     /** @var int $increment Value to increment (or decrement) the index by (on goToNext()) */
     private $increment;
 
+    /** @var bool $isForward Determines the direction of the increment. Optimizes hasCurrent() check. */
+    private $isForward;
+
 
     /**
      * Create a new integer-indexed iterator to traverse an Iterable
@@ -48,6 +51,7 @@ abstract class IndexedIterator extends Iterator
         $this->start     = $start;
         $this->end       = $end;
         $this->increment = $increment;
+        $this->isForward = 0 < $increment;
         $this->current   = null;
     }
 
@@ -62,11 +66,7 @@ abstract class IndexedIterator extends Iterator
     {
         return (
             ( null !== $this->current ) &&
-            (
-                ( 0 < $this->increment )
-                    ? $this->start <= $this->end   // Iterating forwards
-                    : $this->end   <= $this->start // Iterating backwards
-            )
+            ( $this->isForward ? $this->start <= $this->end : $this->end <= $this->start )
         );
     }
 
