@@ -35,8 +35,8 @@ abstract class IndexedIterator extends Iterator
      * In order to specify no items, specify an invalid ending index. i.e. start = 0, end = -1, increment = 1;
      * or start = 0, end = 1, increment = -1.
      * 
-     * @param int $start     The index to start at.
-     * @param int $end       The index to end at. Will return the value at that index.
+     * @param int $start     The index to start at (inclusive).
+     * @param int $end       The index to end at (inclusive).
      * @param int $increment Value to increment (or decrement) the index by (on goToNext()).
      * @throws \DomainException If increment is zero.
      */
