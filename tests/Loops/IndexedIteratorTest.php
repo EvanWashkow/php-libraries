@@ -165,7 +165,7 @@ class IndexedIteratorTest extends TestCase
     {
         return [
 
-            // Forward - First Rewind
+            // First Rewind
             '0, 0, 1 - First rewind()' => [
                 (function() {
                     $iterator = $this->createIndexedIterator( 0, 0, 1 );
@@ -195,29 +195,18 @@ class IndexedIteratorTest extends TestCase
 
 
     /**
-     * Ensure getKey() throws an OutOfBoundsException
-     * 
-     * @dataProvider getKeyOutOfBoundsExceptionData
+     * Ensure getKey() throws an OutOfBoundsException when hasCurrent() returns false
      */
-    public function testGetKeyOutOfBoundsException( IndexedIterator $iterator )
+    public function testGetKeyThrowsOutOfBoundsException()
     {
+        $iterator = $this->getMockBuilder( IndexedIterator::class )
+            ->disableOriginalConstructor()
+            ->setMethods([ 'getValue', 'hasCurrent' ])
+            ->getMock();
+        $iterator->method( 'getValue' )->willReturn( 1 );
+        $iterator->method( 'hasCurrent' )->willReturn( false );
         $this->expectException( \OutOfBoundsException::class );
         $iterator->getKey();
-    }
-
-    public function getKeyOutOfBoundsExceptionData(): array
-    {
-        return [
-
-            // Forward - First Rewind
-            '0, -1, 1 - First rewind()' => [
-                (function() {
-                    $iterator = $this->createIndexedIterator( 0, -1, 1 );
-                    $iterator->rewind();
-                    return $iterator;
-                })()
-            ]
-        ];
     }
 
 
