@@ -71,16 +71,16 @@ class IndexedIteratorTest extends TestCase
         return [
 
             // Not rewound
-            '(0, 0, 1)' => [
-                $this->createIndexedIterator( 0, 0, 1 ),
+            '(0, 1, 1)' => [
+                $this->createIndexedIterator( 0, 1, 1 ),
                 false
             ],
-            '(1, 1, 1)' => [
-                $this->createIndexedIterator( 1, 1, 1 ),
+            '(1, 2, 1)' => [
+                $this->createIndexedIterator( 1, 2, 1 ),
                 false
             ],
-            '(2, 2, 1)' => [
-                $this->createIndexedIterator( 2, 2, 1 ),
+            '(2, 3, 1)' => [
+                $this->createIndexedIterator( 2, 3, 1 ),
                 false
             ],
 
