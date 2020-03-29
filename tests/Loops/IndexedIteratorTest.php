@@ -39,6 +39,60 @@ class IndexedIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                     hasCurrent()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure hasCurrent() returns the expected result
+     * 
+     * @dataProvider getHasCurrentData
+     */
+    public function testHasCurrent( IndexedIterator $iterator, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->hasCurrent(),
+            'IndexedIterator->hasCurrent() returned the wrong result.'
+        );
+    }
+
+    public function getHasCurrentData(): array
+    {
+        return [
+
+            'new IndexedIterator( 0, 1, 1 )' => [
+                $this->createIndexedIterator( 0, 1, 1 ),
+                true
+            ],
+            'new IndexedIterator( 0, 0, 1 )' => [
+                $this->createIndexedIterator( 0, 0, 1 ),
+                true
+            ],
+            'new IndexedIterator( 0, -1, 1 )' => [
+                $this->createIndexedIterator( 0, -1, 1 ),
+                false
+            ],
+
+            'new IndexedIterator( 0, -1, -1 )' => [
+                $this->createIndexedIterator( 0, -1, -1 ),
+                true
+            ],
+            'new IndexedIterator( 0, 0, -1 )' => [
+                $this->createIndexedIterator( 0, 0, -1 ),
+                true
+            ],
+            'new IndexedIterator( 0, 1, -1 )' => [
+                $this->createIndexedIterator( 0, 1, -1 ),
+                false
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                      UTILITIES
     *******************************************************************************************************************/
 
