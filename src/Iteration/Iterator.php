@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Iteration;
 
 /**
- * Traverses an Iterable item in a foreach() loop, retrieving that item's key and value.
+ * Traverses an IIterable item in a foreach() loop, retrieving that item's key and value.
  */
 abstract class Iterator implements \Iterator
 {
