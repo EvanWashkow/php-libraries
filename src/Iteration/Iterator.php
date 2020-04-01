@@ -23,7 +23,7 @@ abstract class Iterator implements \Iterator
 
 
     /**
-     * Determines if there is a current item (with a key and value)
+     * Determines if there is a current item (there exists a current key and value)
      * 
      * @return bool
      */

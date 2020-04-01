@@ -2,18 +2,23 @@
 
 This namespace defines the classes and interfaces necessary for looping ("iterating") through a set of values in an object.
 
-For example:
+Example:
 ```
 // Define MyClass
-class MyClass
+class MyClass implements IIterable
 {
     private $array = [ 1, 2, 3 ];
+
+    public function getIterator(): Iterator
+    {
+        // ...
+    }
 }
 
 // Create a new object of type MyClass
 $myObject = new MyClass();
 
-// For each array item in my object, add them together
+// For each array item in $myObject, add them together
 $total = 0;
 foreach( $myObject as $value ) {
     $total += $value;
@@ -38,6 +43,8 @@ In this implementation, `foreach()` loops over an `IIterable` object. In order t
 # IIterable
 
 `IIterable` describes an object that can be looped over by a `foreach()` loop. In order to do so, the `IIterable` must inform the `foreach()` loop _how_ to loop over its contents. It does this by specifying an `Iterator` via the `getIterator()` method.
+
+The `getIterator()` method should return a new `Iterator` instance each time it is called. i.e. It should not save the `Iterator` instance to a class or object property. This is critical for nested `foreach()` loop structures.
 
 
 # Iterator
