@@ -17,7 +17,7 @@ abstract class Iterator implements \Iterator
     *******************************************************************************************************************/
 
     /**
-     * @internal Initialize starting position here, rather than the constructor.
+     * @internal Set the starting position here so that any calls to this method will start the loop at the beginning.
      */
     abstract public function rewind(): void;
 
