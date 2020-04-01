@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\ForEachLoops;
+namespace PHP\Tests\Iteration;
 
-use PHP\ForEachLoops\IIterable;
-use PHP\ForEachLoops\Iterator;
+use PHP\Iteration\IIterable;
+use PHP\Iteration\Iterator;
 
 class SampleIterable implements IIterable
 {

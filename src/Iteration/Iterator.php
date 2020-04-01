@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\ForEachLoops;
+namespace PHP\Iteration;
 
 /**
  * Traverses an Iterable item in a foreach() loop, retrieving that item's key and value.

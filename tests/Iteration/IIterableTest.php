@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\ForEachLoops;
+namespace PHP\Tests\Iteration;
 
-use PHP\ForEachLoops\IIterable;
+use PHP\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -66,7 +66,7 @@ class IIterableTest extends TestCase
      * 
      * @dataProvider getIIterables
      */
-    public function testNestedForEachForEachLoops( IIterable $iterable, array $expected )
+    public function testNestedForEachIteration( IIterable $iterable, array $expected )
     {
         // Registers for each loop
         $outerIterated = [];
