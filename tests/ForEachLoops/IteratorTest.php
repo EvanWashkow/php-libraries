@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Loops;
+namespace PHP\Tests\ForEachLoops;
 
-use PHP\Loops\Iterator;
+use PHP\ForEachLoops\Iterator;
 use PHPUnit\Framework\TestCase;
 
 /**

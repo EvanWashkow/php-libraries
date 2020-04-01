@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Loops;
+namespace PHP\ForEachLoops;
 
 /**
  * Describes a set of values that can be traversed by a foreach() loop
