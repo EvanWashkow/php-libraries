@@ -4231,7 +4231,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFr7GOFZ881VCo="
 					},
-					"name": "ForEachLoops",
+					"name": "Iteration",
 					"ownedElements": [
 						{
 							"_type": "UMLClassDiagram",
@@ -4239,7 +4239,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFw3xGoh3U4Zyk="
 							},
-							"name": "ForEachLoops",
+							"name": "Iteration",
 							"ownedViews": [
 								{
 									"_type": "UMLInterfaceView",
@@ -5168,7 +5168,7 @@
 													"top": -64,
 													"width": 122.82080078125,
 													"height": 13,
-													"text": "(from ForEachLoops)"
+													"text": "(from Iteration)"
 												},
 												{
 													"_type": "LabelView",
@@ -5554,7 +5554,7 @@
 													"top": -384,
 													"width": 122.82080078125,
 													"height": 13,
-													"text": "(from ForEachLoops)"
+													"text": "(from Iteration)"
 												},
 												{
 													"_type": "LabelView",
