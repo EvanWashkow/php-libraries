@@ -3879,7 +3879,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFr7GOFZ881VCo="
 					},
-					"name": "Loops",
+					"name": "ForEachLoops",
 					"ownedElements": [
 						{
 							"_type": "UMLClassDiagram",
@@ -3887,7 +3887,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFw3xGoh3U4Zyk="
 							},
-							"name": "Loops",
+							"name": "ForEachLoops",
 							"ownedViews": [
 								{
 									"_type": "UMLInterfaceView",
@@ -4814,9 +4814,9 @@
 													"font": "Arial;13;0",
 													"left": -256,
 													"top": -64,
-													"width": 77.54507446289062,
+													"width": 122.82080078125,
 													"height": 13,
-													"text": "(from Loops)"
+													"text": "(from ForEachLoops)"
 												},
 												{
 													"_type": "LabelView",
@@ -5106,9 +5106,9 @@
 													"font": "Arial;13;0",
 													"left": -256,
 													"top": -272,
-													"width": 77.54507446289062,
+													"width": 122.82080078125,
 													"height": 13,
-													"text": "(from Loops)"
+													"text": "(from ForEachLoops)"
 												},
 												{
 													"_type": "LabelView",
@@ -5465,9 +5465,9 @@
 													"font": "Arial;13;0",
 													"left": -928,
 													"top": -384,
-													"width": 77.54507446289062,
+													"width": 122.82080078125,
 													"height": 13,
-													"text": "(from Loops)"
+													"text": "(from ForEachLoops)"
 												},
 												{
 													"_type": "LabelView",
