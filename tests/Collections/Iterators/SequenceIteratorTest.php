@@ -22,8 +22,48 @@ class SequenceIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             Iterator::class,
-            new SequenceIterator( new Sequence( 'int', [] )),
+            new SequenceIterator( new Sequence( 'int' )),
             'SequenceIterator is not an Iterator instance.'
         );
+    }
+
+
+    /**
+     * Ensure rewind() sets the current index to the first key
+     * 
+     * @dataProvider getRewindTestData
+     */
+    public function testRewind( Sequence $sequence, $expected )
+    {
+        $iterator         = new SequenceIterator( $sequence );
+        $reflIterator     = new \ReflectionClass( $iterator );
+        $reflCurrentIndex = $reflIterator->getProperty( 'currentIndex' );
+        $reflCurrentIndex->setAccessible( true );
+
+        // Test rewind()
+        $iterator->rewind();
+        $this->assertEquals(
+            $expected,
+            $reflCurrentIndex->getValue( $iterator ),
+            'SequenceIterator->rewind() did not set the currentIndex to the first element.'
+        );
+    }
+
+    public function getRewindTestData(): array
+    {
+        return [
+            'First key = 0' => [
+                new Sequence( 'int' ),
+                0
+            ],
+            'First key = 1' => [
+                (function() {
+                    $sequence = $this->createMock( Sequence::class );
+                    $sequence->method( 'getFirstKey' )->willReturn( 1 );
+                    return $sequence;
+                })(),
+                1
+            ]
+        ];
     }
 }
