@@ -10,6 +10,9 @@ class KeyValuePair
     /** @var mixed $key The key */
     private $key;
 
+    /** @var mixed $value The value */
+    private $value;
+
 
     /**
      * Create a new key-value pair
@@ -19,7 +22,8 @@ class KeyValuePair
      **/
     public function __construct( $key, $value )
     {
-        $this->key = $key;
+        $this->key   = $key;
+        $this->value = $value;
     }
 
 
@@ -31,5 +35,16 @@ class KeyValuePair
     public function getKey()
     {
         return $this->key;
+    }
+
+
+    /**
+     * Retrieve the value
+     * 
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 }

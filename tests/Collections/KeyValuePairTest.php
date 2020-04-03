@@ -16,7 +16,7 @@ class KeyValuePairTest extends TestCase
     /**
      * Test getKey() return value
      * 
-     * @dataProvider getKeys
+     * @dataProvider getTestKeyValueData
      */
     public function testGetKey( $key )
     {
@@ -27,7 +27,26 @@ class KeyValuePairTest extends TestCase
         );
     }
 
-    public function getKeys(): array
+
+    /**
+     * Test getValue() return value
+     * 
+     * @dataProvider getTestKeyValueData
+     */
+    public function testGetValue( $value )
+    {
+        $this->assertEquals(
+            $value,
+            ( new KeyValuePair( 0, $value ) )->getValue(),
+            'KeyValuePair->getValue() did not return the original value.'
+        );
+    }
+
+
+    /**
+     * Data provider for getKey() and getValue() tests
+     */
+    public function getTestKeyValueData(): array
     {
         return [
             '1'    => [ 1 ],
