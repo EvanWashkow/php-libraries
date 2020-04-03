@@ -7,6 +7,9 @@ namespace PHP\Collections;
 class KeyValuePair
 {
 
+    /** @var mixed $key The key */
+    private $key;
+
 
     /**
      * Create a new key-value pair
@@ -16,6 +19,17 @@ class KeyValuePair
      **/
     public function __construct( $key, $value )
     {
-        return;
+        $this->key = $key;
+    }
+
+
+    /**
+     * Retrieve the key
+     * 
+     * @return mixed
+     */
+    public function getKey()
+    {
+        return $this->key;
     }
 }
