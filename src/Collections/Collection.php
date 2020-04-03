@@ -20,9 +20,7 @@ use PHP\Types\TypeNames;
  *
  * @see PHP\Collections\Iterator
  */
-abstract class Collection extends ObjectClass implements Cloneable,
-                                                         \Countable,
-                                                         \Iterator
+abstract class Collection extends ObjectClass implements Cloneable, \Countable
 {
 
 

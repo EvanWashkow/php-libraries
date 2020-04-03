@@ -58,12 +58,12 @@ class InterfaceTypeTest extends TestCase
                 true
             ],
             'Parent->equals( child class type )' => [
-                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \Countable::class ),
                 $typeLookup->getByName( \PHP\Collections\Collection::class ),
                 true
             ],
             'Parent->equals( child class instance )' => [
-                $typeLookup->getByName( \Iterator::class ),
+                $typeLookup->getByName( \Countable::class ),
                 new \PHP\Collections\Dictionary( '*', '*' ),
                 true
             ],
