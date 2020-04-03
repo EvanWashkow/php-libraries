@@ -13,8 +13,8 @@ use PHP\Iteration\Iterator;
 class SequenceIterator extends Iterator
 {
 
-    /** @var ?int $currentIndex The current index */
-    private $currentIndex;
+    /** @var ?int $index The current index */
+    private $index;
 
     /** @var Sequence $sequence The Sequence to iterate over */
     private $sequence;
@@ -27,14 +27,14 @@ class SequenceIterator extends Iterator
      */
     public function __construct( Sequence $sequence )
     {
-        $this->currentIndex = null;
-        $this->sequence     = $sequence;
+        $this->index    = null;
+        $this->sequence = $sequence;
     }
 
 
     public function rewind(): void
     {
-        $this->currentIndex = $this->sequence->getFirstKey();
+        $this->index = $this->sequence->getFirstKey();
     }
 
 

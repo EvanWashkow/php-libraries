@@ -35,17 +35,17 @@ class SequenceIteratorTest extends TestCase
      */
     public function testRewind( Sequence $sequence, $expected )
     {
-        $iterator         = new SequenceIterator( $sequence );
-        $reflIterator     = new \ReflectionClass( $iterator );
-        $reflCurrentIndex = $reflIterator->getProperty( 'currentIndex' );
-        $reflCurrentIndex->setAccessible( true );
+        $iterator     = new SequenceIterator( $sequence );
+        $reflIterator = new \ReflectionClass( $iterator );
+        $reflIndex    = $reflIterator->getProperty( 'index' );
+        $reflIndex->setAccessible( true );
 
         // Test rewind()
         $iterator->rewind();
         $this->assertEquals(
             $expected,
-            $reflCurrentIndex->getValue( $iterator ),
-            'SequenceIterator->rewind() did not set the currentIndex to the first element.'
+            $reflIndex->getValue( $iterator ),
+            'SequenceIterator->rewind() did not set the current index to the first element.'
         );
     }
 
