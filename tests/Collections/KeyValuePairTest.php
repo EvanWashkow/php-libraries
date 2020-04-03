@@ -14,6 +14,16 @@ class KeyValuePairTest extends TestCase
 
 
     /**
+     * Test __construct() throws \InvalidArgumentException on null keys
+     */
+    public function testConstructThrowsInvalidArgumentExceptionOnNullKey()
+    {
+        $this->expectException( \InvalidArgumentException::class );
+        new KeyValuePair( null, 1 );
+    }
+
+
+    /**
      * Test getKey() return value
      * 
      * @dataProvider getTestKeyValueData

@@ -22,6 +22,9 @@ class KeyValuePair
      **/
     public function __construct( $key, $value )
     {
+        if ( null === $key ) {
+            throw new \InvalidArgumentException( 'Key cannot be null.' );
+        }
         $this->key   = $key;
         $this->value = $value;
     }
