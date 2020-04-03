@@ -17,8 +17,9 @@ class KeyValuePair
     /**
      * Create a new key-value pair
      *
-     * @param mixed $key   The key
-     * @param mixed $value The value
+     * @param mixed $key   The key (can not be null)
+     * @param mixed $value The value (can be null)
+     * @throws \InvalidArgumentException On null key
      **/
     public function __construct( $key, $value )
     {
