@@ -64,4 +64,62 @@ class SequenceIteratorTest extends TestCase
             ]
         ];
     }
+
+
+    /**
+     * Test hasCurrent() returns the correct result
+     * 
+     * @dataProvider getHasCurrentTestData
+     */
+    public function testHasCurrent( SequenceIterator $iterator, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->hasCurrent(),
+            'SequenceIterator->hasCurrent() returned the wrong result.'
+        );
+    }
+
+    public function getHasCurrentTestData(): array
+    {
+        return [
+            'Empty Sequence' => [
+                new SequenceIterator( new Sequence( 'int' ) ),
+                false
+            ],
+            'Sequence with one value' => [
+                new SequenceIterator( new Sequence( 'int', [ 1 ] ) ),
+                true
+            ],
+            'Sequence with two values' => [
+                new SequenceIterator( new Sequence( 'int', [ 1, 2 ] ) ),
+                true
+            ],
+            'Sequence with one value => goToNext()' => [
+                (function() {
+                    $iterator = new SequenceIterator( new Sequence( 'int', [ 1 ] ) );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ],
+            'Sequence with two values => goToNext()' => [
+                (function() {
+                    $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2 ] ) );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true
+            ],
+            'Sequence with two values => goToNext() => goToNext()' => [
+                (function() {
+                    $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2 ] ) );
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false
+            ]
+        ];
+    }
 }

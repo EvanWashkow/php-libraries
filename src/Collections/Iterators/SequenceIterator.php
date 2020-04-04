@@ -31,7 +31,7 @@ class SequenceIterator extends IndexedIterator
 
     public function hasCurrent(): bool
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        return $this->getKey() <= $this->sequence->getLastKey();
     }
 
 
