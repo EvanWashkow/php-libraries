@@ -40,11 +40,11 @@ class CollectionIteratorTest extends TestCase
      * 
      * @dataProvider getKeys
      */
-    public function testGetKeys( int $key )
+    public function testGetKeys( int $startingKey )
     {
         $this->assertEquals(
-            $key,
-            $this->mockCollectionIterator( $key )->getMock()->getKey(),
+            $startingKey,
+            $this->mockCollectionIterator( $startingKey )->getMock()->getKey(),
             'CollectionIterator->getKey() did not return the expected key.'
         );
     }
