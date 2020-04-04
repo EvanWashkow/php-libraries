@@ -1,16 +1,14 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Collections\Iterators;
-
-use PHP\Iteration\Iterator;
+namespace PHP\Iteration;
 
 /**
- * Defines a basic iterator for Collections that uses integer indexes
+ * Defines a basic Iterator that uses integer indices for keys
  * 
  * To stop the iteration, hasCurrent() should return false.
  */
-abstract class CollectionIterator extends Iterator
+abstract class IndexedIterator extends Iterator
 {
 
     /** @var int $currentIndex The current index */
@@ -21,7 +19,7 @@ abstract class CollectionIterator extends Iterator
 
 
     /**
-     * Create a new Collection Iterator instance
+     * Create a new Indexed Iterator instance
      * 
      * @param int $startingIndex The starting index
      */

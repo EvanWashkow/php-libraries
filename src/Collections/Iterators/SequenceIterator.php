@@ -5,11 +5,12 @@ namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Sequence;
 use PHP\Exceptions\NotImplementedException;
+use PHP\Iteration\IndexedIterator;
 
 /**
  * Defines an Iterator to traverse Sequences
  */
-class SequenceIterator extends CollectionIterator
+class SequenceIterator extends IndexedIterator
 {
 
     /** @var Sequence $sequence The Sequence to iterate over */

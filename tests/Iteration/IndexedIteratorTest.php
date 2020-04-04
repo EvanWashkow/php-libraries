@@ -1,17 +1,17 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Collections\Iterators;
+namespace PHP\Tests\Iteration;
 
-use PHP\Collections\Iterators\CollectionIterator;
+use PHP\Iteration\IndexedIterator;
 use PHP\Iteration\Iterator;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for the CollectionIterator
+ * Tests for the IndexedIterator
  */
-class CollectionIteratorTest extends TestCase
+class IndexedIteratorTest extends TestCase
 {
 
 
@@ -29,8 +29,8 @@ class CollectionIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             Iterator::class,
-            $this->mockCollectionIterator( 0 )->getMock(),
-            'CollectionIterator is not an Iterator instance.'
+            $this->mockIndexedIterator( 0 )->getMock(),
+            'IndexedIterator is not an Iterator instance.'
         );
     }
 
@@ -41,7 +41,7 @@ class CollectionIteratorTest extends TestCase
      */
     public function testRewind( int $startingKey )
     {
-        $iterator = $this->mockCollectionIterator( $startingKey )->getMock();
+        $iterator = $this->mockIndexedIterator( $startingKey )->getMock();
         $iterator->goToNext();
         $iterator->goToNext();
         $iterator->goToNext();
@@ -50,7 +50,7 @@ class CollectionIteratorTest extends TestCase
         $this->assertEquals(
             $startingKey,
             $iterator->getKey(),
-            'CollectionIterator->rewind() did not reset the current index to the starting index.'
+            'IndexedIterator->rewind() did not reset the current index to the starting index.'
         );
     }
 
@@ -64,8 +64,8 @@ class CollectionIteratorTest extends TestCase
     {
         $this->assertEquals(
             $startingKey,
-            $this->mockCollectionIterator( $startingKey )->getMock()->getKey(),
-            'CollectionIterator->getKey() did not return the expected key.'
+            $this->mockIndexedIterator( $startingKey )->getMock()->getKey(),
+            'IndexedIterator->getKey() did not return the expected key.'
         );
     }
 
@@ -77,13 +77,13 @@ class CollectionIteratorTest extends TestCase
      */
     public function testGoToNext( int $startingKey )
     {
-        $iterator = $this->mockCollectionIterator( $startingKey )->getMock();
+        $iterator = $this->mockIndexedIterator( $startingKey )->getMock();
 
         $iterator->goToNext();
         $this->assertEquals(
             $startingKey + 1,
             $iterator->getKey(),
-            'CollectionIterator->goToNext() did not increment the current index.'
+            'IndexedIterator->goToNext() did not increment the current index.'
         );
     }
 
@@ -111,13 +111,13 @@ class CollectionIteratorTest extends TestCase
 
 
     /**
-     * Mock a new CollectionIterator instance
+     * Mock a new IndexedIterator instance
      * 
      * @return MockBuilder
      */
-    private function mockCollectionIterator( int $startingIndex ): MockBuilder
+    private function mockIndexedIterator( int $startingIndex ): MockBuilder
     {
-        return $this->getMockBuilder( CollectionIterator::class )
+        return $this->getMockBuilder( IndexedIterator::class )
             ->setConstructorArgs([ $startingIndex ])
             ->setMethodsExcept([ 'rewind', 'getKey', 'goToNext' ]);
     }
