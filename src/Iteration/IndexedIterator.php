@@ -14,8 +14,8 @@ abstract class IndexedIterator extends Iterator
     /** @var int $currentIndex The current index */
     private $currentIndex;
 
-    /** @var int $increment The amount to increment the current index by on every goToNext() */
-    private $increment;
+    /** @var int $incrementBy The amount to increment the current index by on every goToNext() */
+    private $incrementBy;
 
     /** @var int $startingIndex The starting index */
     private $startingIndex;
@@ -25,11 +25,11 @@ abstract class IndexedIterator extends Iterator
      * Create a new Indexed Iterator instance
      * 
      * @param int $startingIndex The starting index
-     * @param int $increment     The amount to increment the current index by on every goToNext()
+     * @param int $incrementBy     The amount to increment the current index by on every goToNext()
      */
-    public function __construct( int $startingIndex, int $increment = 1 )
+    public function __construct( int $startingIndex, int $incrementBy = 1 )
     {
-        $this->increment     = $increment;
+        $this->incrementBy   = $incrementBy;
         $this->startingIndex = $startingIndex;
         $this->rewind();
     }
@@ -49,6 +49,6 @@ abstract class IndexedIterator extends Iterator
 
     public function goToNext(): void
     {
-        $this->currentIndex += $this->increment;
+        $this->currentIndex += $this->incrementBy;
     }
 }
