@@ -38,7 +38,7 @@ class CollectionIteratorTest extends TestCase
     /**
      * Test getKey()
      * 
-     * @dataProvider getKeys
+     * @dataProvider getStartingIndices
      */
     public function testGetKeys( int $startingKey )
     {
@@ -49,22 +49,11 @@ class CollectionIteratorTest extends TestCase
         );
     }
 
-    public function getKeys(): array
-    {
-        return [
-            '-3' => [ -3 ],
-            '0' => [ 0 ],
-            '1' => [ 1 ],
-            '2' => [ 2 ],
-            '3' => [ 3 ]
-        ];
-    }
-
 
     /**
      * Test goToNext()
      * 
-     * @dataProvider getGoToNextTestData
+     * @dataProvider getStartingIndices
      */
     public function testGoToNext( int $startingKey )
     {
@@ -76,16 +65,6 @@ class CollectionIteratorTest extends TestCase
             $iterator->getKey(),
             'CollectionIterator->goToNext() did not increment the index.'
         );
-    }
-
-    public function getGoToNextTestData(): array
-    {
-        return [
-            '-3' => [ -3 ],
-            '0' => [ 0 ],
-            '1' => [ 1 ],
-            '2' => [ 2 ]
-        ];
     }
 
 
@@ -106,5 +85,20 @@ class CollectionIteratorTest extends TestCase
         return $this->getMockBuilder( CollectionIterator::class )
             ->setConstructorArgs([ $startingIndex ])
             ->setMethodsExcept([ 'getKey', 'goToNext' ]);
+    }
+
+
+    /**
+     * Retrieve starting indices for testing purposes
+     * 
+     * @return int[]
+     */
+    public function getStartingIndices(): array
+    {
+        return [
+            '-3' => [ -3 ],
+            '0' => [ 0 ],
+            '2' => [ 2 ]
+        ];
     }
 }
