@@ -25,7 +25,7 @@ abstract class IndexedIterator extends Iterator
      * Create a new Indexed Iterator instance
      * 
      * @param int $startingIndex The starting index
-     * @param int $incrementBy     The amount to increment the current index by on every goToNext()
+     * @param int $incrementBy   The amount to increment the current index by on every goToNext()
      */
     public function __construct( int $startingIndex, int $incrementBy = 1 )
     {
