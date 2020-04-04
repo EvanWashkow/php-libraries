@@ -22,8 +22,9 @@ abstract class IndexedIterator extends Iterator
      * Create a new Indexed Iterator instance
      * 
      * @param int $startingIndex The starting index
+     * @param int $increment     The amount to increment the current index on every goToNext()
      */
-    public function __construct( int $startingIndex )
+    public function __construct( int $startingIndex, int $increment = 1 )
     {
         $this->startingIndex = $startingIndex;
         $this->rewind();
