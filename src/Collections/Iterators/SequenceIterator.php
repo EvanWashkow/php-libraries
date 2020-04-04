@@ -23,6 +23,7 @@ class SequenceIterator extends CollectionIterator
      */
     public function __construct( Sequence $sequence )
     {
+        parent::__construct( $sequence->getFirstKey() );
         $this->sequence = $sequence;
     }
 
