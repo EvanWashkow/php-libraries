@@ -37,6 +37,6 @@ class SequenceIterator extends IndexedIterator
 
     public function getValue()
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        return $this->sequence->get( $this->getKey() );
     }
 }

@@ -122,4 +122,48 @@ class SequenceIteratorTest extends TestCase
             ]
         ];
     }
+
+
+    /**
+     * Test getValue() returns the correct result
+     * 
+     * @dataProvider getValueTestData
+     */
+    public function testGetValue( SequenceIterator $iterator, $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $iterator->getValue(),
+            'SequenceIterator->getValue() returned the wrong result.'
+        );
+    }
+
+    public function getValueTestData(): array
+    {
+        $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2, 3 ] ) );
+
+        return [
+            'Unmoved Sequence' => [
+                clone $iterator,
+                1
+            ],
+            'Sequence => goToNext()' => [
+                (function() use ( $iterator ) {
+                    $iterator = clone $iterator;
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                2
+            ],
+            'Sequence => goToNext() => goToNext()' => [
+                (function() use ( $iterator ) {
+                    $iterator = clone $iterator;
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                3
+            ]
+        ];
+    }
 }
