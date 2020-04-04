@@ -29,6 +29,9 @@ abstract class IndexedIterator extends Iterator
      */
     public function __construct( int $startingIndex, int $incrementBy = 1 )
     {
+        if ( 0 === $incrementBy ) {
+            throw new \DomainException( 'Cannot increment by zero.' );
+        }
         $this->incrementBy   = $incrementBy;
         $this->startingIndex = $startingIndex;
         $this->rewind();

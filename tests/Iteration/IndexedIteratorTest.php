@@ -34,6 +34,17 @@ class IndexedIteratorTest extends TestCase
         );
     }
 
+
+    /**
+     * Test __construct() throws \DomainException on zero increments
+     */
+    public function testConstructThrowsDomainExceptionOnZeroIncrements()
+    {
+        $this->expectException( \DomainException::class );
+        $this->mockIndexedIterator( 0, 0 )->getMock();
+    }
+
+
     /**
      * Test rewind()
      * 
