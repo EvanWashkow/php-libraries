@@ -76,19 +76,6 @@ class CollectionIteratorTest extends TestCase
 
 
     /**
-     * Mock a new CollectionIterator instance
-     * 
-     * @return MockBuilder
-     */
-    private function mockCollectionIterator( int $startingIndex ): MockBuilder
-    {
-        return $this->getMockBuilder( CollectionIterator::class )
-            ->setConstructorArgs([ $startingIndex ])
-            ->setMethodsExcept([ 'getKey', 'goToNext' ]);
-    }
-
-
-    /**
      * Retrieve starting indices for testing purposes
      * 
      * @return int[]
@@ -100,5 +87,18 @@ class CollectionIteratorTest extends TestCase
             '0' => [ 0 ],
             '2' => [ 2 ]
         ];
+    }
+
+
+    /**
+     * Mock a new CollectionIterator instance
+     * 
+     * @return MockBuilder
+     */
+    private function mockCollectionIterator( int $startingIndex ): MockBuilder
+    {
+        return $this->getMockBuilder( CollectionIterator::class )
+            ->setConstructorArgs([ $startingIndex ])
+            ->setMethodsExcept([ 'getKey', 'goToNext' ]);
     }
 }
