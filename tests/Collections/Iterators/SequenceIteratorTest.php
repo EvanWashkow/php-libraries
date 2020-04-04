@@ -166,4 +166,22 @@ class SequenceIteratorTest extends TestCase
             ]
         ];
     }
+
+
+    /**
+     * Test getValue() throws OutOfBoundsException
+     */
+    public function testGetValueThrowsOutOfBoundsException()
+    {
+        // Mock hasCurrent() as returning false
+        $iterator = $this->getMockBuilder( SequenceIterator::class )
+            ->disableOriginalConstructor()
+            ->setMethods([ 'hasCurrent' ])
+            ->getMock();
+        $iterator->method( 'hasCurrent' )->willReturn( false );
+
+        // Test
+        $this->expectException( \OutOfBoundsException::class );
+        $iterator->getValue();
+    }
 }

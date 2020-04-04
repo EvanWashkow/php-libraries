@@ -37,6 +37,9 @@ class SequenceIterator extends IndexedIterator
 
     public function getValue()
     {
+        if ( !$this->hasCurrent() ) {
+            throw new \OutOfBoundsException( 'There is no value at the current index.' );
+        }
         return $this->sequence->get( $this->getKey() );
     }
 }
