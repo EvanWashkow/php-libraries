@@ -73,18 +73,34 @@ class IndexedIteratorTest extends TestCase
     /**
      * Test goToNext()
      * 
-     * @dataProvider getStartingIndices
+     * @dataProvider getGoToNextTestData
      */
-    public function testGoToNext( int $startingKey )
+    public function testGoToNext( IndexedIterator $iterator, int $expectedKey )
     {
-        $iterator = $this->mockIndexedIterator( $startingKey )->getMock();
-
         $iterator->goToNext();
         $this->assertEquals(
-            $startingKey + 1,
+            $expectedKey,
             $iterator->getKey(),
             'IndexedIterator->goToNext() did not increment the current index.'
         );
+    }
+
+    public function getGoToNextTestData(): array
+    {
+        return [
+            'startingIndex = -5, increment = 3' => [
+                $this->mockIndexedIterator( -5, 3 )->getMock(),
+                -2
+            ],
+            'startingIndex = 0, increment = 1' => [
+                $this->mockIndexedIterator( 0, 1 )->getMock(),
+                1
+            ],
+            'startingIndex = 3, increment = -2' => [
+                $this->mockIndexedIterator( 3, -2 )->getMock(),
+                1
+            ]
+        ];
     }
 
 
