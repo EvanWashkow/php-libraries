@@ -38,7 +38,7 @@ abstract class CollectionIterator extends Iterator
     }
 
 
-    public function getKey()
+    public function getKey(): int
     {
         return $this->currentIndex;
     }
