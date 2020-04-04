@@ -131,10 +131,10 @@ class IndexedIteratorTest extends TestCase
      * 
      * @return MockBuilder
      */
-    private function mockIndexedIterator( int $startingIndex, int $increment = 1 ): MockBuilder
+    private function mockIndexedIterator( int $startingIndex, int $incrementBy = 1 ): MockBuilder
     {
         return $this->getMockBuilder( IndexedIterator::class )
-            ->setConstructorArgs([ $startingIndex, $increment ])
+            ->setConstructorArgs([ $startingIndex, $incrementBy ])
             ->setMethodsExcept([ 'rewind', 'getKey', 'goToNext' ]);
     }
 }
