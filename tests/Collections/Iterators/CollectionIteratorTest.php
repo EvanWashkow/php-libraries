@@ -18,7 +18,7 @@ class CollectionIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                     INHERITANCE
+    *                                                       TESTS
     *******************************************************************************************************************/
 
 
@@ -32,6 +32,32 @@ class CollectionIteratorTest extends TestCase
             $this->mockCollectionIterator( 0 )->getMock(),
             'CollectionIterator is not an Iterator instance.'
         );
+    }
+
+
+    /**
+     * Test getKey()
+     * 
+     * @dataProvider getKeys
+     */
+    public function testGetKeys( int $key )
+    {
+        $this->assertEquals(
+            $key,
+            $this->mockCollectionIterator( $key )->getMock()->getKey(),
+            'CollectionIterator->getKey() did not return the expected key.'
+        );
+    }
+
+    public function getKeys(): array
+    {
+        return [
+            '-3' => [ -3 ],
+            '0' => [ 0 ],
+            '1' => [ 1 ],
+            '2' => [ 2 ],
+            '3' => [ 3 ]
+        ];
     }
 
 
@@ -50,6 +76,7 @@ class CollectionIteratorTest extends TestCase
     private function mockCollectionIterator( int $startingIndex ): MockBuilder
     {
         return $this->getMockBuilder( CollectionIterator::class )
-            ->setConstructorArgs([ $startingIndex ]);
+            ->setConstructorArgs([ $startingIndex ])
+            ->setMethodsExcept([ 'getKey' ]);
     }
 }

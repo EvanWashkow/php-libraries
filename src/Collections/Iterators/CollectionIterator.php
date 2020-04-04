@@ -26,4 +26,10 @@ abstract class CollectionIterator extends Iterator
     {
         $this->startingIndex = $startingIndex;
     }
+
+
+    public function getKey()
+    {
+        return $this->startingIndex;
+    }
 }
