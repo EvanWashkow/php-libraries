@@ -13,6 +13,9 @@ use PHP\Iteration\Iterator;
 abstract class CollectionIterator extends Iterator
 {
 
+    /** @var int $currentIndex The current index */
+    private $currentIndex;
+
     /** @var int $startingIndex The starting index */
     private $startingIndex;
 
@@ -24,12 +27,19 @@ abstract class CollectionIterator extends Iterator
      */
     public function __construct( int $startingIndex )
     {
+        $this->currentIndex  = $startingIndex;
         $this->startingIndex = $startingIndex;
     }
 
 
     public function getKey()
     {
-        return $this->startingIndex;
+        return $this->currentIndex;
+    }
+
+
+    public function goToNext(): void
+    {
+        $this->currentIndex++;
     }
 }

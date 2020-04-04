@@ -61,6 +61,34 @@ class CollectionIteratorTest extends TestCase
     }
 
 
+    /**
+     * Test goToNext()
+     * 
+     * @dataProvider getGoToNextTestData
+     */
+    public function testGoToNext( int $startingKey )
+    {
+        $iterator = $this->mockCollectionIterator( $startingKey )->getMock();
+
+        $iterator->goToNext();
+        $this->assertEquals(
+            $startingKey + 1,
+            $iterator->getKey(),
+            'CollectionIterator->goToNext() did not increment the index.'
+        );
+    }
+
+    public function getGoToNextTestData(): array
+    {
+        return [
+            '-3' => [ -3 ],
+            '0' => [ 0 ],
+            '1' => [ 1 ],
+            '2' => [ 2 ]
+        ];
+    }
+
+
 
 
     /*******************************************************************************************************************
@@ -77,6 +105,6 @@ class CollectionIteratorTest extends TestCase
     {
         return $this->getMockBuilder( CollectionIterator::class )
             ->setConstructorArgs([ $startingIndex ])
-            ->setMethodsExcept([ 'getKey' ]);
+            ->setMethodsExcept([ 'getKey', 'goToNext' ]);
     }
 }
