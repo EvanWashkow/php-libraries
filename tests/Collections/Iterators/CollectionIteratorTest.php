@@ -34,6 +34,26 @@ class CollectionIteratorTest extends TestCase
         );
     }
 
+    /**
+     * Test rewind()
+     * 
+     * @dataProvider getStartingIndices
+     */
+    public function testRewind( int $startingKey )
+    {
+        $iterator = $this->mockCollectionIterator( $startingKey )->getMock();
+        $iterator->goToNext();
+        $iterator->goToNext();
+        $iterator->goToNext();
+
+        $iterator->rewind();
+        $this->assertEquals(
+            $startingKey,
+            $iterator->getKey(),
+            'CollectionIterator->rewind() did not reset the current index to the starting index.'
+        );
+    }
+
 
     /**
      * Test getKey()
@@ -63,7 +83,7 @@ class CollectionIteratorTest extends TestCase
         $this->assertEquals(
             $startingKey + 1,
             $iterator->getKey(),
-            'CollectionIterator->goToNext() did not increment the index.'
+            'CollectionIterator->goToNext() did not increment the current index.'
         );
     }
 
@@ -99,6 +119,6 @@ class CollectionIteratorTest extends TestCase
     {
         return $this->getMockBuilder( CollectionIterator::class )
             ->setConstructorArgs([ $startingIndex ])
-            ->setMethodsExcept([ 'getKey', 'goToNext' ]);
+            ->setMethodsExcept([ 'rewind', 'getKey', 'goToNext' ]);
     }
 }

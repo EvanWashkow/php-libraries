@@ -27,8 +27,14 @@ abstract class CollectionIterator extends Iterator
      */
     public function __construct( int $startingIndex )
     {
-        $this->currentIndex  = $startingIndex;
         $this->startingIndex = $startingIndex;
+        $this->rewind();
+    }
+
+
+    public function rewind(): void
+    {
+        $this->currentIndex = $this->startingIndex;
     }
 
 
