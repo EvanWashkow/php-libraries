@@ -41,7 +41,9 @@ class DictionaryIterator extends IndexedIterator
     {
         // Exit. Currently at an invalid index.
         if ( !$this->hasCurrent() ) {
-            throw new \OutOfBoundsException( 'Cannot retrieve the value: the index is at an invalid position.' );
+            throw new \OutOfBoundsException(
+                'Cannot retrieve the current key-value pair: the index is at an invalid position.'
+            );
         }
 
         // Convert the Dictionary keys to an indexed array, and get the current loop index key
