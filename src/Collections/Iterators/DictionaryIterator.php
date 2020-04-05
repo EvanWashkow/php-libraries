@@ -14,21 +14,27 @@ use PHP\Iteration\IndexedIterator;
 class DictionaryIterator extends IndexedIterator
 {
 
+    /** @var Dictionary $dictionary The Dictionary to traverse */
+    private $dictionary;
+
 
     /**
      * Create a new Dictionary Iterator
      * 
-     * @param Dictionary $dictionary
+     * @param Dictionary $dictionary The Dictionary to traverse
      */
     public function __construct( Dictionary $dictionary )
     {
         parent::__construct( 0 );
+        $this->dictionary = $dictionary;
     }
 
 
     public function hasCurrent(): bool
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        // Convert the Dictionary keys to an indexed array, and check the current loop index against that
+        $keys = array_keys( $this->dictionary->toArray() );
+        return array_key_exists( $this->getKey(), $keys );
     }
 
 
