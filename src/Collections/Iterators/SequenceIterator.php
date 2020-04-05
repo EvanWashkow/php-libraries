@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Sequence;
-use PHP\Exceptions\NotImplementedException;
 use PHP\Iteration\IndexedIterator;
 
 /**
