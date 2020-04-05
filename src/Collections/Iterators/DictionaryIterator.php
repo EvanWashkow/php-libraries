@@ -46,7 +46,7 @@ class DictionaryIterator extends IndexedIterator
 
         // Convert the Dictionary keys to an indexed array, and get the current loop index key
         $currentKey = $this->getIndexedKeys()[ $this->getKey() ];
-        return new KeyValuePair( $currentKey, $this->dictionary->get( $currentKey ) );
+        return new IteratedKeyValue( $currentKey, $this->dictionary->get( $currentKey ) );
     }
 
 
