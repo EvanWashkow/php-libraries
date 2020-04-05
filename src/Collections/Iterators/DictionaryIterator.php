@@ -22,7 +22,7 @@ class DictionaryIterator extends IndexedIterator
      */
     public function __construct( Dictionary $dictionary )
     {
-        
+        parent::__construct( 0 );
     }
 
 

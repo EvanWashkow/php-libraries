@@ -27,4 +27,17 @@ class DictionaryIteratorTest extends TestCase
             'DictionaryIterator is not an IndexedIterator instance.'
         );
     }
+
+
+    /**
+     * Test __construct() starting index is zero
+     */
+    public function testConstructStartingIndex()
+    {
+        $this->assertEquals(
+            0,
+            ( new DictionaryIterator( new Dictionary( 'string', 'string' )))->getKey(),
+            'DictionaryIterator->getKey() did not return zero (0).'
+        );
+    }
 }
