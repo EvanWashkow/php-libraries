@@ -31,9 +31,7 @@ class DictionaryIterator extends IndexedIterator
 
     public function hasCurrent(): bool
     {
-        // Convert the Dictionary keys to an indexed array, and check the current loop index against that
-        $keys = array_keys( $this->dictionary->toArray() );
-        return array_key_exists( $this->getKey(), $keys );
+        return array_key_exists( $this->getKey(), $this->getIndexedKeys() );
     }
 
 
@@ -47,8 +45,18 @@ class DictionaryIterator extends IndexedIterator
         }
 
         // Convert the Dictionary keys to an indexed array, and get the current loop index key
-        $keys       = array_keys( $this->dictionary->toArray() );
-        $currentKey = $keys[ $this->getKey() ];
+        $currentKey = $this->getIndexedKeys()[ $this->getKey() ];
         return new KeyValuePair( $currentKey, $this->dictionary->get( $currentKey ) );
+    }
+
+
+    /**
+     * Retrieve the dictionary keys as an indexed array
+     * 
+     * @return array
+     */
+    private function getIndexedKeys(): array
+    {
+        return array_keys( $this->dictionary->toArray() );
     }
 }
