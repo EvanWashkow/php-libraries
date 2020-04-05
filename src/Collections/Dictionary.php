@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Exceptions\NotFoundException;
+use PHP\Exceptions\NotImplementedException;
+use PHP\Iteration\Iterator;
 use PHP\Types\Models\AnonymousType;
 
 /**
@@ -214,8 +216,15 @@ class Dictionary extends Collection
 
 
     /***************************************************************************
-    *                       ITERATOR INTERFACE OVERRIDES
+    *                      ITERATOR INTERFACE IMPLEMENTATION
     ***************************************************************************/
+
+
+    public function getIterator(): Iterator
+    {
+        throw new NotImplementedException( 'Not implemented, yet' );
+    }
+
 
     /**
      * @see Iterator->current()

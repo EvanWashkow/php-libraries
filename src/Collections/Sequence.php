@@ -3,7 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Exceptions\NotFoundException;
+use PHP\Iteration\Iterator;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 
@@ -297,8 +299,15 @@ class Sequence extends Collection
 
 
     /***************************************************************************
-    *                       ITERATOR INTERFACE OVERRIDES
+    *                      ITERATOR INTERFACE IMPLEMENTATION
     ***************************************************************************/
+
+
+    public function getIterator(): Iterator
+    {
+        return new SequenceIterator( $this );
+    }
+
 
     /**
      * @see Iterator->current()
