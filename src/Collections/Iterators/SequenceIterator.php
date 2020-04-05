@@ -12,14 +12,14 @@ use PHP\Iteration\IndexedIterator;
 class SequenceIterator extends IndexedIterator
 {
 
-    /** @var Sequence $sequence The Sequence to iterate over */
+    /** @var Sequence $sequence The Sequence to traverse */
     private $sequence;
 
 
     /**
      * Create a new Sequence Iterator
      * 
-     * @param Sequence $sequence The Sequence to iterate over
+     * @param Sequence $sequence The Sequence to traverse
      */
     public function __construct( Sequence $sequence )
     {
