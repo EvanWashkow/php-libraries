@@ -127,11 +127,12 @@ class DictionaryIteratorTest extends TestCase
 
     public function getValueReturnValuesTestData(): array
     {
-        $iterator = new DictionaryIterator( new Dictionary( 'string', 'string', [
+        $dictionary = new Dictionary( 'string', 'string', [
             'foo' => 'bar',
             'biz' => 'baz',
             'one' => 'two'
-        ]));
+        ]);
+        $iterator = new DictionaryIterator( $dictionary );
 
         return [
             'Unmoved DictionaryIterator' => [
@@ -152,6 +153,17 @@ class DictionaryIteratorTest extends TestCase
                 (function() use ( $iterator ) {
                     $iterator = clone $iterator;
                     $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                'one',
+                'two'
+            ],
+            'Dictionary => remove(), DictionaryIterator => goToNext()' => [
+                (function() use ( $dictionary ) {
+                    $dictionary = $dictionary->clone();
+                    $dictionary->remove( 'biz' );
+                    $iterator = new DictionaryIterator( $dictionary );
                     $iterator->goToNext();
                     return $iterator;
                 })(),
