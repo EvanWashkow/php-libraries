@@ -104,4 +104,60 @@ class DictionaryIteratorTest extends TestCase
             ]
         ];
     }
+
+
+    /**
+     * Test getValue() return values
+     * 
+     * @dataProvider getValueReturnValuesTestData
+     */
+    public function testGetValueReturnValue( DictionaryIterator $iterator, string $expectedKey, string $expectedValue )
+    {
+        $this->assertEquals(
+            $expectedKey,
+            $iterator->getValue()->getKey(),
+            'DictionaryIterator->getValue()->getKey() did not return the correct key.'
+        );
+        $this->assertEquals(
+            $expectedValue,
+            $iterator->getValue()->getValue(),
+            'DictionaryIterator->getValue()->getValue() did not return the correct value.'
+        );
+    }
+
+    public function getValueReturnValuesTestData(): array
+    {
+        $iterator = new DictionaryIterator( new Dictionary( 'string', 'string', [
+            'foo' => 'bar',
+            'biz' => 'baz',
+            'one' => 'two'
+        ]));
+
+        return [
+            'Unmoved DictionaryIterator' => [
+                clone $iterator,
+                'foo',
+                'bar'
+            ],
+            'DictionaryIterator => goToNext()' => [
+                (function() use ( $iterator ) {
+                    $iterator = clone $iterator;
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                'biz',
+                'baz'
+            ],
+            'DictionaryIterator => goToNext() => goToNext()' => [
+                (function() use ( $iterator ) {
+                    $iterator = clone $iterator;
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                'one',
+                'two'
+            ]
+        ];
+    }
 }

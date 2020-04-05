@@ -5,7 +5,6 @@ namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Dictionary;
 use PHP\Collections\KeyValuePair;
-use PHP\Exceptions\NotImplementedException;
 use PHP\Iteration\IndexedIterator;
 
 /**
@@ -40,6 +39,9 @@ class DictionaryIterator extends IndexedIterator
 
     public function getValue(): KeyValuePair
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        // Convert the Dictionary keys to an indexed array, and get the current loop index key
+        $keys       = array_keys( $this->dictionary->toArray() );
+        $currentKey = $keys[ $this->getKey() ];
+        return new KeyValuePair( $currentKey, $this->dictionary->get( $currentKey ) );
     }
 }
