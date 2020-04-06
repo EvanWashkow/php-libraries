@@ -6,6 +6,7 @@ namespace PHP\Tests\Collections\Iterators;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
+use PHP\Collections\Iterators\IteratedKeyValue;
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\Sequence;
 use PHP\Iteration\IIterable;
@@ -56,6 +57,91 @@ class IIterableCollectionsTest extends TestCase
             'Sequence' => [
                 new Sequence( 'int' ),
                 SequenceIterator::class
+            ]
+        ];
+    }
+
+
+    /**
+     * Test Collections in foreach() loop
+     * 
+     * @dataProvider getForEachCollectionTestData
+     */
+    public function testForEachCollection( Collection $collection, $expectedKeys, $expectedValues )
+    {
+        // Retains list of iterated values
+        $outerKeys   = [];
+        $outerValues = [];
+        $innerKeys   = null;
+        $innerValues = null;
+
+        // Do outer loop
+        foreach ( $collection as $outerKey => $outerValue ) {
+            $outerKeys[]   = $outerKey;
+            $outerValues[] = $outerValue;
+
+            // Reset inner lists
+            $innerKeys   = [];
+            $innerValues = [];
+
+            // Do inner loop
+            foreach ( $collection as $innerKey => $innerValue ) {
+                $innerKeys[]   = $innerKey;
+                $innerValues[] = $innerValue;
+            }
+        }
+
+        // Test outer keys and values
+        $this->assertEquals(
+            $expectedKeys,
+            $outerKeys,
+            'Outer foreach( Collection ) loop did not return the expected keys.'
+        );
+        $this->assertEquals(
+            $expectedValues,
+            $outerValues,
+            'Outer foreach( Collection ) loop did not return the expected values.'
+        );
+
+        // Test inner keys and values
+        $this->assertEquals(
+            $expectedKeys,
+            $innerKeys,
+            'Inner foreach( Collection ) loop did not return the expected keys.'
+        );
+        $this->assertEquals(
+            $expectedValues,
+            $innerValues,
+            'Inner foreach( Collection ) loop did not return the expected values.'
+        );
+    }
+
+    public function getForEachCollectionTestData(): array
+    {
+        return [
+            'Dictionary' => [
+                new Dictionary( 'string', 'string', [
+                    'foo'   => 'bar',
+                    'biz'   => 'baz',
+                    'one'   => '1',
+                    'two'   => '2',
+                    'three' => '3'
+                ]),
+                [ 0, 1, 2, 3, 4 ],
+                [
+                    new IteratedKeyValue( 'foo',   'bar' ),
+                    new IteratedKeyValue( 'biz',   'baz' ),
+                    new IteratedKeyValue( 'one',   '1' ),
+                    new IteratedKeyValue( 'two',   '2' ),
+                    new IteratedKeyValue( 'three', '3' )
+                ]
+            ],
+            'Sequence' => [
+                new Sequence( 'string', [
+                    'foo', 'bar', 'biz', 'baz', 'one', 'two', 'three'
+                ]),
+                [ 0, 1, 2, 3, 4, 5, 6 ],
+                [ 'foo', 'bar', 'biz', 'baz', 'one', 'two', 'three' ]
             ]
         ];
     }
