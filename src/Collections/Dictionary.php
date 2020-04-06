@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Exceptions\NotFoundException;
 use PHP\Exceptions\NotImplementedException;
 use PHP\Iteration\Iterator;
@@ -222,7 +223,7 @@ class Dictionary extends Collection
 
     public function getIterator(): Iterator
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        return new DictionaryIterator( $this );
     }
 
 
