@@ -155,8 +155,14 @@ class Dictionary extends Collection
      */
     public function hasKey( $key ): bool
     {
+        /**
+         * PHP implicitly coerces string array keys to integers where at all possible (ignoring the strict_types = 1)
+         * directive. Thus '0' is converted to 0, and if you try to implement a type check that that key is a string,
+         * PHP will return false. There's nothing more that can be done here aside from putting our head in the sand and
+         * pretending that integer / string keys are the same.
+         */
         return (
-            $this->getKeyType()->equals( $key ) &&
+            ( is_int( $key ) || is_string( $key ) ) &&
             array_key_exists( $key, $this->entries )
         );
     }
