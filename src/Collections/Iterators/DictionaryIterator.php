@@ -47,14 +47,14 @@ class DictionaryIterator extends IndexedIterator
         // Convert the Dictionary keys to an indexed array, and get the current loop index key
         $key = $this->getIndexedKeys()[ $this->getKey() ];
 
-        // // Convert the current key to the Dictionary key type
-        // $keyType = $this->dictionary->getKeyType();
-        // if ( $keyType->is( 'int') ) {
-        //     $key = intval( $key );
-        // }
-        // elseif ( $keyType->is( 'string' )) {
-        //     $key = "$key";
-        // }
+        // Convert the current key to the Dictionary key type
+        $keyType = $this->dictionary->getKeyType();
+        if ( $keyType->is( 'int') ) {
+            $key = intval( $key );
+        }
+        elseif ( $keyType->is( 'string' )) {
+            $key = "$key";
+        }
 
         return new IteratedKeyValue( $key, $this->dictionary->get( $key ) );
     }

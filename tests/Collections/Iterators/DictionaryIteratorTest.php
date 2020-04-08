@@ -167,6 +167,38 @@ class DictionaryIteratorTest extends TestCase
 
 
     /**
+     * Test getValue() returns the correct key type
+     * 
+     * @dataProvider getValueKeyTypeTestData
+     */
+    public function testGetValueKeyType( Dictionary $dictionary )
+    {
+        $this->assertTrue(
+            $dictionary->getKeyType()->equals(
+                $dictionary->getIterator()->getValue()->getKey()
+            ),
+            'DictionaryIterator->getValue()->getKey() returned the wrong type.'
+        );
+    }
+
+    public function getValueKeyTypeTestData(): array
+    {
+        return [
+            'integer keys' => [
+                new Dictionary( 'int', 'string', [ 1 => '1' ] )
+            ],
+            'string keys' => [
+                (function() {
+                    $dictionary = new Dictionary( 'string', 'int' );
+                    $dictionary->set( '1', 1 );
+                    return $dictionary;
+                })()
+            ]
+        ];
+    }
+
+
+    /**
      * Test getValue() throws OutOfBoundsException
      */
     public function testGetValueThrowsOutOfBoundsException()
