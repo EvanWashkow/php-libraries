@@ -262,12 +262,11 @@ abstract class Collection extends ObjectClass implements Cloneable, \Countable, 
 
 
     /**
-     * @see Iterator->valid()
-     * 
-     * @internal Final: this duplicates other methods.
+     * @deprecated Use getIterator() instead. 04-2020.
      */
     final public function valid(): bool
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         return $this->hasKey( $this->key() );
     }
 
