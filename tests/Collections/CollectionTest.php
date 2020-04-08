@@ -1166,13 +1166,16 @@ class CollectionTest extends TestCase
             // Set first key to last value
             $key   = null;
             $value = null;
-            $collection->loop( function( $k, $v ) use ( &$key, &$value ) {
+            foreach ( $collection as $k => $v ) {
+                if ( $v instanceof KeyValuePair ) {
+                    $k = $v->getKey();
+                    $v = $v->getValue();
+                }
                 if ( null === $key ) {
                     $key = $k;
                 }
                 $value = $v;
-                return true;
-            });
+            }
             $collection->set( $key, $value );
             
             // Assert test
@@ -1194,11 +1197,15 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+            foreach ( $collection as $k => $v ) {
+                if ( $v instanceof KeyValuePair ) {
+                    $k = $v->getKey();
+                    $v = $v->getValue();
+                }
                 $key   = $k;
                 $value = $v;
-                return false;
-            });
+                break;
+            }
             
             $isError = false;
             try {
@@ -1222,13 +1229,17 @@ class CollectionTest extends TestCase
     public function testSetRejectsWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
-            $key;
-            $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+            $key   = null;
+            $value = null;
+            foreach ( $collection as $k => $v ) {
+                if ( $v instanceof KeyValuePair ) {
+                    $k = $v->getKey();
+                    $v = $v->getValue();
+                }
                 $key   = $k;
                 $value = $v;
-                return false;
-            });
+                break;
+            }
             try {
                 $collection->set( $value, $value );
             } catch (\Exception $e) {}
@@ -1250,11 +1261,15 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+            foreach ( $collection as $k => $v ) {
+                if ( $v instanceof KeyValuePair ) {
+                    $k = $v->getKey();
+                    $v = $v->getValue();
+                }
                 $key   = $k;
                 $value = $v;
-                return false;
-            });
+                break;
+            }
             
             $isError = false;
             try {
@@ -1284,11 +1299,15 @@ class CollectionTest extends TestCase
             
             $key;
             $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+            foreach ( $collection as $k => $v ) {
+                if ( $v instanceof KeyValuePair ) {
+                    $k = $v->getKey();
+                    $v = $v->getValue();
+                }
                 $key   = $k;
                 $value = $v;
-                return false;
-            });
+                break;
+            }
             try {
                 $collection->set( $key, $key );
             } catch (\Exception $e) {}
