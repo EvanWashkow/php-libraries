@@ -76,7 +76,6 @@ class Sequence extends Collection
     public function clear(): bool
     {
         $this->entries = [];
-        $this->rewind();
         return true;
     }
 
@@ -317,6 +316,7 @@ class Sequence extends Collection
      */
     final public function current()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         return current( $this->entries );
     }
 
@@ -328,6 +328,7 @@ class Sequence extends Collection
      */
     final public function key()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         return key( $this->entries );
     }
 
@@ -339,6 +340,7 @@ class Sequence extends Collection
      */
     final public function next()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         next( $this->entries );
     }
 
@@ -350,6 +352,7 @@ class Sequence extends Collection
      */
     final public function rewind()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         reset( $this->entries );
     }
 

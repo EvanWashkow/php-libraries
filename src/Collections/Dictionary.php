@@ -85,7 +85,6 @@ class Dictionary extends Collection
     public function clear(): bool
     {
         $this->entries = [];
-        $this->rewind();
         return true;
     }
 
@@ -227,13 +226,11 @@ class Dictionary extends Collection
 
 
     /**
-     * @see Iterator->current()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function current()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         return current( $this->entries );
     }
 
@@ -245,6 +242,7 @@ class Dictionary extends Collection
      */
     final public function key()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         $key = key( $this->entries );
         
         /**
@@ -267,6 +265,7 @@ class Dictionary extends Collection
      */
     final public function next()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         next( $this->entries );
     }
 
@@ -278,6 +277,7 @@ class Dictionary extends Collection
      */
     final public function rewind()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         reset( $this->entries );
     }
 }

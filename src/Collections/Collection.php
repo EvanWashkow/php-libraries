@@ -279,16 +279,6 @@ abstract class Collection extends ObjectClass implements Cloneable, \Countable, 
 
 
     /**
-     * Invoked on shallow collection clone
-     **/
-    public function __clone()
-    {
-        // Reset cursor to the beginning
-        $this->rewind();
-    }
-
-
-    /**
      * Creates a new Collection that is a copy of the current instance
      *
      * @return static
