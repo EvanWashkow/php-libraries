@@ -5,6 +5,7 @@ namespace PHP\Tests\Collections\Iterators;
 
 use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
+use PHP\Collections\Iterators\IteratedKeyValue;
 use PHP\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
@@ -107,25 +108,20 @@ class DictionaryIteratorTest extends TestCase
 
 
     /**
-     * Test getValue() return values
+     * Test getValue() returns the expected Key Value Pair
      * 
-     * @dataProvider getValueReturnValuesTestData
+     * @dataProvider getValueReturnedKeyValuePairTestData
      */
-    public function testGetValueReturnValue( DictionaryIterator $iterator, string $expectedKey, string $expectedValue )
+    public function testGetValueReturnedKeyValuePair( DictionaryIterator $iterator, IteratedKeyValue $expected )
     {
         $this->assertEquals(
-            $expectedKey,
-            $iterator->getValue()->getKey(),
-            'DictionaryIterator->getValue()->getKey() did not return the correct key.'
-        );
-        $this->assertEquals(
-            $expectedValue,
-            $iterator->getValue()->getValue(),
-            'DictionaryIterator->getValue()->getValue() did not return the correct value.'
+            $expected,
+            $iterator->getValue(),
+            'DictionaryIterator->getValue() did not return the expected Key Value Pair.'
         );
     }
 
-    public function getValueReturnValuesTestData(): array
+    public function getValueReturnedKeyValuePairTestData(): array
     {
         $dictionary = new Dictionary( 'string', 'string', [
             'foo' => 'bar',
@@ -137,8 +133,7 @@ class DictionaryIteratorTest extends TestCase
         return [
             'Unmoved DictionaryIterator' => [
                 clone $iterator,
-                'foo',
-                'bar'
+                new IteratedKeyValue( 'foo', 'bar' )
             ],
             'DictionaryIterator => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -146,8 +141,7 @@ class DictionaryIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                'biz',
-                'baz'
+                new IteratedKeyValue( 'biz', 'baz' )
             ],
             'DictionaryIterator => goToNext() => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -156,8 +150,7 @@ class DictionaryIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                'one',
-                'two'
+                new IteratedKeyValue( 'one', 'two' )
             ],
             'Dictionary => remove(), DictionaryIterator => goToNext()' => [
                 (function() use ( $dictionary ) {
@@ -167,8 +160,7 @@ class DictionaryIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                'one',
-                'two'
+                new IteratedKeyValue( 'one', 'two' )
             ]
         ];
     }
