@@ -10,8 +10,6 @@ use PHP\Types\Models\AnonymousType;
 
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
- *
- * @see PHP\Collections\Iterator
  */
 class Dictionary extends Collection
 {

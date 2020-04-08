@@ -14,8 +14,6 @@ use PHP\Types\TypeNames;
 
 /**
  * Defines an iterable set of mutable, key-value pairs
- *
- * @see PHP\Collections\Iterator
  */
 abstract class Collection extends ObjectClass implements Cloneable, \Countable, IIterable
 {

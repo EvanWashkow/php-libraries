@@ -11,8 +11,6 @@ use PHP\Types\Models\Type;
 
 /**
  * Defines a mutable, ordered, and iterable set of key-value pairs (similar to Lists in other languages)
- *
- * @see PHP\Collections\Iterator
  */
 class Sequence extends Collection
 {
