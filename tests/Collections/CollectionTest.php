@@ -6,6 +6,7 @@ namespace PHP\Tests;
 use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
+use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
 use PHP\Types\Models\AnonymousType;
 use PHPUnit\Framework\TestCase;
@@ -1127,11 +1128,15 @@ class CollectionTest extends TestCase
             // Get first key and value
             $key   = null;
             $value = null;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
+            foreach ( $collection as $k => $v ) {
+                if ( $v instanceof KeyValuePair ) {
+                    $k = $v->getKey();
+                    $v = $v->getValue();
+                }
                 $key   = $k;
                 $value = $v;
-                return false;
-            });
+                break;
+            }
             $collection->clear();
             
             // Test if set works
