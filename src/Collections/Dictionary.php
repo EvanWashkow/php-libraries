@@ -233,10 +233,7 @@ class Dictionary extends Collection
     }
 
     /**
-     * @see Iterator->key()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function key()
     {
@@ -256,10 +253,7 @@ class Dictionary extends Collection
     }
 
     /**
-     * @see Iterator->next()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function next()
     {
@@ -268,10 +262,7 @@ class Dictionary extends Collection
     }
 
     /**
-     * @see Iterator->rewind()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function rewind()
     {

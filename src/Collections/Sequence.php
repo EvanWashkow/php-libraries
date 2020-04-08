@@ -307,10 +307,7 @@ class Sequence extends Collection
 
 
     /**
-     * @see Iterator->current()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function current()
     {
@@ -319,10 +316,7 @@ class Sequence extends Collection
     }
 
     /**
-     * @see Iterator->key()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function key()
     {
@@ -331,10 +325,7 @@ class Sequence extends Collection
     }
 
     /**
-     * @see Iterator->next()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function next()
     {
@@ -343,10 +334,7 @@ class Sequence extends Collection
     }
 
     /**
-     * @see Iterator->rewind()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function rewind()
     {
