@@ -5,12 +5,16 @@ namespace PHP\Collections;
 
 use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Exceptions\NotFoundException;
-use PHP\Exceptions\NotImplementedException;
 use PHP\Iteration\Iterator;
 use PHP\Types\Models\AnonymousType;
 
+
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
+ * 
+ * PHP converts string array keys to integers and then reports the wrong type for them. This is a known issues that have
+ * planned work arounds, but for now, know that there is a little play when dealing with string keys. Specifically, a
+ * string key can be specified with its integer counterpart.
  *
  * @see PHP\Collections\Iterator
  */
@@ -155,13 +159,8 @@ class Dictionary extends Collection
      */
     public function hasKey( $key ): bool
     {
-        /**
-         * PHP implicitly coerces string array keys to integers where at all possible (ignoring the strict_types = 1)
-         * directive. Thus '0' is converted to 0, and if you try to implement a type check that that key is a string,
-         * PHP will return false. There's nothing more that can be done here aside from putting our head in the sand and
-         * pretending that integer / string keys are the same.
-         */
         return (
+            // Let PHP coerce string / integer keys. See class documentation.
             ( is_int( $key ) || is_string( $key ) ) &&
             array_key_exists( $key, $this->entries )
         );
@@ -190,6 +189,11 @@ class Dictionary extends Collection
      */
     public function set( $key, $value ): bool
     {
+        // Coerce integer keys to strings. See class documentation.
+        if ( is_int( $key ) && $this->getKeyType()->is( 'string' )) {
+            $key = "$key";
+        }
+
         // Throw warnings
         $isSuccessful = false;
         if ( !$this->getKeyType()->equals( $key )) {
