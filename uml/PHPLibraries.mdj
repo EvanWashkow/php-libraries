@@ -2140,7 +2140,7 @@
 															"top": 326,
 															"width": 209.22509765625,
 															"height": 13,
-															"text": "+getValue(): mixed",
+															"text": "+getValue(): KeyValuePair",
 															"horizontalAlignment": 0
 														}
 													],
@@ -2498,8 +2498,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -292,
-													"top": -102,
+													"left": -308,
+													"top": 138,
 													"width": 10,
 													"height": 10
 												},
@@ -2514,8 +2514,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -292,
-													"top": -102,
+													"left": -308,
+													"top": 138,
 													"width": 10,
 													"height": 10
 												}
@@ -3533,7 +3533,9 @@
 													"_parent": {
 														"$ref": "AAAAAAFxNEDXgbCyCuU="
 													},
-													"type": "mixed",
+													"type": {
+														"$ref": "AAAAAAFw5Cs/Ot/IRuU="
+													},
 													"direction": "return"
 												}
 											]
