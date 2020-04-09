@@ -17,10 +17,14 @@ class IteratedKeyValue extends KeyValuePair
      */
     public function __call( string $name, array $arguments )
     {
-        trigger_error(
-            'foreach( Dictionary as $item ) behavior has changed. Call $item->getValue() before calling the value\'s method.',
-            E_USER_DEPRECATED
-        );
+        static $isFirstCall = true;
+        if ( $isFirstCall ) {
+            trigger_error(
+                'foreach( Dictionary as $item ) behavior has changed. Call $item->getValue() before calling the value\'s method.',
+                E_USER_DEPRECATED
+            );
+            $isFirstCall = false;
+        }
         return call_user_func( [ $this->getValue(), $name ], ...$arguments );
     }
 
@@ -30,10 +34,14 @@ class IteratedKeyValue extends KeyValuePair
      */
     public function __get( string $name )
     {
-        trigger_error(
-            'foreach( Dictionary as $item ) behavior has changed. Call $item->getValue() before accessing the value\'s property.',
-            E_USER_DEPRECATED
-        );
+        static $isFirstGet = true;
+        if ( $isFirstGet ) {
+            trigger_error(
+                'foreach( Dictionary as $item ) behavior has changed. Call $item->getValue() before accessing the value\'s property.',
+                E_USER_DEPRECATED
+            );
+            $isFirstGet = false;
+        }
         return $this->getValue()->$name;
     }
 }
