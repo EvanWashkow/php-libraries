@@ -141,7 +141,15 @@ class IIterableCollectionsTest extends TestCase
                     'foo', 'bar', 'biz', 'baz', 'one', 'two', 'three'
                 ]),
                 [ 0, 1, 2, 3, 4, 5, 6 ],
-                [ 'foo', 'bar', 'biz', 'baz', 'one', 'two', 'three' ]
+                [
+                    new IteratedKeyValue( 0, 'foo' ),
+                    new IteratedKeyValue( 1, 'bar' ),
+                    new IteratedKeyValue( 2, 'biz' ),
+                    new IteratedKeyValue( 3, 'baz' ),
+                    new IteratedKeyValue( 4, 'one' ),
+                    new IteratedKeyValue( 5, 'two' ),
+                    new IteratedKeyValue( 6, 'three' )
+                ]
             ]
         ];
     }
