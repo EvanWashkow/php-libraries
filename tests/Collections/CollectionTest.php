@@ -6,6 +6,7 @@ namespace PHP\Tests;
 use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
+use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
 use PHP\Types\Models\AnonymousType;
 use PHPUnit\Framework\TestCase;
@@ -259,82 +260,6 @@ class CollectionTest extends TestCase
                     'biz',
                     'baz'
                 ]
-            ]
-        ];
-    }
-
-
-    /**
-     * Ensure shallow clone $this rewinds the collection
-     * 
-     * @dataProvider getCloneRewindsData
-     * 
-     * @param Collection $collection       The collection to clone
-     * @param mixed      $expectedFirstKey The first key of the collection
-     */
-    public function testShallowCloneRewinds( Collection $collection, $expectedFirstKey )
-    {
-        $clone = clone $collection;
-        $this->assertEquals(
-            $expectedFirstKey,
-            $clone->key(),
-            'The cloned collection did not rewind to the beginning of the iterator'
-        );
-    }
-
-
-    /**
-     * Ensure deep Collection->clone() rewinds the collection
-     * 
-     * @dataProvider getCloneRewindsData
-     * 
-     * @param Collection $collection       The collection to clone
-     * @param mixed      $expectedFirstKey The first key of the collection
-     */
-    public function testDeepCloneRewinds( Collection $collection, $expectedFirstKey )
-    {
-        $this->assertEquals(
-            $expectedFirstKey,
-            $collection->clone()->key(),
-            'Collection->clone() did not rewind to the beginning of the iterator'
-        );
-    }
-
-
-    /**
-     * Retrieve test data for testing that clone rewinds the collection
-     * 
-     * @return array
-     */
-    public function getCloneRewindsData(): array
-    {
-        $dictionary = new Dictionary( '*', '*', [
-            'foo' => 'bar',
-            'biz' => 'baz'
-        ]);
-        $dictionary->next();
-
-        $sequence = new Sequence( '*', [
-            'foo',
-            'bar',
-            'biz',
-            'baz'
-        ]);
-        $sequence->next();
-        $sequence->next();
-
-        return [
-            'Empty Dictionary' => [
-                new Dictionary( '*', '*' ), NULL
-            ],
-            'Non-empty Dictionary' => [
-                $dictionary, 'foo'
-            ],
-            'Empty Sequence' => [
-                new Sequence( '*' ), NULL
-            ],
-            'Non-empty Sequence' => [
-                $sequence, 0
             ]
         ];
     }
@@ -994,321 +919,6 @@ class CollectionTest extends TestCase
             'Sequence partial'          => [ $sequence,   'foo', false ]
         ];
     }
-
-
-
-
-    /***************************************************************************
-    *                            Collection->loop()
-    ***************************************************************************/
-
-
-    /**
-     * Test loop() throws exception when callback doesn't return bool
-     * 
-     * @expectedException \TypeError
-     * 
-     * @param Collection $collection The collection
-     * @param array      $keys       The expected keys
-     * @param array      $values     The expected values
-     */
-    public function testLoopException()
-    {
-        $collection = new Sequence( 'string', [ '1', '2', '3' ]);
-        $collection->loop(function( $key, $value ) use ( &$count ) {
-            return;
-        });
-    }
-
-
-    /**
-     * Test loop() breaks
-     * 
-     * @dataProvider getLoopData
-     * 
-     * @param Collection $collection The collection
-     * @param array      $keys       The expected keys
-     * @param array      $values     The expected values
-     */
-    public function testLoopBreaks( Collection $collection,
-                                    array      $keys,
-                                    array      $values )
-    {
-        $count = 0;
-        $collection->loop(function( $key, $value ) use ( &$count ) {
-            $count++;
-            return false;
-        });
-
-        $expected = ( count( $keys ) === 0 ) ? 0 : 1;
-        $this->assertEquals(
-            $expected,
-            $count,
-            'Collection->loop() did not break early'
-        );
-    }
-
-
-    /**
-     * Test loop() keys
-     * 
-     * @dataProvider getLoopData
-     * 
-     * @param Collection $collection     The collection
-     * @param array      $expectedKeys   The expected keys
-     * @param array      $expectedValues The expected values
-     */
-    public function testLoopKeys( Collection $collection,
-                                  array      $expectedKeys,
-                                  array      $expectedValues )
-    {
-        $keys = [];
-        $collection->loop( function( $key, $value ) use ( &$keys )
-        {
-            $keys[] = $key;
-            return true;
-        });
-
-        // Ensure that the loop iterated through ALL the expected keys
-        $this->assertEquals(
-            $expectedKeys,
-            $keys,
-            'Collection->loop() did not iterate through all the keys'
-        );
-    }
-
-
-    /**
-     * Test loop() values
-     * 
-     * @dataProvider getLoopData
-     * 
-     * @param Collection $collection     The collection
-     * @param array      $expectedKeys   The expected keys
-     * @param array      $expectedValues The expected values
-     */
-    public function testLoopValues( Collection $collection,
-                                    array      $expectedKeys,
-                                    array      $expectedValues )
-    {
-        $values = [];
-        $collection->loop( function( $key, $value ) use ( &$values )
-        {
-            $values[] = $value;
-            return true;
-        });
-
-        // Ensure that the loop iterated through ALL the expected values
-        $this->assertEquals(
-            $expectedValues,
-            $values,
-            'Collection->loop() did not iterate through all the values'
-        );
-    }
-
-
-    /**
-     * Test loop() rewinds before iterating throu entries
-     * 
-     * @dataProvider getLoopData
-     * 
-     * @param Collection $collection     The collection
-     * @param array      $expectedKeys   The expected keys
-     * @param array      $expectedValues The expected values
-     */
-    public function testLoopRewindsFirst( Collection $collection,
-                                          array      $expectedKeys,
-                                          array      $expectedValues )
-    {
-        $keys = [];
-        $collection->next();
-        $collection->loop( function( $key, $value ) use ( &$keys )
-        {
-            $keys[] = $key;
-            return true;
-        });
-
-        // Ensure that the loop iterated through ALL the expected keys
-        $this->assertEquals(
-            $expectedKeys,
-            $keys,
-            'Collection->loop() did not rewind before iterating through entries'
-        );
-    }
-
-
-    /**
-     * Test loop() iterates correctly over nested loops
-     * 
-     * @dataProvider getLoopData
-     * 
-     * @param Collection $collection     The collection
-     * @param array      $expectedKeys   The expected keys
-     * @param array      $expectedValues The expected values
-     */
-    public function testNestedLoops( Collection $collection,
-                                     array      $expectedKeys,
-                                     array      $expectedValues )
-    {
-        $keys = [];
-        $collection->loop( function( $key, $value ) use ( $collection, &$keys )
-        {
-            $keys[] = $key;
-            $collection->loop(function( $key, $value ) {
-                return true;
-            });
-            return true;
-        });
-
-        // Ensure that the loop iterated through ALL the expected keys
-        $this->assertEquals(
-            $expectedKeys,
-            $keys,
-            'Nested Collection->loop() did not iterate through all the keys'
-        );
-    }
-
-
-    /**
-     * Retrieve test data for testing loop keys and values
-     * 
-     * @return array
-     */
-    public function getLoopData()
-    {
-        $dictionary = new Dictionary( 'string', 'int' );
-        $dictionary->set( '1', 1 );
-        $dictionary->set( '2', 2 );
-        $dictionary->set( '3', 3 );
-
-        return [
-
-            // Empty collections
-            'Empty Dictionary' => [
-                new Dictionary( '*', '*' ), [], []
-            ],
-            'Empty Sequence' => [
-                new Sequence( '*' ),   [], []
-            ],
-
-            // Non-empty collections
-            'Dictionary string => int' => [
-                $dictionary, [ '1', '2', '3' ], [ 1, 2, 3 ]
-            ],
-            'Sequence int => string' => [
-                new Sequence( 'string', [ '1', '2', '3' ]),
-                [ 0, 1, 2 ],
-                [ '1', '2', '3' ]
-            ],
-        ];
-    }
-
-
-    /**
-     * Ensure loop() works correctly when modifying the collection on the inside
-     * 
-     * @dataProvider getLoopWhileModifyingEntriesData
-     * 
-     * @param Collection $collection   The collection
-     * @param array      $toRemove     The keys to remove while in the loop
-     * @param array      $toSet        The key => value entries to set while in the loop
-     */
-    public function testLoopWhileModifyingEntries( Collection $collection,
-                                                   array      $toRemove,
-                                                   array      $toSet )
-    {
-        $expectedKeys = $collection->getKeys()->toArray();
-        $keys         = [];
-        $isFirstLoop  = true;
-        $collection->loop( function( $key, $value ) use ( $collection,
-                                                          $toRemove,
-                                                          $toSet,
-                                                          &$keys,
-                                                          &$isFirstLoop )
-        {
-            $keys[] = $key;
-            if ( $isFirstLoop ) {
-                foreach ( $toRemove as $key ) {
-                    $collection->remove( $key );
-                }
-                foreach ( $toSet as $key => $value ) {
-                    $collection->set( $key, $value );
-                }
-                $isFirstLoop = false;
-            }
-            return true;
-        });
-
-        // Ensure that the loop iterated through ALL the expected keys
-        $this->assertEquals(
-            $expectedKeys,
-            $keys,
-            'Nested Collection->loop() did not iterate through all the entries while modifying the collection'
-        );
-    }
-
-    /**
-     * Get data to test modifying collection while looping
-     * 
-     * @return array
-     */
-    public function getLoopWhileModifyingEntriesData(): array
-    {
-        $dictionary = new Dictionary( 'int', 'string', [
-            1 => 'foo-1',
-            2 => 'foo-2',
-            3 => 'foo-3',
-            4 => 'foo-4',
-            5 => 'foo-5',
-            6 => 'foo-6'
-        ]);
-
-        $sequence = new Sequence( 'string', [
-            'foo-0',
-            'foo-1',
-            'foo-2',
-            'foo-3',
-            'foo-4',
-            'foo-5'
-        ]);
-
-        return [
-
-            // Dictionary
-            'Dictionary: removing entries' => [
-                ( clone $dictionary ),
-                [ 1, 2, 3, 5 ],
-                []
-            ],
-            'Dictionary: setting entries' => [
-                ( clone $dictionary ),
-                [],
-                [ 7 => 'foo-7', 8 => 'foo-8' ]
-            ],
-            'Dictionary: setting and removing entries' => [
-                ( clone $dictionary ),
-                [ 1, 2, 3, 5 ],
-                [ 7 => 'foo-7', 8 => 'foo-8' ]
-            ],
-
-            // Sequence
-            'Sequence: removing entries' => [
-                ( clone $sequence ),
-                [ 0, 1, 2 ],
-                []
-            ],
-            'Sequence: setting entries' => [
-                ( clone $sequence ),
-                [],
-                [ 6 => 'foo-6', 7 => 'foo-7' ]
-            ],
-            'Sequence: setting and removing entries' => [
-                ( clone $sequence ),
-                [ 0, 1, 2 ],
-                [ 3 => 'foo-3', 4 => 'foo-4' ]
-            ]
-        ];
-    }
     
     
     
@@ -1442,11 +1052,11 @@ class CollectionTest extends TestCase
             // Get first key and value
             $key   = null;
             $value = null;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
-                $key   = $k;
-                $value = $v;
-                return false;
-            });
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
+                break;
+            }
             $collection->clear();
             
             // Test if set works
@@ -1476,13 +1086,12 @@ class CollectionTest extends TestCase
             // Set first key to last value
             $key   = null;
             $value = null;
-            $collection->loop( function( $k, $v ) use ( &$key, &$value ) {
+            foreach ( $collection as $item ) {
                 if ( null === $key ) {
-                    $key = $k;
+                    $key = $item->getKey();
                 }
-                $value = $v;
-                return true;
-            });
+                $value = $item->getValue();
+            }
             $collection->set( $key, $value );
             
             // Assert test
@@ -1504,11 +1113,11 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
-                $key   = $k;
-                $value = $v;
-                return false;
-            });
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
+                break;
+            }
             
             $isError = false;
             try {
@@ -1532,13 +1141,13 @@ class CollectionTest extends TestCase
     public function testSetRejectsWrongKeyType()
     {
         foreach ( CollectionData::GetTyped() as $collection ) {
-            $key;
-            $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
-                $key   = $k;
-                $value = $v;
-                return false;
-            });
+            $key   = null;
+            $value = null;
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
+                break;
+            }
             try {
                 $collection->set( $value, $value );
             } catch (\Exception $e) {}
@@ -1560,11 +1169,11 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
-                $key   = $k;
-                $value = $v;
-                return false;
-            });
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
+                break;
+            }
             
             $isError = false;
             try {
@@ -1594,11 +1203,11 @@ class CollectionTest extends TestCase
             
             $key;
             $value;
-            $collection->loop(function( $k, $v ) use ( &$key, &$value ) {
-                $key   = $k;
-                $value = $v;
-                return false;
-            });
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
+                break;
+            }
             try {
                 $collection->set( $key, $key );
             } catch (\Exception $e) {}
@@ -1696,396 +1305,6 @@ class CollectionTest extends TestCase
         return [
             'Dictionary' => [ new Dictionary( '*', '*' ) ],
             'Sequence'   => [ new Sequence( '*' ) ]
-        ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                            Iterator->current()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure Collection->current() returns the correct value
-     * 
-     * @dataProvider getTestCurrentData
-     * 
-     * @param Collection $collection The collection to test
-     * @param mixed      $expected   The expected value from current()
-     */
-    public function testCurrent( Collection $collection, $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $collection->current(),
-            'Collection->current() didn\'t return the correct result'
-        );
-    }
-
-
-    /**
-     * Retrieve data for Collection->current() test
-     * 
-     * @return array
-     */
-    public function getTestCurrentData(): array
-    {
-        $validDictionaryPosition = new Dictionary( '*', '*' );
-        $validDictionaryPosition->set( 0, 'foo' );
-        $validDictionaryPosition->set( 1, 'bar' );
-        $validDictionaryPosition->next();
-
-        $invalidDictionaryPosition = new Dictionary( '*', '*' );
-        $invalidDictionaryPosition->set( 0, 'foo' );
-        $invalidDictionaryPosition->set( 1, 'bar' );
-        $invalidDictionaryPosition->next();
-        $invalidDictionaryPosition->next();
-        
-        $validSequencePosition = new Sequence( '*' );
-        $validSequencePosition->add( 'foo' );
-        $validSequencePosition->add( 'bar' );
-        $validSequencePosition->add( 'baz' );
-        $validSequencePosition->next();
-        $validSequencePosition->next();
-
-        $invalidSequencePosition = new Sequence( '*' );
-        $invalidSequencePosition->add( 'foo' );
-        $invalidSequencePosition->add( 'bar' );
-        $invalidSequencePosition->next();
-        $invalidSequencePosition->next();
-
-        return [
-
-            /**
-             * All collections with a bad current() should return false
-             * (This is the default functionality of arrays)
-             */
-            'Dictionary with no entries'        => [
-                ( new Dictionary( '*', '*' ) ), false
-            ],
-            'Sequence with no entries'          => [
-                ( new Sequence( '*' ) ), false
-            ],
-            'Dictionary without current()' => [
-                $invalidDictionaryPosition, false
-            ],
-            'Sequence without current()'   => [
-                $invalidSequencePosition, false
-            ],
-
-            // Valid current
-            'Dictionary with current()' => [ $validDictionaryPosition, 'bar' ],
-            'Sequence with current()'   => [ $validSequencePosition,   'baz' ]
-        ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                            Iterator->key()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure Collection->key() returns the correct value
-     * 
-     * @dataProvider getTestKeyData
-     * 
-     * @param Collection $collection The collection to test
-     * @param mixed      $expected   The expected value from key()
-     */
-    public function testKey( Collection $collection, $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $collection->key(),
-            'Collection->key() didn\'t return the correct result'
-        );
-    }
-
-
-    /**
-     * Retrieve data for Collection->key() test
-     * 
-     * @return array
-     */
-    public function getTestKeyData(): array
-    {
-        $validDictionaryPosition = new Dictionary( '*', '*' );
-        $validDictionaryPosition->set( 0, 'foo' );
-        $validDictionaryPosition->set( 1, 'bar' );
-        $validDictionaryPosition->next();
-
-        $invalidDictionPosition = new Dictionary( '*', '*' );
-        $invalidDictionPosition->set( 0, 'foo' );
-        $invalidDictionPosition->set( 1, 'bar' );
-        $invalidDictionPosition->next();
-        $invalidDictionPosition->next();
-        
-        $validSequencePosition = new Sequence( '*' );
-        $validSequencePosition->add( 'foo' );
-        $validSequencePosition->add( 'bar' );
-        $validSequencePosition->add( 'baz' );
-        $validSequencePosition->next();
-        $validSequencePosition->next();
-
-        $invalidSequencePosition = new Sequence( '*' );
-        $invalidSequencePosition->add( 'foo' );
-        $invalidSequencePosition->add( 'bar' );
-        $invalidSequencePosition->next();
-        $invalidSequencePosition->next();
-
-        return [
-
-            /**
-             * All collections with a bad key() should return NULL
-             * (This is the default functionality of arrays)
-             */
-            'Dictionary with no entries' => [
-                ( new Dictionary( '*', '*' ) ), NULL
-            ],
-            'Sequence with no entries'   => [
-                ( new Sequence( '*' ) ), NULL
-            ],
-            'Dictionary without key()'   => [
-                $invalidDictionPosition, NULL
-            ],
-            'Sequence without key()'     => [
-                $invalidSequencePosition, NULL
-            ],
-
-            // Valid key
-            'Dictionary with key()' => [ $validDictionaryPosition, 1 ],
-            'Sequence with key()'   => [ $validSequencePosition,   2 ]
-        ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                             Iterator->next()
-    *
-    * No need to test this. The only way to test this is to check current()
-    * after next(). This has already been done in current().
-    ***************************************************************************/
-
-
-
-
-    /***************************************************************************
-    *                            Iterator->rewind()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure Collection->rewind() resets to the correct key
-     * 
-     * @dataProvider getTestRewindData
-     * 
-     * @param Collection $collection The collection to test
-     * @param mixed      $expected   The expected key after rewind()
-     */
-    public function testRewind( Collection $collection, $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $collection->rewind(),
-            'Collection->rewind() didn\'t reset to the correct key'
-        );
-    }
-
-
-    /**
-     * Retrieve data for Collection->rewind() test
-     * 
-     * @return array
-     */
-    public function getTestRewindData(): array
-    {
-        $dictionary = new Dictionary( '*', '*' );
-        $dictionary->set( 0, 'foo' );
-        $dictionary->set( 1, 'bar' );
-        $dictionary->next();
-
-        $sequence = new Sequence( '*' );
-        $sequence->add( 'foo' );
-        $sequence->add( 'bar' );
-        $sequence->add( 'baz' );
-        $sequence->next();
-        $sequence->next();
-
-        return [
-
-            /**
-             * All collections with a bad key() should return NULL
-             * (This is the default functionality of arrays)
-             */
-            'Dictionary with no entries' => [ ( new Dictionary( '*', '*' ) ), NULL ],
-            'Sequence with no entries'   => [ ( new Sequence( '*' ) ),   NULL ],
-
-            // Valid rewind
-            'Dictionary with entries' => [ $dictionary, 0 ],
-            'Sequence with entries'   => [ $sequence,   0 ]
-        ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                            Iterator->valid()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure Collection->valid() returns the correct result
-     * 
-     * @dataProvider getTestValidData
-     * 
-     * @param Collection $collection The collection to test
-     * @param mixed      $expected   The expected result from valid()
-     */
-    public function testValid( Collection $collection, $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $collection->valid(),
-            'Collection->valid() didn\'t return the correct result'
-        );
-    }
-
-
-    /**
-     * Retrieve data for Collection->valid() test
-     * 
-     * @return array
-     */
-    public function getTestValidData(): array
-    {
-        $validDictionaryPosition = new Dictionary( '*', '*' );
-        $validDictionaryPosition->set( 0, 'foo' );
-        $validDictionaryPosition->set( 1, 'bar' );
-        $validDictionaryPosition->next();
-
-        $invalidDictionaryPosition = new Dictionary( '*', '*' );
-        $invalidDictionaryPosition->set( 0, 'foo' );
-        $invalidDictionaryPosition->set( 1, 'bar' );
-        $invalidDictionaryPosition->next();
-        $invalidDictionaryPosition->next();
-        
-        $validSequencePosition = new Sequence( '*' );
-        $validSequencePosition->add( 'foo' );
-        $validSequencePosition->add( 'bar' );
-        $validSequencePosition->add( 'baz' );
-        $validSequencePosition->next();
-        $validSequencePosition->next();
-
-        $invalidSequencePosition = new Sequence( '*' );
-        $invalidSequencePosition->add( 'foo' );
-        $invalidSequencePosition->add( 'bar' );
-        $invalidSequencePosition->next();
-        $invalidSequencePosition->next();
-
-        return [
-
-            // Invalid position
-            'Dictionary with no entries' => [
-                ( new Dictionary( '*', '*' ) ), false
-            ],
-            'Sequence with no entries'   => [
-                ( new Sequence( '*' ) ), false
-            ],
-            'Dictionary at bad position' => [
-                $invalidDictionaryPosition, false
-            ],
-            'Sequence at bad position'   => [
-                $invalidSequencePosition, false
-            ],
-
-            // Valid position
-            'Dictionary at good position' => [ $validDictionaryPosition, true ],
-            'Sequence at good position'   => [ $validSequencePosition,   true ]
-        ];
-    }
-
-
-
-
-    /***************************************************************************
-    *                           foreach Collection
-    ***************************************************************************/
-
-
-    /**
-     * Ensure foreach loops over Collection entries
-     * 
-     * @dataProvider getForeachData
-     * 
-     * @param Collection $collection The collection to clone
-     * @param array      $expected   The expected entries
-     */
-    public function testForeach( Collection $collection, array $expected )
-    {
-        $actual = [];
-        foreach ( $collection as $key => $value ) {
-            $actual[ $key ] = $value;
-        }
-        $this->assertEquals(
-            $expected,
-            $actual,
-            'foreach did not loop correctly over the Collection entries'
-        );
-    }
-
-
-    /**
-     * Retrieve data for testing foreach loops
-     * 
-     * @return array
-     */
-    public function getForeachData(): array
-    {
-        return [
-
-            // Dictionary
-            'Empty Dictionary' => [
-                new Dictionary( '*', '*' ),
-                []
-            ],
-            'Non-empty Dictionary' => [
-                new Dictionary( '*', '*', [
-                    'foo' => 'bar',
-                    'biz' => 'baz'
-                ]),
-                [
-                    'foo' => 'bar',
-                    'biz' => 'baz'
-                ]
-            ],
-
-            // Sequence
-            'Empty Sequence' => [
-                new Sequence( '*' ),
-                []
-            ],
-            'Non-empty Sequence' => [
-                new Sequence( '*', [
-                    'foo',
-                    'bar',
-                    'biz',
-                    'baz'
-                ]),
-                [
-                    'foo',
-                    'bar',
-                    'biz',
-                    'baz'
-                ]
-            ]
         ];
     }
 }

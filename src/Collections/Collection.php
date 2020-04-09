@@ -5,6 +5,7 @@ namespace PHP\Collections;
 
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\Cloneable;
+use PHP\Iteration\IIterable;
 use PHP\ObjectClass;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
@@ -13,16 +14,8 @@ use PHP\Types\TypeNames;
 
 /**
  * Defines an iterable set of mutable, key-value pairs
- * 
- * Nested foreach() loops are broken. Use $this->loop() instead. PHP does not
- * clone objects in foreach() loops, therefore, the cursor on the inside loop
- * messes up the one on the outside loop.
- *
- * @see PHP\Collections\Iterator
  */
-abstract class Collection extends ObjectClass implements Cloneable,
-                                                         \Countable,
-                                                         \Iterator
+abstract class Collection extends ObjectClass implements Cloneable, \Countable, IIterable
 {
 
 
@@ -267,12 +260,11 @@ abstract class Collection extends ObjectClass implements Cloneable,
 
 
     /**
-     * @see Iterator->valid()
-     * 
-     * @internal Final: this duplicates other methods.
+     * @deprecated Use getIterator() instead. 04-2020.
      */
     final public function valid(): bool
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         return $this->hasKey( $this->key() );
     }
 
@@ -282,16 +274,6 @@ abstract class Collection extends ObjectClass implements Cloneable,
     /***************************************************************************
     *                                   CLONE
     ***************************************************************************/
-
-
-    /**
-     * Invoked on shallow collection clone
-     **/
-    public function __clone()
-    {
-        // Reset cursor to the beginning
-        $this->rewind();
-    }
 
 
     /**
@@ -375,26 +357,15 @@ abstract class Collection extends ObjectClass implements Cloneable,
 
 
     /**
-     * Iterate over the key-value pairs invoking the callback function with them
-     * 
-     * @internal Final. This method is performance-critical and should not be
-     * overridden for fear of breaking the loop implementation. Also, it is
-     * dependent on sub-methods for operation, which can be changed to correct
-     * this behavior.
-     * 
-     * @internal Type hint of Closure. This type hint should execute slightly
-     * faster than the "callable" pseudo-type. Also, users **should** be using
-     * closures rather than hard-coded, public functions. Doing this needlessly
-     * dirties class namespaces, and should be discouraged.
-     * 
-     * @internal Do not use iterator_apply(). It is at least twice as slow as this.
-     *
-     * @param \Closure $function function( $key, $value ) { return true; }
-     * @return void
-     * @throws \TypeError If the callback does not return a bool
+     * @deprecated Use foreach( Collection ) instead. 04-2020.
      */
     final public function loop( \Closure $function )
     {
+        trigger_error(
+            'Collection->loop() deprecated. Use foreach( Collection ) instead.',
+            E_USER_DEPRECATED
+        );
+
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
         $collection = $this->clone();

@@ -32,10 +32,9 @@ class DictionaryData
     {
         $dictionary = new Dictionary( '*', '*' );
         foreach ( self::GetTyped() as $typedDictionary ) {
-            $typedDictionary->loop( function( $key, $value ) use ( &$dictionary ) {
-                $dictionary->set( $key, $value );
-                return true;
-            });
+            foreach ( $typedDictionary as $value ) {
+                $dictionary->set( $value->getKey(), $value->getValue() );
+            }
         }
         return [
             $dictionary

@@ -23,12 +23,13 @@ class InterfaceTypeTest extends TestCase
      * 
      * @dataProvider getEqualsData
      * 
-     * @param InterfaceType $type        The interface type to test
-     * @param mixed         $typeOrValue A Type instance or value
-     * @param bool          $expected    The expected result
+     * @param string $interface   The interface name
+     * @param mixed  $typeOrValue A Type instance or value
+     * @param bool   $expected    The expected result
      **/
-    public function testEquals( InterfaceType $type, $typeOrValue, bool $expected )
+    public function testEquals( string $interface, $typeOrValue, bool $expected )
     {
+        $type = TypeLookupSingleton::getInstance()->getByName( $interface );
         $this->assertEquals(
             $expected,
             $type->equals( $typeOrValue ),
@@ -48,37 +49,37 @@ class InterfaceTypeTest extends TestCase
 
         return [
             'Same interface' => [
-                $typeLookup->getByName( \Iterator::class ),
+                \Iterator::class,
                 $typeLookup->getByName( \Iterator::class ),
                 true
             ],
             'Parent->equals( child interface type )' => [
-                $typeLookup->getByName( \Iterator::class ),
+                \Iterator::class,
                 $typeLookup->getByName( \SeekableIterator::class ),
                 true
             ],
             'Parent->equals( child class type )' => [
-                $typeLookup->getByName( \Iterator::class ),
+                \Countable::class,
                 $typeLookup->getByName( \PHP\Collections\Collection::class ),
                 true
             ],
             'Parent->equals( child class instance )' => [
-                $typeLookup->getByName( \Iterator::class ),
+                \Countable::class,
                 new \PHP\Collections\Dictionary( '*', '*' ),
                 true
             ],
             'Child->equals( parent interface type )' => [
-                $typeLookup->getByName( \SeekableIterator::class ),
+                \SeekableIterator::class,
                 $typeLookup->getByName( \Iterator::class ),
                 false
             ],
             'Child->equals( other type )' => [
-                $typeLookup->getByName( \SeekableIterator::class ),
+                \SeekableIterator::class,
                 $typeLookup->getByName( 'int' ),
                 false
             ],
             'Child->equals( other type instance )' => [
-                $typeLookup->getByName( \SeekableIterator::class ),
+                \SeekableIterator::class,
                 1,
                 false
             ]

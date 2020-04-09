@@ -668,7 +668,9 @@ class SequenceTest extends TestCase
 
         // Ensure both entry groupings are identical
         else {
-            foreach ( $result as $index => $innerSequence ) {
+            foreach ( $result as $item ) {
+                $index         = $item->getKey();
+                $innerSequence = $item->getValue();
                 $isSame = ( $expected[ $index ] === $innerSequence->toArray() );
                 if ( !$isSame ) {
                     $errorMessage = 'Sequence->split() returned the wrong sub-entries';

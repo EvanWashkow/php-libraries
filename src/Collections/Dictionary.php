@@ -3,13 +3,13 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Exceptions\NotFoundException;
+use PHP\Iteration\Iterator;
 use PHP\Types\Models\AnonymousType;
 
 /**
  * Defines a mutable, unordered, and iterable set of key-value pairs
- *
- * @see PHP\Collections\Iterator
  */
 class Dictionary extends Collection
 {
@@ -83,7 +83,6 @@ class Dictionary extends Collection
     public function clear(): bool
     {
         $this->entries = [];
-        $this->rewind();
         return true;
     }
 
@@ -214,28 +213,31 @@ class Dictionary extends Collection
 
 
     /***************************************************************************
-    *                       ITERATOR INTERFACE OVERRIDES
+    *                      ITERATOR INTERFACE IMPLEMENTATION
     ***************************************************************************/
 
+
+    public function getIterator(): Iterator
+    {
+        return new DictionaryIterator( $this );
+    }
+
+
     /**
-     * @see Iterator->current()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function current()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         return current( $this->entries );
     }
 
     /**
-     * @see Iterator->key()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function key()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         $key = key( $this->entries );
         
         /**
@@ -251,24 +253,20 @@ class Dictionary extends Collection
     }
 
     /**
-     * @see Iterator->next()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function next()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         next( $this->entries );
     }
 
     /**
-     * @see Iterator->rewind()
-     * 
-     * @internal Final: this functionality should not be changed otherwise loops
-     * will not work properly.
+     * @deprecated Use getIterator() instead. 04-2020
      */
     final public function rewind()
     {
+        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
         reset( $this->entries );
     }
 }
