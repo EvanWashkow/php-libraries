@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections\Iterators;
 
-use PHP\Collections\Iterators\IteratedKeyValue;
+use PHP\Collections\Iterators\DeprecatedKeyValuePair;
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
@@ -147,7 +147,7 @@ class SequenceIteratorTest extends TestCase
         return [
             'Unmoved Sequence' => [
                 clone $iterator,
-                new IteratedKeyValue( 0, 1 )
+                new DeprecatedKeyValuePair( 0, 1 )
             ],
             'Sequence => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -155,7 +155,7 @@ class SequenceIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new IteratedKeyValue( 1, 2 )
+                new DeprecatedKeyValuePair( 1, 2 )
             ],
             'Sequence => goToNext() => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -164,7 +164,7 @@ class SequenceIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new IteratedKeyValue( 2, 3 )
+                new DeprecatedKeyValuePair( 2, 3 )
             ]
         ];
     }

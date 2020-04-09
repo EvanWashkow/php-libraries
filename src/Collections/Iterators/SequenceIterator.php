@@ -45,6 +45,6 @@ class SequenceIterator extends IndexedIterator
 
         // Return Key-Value Pair for this entry
         $key = $this->getKey();
-        return new IteratedKeyValue( $key, $this->sequence->get( $key ) );
+        return new DeprecatedKeyValuePair( $key, $this->sequence->get( $key ) );
     }
 }

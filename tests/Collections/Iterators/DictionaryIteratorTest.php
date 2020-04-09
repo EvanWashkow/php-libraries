@@ -5,7 +5,7 @@ namespace PHP\Tests\Collections\Iterators;
 
 use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
-use PHP\Collections\Iterators\IteratedKeyValue;
+use PHP\Collections\Iterators\DeprecatedKeyValuePair;
 use PHP\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
@@ -112,7 +112,7 @@ class DictionaryIteratorTest extends TestCase
      * 
      * @dataProvider getValueReturnedKeyValuePairTestData
      */
-    public function testGetValueReturnedKeyValuePair( DictionaryIterator $iterator, IteratedKeyValue $expected )
+    public function testGetValueReturnedKeyValuePair( DictionaryIterator $iterator, DeprecatedKeyValuePair $expected )
     {
         $this->assertEquals(
             $expected,
@@ -133,7 +133,7 @@ class DictionaryIteratorTest extends TestCase
         return [
             'Unmoved DictionaryIterator' => [
                 clone $iterator,
-                new IteratedKeyValue( 'foo', 'bar' )
+                new DeprecatedKeyValuePair( 'foo', 'bar' )
             ],
             'DictionaryIterator => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -141,7 +141,7 @@ class DictionaryIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new IteratedKeyValue( 'biz', 'baz' )
+                new DeprecatedKeyValuePair( 'biz', 'baz' )
             ],
             'DictionaryIterator => goToNext() => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -150,7 +150,7 @@ class DictionaryIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new IteratedKeyValue( 'one', 'two' )
+                new DeprecatedKeyValuePair( 'one', 'two' )
             ],
             'Dictionary => remove(), DictionaryIterator => goToNext()' => [
                 (function() use ( $dictionary ) {
@@ -160,7 +160,7 @@ class DictionaryIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new IteratedKeyValue( 'one', 'two' )
+                new DeprecatedKeyValuePair( 'one', 'two' )
             ]
         ];
     }
