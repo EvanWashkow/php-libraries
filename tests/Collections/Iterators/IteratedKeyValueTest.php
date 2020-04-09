@@ -3,14 +3,14 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections\Iterators;
 
-use PHP\Collections\Iterators\IteratedKeyValue;
+use PHP\Collections\Iterators\DeprecatedKeyValuePair;
 use PHP\Collections\KeyValuePair;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests IteratedKeyValue
+ * Tests DeprecatedKeyValuePair
  */
-class IteratedKeyValueTest extends TestCase
+class DeprecatedKeyValuePairTest extends TestCase
 {
 
 
@@ -21,8 +21,8 @@ class IteratedKeyValueTest extends TestCase
     {
         $this->assertInstanceOf(
             KeyValuePair::class,
-            new IteratedKeyValue( 'one', 'two' ),
-            'IteratedKeyValue is not a KeyValuePair.'
+            new DeprecatedKeyValuePair( 'one', 'two' ),
+            'DeprecatedKeyValuePair is not a KeyValuePair.'
         );
     }
 }

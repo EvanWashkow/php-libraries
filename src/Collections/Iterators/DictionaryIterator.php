@@ -56,7 +56,7 @@ class DictionaryIterator extends IndexedIterator
             $key = "$key";
         }
 
-        return new IteratedKeyValue( $key, $this->dictionary->get( $key ) );
+        return new DeprecatedKeyValuePair( $key, $this->dictionary->get( $key ) );
     }
 
 
