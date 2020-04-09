@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections\Iterators;
 
-use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
 use PHP\Iteration\IndexedIterator;
 
@@ -35,7 +34,7 @@ class SequenceIterator extends IndexedIterator
     }
 
 
-    public function getValue(): KeyValuePair
+    public function getValue()
     {
         // Exit. Currently at an invalid index.
         if ( !$this->hasCurrent() ) {
