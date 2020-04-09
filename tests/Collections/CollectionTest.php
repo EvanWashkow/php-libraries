@@ -1052,13 +1052,9 @@ class CollectionTest extends TestCase
             // Get first key and value
             $key   = null;
             $value = null;
-            foreach ( $collection as $k => $v ) {
-                if ( $v instanceof KeyValuePair ) {
-                    $k = $v->getKey();
-                    $v = $v->getValue();
-                }
-                $key   = $k;
-                $value = $v;
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
                 break;
             }
             $collection->clear();
@@ -1090,15 +1086,11 @@ class CollectionTest extends TestCase
             // Set first key to last value
             $key   = null;
             $value = null;
-            foreach ( $collection as $k => $v ) {
-                if ( $v instanceof KeyValuePair ) {
-                    $k = $v->getKey();
-                    $v = $v->getValue();
-                }
+            foreach ( $collection as $item ) {
                 if ( null === $key ) {
-                    $key = $k;
+                    $key = $item->getKey();
                 }
-                $value = $v;
+                $value = $item->getValue();
             }
             $collection->set( $key, $value );
             
@@ -1121,13 +1113,9 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            foreach ( $collection as $k => $v ) {
-                if ( $v instanceof KeyValuePair ) {
-                    $k = $v->getKey();
-                    $v = $v->getValue();
-                }
-                $key   = $k;
-                $value = $v;
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
                 break;
             }
             
@@ -1155,13 +1143,9 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key   = null;
             $value = null;
-            foreach ( $collection as $k => $v ) {
-                if ( $v instanceof KeyValuePair ) {
-                    $k = $v->getKey();
-                    $v = $v->getValue();
-                }
-                $key   = $k;
-                $value = $v;
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
                 break;
             }
             try {
@@ -1185,13 +1169,9 @@ class CollectionTest extends TestCase
         foreach ( CollectionData::GetTyped() as $collection ) {
             $key;
             $value;
-            foreach ( $collection as $k => $v ) {
-                if ( $v instanceof KeyValuePair ) {
-                    $k = $v->getKey();
-                    $v = $v->getValue();
-                }
-                $key   = $k;
-                $value = $v;
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
                 break;
             }
             
@@ -1223,13 +1203,9 @@ class CollectionTest extends TestCase
             
             $key;
             $value;
-            foreach ( $collection as $k => $v ) {
-                if ( $v instanceof KeyValuePair ) {
-                    $k = $v->getKey();
-                    $v = $v->getValue();
-                }
-                $key   = $k;
-                $value = $v;
+            foreach ( $collection as $item ) {
+                $key   = $item->getKey();
+                $value = $item->getValue();
                 break;
             }
             try {
