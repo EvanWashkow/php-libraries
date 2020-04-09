@@ -136,7 +136,7 @@ class SequenceIteratorTest extends TestCase
         $this->assertEquals(
             $expected,
             $iterator->getValue(),
-            'SequenceIterator->getValue() returned the wrong result.'
+            'SequenceIterator->getValue() did not return the expected Key Value Pair.'
         );
     }
 
