@@ -28,10 +28,14 @@ final class Types
      */
     public static function GetByName( string $name ): Type
     {
-        trigger_error(
-            '\\PHP\\Types::GetByName() is deprecated. Use \\PHP\\Types\\TypeLookup->getByName() instead.',
-            E_USER_DEPRECATED
-        );
+        static $isFirstGetByName = true;
+        if ( $isFirstGetByName ) {
+            trigger_error(
+                '\\PHP\\Types::GetByName() is deprecated. Use \\PHP\\Types\\TypeLookup->getByName() instead.',
+                E_USER_DEPRECATED
+            );
+            $isFirstGetByName = false;
+        }
         try {
             $type = TypeLookupSingleton::getInstance()->getByName( $name );
         } catch ( \DomainException $de ) {
@@ -48,10 +52,14 @@ final class Types
      */
     public static function GetByValue( $value ): Type
     {
-        trigger_error(
-            '\\PHP\\Types::GetByValue() is deprecated. Use \\PHP\\Types\\TypeLookup->getByValue() instead.',
-            E_USER_DEPRECATED
-        );
+        static $isFirstGetByValue = true;
+        if ( $isFirstGetByValue ) {
+            trigger_error(
+                '\\PHP\\Types::GetByValue() is deprecated. Use \\PHP\\Types\\TypeLookup->getByValue() instead.',
+                E_USER_DEPRECATED
+            );
+            $isFirstGetByValue = false;
+        }
         return TypeLookupSingleton::getInstance()->getByValue( $value );
     }
 }
