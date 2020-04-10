@@ -228,7 +228,11 @@ class Dictionary extends Collection
      */
     final public function current()
     {
-        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        static $isFirstCurrent = true;
+        if ( $isFirstCurrent ) {
+            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+            $isFirstCurrent = false;
+        }
         return current( $this->entries );
     }
 
@@ -237,7 +241,11 @@ class Dictionary extends Collection
      */
     final public function key()
     {
-        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        static $isFirstKey = true;
+        if ( $isFirstKey ) {
+            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+            $isFirstKey = false;
+        }
         $key = key( $this->entries );
         
         /**
@@ -257,7 +265,11 @@ class Dictionary extends Collection
      */
     final public function next()
     {
-        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        static $isFirstNext = true;
+        if ( $isFirstNext ) {
+            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+            $isFirstNext = false;
+        }
         next( $this->entries );
     }
 
@@ -266,7 +278,11 @@ class Dictionary extends Collection
      */
     final public function rewind()
     {
-        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        static $isFirstRewind = true;
+        if ( $isFirstRewind ) {
+            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+            $isFirstRewind = false;
+        }
         reset( $this->entries );
     }
 }
