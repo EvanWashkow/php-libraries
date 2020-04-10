@@ -264,7 +264,11 @@ abstract class Collection extends ObjectClass implements Cloneable, \Countable, 
      */
     final public function valid(): bool
     {
-        trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        static $isFirstValid = true;
+        if ( $isFirstValid ) {
+            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+            $isFirstValid = false;
+        }
         return $this->hasKey( $this->key() );
     }
 
@@ -361,27 +365,23 @@ abstract class Collection extends ObjectClass implements Cloneable, \Countable, 
      */
     final public function loop( \Closure $function )
     {
-        trigger_error(
-            'Collection->loop() deprecated. Use foreach( Collection ) instead.',
-            E_USER_DEPRECATED
-        );
+        static $isFirstLoop = true;
+        if ( $isFirstLoop ) {
+            trigger_error(
+                'Collection->loop() deprecated. Use foreach( Collection ) instead.',
+                E_USER_DEPRECATED
+            );
+            $isFirstLoop = false;
+        }
 
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
-        $collection = $this->clone();
-        while ( $collection->valid() ) {
-            
-            // Execute callback function with key and value
-            $canContinue = $function( $collection->key(), $collection->current() );
-            
-            // Handle return value
-            if ( true === $canContinue ) {
-                $collection->next();
-            }
-            elseif ( false === $canContinue ) {
+        foreach ( $this as $entry ) {
+            $canContinue = $function( $entry->getKey(), $entry->getValue() );
+            if ( false === $canContinue ) {
                 break;
             }
-            else {
+            elseif ( true !== $canContinue ) {
                 throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
             }
         }
