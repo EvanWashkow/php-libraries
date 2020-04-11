@@ -1,8 +1,14 @@
 <?php
 namespace PHP\Debug;
 
+// Deprecated (04-2020)
+trigger_error(
+    StackTrace::class . ' is deprecated.',
+    E_USER_DEPRECATED
+);
+
 /**
- * Defines helper for the system stack trace
+ * @deprecated
  */
 final class StackTrace
 {

@@ -1,6 +1,12 @@
 <?php
 namespace PHP;
 
+// Deprecated (04-2020)
+trigger_error(
+    URL::class . ' is deprecated.',
+    E_USER_DEPRECATED
+);
+
 use PHP\Interfaces\Cloneable;
 
 /**
