@@ -38,7 +38,7 @@ foreach( $dictionary as $item ) {
 A Sequence's values can be iterated over directly without needing to retrieve its values first:
 
 ```
-foreach( $sequence as $key ) {
+foreach( $sequence as $value ) {
     // ...
 }
 ```
