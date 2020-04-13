@@ -36,15 +36,11 @@ class SequenceIterator extends IndexedIterator
 
     public function getValue()
     {
-        // Exit. Currently at an invalid index.
         if ( !$this->hasCurrent() ) {
             throw new \OutOfBoundsException(
                 'Cannot retrieve the current value: the index is at an invalid position.'
             );
         }
-
-        // Return Key-Value Pair for this entry
-        $key = $this->getKey();
-        return new DeprecatedKeyValuePair( $key, $this->sequence->get( $key ) );
+        return $this->sequence->get( $this->getKey() );
     }
 }
