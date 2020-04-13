@@ -6,7 +6,7 @@ namespace PHP\Collections\Iterators;
 use PHP\Collections\KeyValuePair;
 
 /**
- * Provides backwards compatibility with old foreach( Collection as $key => $value ) behavior.
+ * Provides backwards compatibility with old foreach( Dictionary as $key => $value ) behavior.
  * 
  * Now, rather than accessing the $value's properties and methods directly, the programmer must use a KeyValuePair (this
  * class). Old implementations are not yet compatible with this behavior, and are still accessing the value's properties
@@ -26,7 +26,7 @@ class DeprecatedKeyValuePair extends KeyValuePair
         static $isFirstCall = true;
         if ( $isFirstCall ) {
             trigger_error(
-                'foreach( Collection as $item ) behavior has changed. Call $item->getValue() before calling the value\'s method.',
+                'foreach( Dictionary as $item ) behavior has changed. Call $item->getValue() before calling the value\'s method.',
                 E_USER_DEPRECATED
             );
             $isFirstCall = false;
@@ -43,7 +43,7 @@ class DeprecatedKeyValuePair extends KeyValuePair
         static $isFirstGet = true;
         if ( $isFirstGet ) {
             trigger_error(
-                'foreach( Collection as $item ) behavior has changed. Call $item->getValue() before accessing the value\'s property.',
+                'foreach( Dictionary as $item ) behavior has changed. Call $item->getValue() before accessing the value\'s property.',
                 E_USER_DEPRECATED
             );
             $isFirstGet = false;
