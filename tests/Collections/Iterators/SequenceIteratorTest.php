@@ -3,9 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections\Iterators;
 
-use PHP\Collections\Iterators\DeprecatedKeyValuePair;
 use PHP\Collections\Iterators\SequenceIterator;
-use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
 use PHP\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
@@ -129,9 +127,9 @@ class SequenceIteratorTest extends TestCase
     /**
      * Test getValue() returns the correct result
      * 
-     * @dataProvider getValueKeyValuePairTestData
+     * @dataProvider getValueTestData
      */
-    public function testGetValueKeyValuePair( SequenceIterator $iterator, KeyValuePair $expected )
+    public function testGetValue( SequenceIterator $iterator, $expected )
     {
         $this->assertEquals(
             $expected,
@@ -140,14 +138,14 @@ class SequenceIteratorTest extends TestCase
         );
     }
 
-    public function getValueKeyValuePairTestData(): array
+    public function getValueTestData(): array
     {
         $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2, 3 ] ) );
 
         return [
             'Unmoved Sequence' => [
                 clone $iterator,
-                new DeprecatedKeyValuePair( 0, 1 )
+                1
             ],
             'Sequence => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -155,7 +153,7 @@ class SequenceIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new DeprecatedKeyValuePair( 1, 2 )
+                2
             ],
             'Sequence => goToNext() => goToNext()' => [
                 (function() use ( $iterator ) {
@@ -164,7 +162,7 @@ class SequenceIteratorTest extends TestCase
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                new DeprecatedKeyValuePair( 2, 3 )
+                3
             ]
         ];
     }
