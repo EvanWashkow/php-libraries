@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Enums\Exceptions\MalformedEnumException;
-use PHP\Interfaces\Stringable;
+use PHP\Interfaces\IStringable;
 
 /**
  * Allows users to define (and select from) a strict set of constant strings.
  * 
  * All constants must be public and strings.
  */
-abstract class StringEnum extends Enum implements Stringable
+abstract class StringEnum extends Enum implements IStringable
 {
 
 
