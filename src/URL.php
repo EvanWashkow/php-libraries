@@ -7,12 +7,12 @@ trigger_error(
     E_USER_DEPRECATED
 );
 
-use PHP\Interfaces\Cloneable;
+use PHP\Interfaces\ICloneable;
 
 /**
  * Defines a URL string
  */
-class URL extends ObjectClass implements Cloneable
+class URL extends ObjectClass implements ICloneable
 {
     
     /***************************************************************************
@@ -110,7 +110,7 @@ class URL extends ObjectClass implements Cloneable
     /**
      * @see parent::clone()
      */
-    public function clone(): Cloneable
+    public function clone(): ICloneable
     {
         return clone $this;
     }

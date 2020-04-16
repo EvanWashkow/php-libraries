@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Exceptions\NotFoundException;
-use PHP\Interfaces\Cloneable;
+use PHP\Interfaces\ICloneable;
 use PHP\Iteration\IIterable;
 use PHP\ObjectClass;
 use PHP\Types\Models\AnonymousType;
@@ -15,7 +15,7 @@ use PHP\Types\TypeNames;
 /**
  * Defines an iterable set of mutable, key-value pairs
  */
-abstract class Collection extends ObjectClass implements Cloneable, \Countable, IIterable
+abstract class Collection extends ObjectClass implements ICloneable, \Countable, IIterable
 {
 
 
@@ -285,7 +285,7 @@ abstract class Collection extends ObjectClass implements Cloneable, \Countable, 
      *
      * @return static
      */
-    public function clone(): Cloneable
+    public function clone(): ICloneable
     {
         return clone $this;
     }
