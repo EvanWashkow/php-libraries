@@ -7626,7 +7626,7 @@
 											"top": 238,
 											"width": 109.50341796875,
 											"height": 13,
-											"text": "Equatable"
+											"text": "IEquatable"
 										},
 										{
 											"_type": "LabelView",
@@ -8280,7 +8280,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFr7GEqGM8iIm4="
 							},
-							"name": "Equatable",
+							"name": "IEquatable",
 							"operations": [
 								{
 									"_type": "UMLOperation",

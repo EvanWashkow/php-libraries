@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
-use PHP\Interfaces\Equatable;
+use PHP\Interfaces\IEquatable;
 use ReflectionClass;
 
 /**
@@ -13,7 +13,7 @@ use ReflectionClass;
  * example, any type of File I/O should never be cloned since you cannot have
  * two writers at the same time. This must be determined on a per-case basis.
  */
-class ObjectClass implements Equatable
+class ObjectClass implements IEquatable
 {
 
 
