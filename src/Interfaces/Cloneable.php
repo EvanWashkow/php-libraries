@@ -5,7 +5,7 @@ namespace PHP\Interfaces;
 
 // Deprecated (04-2020)
 trigger_error(
-    'Cloneable is deprecated. Use IClonable instead.',
+    'Cloneable is deprecated. Use ICloneable instead.',
     E_USER_DEPRECATED
 );
 
