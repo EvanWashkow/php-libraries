@@ -5,7 +5,7 @@ namespace PHP\Interfaces;
 
 // Deprecated (04-2020)
 trigger_error(
-    'Stringable is deprecated. Use IStringable instead.',
+    Stringable::class . ' is deprecated. Use IStringable instead.',
     E_USER_DEPRECATED
 );
 
