@@ -8,7 +8,7 @@ trigger_error(
 );
 
 /**
- * Defines a helper for logging debug messages to the system
+ * @deprecated
  */
 class Log
 {

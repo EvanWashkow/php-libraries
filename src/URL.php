@@ -10,7 +10,7 @@ trigger_error(
 use PHP\Interfaces\ICloneable;
 
 /**
- * Defines a URL string
+ * @deprecated
  */
 class URL extends ObjectClass implements ICloneable
 {
