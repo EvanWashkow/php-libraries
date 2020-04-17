@@ -1,12 +1,18 @@
 <?php
 namespace PHP;
 
-use PHP\Interfaces\Cloneable;
+// Deprecated (04-2020)
+trigger_error(
+    URL::class . ' is deprecated.',
+    E_USER_DEPRECATED
+);
+
+use PHP\Interfaces\ICloneable;
 
 /**
- * Defines a URL string
+ * @deprecated
  */
-class URL extends ObjectClass implements Cloneable
+class URL extends ObjectClass implements ICloneable
 {
     
     /***************************************************************************
@@ -104,7 +110,7 @@ class URL extends ObjectClass implements Cloneable
     /**
      * @see parent::clone()
      */
-    public function clone(): Cloneable
+    public function clone(): ICloneable
     {
         return clone $this;
     }

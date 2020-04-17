@@ -3,18 +3,13 @@ declare( strict_types = 1 );
 
 namespace PHP\Interfaces;
 
-/**
- * Determines if one object is equal to another object or value
- */
-interface Equatable
-{
+// Deprecated (04-2020)
+trigger_error(
+    Equatable::class . ' is deprecated. Use IEquatable instead.',
+    E_USER_DEPRECATED
+);
 
-    /**
-     * Determine if this object is the same as another object or value
-     * 
-     * @param mixed $value The value to compare this to
-     * 
-     * @return bool
-     */
-    public function equals( $value ): bool;
-}
+/**
+ * @deprecated Use IEquatable instead.
+ */
+interface Equatable extends IEquatable {}

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
-use PHP\Interfaces\Stringable;
+use PHP\Interfaces\IStringable;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHPUnit\Framework\TestCase;
 
@@ -15,16 +15,16 @@ class StringEnumTest extends TestCase
 
 
     /**
-     * Ensure that StringEnum is Stringable
+     * Ensure that StringEnum is IStringable
      * 
      * @return void
      */
-    public function testIsStringable(): void
+    public function testIsIStringable(): void
     {
         $this->assertInstanceOf(
-            Stringable::class,
+            IStringable::class,
             new GoodStringEnum( GoodStringEnum::ONE ),
-            'StringEnum is not Stringable.'
+            'StringEnum is not IStringable.'
         );
     }
 

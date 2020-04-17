@@ -136,7 +136,7 @@ class Sequence extends Collection
      * Retrieve the key of the first value found
      * 
      * @internal This will derive its matching functionality from object entries
-     * that implement the Equatable interface
+     * that implement the IEquatable interface
      * 
      * @internal This method is not final, since there could be optimizations
      * that child classes could add to this (such as with an ordered sequence of

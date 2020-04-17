@@ -1,8 +1,14 @@
 <?php
 namespace PHP\Debug;
 
+// Deprecated (04-2020)
+trigger_error(
+    Log::class . ' is deprecated.',
+    E_USER_DEPRECATED
+);
+
 /**
- * Defines a helper for logging debug messages to the system
+ * @deprecated
  */
 class Log
 {
