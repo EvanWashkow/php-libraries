@@ -9,9 +9,9 @@ use ReflectionClass;
 /**
  * Defines a basic object
  * 
- * @internal This does not implement ICloneable since not all Objects can be. For
- * example, any type of File I/O should never be cloned since you cannot have
- * two writers at the same time. This must be determined on a per-case basis.
+ * @internal This does not implement ICloneable since not all Objects can be cloned. For  example, any type of File I/O
+ * object should never be cloned since you cannot have two writers at the same time. ICloneable-ity must be determined
+ * on a case-by-case basis.
  */
 class ObjectClass implements IEquatable
 {
