@@ -1319,7 +1319,7 @@
 													"font": "Arial;13;1",
 													"left": 613,
 													"top": 78,
-													"width": 120.326171875,
+													"width": 123.93798828125,
 													"height": 13,
 													"text": "ICloneable"
 												},
@@ -1332,7 +1332,7 @@
 													"font": "Arial;13;0",
 													"left": 613,
 													"top": 93,
-													"width": 120.326171875,
+													"width": 123.93798828125,
 													"height": 13,
 													"text": "(from Interfaces)"
 												},
@@ -1353,7 +1353,7 @@
 											"font": "Arial;13;0",
 											"left": 608,
 											"top": 71,
-											"width": 130.326171875,
+											"width": 133.93798828125,
 											"height": 40,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFxlMEl/2eCQ+Q="
@@ -1406,16 +1406,16 @@
 													"font": "Arial;13;0",
 													"left": 613,
 													"top": 116,
-													"width": 120.326171875,
+													"width": 123.93798828125,
 													"height": 13,
-													"text": "+clone(): Cloneeable",
+													"text": "+clone(): ICloneable",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 608,
 											"top": 111,
-											"width": 130.326171875,
+											"width": 133.93798828125,
 											"height": 23
 										},
 										{
@@ -1455,7 +1455,7 @@
 									"containerChangeable": true,
 									"left": 608,
 									"top": 48,
-									"width": 130.326171875,
+									"width": 133.93798828125,
 									"height": 87,
 									"stereotypeDisplay": "icon",
 									"showNamespace": true,
@@ -1613,7 +1613,7 @@
 													"font": "Arial;13;1",
 													"left": 613,
 													"top": 174,
-													"width": 95.3544921875,
+													"width": 117.43798828125,
 													"height": 13,
 													"text": "IEquatable"
 												},
@@ -1626,7 +1626,7 @@
 													"font": "Arial;13;0",
 													"left": 613,
 													"top": 189,
-													"width": 95.3544921875,
+													"width": 117.43798828125,
 													"height": 13,
 													"text": "(from Interfaces)"
 												},
@@ -1647,7 +1647,7 @@
 											"font": "Arial;13;0",
 											"left": 608,
 											"top": 167,
-											"width": 105.3544921875,
+											"width": 127.43798828125,
 											"height": 40,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFxlMVfbGfgbUY="
@@ -1700,16 +1700,16 @@
 													"font": "Arial;13;0",
 													"left": 613,
 													"top": 212,
-													"width": 95.3544921875,
+													"width": 117.43798828125,
 													"height": 13,
-													"text": "+equals(value)",
+													"text": "+equals(value): bool",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 608,
 											"top": 207,
-											"width": 105.3544921875,
+											"width": 127.43798828125,
 											"height": 23
 										},
 										{
@@ -1749,7 +1749,7 @@
 									"containerChangeable": true,
 									"left": 608,
 									"top": 144,
-									"width": 105.3544921875,
+									"width": 127.43798828125,
 									"height": 87,
 									"stereotypeDisplay": "icon",
 									"showNamespace": true,
@@ -1791,7 +1791,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 561,
+											"left": 566,
 											"top": 140,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -1812,7 +1812,7 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 561,
+											"left": 566,
 											"top": 125,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -1833,7 +1833,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 562,
+											"left": 567,
 											"top": 169,
 											"height": 13,
 											"alpha": -1.5707963267948966,
@@ -1852,7 +1852,7 @@
 										"$ref": "AAAAAAFxNETi2LEhISg="
 									},
 									"lineStyle": 1,
-									"points": "476:163;648.67724609375:160.3409216538915",
+									"points": "476:163;659.718994140625:159.23037719726562",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFxlMXsLGg+eQw="
@@ -9079,7 +9079,9 @@
 											"_parent": {
 												"$ref": "AAAAAAFr7H9iRZBkPxs="
 											},
-											"type": "Cloneeable",
+											"type": {
+												"$ref": "AAAAAAFr7H8l6pA3tuI="
+											},
 											"direction": "return"
 										}
 									]
@@ -9108,8 +9110,16 @@
 											"_parent": {
 												"$ref": "AAAAAAFr7GYjk8+oz2E="
 											},
-											"name": "value",
-											"type": ""
+											"name": "value"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFxlMbu3GhU2Nc=",
+											"_parent": {
+												"$ref": "AAAAAAFr7GYjk8+oz2E="
+											},
+											"type": "bool",
+											"direction": "return"
 										}
 									]
 								}
