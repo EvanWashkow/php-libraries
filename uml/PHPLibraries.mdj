@@ -9957,6 +9957,50 @@
 						},
 						{
 							"_type": "UMLInterface",
+							"_id": "AAAAAAFxlNJ/Rmm5pS8=",
+							"_parent": {
+								"$ref": "AAAAAAFxkNtAAO34zTk="
+							},
+							"name": "ICountable",
+							"ownedElements": [
+								{
+									"_type": "UMLGeneralization",
+									"_id": "AAAAAAFxlNP4dGo54g0=",
+									"_parent": {
+										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
+									},
+									"source": {
+										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
+									},
+									"target": {
+										"$ref": "AAAAAAFxlNNNkGoBI+I="
+									}
+								}
+							],
+							"operations": [
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFxlNKsEWnluZA=",
+									"_parent": {
+										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
+									},
+									"name": "count",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFxlNK2Q2nshD8=",
+											"_parent": {
+												"$ref": "AAAAAAFxlNKsEWnluZA="
+											},
+											"type": "int",
+											"direction": "return"
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "UMLInterface",
 							"_id": "AAAAAAFr7GFzU88mROk=",
 							"_parent": {
 								"$ref": "AAAAAAFxkNtAAO34zTk="
@@ -10015,50 +10059,6 @@
 												"$ref": "AAAAAAFsfwAUecXXtXc="
 											},
 											"type": "string",
-											"direction": "return"
-										}
-									]
-								}
-							]
-						},
-						{
-							"_type": "UMLInterface",
-							"_id": "AAAAAAFxlNJ/Rmm5pS8=",
-							"_parent": {
-								"$ref": "AAAAAAFxkNtAAO34zTk="
-							},
-							"name": "ICountable",
-							"ownedElements": [
-								{
-									"_type": "UMLGeneralization",
-									"_id": "AAAAAAFxlNP4dGo54g0=",
-									"_parent": {
-										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
-									},
-									"source": {
-										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
-									},
-									"target": {
-										"$ref": "AAAAAAFxlNNNkGoBI+I="
-									}
-								}
-							],
-							"operations": [
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFxlNKsEWnluZA=",
-									"_parent": {
-										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
-									},
-									"name": "count",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFxlNK2Q2nshD8=",
-											"_parent": {
-												"$ref": "AAAAAAFxlNKsEWnluZA="
-											},
-											"type": "int",
 											"direction": "return"
 										}
 									]
