@@ -7903,7 +7903,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFxkNirLO3JFTI="
 					},
-					"name": "ObjectClass",
+					"name": "PHP",
 					"ownedViews": [
 						{
 							"_type": "UMLClassView",
