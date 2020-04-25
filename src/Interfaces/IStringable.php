@@ -12,7 +12,7 @@ interface IStringable
 {
 
     /**
-     * Return a string which represents this object.
+     * Convert this object to a string
      * 
      * @return string
      */
