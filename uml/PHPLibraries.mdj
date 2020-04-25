@@ -3826,7 +3826,7 @@
 													"top": 750,
 													"width": 95.3544921875,
 													"height": 13,
-													"text": "IIntable"
+													"text": "IIntegerable"
 												},
 												{
 													"_type": "LabelView",
@@ -13351,7 +13351,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxkNtAAO34zTk="
 							},
-							"name": "IIntable",
+							"name": "IIntegerable",
 							"documentation": "Describes an object that can be converted to an integer of machine-dependant bit size.",
 							"operations": [
 								{
