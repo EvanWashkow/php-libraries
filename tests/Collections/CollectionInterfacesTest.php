@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Interfaces;
+namespace PHP\Tests\Collections;
 
-use PHP\Interfaces\ICountable;
+use PHP\Collections\ICountable;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests Interfaces
+ * Tests Collection Interfaces
  */
-class InterfacesTest extends TestCase
+class CollectionInterfacesTest extends TestCase
 {
 
     /**

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Interfaces;
+namespace PHP\Collections;
 
 /**
  * Describes an object with internal values that can be counted
