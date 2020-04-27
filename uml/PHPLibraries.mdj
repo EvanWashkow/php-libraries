@@ -2024,12 +2024,13 @@
 													"_parent": {
 														"$ref": "AAAAAAFxlNKjmGm/dfI="
 													},
+													"visible": false,
 													"font": "Arial;13;0",
 													"left": 565,
 													"top": 461,
 													"width": 102.18006896972656,
 													"height": 13,
-													"text": "(from Interfaces)"
+													"text": "(from Collections)"
 												},
 												{
 													"_type": "LabelView",
@@ -2049,7 +2050,7 @@
 											"left": 560,
 											"top": 439,
 											"width": 112.18006896972656,
-											"height": 40,
+											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFxlNKjmWnA98E="
 											},
@@ -2100,7 +2101,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 565,
-													"top": 484,
+													"top": 469,
 													"width": 102.18006896972656,
 													"height": 13,
 													"text": "+count(): int",
@@ -2109,7 +2110,7 @@
 											],
 											"font": "Arial;13;0",
 											"left": 560,
-											"top": 479,
+											"top": 464,
 											"width": 112.18006896972656,
 											"height": 23
 										},
@@ -2151,9 +2152,8 @@
 									"left": 560,
 									"top": 416,
 									"width": 112.18006896972656,
-									"height": 87,
+									"height": 72,
 									"stereotypeDisplay": "icon",
-									"showNamespace": true,
 									"nameCompartment": {
 										"$ref": "AAAAAAFxlNKjmGm/dfI="
 									},
@@ -2192,7 +2192,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 673,
+											"left": 671,
 											"top": 394,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -2213,7 +2213,7 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 685,
+											"left": 683,
 											"top": 403,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -2234,7 +2234,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 648,
+											"left": 646,
 											"top": 377,
 											"height": 13,
 											"alpha": -1.5707963267948966,
@@ -2253,7 +2253,7 @@
 										"$ref": "AAAAAAFxlMtmz2iVktg="
 									},
 									"lineStyle": 1,
-									"points": "677:369;645:415",
+									"points": "676:369;642:415",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFxlNMF32nzoAY="
@@ -7254,6 +7254,50 @@
 													"direction": "return"
 												}
 											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "UMLInterface",
+							"_id": "AAAAAAFxlNJ/Rmm5pS8=",
+							"_parent": {
+								"$ref": "AAAAAAFxkNjIou3NkGM="
+							},
+							"name": "ICountable",
+							"ownedElements": [
+								{
+									"_type": "UMLGeneralization",
+									"_id": "AAAAAAFxlNP4dGo54g0=",
+									"_parent": {
+										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
+									},
+									"source": {
+										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
+									},
+									"target": {
+										"$ref": "AAAAAAFxlNNNkGoBI+I="
+									}
+								}
+							],
+							"operations": [
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFxlNKsEWnluZA=",
+									"_parent": {
+										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
+									},
+									"name": "count",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFxlNK2Q2nshD8=",
+											"_parent": {
+												"$ref": "AAAAAAFxlNKsEWnluZA="
+											},
+											"type": "int",
+											"direction": "return"
 										}
 									]
 								}
@@ -12950,50 +12994,6 @@
 											"type": {
 												"$ref": "AAAAAAFr7H8l6pA3tuI="
 											},
-											"direction": "return"
-										}
-									]
-								}
-							]
-						},
-						{
-							"_type": "UMLInterface",
-							"_id": "AAAAAAFxlNJ/Rmm5pS8=",
-							"_parent": {
-								"$ref": "AAAAAAFxkNtAAO34zTk="
-							},
-							"name": "ICountable",
-							"ownedElements": [
-								{
-									"_type": "UMLGeneralization",
-									"_id": "AAAAAAFxlNP4dGo54g0=",
-									"_parent": {
-										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
-									},
-									"source": {
-										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
-									},
-									"target": {
-										"$ref": "AAAAAAFxlNNNkGoBI+I="
-									}
-								}
-							],
-							"operations": [
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFxlNKsEWnluZA=",
-									"_parent": {
-										"$ref": "AAAAAAFxlNJ/Rmm5pS8="
-									},
-									"name": "count",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFxlNK2Q2nshD8=",
-											"_parent": {
-												"$ref": "AAAAAAFxlNKsEWnluZA="
-											},
-											"type": "int",
 											"direction": "return"
 										}
 									]
