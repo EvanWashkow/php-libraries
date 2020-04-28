@@ -52,10 +52,6 @@ class EnumTest extends TestCase
                 $this->createMock( Enum::class ),
                 ObjectClass::class
             ],
-            'IntegerEnum is Enum' => [
-                $this->createMock( IntegerEnum::class ),
-                Enum::class
-            ],
             'BitmapEnum is IntegerEnum' => [
                 $this->createMock( BitMapEnum::class ),
                 IntegerEnum::class
