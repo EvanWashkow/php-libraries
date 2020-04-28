@@ -233,7 +233,7 @@ class EnumTest extends TestCase
 
 
     /**
-     * Test the construction of Enums
+     * Test getValue()
      * 
      * @dataProvider getPrimitiveValueComparisonData()
      */
