@@ -1824,12 +1824,13 @@
 													"_parent": {
 														"$ref": "AAAAAAFxlNDm82l1O4w="
 													},
+													"visible": false,
 													"font": "Arial;13;0",
 													"left": 437,
 													"top": 765,
 													"width": 102.18006896972656,
 													"height": 13,
-													"text": "(from Interfaces)"
+													"text": "(from Collections)"
 												},
 												{
 													"_type": "LabelView",
@@ -1849,7 +1850,7 @@
 											"left": 432,
 											"top": 743,
 											"width": 112.18006896972656,
-											"height": 40,
+											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFxlNDm82l2sWc="
 											},
@@ -1900,7 +1901,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 437,
-													"top": 788,
+													"top": 773,
 													"width": 102.18006896972656,
 													"height": 13,
 													"text": "+toArray(): array",
@@ -1909,7 +1910,7 @@
 											],
 											"font": "Arial;13;0",
 											"left": 432,
-											"top": 783,
+											"top": 768,
 											"width": 112.18006896972656,
 											"height": 23
 										},
@@ -1951,9 +1952,8 @@
 									"left": 432,
 									"top": 720,
 									"width": 112.18006896972656,
-									"height": 87,
+									"height": 72,
 									"stereotypeDisplay": "icon",
-									"showNamespace": true,
 									"nameCompartment": {
 										"$ref": "AAAAAAFxlNDm82l1O4w="
 									},
@@ -2028,7 +2028,7 @@
 													"font": "Arial;13;0",
 													"left": 565,
 													"top": 461,
-													"width": 102.18006896972656,
+													"width": 107.31509399414062,
 													"height": 13,
 													"text": "(from Collections)"
 												},
@@ -3041,7 +3041,7 @@
 										"$ref": "AAAAAAFxNETi2LEhISg="
 									},
 									"lineStyle": 1,
-									"points": "883:189;880:592;499.0900344848633:732.4847410770885",
+									"points": "883:189;880:592;499.0900344848633:731",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFxmKWJGtIk6FY="
@@ -7254,6 +7254,35 @@
 													"direction": "return"
 												}
 											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "UMLInterface",
+							"_id": "AAAAAAFxlNBDwGlreK8=",
+							"_parent": {
+								"$ref": "AAAAAAFxkNjIou3NkGM="
+							},
+							"name": "IArrayable",
+							"operations": [
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFxlNEO4mmd4tY=",
+									"_parent": {
+										"$ref": "AAAAAAFxlNBDwGlreK8="
+									},
+									"name": "toArray",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFxlNEcUWmkiyU=",
+											"_parent": {
+												"$ref": "AAAAAAFxlNEO4mmd4tY="
+											},
+											"type": "array",
+											"direction": "return"
 										}
 									]
 								}
@@ -12942,35 +12971,6 @@
 					"ownedElements": [
 						{
 							"_type": "UMLInterface",
-							"_id": "AAAAAAFxlNBDwGlreK8=",
-							"_parent": {
-								"$ref": "AAAAAAFxkNtAAO34zTk="
-							},
-							"name": "IArrayable",
-							"operations": [
-								{
-									"_type": "UMLOperation",
-									"_id": "AAAAAAFxlNEO4mmd4tY=",
-									"_parent": {
-										"$ref": "AAAAAAFxlNBDwGlreK8="
-									},
-									"name": "toArray",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFxlNEcUWmkiyU=",
-											"_parent": {
-												"$ref": "AAAAAAFxlNEO4mmd4tY="
-											},
-											"type": "array",
-											"direction": "return"
-										}
-									]
-								}
-							]
-						},
-						{
-							"_type": "UMLInterface",
 							"_id": "AAAAAAFr7H8l6pA3tuI=",
 							"_parent": {
 								"$ref": "AAAAAAFxkNtAAO34zTk="
@@ -13162,9 +13162,9 @@
 													"font": "Arial;13;0",
 													"left": -1328,
 													"top": -544,
-													"width": 102.18006896972656,
+													"width": 107.31509399414062,
 													"height": 13,
-													"text": "(from Interfaces)"
+													"text": "(from Collections)"
 												},
 												{
 													"_type": "LabelView",
