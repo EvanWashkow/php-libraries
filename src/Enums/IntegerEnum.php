@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Enums\Exceptions\MalformedEnumException;
+use PHP\Interfaces\IIntegerable;
 
 /**
  * Allows users to define (and select from) a strict set of constant integers.
  * 
  * All constants must be public and integers.
  */
-abstract class IntegerEnum extends Enum
+abstract class IntegerEnum extends Enum implements IIntegerable
 {
 
 
@@ -61,6 +62,15 @@ abstract class IntegerEnum extends Enum
      * @return int
      */
     final public function getValue(): int
+    {
+        return parent::getValue();
+    }
+
+
+    /**
+     * @internal Final: the value is non-mutable once it is set by the constructor.
+     */
+    final public function toInt(): int
     {
         return parent::getValue();
     }
