@@ -15,7 +15,7 @@ use PHP\Types\TypeNames;
 /**
  * Defines an iterable set of mutable, key-value pairs
  */
-abstract class Collection extends ObjectClass implements ICloneable, IReadOnlyCollection
+abstract class Collection extends ObjectClass implements IArrayable, ICloneable, IReadOnlyCollection
 {
 
 

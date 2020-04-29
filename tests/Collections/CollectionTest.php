@@ -6,6 +6,7 @@ namespace PHP\Tests;
 use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
+use PHP\Collections\IArrayable;
 use PHP\Collections\IReadOnlyCollection;
 use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
@@ -45,6 +46,7 @@ class CollectionTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
+            IArrayable::class          => [ IArrayable::class ],
             ICloneable::class          => [ ICloneable::class ],
             IReadOnlyCollection::class => [ IReadOnlyCollection::class ]
         ];
