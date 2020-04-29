@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests Collection Interfaces
  */
-class CollectionInterfacesTest extends TestCase
+class InterfacesTest extends TestCase
 {
 
     /**
