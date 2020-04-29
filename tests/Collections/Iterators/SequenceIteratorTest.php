@@ -5,7 +5,7 @@ namespace PHP\Tests\Collections\Iterators;
 
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\Sequence;
-use PHP\Iteration\IndexedIterator;
+use PHP\Collections\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**

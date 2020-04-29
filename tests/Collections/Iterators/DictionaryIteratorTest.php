@@ -6,7 +6,7 @@ namespace PHP\Tests\Collections\Iterators;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Collections\Iterators\DeprecatedKeyValuePair;
-use PHP\Iteration\IndexedIterator;
+use PHP\Collections\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**

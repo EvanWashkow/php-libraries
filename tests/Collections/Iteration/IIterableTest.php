@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Iteration;
+namespace PHP\Tests\Collections\Iteration;
 
-use PHP\Iteration\IIterable;
+use PHP\Collections\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**

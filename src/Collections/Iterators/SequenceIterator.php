@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Sequence;
-use PHP\Iteration\IndexedIterator;
+use PHP\Collections\Iteration\IndexedIterator;
 
 /**
  * Defines an Iterator to traverse Sequences

@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\Iteration\IIterable;
+use PHP\Collections\Iteration\IIterable;
 
 /**
  * Describes an (immutible) object with internal values

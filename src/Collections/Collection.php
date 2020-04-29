@@ -5,7 +5,7 @@ namespace PHP\Collections;
 
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\ICloneable;
-use PHP\Iteration\IIterable;
+use PHP\Collections\Iteration\IIterable;
 use PHP\ObjectClass;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
