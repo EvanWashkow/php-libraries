@@ -45,4 +45,31 @@ class ByteTest extends TestCase
             IStringable::class  => [ IStringable::class ]
         ];
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                   __construct()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test __construct() exceptions
+     * 
+     * @dataProvider getConstructorExceptionsTestData
+     */
+    public function testConstructorExceptions( $constructorArg, string $exceptionName )
+    {
+        $this->expectException( $exceptionName );
+        new Byte( $constructorArg );
+    }
+
+    public function getConstructorExceptionsTestData(): array
+    {
+        return [
+            '1.5'         => [ 1.5,         \InvalidArgumentException::class ],
+            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], \InvalidArgumentException::class ]
+        ];
+    }
 }

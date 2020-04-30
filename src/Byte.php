@@ -21,7 +21,9 @@ class Byte extends ObjectClass implements IIntegerable, IStringable
      */
     public function __construct( $byte )
     {
-        return;
+        if ( !is_int( $byte ) && !is_string( $byte )) {
+            throw new \InvalidArgumentException( 'Byte value must be an integer or string.' );
+        }
     }
 
 
