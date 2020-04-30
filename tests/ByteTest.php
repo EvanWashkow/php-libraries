@@ -69,7 +69,9 @@ class ByteTest extends TestCase
     {
         return [
             '1.5'         => [ 1.5,         \InvalidArgumentException::class ],
-            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], \InvalidArgumentException::class ]
+            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], \InvalidArgumentException::class ],
+            '-1'          => [ -1,          \RangeException::class ],
+            '256'         => [ 256,         \RangeException::class ]
         ];
     }
 }
