@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Collections\Iteration;
+namespace PHP\Tests\Collections\Iterators;
 
-use PHP\Collections\Iteration\SequenceIterator;
+use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\Sequence;
 use PHP\Collections\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
