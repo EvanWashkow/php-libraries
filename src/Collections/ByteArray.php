@@ -65,6 +65,11 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     public function toArray(): array
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        $bytes            = [];
+        $bytesAsIntsArray = unpack( 'C*', $this->bytes );
+        foreach ( $bytesAsIntsArray as $byteAsInt ) {
+            $bytes[] = new Byte( $byteAsInt );
+        }
+        return $bytes;
     }
 }

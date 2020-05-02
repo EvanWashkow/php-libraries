@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections;
 
+use PHP\Byte;
 use PHP\Collections\ByteArray;
 use PHP\Collections\IArrayable;
 use PHP\Collections\IReadOnlyCollection;
@@ -78,6 +79,66 @@ class ByteArrayTest extends TestCase
             ''       => [ '' ],
             'foobar' => [ 'foobar' ],
             'abc'    => [ 'abc' ]
+        ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                     toArray()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test toArray return value
+     * 
+     * @dataProvider getToArrayTestData
+     */
+    public function testToArray( $bytes, array $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            ( new ByteArray( $bytes ))->toArray(),
+            'ByteArray->toArray() did not return the constructed string.'
+        );
+    }
+
+    public function getToArrayTestData(): array
+    {
+        $md5String    = md5( 'foobar', true );
+        $md5IntArray  = unpack( 'C*', $md5String );
+        $md5ByteArray = [];
+        foreach ( $md5IntArray as $byteAsInt ) {
+            $md5ByteArray[] = new Byte( $byteAsInt );
+        }
+
+        return [
+            '' => [
+                '',
+                []
+            ],
+            'ABC' => [
+                'ABC',
+                [
+                    new Byte( 65 ),
+                    new Byte( 66 ),
+                    new Byte( 67 )
+                ]
+            ],
+            'abc' => [
+                'abc',
+                [
+                    new Byte( 97 ),
+                    new Byte( 98 ),
+                    new Byte( 99 )
+                ]
+            ],
+            'md5( foobar )' => [
+                $md5String,
+                $md5ByteArray
+            ]
         ];
     }
 }
