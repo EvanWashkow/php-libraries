@@ -15,15 +15,18 @@ use PHP\ObjectClass;
 class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, IStringable
 {
 
+    /** @var string $bytes The String-typecast representation of the Byte Array */
+    private $bytes;
+
 
     /**
      * Create a new ByteArray instance
      *
-     * @param string $bytes The String typecast of the Byte Array
+     * @param string $bytes The String-typecast representation of the Byte Array
      **/
     public function __construct( string $bytes )
     {
-        return;
+        $this->bytes = $bytes;
     }
 
 
@@ -36,7 +39,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     public function __toString(): string
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        return $this->bytes;
     }
 
 
