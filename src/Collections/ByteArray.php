@@ -48,7 +48,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     public function count(): int
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        return count( $this->toArray() );
     }
 
 

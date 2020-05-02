@@ -87,6 +87,61 @@ class ByteArrayTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                     count()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test count return value
+     * 
+     * @dataProvider getCountTestData
+     */
+    public function testCount( $bytes, int $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            ( new ByteArray( $bytes ))->count(),
+            'ByteArray->count() did not return the expected result.'
+        );
+    }
+
+    public function getCountTestData(): array
+    {
+        return [
+            '' => [
+                '',
+                0
+            ],
+            'ABC' => [
+                'ABC',
+                3
+            ],
+            'foobar' => [
+                'foobar',
+                6
+            ],
+
+            // Hash algorithm count = bit size / bits per byte
+            'md5' => [
+                hash( 'md5', 'foobar', true ),
+                ( 128 / 8 )
+            ],
+            'sha1' => [
+                hash( 'sha1', 'foobar', true ),
+                ( 160 / 8 )
+            ],
+            'sha256' => [
+                hash( 'sha256', 'foobar', true ),
+                ( 256 / 8 )
+            ]
+        ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
     *                                                     toArray()
     *******************************************************************************************************************/
 
