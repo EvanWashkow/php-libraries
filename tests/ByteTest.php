@@ -75,6 +75,85 @@ class ByteTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                        equals()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test equals( Byte ) result
+     * 
+     * @dataProvider getEqualsTestData
+     */
+    public function testEqualsByte( int $byteA, int $byteB, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            ( new Byte( $byteA ) )->equals( new Byte( $byteB )),
+            'Byte->equals( Byte ) did not return the expected result'
+        );
+    }
+
+
+    /**
+     * Test equals( int ) result
+     * 
+     * @dataProvider getEqualsTestData
+     */
+    public function testEqualsInt( int $byteA, int $byteB, bool $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            ( new Byte( $byteA ) )->equals( $byteB ),
+            'Byte->equals( int ) did not return the expected result'
+        );
+    }
+
+
+    /**
+     * Test equals( wrong_type ) result
+     */
+    public function testEqualsWrongType()
+    {
+        $this->assertEquals(
+            false,
+            ( new Byte( 1 ) )->equals( '1' ),
+            'Byte->equals( wrong_type ) did not return the expected result'
+        );
+    }
+
+
+    /**
+     * Retrieve equals() test data
+     * 
+     * @return array
+     */
+    public function getEqualsTestData(): array
+    {
+        // Test data
+        $data = [];
+
+        // Append Byte Integers as true
+        foreach ( $this->getByteIntegers() as $value ) {
+            $byte = $value[ 0 ];
+            $data[ "{$byte}, {$byte}, true" ] = [ $byte, $byte, true ];
+        }
+
+        // Append false
+        $data = array_merge(
+            $data,
+            [
+                '0,   1,   false' => [ 0,   1,   false ],
+                '254, 255, false' => [ 254, 255, false ]
+            ]
+        );
+
+        return $data;
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                        toInt()
     *******************************************************************************************************************/
 

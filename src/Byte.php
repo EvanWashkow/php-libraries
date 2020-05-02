@@ -29,6 +29,19 @@ class Byte extends ObjectClass implements IIntegerable
     }
 
 
+    /**
+     * Determine if this Byte is equal to the given value
+     * 
+     * @param int|Byte $value The value to compare this Byte to 
+     */
+    public function equals( $value ): bool
+    {
+        return ( $value instanceof Byte )
+            ? $this->toInt() === $value->toInt()
+            : $this->toInt() === $value;
+    }
+
+
     public function toInt(): int
     {
         return $this->byte;
