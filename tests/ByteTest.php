@@ -70,4 +70,34 @@ class ByteTest extends TestCase
             '256' => [ 256, \RangeException::class ]
         ];
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                        toInt()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test toInt() exceptions
+     * 
+     * @dataProvider getToIntTestData
+     */
+    public function testToInt( int $byte )
+    {
+        $this->assertEquals(
+            $byte,
+            ( new Byte( $byte ))->toInt(),
+            "Byte->toInt() did not return the Byte's integer value"
+        );
+    }
+
+    public function getToIntTestData(): array
+    {
+        return [
+            '0'   => [ 0 ],
+            '255' => [ 255 ]
+        ];
+    }
 }
