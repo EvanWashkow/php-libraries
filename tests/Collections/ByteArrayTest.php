@@ -101,7 +101,7 @@ class ByteArrayTest extends TestCase
         $this->assertEquals(
             $expected,
             ( new ByteArray( $bytes ))->toArray(),
-            'ByteArray->toArray() did not return the constructed string.'
+            'ByteArray->toArray() did not return the expected array.'
         );
     }
 
