@@ -80,7 +80,7 @@ class ByteTest extends TestCase
 
 
     /**
-     * Test toInt() exceptions
+     * Test toInt() return value
      * 
      * @dataProvider getByteIntegers
      */
