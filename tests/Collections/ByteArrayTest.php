@@ -107,13 +107,6 @@ class ByteArrayTest extends TestCase
 
     public function getToArrayTestData(): array
     {
-        $md5String    = md5( 'foobar', true );
-        $md5IntArray  = unpack( 'C*', $md5String );
-        $md5ByteArray = [];
-        foreach ( $md5IntArray as $byteAsInt ) {
-            $md5ByteArray[] = new Byte( $byteAsInt );
-        }
-
         return [
             '' => [
                 '',
@@ -134,10 +127,6 @@ class ByteArrayTest extends TestCase
                     new Byte( 98 ),
                     new Byte( 99 )
                 ]
-            ],
-            'md5( foobar )' => [
-                $md5String,
-                $md5ByteArray
             ]
         ];
     }
