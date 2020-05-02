@@ -5,12 +5,11 @@ namespace PHP;
 
 use PHP\Exceptions\NotImplementedException;
 use PHP\Interfaces\IIntegerable;
-use PHP\Interfaces\IStringable;
 
 /**
  * Defines an 8-bit Byte
  */
-class Byte extends ObjectClass implements IIntegerable, IStringable
+class Byte extends ObjectClass implements IIntegerable
 {
 
 
@@ -29,12 +28,6 @@ class Byte extends ObjectClass implements IIntegerable, IStringable
         elseif ( !is_string( $byte )) {
             throw new \InvalidArgumentException( 'Byte value must be an integer or string.' );
         }
-    }
-
-
-    public function __toString(): string
-    {
-        throw new NotImplementedException( 'Not implemented, yet.' );
     }
 
 

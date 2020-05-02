@@ -5,7 +5,6 @@ namespace PHP\Tests;
 
 use PHP\Byte;
 use PHP\Interfaces\IIntegerable;
-use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
 
@@ -41,8 +40,7 @@ class ByteTest extends TestCase
     {
         return [
             ObjectClass::class  => [ ObjectClass::class ],
-            IIntegerable::class => [ IIntegerable::class ],
-            IStringable::class  => [ IStringable::class ]
+            IIntegerable::class => [ IIntegerable::class ]
         ];
     }
 
