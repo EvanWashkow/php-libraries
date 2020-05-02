@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use PHP\Collections\Iterators\SequenceIterator;
+use PHP\Collections\Iteration\SequenceIterator;
 use PHP\Exceptions\NotFoundException;
 use PHP\Collections\Iteration\Iterator;
 use PHP\Types\Models\AnonymousType;

@@ -6,7 +6,7 @@ namespace PHP\Tests\Collections\Iterators;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
-use PHP\Collections\Iterators\SequenceIterator;
+use PHP\Collections\Iteration\SequenceIterator;
 use PHP\Collections\Sequence;
 use PHP\Collections\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;

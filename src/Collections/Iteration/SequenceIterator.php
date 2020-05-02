@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Collections\Iterators;
+namespace PHP\Collections\Iteration;
 
 use PHP\Collections\Sequence;
 use PHP\Collections\Iteration\IndexedIterator;
