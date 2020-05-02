@@ -82,7 +82,7 @@ class ByteTest extends TestCase
     /**
      * Test toInt() exceptions
      * 
-     * @dataProvider getToIntTestData
+     * @dataProvider getByteIntegers
      */
     public function testToInt( int $byte )
     {
@@ -93,7 +93,17 @@ class ByteTest extends TestCase
         );
     }
 
-    public function getToIntTestData(): array
+
+
+
+    /*******************************************************************************************************************
+    *                                                 SHARED DATA PROVIDERS
+    *******************************************************************************************************************/
+
+    /**
+     * Retrieve a list of Bytes represented as an Integer
+     */
+    public function getByteIntegers(): array
     {
         return [
             '0'   => [ 0 ],
