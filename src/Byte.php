@@ -11,14 +11,14 @@ use PHP\Interfaces\IIntegerable;
 class Byte extends ObjectClass implements IIntegerable
 {
 
-    /** @var int $byte The Byte, represented as an integer */
+    /** @var int $byte The Integer equivalent of the Byte */
     private $byte;
 
 
     /**
      * Creates a new Byte instance
      * 
-     * @param int $byte The Byte, represented as an integer
+     * @param int $byte The Integer equivalent of the Byte
      */
     public function __construct( int $byte )
     {
@@ -42,6 +42,9 @@ class Byte extends ObjectClass implements IIntegerable
     }
 
 
+    /**
+     * Retrieve the Integer equivalent of this Byte
+     */
     public function toInt(): int
     {
         return $this->byte;
