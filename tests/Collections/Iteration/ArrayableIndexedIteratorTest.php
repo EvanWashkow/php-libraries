@@ -107,16 +107,20 @@ class ArrayableIndexedIteratorTest extends TestCase
      */
     public function testGetValueException( array $array, int $startingIndex )
     {
+        // Create IArrayable object instance
+        $arrayable = $this->createArrayable( $array );
+
+        // Run test
         $this->expectException( \OutOfBoundsException::class );
-        ( new ArrayableIndexedIterator( $this->createArrayable( [], $startingIndex ) ))->getValue();
+        ( new ArrayableIndexedIterator( $arrayable, $startingIndex ) )->getValue();
     }
 
     public function getGetValueExceptionTestData(): array
     {
         return [
             '[]'          => [ [],          0 ],
-            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], 0 ]     // ERROR!!!!!!
-
+            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], 3 ],
+            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], -1 ]
         ];
     }
 
