@@ -26,6 +26,7 @@ abstract class IndexedIterator extends Iterator
      * 
      * @param int $startingIndex The starting index
      * @param int $incrementBy   The amount to increment the current index by on every goToNext()
+     * @throws \DomainException If incrementBy is zero
      */
     public function __construct( int $startingIndex, int $incrementBy = 1 )
     {
