@@ -53,6 +53,19 @@ class ArrayableIndexedIterator extends IndexedIterator
 
 
     /**
+     * Retrieves the IArrayable object instance
+     * 
+     * @internal Final: this must always reflect the constructed value.
+     * 
+     * @return IArrayable
+     */
+    final protected function getArrayable(): IArrayable
+    {
+        return $this->arrayable;
+    }
+
+
+    /**
      * Retrieve the IArrayable array with integer indexes
      * 
      * This will fetch the current values from IArrayable, which will reflect any changes (additions / removals) there.
@@ -61,6 +74,6 @@ class ArrayableIndexedIterator extends IndexedIterator
      */
     protected function toArray(): array
     {
-        return array_values( $this->arrayable->toArray() );
+        return array_values( $this->getArrayable()->toArray() );
     }
 }
