@@ -66,7 +66,7 @@ class ArrayableIndexedIteratorTest extends TestCase
 
 
     /**
-     * Test __construct() sets parent constructor value
+     * Test __construct() sets parent constructor values
      * 
      * @dataProvider getParentConstructorTestData
      */
