@@ -80,8 +80,7 @@ class ArrayableIndexedIteratorTest extends TestCase
     public function testHasCurrent( array $array, int $startingIndex, int $incrementBy, bool $expected )
     {
         // Create IArrayable object instance
-        $arrayable = $this->createMock( IArrayable::class );
-        $arrayable->method( 'toArray' )->willReturn( $array );
+        $arrayable = $this->createArrayable( $array );
 
         // Run test
         $this->assertEquals(
@@ -113,5 +112,26 @@ class ArrayableIndexedIteratorTest extends TestCase
                 false
             ]
         ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                       UTILITIES
+    *******************************************************************************************************************/
+
+
+    /**
+     * Create an IArrayable instance
+     * 
+     * @param array $array The return value of toArray()
+     * @return IArrayable
+     */
+    private function createArrayable( array $array ): IArrayable
+    {
+        $arrayable = $this->createMock( IArrayable::class );
+        $arrayable->method( 'toArray' )->willReturn( $array );
+        return $arrayable;
     }
 }
