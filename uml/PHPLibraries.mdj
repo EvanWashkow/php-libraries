@@ -4200,7 +4200,7 @@
 												"$ref": "AAAAAAFxNEK3K7EIHEY="
 											},
 											"type": {
-												"$ref": "AAAAAAFxNEA+g7BtKHI="
+												"$ref": "AAAAAAFx2Qsq29nrYGk="
 											},
 											"direction": "return"
 										}
@@ -8370,7 +8370,7 @@
 															"top": 183,
 															"width": 225.8115234375,
 															"height": 13,
-															"text": "+getIterator(): ArrayableIndexedIterator",
+															"text": "+getIterator(): SequenceIterator",
 															"horizontalAlignment": 0
 														}
 													],
