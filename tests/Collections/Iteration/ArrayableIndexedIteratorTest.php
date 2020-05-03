@@ -63,4 +63,55 @@ class ArrayableIndexedIteratorTest extends TestCase
             0
         );
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                     hasCurrent()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test hasCurrent() return value
+     * 
+     * @dataProvider getHasCurrentTestData
+     */
+    public function testHasCurrent( array $array, int $startingIndex, int $incrementBy, bool $expected )
+    {
+        // Create IArrayable object instance
+        $arrayable = $this->createMock( IArrayable::class );
+        $arrayable->method( 'toArray' )->willReturn( $array );
+
+        // Run test
+        $this->assertEquals(
+            $expected,
+            ( new ArrayableIndexedIterator( $arrayable, $startingIndex, $incrementBy ))->hasCurrent(),
+            'ArrayableIndexedIterator->hasCurrent() did not return the expected value.'
+        );
+    }
+
+    public function getHasCurrentTestData(): array
+    {
+        return [
+            '[], 0, 1' => [
+                [],
+                0,
+                1,
+                false
+            ],
+            '[ 1, 2, 3 ], 0, 1' => [
+                [ 1, 2, 3 ],
+                0,
+                1,
+                true
+            ],
+            '[ 1, 2, 3 ], 3, 1' => [
+                [ 1, 2, 3 ],
+                3,
+                1,
+                false
+            ]
+        ];
+    }
 }

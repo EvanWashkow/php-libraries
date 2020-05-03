@@ -42,7 +42,7 @@ class ArrayableIndexedIterator extends IndexedIterator
 
     public function hasCurrent(): bool
     {
-        throw new NotImplementedException( 'Not implemented, yet.' );
+        return array_key_exists( $this->getKey(), $this->toArray() );
     }
 
 
