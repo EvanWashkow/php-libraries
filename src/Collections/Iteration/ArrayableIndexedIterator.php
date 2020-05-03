@@ -18,11 +18,18 @@ class ArrayableIndexedIterator extends IndexedIterator
     /**
      * Create a new Arrayable Iterator
      * 
-     * @param IArrayable $arrayable The Arrayable object
+     * @param IArrayable $arrayable     The IArrayable object instance
+     * @param int        $startingIndex The starting index
+     * @param int        $incrementBy   The amount to increment the current index by on every goToNext()
+     * @throws \DomainException If incrementBy is zero
      */
-    public function __construct( IArrayable $arrayable )
+    public function __construct( IArrayable $arrayable, int $startingIndex = 0, int $incrementBy = 1 )
     {
-        return;
+        try {
+            parent::__construct( $startingIndex, $incrementBy );
+        } catch ( \DomainException $de ) {
+            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+        }
     }
 
 

@@ -42,4 +42,25 @@ class ArrayableIndexedIteratorTest extends TestCase
             IndexedIterator::class => [ IndexedIterator::class ]
         ];
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                   __construct()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test __construct() throws DomainException
+     */
+    public function testConstructThrowsDomainException()
+    {
+        $this->expectException( \DomainException::class );
+        new ArrayableIndexedIterator(
+            $this->createMock( IArrayable::class ),
+            0,
+            0
+        );
+    }
 }
