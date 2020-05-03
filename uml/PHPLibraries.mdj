@@ -6853,7 +6853,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFxkNu1oO4CpKk="
 									},
-									"name": "IndexedArrayableIterator",
+									"name": "ArrayableIndexedIterator",
 									"ownedElements": [
 										{
 											"_type": "UMLDependency",
@@ -8370,7 +8370,7 @@
 															"top": 183,
 															"width": 225.8115234375,
 															"height": 13,
-															"text": "+getIterator(): IndexedArrayableIterator",
+															"text": "+getIterator(): ArrayableIndexedIterator",
 															"horizontalAlignment": 0
 														}
 													],
@@ -9465,7 +9465,7 @@
 															"top": 263,
 															"width": 451.24853515625,
 															"height": 13,
-															"text": "IndexedArrayableIterator"
+															"text": "ArrayableIndexedIterator"
 														},
 														{
 															"_type": "LabelView",
