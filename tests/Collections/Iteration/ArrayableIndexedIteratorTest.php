@@ -31,7 +31,7 @@ class ArrayableIndexedIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             $expectedParent,
-            new ArrayableIndexedIterator( $this->createMock( IArrayable::class ) ),
+            new ArrayableIndexedIterator( $this->createArrayable( [ 1, 2, 3 ] ) ),
             "ArrayableIndexedIterator is not of type \\{$expectedParent}."
         );
     }
@@ -58,7 +58,7 @@ class ArrayableIndexedIteratorTest extends TestCase
     {
         $this->expectException( \DomainException::class );
         new ArrayableIndexedIterator(
-            $this->createMock( IArrayable::class ),
+            $this->createArrayable( [ 1, 2, 3 ] ),
             0,
             0
         );
