@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Collections\Iteration;
 
 use PHP\Collections\IArrayable;
-use PHP\Collections\Iteration\ArrayableIterator;
+use PHP\Collections\Iteration\ArrayableIndexedIterator;
 use PHP\Collections\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests ArrayableIterator
+ * Tests ArrayableIndexedIterator
  */
-class ArrayableIteratorTest extends TestCase
+class ArrayableIndexedIteratorTest extends TestCase
 {
 
 
@@ -31,8 +31,8 @@ class ArrayableIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             $expectedParent,
-            new ArrayableIterator( $this->createMock( IArrayable::class ) ),
-            "ArrayableIterator is not of type \\{$expectedParent}."
+            new ArrayableIndexedIterator( $this->createMock( IArrayable::class ) ),
+            "ArrayableIndexedIterator is not of type \\{$expectedParent}."
         );
     }
 

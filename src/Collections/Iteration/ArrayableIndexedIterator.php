@@ -9,7 +9,7 @@ use PHP\Exceptions\NotImplementedException;
 /**
  * Iterates over an IArrayable object
  */
-class ArrayableIterator extends IndexedIterator
+class ArrayableIndexedIterator extends IndexedIterator
 {
 
 
