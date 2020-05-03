@@ -7,7 +7,9 @@ use PHP\Collections\IArrayable;
 use PHP\Exceptions\NotImplementedException;
 
 /**
- * Iterates over an IArrayable object
+ * Iterates over an IArrayable using Integer indexes from 0 to n-1.
+ * 
+ * Changes to the object will be reflected in the loop. Clone IArrayable entries before looping as necessary.
  */
 class ArrayableIndexedIterator extends IndexedIterator
 {

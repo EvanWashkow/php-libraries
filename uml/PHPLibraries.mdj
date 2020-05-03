@@ -6882,7 +6882,7 @@
 											}
 										}
 									],
-									"documentation": "Iterates over an IArrayable object using zero-based integer indexes.\n\nChanges to the object will be reflected in the loop",
+									"documentation": "Iterates over an IArrayable using Integer indexes from 0 to n-1.\n \n Changes to the object will be reflected in the loop. Clone IArrayable entries before looping as necessary.",
 									"operations": [
 										{
 											"_type": "UMLOperation",
