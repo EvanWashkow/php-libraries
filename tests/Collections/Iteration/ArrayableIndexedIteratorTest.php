@@ -96,16 +96,37 @@ class ArrayableIndexedIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                     hasCurrent()
+    *                                                     getValue()
     *******************************************************************************************************************/
 
 
     /**
-     * Test hasCurrent() return value
+     * Ensure getValue() throws \OutOfBoundsException
      * 
-     * @dataProvider getHasCurrentTestData
+     * @dataProvider getGetValueExceptionTestData
      */
-    public function testHasCurrent( array $array, int $startingIndex, int $incrementBy, bool $expected )
+    public function testGetValueException( array $array, int $startingIndex )
+    {
+        $this->expectException( \OutOfBoundsException::class );
+        ( new ArrayableIndexedIterator( $this->createArrayable( [], $startingIndex ) ))->getValue();
+    }
+
+    public function getGetValueExceptionTestData(): array
+    {
+        return [
+            '[]'          => [ [],          0 ],
+            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], 0 ]     // ERROR!!!!!!
+
+        ];
+    }
+
+
+    /**
+     * Test getValue() return value
+     * 
+     * @dataProvider getGetValueReturnValueTestData
+     */
+    public function testGetValueReturnValue( array $array, int $startingIndex, int $incrementBy, $expected )
     {
         // Create IArrayable object instance
         $arrayable = $this->createArrayable( $array );
@@ -113,33 +134,24 @@ class ArrayableIndexedIteratorTest extends TestCase
         // Run test
         $this->assertEquals(
             $expected,
-            ( new ArrayableIndexedIterator( $arrayable, $startingIndex, $incrementBy ))->hasCurrent(),
-            'ArrayableIndexedIterator->hasCurrent() did not return the expected value.'
+            ( new ArrayableIndexedIterator( $arrayable, $startingIndex, $incrementBy ))->getValue(),
+            'ArrayableIndexedIterator->getValue() did not return the expected value.'
         );
     }
 
-    public function getHasCurrentTestData(): array
+    public function getGetValueReturnValueTestData(): array
     {
         return [
-            '[], 0, 1' => [
-                [],
-                0,
-                1,
-                false
-            ],
-            '[ 1, 2, 3 ], 0, 1' => [
-                [ 1, 2, 3 ],
-                0,
-                1,
-                true
-            ],
-            '[ 1, 2, 3 ], 3, 1' => [
-                [ 1, 2, 3 ],
-                3,
-                1,
-                false
-            ]
+            '[ 1, 2, 3 ], 0, 1' => [ [ 1, 2, 3 ], 0, 1, 1 ],
+            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 1, 1, 2 ],
+            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 2, 1, 3 ]
         ];
+    }
+
+
+    public function hasCurrent(): bool
+    {
+        return array_key_exists( $this->getKey(), $this->toArray() );
     }
 
 

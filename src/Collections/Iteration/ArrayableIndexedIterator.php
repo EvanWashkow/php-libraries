@@ -48,7 +48,10 @@ class ArrayableIndexedIterator extends IndexedIterator
 
     public function getValue()
     {
-        throw new NotImplementedException( 'Not implemented, yet.' );
+        if ( !$this->hasCurrent() ) {
+            throw new \OutOfBoundsException( 'Value could not be retrieved. Not at a valid position.' );
+        }
+        return $this->toArray()[ $this->getKey() ];
     }
 
 
