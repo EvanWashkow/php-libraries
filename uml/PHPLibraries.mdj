@@ -9750,7 +9750,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 1142,
-													"top": 220,
+													"top": 221,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 15,
@@ -9771,7 +9771,7 @@
 													"visible": null,
 													"font": "Arial;13;0",
 													"left": 1157,
-													"top": 219,
+													"top": 220,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 30,
@@ -9792,7 +9792,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 1113,
-													"top": 223,
+													"top": 222,
 													"height": 13,
 													"alpha": -1.5707963267948966,
 													"distance": 15,
@@ -9810,7 +9810,7 @@
 												"$ref": "AAAAAAFxND6teK/CZBg="
 											},
 											"lineStyle": 1,
-											"points": "1127:201;1130:255",
+											"points": "1127:201;1129:255",
 											"showVisibility": true,
 											"nameLabel": {
 												"$ref": "AAAAAAFx2P/thNnGXkg="
@@ -9951,13 +9951,30 @@
 															"height": 13,
 															"text": "+__construct(sequence: Sequence)",
 															"horizontalAlignment": 0
+														},
+														{
+															"_type": "UMLOperationView",
+															"_id": "AAAAAAFx2Q20iNpDFkA=",
+															"_parent": {
+																"$ref": "AAAAAAFx2Qsq3Nn0qMw="
+															},
+															"model": {
+																"$ref": "AAAAAAFx2Q20OtpAdFg="
+															},
+															"font": "Arial;13;0",
+															"left": 1029,
+															"top": 311,
+															"width": 205.60693359375,
+															"height": 13,
+															"text": "#toArray(): array",
+															"horizontalAlignment": 0
 														}
 													],
 													"font": "Arial;13;0",
 													"left": 1024,
 													"top": 291,
 													"width": 215.60693359375,
-													"height": 23
+													"height": 38
 												},
 												{
 													"_type": "UMLReceptionCompartmentView",
@@ -9995,7 +10012,7 @@
 											"left": 1024,
 											"top": 256,
 											"width": 215.60693359375,
-											"height": 58,
+											"height": 73,
 											"nameCompartment": {
 												"$ref": "AAAAAAFx2Qsq29nuVYs="
 											},
@@ -10034,7 +10051,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 982,
-													"top": 297,
+													"top": 302,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 15,
@@ -10054,8 +10071,8 @@
 													},
 													"visible": null,
 													"font": "Arial;13;0",
-													"left": 983,
-													"top": 312,
+													"left": 982,
+													"top": 317,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 30,
@@ -10076,7 +10093,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 981,
-													"top": 268,
+													"top": 273,
 													"height": 13,
 													"alpha": -1.5707963267948966,
 													"distance": 15,
@@ -10094,7 +10111,7 @@
 												"$ref": "AAAAAAFx2Qsq29nt2Ik="
 											},
 											"lineStyle": 1,
-											"points": "1023:288;941:291",
+											"points": "1023:294;941:295",
 											"showVisibility": true,
 											"nameLabel": {
 												"$ref": "AAAAAAFx2QwVvdojrQ4="
@@ -10246,6 +10263,26 @@
 													"type": {
 														"$ref": "AAAAAAFwkh6KGkJam2o="
 													}
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFx2Q20OtpAdFg=",
+											"_parent": {
+												"$ref": "AAAAAAFx2Qsq29nrYGk="
+											},
+											"name": "toArray",
+											"visibility": "protected",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAFx2Q3MxdpHDQo=",
+													"_parent": {
+														"$ref": "AAAAAAFx2Q20OtpAdFg="
+													},
+													"type": "array",
+													"direction": "return"
 												}
 											]
 										}
