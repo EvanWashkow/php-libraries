@@ -6,9 +6,9 @@ namespace PHP\Collections\Iteration;
 use PHP\Collections\IArrayable;
 
 /**
- * Iterates over an IArrayable using Integer indexes.
+ * Iterates over values in an IArrayable object instance.
  * 
- * Changes to the object will be reflected in the loop. Clone IArrayable entries before looping as necessary.
+ * Changes to the object's array will be reflected in the loop. Clone IArrayable entries before looping as necessary.
  */
 class ArrayableIterator extends IndexedIterator
 {
