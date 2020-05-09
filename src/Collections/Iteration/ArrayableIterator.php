@@ -10,7 +10,7 @@ use PHP\Collections\IArrayable;
  * 
  * Changes to the object will be reflected in the loop. Clone IArrayable entries before looping as necessary.
  */
-class ArrayableIndexedIterator extends IndexedIterator
+class ArrayableIterator extends IndexedIterator
 {
 
     /** @var IArrayable $arrayable The IArrayable object instance */

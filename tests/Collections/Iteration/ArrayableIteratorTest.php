@@ -4,14 +4,14 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Collections\Iteration;
 
 use PHP\Collections\IArrayable;
-use PHP\Collections\Iteration\ArrayableIndexedIterator;
+use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests ArrayableIndexedIterator
+ * Tests ArrayableIterator
  */
-class ArrayableIndexedIteratorTest extends TestCase
+class ArrayableIteratorTest extends TestCase
 {
 
 
@@ -31,8 +31,8 @@ class ArrayableIndexedIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             $expectedParent,
-            new ArrayableIndexedIterator( $this->createArrayable( [ 1, 2, 3 ] ) ),
-            "ArrayableIndexedIterator is not of type \\{$expectedParent}."
+            new ArrayableIterator( $this->createArrayable( [ 1, 2, 3 ] ) ),
+            "ArrayableIterator is not of type \\{$expectedParent}."
         );
     }
 
@@ -57,7 +57,7 @@ class ArrayableIndexedIteratorTest extends TestCase
     public function testConstructThrowsDomainException()
     {
         $this->expectException( \DomainException::class );
-        new ArrayableIndexedIterator(
+        new ArrayableIterator(
             $this->createArrayable( [ 1, 2, 3 ] ),
             0,
             0
@@ -73,13 +73,13 @@ class ArrayableIndexedIteratorTest extends TestCase
     public function testParentConstructor( int $startingIndex, int $incrementBy )
     {
         $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
-        $iterator  = new ArrayableIndexedIterator( $arrayable, $startingIndex, $incrementBy );
+        $iterator  = new ArrayableIterator( $arrayable, $startingIndex, $incrementBy );
 
         $iterator->goToNext();
         $this->assertEquals(
             ( $startingIndex + $incrementBy ),
             $iterator->getKey(),
-            'ArrayableIndexedIterator->getKey() did not return the expected index.'
+            'ArrayableIterator->getKey() did not return the expected index.'
         );
     }
 
@@ -112,7 +112,7 @@ class ArrayableIndexedIteratorTest extends TestCase
 
         // Run test
         $this->expectException( \OutOfBoundsException::class );
-        ( new ArrayableIndexedIterator( $arrayable, $startingIndex ) )->getValue();
+        ( new ArrayableIterator( $arrayable, $startingIndex ) )->getValue();
     }
 
     public function getGetValueExceptionTestData(): array
@@ -138,8 +138,8 @@ class ArrayableIndexedIteratorTest extends TestCase
         // Run test
         $this->assertEquals(
             $expected,
-            ( new ArrayableIndexedIterator( $arrayable, $startingIndex, $incrementBy ))->getValue(),
-            'ArrayableIndexedIterator->getValue() did not return the expected value.'
+            ( new ArrayableIterator( $arrayable, $startingIndex, $incrementBy ))->getValue(),
+            'ArrayableIterator->getValue() did not return the expected value.'
         );
     }
 
