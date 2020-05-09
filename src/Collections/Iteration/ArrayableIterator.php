@@ -57,11 +57,9 @@ class ArrayableIterator extends IndexedIterator
     /**
      * Retrieves the IArrayable object instance
      * 
-     * @internal Final: this must always reflect the constructed value.
-     * 
      * @return IArrayable
      */
-    final protected function getArrayable(): IArrayable
+    protected function getArrayable(): IArrayable
     {
         return $this->arrayable;
     }
