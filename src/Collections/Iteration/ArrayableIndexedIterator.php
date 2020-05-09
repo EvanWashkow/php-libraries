@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Collections\Iteration;
 
 use PHP\Collections\IArrayable;
-use PHP\Exceptions\NotImplementedException;
 
 /**
  * Iterates over an IArrayable using Integer indexes.
