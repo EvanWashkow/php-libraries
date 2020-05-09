@@ -130,7 +130,7 @@ class ArrayableIteratorTest extends TestCase
      * 
      * @dataProvider getGetValueReturnValueTestData
      */
-    public function testGetValueReturnValue( array $array, int $startingIndex, int $incrementBy, $expected )
+    public function testGetValueReturnValue( array $array, int $startingIndex, $expected )
     {
         // Create IArrayable object instance
         $arrayable = $this->createArrayable( $array );
@@ -138,7 +138,7 @@ class ArrayableIteratorTest extends TestCase
         // Run test
         $this->assertEquals(
             $expected,
-            ( new ArrayableIterator( $arrayable, $startingIndex, $incrementBy ))->getValue(),
+            ( new ArrayableIterator( $arrayable, $startingIndex, 1 ))->getValue(),
             'ArrayableIterator->getValue() did not return the expected value.'
         );
     }
@@ -146,9 +146,9 @@ class ArrayableIteratorTest extends TestCase
     public function getGetValueReturnValueTestData(): array
     {
         return [
-            '[ 1, 2, 3 ], 0, 1' => [ [ 1, 2, 3 ], 0, 1, 1 ],
-            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 1, 1, 2 ],
-            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 2, 1, 3 ]
+            '[ 1, 2, 3 ], 0, 1' => [ [ 1, 2, 3 ], 0, 1 ],
+            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 1, 2 ],
+            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 2, 3 ]
         ];
     }
 
