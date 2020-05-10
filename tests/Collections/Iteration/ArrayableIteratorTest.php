@@ -68,9 +68,9 @@ class ArrayableIteratorTest extends TestCase
     /**
      * Test __construct() sets parent constructor values
      * 
-     * @dataProvider getParentConstructorStartingIndexTestData
+     * @dataProvider getParentConstructorTestData
      */
-    public function testParentConstructorStartingIndex( int $startingIndex, int $incrementBy )
+    public function testParentConstructor( int $startingIndex, int $incrementBy )
     {
         $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
         $iterator  = new ArrayableIterator( $arrayable, $startingIndex, $incrementBy );
@@ -83,7 +83,7 @@ class ArrayableIteratorTest extends TestCase
         );
     }
 
-    public function getParentConstructorStartingIndexTestData(): array
+    public function getParentConstructorTestData(): array
     {
         return [
             'start = 0, increment by = 1'  => [ 0, 1 ],
