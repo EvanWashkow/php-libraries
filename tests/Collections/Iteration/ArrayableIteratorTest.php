@@ -72,10 +72,14 @@ class ArrayableIteratorTest extends TestCase
      */
     public function testParentConstructor( int $startingIndex, int $incrementBy )
     {
+        // Create Iterator
         $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
         $iterator  = new ArrayableIterator( $arrayable, $startingIndex, $incrementBy );
 
+        // goToNext() to test startingIndex and incrementBy
         $iterator->goToNext();
+
+        // Test
         $this->assertEquals(
             ( $startingIndex + $incrementBy ),
             $iterator->getKey(),
