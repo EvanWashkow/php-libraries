@@ -153,12 +153,6 @@ class ArrayableIteratorTest extends TestCase
     }
 
 
-    public function hasCurrent(): bool
-    {
-        return array_key_exists( $this->getKey(), $this->toArray() );
-    }
-
-
 
 
     /*******************************************************************************************************************
