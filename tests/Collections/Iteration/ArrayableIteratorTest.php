@@ -149,10 +149,20 @@ class ArrayableIteratorTest extends TestCase
 
     public function getGetValueReturnValueTestData(): array
     {
+        $indexedArray = [ 1, 2, 3 ];
+        $mappedArray  = [ "a" => 1, "b" => 2, "c" => 3 ];
+
         return [
-            '[ 1, 2, 3 ], 0, 1' => [ [ 1, 2, 3 ], 0, 1 ],
-            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 1, 2 ],
-            '[ 1, 2, 3 ], 1, 1' => [ [ 1, 2, 3 ], 2, 3 ]
+
+            // Indexed Arrays
+            'Indexed Arrayable->toArray(): 0, 1' => [ $indexedArray, 0, 1 ],
+            'Indexed Arrayable->toArray(): 1, 1' => [ $indexedArray, 1, 2 ],
+            'Indexed Arrayable->toArray(): 1, 1' => [ $indexedArray, 2, 3 ],
+
+            // Mapped Arrays
+            'Mapped Arrayable->toArray(): 0, 1' => [ $mappedArray, 0, 1 ],
+            'Mapped Arrayable->toArray(): 1, 1' => [ $mappedArray, 1, 2 ],
+            'Mapped Arrayable->toArray(): 1, 1' => [ $mappedArray, 2, 3 ]
         ];
     }
 
