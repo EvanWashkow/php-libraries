@@ -122,9 +122,10 @@ class ArrayableIteratorTest extends TestCase
     public function getGetValueExceptionTestData(): array
     {
         return [
-            '[]'          => [ [],          0 ],
-            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], 3 ],
-            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], -1 ]
+            '[]'           => [ [],          0 ],
+            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ], 3 ],
+            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ], -1 ],
+            "[ 'a' => 1 ]" => [ [ 'a' => 1 ], 1 ]
         ];
     }
 
