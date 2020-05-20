@@ -105,28 +105,23 @@ class ArrayableIteratorTest extends TestCase
 
 
     /**
-     * Ensure getValue() throws \OutOfBoundsException
-     * 
-     * @dataProvider getGetValueExceptionTestData
+     * Ensure getValue() throws \OutOfBoundsException when hasCurrent() returns false
      */
-    public function testGetValueException( array $array, int $startingIndex )
+    public function testGetValueException()
     {
         // Create IArrayable object instance
-        $arrayable = $this->createArrayable( $array );
+        $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
+
+        // Create ArrayableIterator
+        $arrayableIterator = $this->getMockBuilder( ArrayableIterator::class )
+            ->setConstructorArgs([ $arrayable ])
+            ->setMethods([ 'hasCurrent' ])
+            ->getMock();
+        $arrayableIterator->method( 'hasCurrent' )->willReturn( false );
 
         // Run test
         $this->expectException( \OutOfBoundsException::class );
-        ( new ArrayableIterator( $arrayable, $startingIndex ) )->getValue();
-    }
-
-    public function getGetValueExceptionTestData(): array
-    {
-        return [
-            '[]'           => [ [],          0 ],
-            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ], 3 ],
-            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ], -1 ],
-            "[ 'a' => 1 ]" => [ [ 'a' => 1 ], 1 ]
-        ];
+        $arrayableIterator->getValue();
     }
 
 
