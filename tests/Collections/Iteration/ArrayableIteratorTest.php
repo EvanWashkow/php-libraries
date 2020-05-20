@@ -190,14 +190,19 @@ class ArrayableIteratorTest extends TestCase
 
     public function getHasCurrentTestData(): array
     {
+        $indexedArray = [ 1, 2, 3 ];
+        $mappedArray  = [ "a" => 1, "b" => 2, "c" => 3 ];
+
         return [
-            '[]'           => [ [],           0, false ],
-            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ], -1, false ],
-            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ],  0, true ],
-            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ],  2, true ],
-            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ],  3, false ],
-            "[ 'a' => 1 ]" => [ [ 'a' => 1 ], 0, true ],
-            "[ 'a' => 1 ]" => [ [ 'a' => 1 ], 1, false ]
+            '[]'                => [ [],             0, false ],
+            'Indexed Array, -1' => [ $indexedArray, -1, false ],
+            'Indexed Array,  0' => [ $indexedArray,  0, true ],
+            'Indexed Array,  2' => [ $indexedArray,  2, true ],
+            'Indexed Array,  3' => [ $indexedArray,  3, false ],
+            'Mapped Array,  -1' => [ $mappedArray,  -1, false ],
+            'Mapped Array,   0' => [ $mappedArray,   0, true ],
+            'Mapped Array,   2' => [ $mappedArray,   2, true ],
+            'Mapped Array,   3' => [ $mappedArray,   3, false ]
         ];
     }
 
