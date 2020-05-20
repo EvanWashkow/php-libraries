@@ -112,7 +112,7 @@ class ArrayableIteratorTest extends TestCase
         // Create IArrayable object instance
         $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
 
-        // Create ArrayableIterator
+        // Mock ArrayableIterator->hasCurrent() returns false
         $arrayableIterator = $this->getMockBuilder( ArrayableIterator::class )
             ->setConstructorArgs([ $arrayable ])
             ->setMethods([ 'hasCurrent' ])
