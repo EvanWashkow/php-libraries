@@ -171,6 +171,45 @@ class ArrayableIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                     hasCurrent()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure hasCurrent() returns expected result
+     * 
+     * @dataProvider getHasCurrentTestData
+     */
+    public function testHasCurrent( array $array, int $startingIndex, bool $expected )
+    {
+        // Create IArrayable object instance
+        $arrayable = $this->createArrayable( $array );
+
+        // Run test
+        $this->assertEquals(
+            $expected,
+            ( new ArrayableIterator( $arrayable, $startingIndex ) )->hasCurrent(),
+            'ArrayableIterator->hasCurrent() did not return the expected result.'
+        );
+    }
+
+    public function getHasCurrentTestData(): array
+    {
+        return [
+            '[]'           => [ [],           0, false ],
+            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ], -1, false ],
+            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ],  0, true ],
+            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ],  2, true ],
+            '[ 1, 2, 3 ]'  => [ [ 1, 2, 3 ],  3, false ],
+            "[ 'a' => 1 ]" => [ [ 'a' => 1 ], 0, true ],
+            "[ 'a' => 1 ]" => [ [ 'a' => 1 ], 1, false ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                       UTILITIES
     *******************************************************************************************************************/
 
