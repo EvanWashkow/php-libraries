@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections\Iterators;
 
+use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\Sequence;
-use PHP\Collections\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,14 +16,14 @@ class SequenceIteratorTest extends TestCase
 
 
     /**
-     * Ensure SequenceIterator is an instance of a IndexedIterator
+     * Ensure SequenceIterator is an instance of a ArrayableIterator
      */
-    public function testIsIndexedIterator()
+    public function testIsArrayableIterator()
     {
         $this->assertInstanceOf(
-            IndexedIterator::class,
+            ArrayableIterator::class,
             new SequenceIterator( new Sequence( 'int' )),
-            'SequenceIterator is not an IndexedIterator instance.'
+            'SequenceIterator is not an ArrayableIterator instance.'
         );
     }
 

@@ -3,17 +3,17 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections\Iterators;
 
+use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Sequence;
 use PHP\Collections\Iteration\IndexedIterator;
 
 /**
  * Defines an Iterator to traverse Sequences
+ * 
+ * @method Sequence getArrayable()
  */
-class SequenceIterator extends IndexedIterator
+class SequenceIterator extends ArrayableIterator
 {
-
-    /** @var Sequence $sequence The Sequence to traverse */
-    private $sequence;
 
 
     /**
@@ -23,14 +23,13 @@ class SequenceIterator extends IndexedIterator
      */
     public function __construct( Sequence $sequence )
     {
-        parent::__construct( $sequence->getFirstKey() );
-        $this->sequence = $sequence;
+        parent::__construct( $sequence, $sequence->getFirstKey() );
     }
 
 
     public function hasCurrent(): bool
     {
-        return $this->getKey() <= $this->sequence->getLastKey();
+        return $this->getKey() <= $this->getArrayable()->getLastKey();
     }
 
 
@@ -41,6 +40,6 @@ class SequenceIterator extends IndexedIterator
                 'Cannot retrieve the current value: the index is at an invalid position.'
             );
         }
-        return $this->sequence->get( $this->getKey() );
+        return $this->getArrayable()->get( $this->getKey() );
     }
 }
