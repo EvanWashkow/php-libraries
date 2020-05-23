@@ -215,6 +215,23 @@ class ArrayableIteratorTest extends TestCase
 
 
     /**
+     * Create an ArrayableIterator instance
+     * 
+     * @param array $array         The return value of IArrayable->toArray()
+     * @param int   $startingIndex The starting index
+     * @param int   $incrementBy   The amount to increment the index by on every goToNext()
+     */
+    public function createArrayableIterator(
+        array $array,
+        int   $startingIndex = 0,
+        int   $incrementBy   = 1
+    ): ArrayableIterator
+    {
+        return new ArrayableIterator( $this->createArrayable( $array ), $startingIndex, $incrementBy );
+    }
+
+
+    /**
      * Create an IArrayable instance
      * 
      * @param array $array The return value of toArray()
