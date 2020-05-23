@@ -25,21 +25,4 @@ class SequenceIterator extends ArrayableIterator
     {
         parent::__construct( $sequence, $sequence->getFirstKey() );
     }
-
-
-    public function hasCurrent(): bool
-    {
-        return $this->getKey() <= $this->getArrayable()->getLastKey();
-    }
-
-
-    public function getValue()
-    {
-        if ( !$this->hasCurrent() ) {
-            throw new \OutOfBoundsException(
-                'Cannot retrieve the current value: the index is at an invalid position.'
-            );
-        }
-        return $this->getArrayable()->get( $this->getKey() );
-    }
 }
