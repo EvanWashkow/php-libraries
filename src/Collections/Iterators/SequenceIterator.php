@@ -25,4 +25,10 @@ class SequenceIterator extends ArrayableIterator
     {
         parent::__construct( $sequence, $sequence->getFirstKey() );
     }
+
+
+    protected function toArray(): array
+    {
+        return $this->getArrayable()->toArray();
+    }
 }

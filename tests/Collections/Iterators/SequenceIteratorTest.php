@@ -163,8 +163,18 @@ class SequenceIteratorTest extends TestCase
      */
     public function getSequenceIterators(): array
     {
-        // Sequences
-        $zeroBased = new Sequence( 'int', [ 1, 2, 3 ] );
+        // Zero-based index Sequences
+        $zeroBased  = new Sequence( 'int', [ 1, 2, 3 ] );
+
+        // Three-based index Sequences
+        $threeBased = $this->getMockBuilder( Sequence::class )
+            ->setConstructorArgs([ 'int' ])
+            ->setMethods([ 'getFirstKey' ])
+            ->getMock();
+        $threeBased->method( 'getFirstKey' )->willReturn( 3 );
+        $threeBased->set( 3, 1 );
+        $threeBased->set( 4, 2 );
+        $threeBased->set( 5, 2 );
 
         return [
 
@@ -208,6 +218,39 @@ class SequenceIteratorTest extends TestCase
                 })(),
                 false,
                 3,
+                null
+            ],
+
+
+            /**
+             * Three-based indexed Sequences
+             */
+            'SequenceIterator( threeBased )' => [
+                new SequenceIterator( $threeBased ),
+                true,
+                3,
+                1
+            ],
+            'SequenceIterator( threeBased )->goToNext()' => [
+                (function() use ( $threeBased ) {
+                    $iterator = new SequenceIterator( $threeBased );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true,
+                4,
+                2
+            ],
+            'SequenceIterator( threeBased )->goToNext()->goToNext()->goToNext()' => [
+                (function() use ( $threeBased ) {
+                    $iterator = new SequenceIterator( $threeBased );
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false,
+                6,
                 null
             ]
         ];
