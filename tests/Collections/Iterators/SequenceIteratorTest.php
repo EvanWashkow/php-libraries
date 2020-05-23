@@ -83,6 +83,75 @@ class SequenceIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                       getValue()
+    *******************************************************************************************************************/
+
+    /**
+     * Test getValue() return key
+     * 
+     * @dataProvider getSequenceIterators
+     */
+    public function testGetValue( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    {
+        if ( null === $value ) {
+            $this->expectException( \OutOfBoundsException::class );
+            $iterator->getValue();
+        }
+        else {
+            $this->assertEquals(
+                $value,
+                $iterator->getValue(),
+                'SequenceIterator->getValue() did not return the expected value.'
+            );
+        }
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                       getKey()
+    *******************************************************************************************************************/
+
+    /**
+     * Test getKey() return key
+     * 
+     * @dataProvider getSequenceIterators
+     */
+    public function testGetKey( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    {
+        $this->assertEquals(
+            $key,
+            $iterator->getKey(),
+            'SequenceIterator->getKey() did not return the expected value.'
+        );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                      hasCurrent()
+    *******************************************************************************************************************/
+
+    /**
+     * Test hasCurrent() return value
+     * 
+     * @dataProvider getSequenceIterators
+     */
+    public function testHasCurrent( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    {
+        $this->assertEquals(
+            $hasCurrent,
+            $iterator->hasCurrent(),
+            'SequenceIterator->hasCurrent() did not return the expected value.'
+        );
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                   SHARED DATA PROVIDERS
     *******************************************************************************************************************/
 
@@ -100,7 +169,7 @@ class SequenceIteratorTest extends TestCase
             'SequenceIterator([]), zero-based index' => [
                 new SequenceIterator( new Sequence( 'int' ) ),      // SequenceIterator
                 false,                                              // ->hasCurrent()
-                null,                                               // ->getKey()
+                0,                                                  // ->getKey()
                 null                                                // ->getValue()
             ]
         ];
