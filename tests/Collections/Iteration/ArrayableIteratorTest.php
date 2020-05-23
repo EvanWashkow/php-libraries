@@ -210,6 +210,86 @@ class ArrayableIteratorTest extends TestCase
 
 
     /*******************************************************************************************************************
+    *                                                  SHARED DATA PROVIDERS
+    *******************************************************************************************************************/
+
+
+    /**
+     * Retrieve ArrayableIterators for testing
+     */
+    public function getIterators(): array
+    {
+        // IArrayable->toArray() return values
+        $indexedArray = [ 1, 2, 3 ];
+        $mappedArray  = [ "a" => 1, "b" => 2, "c" => 3 ];
+
+        return [
+
+            /**
+             * Example ArrayableIterator for empty IArrayable
+             */
+            'ArrayableIterator( [], 0 )' => [
+                $this->createArrayableIterator( [], 0 ),    // ArrayableIterator
+                false,                                      // ->hasCurrent()
+                null                                        // ->getValue()
+            ],
+
+
+            /**
+             * ArrayableIterator( indexedArray )
+             */
+            'ArrayableIterator( indexedArray, -1 )' => [
+                $this->createArrayableIterator( $indexedArray, -1 ),
+                false,
+                null
+            ],
+            'ArrayableIterator( indexedArray, 0 )' => [
+                $this->createArrayableIterator( $indexedArray, 0 ),
+                true,
+                1
+            ],
+            'ArrayableIterator( indexedArray, 2 )' => [
+                $this->createArrayableIterator( $indexedArray, 2 ),
+                true,
+                3
+            ],
+            'ArrayableIterator( indexedArray, 3 )' => [
+                $this->createArrayableIterator( $indexedArray, 3 ),
+                false,
+                null
+            ],
+
+
+            /**
+             * ArrayableIterator( mappedArray )
+             */
+            'ArrayableIterator( mappedArray, -1 )' => [
+                $this->createArrayableIterator( $mappedArray, -1 ),
+                false,
+                null
+            ],
+            'ArrayableIterator( mappedArray, 0 )' => [
+                $this->createArrayableIterator( $mappedArray, 0 ),
+                true,
+                1
+            ],
+            'ArrayableIterator( mappedArray, 2 )' => [
+                $this->createArrayableIterator( $mappedArray, 2 ),
+                true,
+                3
+            ],
+            'ArrayableIterator( mappedArray, 3 )' => [
+                $this->createArrayableIterator( $mappedArray, 3 ),
+                false,
+                null
+            ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                       UTILITIES
     *******************************************************************************************************************/
 
