@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Collections;
 
 use PHP\Byte;
+use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
 use PHP\Exceptions\NotImplementedException;
 use PHP\Interfaces\IStringable;
@@ -54,7 +55,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
 
     public function getIterator(): Iterator
     {
-        throw new NotImplementedException( 'Not implemented, yet' );
+        return new ArrayableIterator( $this );
     }
 
 

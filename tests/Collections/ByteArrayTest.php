@@ -7,6 +7,7 @@ use PHP\Byte;
 use PHP\Collections\ByteArray;
 use PHP\Collections\IArrayable;
 use PHP\Collections\IReadOnlyCollection;
+use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
@@ -135,6 +136,27 @@ class ByteArrayTest extends TestCase
                 ( 256 / 8 )
             ]
         ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                    getIterator()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure ByteArray->getIterator() returns an ArrayableIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(
+            ArrayableIterator::class,
+            ( new ByteArray( 'ABC' ) )->getIterator(),
+            'ByteArray->getIterator() did not return an ArrayableIterator instance.'
+        );
     }
 
 
