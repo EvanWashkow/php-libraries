@@ -78,4 +78,31 @@ class SequenceIteratorTest extends TestCase
             ]
         ];
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                   SHARED DATA PROVIDERS
+    *******************************************************************************************************************/
+
+
+    /**
+     * Retrieve sample SequenceIterator test data
+     * 
+     * @return array
+     */
+    public function getSequenceIterators(): array
+    {
+        return [
+
+            // Simple SequenceIterator with no entries
+            'SequenceIterator([]), zero-based index' => [
+                new SequenceIterator( new Sequence( 'int' ) ),      // SequenceIterator
+                false,                                              // ->hasCurrent()
+                null,                                               // ->getKey()
+                null                                                // ->getValue()
+            ]
+        ];
+    }
 }
