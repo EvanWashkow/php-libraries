@@ -89,7 +89,7 @@ class SequenceIteratorTest extends TestCase
     /**
      * Test getValue() return key
      * 
-     * @dataProvider getSequenceIterators
+     * @dataProvider getIterators
      */
     public function testGetValue( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
     {
@@ -116,7 +116,7 @@ class SequenceIteratorTest extends TestCase
     /**
      * Test getKey() return key
      * 
-     * @dataProvider getSequenceIterators
+     * @dataProvider getIterators
      */
     public function testGetKey( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
     {
@@ -137,7 +137,7 @@ class SequenceIteratorTest extends TestCase
     /**
      * Test hasCurrent() return value
      * 
-     * @dataProvider getSequenceIterators
+     * @dataProvider getIterators
      */
     public function testHasCurrent( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
     {
@@ -161,7 +161,7 @@ class SequenceIteratorTest extends TestCase
      * 
      * @return array
      */
-    public function getSequenceIterators(): array
+    public function getIterators(): array
     {
         // Zero-based index Sequences
         $zeroBased  = new Sequence( 'int', [ 1, 2, 3 ] );
