@@ -105,61 +105,23 @@ class ArrayableIteratorTest extends TestCase
 
 
     /**
-     * Ensure getValue() throws \OutOfBoundsException when hasCurrent() returns false
-     */
-    public function testGetValueException()
-    {
-        // Create IArrayable object instance
-        $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
-
-        // Mock ArrayableIterator->hasCurrent() returns false
-        $arrayableIterator = $this->getMockBuilder( ArrayableIterator::class )
-            ->setConstructorArgs([ $arrayable ])
-            ->setMethods([ 'hasCurrent' ])
-            ->getMock();
-        $arrayableIterator->method( 'hasCurrent' )->willReturn( false );
-
-        // Run test
-        $this->expectException( \OutOfBoundsException::class );
-        $arrayableIterator->getValue();
-    }
-
-
-    /**
-     * Test getValue() return value
+     * Test getValue() return value and Exception
      * 
-     * @dataProvider getGetValueReturnValueTestData
+     * @dataProvider getIterators
      */
-    public function testGetValueReturnValue( array $array, int $startingIndex, $expected )
+    public function testGetValue( ArrayableIterator $iterator, bool $hasCurrent, ?int $getValue )
     {
-        // Create IArrayable object instance
-        $arrayable = $this->createArrayable( $array );
-
-        // Run test
-        $this->assertEquals(
-            $expected,
-            ( new ArrayableIterator( $arrayable, $startingIndex, 1 ))->getValue(),
-            'ArrayableIterator->getValue() did not return the expected value.'
-        );
-    }
-
-    public function getGetValueReturnValueTestData(): array
-    {
-        $indexedArray = [ 1, 2, 3 ];
-        $mappedArray  = [ "a" => 1, "b" => 2, "c" => 3 ];
-
-        return [
-
-            // Indexed Arrays
-            'Indexed Arrayable->toArray(): 0, 1' => [ $indexedArray, 0, 1 ],
-            'Indexed Arrayable->toArray(): 1, 1' => [ $indexedArray, 1, 2 ],
-            'Indexed Arrayable->toArray(): 1, 1' => [ $indexedArray, 2, 3 ],
-
-            // Mapped Arrays
-            'Mapped Arrayable->toArray(): 0, 1' => [ $mappedArray, 0, 1 ],
-            'Mapped Arrayable->toArray(): 1, 1' => [ $mappedArray, 1, 2 ],
-            'Mapped Arrayable->toArray(): 1, 1' => [ $mappedArray, 2, 3 ]
-        ];
+        if ( null === $getValue ) {
+            $this->expectException( \OutOfBoundsException::class );
+            $iterator->getValue();
+        }
+        else {
+            $this->assertEquals(
+                $getValue,
+                $iterator->getValue(),
+                'ArrayableIterator->getValue() did not return the expected value.'
+            );
+        }
     }
 
 
