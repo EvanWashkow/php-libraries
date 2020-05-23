@@ -14,6 +14,7 @@ interface IIterable extends \IteratorAggregate
      * @internal Specified for additional clarity and to change the return type.
      * 
      * @return Iterator
+     * @throws void
      */
     public function getIterator(): Iterator;
 }
