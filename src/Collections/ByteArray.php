@@ -6,7 +6,6 @@ namespace PHP\Collections;
 use PHP\Byte;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
-use PHP\Exceptions\NotImplementedException;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 
