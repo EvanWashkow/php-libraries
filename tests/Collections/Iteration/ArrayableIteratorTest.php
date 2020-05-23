@@ -173,37 +173,15 @@ class ArrayableIteratorTest extends TestCase
     /**
      * Ensure hasCurrent() returns expected result
      * 
-     * @dataProvider getHasCurrentTestData
+     * @dataProvider getIterators
      */
-    public function testHasCurrent( array $array, int $startingIndex, bool $expected )
+    public function testHasCurrent( ArrayableIterator $iterator, bool $hasCurrent, ?int $getValue )
     {
-        // Create IArrayable object instance
-        $arrayable = $this->createArrayable( $array );
-
-        // Run test
         $this->assertEquals(
-            $expected,
-            ( new ArrayableIterator( $arrayable, $startingIndex ) )->hasCurrent(),
+            $hasCurrent,
+            $iterator->hasCurrent(),
             'ArrayableIterator->hasCurrent() did not return the expected result.'
         );
-    }
-
-    public function getHasCurrentTestData(): array
-    {
-        $indexedArray = [ 1, 2, 3 ];
-        $mappedArray  = [ "a" => 1, "b" => 2, "c" => 3 ];
-
-        return [
-            '[]'                => [ [],             0, false ],
-            'Indexed Array, -1' => [ $indexedArray, -1, false ],
-            'Indexed Array,  0' => [ $indexedArray,  0, true ],
-            'Indexed Array,  2' => [ $indexedArray,  2, true ],
-            'Indexed Array,  3' => [ $indexedArray,  3, false ],
-            'Mapped Array,  -1' => [ $mappedArray,  -1, false ],
-            'Mapped Array,   0' => [ $mappedArray,   0, true ],
-            'Mapped Array,   2' => [ $mappedArray,   2, true ],
-            'Mapped Array,   3' => [ $mappedArray,   3, false ]
-        ];
     }
 
 
