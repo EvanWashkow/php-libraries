@@ -163,14 +163,52 @@ class SequenceIteratorTest extends TestCase
      */
     public function getSequenceIterators(): array
     {
+        // Sequences
+        $zeroBased = new Sequence( 'int', [ 1, 2, 3 ] );
+
         return [
 
-            // Simple SequenceIterator with no entries
+            /**
+             * Example SequenceIterator with no entries
+             */
             'SequenceIterator([]), zero-based index' => [
                 new SequenceIterator( new Sequence( 'int' ) ),      // SequenceIterator
                 false,                                              // ->hasCurrent()
                 0,                                                  // ->getKey()
                 null                                                // ->getValue()
+            ],
+
+
+            /**
+             * Zero-based indexed Sequences
+             */
+            'SequenceIterator( zeroBased )' => [
+                new SequenceIterator( $zeroBased ),
+                true,
+                0,
+                1
+            ],
+            'SequenceIterator( zeroBased )->goToNext()' => [
+                (function() use ( $zeroBased ) {
+                    $iterator = new SequenceIterator( $zeroBased );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true,
+                1,
+                2
+            ],
+            'SequenceIterator( zeroBased )->goToNext()->goToNext()->goToNext()' => [
+                (function() use ( $zeroBased ) {
+                    $iterator = new SequenceIterator( $zeroBased );
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false,
+                3,
+                null
             ]
         ];
     }
