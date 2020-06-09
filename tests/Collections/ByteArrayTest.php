@@ -56,16 +56,23 @@ class ByteArrayTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                    __toString()
+    *                                            __construct() and __toString()
     *******************************************************************************************************************/
 
 
     /**
-     * Test __toString return value
+     * Test __construct() and the resulting __toString() return value
      * 
-     * @dataProvider getToStringTestData
+     *
+     * All other tests are built with the assumption these methods work correctly.
+     * 
+     * @internal The reason they are being tested together is that there should be a x:1 correlation between
+     * __construct() and __toString(). Namely, __construct() should convert the parameters it supports to a string, and
+     * __toString() should return that string.
+     * 
+     * @dataProvider getConstructedStringTestData
      */
-    public function testToString( $bytes, string $expectedString )
+    public function testConstructedString( $bytes, string $expectedString )
     {
         $this->assertEquals(
             $expectedString,
@@ -74,7 +81,7 @@ class ByteArrayTest extends TestCase
         );
     }
 
-    public function getToStringTestData(): array
+    public function getConstructedStringTestData(): array
     {
         return [
             ''       => [ '',       '' ],
