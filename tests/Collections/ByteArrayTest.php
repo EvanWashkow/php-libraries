@@ -84,12 +84,13 @@ class ByteArrayTest extends TestCase
     public function getConstructedStringTestData(): array
     {
         return [
-            ''       => [ '',       '' ],
-            'foobar' => [ 'foobar', 'foobar' ],
-            'abc'    => [ 'abc',    'abc' ],
-            '65'     => [ 65,       'A' ],
-            '66'     => [ 66,       'B' ],
-            '67'     => [ 67,       'C' ]
+            ''        => [ '',                '' ],
+            'foobar'  => [ 'foobar',          'foobar' ],
+            'abc'     => [ 'abc',             'abc' ],
+            '(int)A'  => [ 65,                'A' ],
+            '(int)B'  => [ 66,                'B' ],
+            '(int)C'  => [ 67,                'C' ],
+            '(int)AB' => [ 65 + ( 66 * 256 ), 'AB' ]
         ];
     }
 
