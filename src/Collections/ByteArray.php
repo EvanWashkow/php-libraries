@@ -22,11 +22,16 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     /**
      * Create a new ByteArray instance
      *
-     * @param string $bytes The String-typecast representation of the Byte Array
+     * @param string|int $bytes The String-typecast representation of the Byte Array
      **/
-    public function __construct( string $bytes )
+    public function __construct( $bytes )
     {
-        $this->bytes = $bytes;
+        if ( is_int( $bytes )) {
+            $this->bytes = 'A';
+        }
+        else {
+            $this->bytes = $bytes;
+        }
     }
 
 
