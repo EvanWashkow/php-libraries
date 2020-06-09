@@ -27,7 +27,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     public function __construct( $bytes )
     {
         if ( is_int( $bytes )) {
-            $this->bytes = 'A';
+            $this->bytes = pack( 'i', $bytes );
         }
         else {
             $this->bytes = $bytes;

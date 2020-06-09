@@ -87,7 +87,9 @@ class ByteArrayTest extends TestCase
             ''       => [ '',       '' ],
             'foobar' => [ 'foobar', 'foobar' ],
             'abc'    => [ 'abc',    'abc' ],
-            '65'     => [ 65,       'A' ]
+            '65'     => [ 65,       'A' ],
+            '66'     => [ 66,       'B' ],
+            '67'     => [ 67,       'C' ]
         ];
     }
 
