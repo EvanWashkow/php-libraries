@@ -65,21 +65,21 @@ class ByteArrayTest extends TestCase
      * 
      * @dataProvider getToStringTestData
      */
-    public function testToString( string $string )
+    public function testToString( $bytes, string $expectedString )
     {
         $this->assertEquals(
-            $string,
-            ( new ByteArray( $string ))->__toString(),
-            'ByteArray->__toString() did not return the constructed string.'
+            $expectedString,
+            ( new ByteArray( $bytes ))->__toString(),
+            'ByteArray->__toString() did not return the expected string.'
         );
     }
 
     public function getToStringTestData(): array
     {
         return [
-            ''       => [ '' ],
-            'foobar' => [ 'foobar' ],
-            'abc'    => [ 'abc' ]
+            ''       => [ '',       '' ],
+            'foobar' => [ 'foobar', 'foobar' ],
+            'abc'    => [ 'abc',    'abc' ]
         ];
     }
 
