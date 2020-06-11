@@ -49,20 +49,18 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     private function __constructInt( int $bytes, ?int $byteLength = null ): void
     {
-        // Interpret the integer as being machine-dependent bytes long
-        if ( null === $byteLength ) {
-            $bytes = pack( 'I', $bytes );
-            $this->__constructString( $bytes );
-        }
+        // Convert the bytes to a string
+        $bytes = pack( 'I', $bytes );
 
-        // Interpret the integer as being X-number of bytes long
-        else {
+        // Truncate the integer as X-bytes long
+        if ( null !== $byteLength )
+        {
+            // Ensure Byte Length range is valid
             if ( ( $byteLength < 1 ) || ( 8 < $byteLength ) ) {
                 throw new \DomainException( 'Byte Length must be between 1 and 8.' );
             }
 
             // Convert the bytes to a string
-            $bytes = pack( 'I', $bytes );
             switch ( $byteLength ) {
                 case 1:
                     $bytes = $bytes[ 0 ];
@@ -73,10 +71,10 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
                 default:
                     break;
             }
-
-            // Forward to the string constructor
-            $this->__constructString( $bytes );
         }
+
+        // Forward the resulting Byte string to the string constructor
+        $this->__constructString( $bytes );
     }
 
 
