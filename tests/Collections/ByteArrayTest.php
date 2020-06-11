@@ -57,21 +57,21 @@ class ByteArrayTest extends TestCase
 
     /*******************************************************************************************************************
     *                                            __construct() and __toString()
+    *
+    * All other tests are built with the assumption these methods work correctly.
+    * 
+    * The reason these two functions are being tested together is that there should be a x:1 correlation between
+    * __construct() and __toString(). Namely, __construct() should convert the x number of parameters it supports to a
+    * string, and __toString() should return that string.
     *******************************************************************************************************************/
 
 
     /**
-     * Test __construct() and the resulting __toString() return value
+     * Test __construct( int )
      * 
-     * All other tests are built with the assumption these methods work correctly.
-     * 
-     * @internal The reason these two functions are being tested together is that there should be a x:1 correlation
-     * between __construct() and __toString(). Namely, __construct() should convert the x number of parameters it
-     * supports to a string, and __toString() should return that string.
-     * 
-     * @dataProvider getConstructedStringTestData
+     * @dataProvider getIntegerConstructorTestData
      */
-    public function testConstructedString( $bytes, string $expectedString )
+    public function testIntegerConstructor( int $bytes, ?int $byteLength, string $expectedString )
     {
         $this->assertEquals(
             $expectedString,
@@ -80,16 +80,36 @@ class ByteArrayTest extends TestCase
         );
     }
 
-    public function getConstructedStringTestData(): array
+    public function getIntegerConstructorTestData(): array
     {
         return [
-            ''        => [ '',                '' ],
-            'foobar'  => [ 'foobar',          'foobar' ],
-            'abc'     => [ 'abc',             'abc' ],
-            '(int)A'  => [ 65,                'A' ],
-            '(int)B'  => [ 66,                'B' ],
-            '(int)C'  => [ 67,                'C' ],
-            '(int)AB' => [ 65 + ( 66 * 256 ), 'AB' ]
+            '(int)A'  => [ 65,                1, 'A' ],
+            '(int)B'  => [ 66,                1, 'B' ],
+            '(int)C'  => [ 67,                1, 'C' ],
+            '(int)AB' => [ 65 + ( 66 * 256 ), 2, 'AB' ]
+        ];
+    }
+
+
+    /**
+     * Test __construct( string )
+     * 
+     * @dataProvider getStringConstructorTestData
+     */
+    public function testStringConstructor( string $bytes, string $expectedString )
+    {
+        $this->assertEquals(
+            $expectedString,
+            ( new ByteArray( $bytes ))->__toString(),
+            'ByteArray->__toString() did not return the expected string.'
+        );
+    }
+
+    public function getStringConstructorTestData(): array
+    {
+        return [
+            ''    => [ '',    '' ],
+            'ABC' => [ 'ABC', 'ABC' ]
         ];
     }
 
