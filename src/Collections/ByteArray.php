@@ -13,8 +13,8 @@ use PHP\ObjectClass;
 /**
  * Defines an array of Bytes
  * 
- * @method void __construct( int $bytes )    Create a new Byte Array using the bytes of the given integer
- * @method void __construct( string $bytes ) Create a new Byte Array using the bytes of the given string
+ * @method void __construct( int $bytes, ?int $byteLength = null )  Create a new Byte Array using the bytes of the given integer
+ * @method void __construct( string $bytes )                        Create a new Byte Array using the bytes of the given string
  */
 class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, IStringable
 {
@@ -42,7 +42,8 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * Create a new Byte Array instance using the bytes of the given integer
      * 
      * @param  int $bytes      The integer representing the bytes
-     * @param ?int $byteLength Truncates the integer to 1-8 bytes in length. Null for the machine's maximum byte length.
+     * @param ?int $byteLength Treats the integer as N number of bytes long (1-8 bytes), truncating the rest. Null to
+     * inherit the machine's byte size (32 bits = 4 bytes, 64 bits = 8 bytes).
      * @return void
      * @throws \DomainException If the Byte Length is not within 1 - 8
      */
