@@ -63,12 +63,11 @@ class ByteArrayTest extends TestCase
     /**
      * Test __construct() and the resulting __toString() return value
      * 
-     *
      * All other tests are built with the assumption these methods work correctly.
      * 
-     * @internal The reason they are being tested together is that there should be a x:1 correlation between
-     * __construct() and __toString(). Namely, __construct() should convert the parameters it supports to a string, and
-     * __toString() should return that string.
+     * @internal The reason these two functions are being tested together is that there should be a x:1 correlation
+     * between __construct() and __toString(). Namely, __construct() should convert the x number of parameters it
+     * supports to a string, and __toString() should return that string.
      * 
      * @dataProvider getConstructedStringTestData
      */
