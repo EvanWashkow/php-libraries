@@ -43,8 +43,9 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * 
      * @param  int $bytes      The integer representing the bytes
      * @param ?int $byteLength Specifies the number of bytes represented by the integer, from 1 - 8.
-     * NULL = machine-dependent (32-bit = 4 bytes, 64-bit = 8 bytes ).
+     * NULL = machine-dependent (32-bit = 4 bytes, 64-bit = 8 bytes).
      * @return void
+     * @throws \DomainException If the Byte Length is not within 1 - 8
      */
     private function __constructInt( int $bytes, ?int $byteLength = null ): void
     {
