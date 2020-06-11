@@ -83,10 +83,9 @@ class ByteArrayTest extends TestCase
     public function getIntegerConstructorTestData(): array
     {
         return [
-            '(int)A'  => [ 65,                1, 'A' ],
-            '(int)B'  => [ 66,                1, 'B' ],
-            '(int)C'  => [ 67,                1, 'C' ],
-            '(int)AB' => [ 65 + ( 66 * 256 ), 2, 'AB' ]
+            '(int)A' => [ 65, 1, 'A' ],
+            '(int)B' => [ 66, 1, 'B' ],
+            '(int)C' => [ 67, 1, 'C' ]
         ];
     }
 
