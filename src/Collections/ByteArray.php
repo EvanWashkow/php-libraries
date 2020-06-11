@@ -48,6 +48,10 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     private function __constructInt( int $bytes, ?int $byteLength = null ): void
     {
+        $isByteLengthNull = null === $byteLength;
+        if ( !$isByteLengthNull && ( $byteLength < 1 )) {
+            throw new \DomainException( 'Byte Length must be between 1 and 8.' );
+        }
         $bytes = pack( 'S', $bytes );
         $bytes = substr( $bytes, 0, 1 );
         $this->__constructString( $bytes );

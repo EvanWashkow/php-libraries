@@ -82,6 +82,9 @@ class ByteArrayTest extends TestCase
         return [
             \InvalidArgumentException::class => [
                 [ 1.5 ], \InvalidArgumentException::class
+            ],
+            '__construct( 65, 0 ) throws DomainException' => [
+                [ 65, 0 ], \DomainException::class
             ]
         ];
     }
