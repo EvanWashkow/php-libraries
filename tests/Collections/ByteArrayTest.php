@@ -112,13 +112,17 @@ class ByteArrayTest extends TestCase
         return [
 
             // Byte Length = 1
-            '(int)A,  byte length = 1'   => [ 65,               1, 'A' ],
-            '(int)AB, byte length = 1'   => [ 65 + ( 66 << 8 ), 1, 'A' ],
+            '(int) A,  byte length = 1' => [ 65,               1, 'A' ],
+            '(int) AB, byte length = 1' => [ 65 + ( 66 << 8 ), 1, 'A' ],
+
+            // Byte Length = 2
+            '(int) AB, byte length = 2' => [ 65 + ( 66 << 8 ),                2, 'AB' ],
+            '(int) AB, byte length = 2' => [ 65 + ( 66 << 8 ) + ( 67 << 16 ), 2, 'AB' ],
 
             // Byte Length = null
-            '(int)A, byte length = NULL' => [ 65, null, pack( 'I', 65 ) ],
-            '(int)B, byte length = NULL' => [ 66, null, pack( 'I', 66 ) ],
-            '(int)C, byte length = NULL' => [ 67, null, pack( 'I', 67 ) ]
+            '(int) A, byte length = NULL' => [ 65, null, pack( 'I', 65 ) ],
+            '(int) B, byte length = NULL' => [ 66, null, pack( 'I', 66 ) ],
+            '(int) C, byte length = NULL' => [ 67, null, pack( 'I', 67 ) ]
         ];
     }
 

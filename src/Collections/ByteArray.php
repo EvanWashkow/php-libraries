@@ -60,8 +60,21 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             if ( ( $byteLength < 1 ) || ( 8 < $byteLength ) ) {
                 throw new \DomainException( 'Byte Length must be between 1 and 8.' );
             }
-            $bytes = pack( 'S', $bytes );
-            $bytes = substr( $bytes, 0, 1 );
+
+            // Convert the bytes to a string
+            $bytes = pack( 'I', $bytes );
+            switch ( $byteLength ) {
+                case 1:
+                    $bytes = $bytes[ 0 ];
+                    break;
+                case 2:
+                    $bytes = $bytes[ 0 ] . $bytes[ 1 ];
+                    break;
+                default:
+                    break;
+            }
+
+            // Forward to the string constructor
             $this->__constructString( $bytes );
         }
     }
