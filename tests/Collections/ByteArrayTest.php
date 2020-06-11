@@ -85,6 +85,9 @@ class ByteArrayTest extends TestCase
             ],
             '__construct( 65, 0 ) throws DomainException' => [
                 [ 65, 0 ], \DomainException::class
+            ],
+            '__construct( 65, 9 ) throws DomainException' => [
+                [ 65, 9 ], \DomainException::class
             ]
         ];
     }
