@@ -42,17 +42,20 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * Create a new Byte Array instance using the bytes of the given integer
      * 
      * @param  int $bytes      The integer representing the bytes
-     * @param ?int $byteLength Specifies the number of bytes represented by the integer, from 1 - 8.
-     * NULL = machine-dependent (32-bit = 4 bytes, 64-bit = 8 bytes).
+     * @param ?int $byteLength Truncates the integer to a certain number of bytes, from 1 - 8. NULL = machine-dependent
+     * (32-bit = 4 bytes, 64-bit = 8 bytes).
      * @return void
      * @throws \DomainException If the Byte Length is not within 1 - 8
      */
     private function __constructInt( int $bytes, ?int $byteLength = null ): void
     {
+        // Interpret the integer as being machine-dependent bytes long
         if ( null === $byteLength ) {
             $bytes = pack( 'I', $bytes );
             $this->__constructString( $bytes );
         }
+
+        // Interpret the integer as being X-number of bytes long
         else {
             if ( ( $byteLength < 1 ) || ( 8 < $byteLength ) ) {
                 throw new \DomainException( 'Byte Length must be between 1 and 8.' );
