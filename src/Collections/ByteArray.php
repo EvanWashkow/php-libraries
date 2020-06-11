@@ -42,8 +42,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * Create a new Byte Array instance using the bytes of the given integer
      * 
      * @param  int $bytes      The integer representing the bytes
-     * @param ?int $byteLength Truncates the integer to a certain number of bytes, from 1 - 8. NULL = machine-dependent
-     * (32-bit = 4 bytes, 64-bit = 8 bytes).
+     * @param ?int $byteLength Truncates the integer to 1-8 bytes in length. Null for the machine's maximum byte length.
      * @return void
      * @throws \DomainException If the Byte Length is not within 1 - 8
      */
