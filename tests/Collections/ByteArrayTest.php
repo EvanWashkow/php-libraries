@@ -67,6 +67,27 @@ class ByteArrayTest extends TestCase
 
 
     /**
+     * Test __construct() exceptions
+     * 
+     * @dataProvider getConstructorExceptionsTestData
+     */
+    public function testConstructExceptions( array $constructorArgs, string $expectedException )
+    {
+        $this->expectException( $expectedException );
+        new ByteArray( ...$constructorArgs );
+    }
+
+    public function getConstructorExceptionsTestData(): array
+    {
+        return [
+            \InvalidArgumentException::class => [
+                [ 1.5 ], \InvalidArgumentException::class
+            ]
+        ];
+    }
+
+
+    /**
      * Test __construct( int )
      * 
      * @dataProvider getIntegerConstructorTestData
