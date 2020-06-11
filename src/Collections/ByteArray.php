@@ -11,6 +11,9 @@ use PHP\ObjectClass;
 
 /**
  * Defines an array of Bytes
+ * 
+ * @method void __construct( int $bytes )    Create a new Byte Array using the bytes of the given integer
+ * @method void __construct( string $bytes ) Create a new Byte Array using the bytes of the given string
  */
 class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, IStringable
 {
@@ -19,11 +22,6 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     private $bytes;
 
 
-    /**
-     * Create a new ByteArray instance
-     *
-     * @param string|int $bytes The String-typecast representation of the Byte Array
-     **/
     public function __construct( $bytes )
     {
         if ( is_int( $bytes )) {
