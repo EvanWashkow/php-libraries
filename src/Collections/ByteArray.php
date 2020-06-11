@@ -25,12 +25,40 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     public function __construct( $bytes )
     {
         if ( is_int( $bytes )) {
-            $this->bytes = pack( 'S', $bytes );
-            $this->bytes = substr( $this->bytes, 0, 1 );
+            $args = func_get_args();
+            $this->__constructInt( ...$args );
         }
         else {
-            $this->bytes = $bytes;
+            $this->__constructString( $bytes );
         }
+    }
+
+
+    /**
+     * Create a new Byte Array instance using the bytes of the given integer
+     * 
+     * @param  int $bytes      The integer representing the bytes
+     * @param ?int $byteLength Specifies the number of bytes represented by the integer, from 1 - 8.
+     * NULL = machine-dependent (32-bit = 4 bytes, 64-bit = 8 bytes ).
+     * @return void
+     */
+    private function __constructInt( int $bytes, ?int $byteLength = null ): void
+    {
+        $bytes = pack( 'S', $bytes );
+        $bytes = substr( $bytes, 0, 1 );
+        $this->__constructString( $bytes );
+    }
+
+
+    /**
+     * Create a new Byte Array instance using the bytes of the given string
+     * 
+     * @param string $bytes The string representing the bytes
+     * @return void
+     */
+    private function __constructString( string $bytes ): void
+    {
+        $this->bytes = $bytes;
     }
 
 
