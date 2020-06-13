@@ -113,11 +113,11 @@ class ByteArrayTest extends TestCase
 
         // 32-bit tests
         $data = [
-            'byte length = 0' => [ $int32, 0, '' ],
-            'byte length = 1' => [ $int32, 1, 'A' ],
-            'byte length = 2' => [ $int32, 2, 'AB' ],
-            'byte length = 3' => [ $int32, 3, 'ABC' ],
-            'byte length = 4' => [ $int32, 4, 'ABCD' ]
+            'Int32, byte length = 0' => [ $int32, 0, '' ],
+            'Int32, byte length = 1' => [ $int32, 1, 'A' ],
+            'Int32, byte length = 2' => [ $int32, 2, 'AB' ],
+            'Int32, byte length = 3' => [ $int32, 3, 'ABC' ],
+            'Int32, byte length = 4' => [ $int32, 4, 'ABCD' ]
         ];
 
         // 64-bit architecture
@@ -130,10 +130,10 @@ class ByteArrayTest extends TestCase
             $data = array_merge(
                 $data,
                 [
-                    'byte length = 5' => [ $int64, 5, 'ABCDE' ],
-                    'byte length = 6' => [ $int64, 6, 'ABCDEF' ],
-                    'byte length = 7' => [ $int64, 7, 'ABCDEFG' ],
-                    'byte length = 8' => [ $int64, 8, 'ABCDEFGH' ]
+                    'Int64, byte length = 5' => [ $int64, 5, 'ABCDE' ],
+                    'Int64, byte length = 6' => [ $int64, 6, 'ABCDEF' ],
+                    'Int64, byte length = 7' => [ $int64, 7, 'ABCDEFG' ],
+                    'Int64, byte length = 8' => [ $int64, 8, 'ABCDEFGH' ]
                 ]
             );
         }
