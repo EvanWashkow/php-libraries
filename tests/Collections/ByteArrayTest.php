@@ -86,8 +86,8 @@ class ByteArrayTest extends TestCase
             '__construct( 65, 0 ) throws DomainException' => [
                 [ 65, 0 ], \DomainException::class
             ],
-            '__construct( 65, 5 ) throws DomainException' => [
-                [ 65, 5 ], \DomainException::class
+            '__construct( 65, 9 ) throws DomainException' => [
+                [ 65, 9 ], \DomainException::class
             ]
         ];
     }
@@ -113,7 +113,11 @@ class ByteArrayTest extends TestCase
             ( 65 ) +        // A
             ( 66 <<  8 ) +  // B
             ( 67 << 16 ) +  // C
-            ( 68 << 24 );   // D
+            ( 68 << 24 ) +  // D
+            ( 69 << 32 ) +  // E
+            ( 70 << 40 ) +  // F
+            ( 71 << 48 ) +  // G
+            ( 72 << 56 );   // H
 
         return [
 
@@ -122,11 +126,15 @@ class ByteArrayTest extends TestCase
             'byte length = 2' => [ $intABCDEFGH, 2, 'AB' ],
             'byte length = 3' => [ $intABCDEFGH, 3, 'ABC' ],
             'byte length = 4' => [ $intABCDEFGH, 4, 'ABCD' ],
+            'byte length = 5' => [ $intABCDEFGH, 5, 'ABCDE' ],
+            'byte length = 6' => [ $intABCDEFGH, 6, 'ABCDEF' ],
+            'byte length = 7' => [ $intABCDEFGH, 7, 'ABCDEFG' ],
+            'byte length = 8' => [ $intABCDEFGH, 8, 'ABCDEFGH' ],
 
             // Byte Length = null
-            '(int) A, byte length = NULL' => [ 65, null, pack( 'L', 65 ) ],
-            '(int) B, byte length = NULL' => [ 66, null, pack( 'L', 66 ) ],
-            '(int) C, byte length = NULL' => [ 67, null, pack( 'L', 67 ) ]
+            '(int) A, byte length = NULL' => [ 65, null, pack( 'Q', 65 ) ],
+            '(int) B, byte length = NULL' => [ 66, null, pack( 'Q', 66 ) ],
+            '(int) C, byte length = NULL' => [ 67, null, pack( 'Q', 67 ) ]
         ];
     }
 
