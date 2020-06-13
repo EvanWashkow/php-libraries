@@ -53,22 +53,21 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             throw new \DomainException( 'Byte Length must be at least 1.' );
         }
 
-        // Prepare loop variables
-        $byteString         = pack( 'Q', $bytes );          // integer converted to 64-bit string
-        $byteStringBuilder  = '';
-        $byteStringMaxIndex = strlen( $byteString ) - 1;
-        $nullChar           = pack( 'x' );                  // 0x00 as string
-
+        // pack() variables
+        $packedInt         = pack( 'Q', $bytes );           // integer converted to 64-bit string
+        $packedIntMaxIndex = strlen( $packedInt ) - 1;
+        $nullChar          = pack( 'x' );                   // 0x00 character-equivalent
+        
         // Treat the integer as N number of bytes long, truncating extra bytes or padding will zeros as necessary.
+        $byteString  = '';
         for ( $i = 0; $i < $byteSize; $i++ ) {
-            if ( $i <= $byteStringMaxIndex ) {
-                $byteStringBuilder .= $byteString[ $i ];
+            if ( $i <= $packedIntMaxIndex ) {
+                $byteString .= $packedInt[ $i ];
             }
             else {
-                $byteStringBuilder .= $nullChar;
+                $byteString .= $nullChar;
             }
         }
-        $byteString = $byteStringBuilder;
 
         // Forward the resulting Byte string to the string constructor
         $this->__constructString( $byteString );
