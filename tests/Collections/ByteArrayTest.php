@@ -109,7 +109,7 @@ class ByteArrayTest extends TestCase
 
     public function getIntegerConstructorTestData(): array
     {
-        // 32-bit integer equivalent of ABCDEFGH
+        // 32-bit integer equivalent of ABCD
         $int32 = 0x44434241;
 
         // 32-bit tests
