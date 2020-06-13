@@ -40,11 +40,14 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     /**
      * Create a new Byte Array instance using the bytes of the given integer
      * 
+     * 
      * @param int $bytes    The integer representing the bytes
      * @param int $byteSize Forces the integer to be N number of bytes long, from 0 to X bytes long, truncating bytes or
      * padding with 0x00 as necessary.
      * @return void
      * @throws \DomainException If the Byte Length is not within 1 to PHP_INT_SIZE
+     * 
+     * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
      */
     private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
