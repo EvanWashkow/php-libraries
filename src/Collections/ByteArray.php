@@ -42,7 +42,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * 
      * @param int $bytes    The integer representing the bytes
      * @param int $byteSize Forces the integer to be N number of bytes long, from 1 to X bytes in length, truncating
-     * bits or padding with zeros as necessary.
+     * bytes or padding with zeros as necessary.
      * @return void
      * @throws \DomainException If the Byte Length is not within 1 to PHP_INT_SIZE
      */
@@ -53,13 +53,20 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             throw new \DomainException( 'Byte Length must be at least 1.' );
         }
 
-        // Convert the bytes to a string
-        $byteString = pack( 'Q', $bytes );
+        // Prepare loop variables
+        $byteString         = pack( 'Q', $bytes );          // integer converted to 64-bit string
+        $byteStringBuilder  = '';
+        $byteStringMaxIndex = strlen( $byteString ) - 1;
+        $nullChar           = pack( 'x' );                  // 0x00 as string
 
-        // Treat the integer as N number of bytes long, truncating the rest
-        $byteStringBuilder = '';
-        for ( $i = 0; $i < $byteSize; $i++ ) { 
-            $byteStringBuilder .= $byteString[ $i ];
+        // Treat the integer as N number of bytes long, truncating extra bytes or padding will zeros as necessary.
+        for ( $i = 0; $i < $byteSize; $i++ ) {
+            if ( $i <= $byteStringMaxIndex ) {
+                $byteStringBuilder .= $byteString[ $i ];
+            }
+            else {
+                $byteStringBuilder .= $nullChar;
+            }
         }
         $byteString = $byteStringBuilder;
 
