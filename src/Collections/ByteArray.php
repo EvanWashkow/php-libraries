@@ -41,31 +41,28 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * Create a new Byte Array instance using the bytes of the given integer
      * 
      * @param  int $bytes      The integer representing the bytes
-     * @param ?int $byteLength Treats the integer as N number of bytes long (1-8 bytes), truncating the rest. Null to
-     * inherit the machine's byte size (32 bits = 4 bytes, 64 bits = 8 bytes).
+     * @param ?int $byteLength Treats the integer as N number of bytes long, from 1 to PHP_INT_SIZE bytes in length.
+     * PHP_INT_SIZE determines the byte size of the machine's architecture, thus capping the supported integer size to
+     * 4 bytes on 32-bit machines, and 8 bytes on 64-bit machines.
      * @return void
-     * @throws \DomainException If the Byte Length is not within 1 - 8
+     * @throws \DomainException If the Byte Length is not within 1 to PHP_INT_SIZE
      */
-    private function __constructInt( int $bytes, ?int $byteLength = null ): void
+    private function __constructInt( int $bytes, int $byteLength = PHP_INT_SIZE ): void
     {
+        // Ensure Byte Length range is valid
+        if ( ( $byteLength < 1 ) || ( PHP_INT_SIZE < $byteLength ) ) {
+            throw new \DomainException( 'Byte Length must be between 1 and 8.' );
+        }
+
         // Convert the bytes to a string
         $byteString = pack( 'Q', $bytes );
 
-        // Truncate the integer as X-bytes long
-        if ( null !== $byteLength )
-        {
-            // Ensure Byte Length range is valid
-            if ( ( $byteLength < 1 ) || ( 8 < $byteLength ) ) {
-                throw new \DomainException( 'Byte Length must be between 1 and 8.' );
-            }
-
-            // Treat the integer as N number of bytes long, truncating the rest
-            $byteStringBuilder = '';
-            for ( $i = 0; $i < $byteLength; $i++ ) { 
-                $byteStringBuilder .= $byteString[ $i ];
-            }
-            $byteString = $byteStringBuilder;
+        // Treat the integer as N number of bytes long, truncating the rest
+        $byteStringBuilder = '';
+        for ( $i = 0; $i < $byteLength; $i++ ) { 
+            $byteStringBuilder .= $byteString[ $i ];
         }
+        $byteString = $byteStringBuilder;
 
         // Forward the resulting Byte string to the string constructor
         $this->__constructString( $byteString );
