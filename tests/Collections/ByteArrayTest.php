@@ -87,10 +87,6 @@ class ByteArrayTest extends TestCase
             '__construct( 65, 0 ) throws DomainException' => [
                 [ 65, 0 ],
                 \DomainException::class
-            ],
-            '__construct( 65, PHP_INT_SIZE + 1 ) throws DomainException' => [
-                [ 65, PHP_INT_SIZE + 1 ],
-                \DomainException::class
             ]
         ];
     }
