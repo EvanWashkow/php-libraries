@@ -109,15 +109,21 @@ class ByteArrayTest extends TestCase
 
     public function getIntegerConstructorTestData(): array
     {
+        $intABCDEFGH =
+            ( 65 ) +        // A
+            ( 66 <<  8 ) +  // B
+            ( 67 << 16 ) +  // C
+            ( 68 << 24 ) +  // D
+            ( 69 << 32 ) +  // E
+            ( 70 << 40 ) +  // F
+            ( 71 << 48 ) +  // G
+            ( 72 << 56 );   // H
+
         return [
 
-            // Byte Length = 1
-            '(int) A,  byte length = 1' => [ 65,               1, 'A' ],
-            '(int) AB, byte length = 1' => [ 65 + ( 66 << 8 ), 1, 'A' ],
-
-            // Byte Length = 2
-            '(int) AB,  byte length = 2' => [ 65 + ( 66 << 8 ),                2, 'AB' ],
-            '(int) ABC, byte length = 2' => [ 65 + ( 66 << 8 ) + ( 67 << 16 ), 2, 'AB' ],
+            // Byte Length = int
+            'byte length = 1' => [ $intABCDEFGH, 1, 'A' ],
+            'byte length = 2' => [ $intABCDEFGH, 2, 'AB' ],
 
             // Byte Length = null
             '(int) A, byte length = NULL' => [ 65, null, pack( 'I', 65 ) ],
