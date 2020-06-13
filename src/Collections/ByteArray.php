@@ -12,7 +12,7 @@ use PHP\ObjectClass;
 /**
  * Defines an array of Bytes
  * 
- * @method void __construct( int $bytes, int $byteLength = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
+ * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
  * @method void __construct( string $bytes )                              Create a new Byte Array using the bytes of the given string
  */
 class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, IStringable
@@ -40,17 +40,17 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     /**
      * Create a new Byte Array instance using the bytes of the given integer
      * 
-     * @param int $bytes      The integer representing the bytes
-     * @param int $byteLength Treats the integer as N number of bytes long, from 1 to PHP_INT_SIZE bytes in length.
-     * PHP_INT_SIZE determines the byte size of the machine's architecture, thus capping the supported integer size to
-     * 4 bytes on 32-bit machines, and 8 bytes on 64-bit machines.
+     * @param int $bytes    The integer representing the bytes
+     * @param int $byteSize Treats the integer as N number of bytes long, from 1 to PHP_INT_SIZE bytes in length.
+     * PHP_INT_SIZE is determined by the machine's architecture byte size---4 bytes for 32-bit machines, and 8 bytes for
+     * 64-bit machines---as it is impossible to define an integer outside this range.
      * @return void
      * @throws \DomainException If the Byte Length is not within 1 to PHP_INT_SIZE
      */
-    private function __constructInt( int $bytes, int $byteLength = PHP_INT_SIZE ): void
+    private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
         // Ensure Byte Length range is valid
-        if ( ( $byteLength < 1 ) || ( PHP_INT_SIZE < $byteLength ) ) {
+        if ( ( $byteSize < 1 ) || ( PHP_INT_SIZE < $byteSize ) ) {
             throw new \DomainException( 'Byte Length must be between 1 and PHP_INT_SIZE.' );
         }
 
@@ -59,7 +59,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
 
         // Treat the integer as N number of bytes long, truncating the rest
         $byteStringBuilder = '';
-        for ( $i = 0; $i < $byteLength; $i++ ) { 
+        for ( $i = 0; $i < $byteSize; $i++ ) { 
             $byteStringBuilder .= $byteString[ $i ];
         }
         $byteString = $byteStringBuilder;

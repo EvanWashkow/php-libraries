@@ -101,11 +101,11 @@ class ByteArrayTest extends TestCase
      * 
      * @dataProvider getIntegerConstructorTestData
      */
-    public function testIntegerConstructor( int $bytes, int $byteLength, string $expectedString )
+    public function testIntegerConstructor( int $bytes, int $byteSize, string $expectedString )
     {
         $this->assertEquals(
             $expectedString,
-            ( new ByteArray( $bytes, $byteLength ))->__toString(),
+            ( new ByteArray( $bytes, $byteSize ))->__toString(),
             'ByteArray->__toString() did not return the expected string.'
         );
     }
