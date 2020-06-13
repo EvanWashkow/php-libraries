@@ -45,7 +45,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      * @param int $byteSize Forces the integer to be N number of bytes long, from 0 to X bytes long, truncating bytes or
      * padding with 0x00 as necessary.
      * @return void
-     * @throws \DomainException If the Byte Length is not within 1 to PHP_INT_SIZE
+     * @throws \DomainException If the Byte Size is less than 0
      * 
      * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
      */
