@@ -109,25 +109,18 @@ class ByteArrayTest extends TestCase
 
     public function getIntegerConstructorTestData(): array
     {
-        $intABCDEFGH =
-            ( 65 ) +        // A
-            ( 66 <<  8 ) +  // B
-            ( 67 << 16 ) +  // C
-            ( 68 << 24 ) +  // D
-            ( 69 << 32 ) +  // E
-            ( 70 << 40 ) +  // F
-            ( 71 << 48 ) +  // G
-            ( 72 << 56 );   // H
+        // Integer bit-equivalent of ABCDEFGH
+        $int = 0x4847464544434241;
 
         return [
-            'byte length = 1' => [ $intABCDEFGH, 1, 'A' ],
-            'byte length = 2' => [ $intABCDEFGH, 2, 'AB' ],
-            'byte length = 3' => [ $intABCDEFGH, 3, 'ABC' ],
-            'byte length = 4' => [ $intABCDEFGH, 4, 'ABCD' ],
-            'byte length = 5' => [ $intABCDEFGH, 5, 'ABCDE' ],
-            'byte length = 6' => [ $intABCDEFGH, 6, 'ABCDEF' ],
-            'byte length = 7' => [ $intABCDEFGH, 7, 'ABCDEFG' ],
-            'byte length = 8' => [ $intABCDEFGH, 8, 'ABCDEFGH' ]
+            'byte length = 1' => [ $int, 1, 'A' ],
+            'byte length = 2' => [ $int, 2, 'AB' ],
+            'byte length = 3' => [ $int, 3, 'ABC' ],
+            'byte length = 4' => [ $int, 4, 'ABCD' ],
+            'byte length = 5' => [ $int, 5, 'ABCDE' ],
+            'byte length = 6' => [ $int, 6, 'ABCDEF' ],
+            'byte length = 7' => [ $int, 7, 'ABCDEFG' ],
+            'byte length = 8' => [ $int, 8, 'ABCDEFGH' ]
         ];
     }
 
