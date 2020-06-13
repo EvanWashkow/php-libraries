@@ -84,8 +84,8 @@ class ByteArrayTest extends TestCase
                 [ 1.5 ],
                 \InvalidArgumentException::class
             ],
-            '__construct( 65, 0 ) throws DomainException' => [
-                [ 65, 0 ],
+            '__construct( 65, -1 ) throws DomainException' => [
+                [ 65, -1 ],
                 \DomainException::class
             ]
         ];
@@ -113,6 +113,7 @@ class ByteArrayTest extends TestCase
 
         // 32-bit tests
         $data = [
+            'byte length = 0' => [ $int32, 0, '' ],
             'byte length = 1' => [ $int32, 1, 'A' ],
             'byte length = 2' => [ $int32, 2, 'AB' ],
             'byte length = 3' => [ $int32, 3, 'ABC' ],

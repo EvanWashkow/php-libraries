@@ -49,7 +49,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
         // Ensure Byte Length range is valid
-        if ( $byteSize < 1 ) {
+        if ( $byteSize < 0 ) {
             throw new \DomainException( 'Byte Length must be at least 1.' );
         }
 
