@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use InvalidArgumentException;
 use PHP\Byte;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
@@ -33,7 +32,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             $this->__constructString( $bytes );
         }
         else {
-            throw new InvalidArgumentException( 'ByteArray->__construct() expecting a string or integer' );
+            throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a string or integer' );
         }
     }
 
