@@ -12,8 +12,8 @@ use PHP\ObjectClass;
 /**
  * Defines an array of Bytes
  * 
- * @method void __construct( int $bytes, ?int $byteLength = null )  Create a new Byte Array using the bytes of the given integer
- * @method void __construct( string $bytes )                        Create a new Byte Array using the bytes of the given string
+ * @method void __construct( int $bytes, int $byteLength = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
+ * @method void __construct( string $bytes )                              Create a new Byte Array using the bytes of the given string
  */
 class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, IStringable
 {
@@ -40,8 +40,8 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     /**
      * Create a new Byte Array instance using the bytes of the given integer
      * 
-     * @param  int $bytes      The integer representing the bytes
-     * @param ?int $byteLength Treats the integer as N number of bytes long, from 1 to PHP_INT_SIZE bytes in length.
+     * @param int $bytes      The integer representing the bytes
+     * @param int $byteLength Treats the integer as N number of bytes long, from 1 to PHP_INT_SIZE bytes in length.
      * PHP_INT_SIZE determines the byte size of the machine's architecture, thus capping the supported integer size to
      * 4 bytes on 32-bit machines, and 8 bytes on 64-bit machines.
      * @return void
