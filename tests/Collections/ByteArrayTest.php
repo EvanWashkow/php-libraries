@@ -98,7 +98,7 @@ class ByteArrayTest extends TestCase
      * 
      * @dataProvider getIntegerConstructorTestData
      */
-    public function testIntegerConstructor( int $bytes, ?int $byteLength, string $expectedString )
+    public function testIntegerConstructor( int $bytes, int $byteLength, string $expectedString )
     {
         $this->assertEquals(
             $expectedString,
