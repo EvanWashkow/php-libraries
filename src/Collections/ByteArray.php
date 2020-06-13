@@ -51,7 +51,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     {
         // Ensure Byte Length range is valid
         if ( ( $byteLength < 1 ) || ( PHP_INT_SIZE < $byteLength ) ) {
-            throw new \DomainException( 'Byte Length must be between 1 and 8.' );
+            throw new \DomainException( 'Byte Length must be between 1 and PHP_INT_SIZE.' );
         }
 
         // Convert the bytes to a string
