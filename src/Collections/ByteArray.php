@@ -61,7 +61,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
         $packedIntMaxIndex = strlen( $packedInt ) - 1;
         $nullChar          = pack( 'x' );                   // 0x00 character-equivalent
         
-        // Treat the integer as N number of bytes long, truncating extra bytes or padding will zeros as necessary.
+        // Treat the integer as N number of bytes long, truncating extra bytes or padding with zeros as necessary.
         $byteString  = '';
         for ( $i = 0; $i < $byteSize; $i++ ) {
             if ( $i <= $packedIntMaxIndex ) {
