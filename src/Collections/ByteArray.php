@@ -50,7 +50,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     private function __constructInt( int $bytes, ?int $byteLength = null ): void
     {
         // Convert the bytes to a string
-        $bytes = pack( 'I', $bytes );
+        $byteString = pack( 'Q', $bytes );
 
         // Truncate the integer as X-bytes long
         if ( null !== $byteLength )
