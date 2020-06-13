@@ -124,6 +124,12 @@ class ByteArrayTest extends TestCase
             // Byte Length = int
             'byte length = 1' => [ $intABCDEFGH, 1, 'A' ],
             'byte length = 2' => [ $intABCDEFGH, 2, 'AB' ],
+            'byte length = 3' => [ $intABCDEFGH, 3, 'ABC' ],
+            'byte length = 4' => [ $intABCDEFGH, 4, 'ABCD' ],
+            'byte length = 5' => [ $intABCDEFGH, 5, 'ABCDE' ],
+            'byte length = 6' => [ $intABCDEFGH, 6, 'ABCDEF' ],
+            'byte length = 7' => [ $intABCDEFGH, 7, 'ABCDEFG' ],
+            'byte length = 8' => [ $intABCDEFGH, 8, 'ABCDEFGH' ],
 
             // Byte Length = null
             '(int) A, byte length = NULL' => [ 65, null, pack( 'I', 65 ) ],
