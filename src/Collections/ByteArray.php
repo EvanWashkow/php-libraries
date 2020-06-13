@@ -53,7 +53,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     {
         // Ensure Byte Length range is valid
         if ( $byteSize < 0 ) {
-            throw new \DomainException( 'Byte Length must be at least 0.' );
+            throw new \DomainException( 'Byte Size cannot be less than 0.' );
         }
 
         // pack() variables
