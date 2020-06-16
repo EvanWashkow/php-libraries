@@ -66,8 +66,8 @@ class ByteTest extends TestCase
     public function getConstructorExceptionsTestData(): array
     {
         return [
-            '-1'  => [ -1,  \RangeException::class ],
-            '256' => [ 256, \RangeException::class ]
+            '-1'  => [ -1,  \DomainException::class ],
+            '256' => [ 256, \DomainException::class ]
         ];
     }
 
