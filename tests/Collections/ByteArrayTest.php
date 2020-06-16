@@ -101,8 +101,15 @@ class ByteArrayTest extends TestCase
      * 
      * @dataProvider getByteArrayConstructorTestData
      */
-    public function testByteArrayConstructor( array $byteArray, string $expectedString )
+    public function testByteArrayConstructor( array $intByteArray, string $expectedString )
     {
+        // Convert integer bytes into Byte instances
+        $byteArray = [];
+        foreach ( $intByteArray as $i => $intByte ) {
+            $byteArray[] = new Byte( $intByte );
+        }
+
+        // Run test
         $this->assertEquals(
             $expectedString,
             ( new ByteArray( $byteArray ) )->__toString(),
@@ -116,6 +123,10 @@ class ByteArrayTest extends TestCase
             '[]' => [
                 [],
                 ''
+            ],
+            '[ 65 ]' => [
+                [ 65 ],
+                'A'
             ]
         ];
     }
