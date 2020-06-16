@@ -74,13 +74,11 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     private function __constructByteArray( Byte ...$bytes ): void
     {
-        if ( array_key_exists( 0, $bytes )) {
-            $string = $this->packInt( $bytes[ 0 ]->toInt(), 1 );
+        $byteString = '';
+        foreach ( $bytes as $byte ) {
+            $byteString .= $this->packInt( $byte->toInt(), 1 );
         }
-        else {
-            $string = '';
-        }
-        $this->__constructString( $string );
+        $this->__constructString( $byteString );
     }
 
 
