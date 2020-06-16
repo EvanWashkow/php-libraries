@@ -12,6 +12,7 @@ use PHP\ObjectClass;
 /**
  * Defines an array of Bytes
  * 
+ * @method void __construct( Byte[] $bytes )                            Create a new Byte Array using the bytes of the given Byte[]
  * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
  * @method void __construct( string $bytes )                            Create a new Byte Array using the bytes of the given string
  */
@@ -35,9 +36,19 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
     *******************************************************************************************************************/
 
 
+    /**
+     * @throws \InvalidArgumentException If bytes is not a Byte[], integer, or string
+     */
     public function __construct( $bytes )
     {
-        if ( is_int( $bytes )) {
+        if ( is_array( $bytes )) {
+            try {
+                $this->__constructByteArray( ...$bytes );
+            } catch ( \TypeError $te ) {
+                throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a Byte[]. An element in the array was not a Byte.' );
+            }
+        }
+        elseif ( is_int( $bytes )) {
             $args = func_get_args();
             $this->__constructInt( ...$args );
         }
@@ -45,8 +56,20 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             $this->__constructString( $bytes );
         }
         else {
-            throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a string or integer' );
+            throw new \InvalidArgumentException( 'ByteArray->__construct() expects a Byte[], integer, or string.' );
         }
+    }
+
+
+    /**
+     * Create a new Byte Array instance using the given Byte[]
+     * 
+     * @param Byte $bytes The Byte[] representing the bytes
+     * @return void
+     */
+    private function __constructByteArray( Byte ...$bytes ): void
+    {
+        $this->__constructString( '' );
     }
 
 

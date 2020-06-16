@@ -80,13 +80,42 @@ class ByteArrayTest extends TestCase
     public function getConstructorExceptionsTestData(): array
     {
         return [
-            \InvalidArgumentException::class => [
+            '__construct( 1.5 )' => [
                 [ 1.5 ],
+                \InvalidArgumentException::class
+            ],
+            '__construct( [ 65 ] )' => [
+                [ [ 65 ] ],
                 \InvalidArgumentException::class
             ],
             '__construct( 65, -1 ) throws DomainException' => [
                 [ 65, -1 ],
                 \DomainException::class
+            ]
+        ];
+    }
+
+
+    /**
+     * Test __construct( Byte[] )
+     * 
+     * @dataProvider getByteArrayConstructorTestData
+     */
+    public function testByteArrayConstructor( array $byteArray, string $expectedString )
+    {
+        $this->assertEquals(
+            $expectedString,
+            ( new ByteArray( $byteArray ) )->__toString(),
+            '( new ByteArray( Byte[] ) )->__toString() did not return the expected string.'
+        );
+    }
+
+    public function getByteArrayConstructorTestData(): array
+    {
+        return [
+            '[]' => [
+                [],
+                ''
             ]
         ];
     }
@@ -102,7 +131,7 @@ class ByteArrayTest extends TestCase
         $this->assertEquals(
             $expectedString,
             ( new ByteArray( $bytes, $byteSize ))->__toString(),
-            'ByteArray->__toString() did not return the expected string.'
+            '( new ByteArray( int, int ) )->__toString() did not return the expected string.'
         );
     }
 
@@ -163,7 +192,7 @@ class ByteArrayTest extends TestCase
         $this->assertEquals(
             $expectedString,
             ( new ByteArray( $bytes ))->__toString(),
-            'ByteArray->__toString() did not return the expected string.'
+            '( new ByteArray( string ) )->__toString() did not return the expected string.'
         );
     }
 
