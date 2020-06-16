@@ -38,6 +38,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
 
     /**
      * @throws \InvalidArgumentException If bytes is not a Byte[], integer, or string
+     * @throws \DomainException          If bytes is an integer, and the byteSize < 0
      */
     public function __construct( $bytes )
     {
@@ -50,7 +51,11 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
         }
         elseif ( is_int( $bytes )) {
             $args = func_get_args();
-            $this->__constructInt( ...$args );
+            try {
+                $this->__constructInt( ...$args );
+            } catch ( \DomainException $de ) {
+                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+            }
         }
         elseif ( is_string( $bytes )) {
             $this->__constructString( $bytes );
