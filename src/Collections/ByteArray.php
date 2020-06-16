@@ -91,13 +91,39 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
-        // Ensure Byte Length range is valid
+        try {
+            $byteString = $this->packInt( $bytes, $byteSize );
+        } catch ( \DomainException $de ) {
+            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+        }
+        $this->__constructString( $byteString );
+    }
+
+
+    /**
+     * Create a new Byte Array instance using the bytes of the given string
+     * 
+     * @param string $bytes The string representing the bytes
+     * @return void
+     */
+    private function __constructString( string $bytes ): void
+    {
+        $this->bytes = $bytes;
+    }
+
+
+    /**
+     * Converts an integer to its string equivalent
+     */
+    private function packInt( int $int, int $byteSize ): string
+    {
+        // Ensure Byte Size range is valid
         if ( $byteSize < 0 ) {
             throw new \DomainException( 'Byte Size cannot be less than 0.' );
         }
 
         // pack() variables
-        $packedInt         = pack( 'Q', $bytes );           // integer converted to 64-bit string
+        $packedInt         = pack( 'Q', $int );             // integer converted to 64-bit string
         $packedIntMaxIndex = strlen( $packedInt ) - 1;
         $nullChar          = pack( 'x' );                   // 0x00 character-equivalent
         
@@ -112,20 +138,8 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             }
         }
 
-        // Forward the resulting Byte string to the string constructor
-        $this->__constructString( $byteString );
-    }
-
-
-    /**
-     * Create a new Byte Array instance using the bytes of the given string
-     * 
-     * @param string $bytes The string representing the bytes
-     * @return void
-     */
-    private function __constructString( string $bytes ): void
-    {
-        $this->bytes = $bytes;
+        // Return the resulting Byte string
+        return $byteString;
     }
 
 
