@@ -173,7 +173,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
      */
     public function count(): int
     {
-        return count( $this->toArray() );
+        return strlen( $this->__toString() );
     }
 
 
