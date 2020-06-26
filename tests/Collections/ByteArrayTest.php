@@ -8,6 +8,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\IArrayable;
 use PHP\Collections\IReadOnlyCollection;
 use PHP\Collections\Iteration\ArrayableIterator;
+use PHP\Interfaces\ICloneable;
 use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
@@ -45,11 +46,12 @@ class ByteArrayTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            ObjectClass::class         => [ ObjectClass::class ],
-            IArrayable::class          => [ IArrayable::class ],
-            IIntegerable::class        => [ IIntegerable::class ],
-            IReadOnlyCollection::class => [ IReadOnlyCollection::class ],
-            IStringable::class         => [ IStringable::class ]
+            ObjectClass::class          => [ ObjectClass::class ],
+            IArrayable::class           => [ IArrayable::class ],
+            ICloneable::class           => [ ICloneable::class ],
+            IIntegerable::class         => [ IIntegerable::class ],
+            IReadOnlyCollection::class  => [ IReadOnlyCollection::class ],
+            IStringable::class          => [ IStringable::class ]
         ];
     }
 
@@ -230,6 +232,47 @@ class ByteArrayTest extends TestCase
         return [
             ''    => [ '',    '' ],
             'ABC' => [ 'ABC', 'ABC' ]
+        ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                        clone()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure clone() the exact same ByteArray
+     * 
+     * @dataProvider getCloneTestData()
+     */
+    public function testClone( ByteArray $byteArray )
+    {
+        $this->assertEquals(
+            $byteArray->__toString(),
+            $byteArray->clone()->__toString(),
+            'ByteArray->clone() did not return the expected value.'
+        );
+    }
+
+    public function getCloneTestData(): array
+    {
+        return [
+            '0' => [
+                new ByteArray( 0 )
+            ],
+            '1' => [
+                new ByteArray( 1 )
+            ],
+            'A' => [
+                new ByteArray( 'A' )
+            ],
+            'XYZ' => [
+                new ByteArray( 'XYZ' )
+            ]
         ];
     }
 

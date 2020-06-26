@@ -6,6 +6,7 @@ namespace PHP\Collections;
 use PHP\Byte;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
+use PHP\Interfaces\ICloneable;
 use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
@@ -17,7 +18,7 @@ use PHP\ObjectClass;
  * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
  * @method void __construct( string $bytes )                            Create a new Byte Array using the bytes of the given string
  */
-class ByteArray extends ObjectClass implements IArrayable, IIntegerable, IReadOnlyCollection, IStringable
+class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegerable, IReadOnlyCollection, IStringable
 {
 
 
@@ -166,6 +167,15 @@ class ByteArray extends ObjectClass implements IArrayable, IIntegerable, IReadOn
     public function __toString(): string
     {
         return $this->bytes;
+    }
+
+
+    /**
+     * @return ByteArray
+     */
+    public function clone(): ICloneable
+    {
+        return ( clone $this );
     }
 
 
