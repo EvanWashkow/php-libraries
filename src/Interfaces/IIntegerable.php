@@ -12,7 +12,7 @@ interface IIntegerable
     /**
      * Convert this object to an integer
      * 
-     * @return int Machine-dependent bit size
+     * @return int Architecture-dependent bit size
      */
     public function toInt(): int;
 }
