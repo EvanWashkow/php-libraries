@@ -6,6 +6,7 @@ namespace PHP\Collections;
 use PHP\Byte;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
+use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 
@@ -16,7 +17,7 @@ use PHP\ObjectClass;
  * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
  * @method void __construct( string $bytes )                            Create a new Byte Array using the bytes of the given string
  */
-class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, IStringable
+class ByteArray extends ObjectClass implements IArrayable, IIntegerable, IReadOnlyCollection, IStringable
 {
 
 
@@ -129,7 +130,7 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
         // pack() variables
         $packedInt         = pack( 'Q', $int );             // integer converted to 64-bit string
         $packedIntMaxIndex = strlen( $packedInt ) - 1;
-        $nullChar          = pack( 'x' );                   // 0x00 character-equivalent
+        $nullChar          = self::getNullChar();           // 0x00 character-equivalent
         
         // Treat the integer as N number of bytes long, truncating extra bytes or padding with zeros as necessary.
         $byteString  = '';
@@ -196,5 +197,38 @@ class ByteArray extends ObjectClass implements IArrayable, IReadOnlyCollection, 
             $bytes[] = new Byte( $byteAsInt );
         }
         return $bytes;
+    }
+
+
+    /**
+     * Type-casts the ByteArray to an integer of architecture-dependent byte size
+     */
+    public function toInt(): int
+    {
+        $paddedBytes = str_pad( $this->bytes, 8, self::getNullChar() );
+        return unpack( 'Q', $paddedBytes )[ 1 ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                     UTILITIES
+    *******************************************************************************************************************/
+
+
+    /**
+     * Retrieve Null Character (0x00)
+     * 
+     * @return string
+     */
+    private static function getNullChar(): string
+    {
+        static $nullChar = null;
+        if ( null === $nullChar ) {
+            $nullChar =  pack( 'x' );
+        }
+        return $nullChar;
     }
 }

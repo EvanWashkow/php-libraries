@@ -8,6 +8,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\IArrayable;
 use PHP\Collections\IReadOnlyCollection;
 use PHP\Collections\Iteration\ArrayableIterator;
+use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
@@ -46,6 +47,7 @@ class ByteArrayTest extends TestCase
         return [
             ObjectClass::class         => [ ObjectClass::class ],
             IArrayable::class          => [ IArrayable::class ],
+            IIntegerable::class        => [ IIntegerable::class ],
             IReadOnlyCollection::class => [ IReadOnlyCollection::class ],
             IStringable::class         => [ IStringable::class ]
         ];
@@ -352,6 +354,59 @@ class ByteArrayTest extends TestCase
                     new Byte( 98 ),
                     new Byte( 99 )
                 ]
+            ]
+        ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                        toInt()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure toInt() returns the expected value
+     * 
+     * @dataProvider getToIntTestData()
+     */
+    public function testToInt( ByteArray $byteArray, int $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            $byteArray->toInt(),
+            'ByteArray->toInt() did not return the expected value.'
+        );
+    }
+
+    public function getToIntTestData(): array
+    {
+        return [
+            '0' => [
+                new ByteArray( 0 ),
+                0
+            ],
+            '1' => [
+                new ByteArray( 1 ),
+                1
+            ],
+            '2' => [
+                new ByteArray( 2 ),
+                2
+            ],
+            '3' => [
+                new ByteArray( 3 ),
+                3
+            ],
+            'A' => [
+                new ByteArray( 'A' ),
+                0x00000041
+            ],
+            'XYZ' => [
+                new ByteArray( 'XYZ' ),
+                0x005A5958
             ]
         ];
     }
