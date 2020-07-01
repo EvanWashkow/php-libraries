@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections\Strings;
 
+use PHP\Collections\ByteArray;
 use PHP\Collections\Strings\Hexadecimal;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class HexadecimalTest extends TestCase
     {
         $this->assertInstanceOf(
             $typeName,
-            new Hexadecimal(),
+            new Hexadecimal( new ByteArray( 'ABC' ) ),
             Hexadecimal::class . " is not of type {$typeName}"
         );
     }
