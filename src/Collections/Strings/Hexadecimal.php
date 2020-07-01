@@ -4,12 +4,13 @@ declare( strict_types = 1 );
 namespace PHP\Collections\Strings;
 
 use PHP\Collections\ByteArray;
+use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 
 /**
  * Defines a Hexadecimal String equivalent for the associated array of bytes
  */
-class Hexadecimal extends ObjectClass
+class Hexadecimal extends ObjectClass implements IStringable
 {
 
 
@@ -22,5 +23,11 @@ class Hexadecimal extends ObjectClass
     public function __construct( ByteArray $byteArray )
     {
         
+    }
+
+
+    public function __toString(): string
+    {
+        return '';
     }
 }

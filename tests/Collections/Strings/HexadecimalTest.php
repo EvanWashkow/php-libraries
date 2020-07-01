@@ -5,6 +5,7 @@ namespace PHP\Tests\Collections\Strings;
 
 use PHP\Collections\ByteArray;
 use PHP\Collections\Strings\Hexadecimal;
+use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +30,8 @@ class HexadecimalTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            ObjectClass::class => [ ObjectClass::class ]
+            ObjectClass::class => [ ObjectClass::class ],
+            IStringable::class => [ IStringable::class ]
         ];
     }
 }
