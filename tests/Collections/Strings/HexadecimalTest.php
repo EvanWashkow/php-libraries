@@ -84,6 +84,18 @@ class HexadecimalTest extends TestCase
             0x6e617645 => [
                 new ByteArray( 0x6e617645, 4 ), // Hexadecimal notation is little-endian
                 '4576616e'                      // Hexadecimal strings are big-endian
+            ],
+            0x4100 => [
+                new ByteArray( 0x4100, 2 ),
+                '0041'
+            ],
+            0x0041 => [
+                new ByteArray( 0x0041, 2 ),
+                '4100'
+            ],
+            0x41 => [
+                new ByteArray( 0x41, 4 ),
+                '41000000'
             ]
         ];
     }
