@@ -120,6 +120,11 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
     /**
      * Converts an integer to its string equivalent
+     * 
+     * @param int $bytes    The integer representing the bytes
+     * @param int $byteSize Forces the integer to be N number of bytes long, from 0 to X bytes long, truncating bytes or
+     * padding with 0x00 as necessary.
+     * @return string The string typecast of the integer
      */
     private function packInt( int $int, int $byteSize ): string
     {
