@@ -241,7 +241,7 @@ class ArrayableIteratorTest extends TestCase
      * @param int   $startingIndex The starting index
      * @param int   $incrementBy   The amount to increment the index by on every goToNext()
      */
-    public function createArrayableIterator(
+    private function createArrayableIterator(
         array $array,
         int   $startingIndex = 0,
         int   $incrementBy   = 1
