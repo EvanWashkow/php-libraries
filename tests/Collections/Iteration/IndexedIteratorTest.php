@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Iteration;
+namespace PHP\Tests\Collections\Iteration;
 
-use PHP\Iteration\IndexedIterator;
-use PHP\Iteration\Iterator;
+use PHP\Collections\Iteration\IndexedIterator;
+use PHP\Collections\Iteration\Iterator;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
 

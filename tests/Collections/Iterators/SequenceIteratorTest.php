@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Collections\Iterators;
 
+use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\Sequence;
-use PHP\Iteration\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,17 +15,31 @@ class SequenceIteratorTest extends TestCase
 {
 
 
+
+
+    /*******************************************************************************************************************
+    *                                                      INHERITANCE
+    *******************************************************************************************************************/
+
+
     /**
-     * Ensure SequenceIterator is an instance of a IndexedIterator
+     * Ensure SequenceIterator is an instance of a ArrayableIterator
      */
-    public function testIsIndexedIterator()
+    public function testIsArrayableIterator()
     {
         $this->assertInstanceOf(
-            IndexedIterator::class,
+            ArrayableIterator::class,
             new SequenceIterator( new Sequence( 'int' )),
-            'SequenceIterator is not an IndexedIterator instance.'
+            'SequenceIterator is not an ArrayableIterator instance.'
         );
     }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                     __construct()
+    *******************************************************************************************************************/
 
 
     /**
@@ -66,122 +80,179 @@ class SequenceIteratorTest extends TestCase
     }
 
 
+
+
+    /*******************************************************************************************************************
+    *                                                       getValue()
+    *******************************************************************************************************************/
+
     /**
-     * Test hasCurrent() returns the correct result
+     * Test getValue() return key
      * 
-     * @dataProvider getHasCurrentTestData
+     * @dataProvider getIterators
      */
-    public function testHasCurrent( SequenceIterator $iterator, bool $expected )
+    public function testGetValue( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    {
+        if ( null === $value ) {
+            $this->expectException( \OutOfBoundsException::class );
+            $iterator->getValue();
+        }
+        else {
+            $this->assertEquals(
+                $value,
+                $iterator->getValue(),
+                'SequenceIterator->getValue() did not return the expected value.'
+            );
+        }
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                       getKey()
+    *******************************************************************************************************************/
+
+    /**
+     * Test getKey() return key
+     * 
+     * @dataProvider getIterators
+     */
+    public function testGetKey( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
     {
         $this->assertEquals(
-            $expected,
+            $key,
+            $iterator->getKey(),
+            'SequenceIterator->getKey() did not return the expected value.'
+        );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                      hasCurrent()
+    *******************************************************************************************************************/
+
+    /**
+     * Test hasCurrent() return value
+     * 
+     * @dataProvider getIterators
+     */
+    public function testHasCurrent( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    {
+        $this->assertEquals(
+            $hasCurrent,
             $iterator->hasCurrent(),
-            'SequenceIterator->hasCurrent() returned the wrong result.'
+            'SequenceIterator->hasCurrent() did not return the expected value.'
         );
     }
 
-    public function getHasCurrentTestData(): array
-    {
-        return [
-            'Empty Sequence' => [
-                new SequenceIterator( new Sequence( 'int' ) ),
-                false
-            ],
-            'Sequence with one value' => [
-                new SequenceIterator( new Sequence( 'int', [ 1 ] ) ),
-                true
-            ],
-            'Sequence with two values' => [
-                new SequenceIterator( new Sequence( 'int', [ 1, 2 ] ) ),
-                true
-            ],
-            'Sequence with one value => goToNext()' => [
-                (function() {
-                    $iterator = new SequenceIterator( new Sequence( 'int', [ 1 ] ) );
-                    $iterator->goToNext();
-                    return $iterator;
-                })(),
-                false
-            ],
-            'Sequence with two values => goToNext()' => [
-                (function() {
-                    $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2 ] ) );
-                    $iterator->goToNext();
-                    return $iterator;
-                })(),
-                true
-            ],
-            'Sequence with two values => goToNext() => goToNext()' => [
-                (function() {
-                    $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2 ] ) );
-                    $iterator->goToNext();
-                    $iterator->goToNext();
-                    return $iterator;
-                })(),
-                false
-            ]
-        ];
-    }
+
+
+
+    /*******************************************************************************************************************
+    *                                                   SHARED DATA PROVIDERS
+    *******************************************************************************************************************/
 
 
     /**
-     * Test getValue() returns the correct result
+     * Retrieve sample SequenceIterator test data
      * 
-     * @dataProvider getValueTestData
+     * @return array
      */
-    public function testGetValue( SequenceIterator $iterator, $expected )
+    public function getIterators(): array
     {
-        $this->assertEquals(
-            $expected,
-            $iterator->getValue(),
-            'SequenceIterator->getValue() did not return the expected Key Value Pair.'
-        );
-    }
+        // Zero-based index Sequences
+        $zeroBased  = new Sequence( 'int', [ 1, 2, 3 ] );
 
-    public function getValueTestData(): array
-    {
-        $iterator = new SequenceIterator( new Sequence( 'int', [ 1, 2, 3 ] ) );
+        // Three-based index Sequences
+        $threeBased = $this->getMockBuilder( Sequence::class )
+            ->setConstructorArgs([ 'int' ])
+            ->setMethods([ 'getFirstKey' ])
+            ->getMock();
+        $threeBased->method( 'getFirstKey' )->willReturn( 3 );
+        $threeBased->set( 3, 1 );
+        $threeBased->set( 4, 2 );
+        $threeBased->set( 5, 2 );
 
         return [
-            'Unmoved Sequence' => [
-                clone $iterator,
+
+            /**
+             * Example SequenceIterator with no entries
+             */
+            'SequenceIterator([]), zero-based index' => [
+                new SequenceIterator( new Sequence( 'int' ) ),      // SequenceIterator
+                false,                                              // ->hasCurrent()
+                0,                                                  // ->getKey()
+                null                                                // ->getValue()
+            ],
+
+
+            /**
+             * Zero-based indexed Sequences
+             */
+            'SequenceIterator( zeroBased )' => [
+                new SequenceIterator( $zeroBased ),
+                true,
+                0,
                 1
             ],
-            'Sequence => goToNext()' => [
-                (function() use ( $iterator ) {
-                    $iterator = clone $iterator;
+            'SequenceIterator( zeroBased )->goToNext()' => [
+                (function() use ( $zeroBased ) {
+                    $iterator = new SequenceIterator( $zeroBased );
                     $iterator->goToNext();
                     return $iterator;
                 })(),
+                true,
+                1,
                 2
             ],
-            'Sequence => goToNext() => goToNext()' => [
-                (function() use ( $iterator ) {
-                    $iterator = clone $iterator;
+            'SequenceIterator( zeroBased )->goToNext()->goToNext()->goToNext()' => [
+                (function() use ( $zeroBased ) {
+                    $iterator = new SequenceIterator( $zeroBased );
+                    $iterator->goToNext();
                     $iterator->goToNext();
                     $iterator->goToNext();
                     return $iterator;
                 })(),
-                3
+                false,
+                3,
+                null
+            ],
+
+
+            /**
+             * Three-based indexed Sequences
+             */
+            'SequenceIterator( threeBased )' => [
+                new SequenceIterator( $threeBased ),
+                true,
+                3,
+                1
+            ],
+            'SequenceIterator( threeBased )->goToNext()' => [
+                (function() use ( $threeBased ) {
+                    $iterator = new SequenceIterator( $threeBased );
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                true,
+                4,
+                2
+            ],
+            'SequenceIterator( threeBased )->goToNext()->goToNext()->goToNext()' => [
+                (function() use ( $threeBased ) {
+                    $iterator = new SequenceIterator( $threeBased );
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    $iterator->goToNext();
+                    return $iterator;
+                })(),
+                false,
+                6,
+                null
             ]
         ];
-    }
-
-
-    /**
-     * Test getValue() throws OutOfBoundsException
-     */
-    public function testGetValueThrowsOutOfBoundsException()
-    {
-        // Mock hasCurrent() as returning false
-        $iterator = $this->getMockBuilder( SequenceIterator::class )
-            ->disableOriginalConstructor()
-            ->setMethods([ 'hasCurrent' ])
-            ->getMock();
-        $iterator->method( 'hasCurrent' )->willReturn( false );
-
-        // Test
-        $this->expectException( \OutOfBoundsException::class );
-        $iterator->getValue();
     }
 }

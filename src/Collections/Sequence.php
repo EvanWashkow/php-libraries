@@ -5,7 +5,7 @@ namespace PHP\Collections;
 
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Exceptions\NotFoundException;
-use PHP\Iteration\Iterator;
+use PHP\Collections\Iteration\Iterator;
 use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 

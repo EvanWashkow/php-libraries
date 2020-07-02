@@ -8,7 +8,7 @@ use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Collections\Iterators\SequenceIterator;
 use PHP\Collections\Sequence;
-use PHP\Iteration\IIterable;
+use PHP\Collections\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**

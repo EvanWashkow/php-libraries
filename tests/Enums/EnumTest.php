@@ -48,21 +48,17 @@ class EnumTest extends TestCase
     public function getEnumTypeData(): array
     {
         return [
-            'new GoodEnum( GoodEnum::ONE_STRING )' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
+            'Enum is ObjectClass' => [
+                $this->createMock( Enum::class ),
                 ObjectClass::class
             ],
-            'new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                Enum::class
-            ],
-            'new GoodStringEnum( GoodStringEnum::ONE )' => [
-                new GoodStringEnum( GoodStringEnum::ONE ),
-                Enum::class
-            ],
-            'new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+            'BitmapEnum is IntegerEnum' => [
+                $this->createMock( BitMapEnum::class ),
                 IntegerEnum::class
+            ],
+            'StringEnum is Enum' => [
+                $this->createMock( StringEnum::class ),
+                Enum::class
             ]
         ];
     }
@@ -233,7 +229,7 @@ class EnumTest extends TestCase
 
 
     /**
-     * Test the construction of Enums
+     * Test getValue()
      * 
      * @dataProvider getPrimitiveValueComparisonData()
      */

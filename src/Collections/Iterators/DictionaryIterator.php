@@ -5,7 +5,7 @@ namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Dictionary;
 use PHP\Collections\KeyValuePair;
-use PHP\Iteration\IndexedIterator;
+use PHP\Collections\Iteration\IndexedIterator;
 
 /**
  * Defines an Iterator to traverse a dictionary

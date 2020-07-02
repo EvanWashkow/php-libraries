@@ -6,8 +6,11 @@ namespace PHP\Tests;
 use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
+use PHP\Collections\IArrayable;
+use PHP\Collections\IReadOnlyCollection;
 use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
+use PHP\Interfaces\ICloneable;
 use PHP\Types\Models\AnonymousType;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +21,38 @@ require_once( __DIR__ . '/CollectionData.php' );
  */
 class CollectionTest extends TestCase
 {
+
+
+
+
+    /***************************************************************************
+    *                                 INHERITANCE
+    ***************************************************************************/
+
+    /**
+     * Test inheritance
+     * 
+     * @dataProvider getInheritanceTestData
+     */
+    public function testInheritance( string $expectedParent )
+    {
+        $this->assertInstanceOf(
+            $expectedParent,
+            $this->createMock( Collection::class ),
+            "Collection is not of type \\{$expectedParent}."
+        );
+    }
+
+    public function getInheritanceTestData(): array
+    {
+        return [
+            IArrayable::class          => [ IArrayable::class ],
+            ICloneable::class          => [ ICloneable::class ],
+            IReadOnlyCollection::class => [ IReadOnlyCollection::class ]
+        ];
+    }
+
+
 
 
     /***************************************************************************

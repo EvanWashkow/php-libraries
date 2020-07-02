@@ -3,17 +3,15 @@ declare( strict_types = 1 );
 
 namespace PHP\Iteration;
 
+use PHP\Collections\Iteration\IIterable as IterationIIterable;
+
+// 04-2020
+trigger_error(
+    IIterable::class . ' moved to the Collections namespace',
+    E_USER_ERROR
+);
+
 /**
- * Describes an object with a set of values that can be traversed by a foreach() loop
+ * @deprecated Moved to the Collections namespace
  */
-interface IIterable extends \IteratorAggregate
-{
-
-
-    /**
-     * @internal Specified for additional clarity and to change the return type.
-     * 
-     * @return Iterator
-     */
-    public function getIterator(): Iterator;
-}
+interface IIterable extends IterationIIterable {}

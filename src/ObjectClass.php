@@ -35,10 +35,10 @@ class ObjectClass implements IEquatable
     public function equals( $value ): bool
     {
         // Compare instances
-        $equals = $this === $value;
+        $isEqual = $this === $value;
 
         // If not equals, compare individual object properties
-        if ( !$equals )
+        if ( !$isEqual )
         {
             // Is $value derived from $this class? If not, false.
             $class = new ReflectionClass( $this );
@@ -51,14 +51,14 @@ class ObjectClass implements IEquatable
                     $property->setAccessible( true );
                     $thisPropValue  = $property->getValue( $this );
                     $valuePropValue = $property->getValue( $value );
-                    $equals         = $thisPropValue === $valuePropValue;
-                    if ( !$equals ) {
+                    $isEqual        = $thisPropValue === $valuePropValue;
+                    if ( !$isEqual ) {
                         break;
                     }
                 }
             }
         }
 
-        return $equals;
+        return $isEqual;
     }
 }
