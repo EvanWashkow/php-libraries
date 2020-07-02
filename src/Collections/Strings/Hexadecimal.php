@@ -13,8 +13,8 @@ use PHP\ObjectClass;
 class Hexadecimal extends ObjectClass implements IStringable
 {
 
-    /** @var ByteArray $byteArray The array of bytes to be converted into Hexadecimal */
-    private $byteArray;
+    /** @var string $string The Hexadecimal string */
+    private $string;
 
 
     /**
@@ -25,12 +25,12 @@ class Hexadecimal extends ObjectClass implements IStringable
      */
     public function __construct( ByteArray $byteArray )
     {
-        $this->byteArray = $byteArray;
+        $this->string = bin2hex( $byteArray->__toString() );
     }
 
 
     public function __toString(): string
     {
-        return bin2hex( $this->byteArray->__toString() );
+        return $this->string;
     }
 }
