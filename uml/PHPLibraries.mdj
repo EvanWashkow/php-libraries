@@ -22243,7 +22243,7 @@
 													"top": 230,
 													"width": 497.575439453125,
 													"height": 13,
-													"text": "+get(hashAlgorithm: HashAlgorithm, value): IHashable",
+													"text": "+create(hashAlgorithm: HashAlgorithm, value): IHashable",
 													"horizontalAlignment": 0
 												},
 												{
@@ -24244,7 +24244,7 @@
 											"_parent": {
 												"$ref": "AAAAAAFzG2FfDlBbqN8="
 											},
-											"name": "get",
+											"name": "create",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
@@ -24274,8 +24274,7 @@
 													"_parent": {
 														"$ref": "AAAAAAFzG2SBTVDbwYI="
 													},
-													"name": "value",
-													"type": ""
+													"name": "value"
 												}
 											]
 										},
