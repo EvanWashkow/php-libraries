@@ -25281,6 +25281,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 144,
+													"top": 16,
 													"height": 13
 												},
 												{
@@ -25291,7 +25292,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 101,
-													"top": 31,
+													"top": 39,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "Serializer"
@@ -25305,6 +25306,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 144,
+													"top": 16,
 													"width": 221.79345703125,
 													"height": 13,
 													"text": "(from Serialization)"
@@ -25318,13 +25320,14 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 144,
+													"top": 16,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 96,
-											"top": 24,
+											"top": 32,
 											"width": 292.51513671875,
 											"height": 25,
 											"stereotypeLabel": {
@@ -25351,7 +25354,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 96,
-											"top": 49,
+											"top": 57,
 											"width": 292.51513671875,
 											"height": 10
 										},
@@ -25376,7 +25379,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 64,
+													"top": 72,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "+__construct()",
@@ -25393,7 +25396,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 79,
+													"top": 87,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "+serialize(value): string",
@@ -25410,7 +25413,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 94,
+													"top": 102,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeArray(value: array): string",
@@ -25427,7 +25430,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 109,
+													"top": 117,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeISerializable(value: ISerializable): string",
@@ -25444,7 +25447,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 124,
+													"top": 132,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeInt(value: int): string",
@@ -25461,7 +25464,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 139,
+													"top": 147,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeFloat(value: float): string",
@@ -25478,7 +25481,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 154,
+													"top": 162,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeNull(): string",
@@ -25495,7 +25498,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 169,
+													"top": 177,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeObject(value: object): string",
@@ -25512,7 +25515,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 101,
-													"top": 184,
+													"top": 192,
 													"width": 282.51513671875,
 													"height": 13,
 													"text": "#serializeString(value: string): string",
@@ -25521,7 +25524,7 @@
 											],
 											"font": "Arial;13;0",
 											"left": 96,
-											"top": 59,
+											"top": 67,
 											"width": 292.51513671875,
 											"height": 143
 										},
@@ -25537,6 +25540,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 64,
+											"top": 8,
 											"width": 10,
 											"height": 10
 										},
@@ -25552,6 +25556,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 64,
+											"top": 8,
 											"width": 10,
 											"height": 10
 										}
@@ -25559,7 +25564,7 @@
 									"font": "Arial;13;0",
 									"containerChangeable": true,
 									"left": 96,
-									"top": 24,
+									"top": 32,
 									"width": 292.51513671875,
 									"height": 178,
 									"nameCompartment": {
@@ -26431,8 +26436,8 @@
 									"left": 528,
 									"top": 384,
 									"width": 321,
-									"height": 172,
-									"text": "A Parent Value is composed of Child Values. For each Child, call the Serializer to convert it to a String. Accumulate the resulting strings in an associative array, serialize it, and return the result.\n\nBefore converting the Child to a string, check that that Child value is not in the static, global Value Stack. If it is not then push the Child Value into the Value Stack, convert it to a string, and then pop the Value out of the Stack. This prevents the system from getting caught in an infinite recursive loop if there is a self-referential object chain."
+									"height": 159,
+									"text": "A Parent Value is composed of Child Values. For each Child, call the Serializer to serialize them. Accumulate the resulting serialized strings in an array, serialize it, and return the result.\n\nBefore converting the Child to a string, check that that Child value is not in the static, global Value Stack. If it is not then push the Child Value into the Value Stack, convert it to a string, and then pop the Value out of the Stack. This prevents the system from getting caught in an infinite recursive loop if there is a self-referential object chain."
 								},
 								{
 									"_type": "UMLDependencyView",
@@ -26516,7 +26521,7 @@
 										"$ref": "AAAAAAFzG3KCE1JiLRk="
 									},
 									"lineStyle": 1,
-									"points": "95:440;32:440;32:120;95:118",
+									"points": "95:440;32:440;32:120;95:120",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFzJ3u4twVATUc="
@@ -26542,7 +26547,7 @@
 										"$ref": "AAAAAAFzG3KCE1JiLRk="
 									},
 									"lineStyle": 1,
-									"points": "340:448;527:459"
+									"points": "340:447;527:455"
 								},
 								{
 									"_type": "UMLInterfaceView",
@@ -26766,7 +26771,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 248,
-											"top": 223,
+											"top": 227,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -26787,7 +26792,7 @@
 											"visible": null,
 											"font": "Arial;13;0",
 											"left": 263,
-											"top": 224,
+											"top": 228,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -26808,7 +26813,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 219,
-											"top": 222,
+											"top": 226,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -26826,7 +26831,7 @@
 										"$ref": "AAAAAAFzG2FfD1BdfDw="
 									},
 									"lineStyle": 1,
-									"points": "236:202;232.83333333333334:256",
+									"points": "236:210;232.83333333333334:256",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFzKkq26CKe9Hc="
@@ -26931,6 +26936,35 @@
 									"propertyLabel": {
 										"$ref": "AAAAAAFzKl2nfyMmuR4="
 									}
+								},
+								{
+									"_type": "UMLNoteView",
+									"_id": "AAAAAAFzKnXKQiYu3Vo=",
+									"_parent": {
+										"$ref": "AAAAAAFzG2EEelBWy+s="
+									},
+									"font": "Arial;13;0",
+									"left": 528,
+									"top": 32,
+									"width": 241,
+									"height": 51,
+									"text": "Serializing objects that are ISerializable should just return the result of their serialize() function."
+								},
+								{
+									"_type": "UMLNoteLinkView",
+									"_id": "AAAAAAFzKnZ+BiY29cw=",
+									"_parent": {
+										"$ref": "AAAAAAFzG2EEelBWy+s="
+									},
+									"font": "Arial;13;0",
+									"head": {
+										"$ref": "AAAAAAFzKnXKQiYu3Vo="
+									},
+									"tail": {
+										"$ref": "AAAAAAFzG2FfD1BdfDw="
+									},
+									"lineStyle": 1,
+									"points": "389:97;527:76"
 								}
 							]
 						},
