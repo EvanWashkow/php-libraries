@@ -15638,7 +15638,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -864,
+									"left": -867,
 									"top": -152,
 									"width": 10,
 									"height": 10
@@ -15688,7 +15688,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -864,
+									"left": -867,
 									"top": -152,
 									"width": 10,
 									"height": 10
@@ -15704,7 +15704,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -864,
+									"left": -867,
 									"top": -152,
 									"width": 10,
 									"height": 10
@@ -22110,7 +22110,7 @@
 									}
 								}
 							],
-							"documentation": "Describes an object that can be hashed.\n\nThe serialized string will be used to generate the hash. Thus, the result of serialize() should be congruent with the result of hash().",
+							"documentation": "Describes an object that can be hashed.\n\nWhen implementing, if x.equals(y) returns true, then the value returned by the x.hash() should be equal to y.hash().",
 							"operations": [
 								{
 									"_type": "UMLOperation",
