@@ -21762,35 +21762,6 @@
 									}
 								},
 								{
-									"_type": "UMLNoteView",
-									"_id": "AAAAAAFzKnkM1CY8piE=",
-									"_parent": {
-										"$ref": "AAAAAAFzGEYczRqn1RU="
-									},
-									"font": "Arial;13;0",
-									"left": 928,
-									"top": 32,
-									"width": 193,
-									"height": 51,
-									"text": "Add a Decorator, implementing IHasher, that prefers IHashable->hash()?"
-								},
-								{
-									"_type": "UMLNoteLinkView",
-									"_id": "AAAAAAFzKnq5PSZKVEk=",
-									"_parent": {
-										"$ref": "AAAAAAFzGEYczRqn1RU="
-									},
-									"font": "Arial;13;0",
-									"head": {
-										"$ref": "AAAAAAFzKmwAHyTZrHY="
-									},
-									"tail": {
-										"$ref": "AAAAAAFzKnkM1CY8piE="
-									},
-									"lineStyle": 1,
-									"points": "927:61;858:64"
-								},
-								{
 									"_type": "UMLInterfaceView",
 									"_id": "AAAAAAFzL0Zsp0hGvmg=",
 									"_parent": {
