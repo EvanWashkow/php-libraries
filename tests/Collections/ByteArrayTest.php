@@ -84,8 +84,8 @@ class ByteArrayTest extends TestCase
     public function getConstructorExceptionsTestData(): array
     {
         return [
-            '__construct( 1.5 )' => [
-                [ 1.5 ],
+            '__construct( null )' => [
+                [ null ],
                 \InvalidArgumentException::class
             ],
             '__construct( [ 65 ] )' => [
