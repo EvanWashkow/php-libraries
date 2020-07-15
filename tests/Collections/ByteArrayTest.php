@@ -169,7 +169,7 @@ class ByteArrayTest extends TestCase
     public function getIntegerConstructorTestData(): array
     {
         // A null-byte string (0x00-string equivalent)
-        $nullChar = pack( 'x' );
+        $nullChar = self::getNullChar();
 
         // 32-bit integer equivalent of ABCD
         $int32 = 0x44434241;
@@ -452,5 +452,24 @@ class ByteArrayTest extends TestCase
                 0x005A5958
             ]
         ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                       UTILITIES
+    *******************************************************************************************************************/
+
+
+    /**
+     * Retrieve the null character
+     * 
+     * @return string
+     */
+    private static function getNullChar(): string
+    {
+        return pack( 'x' );
     }
 }
