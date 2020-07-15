@@ -159,8 +159,8 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
             throw new \DomainException( 'Byte Size cannot be less than 0.' );
         }
 
-        // pack() and truncate/pad string
-        $packedInt = pack( 'Q', $int );             // integer converted to 64-bit string
+        // pack() integer as 64-bit string, and then set it to a fixed length
+        $packedInt = pack( 'Q', $int );
         return $this->fixStringLength( $packedInt, $byteSize );
     }
 
