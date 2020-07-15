@@ -492,6 +492,10 @@ class ByteArrayTest extends TestCase
      */
     private static function getNullChar(): string
     {
-        return pack( 'x' );
+        static $nullChar = null;
+        if ( null === $nullChar ) {
+            $nullChar = pack( 'x' );
+        }
+        return $nullChar;
     }
 }
