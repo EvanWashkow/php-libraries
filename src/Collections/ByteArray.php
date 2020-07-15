@@ -161,7 +161,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
         // pack() and truncate/pad string
         $packedInt = pack( 'Q', $int );             // integer converted to 64-bit string
-        return $this->setStringLength( $packedInt, $byteSize );
+        return $this->fixStringLength( $packedInt, $byteSize );
     }
 
 
@@ -172,7 +172,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      * @param int    $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
      * truncating bytes or padding with 0x00 as necessary.
      */
-    private function setStringLength( string $bytes, int $byteSize ): string
+    private function fixStringLength( string $bytes, int $byteSize ): string
     {
         // Variables
         $maxIndex = strlen( $bytes ) - 1;
