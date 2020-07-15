@@ -51,18 +51,18 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
                 throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a Byte[]. An element in the array was not a Byte.' );
             }
         }
-        elseif ( is_int( $bytes )) {
-            $args = func_get_args();
-            try {
-                $this->__constructInt( ...$args );
-            } catch ( \DomainException $de ) {
-                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
-            }
-        }
         elseif ( is_float( $bytes )) {
             $args = func_get_args();
             try {
                 $this->__constructFloat( ...$args );
+            } catch ( \DomainException $de ) {
+                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+            }
+        }
+        elseif ( is_int( $bytes )) {
+            $args = func_get_args();
+            try {
+                $this->__constructInt( ...$args );
             } catch ( \DomainException $de ) {
                 throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
             }
@@ -93,6 +93,24 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
 
     /**
+     * Create a new Byte Array instance using the bytes of the given floating point number
+     * 
+     * @param float $bytes    The floating point number representing the bytes
+     * @param int   $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
+     * truncating bytes or padding with 0x00 as necessary.
+     * padding with 0x00 as necessary.
+     * @return void
+     * @throws \DomainException If the Byte Size is less than 0
+     * 
+     * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
+     */
+    private function __constructFloat( float $bytes, int $byteSize = PHP_INT_SIZE ): void
+    {
+        
+    }
+
+
+    /**
      * Create a new Byte Array instance using the bytes of the given integer
      * 
      * @param int $bytes    The integer representing the bytes
@@ -111,24 +129,6 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
             throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
         }
         $this->__constructString( $byteString );
-    }
-
-
-    /**
-     * Create a new Byte Array instance using the bytes of the given floating point number
-     * 
-     * @param float $bytes    The floating point number representing the bytes
-     * @param int   $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
-     * truncating bytes or padding with 0x00 as necessary.
-     * padding with 0x00 as necessary.
-     * @return void
-     * @throws \DomainException If the Byte Size is less than 0
-     * 
-     * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
-     */
-    private function __constructFloat( float $bytes, int $byteSize = PHP_INT_SIZE ): void
-    {
-        
     }
 
 
