@@ -16,6 +16,7 @@ use PHP\ObjectClass;
  * Defines an array of Bytes
  * 
  * @method void __construct( Byte[] $bytes )                            Create a new Byte Array using the bytes of the given Byte[]
+ * @method void __construct( double $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given double-precision floating point number
  * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
  * @method void __construct( string $bytes )                            Create a new Byte Array using the bytes of the given string
  */
@@ -55,7 +56,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
         elseif ( is_float( $bytes )) {
             $args = func_get_args();
             try {
-                $this->__constructFloat( ...$args );
+                $this->__constructDouble( ...$args );
             } catch ( \DomainException $de ) {
                 throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
             }
@@ -105,7 +106,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      * 
      * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
      */
-    private function __constructFloat( float $bytes, int $byteSize = PHP_INT_SIZE ): void
+    private function __constructDouble( float $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
         $this->__constructString( self::getNullChar() );
     }
