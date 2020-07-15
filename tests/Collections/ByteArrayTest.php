@@ -180,7 +180,7 @@ class ByteArrayTest extends TestCase
         $float32 = unpack( 'd', pack( 'q', $int32 ))[ 1 ];
 
         return [
-            '0.0'                       => [ 0.0,      1, $nullChar ],
+            '0.0, Byte Size = 1'        => [ 0.0,      1, $nullChar ],
             'Float32, Byte Size = 0'    => [ $float32, 0, '' ],
             'Float32, Byte Size = 1'    => [ $float32, 1, 'A' ],
             'Float32, Byte Size = 2'    => [ $float32, 2, 'AB' ],
@@ -218,6 +218,7 @@ class ByteArrayTest extends TestCase
 
         // 32-bit tests
         $data = [
+            '0, Byte Size = 1'     => [ 0,      1, $nullChar ],
             'Int32, Byte Size = 0' => [ $int32, 0, '' ],
             'Int32, Byte Size = 1' => [ $int32, 1, 'A' ],
             'Int32, Byte Size = 2' => [ $int32, 2, 'AB' ],
