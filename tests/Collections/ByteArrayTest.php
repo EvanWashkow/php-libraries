@@ -168,8 +168,13 @@ class ByteArrayTest extends TestCase
 
     public function getFloatConstructorTestData(): array
     {
+        // 32-bit float / integer equivalent of ABCD
+        $int32   = 0x44434241;
+        $float32 = unpack( 'd', pack( 'q', $int32 ))[ 1 ];
+
         return [
-            '0.0' => [ 0.0, 1, self::getNullChar() ]
+            '0.0'                       => [ 0.0,  1, self::getNullChar() ],
+            'Float32, Byte Size = 1'    => [ $float32, 1, 'A' ]
         ];
     }
 

@@ -108,7 +108,9 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      */
     private function __constructDouble( float $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
-        $this->__constructString( self::getNullChar() );
+        $byteString = pack( 'd', $bytes );
+        $byteString = $this->fixStringLength( $byteString, 1 );
+        $this->__constructString( $byteString );
     }
 
 
