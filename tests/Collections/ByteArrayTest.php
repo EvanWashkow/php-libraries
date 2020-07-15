@@ -172,13 +172,24 @@ class ByteArrayTest extends TestCase
 
     public function getFloatConstructorTestData(): array
     {
+        // Null Character
+        $nullChar = self::getNullChar();
+
         // 32-bit float / integer equivalent of ABCD
         $int32   = 0x44434241;
         $float32 = unpack( 'd', pack( 'q', $int32 ))[ 1 ];
 
         return [
-            '0.0'                       => [ 0.0,  1, self::getNullChar() ],
-            'Float32, Byte Size = 1'    => [ $float32, 1, 'A' ]
+            '0.0'                       => [ 0.0,      1, $nullChar ],
+            'Float32, Byte Size = 0'    => [ $float32, 0, '' ],
+            'Float32, Byte Size = 1'    => [ $float32, 1, 'A' ],
+            'Float32, Byte Size = 2'    => [ $float32, 2, 'AB' ],
+            'Float32, Byte Size = 3'    => [ $float32, 3, 'ABC' ],
+            'Float32, Byte Size = 4'    => [ $float32, 4, 'ABCD' ],
+            'Float32, Byte Size = 5'    => [ $float32, 5, 'ABCD' . $nullChar ],
+            'Float32, Byte Size = 6'    => [ $float32, 6, 'ABCD' . $nullChar . $nullChar ],
+            'Float32, Byte Size = 7'    => [ $float32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
+            'Float32, Byte Size = 8'    => [ $float32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
         ];
     }
 
@@ -207,15 +218,15 @@ class ByteArrayTest extends TestCase
 
         // 32-bit tests
         $data = [
-            'Int32, byte length = 0' => [ $int32, 0, '' ],
-            'Int32, byte length = 1' => [ $int32, 1, 'A' ],
-            'Int32, byte length = 2' => [ $int32, 2, 'AB' ],
-            'Int32, byte length = 3' => [ $int32, 3, 'ABC' ],
-            'Int32, byte length = 4' => [ $int32, 4, 'ABCD' ],
-            'Int32, byte length = 5' => [ $int32, 5, 'ABCD' . $nullChar ],
-            'Int32, byte length = 6' => [ $int32, 6, 'ABCD' . $nullChar . $nullChar ],
-            'Int32, byte length = 7' => [ $int32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
-            'Int32, byte length = 8' => [ $int32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
+            'Int32, Byte Size = 0' => [ $int32, 0, '' ],
+            'Int32, Byte Size = 1' => [ $int32, 1, 'A' ],
+            'Int32, Byte Size = 2' => [ $int32, 2, 'AB' ],
+            'Int32, Byte Size = 3' => [ $int32, 3, 'ABC' ],
+            'Int32, Byte Size = 4' => [ $int32, 4, 'ABCD' ],
+            'Int32, Byte Size = 5' => [ $int32, 5, 'ABCD' . $nullChar ],
+            'Int32, Byte Size = 6' => [ $int32, 6, 'ABCD' . $nullChar . $nullChar ],
+            'Int32, Byte Size = 7' => [ $int32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
+            'Int32, Byte Size = 8' => [ $int32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
         ];
 
         // 64-bit architecture
@@ -228,14 +239,14 @@ class ByteArrayTest extends TestCase
             $data = array_merge(
                 $data,
                 [
-                    'Int64, byte length = 5'  => [ $int64, 5,  'ABCDE' ],
-                    'Int64, byte length = 6'  => [ $int64, 6,  'ABCDEF' ],
-                    'Int64, byte length = 7'  => [ $int64, 7,  'ABCDEFG' ],
-                    'Int64, byte length = 8'  => [ $int64, 8,  'ABCDEFGH' ],
-                    'Int32, byte length = 9'  => [ $int64, 9,  'ABCDEFGH' . $nullChar ],
-                    'Int32, byte length = 10' => [ $int64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
-                    'Int32, byte length = 11' => [ $int64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
-                    'Int32, byte length = 12' => [ $int64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
+                    'Int64, Byte Size = 5'  => [ $int64, 5,  'ABCDE' ],
+                    'Int64, Byte Size = 6'  => [ $int64, 6,  'ABCDEF' ],
+                    'Int64, Byte Size = 7'  => [ $int64, 7,  'ABCDEFG' ],
+                    'Int64, Byte Size = 8'  => [ $int64, 8,  'ABCDEFGH' ],
+                    'Int32, Byte Size = 9'  => [ $int64, 9,  'ABCDEFGH' . $nullChar ],
+                    'Int32, Byte Size = 10' => [ $int64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
+                    'Int32, Byte Size = 11' => [ $int64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
+                    'Int32, Byte Size = 12' => [ $int64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
                 ]
             );
         }
