@@ -160,6 +160,7 @@ class ByteArrayTest extends TestCase
      * Test __construct( float )
      * 
      * @dataProvider getFloatConstructorTestData
+     * @todo Remove nullChar tests by implementing a String class with a type of fix(int length, string pad) function
      */
     public function testFloatConstructor( float $bytes, int $byteSize, string $expectedString )
     {
@@ -198,6 +199,7 @@ class ByteArrayTest extends TestCase
      * Test __construct( int )
      * 
      * @dataProvider getIntegerConstructorTestData
+     * @todo Remove nullChar tests by implementing a String class with a type of fix(int length, string pad) function
      */
     public function testIntegerConstructor( int $bytes, int $byteSize, string $expectedString )
     {
