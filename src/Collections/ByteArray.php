@@ -148,8 +148,8 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      * Converts an integer to its string equivalent
      * 
      * @param int $bytes    The integer representing the bytes
-     * @param int $byteSize Forces the integer to be N number of bytes long, from 0 to X bytes long, truncating bytes or
-     * padding with 0x00 as necessary.
+     * @param int $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
+     * truncating bytes or padding with 0x00 as necessary.
      * @return string The string typecast of the integer
      */
     private function packInt( int $int, int $byteSize ): string
@@ -159,23 +159,36 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
             throw new \DomainException( 'Byte Size cannot be less than 0.' );
         }
 
-        // pack() variables
-        $packedInt         = pack( 'Q', $int );             // integer converted to 64-bit string
-        $packedIntMaxIndex = strlen( $packedInt ) - 1;
-        $nullChar          = self::getNullChar();           // 0x00 character-equivalent
+        // pack() and truncate/pad string
+        $packedInt = pack( 'Q', $int );             // integer converted to 64-bit string
+        return $this->setStringLength( $packedInt, $byteSize );
+    }
+
+
+    /**
+     * Truncates / Pads a byte string to be X number of bytes long
+     * 
+     * @param string $bytes    The string representing the bytes
+     * @param int    $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
+     * truncating bytes or padding with 0x00 as necessary.
+     */
+    private function setStringLength( string $bytes, int $byteSize ): string
+    {
+        // Variables
+        $maxIndex = strlen( $bytes ) - 1;
+        $nullChar = self::getNullChar();    // 0x00 character-equivalent
         
         // Treat the integer as N number of bytes long, truncating extra bytes or padding with zeros as necessary.
         $byteString  = '';
         for ( $i = 0; $i < $byteSize; $i++ ) {
-            if ( $i <= $packedIntMaxIndex ) {
-                $byteString .= $packedInt[ $i ];
+            if ( $i <= $maxIndex ) {
+                $byteString .= $bytes[ $i ];
             }
             else {
                 $byteString .= $nullChar;
             }
         }
 
-        // Return the resulting Byte string
         return $byteString;
     }
 
