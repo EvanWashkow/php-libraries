@@ -153,6 +153,28 @@ class ByteArrayTest extends TestCase
 
 
     /**
+     * Test __construct( float )
+     * 
+     * @dataProvider getFloatConstructorTestData
+     */
+    public function testFloatConstructor( float $bytes, int $byteSize, string $expectedString )
+    {
+        $this->assertEquals(
+            $expectedString,
+            ( new ByteArray( $bytes, $byteSize ))->__toString(),
+            '( new ByteArray( float, int ) )->__toString() did not return the expected string.'
+        );
+    }
+
+    public function getFloatConstructorTestData(): array
+    {
+        return [
+            '0.0' => [ 0.0, 1, self::getNullChar() ]
+        ];
+    }
+
+
+    /**
      * Test __construct( int )
      * 
      * @dataProvider getIntegerConstructorTestData
