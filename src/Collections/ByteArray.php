@@ -166,7 +166,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     private function packInt( int $int, int $byteSize ): string
     {
         // pack() integer as 64-bit string, and then set it to a fixed length
-        $packedInt = pack( 'Q', $int );
+        $packedInt = pack( 'q', $int );
         try {
             return $this->fixStringLength( $packedInt, $byteSize );
         } catch ( \DomainException $de ) {
@@ -279,7 +279,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     public function toInt(): int
     {
         $paddedBytes = str_pad( $this->bytes, 8, self::getNullChar() );
-        return unpack( 'Q', $paddedBytes )[ 1 ];
+        return unpack( 'q', $paddedBytes )[ 1 ];
     }
 
 
