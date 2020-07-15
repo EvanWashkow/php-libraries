@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use DomainException;
 use PHP\Byte;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
@@ -150,18 +151,20 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      * @param int $bytes    The integer representing the bytes
      * @param int $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
      * truncating bytes or padding with 0x00 as necessary.
+     * 
      * @return string The string typecast of the integer
+     * 
+     * @throws \DomainException If the Byte Size < 0
      */
     private function packInt( int $int, int $byteSize ): string
     {
-        // Ensure Byte Size range is valid
-        if ( $byteSize < 0 ) {
-            throw new \DomainException( 'Byte Size cannot be less than 0.' );
-        }
-
         // pack() integer as 64-bit string, and then set it to a fixed length
         $packedInt = pack( 'Q', $int );
-        return $this->fixStringLength( $packedInt, $byteSize );
+        try {
+            return $this->fixStringLength( $packedInt, $byteSize );
+        } catch ( \DomainException $de ) {
+            throw new DomainException( $de->getMessage(), $de->getCode(), $de );
+        }
     }
 
 
@@ -171,9 +174,18 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      * @param string $bytes    The string representing the bytes
      * @param int    $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
      * truncating bytes or padding with 0x00 as necessary.
+     * 
+     * @return string The string typecast of the integer
+     * 
+     * @throws \DomainException If the Byte Size < 0
      */
     private function fixStringLength( string $bytes, int $byteSize ): string
     {
+        // Ensure Byte Size range is valid
+        if ( $byteSize < 0 ) {
+            throw new \DomainException( 'Byte Size cannot be less than 0.' );
+        }
+
         // Variables
         $maxIndex = strlen( $bytes ) - 1;
         $nullChar = self::getNullChar();    // 0x00 character-equivalent
