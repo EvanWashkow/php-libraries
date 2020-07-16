@@ -58,6 +58,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      */
     public function __construct( $bytes )
     {
+        // Switch on variable type
         if ( is_array( $bytes )) {
             try {
                 $this->__constructByteArray( ...$bytes );
@@ -65,24 +66,22 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
                 throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a Byte[]. An element in the array was not a Byte.' );
             }
         }
-        elseif ( is_float( $bytes )) {
-            $args = func_get_args();
-            try {
-                $this->__constructDouble( ...$args );
-            } catch ( \DomainException $de ) {
-                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
-            }
-        }
-        elseif ( is_int( $bytes )) {
-            $args = func_get_args();
-            try {
-                $this->__constructInt( ...$args );
-            } catch ( \DomainException $de ) {
-                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
-            }
-        }
         elseif ( is_string( $bytes )) {
             $this->__constructString( $bytes );
+        }
+        elseif (
+            ( $isInt    = is_int(    $bytes ) ) ||
+            ( $isDouble = is_double( $bytes ) )
+        )
+        {
+            $args       = func_get_args();
+            $packFormat = $isInt ? self::INT_FORMAT : self::DOUBLE_FORMAT;
+            try {
+                $byteString = $this->pack( $packFormat, ...$args );
+            } catch ( \DomainException $de ) {
+                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+            }
+            $this->__constructString( $byteString );
         }
         else {
             throw new \InvalidArgumentException( 'ByteArray->__construct() expects a Byte[], integer, or string.' );
@@ -100,52 +99,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     {
         $byteString = '';
         foreach ( $bytes as $byte ) {
-            $byteString .= $this->pack( $byte->toInt(), self::INT_FORMAT, 1 );
-        }
-        $this->__constructString( $byteString );
-    }
-
-
-    /**
-     * Create a new Byte Array instance using the bytes of the given floating point number
-     * 
-     * @param float $bytes    The floating point number representing the bytes
-     * @param int   $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
-     * truncating bytes or padding with 0x00 as necessary.
-     * padding with 0x00 as necessary.
-     * @return void
-     * @throws \DomainException If the Byte Size is less than 0
-     * 
-     * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
-     */
-    private function __constructDouble( float $bytes, int $byteSize = PHP_INT_SIZE ): void
-    {
-        try {
-            $byteString = $this->pack( $bytes, self::DOUBLE_FORMAT, $byteSize );
-        } catch ( \DomainException $de ) {
-            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
-        }
-        $this->__constructString( $byteString );
-    }
-
-
-    /**
-     * Create a new Byte Array instance using the bytes of the given integer
-     * 
-     * @param int $bytes    The integer representing the bytes
-     * @param int $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
-     * truncating bytes or padding with 0x00 as necessary.
-     * @return void
-     * @throws \DomainException If the Byte Size is less than 0
-     * 
-     * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
-     */
-    private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
-    {
-        try {
-            $byteString = $this->pack( $bytes, self::INT_FORMAT, $byteSize );
-        } catch ( \DomainException $de ) {
-            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+            $byteString .= $this->pack( self::INT_FORMAT, $byte->toInt(), 1 );
         }
         $this->__constructString( $byteString );
     }
@@ -166,12 +120,12 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     /**
      * Pack the value with the given format, truncating / padding it be a fixed Byte Size
      * 
-     * @param mixed  $value      The value to pack
      * @param string $packFormat The pack() function's format string
-     * @param int    $byteSize   Fixes the resulting binary string to be N number of Bytes long, truncating or padding with 0x00 as necessary
+     * @param mixed  $value      The value to pack
+     * @param int    $byteSize   Fixes the resulting binary string to be N number of Bytes long, truncating or padding with 0x00 as necessary. Defaults to the current architecture's byte size.
      * @throws \DomainException If the Byte Size < 0
      */
-    private function pack( $value, string $packFormat, int $byteSize ): string
+    private function pack( string $packFormat, $value, int $byteSize = PHP_INT_SIZE ): string
     {
         // pack() number, and then set it to a fixed length
         $packedValue = pack( $packFormat, $value );
