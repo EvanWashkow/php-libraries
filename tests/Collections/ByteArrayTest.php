@@ -146,11 +146,11 @@ class ByteArrayTest extends TestCase
             ],
             '[ 65, 66, 67, 0 ]' => [
                 [ 65, 66, 67, 0 ],
-                'ABC' . pack( 'x' )
+                'ABC' . self::getNullChar()
             ],
             '[ 65, 66, 67, 0, 97, 98, 99 ]' => [
                 [ 65, 66, 67, 0, 97, 98, 99 ],
-                'ABC' . pack( 'x' ) . 'abc'
+                'ABC' . self::getNullChar() . 'abc'
             ]
         ];
     }
