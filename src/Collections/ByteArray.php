@@ -3,7 +3,6 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
-use DomainException;
 use PHP\Byte;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Iteration\Iterator;
@@ -170,7 +169,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
         try {
             return $this->fixStringLength( $packedInt, $byteSize );
         } catch ( \DomainException $de ) {
-            throw new DomainException( $de->getMessage(), $de->getCode(), $de );
+            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
         }
     }
 
