@@ -77,7 +77,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
             $args       = func_get_args();
             $packFormat = $isInt ? self::INT_FORMAT : self::DOUBLE_FORMAT;
             try {
-                $byteString = $this->pack( $packFormat, ...$args );
+                $byteString = $this->packAndFixSize( $packFormat, ...$args );
             } catch ( \DomainException $de ) {
                 throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
             }
@@ -99,7 +99,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     {
         $byteString = '';
         foreach ( $bytes as $byte ) {
-            $byteString .= $this->pack( self::INT_FORMAT, $byte->toInt(), 1 );
+            $byteString .= $this->packAndFixSize( self::INT_FORMAT, $byte->toInt(), 1 );
         }
         $this->__constructString( $byteString );
     }
@@ -122,10 +122,11 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      * 
      * @param string $packFormat The pack() function's format string
      * @param mixed  $value      The value to pack
-     * @param int    $byteSize   Fixes the resulting binary string to be N number of Bytes long, truncating or padding with 0x00 as necessary. Defaults to the current architecture's byte size.
+     * @param int    $byteSize   Truncates or pads (with 0x00) the binary string to be N number of Bytes long. Defaults
+     * to the current architecture's byte size.
      * @throws \DomainException If the Byte Size < 0
      */
-    private function pack( string $packFormat, $value, int $byteSize = PHP_INT_SIZE ): string
+    private function packAndFixSize( string $packFormat, $value, int $byteSize = PHP_INT_SIZE ): string
     {
         // Ensure Byte Size range is valid
         if ( $byteSize < 0 ) {
