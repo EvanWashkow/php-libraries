@@ -24,6 +24,19 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
 
     /*******************************************************************************************************************
+    *                                                       CONSTANTS
+    *******************************************************************************************************************/
+
+    /** @var string INT_FORMAT pack() format for 64-bit integer */
+    private const INT_FORMAT = 'q';
+
+    /** @var string DOUBLE_FORMAT pack() format for 64-bit doubles */
+    private const DOUBLE_FORMAT = 'd';
+
+
+
+
+    /*******************************************************************************************************************
     *                                                      PROPERTIES
     *******************************************************************************************************************/
 
@@ -87,7 +100,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     {
         $byteString = '';
         foreach ( $bytes as $byte ) {
-            $byteString .= $this->packInt( $byte->toInt(), 1 );
+            $byteString .= $this->pack( $byte->toInt(), self::INT_FORMAT, 1 );
         }
         $this->__constructString( $byteString );
     }
@@ -107,9 +120,8 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      */
     private function __constructDouble( float $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
-        $byteString = pack( 'd', $bytes );
         try {
-            $byteString = $this->fixStringLength( $byteString, $byteSize );
+            $byteString = $this->pack( $bytes, self::DOUBLE_FORMAT, $byteSize );
         } catch ( \DomainException $de ) {
             throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
         }
@@ -131,7 +143,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
     {
         try {
-            $byteString = $this->packInt( $bytes, $byteSize );
+            $byteString = $this->pack( $bytes, self::INT_FORMAT, $byteSize );
         } catch ( \DomainException $de ) {
             throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
         }
@@ -152,25 +164,23 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
 
     /**
-     * Converts an integer to its string equivalent
+     * Pack the value with the given format, truncating / padding it be a fixed Byte Size
      * 
-     * @param int $bytes    The integer representing the bytes
-     * @param int $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
-     * truncating bytes or padding with 0x00 as necessary.
-     * 
-     * @return string The string typecast of the integer
-     * 
+     * @param mixed  $value      The value to pack
+     * @param string $packFormat The pack() function's format string
+     * @param int    $byteSize   Fixes the resulting binary string to be N number of Bytes long, truncating or padding with 0x00 as necessary
      * @throws \DomainException If the Byte Size < 0
      */
-    private function packInt( int $int, int $byteSize ): string
+    private function pack( $value, string $packFormat, int $byteSize ): string
     {
-        // pack() integer as 64-bit string, and then set it to a fixed length
-        $packedInt = pack( 'q', $int );
+        // pack() number, and then set it to a fixed length
+        $packedValue = pack( $packFormat, $value );
         try {
-            return $this->fixStringLength( $packedInt, $byteSize );
+            $packedValue = $this->fixStringLength( $packedValue, $byteSize );
         } catch ( \DomainException $de ) {
             throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
         }
+        return $packedValue;
     }
 
 
@@ -278,7 +288,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     public function toInt(): int
     {
         $paddedBytes = str_pad( $this->bytes, 8, self::getNullChar() );
-        return unpack( 'q', $paddedBytes )[ 1 ];
+        return unpack( self::INT_FORMAT, $paddedBytes )[ 1 ];
     }
 
 
