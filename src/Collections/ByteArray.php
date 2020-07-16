@@ -14,10 +14,10 @@ use PHP\ObjectClass;
 /**
  * Defines an array of Bytes
  * 
- * @method void __construct( Byte[] $bytes )                            Create a new Byte Array using the bytes of the given Byte[]
+ * @method void __construct( Byte[] $bytes )                               Create a new Byte Array using the bytes of the given Byte[]
  * @method void __construct( double $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given double-precision floating point number
- * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
- * @method void __construct( string $bytes )                            Create a new Byte Array using the bytes of the given string
+ * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE )    Create a new Byte Array using the bytes of the given integer
+ * @method void __construct( string $bytes )                               Create a new Byte Array using the bytes of the given string
  */
 class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegerable, IReadOnlyCollection, IStringable
 {
