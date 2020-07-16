@@ -127,50 +127,26 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      */
     private function pack( string $packFormat, $value, int $byteSize = PHP_INT_SIZE ): string
     {
-        // pack() number, and then set it to a fixed length
-        $packedValue = pack( $packFormat, $value );
-        try {
-            $packedValue = $this->fixStringLength( $packedValue, $byteSize );
-        } catch ( \DomainException $de ) {
-            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
-        }
-        return $packedValue;
-    }
-
-
-    /**
-     * Truncates / Pads a byte string to be X number of bytes long
-     * 
-     * @param string $bytes    The string representing the bytes
-     * @param int    $byteSize Forces the resulting byte array to be N number of bytes long, from 0 to X bytes long,
-     * truncating bytes or padding with 0x00 as necessary.
-     * 
-     * @return string The string typecast of the integer
-     * 
-     * @throws \DomainException If the Byte Size < 0
-     */
-    private function fixStringLength( string $bytes, int $byteSize ): string
-    {
         // Ensure Byte Size range is valid
         if ( $byteSize < 0 ) {
             throw new \DomainException( 'Byte Size cannot be less than 0.' );
         }
 
-        // Variables
-        $maxIndex = strlen( $bytes ) - 1;
-        $nullChar = self::getNullChar();    // 0x00 character-equivalent
+        // pack() the value, and gather information on it
+        $packedValue = pack( $packFormat, $value );
+        $maxIndex    = strlen( $packedValue ) - 1;
+        $nullChar    = self::getNullChar();
         
-        // Treat the integer as N number of bytes long, truncating extra bytes or padding with zeros as necessary.
+        // Truncate or pad (with 0x00) the packed value to be N number of bytes long
         $byteString  = '';
         for ( $i = 0; $i < $byteSize; $i++ ) {
             if ( $i <= $maxIndex ) {
-                $byteString .= $bytes[ $i ];
+                $byteString .= $packedValue[ $i ];
             }
             else {
                 $byteString .= $nullChar;
             }
         }
-
         return $byteString;
     }
 
