@@ -84,13 +84,17 @@ class ByteArrayTest extends TestCase
     public function getConstructorExceptionsTestData(): array
     {
         return [
-            '__construct( 1.5 )' => [
-                [ 1.5 ],
+            '__construct( null )' => [
+                [ null ],
                 \InvalidArgumentException::class
             ],
             '__construct( [ 65 ] )' => [
                 [ [ 65 ] ],
                 \InvalidArgumentException::class
+            ],
+            '__construct( 1.5, -1 ) throws DomainException' => [
+                [ 1.5, -1 ],
+                \DomainException::class
             ],
             '__construct( 65, -1 ) throws DomainException' => [
                 [ 65, -1 ],
@@ -142,13 +146,30 @@ class ByteArrayTest extends TestCase
             ],
             '[ 65, 66, 67, 0 ]' => [
                 [ 65, 66, 67, 0 ],
-                'ABC' . pack( 'x' )
+                'ABC' . self::getNullChar()
             ],
             '[ 65, 66, 67, 0, 97, 98, 99 ]' => [
                 [ 65, 66, 67, 0, 97, 98, 99 ],
-                'ABC' . pack( 'x' ) . 'abc'
+                'ABC' . self::getNullChar() . 'abc'
             ]
         ];
+    }
+
+
+    /**
+     * Test __construct( float )
+     * 
+     * @dataProvider getIntegerConstructorTestData
+     */
+    public function testFloatConstructor( int $intBytes, int $byteSize, string $expectedString )
+    {
+        $floatBytes = unpack( 'd', pack( 'q', $intBytes ))[ 1 ];
+
+        $this->assertEquals(
+            $expectedString,
+            ( new ByteArray( $floatBytes, $byteSize ))->__toString(),
+            '( new ByteArray( float, int ) )->__toString() did not return the expected string.'
+        );
     }
 
 
@@ -166,25 +187,33 @@ class ByteArrayTest extends TestCase
         );
     }
 
+
+    /**
+     * Retrieves __construct() test data of int $bytes, int $byteSize, and string $expectedString
+     *  
+     * @todo Remove nullChar tests by implementing a String class with a type of fix(int length, string pad) function
+     * @return array
+     */
     public function getIntegerConstructorTestData(): array
     {
         // A null-byte string (0x00-string equivalent)
-        $nullChar = pack( 'x' );
+        $nullChar = self::getNullChar();
 
         // 32-bit integer equivalent of ABCD
         $int32 = 0x44434241;
 
         // 32-bit tests
         $data = [
-            'Int32, byte length = 0' => [ $int32, 0, '' ],
-            'Int32, byte length = 1' => [ $int32, 1, 'A' ],
-            'Int32, byte length = 2' => [ $int32, 2, 'AB' ],
-            'Int32, byte length = 3' => [ $int32, 3, 'ABC' ],
-            'Int32, byte length = 4' => [ $int32, 4, 'ABCD' ],
-            'Int32, byte length = 5' => [ $int32, 5, 'ABCD' . $nullChar ],
-            'Int32, byte length = 6' => [ $int32, 6, 'ABCD' . $nullChar . $nullChar ],
-            'Int32, byte length = 7' => [ $int32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
-            'Int32, byte length = 8' => [ $int32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
+            '0, Byte Size = 1'      => [ 0,      1, $nullChar ],
+            '32-Bit, Byte Size = 0' => [ $int32, 0, '' ],
+            '32-Bit, Byte Size = 1' => [ $int32, 1, 'A' ],
+            '32-Bit, Byte Size = 2' => [ $int32, 2, 'AB' ],
+            '32-Bit, Byte Size = 3' => [ $int32, 3, 'ABC' ],
+            '32-Bit, Byte Size = 4' => [ $int32, 4, 'ABCD' ],
+            '32-Bit, Byte Size = 5' => [ $int32, 5, 'ABCD' . $nullChar ],
+            '32-Bit, Byte Size = 6' => [ $int32, 6, 'ABCD' . $nullChar . $nullChar ],
+            '32-Bit, Byte Size = 7' => [ $int32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
+            '32-Bit, Byte Size = 8' => [ $int32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
         ];
 
         // 64-bit architecture
@@ -197,14 +226,14 @@ class ByteArrayTest extends TestCase
             $data = array_merge(
                 $data,
                 [
-                    'Int64, byte length = 5'  => [ $int64, 5,  'ABCDE' ],
-                    'Int64, byte length = 6'  => [ $int64, 6,  'ABCDEF' ],
-                    'Int64, byte length = 7'  => [ $int64, 7,  'ABCDEFG' ],
-                    'Int64, byte length = 8'  => [ $int64, 8,  'ABCDEFGH' ],
-                    'Int32, byte length = 9'  => [ $int64, 9,  'ABCDEFGH' . $nullChar ],
-                    'Int32, byte length = 10' => [ $int64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
-                    'Int32, byte length = 11' => [ $int64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
-                    'Int32, byte length = 12' => [ $int64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
+                    '64-Bit, Byte Size = 5'  => [ $int64, 5,  'ABCDE' ],
+                    '64-Bit, Byte Size = 6'  => [ $int64, 6,  'ABCDEF' ],
+                    '64-Bit, Byte Size = 7'  => [ $int64, 7,  'ABCDEFG' ],
+                    '64-Bit, Byte Size = 8'  => [ $int64, 8,  'ABCDEFGH' ],
+                    '64-Bit, Byte Size = 9'  => [ $int64, 9,  'ABCDEFGH' . $nullChar ],
+                    '64-Bit, Byte Size = 10' => [ $int64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
+                    '64-Bit, Byte Size = 11' => [ $int64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
+                    '64-Bit, Byte Size = 12' => [ $int64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
                 ]
             );
         }
@@ -452,5 +481,28 @@ class ByteArrayTest extends TestCase
                 0x005A5958
             ]
         ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                       UTILITIES
+    *******************************************************************************************************************/
+
+
+    /**
+     * Retrieve the null character
+     * 
+     * @return string
+     */
+    private static function getNullChar(): string
+    {
+        static $nullChar = null;
+        if ( null === $nullChar ) {
+            $nullChar = pack( 'x' );
+        }
+        return $nullChar;
     }
 }

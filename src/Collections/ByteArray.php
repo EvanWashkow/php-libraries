@@ -14,12 +14,26 @@ use PHP\ObjectClass;
 /**
  * Defines an array of Bytes
  * 
- * @method void __construct( Byte[] $bytes )                            Create a new Byte Array using the bytes of the given Byte[]
- * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given integer
- * @method void __construct( string $bytes )                            Create a new Byte Array using the bytes of the given string
+ * @method void __construct( Byte[] $bytes )                               Create a new Byte Array using the bytes of the given Byte[]
+ * @method void __construct( double $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given double-precision floating point number
+ * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE )    Create a new Byte Array using the bytes of the given integer
+ * @method void __construct( string $bytes )                               Create a new Byte Array using the bytes of the given string
  */
 class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegerable, IReadOnlyCollection, IStringable
 {
+
+
+    /*******************************************************************************************************************
+    *                                                       CONSTANTS
+    *******************************************************************************************************************/
+
+    /** @var string INT_FORMAT pack() format for 64-bit integer */
+    private const INT_FORMAT = 'q';
+
+    /** @var string DOUBLE_FORMAT pack() format for 64-bit doubles */
+    private const DOUBLE_FORMAT = 'd';
+
+
 
 
     /*******************************************************************************************************************
@@ -44,6 +58,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      */
     public function __construct( $bytes )
     {
+        // Switch on variable type
         if ( is_array( $bytes )) {
             try {
                 $this->__constructByteArray( ...$bytes );
@@ -51,16 +66,22 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
                 throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a Byte[]. An element in the array was not a Byte.' );
             }
         }
-        elseif ( is_int( $bytes )) {
-            $args = func_get_args();
+        elseif ( is_string( $bytes )) {
+            $this->__constructString( $bytes );
+        }
+        elseif (
+            ( $isInt    = is_int(    $bytes ) ) ||
+            ( $isDouble = is_double( $bytes ) )
+        )
+        {
+            $args       = func_get_args();
+            $packFormat = $isInt ? self::INT_FORMAT : self::DOUBLE_FORMAT;
             try {
-                $this->__constructInt( ...$args );
+                $byteString = $this->packAndFixSize( $packFormat, ...$args );
             } catch ( \DomainException $de ) {
                 throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
             }
-        }
-        elseif ( is_string( $bytes )) {
-            $this->__constructString( $bytes );
+            $this->__constructString( $byteString );
         }
         else {
             throw new \InvalidArgumentException( 'ByteArray->__construct() expects a Byte[], integer, or string.' );
@@ -78,29 +99,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     {
         $byteString = '';
         foreach ( $bytes as $byte ) {
-            $byteString .= $this->packInt( $byte->toInt(), 1 );
-        }
-        $this->__constructString( $byteString );
-    }
-
-
-    /**
-     * Create a new Byte Array instance using the bytes of the given integer
-     * 
-     * @param int $bytes    The integer representing the bytes
-     * @param int $byteSize Forces the integer to be N number of bytes long, from 0 to X bytes long, truncating bytes or
-     * padding with 0x00 as necessary.
-     * @return void
-     * @throws \DomainException If the Byte Size is less than 0
-     * 
-     * @link https://www.php.net/manual/en/reserved.constants.php#constant.php-int-size
-     */
-    private function __constructInt( int $bytes, int $byteSize = PHP_INT_SIZE ): void
-    {
-        try {
-            $byteString = $this->packInt( $bytes, $byteSize );
-        } catch ( \DomainException $de ) {
-            throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+            $byteString .= $this->packAndFixSize( self::INT_FORMAT, $byte->toInt(), 1 );
         }
         $this->__constructString( $byteString );
     }
@@ -119,37 +118,36 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
 
     /**
-     * Converts an integer to its string equivalent
+     * Pack the value with the given format, truncating / padding it be a fixed Byte Size
      * 
-     * @param int $bytes    The integer representing the bytes
-     * @param int $byteSize Forces the integer to be N number of bytes long, from 0 to X bytes long, truncating bytes or
-     * padding with 0x00 as necessary.
-     * @return string The string typecast of the integer
+     * @param string $packFormat The pack() function's format string
+     * @param mixed  $value      The value to pack
+     * @param int    $byteSize   Truncates or pads (with 0x00) the binary string to be N number of Bytes long. Defaults
+     * to the current architecture's byte size.
+     * @throws \DomainException If the Byte Size < 0
      */
-    private function packInt( int $int, int $byteSize ): string
+    private function packAndFixSize( string $packFormat, $value, int $byteSize = PHP_INT_SIZE ): string
     {
         // Ensure Byte Size range is valid
         if ( $byteSize < 0 ) {
             throw new \DomainException( 'Byte Size cannot be less than 0.' );
         }
 
-        // pack() variables
-        $packedInt         = pack( 'Q', $int );             // integer converted to 64-bit string
-        $packedIntMaxIndex = strlen( $packedInt ) - 1;
-        $nullChar          = self::getNullChar();           // 0x00 character-equivalent
+        // pack() the value, and gather information on it
+        $packedValue = pack( $packFormat, $value );
+        $maxIndex    = strlen( $packedValue ) - 1;
+        $nullChar    = self::getNullChar();
         
-        // Treat the integer as N number of bytes long, truncating extra bytes or padding with zeros as necessary.
+        // Truncate or pad (with 0x00) the packed value to be N number of bytes long
         $byteString  = '';
         for ( $i = 0; $i < $byteSize; $i++ ) {
-            if ( $i <= $packedIntMaxIndex ) {
-                $byteString .= $packedInt[ $i ];
+            if ( $i <= $maxIndex ) {
+                $byteString .= $packedValue[ $i ];
             }
             else {
                 $byteString .= $nullChar;
             }
         }
-
-        // Return the resulting Byte string
         return $byteString;
     }
 
@@ -221,7 +219,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     public function toInt(): int
     {
         $paddedBytes = str_pad( $this->bytes, 8, self::getNullChar() );
-        return unpack( 'Q', $paddedBytes )[ 1 ];
+        return unpack( self::INT_FORMAT, $paddedBytes )[ 1 ];
     }
 
 
