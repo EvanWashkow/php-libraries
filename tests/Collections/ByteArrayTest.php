@@ -159,72 +159,25 @@ class ByteArrayTest extends TestCase
     /**
      * Test __construct( float )
      * 
-     * @dataProvider getFloatConstructorTestData
+     * @dataProvider getIntegerConstructTestData
      * @todo Remove nullChar tests by implementing a String class with a type of fix(int length, string pad) function
      */
-    public function testFloatConstructor( float $bytes, int $byteSize, string $expectedString )
+    public function testFloatConstructor( int $intBytes, int $byteSize, string $expectedString )
     {
+        $floatBytes = unpack( 'd', pack( 'q', $intBytes ))[ 1 ];
+
         $this->assertEquals(
             $expectedString,
-            ( new ByteArray( $bytes, $byteSize ))->__toString(),
+            ( new ByteArray( $floatBytes, $byteSize ))->__toString(),
             '( new ByteArray( float, int ) )->__toString() did not return the expected string.'
         );
-    }
-
-    public function getFloatConstructorTestData(): array
-    {
-        // Null Character
-        $nullChar = self::getNullChar();
-
-        // 32-bit float / integer equivalent of ABCD
-        $int32   = 0x44434241;
-        $float32 = unpack( 'd', pack( 'q', $int32 ))[ 1 ];
-
-        // 32-bit tests
-        $data = [
-            '0.0, Byte Size = 1'        => [ 0.0,      1, $nullChar ],
-            'Float32, Byte Size = 0'    => [ $float32, 0, '' ],
-            'Float32, Byte Size = 1'    => [ $float32, 1, 'A' ],
-            'Float32, Byte Size = 2'    => [ $float32, 2, 'AB' ],
-            'Float32, Byte Size = 3'    => [ $float32, 3, 'ABC' ],
-            'Float32, Byte Size = 4'    => [ $float32, 4, 'ABCD' ],
-            'Float32, Byte Size = 5'    => [ $float32, 5, 'ABCD' . $nullChar ],
-            'Float32, Byte Size = 6'    => [ $float32, 6, 'ABCD' . $nullChar . $nullChar ],
-            'Float32, Byte Size = 7'    => [ $float32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
-            'Float32, Byte Size = 8'    => [ $float32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
-        ];
-
-        // 64-bit architecture
-        if ( 8 === PHP_INT_SIZE )
-        {
-            // 64-bit float/ integer equivalent of ABCDEFGH
-            $int64    = 0x4847464500000000 + $int32;
-            $double64 = unpack( 'd', pack( 'q', $int64 ))[ 1 ];
-
-            // 64-bit tests
-            $data = array_merge(
-                $data,
-                [
-                    'Double64, Byte Size = 5'  => [ $double64, 5,  'ABCDE' ],
-                    'Double64, Byte Size = 6'  => [ $double64, 6,  'ABCDEF' ],
-                    'Double64, Byte Size = 7'  => [ $double64, 7,  'ABCDEFG' ],
-                    'Double64, Byte Size = 8'  => [ $double64, 8,  'ABCDEFGH' ],
-                    'Double64, Byte Size = 9'  => [ $double64, 9,  'ABCDEFGH' . $nullChar ],
-                    'Double64, Byte Size = 10' => [ $double64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
-                    'Double64, Byte Size = 11' => [ $double64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
-                    'Double64, Byte Size = 12' => [ $double64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
-                ]
-            );
-        }
-
-        return $data;
     }
 
 
     /**
      * Test __construct( int )
      * 
-     * @dataProvider getIntegerConstructorTestData
+     * @dataProvider getIntegerConstructTestData
      * @todo Remove nullChar tests by implementing a String class with a type of fix(int length, string pad) function
      */
     public function testIntegerConstructor( int $bytes, int $byteSize, string $expectedString )
@@ -236,7 +189,13 @@ class ByteArrayTest extends TestCase
         );
     }
 
-    public function getIntegerConstructorTestData(): array
+
+    /**
+     * Retrieves __construct() test data of int $bytes, int $byteSize, and string $expectedString
+     * 
+     * @return array
+     */
+    public function getIntegerConstructTestData(): array
     {
         // A null-byte string (0x00-string equivalent)
         $nullChar = self::getNullChar();
@@ -246,16 +205,16 @@ class ByteArrayTest extends TestCase
 
         // 32-bit tests
         $data = [
-            '0, Byte Size = 1'     => [ 0,      1, $nullChar ],
-            'Int32, Byte Size = 0' => [ $int32, 0, '' ],
-            'Int32, Byte Size = 1' => [ $int32, 1, 'A' ],
-            'Int32, Byte Size = 2' => [ $int32, 2, 'AB' ],
-            'Int32, Byte Size = 3' => [ $int32, 3, 'ABC' ],
-            'Int32, Byte Size = 4' => [ $int32, 4, 'ABCD' ],
-            'Int32, Byte Size = 5' => [ $int32, 5, 'ABCD' . $nullChar ],
-            'Int32, Byte Size = 6' => [ $int32, 6, 'ABCD' . $nullChar . $nullChar ],
-            'Int32, Byte Size = 7' => [ $int32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
-            'Int32, Byte Size = 8' => [ $int32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
+            '0, Byte Size = 1'      => [ 0,      1, $nullChar ],
+            '32-Bit, Byte Size = 0' => [ $int32, 0, '' ],
+            '32-Bit, Byte Size = 1' => [ $int32, 1, 'A' ],
+            '32-Bit, Byte Size = 2' => [ $int32, 2, 'AB' ],
+            '32-Bit, Byte Size = 3' => [ $int32, 3, 'ABC' ],
+            '32-Bit, Byte Size = 4' => [ $int32, 4, 'ABCD' ],
+            '32-Bit, Byte Size = 5' => [ $int32, 5, 'ABCD' . $nullChar ],
+            '32-Bit, Byte Size = 6' => [ $int32, 6, 'ABCD' . $nullChar . $nullChar ],
+            '32-Bit, Byte Size = 7' => [ $int32, 7, 'ABCD' . $nullChar . $nullChar . $nullChar ],
+            '32-Bit, Byte Size = 8' => [ $int32, 8, 'ABCD' . $nullChar . $nullChar . $nullChar . $nullChar ]
         ];
 
         // 64-bit architecture
@@ -268,14 +227,14 @@ class ByteArrayTest extends TestCase
             $data = array_merge(
                 $data,
                 [
-                    'Int64, Byte Size = 5'  => [ $int64, 5,  'ABCDE' ],
-                    'Int64, Byte Size = 6'  => [ $int64, 6,  'ABCDEF' ],
-                    'Int64, Byte Size = 7'  => [ $int64, 7,  'ABCDEFG' ],
-                    'Int64, Byte Size = 8'  => [ $int64, 8,  'ABCDEFGH' ],
-                    'Int64, Byte Size = 9'  => [ $int64, 9,  'ABCDEFGH' . $nullChar ],
-                    'Int64, Byte Size = 10' => [ $int64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
-                    'Int64, Byte Size = 11' => [ $int64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
-                    'Int64, Byte Size = 12' => [ $int64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
+                    '64-Bit, Byte Size = 5'  => [ $int64, 5,  'ABCDE' ],
+                    '64-Bit, Byte Size = 6'  => [ $int64, 6,  'ABCDEF' ],
+                    '64-Bit, Byte Size = 7'  => [ $int64, 7,  'ABCDEFG' ],
+                    '64-Bit, Byte Size = 8'  => [ $int64, 8,  'ABCDEFGH' ],
+                    '64-Bit, Byte Size = 9'  => [ $int64, 9,  'ABCDEFGH' . $nullChar ],
+                    '64-Bit, Byte Size = 10' => [ $int64, 10, 'ABCDEFGH' . $nullChar . $nullChar ],
+                    '64-Bit, Byte Size = 11' => [ $int64, 11, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar ],
+                    '64-Bit, Byte Size = 12' => [ $int64, 12, 'ABCDEFGH' . $nullChar . $nullChar . $nullChar . $nullChar ]
                 ]
             );
         }
