@@ -14,6 +14,6 @@ class PHPSerializer implements ISerializer
 
     public function serialize( $value ): ByteArray
     {
-        return new ByteArray( '' );
+        return new ByteArray( serialize( $value ) );
     }
 }
