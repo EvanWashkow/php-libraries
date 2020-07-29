@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Serialization;
 
+use PHP\Collections\ByteArray;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -29,15 +30,36 @@ class PHPSerializerTest extends TestCase
      * 
      * @dataProvider getSerializeTestData
      */
-    public function testSerialize( $value, string $expected )
+    public function testSerialize( $value, string $byteArrayString )
     {
         $this->assertEquals(
-            $expected,
+            $byteArrayString,
             ( new PHPSerializer() )->serialize( $value )->__toString(),
             'PHPSerializer->serialize() did not return the expected value.'
         );
     }
 
+
+    /**
+     * Test deserialize()
+     * 
+     * @dataProvider getSerializeTestData
+     */
+    public function testDeserialize( $value, string $byteArrayString )
+    {
+        $this->assertEquals(
+            $value,
+            ( new PHPSerializer() )->deserialize( new ByteArray( $byteArrayString ) ),
+            'PHPSerializer->deserialize() did not return the expected value.'
+        );
+    }
+
+
+    /**
+     * Serialization test data
+     * 
+     * @return array
+     */
     public function getSerializeTestData(): array
     {
         return [

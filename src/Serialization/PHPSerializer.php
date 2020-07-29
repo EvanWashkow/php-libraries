@@ -20,6 +20,6 @@ class PHPSerializer implements ISerializer
 
     public function deserialize( ByteArray $byteArray )
     {
-        return null;
+        return unserialize( $byteArray->__toString() );
     }
 }
