@@ -8,7 +8,7 @@ use PHP\Collections\ByteArray;
 /**
  * Describes an Object that can Serialize a value to a Byte Array and Deserialize it back again
  * 
- * Serialization is a subset of Encoding. As with all Encoding methods, it should be bi-directional.
+ * Serialization is a subset of Encoding. As with all Encoding methods, it must be bi-directional.
  */
 interface ISerializer
 {
@@ -24,9 +24,9 @@ interface ISerializer
 
 
     /**
-     * Deserializes the serialized Byte Array to its value
+     * Deserializes a Byte Array to its corresponding value
      * 
-     * @param ByteArray $byteArray The serialized value to deserialize
+     * @param ByteArray $byteArray The serialized value
      * @return mixed The deserialized value
      */
     public function deserialize( ByteArray $byteArray );
