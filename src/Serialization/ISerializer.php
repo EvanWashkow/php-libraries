@@ -6,7 +6,7 @@ namespace PHP\Serialization;
 use PHP\Collections\ByteArray;
 
 /**
- * Describes an Object that can Serialize another Object to a Byte Array
+ * Describes an Object that can Serialize a value to a Byte Array and Deserialize it back again
  * 
  * Serialization is a subset of Encoding. As with all Encoding methods, it should be bi-directional.
  */
