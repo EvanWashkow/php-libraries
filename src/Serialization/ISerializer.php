@@ -15,7 +15,7 @@ interface ISerializer
 
 
     /**
-     * Encode the given value to a serialized Byte Array
+     * Serializes a value to a Byte Array
      * 
      * @param mixed $value The value to serialize
      * @return ByteArray The serialized value
