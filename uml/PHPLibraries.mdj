@@ -22837,7 +22837,7 @@
 															"top": 39,
 															"width": 144.1181182861328,
 															"height": 13,
-															"text": "RetrieveHashable"
+															"text": "ReturnHashableHash"
 														},
 														{
 															"_type": "LabelView",
@@ -23593,7 +23593,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFzL05vnkiPTKg="
 									},
-									"name": "RetrieveHashable",
+									"name": "ReturnHashableHash",
 									"ownedElements": [
 										{
 											"_type": "UMLGeneralization",
