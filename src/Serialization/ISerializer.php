@@ -24,7 +24,7 @@ interface ISerializer
 
 
     /**
-     * Decode the serialized Byte Array to its corresponding deserialized value
+     * Deserializes the serialized Byte Array to its value
      * 
      * @param ByteArray $byteArray The serialized value to deserialize
      * @return mixed The deserialized value
