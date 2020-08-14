@@ -6,6 +6,7 @@ namespace PHP\Tests\Hashing;
 use PHP\Collections\ByteArray;
 use PHP\Hashing\IHashAlgorithm;
 use PHP\Hashing\MD5;
+use PHP\Hashing\SHA1;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,7 +33,8 @@ class HashAlgorithmImplementationTest extends TestCase
     public function getInheritanceTestData()
     {
         return [
-            MD5::class => [ new MD5() ]
+            MD5::class  => [ new MD5() ],
+            SHA1::class => [ new SHA1() ]
         ];
     }
 
@@ -55,7 +57,8 @@ class HashAlgorithmImplementationTest extends TestCase
     {
         // Variables
         $hashAlgorithms = [
-            'md5' => new MD5()
+            'md5'   => new MD5(),
+            'sha1'  => new SHA1()
         ];
         $values = [
             '1',
