@@ -8,6 +8,7 @@ use PHP\Hashing\IHashAlgorithm;
 use PHP\Hashing\MD5;
 use PHP\Hashing\SHA1;
 use PHP\Hashing\SHA256;
+use PHP\Hashing\SHA384;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,7 +37,8 @@ class HashAlgorithmImplementationTest extends TestCase
         return [
             MD5::class    => [ new MD5() ],
             SHA1::class   => [ new SHA1() ],
-            SHA256::class => [ new SHA256() ]
+            SHA256::class => [ new SHA256() ],
+            SHA384::class => [ new SHA384() ]
         ];
     }
 
@@ -61,7 +63,8 @@ class HashAlgorithmImplementationTest extends TestCase
         $hashAlgorithms = [
             'md5'    => new MD5(),
             'sha1'   => new SHA1(),
-            'sha256' => new SHA256()
+            'sha256' => new SHA256(),
+            'sha384' => new SHA384()
         ];
         $values = [
             '1',
