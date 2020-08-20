@@ -19711,7 +19711,7 @@
 															"font": "Arial;13;1",
 															"left": 517,
 															"top": 39,
-															"width": 202.67431640625,
+															"width": 160.76708984375,
 															"height": 13,
 															"text": "ReturnHashable"
 														},
@@ -19746,7 +19746,7 @@
 													"font": "Arial;13;0",
 													"left": 512,
 													"top": 32,
-													"width": 212.67431640625,
+													"width": 170.76708984375,
 													"height": 25,
 													"stereotypeLabel": {
 														"$ref": "AAAAAAFzT46pWRMTbsA="
@@ -19773,7 +19773,7 @@
 													"font": "Arial;13;0",
 													"left": 512,
 													"top": 57,
-													"width": 212.67431640625,
+													"width": 170.76708984375,
 													"height": 10
 												},
 												{
@@ -19798,9 +19798,9 @@
 															"font": "Arial;13;0",
 															"left": 517,
 															"top": 72,
-															"width": 202.67431640625,
+															"width": 160.76708984375,
 															"height": 13,
-															"text": "+__construct(nextHasher: IHasher)",
+															"text": "+__construct(next: IHasher)",
 															"horizontalAlignment": 0
 														},
 														{
@@ -19815,7 +19815,7 @@
 															"font": "Arial;13;0",
 															"left": 517,
 															"top": 87,
-															"width": 202.67431640625,
+															"width": 160.76708984375,
 															"height": 13,
 															"text": "+hash(value): ByteArray",
 															"horizontalAlignment": 0
@@ -19824,7 +19824,7 @@
 													"font": "Arial;13;0",
 													"left": 512,
 													"top": 67,
-													"width": 212.67431640625,
+													"width": 170.76708984375,
 													"height": 38
 												},
 												{
@@ -19864,7 +19864,7 @@
 											"containerChangeable": true,
 											"left": 512,
 											"top": 32,
-											"width": 212.67431640625,
+											"width": 170.76708984375,
 											"height": 73,
 											"nameCompartment": {
 												"$ref": "AAAAAAFzT46pWBMSdLI="
@@ -20103,7 +20103,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 824,
+													"left": 803,
 													"top": 38,
 													"height": 13,
 													"alpha": 1.5707963267948966,
@@ -20124,7 +20124,7 @@
 													},
 													"visible": null,
 													"font": "Arial;13;0",
-													"left": 822,
+													"left": 802,
 													"top": 23,
 													"height": 13,
 													"alpha": 1.5707963267948966,
@@ -20145,7 +20145,7 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 827,
+													"left": 806,
 													"top": 67,
 													"height": 13,
 													"alpha": -1.5707963267948966,
@@ -20164,7 +20164,7 @@
 												"$ref": "AAAAAAFzT46pWBMR0fY="
 											},
 											"lineStyle": 1,
-											"points": "725:70;927.36767578125:48.58647543697034",
+											"points": "683:70;927.36767578125:48.58647543697034",
 											"showVisibility": true,
 											"nameLabel": {
 												"$ref": "AAAAAAFznhGlJS197d4="
@@ -21034,7 +21034,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 364,
-													"top": 124,
+													"top": 121,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 15,
@@ -21054,8 +21054,8 @@
 													},
 													"visible": null,
 													"font": "Arial;13;0",
-													"left": 366,
-													"top": 139,
+													"left": 367,
+													"top": 136,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 30,
@@ -21076,7 +21076,7 @@
 													"visible": false,
 													"font": "Arial;13;0",
 													"left": 359,
-													"top": 95,
+													"top": 92,
 													"height": 13,
 													"alpha": -1.5707963267948966,
 													"distance": 15,
@@ -21094,7 +21094,7 @@
 												"$ref": "AAAAAAFzT46pWBMR0fY="
 											},
 											"lineStyle": 1,
-											"points": "511:92;213.90673828125:140.09667326274672",
+											"points": "511:88;213.90673828125:139.9400056537829",
 											"showVisibility": true,
 											"nameLabel": {
 												"$ref": "AAAAAAF0DLnfQzTXSG0="
@@ -21253,7 +21253,7 @@
 													"_parent": {
 														"$ref": "AAAAAAF0DLkrRzS7CCQ="
 													},
-													"name": "nextHasher",
+													"name": "next",
 													"type": {
 														"$ref": "AAAAAAF0DLg1NDPJoO0="
 													}
