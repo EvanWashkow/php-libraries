@@ -19188,7 +19188,7 @@
 															"top": 199,
 															"width": 386.1787109375,
 															"height": 13,
-															"text": "SerializingHashAlgorithm"
+															"text": "SerializeAndHash"
 														},
 														{
 															"_type": "LabelView",
@@ -19713,7 +19713,7 @@
 															"top": 39,
 															"width": 202.67431640625,
 															"height": 13,
-															"text": "ReturnHashableHash"
+															"text": "ReturnHashable"
 														},
 														{
 															"_type": "LabelView",
@@ -21208,7 +21208,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFzL05vnkiPTKg="
 									},
-									"name": "ReturnHashableHash",
+									"name": "ReturnHashable",
 									"ownedElements": [
 										{
 											"_type": "UMLDependency",
@@ -21237,7 +21237,7 @@
 											}
 										}
 									],
-									"documentation": "If the value is IHashable, the return value of hash() will be returned",
+									"documentation": "If the value is IHashable, the result of hash() will be returned",
 									"operations": [
 										{
 											"_type": "UMLOperation",
@@ -21298,7 +21298,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFzL05vnkiPTKg="
 									},
-									"name": "SerializingHashAlgorithm",
+									"name": "SerializeAndHash",
 									"ownedElements": [
 										{
 											"_type": "UMLDependency",
@@ -21340,7 +21340,7 @@
 											}
 										}
 									],
-									"documentation": "1. Serializes the value\n2. Calls the Hash Algorithm with that string\n3. Returns the result",
+									"documentation": "Serializes the value before passing it to the Hash Algorithm",
 									"operations": [
 										{
 											"_type": "UMLOperation",
