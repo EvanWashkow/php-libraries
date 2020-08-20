@@ -19940,7 +19940,7 @@
 															"top": 77,
 															"width": 108.7353515625,
 															"height": 13,
-															"text": "(from Hasher)"
+															"text": "(from Interfaces)"
 														},
 														{
 															"_type": "LabelView",
@@ -21396,53 +21396,6 @@
 													"_id": "AAAAAAFzTpp/HR6kpmU=",
 													"_parent": {
 														"$ref": "AAAAAAFzTppKdR6czR4="
-													},
-													"type": {
-														"$ref": "AAAAAAFxlN26hjw3LAs="
-													},
-													"direction": "return"
-												}
-											]
-										}
-									]
-								},
-								{
-									"_type": "UMLInterface",
-									"_id": "AAAAAAFzGEP4+BnTRTE=",
-									"_parent": {
-										"$ref": "AAAAAAFzL05vnkiPTKg="
-									},
-									"name": "IHashable",
-									"ownedElements": [
-										{
-											"_type": "UMLDependency",
-											"_id": "AAAAAAFzGEUwmhqANk0=",
-											"_parent": {
-												"$ref": "AAAAAAFzGEP4+BnTRTE="
-											},
-											"source": {
-												"$ref": "AAAAAAFzGEP4+BnTRTE="
-											},
-											"target": {
-												"$ref": "AAAAAAFxlN26hjw3LAs="
-											}
-										}
-									],
-									"documentation": "Describes an object defines its own hash.\n\nWhen implementing, if x.equals(y) returns true, then the value returned by the x.hash() should be equal to y.hash().",
-									"operations": [
-										{
-											"_type": "UMLOperation",
-											"_id": "AAAAAAFzGEQXrBn+cEM=",
-											"_parent": {
-												"$ref": "AAAAAAFzGEP4+BnTRTE="
-											},
-											"name": "hash",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAFzGEQrbhoFIgM=",
-													"_parent": {
-														"$ref": "AAAAAAFzGEQXrBn+cEM="
 													},
 													"type": {
 														"$ref": "AAAAAAFxlN26hjw3LAs="
@@ -23928,6 +23881,53 @@
 												"$ref": "AAAAAAFr7GYjk8+oz2E="
 											},
 											"type": "bool",
+											"direction": "return"
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "UMLInterface",
+							"_id": "AAAAAAFzGEP4+BnTRTE=",
+							"_parent": {
+								"$ref": "AAAAAAFxkNtAAO34zTk="
+							},
+							"name": "IHashable",
+							"ownedElements": [
+								{
+									"_type": "UMLDependency",
+									"_id": "AAAAAAFzGEUwmhqANk0=",
+									"_parent": {
+										"$ref": "AAAAAAFzGEP4+BnTRTE="
+									},
+									"source": {
+										"$ref": "AAAAAAFzGEP4+BnTRTE="
+									},
+									"target": {
+										"$ref": "AAAAAAFxlN26hjw3LAs="
+									}
+								}
+							],
+							"documentation": "Describes an object that, when called, calculates its own hash.\n\nWhen paired with IEquatable, both should return consistent results. If x.equals(y) should be true, then x.hash() must be equal to y.hash().",
+							"operations": [
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFzGEQXrBn+cEM=",
+									"_parent": {
+										"$ref": "AAAAAAFzGEP4+BnTRTE="
+									},
+									"name": "hash",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFzGEQrbhoFIgM=",
+											"_parent": {
+												"$ref": "AAAAAAFzGEQXrBn+cEM="
+											},
+											"type": {
+												"$ref": "AAAAAAFxlN26hjw3LAs="
+											},
 											"direction": "return"
 										}
 									]
