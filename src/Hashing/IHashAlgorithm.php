@@ -6,7 +6,7 @@ namespace PHP\Hashing;
 use PHP\Collections\ByteArray;
 
 /**
- * Defines a Hash Algorithm
+ * Calculates the Hash of a Byte Array
  */
 interface IHashAlgorithm
 {
