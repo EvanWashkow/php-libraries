@@ -24239,7 +24239,7 @@
 											}
 										}
 									],
-									"documentation": "NoHashDecorator is set when the HashDecorator constructor is NULL",
+									"documentation": "NoHashDecorator is set when the HashDecorator constructor is NULL\n\nThis could be defined as an anonymous class / object",
 									"operations": [
 										{
 											"_type": "UMLOperation",
