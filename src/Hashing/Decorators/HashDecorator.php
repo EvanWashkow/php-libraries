@@ -12,4 +12,17 @@ namespace PHP\Hashing\Decorators;
 abstract class HashDecorator
 {
 
+    /** @var ?HashDecorator $nextDecorator The next Hash Decorator to call in the series */
+    private $nextDecorator;
+
+
+    /**
+     * Create a new Hash Decorator
+     * 
+     * @param ?HashDecorator $nextDecorator The next Hash Decorator to call in the series
+     */
+    public function __construct( ?HashDecorator $nextDecorator )
+    {
+        $this->nextDecorator = $nextDecorator;
+    }
 }
