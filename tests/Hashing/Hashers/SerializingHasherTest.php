@@ -5,9 +5,11 @@ namespace PHP\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
 use PHP\Hashing\HashAlgorithms\IHashAlgorithm;
+use PHP\Hashing\HashAlgorithms\MD5;
 use PHP\Hashing\Hashers\IHasher;
 use PHP\Hashing\Hashers\SerializingHasher;
 use PHP\Serialization\ISerializer;
+use PHP\Serialization\PHPSerializer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,19 +51,66 @@ class SerializingHasherTest extends TestCase
 
     public function getHashTestData(): array
     {
+        // Value
+        $value = 'Hello, World!';
+
         // Hash Algorithms
         $reflectingHashAlgorithm = $this->createReflectingHashAlgorithm();
+        $appendingHashAlgorithm  = $this->createHashAlgorithm( function( ByteArray $byteArray ) {
+            return new ByteArray( "{$byteArray}-appending_hash_algorithm" );
+        });
+        $md5 = new MD5();
 
         // Serializers
         $reflectingSerializer = $this->createReflectingSerializer();
+        $appendingSerializer  = $this->createSerializer( function( string $string ) {
+            return new ByteArray( "{$string}-appending_serializer" );
+        });
+        $phpSerializer = new PHPSerializer();
 
         // Test Data
         return [
             'reflecting serializer, reflecting hash algorithm' => [
                 $reflectingSerializer,
                 $reflectingHashAlgorithm,
-                'Hello, World!',
-                'Hello, World!'
+                $value,
+                $value
+            ],
+            'appending serializer, reflecting hash algorithm' => [
+                $appendingSerializer,
+                $reflectingHashAlgorithm,
+                $value,
+                "{$value}-appending_serializer"
+            ],
+            'reflecting serializer, appending hash algorithm' => [
+                $reflectingSerializer,
+                $appendingHashAlgorithm,
+                $value,
+                "{$value}-appending_hash_algorithm"
+            ],
+            'appending serializer, appending hash algorithm' => [
+                $appendingSerializer,
+                $appendingHashAlgorithm,
+                $value,
+                "{$value}-appending_serializer-appending_hash_algorithm"
+            ],
+            'reflecting serializer, MD5' => [
+                $reflectingSerializer,
+                $md5,
+                $value,
+                $md5->hash( new ByteArray( $value ) )->__toString()
+            ],
+            'php serializer, reflecting hash algorithm' => [
+                $phpSerializer,
+                $reflectingHashAlgorithm,
+                $value,
+                $phpSerializer->serialize( $value )->__toString()
+            ],
+            'php serializer, MD5' => [
+                $phpSerializer,
+                $md5,
+                $value,
+                $md5->hash( $phpSerializer->serialize( $value ) )->__toString()
             ]
         ];
     }
@@ -99,7 +148,7 @@ class SerializingHasherTest extends TestCase
      */
     private function createReflectingSerializer(): ISerializer
     {
-        return $this->createSerializer( function( string $string ) { return $string; } );
+        return $this->createSerializer( function( string $string ) { return new ByteArray( $string ); } );
     }
 
 

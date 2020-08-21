@@ -14,21 +14,30 @@ use PHP\Serialization\ISerializer;
 class SerializingHasher implements IHasher
 {
 
+    /** @var IHashAlgorithm $hashAlgorithm The Hash Algorithm to compute the Hash */
+    private $hashAlgorithm;
+
+    /** @var ISerializer $serializer The Serializer to serialize the value before hashing it */
+    private $serializer;
+
 
     /**
      * Create a new Serializing Hash Algorithm
      * 
-     * @param ISerializer $serializer       The Serializer to format the value
+     * @param ISerializer    $serializer    The Serializer to serialize the value before hashing it
      * @param IHashAlgorithm $hashAlgorithm The Hash Algorithm to compute the Hash
      */
     public function __construct( ISerializer $serializer, IHashAlgorithm $hashAlgorithm )
     {
-        
+        $this->serializer    = $serializer;
+        $this->hashAlgorithm = $hashAlgorithm;
     }
 
 
-    public function hash( $value ): ByteArray
+    final public function hash( $value ): ByteArray
     {
-        return new ByteArray( $value );
+        return $this->hashAlgorithm->hash(
+            $this->serializer->serialize( $value )
+        );
     }
 }
