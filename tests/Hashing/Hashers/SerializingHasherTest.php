@@ -49,25 +49,32 @@ class SerializingHasherTest extends TestCase
 
     public function getHashTestData(): array
     {
+        // Hash Algorithms
+        $reflectingHashAlgorithm = $this->createReflectingHashAlgorithm();
+
+        // Serializers
+        $reflectingSerializer    = $this->createReflectingSerializer();
+
+        // Test Data
         return [
             '0' => [
-                $this->createReflectingSerializer(),
-                $this->createReflectingHashAlgorithm(),
+                $reflectingSerializer,
+                $reflectingHashAlgorithm,
                 '0',
                 '0'
             ],
             '1' => [
-                $this->createReflectingSerializer(),
-                $this->createReflectingHashAlgorithm(),
+                $reflectingSerializer,
+                $reflectingHashAlgorithm,
                 '1',
                 '1'
             ],
             '2' => [
-                $this->createReflectingSerializer(),
-                $this->createReflectingHashAlgorithm(),
+                $reflectingSerializer,
+                $reflectingHashAlgorithm,
                 '2',
                 '2'
-            ]
+            ],
         ];
     }
 
