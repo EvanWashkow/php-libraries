@@ -25,11 +25,22 @@ class SerializingHasherTest extends TestCase
         $this->assertInstanceOf(
             IHasher::class,
             new SerializingHasher(
-                $this->createSerializer( function() { return ''; } ),
-                $this->createHashAlgorithm( function() { return new ByteArray( '' ); } )
+                $this->createReflectingSerializer(),
+                $this->createReflectingHashAlgorithm()
             ),
             'SerializingHasher is not an instance of IHasher.'
         );
+    }
+
+
+    /**
+     * Create a Hash Algorithm instance that returns the Byte Array it was passed
+     * 
+     * @return IHashAlgorithm
+     */
+    private function createReflectingHashAlgorithm(): IHashAlgorithm
+    {
+        return $this->createHashAlgorithm( function( ByteArray $byteArray ) { return $byteArray; } );
     }
 
 
@@ -44,6 +55,17 @@ class SerializingHasherTest extends TestCase
         $hashAlgorithm = $this->createMock( IHashAlgorithm::class );
         $hashAlgorithm->method( 'hash' )->willReturnCallback( $hash );
         return $hashAlgorithm;
+    }
+
+
+    /**
+     * Create a Serializer instance that returns the string value it was passed
+     * 
+     * @return ISerializer
+     */
+    private function createReflectingSerializer(): ISerializer
+    {
+        return $this->createSerializer( function( string $string ) { return $string; } );
     }
 
 
