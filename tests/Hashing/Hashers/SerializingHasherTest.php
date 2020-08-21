@@ -57,24 +57,12 @@ class SerializingHasherTest extends TestCase
 
         // Test Data
         return [
-            '0' => [
+            'reflecting serializer, reflecting hash algorithm' => [
                 $reflectingSerializer,
                 $reflectingHashAlgorithm,
-                '0',
-                '0'
-            ],
-            '1' => [
-                $reflectingSerializer,
-                $reflectingHashAlgorithm,
-                '1',
-                '1'
-            ],
-            '2' => [
-                $reflectingSerializer,
-                $reflectingHashAlgorithm,
-                '2',
-                '2'
-            ],
+                'Hello, World!',
+                'Hello, World!'
+            ]
         ];
     }
 
