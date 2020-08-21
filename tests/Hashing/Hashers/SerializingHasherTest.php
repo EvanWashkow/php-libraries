@@ -142,7 +142,7 @@ class SerializingHasherTest extends TestCase
 
 
     /**
-     * Create a Serializer instance that returns the string value it was passed
+     * Create a Serializer instance that returns the string it was passed, as a Byte Array
      * 
      * @return ISerializer
      */
