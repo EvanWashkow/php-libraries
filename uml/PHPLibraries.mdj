@@ -21428,6 +21428,7 @@
 											}
 										}
 									],
+									"documentation": "Calculates the Hash Sum for any value, using Formatters and Hash Algorithms behind the scenes to do so",
 									"operations": [
 										{
 											"_type": "UMLOperation",
