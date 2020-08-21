@@ -29,6 +29,6 @@ class SerializingHasher implements IHasher
 
     public function hash( $value ): ByteArray
     {
-        return new ByteArray( '' );
+        return new ByteArray( $value );
     }
 }

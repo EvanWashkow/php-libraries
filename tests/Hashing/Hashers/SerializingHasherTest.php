@@ -34,6 +34,45 @@ class SerializingHasherTest extends TestCase
 
 
     /**
+     * Test hash()
+     * 
+     * @dataProvider getHashTestData
+     */
+    public function testHash( ISerializer $serializer, IHashAlgorithm $hashAlgorithm, $value, string $expected )
+    {
+        $this->assertEquals(
+            $expected,
+            ( new SerializingHasher( $serializer, $hashAlgorithm ))->hash( $value )->__toString(),
+            'SerializingHasher->hash() did not return the expected value.'
+        );
+    }
+
+    public function getHashTestData(): array
+    {
+        return [
+            '0' => [
+                $this->createReflectingSerializer(),
+                $this->createReflectingHashAlgorithm(),
+                '0',
+                '0'
+            ],
+            '1' => [
+                $this->createReflectingSerializer(),
+                $this->createReflectingHashAlgorithm(),
+                '1',
+                '1'
+            ],
+            '2' => [
+                $this->createReflectingSerializer(),
+                $this->createReflectingHashAlgorithm(),
+                '2',
+                '2'
+            ]
+        ];
+    }
+
+
+    /**
      * Create a Hash Algorithm instance that returns the Byte Array it was passed
      * 
      * @return IHashAlgorithm
