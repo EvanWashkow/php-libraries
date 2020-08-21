@@ -53,7 +53,7 @@ class SerializingHasherTest extends TestCase
         $reflectingHashAlgorithm = $this->createReflectingHashAlgorithm();
 
         // Serializers
-        $reflectingSerializer    = $this->createReflectingSerializer();
+        $reflectingSerializer = $this->createReflectingSerializer();
 
         // Test Data
         return [
