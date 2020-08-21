@@ -68,7 +68,11 @@ class SerializingHasherTest extends TestCase
         });
         $phpSerializer = new PHPSerializer();
 
-        // Test Data
+        /**
+         * Test Data
+         * 
+         * The Serializer should serialize the value before passing it to the Hash Algorithm to be hashed
+         */
         return [
             'reflecting serializer, reflecting hash algorithm' => [
                 $reflectingSerializer,
@@ -106,11 +110,23 @@ class SerializingHasherTest extends TestCase
                 $value,
                 $phpSerializer->serialize( $value )->__toString()
             ],
-            'php serializer, MD5' => [
+            'php serializer, MD5 for "Hello, World!"' => [
                 $phpSerializer,
                 $md5,
                 $value,
                 $md5->hash( $phpSerializer->serialize( $value ) )->__toString()
+            ],
+            'php serializer, MD5 for 0' => [
+                $phpSerializer,
+                $md5,
+                0,
+                $md5->hash( $phpSerializer->serialize( 0 ) )->__toString()
+            ],
+            'php serializer, MD5 for [ 1, 2, 3 ]' => [
+                $phpSerializer,
+                $md5,
+                [ 1, 2, 3 ],
+                $md5->hash( $phpSerializer->serialize( [ 1, 2, 3 ] ) )->__toString()
             ]
         ];
     }
