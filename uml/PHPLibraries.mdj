@@ -19135,7 +19135,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFzGEOEGhnJxu8="
 							},
-							"name": "Hasher",
+							"name": "Hashers",
 							"ownedElements": [
 								{
 									"_type": "UMLClassDiagram",
@@ -19202,7 +19202,7 @@
 															"top": 96,
 															"width": 108.26406860351562,
 															"height": 13,
-															"text": "(from Hasher)"
+															"text": "(from Hashers)"
 														},
 														{
 															"_type": "LabelView",
@@ -19727,7 +19727,7 @@
 															"top": -320,
 															"width": 108.26406860351562,
 															"height": 13,
-															"text": "(from Hasher)"
+															"text": "(from Hashers)"
 														},
 														{
 															"_type": "LabelView",
@@ -20529,9 +20529,9 @@
 															"font": "Arial;13;0",
 															"left": 192,
 															"top": 192,
-															"width": 84.6690673828125,
+															"width": 86.67724609375,
 															"height": 13,
-															"text": "(from Hasher)"
+															"text": "(from Hashers)"
 														},
 														{
 															"_type": "LabelView",
