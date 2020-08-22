@@ -4,13 +4,13 @@ declare( strict_types = 1 );
 namespace PHP\Interfaces;
 
 /**
- * Determines if one object is equal to another object or value
+ * Describes Object equality comparison
  */
 interface IEquatable
 {
 
     /**
-     * Determine if this object is the same as another object or value
+     * Determines if this Object is equal to another value
      * 
      * @param mixed $value The value to compare this to
      * @return bool

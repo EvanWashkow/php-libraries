@@ -23566,7 +23566,7 @@
 								"$ref": "AAAAAAFxkNtAAO34zTk="
 							},
 							"name": "IEquatable",
-							"documentation": "Describes Object equality comparability.",
+							"documentation": "Describes Object equality comparison",
 							"operations": [
 								{
 									"_type": "UMLOperation",
