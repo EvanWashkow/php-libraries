@@ -25,38 +25,23 @@ class ObjectClassTest extends TestCase
         $this->assertEquals(
             $expected,
             $o1->equals( $o2 ),
-            'ObjectClass->equals() did not return the expected results'
+            'ObjectClass->equals() did not return the expected results.'
         );
     }
 
 
     public function getEqualsTestData(): array
     {
-        // Values
-        $string_1 = new Value( '1' );
-        $int_1    = new Value( 1 );
-        $array    = new Value( [ 1, 2, 3 ] );
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+        $o3 = clone $o1;
 
+        // Test Data
         return [
-            'string_1->equals( string_1 )' => [
-                $string_1, $string_1, true
-            ],
-            'string_1->equals( clone string_1 )' => [
-                $string_1, clone $string_1, true
-            ],
-            'string_1->equals( int_1 )' => [
-                $string_1, $int_1, false
-            ],
-            'array->equals( array )' => [
-                $array, $array, true
-            ],
-
-            // Keep in mind that cloning the container of an array does not
-            // clone the array itself. Arrays, like objects, are referenced,
-            // and are not values themselves.
-            'array->equals( clone array )' => [
-                $array, clone $array, true
-            ]
+            'o1, o1' => [ $o1, $o1, true ],
+            'o1, o2' => [ $o1, $o2, false ],
+            'o1, o3' => [ $o1, $o3, false ]
         ];
     }
 
