@@ -7,15 +7,15 @@ use PHP\Collections\ByteArray;
 use PHP\Hashing\HashAlgorithms\IHashAlgorithm;
 use PHP\Hashing\HashAlgorithms\MD5;
 use PHP\Hashing\Hashers\IHasher;
-use PHP\Hashing\Hashers\SerializingHasher;
+use PHP\Hashing\Hashers\SerializeAndHash;
 use PHP\Serialization\ISerializer;
 use PHP\Serialization\PHPSerializer;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests SerializingHasher
+ * Tests SerializeAndHash
  */
-class SerializingHasherTest extends TestCase
+class SerializeAndHashTest extends TestCase
 {
 
 
@@ -26,11 +26,11 @@ class SerializingHasherTest extends TestCase
     {
         $this->assertInstanceOf(
             IHasher::class,
-            new SerializingHasher(
+            new SerializeAndHash(
                 $this->createReflectingSerializer(),
                 $this->createReflectingHashAlgorithm()
             ),
-            'SerializingHasher is not an instance of IHasher.'
+            'SerializeAndHash is not an instance of IHasher.'
         );
     }
 
@@ -44,8 +44,8 @@ class SerializingHasherTest extends TestCase
     {
         $this->assertEquals(
             $expected,
-            ( new SerializingHasher( $serializer, $hashAlgorithm ))->hash( $value )->__toString(),
-            'SerializingHasher->hash() did not return the expected value.'
+            ( new SerializeAndHash( $serializer, $hashAlgorithm ))->hash( $value )->__toString(),
+            'SerializeAndHash->hash() did not return the expected value.'
         );
     }
 

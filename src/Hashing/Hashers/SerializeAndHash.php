@@ -11,7 +11,7 @@ use PHP\Serialization\ISerializer;
 /**
  * Serializes a given value and uses a Hash Algorithm compute its hash
  */
-class SerializingHasher implements IHasher
+class SerializeAndHash implements IHasher
 {
 
     /** @var IHashAlgorithm $hashAlgorithm The Hash Algorithm to compute the Hash */
