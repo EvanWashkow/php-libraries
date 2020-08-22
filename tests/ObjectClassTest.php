@@ -1,6 +1,7 @@
 <?php
 namespace PHP\Tests;
 
+use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
 use PHP\Tests\ObjectClass\Value;
 
@@ -14,24 +15,19 @@ class ObjectClassTest extends TestCase
     /**
      * Test ObjectClass->equals() returns the expected result
      * 
-     * @dataProvider getEqualsValues()
+     * @dataProvider getEqualsTestData()
      */
-    public function testEquals( Value $v1, Value $v2, bool $expected )
+    public function testEquals( ObjectClass $o1, ObjectClass $o2, bool $expected )
     {
         $this->assertEquals(
             $expected,
-            $v1->equals( $v2 ),
+            $o1->equals( $o2 ),
             'ObjectClass->equals() did not return the expected results'
         );
     }
 
 
-    /**
-     * Get ObjectClass->equals() test data
-     * 
-     * @return array
-     */
-    public function getEqualsValues(): array
+    public function getEqualsTestData(): array
     {
         // Values
         $string_1 = new Value( '1' );
