@@ -4,6 +4,7 @@ namespace PHP\Tests;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
 use PHP\Tests\ObjectClass\Value;
+use PHPUnit\Framework\MockObject\MockBuilder;
 
 /**
  * Tests ObjectClass methods
@@ -55,5 +56,49 @@ class ObjectClassTest extends TestCase
                 $array, clone $array, true
             ]
         ];
+    }
+
+
+    /**
+     * Test hash() by comparing its results
+     * 
+     * @dataProvider getHashTestData
+     */
+    public function testHash( ObjectClass $o1, ObjectClass $o2 )
+    {
+        $isEqual = $o1 === $o2;
+        $message = $isEqual
+                 ? 'ObjectClass->hash() should be equal to itself.'
+                 : 'ObjectClass->hash() should be different than another ObjectClass->hash().';
+        $this->assertEquals(
+            $isEqual,
+            $o1->hash()->__toString() === $o2->hash()->__toString(),
+            $message
+        );
+    }
+
+    public function getHashTestData(): array
+    {
+        // Objects
+        $builder = $this->createObjectClassMockBuilder()->setMethodsExcept([ 'hash' ]);
+        $o1 = $builder->getMock();
+        $o2 = $builder->getMock();
+
+        // Test data
+        return [
+            'o1, o1' => [ $o1, $o1 ],
+            'o1, o2' => [ $o1, $o2 ]
+        ];
+    }
+
+
+    /**
+     * Create a new Object Class
+     * 
+     * @return MockBuilder
+     */
+    public function createObjectClassMockBuilder(): MockBuilder
+    {
+        return $this->getMockBuilder( ObjectClass::class );
     }
 }

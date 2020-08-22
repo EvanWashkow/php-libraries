@@ -17,6 +17,18 @@ use ReflectionClass;
 abstract class ObjectClass implements IEquatable
 {
 
+    /** @var ?ByteArray $hash This Object's hash */
+    private $hash;
+
+
+    /**
+     * Create a new Object Class
+     */
+    public function __construct()
+    {
+        $this->hash = null;
+    }
+
 
     /**
      * Determine if this object equals another object
@@ -64,8 +76,40 @@ abstract class ObjectClass implements IEquatable
     }
 
 
-    public function hash(): ByteArray
+    /**
+     * @final The hash is only generated once. Successive calls to this function will always return the same hash.
+     * (@see \PHP\Interfaces\IEquatable::hash()). To change the hash, override createHash().
+     */
+    final public function hash(): ByteArray
     {
-        throw new \PHP\Exceptions\NotImplementedException( 'ObjectClass->hash() has not been implemented, yet.' );
+        if ( null === $this->hash ) {
+            $this->hash = $this->createHash();
+        }
+        return $this->hash;
+    }
+
+
+    /**
+     * Lazily-create this Object's hash sum.
+     * 
+     * This function will only be called once.
+     * 
+     * @see \PHP\ObjectClass::hash()
+     * @return ByteArray
+     */
+    protected function createHash(): ByteArray
+    {
+        return new ByteArray( self::getNextRandomNumber() );
+    }
+
+
+    /**
+     * Retrieve next random number to use as the hash
+     * 
+     * @return int
+     */
+    private static function getNextRandomNumber(): int
+    {
+        return rand( PHP_INT_MIN, PHP_INT_MAX );
     }
 }
