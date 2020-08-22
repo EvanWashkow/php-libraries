@@ -23575,7 +23575,7 @@
 										"$ref": "AAAAAAFr7GFzU88mROk="
 									},
 									"name": "equals",
-									"documentation": "Determines if this Object is equal to another value",
+									"documentation": "Determines if this Object is equal to another value\n\nRules:\n\nAn Object's equality should not change over time: it is not mathmatically or logically correct. As an example, 1 is always equal to 1. Incrementing 1 does not change its value: rather, it produces a new value, 2. See hash().",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -23604,7 +23604,7 @@
 										"$ref": "AAAAAAFr7GFzU88mROk="
 									},
 									"name": "hash",
-									"documentation": "Retrieves the hash sum for this Object\n\nRules:\n\nIf x.equals(y) returns true, then x.hash() must equal y.hash(). However, the inverse is not necessarily true. If x.hash() equals y.hash(), this does not mean that x.equals(y). Hashes are not guaranteed to be unique; however, the more unique they are, the faster they can be retrieved from Collections.\n\nAn Object's hash must not change over its lifetime. If an Object is contained in a Collection, any change to its hash would cause it to be lost in the Collection's hash table. Either compute the hash from immutable fields, or, if there are none, return a new Object with the change. (It is good to get out of the habit of recycling Objects. An Object's equality should not change over time: it is not mathmatically or logically correct. For example, 1 always equals 1. Incrementing 1 does not change its value, rather, it produces a new value, 2.)",
+									"documentation": "Retrieves the hash sum for this Object.\n\nRules:\n\nHashes serve as an Object's fingerprint. Thus, they must not change over the Object's lifetime. If an Object is contained in a Collection, any change to its hash would cause it to be lost in the Collection's hash table.\n\nIf x.equals(y) returns true, then x.hash() must equal y.hash(). However, the inverse is not necessarily true. If x.hash() equals y.hash(), this does not mean that x.equals(y). Hashes are not guaranteed to be unique; however, the more unique they are, the faster they can be retrieved from Collections.",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
