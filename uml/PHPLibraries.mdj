@@ -18881,7 +18881,7 @@
 															"top": 199,
 															"width": 406.9263916015625,
 															"height": 13,
-															"text": "SerializingHasher"
+															"text": "SerializeAndHash"
 														},
 														{
 															"_type": "LabelView",
@@ -21008,7 +21008,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFzL05vnkiPTKg="
 									},
-									"name": "SerializingHasher",
+									"name": "SerializeAndHash",
 									"ownedElements": [
 										{
 											"_type": "UMLDependency",
