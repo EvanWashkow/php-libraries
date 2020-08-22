@@ -48,6 +48,9 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
                                  string $valueType,
                                  array  $entries   = [] )
     {
+        // Call parent constructor
+        parent::__construct();
+
         // Create type lookup
         $typeLookup = TypeLookupSingleton::getInstance();
 
