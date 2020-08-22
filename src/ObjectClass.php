@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
+use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
 use ReflectionClass;
 
@@ -60,5 +61,11 @@ class ObjectClass implements IEquatable
         }
 
         return $isEqual;
+    }
+
+
+    public function hash(): ByteArray
+    {
+        throw new \PHP\Exceptions\NotImplementedException( 'ObjectClass->hash() has not been implemented, yet.' );
     }
 }
