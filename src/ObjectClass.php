@@ -26,7 +26,19 @@ abstract class ObjectClass implements IEquatable
      */
     public function __construct()
     {
-        $this->hash = null;
+        $this->invalidateHash();
+    }
+
+
+    /**
+     * Do some cleanup after clone
+     * 
+     * @internal Although ICloneable is not implemented on this class, it does not prevent someone from calling
+     * `clone $object`.
+     */
+    public function __clone()
+    {
+        $this->invalidateHash();
     }
 
 
@@ -100,6 +112,20 @@ abstract class ObjectClass implements IEquatable
     protected function createHash(): ByteArray
     {
         return new ByteArray( self::getNextRandomNumber() );
+    }
+
+
+    /**
+     * Invalidate the hash
+     * 
+     * This should only be called in very few, and very specific situations when the hash becomes invalid. Such as after
+     * an object has been cloned.
+     * 
+     * @return void
+     */
+    private function invalidateHash(): void
+    {
+        $this->hash = null;
     }
 
 

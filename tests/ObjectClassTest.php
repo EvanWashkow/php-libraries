@@ -68,12 +68,12 @@ class ObjectClassTest extends TestCase
      */
     public function testHash( ObjectClass $o1, ObjectClass $o2 )
     {
-        $isEqual = $o1 === $o2;
-        $message = $isEqual
+        $isSameInstance = $o1 === $o2;
+        $message = $isSameInstance
                  ? 'ObjectClass->hash() should be equal to itself.'
-                 : 'ObjectClass->hash() should be different than another ObjectClass->hash().';
+                 : 'ObjectClass->hash() should not match a different ObjectClass.';
         $this->assertEquals(
-            $isEqual,
+            $isSameInstance,
             $o1->hash()->__toString() === $o2->hash()->__toString(),
             $message
         );
@@ -82,14 +82,21 @@ class ObjectClassTest extends TestCase
     public function getHashTestData(): array
     {
         // Objects
-        $builder = $this->createObjectClassMockBuilder()->setMethodsExcept([ 'hash' ]);
-        $o1 = $builder->getMock();
-        $o2 = $builder->getMock();
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+
+        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
+        $o1->hash();
+        $o3 = clone $o1;
 
         // Test data
-        return [
-            'o1, o1' => [ $o1, $o1 ],
-            'o1, o2' => [ $o1, $o2 ]
+        return
+        [
+            'o1, o1'       => [ $o1, $o1 ],
+            'o1, o2'       => [ $o1, $o2 ],
+
+            // Cloning an Object Class should clear its hash
+            'o1, clone o1' => [ $o1, $o3 ]
         ];
     }
 
@@ -97,10 +104,10 @@ class ObjectClassTest extends TestCase
     /**
      * Create a new Object Class
      * 
-     * @return MockBuilder
+     * @return ObjectClass
      */
-    public function createObjectClassMockBuilder(): MockBuilder
+    public function createObjectClass(): ObjectClass
     {
-        return $this->getMockBuilder( ObjectClass::class );
+        return new class extends ObjectClass {};
     }
 }
