@@ -14,7 +14,7 @@ use ReflectionClass;
  * object should never be cloned since you cannot have two writers at the same time. ICloneable-ity must be determined
  * on a case-by-case basis.
  */
-class ObjectClass implements IEquatable
+abstract class ObjectClass implements IEquatable
 {
 
 
