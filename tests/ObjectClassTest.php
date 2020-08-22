@@ -5,8 +5,6 @@ namespace PHP\Tests;
 
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
-use PHP\Tests\ObjectClass\Value;
-use PHPUnit\Framework\MockObject\MockBuilder;
 
 /**
  * Tests ObjectClass methods
