@@ -5,7 +5,6 @@ namespace PHP;
 
 use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
-use ReflectionClass;
 
 /**
  * Defines a basic object
