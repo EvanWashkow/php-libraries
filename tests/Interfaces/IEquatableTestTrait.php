@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Interfaces;
 
+use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
 
 /**
@@ -37,25 +38,25 @@ trait IEquatableTestTrait
      * 
      * @dataProvider getHashTestData
      * 
-     * @param IEquatable $equatable1 The first IEquatable
-     * @param IEquatable $equatable2 The second IEquatable
-     * @param bool       $expected   The expected result of equatable_1->hash() === equatable_2->hash()
+     * @param IEquatable $equatable The IEquatable to test
+     * @param ByteArray  $byteArray The ByteArray (hash) to test against
+     * @param bool       $expected  The expected result of equatable->hash() === byte_array
      * @return void
      */
-    final public function testHash( IEquatable $equatable1, IEquatable $equatable2, bool $expected ): void
+    final public function testHash( IEquatable $equatable, ByteArray $byteArray, bool $expected ): void
     {
         if ( $expected ) {
             $this->assertEquals(
-                $equatable1->hash()->__toString(),
-                $equatable2->hash()->__toString(),
-                'equatable_1->hash() is not equal to equatable_2->hash(), but should not be.'
+                $equatable->hash()->__toString(),
+                $byteArray->__toString(),
+                'equatable->hash() is not equal to byte_array, but should not be.'
             );
         }
         else {
             $this->assertNotEquals(
-                $equatable1->hash()->__toString(),
-                $equatable2->hash()->__toString(),
-                'equatable_1->hash() is equal to equatable_2->hash(), but should not be.'
+                $equatable->hash()->__toString(),
+                $byteArray->__toString(),
+                'equatable->hash() is equal to byte_array, but should not be.'
             );
         }
     }

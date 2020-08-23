@@ -48,11 +48,11 @@ class ObjectClassTest extends TestCase
         // Test data
         return
         [
-            'o1, o1'       => [ $o1, $o1, true ],
-            'o1, o2'       => [ $o1, $o2, false ],
+            'o1, o1'       => [ $o1, $o1->hash(), true ],
+            'o1, o2'       => [ $o1, $o2->hash(), false ],
 
             // Cloning an Object Class should clear its hash
-            'o1, clone o1' => [ $o1, $o3, false ]
+            'o1, clone o1' => [ $o1, $o3->hash(), false ]
         ];
     }
 
