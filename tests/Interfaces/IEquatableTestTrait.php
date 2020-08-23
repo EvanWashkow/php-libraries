@@ -13,6 +13,26 @@ trait IEquatableTestTrait
 
 
     /**
+     * Test IEquatable->equals() returns the expected result
+     * 
+     * @dataProvider getEqualsTestData()
+     * 
+     * @param IEquatable $equatable The IEquatable to do the comparison
+     * @param mixed      $value      The value to compare to
+     * @param bool       $expected   The expected result of equatable_1->equals()
+     * @return void
+     */
+    final public function testEquals( IEquatable $equatable, $value, bool $expected ): void
+    {
+        $this->assertEquals(
+            $expected,
+            $equatable->equals( $value ),
+            'equatable->equals( value ) did not return the expected results.'
+        );
+    }
+
+
+    /**
      * Tests the consistency of equals() and hash() as described on IEquatable
      * 
      * @dataProvider getEqualsAndHashConsistencyTestData
@@ -21,7 +41,7 @@ trait IEquatableTestTrait
      * @param IEquatable $equatable2 The IEquatable to compare to
      * @return void
      */
-    public function testEqualsAndHashConsistency( IEquatable $equatable1, IEquatable $equatable2 ): void
+    final public function testEqualsAndHashConsistency( IEquatable $equatable1, IEquatable $equatable2 ): void
     {
         $this->assertTrue(
             $equatable1->equals( $equatable2 ),

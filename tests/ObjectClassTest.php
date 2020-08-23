@@ -15,37 +15,6 @@ class ObjectClassTest extends TestCase
 
 
     /**
-     * Test ObjectClass->equals() returns the expected result
-     * 
-     * @dataProvider getEqualsTestData()
-     */
-    public function testEquals( ObjectClass $o1, ObjectClass $o2, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $o1->equals( $o2 ),
-            'ObjectClass->equals() did not return the expected results.'
-        );
-    }
-
-
-    public function getEqualsTestData(): array
-    {
-        // Objects
-        $o1 = $this->createObjectClass();
-        $o2 = $this->createObjectClass();
-        $o3 = clone $o1;
-
-        // Test Data
-        return [
-            'o1, o1' => [ $o1, $o1, true ],
-            'o1, o2' => [ $o1, $o2, false ],
-            'o1, o3' => [ $o1, $o3, false ]
-        ];
-    }
-
-
-    /**
      * Test hash() by comparing its results
      * 
      * @dataProvider getHashTestData
@@ -86,9 +55,26 @@ class ObjectClassTest extends TestCase
 
 
     /**
-     * Run tests defined in IEquatableTestTrait
+     * Define test data for IEquatableTestTrait
      */
     use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
+    {
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+        $o3 = clone $o1;
+
+        // Test Data
+        return [
+            'o1, o1' => [ $o1, $o1, true ],
+            'o1, o2' => [ $o1, $o2, false ],
+            'o1, o3' => [ $o1, $o3, false ]
+        ];
+    }
+
 
     public function getEqualsAndHashConsistencyTestData(): array
     {
