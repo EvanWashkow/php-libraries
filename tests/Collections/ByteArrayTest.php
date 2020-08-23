@@ -12,6 +12,7 @@ use PHP\Interfaces\ICloneable;
 use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -358,6 +359,34 @@ class ByteArrayTest extends TestCase
                 ( 256 / 8 )
             ]
         ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                   IEquatable Tests
+    *******************************************************************************************************************/
+
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
+    {
+        return [];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        return [];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        return [];
     }
 
 
