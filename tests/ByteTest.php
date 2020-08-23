@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests;
 
 use PHP\Byte;
+use PHP\Collections\ByteArray;
 use PHP\Interfaces\IIntegerable;
 use PHP\ObjectClass;
 use PHPUnit\Framework\TestCase;
@@ -148,6 +149,38 @@ class ByteTest extends TestCase
         );
 
         return $data;
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                         hash()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Test hash()
+     * 
+     * @dataProvider getHashTestData
+     */
+    public function testHash( Byte $byte, ByteArray $expected )
+    {
+        $this->assertEquals(
+            $expected->__toString(),
+            $byte->hash()->__toString(),
+            'Byte->hash() did not return the expected hash.'
+        );
+    }
+
+    public function getHashTestData(): array
+    {
+        $b0   = new Byte( 0 );
+        $b255 = new Byte( 255 );
+        return [
+            '0'   => [ $b0,   new ByteArray([ $b0 ]) ],
+            '255' => [ $b255, new ByteArray([ $b255 ]) ]
+        ];
     }
 
 
