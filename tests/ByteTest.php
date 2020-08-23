@@ -104,6 +104,8 @@ class ByteTest extends TestCase
         $data = array_merge(
             $data,
             [
+                'Byte( 0 ),   "0",         false' => [ $b0,   '0',             false ],
+                'Byte( 0 ),   false,       false' => [ $b0,   false,           false ],
                 'Byte( 0 ),   Byte( 1 ),   false' => [ $b0,   new Byte( 1 ),   false ],
                 'Byte( 0 ),   1,           false' => [ $b0,   1,               false ],
                 'Byte( 254 ), Byte( 255 ), false' => [ $b254, new Byte( 255 ), false ],
