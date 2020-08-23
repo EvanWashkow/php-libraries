@@ -75,12 +75,12 @@ trait IEquatableTestTrait
     {
         $this->assertTrue(
             $equatable1->equals( $equatable2 ),
-            'Equatable 1 must be equal to Equatable 2 to test Hash consistency.'
+            'equatable_1 must be equal to equatable_2 to test Hash consistency.'
         );
         $this->assertEquals(
             $equatable1->hash()->__toString(),
             $equatable2->hash()->__toString(),
-            'Equatable 1\'s hash must be equal to Equatable 2\'s hash.'
+            'equatable_1\'s hash must be equal to equatable_2\'s hash.'
         );
     }
 }
