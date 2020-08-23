@@ -13,47 +13,6 @@ use PHPUnit\Framework\TestCase;
 class ObjectClassTest extends TestCase
 {
 
-
-    /**
-     * Test hash() by comparing its results
-     * 
-     * @dataProvider getHashTestData
-     */
-    public function testHash( ObjectClass $o1, ObjectClass $o2 )
-    {
-        $isSameInstance = $o1 === $o2;
-        $message = $isSameInstance
-                 ? 'ObjectClass->hash() should be equal to itself.'
-                 : 'ObjectClass->hash() should not match a different ObjectClass.';
-        $this->assertEquals(
-            $isSameInstance,
-            $o1->hash()->__toString() === $o2->hash()->__toString(),
-            $message
-        );
-    }
-
-    public function getHashTestData(): array
-    {
-        // Objects
-        $o1 = $this->createObjectClass();
-        $o2 = $this->createObjectClass();
-
-        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
-        $o1->hash();
-        $o3 = clone $o1;
-
-        // Test data
-        return
-        [
-            'o1, o1'       => [ $o1, $o1 ],
-            'o1, o2'       => [ $o1, $o2 ],
-
-            // Cloning an Object Class should clear its hash
-            'o1, clone o1' => [ $o1, $o3 ]
-        ];
-    }
-
-
     /**
      * Define test data for IEquatableTestTrait
      */
@@ -72,6 +31,28 @@ class ObjectClassTest extends TestCase
             'o1, o1' => [ $o1, $o1, true ],
             'o1, o2' => [ $o1, $o2, false ],
             'o1, o3' => [ $o1, $o3, false ]
+        ];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+
+        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
+        $o1->hash();
+        $o3 = clone $o1;
+
+        // Test data
+        return
+        [
+            'o1, o1'       => [ $o1, $o1, true ],
+            'o1, o2'       => [ $o1, $o2, false ],
+
+            // Cloning an Object Class should clear its hash
+            'o1, clone o1' => [ $o1, $o3, false ]
         ];
     }
 
