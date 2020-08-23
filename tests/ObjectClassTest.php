@@ -89,7 +89,7 @@ class ObjectClassTest extends TestCase
      * 
      * @return ObjectClass
      */
-    public function createObjectClass(): ObjectClass
+    private function createObjectClass(): ObjectClass
     {
         return new class extends ObjectClass {};
     }
