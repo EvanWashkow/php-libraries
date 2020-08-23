@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests;
 
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -80,6 +81,20 @@ class ObjectClassTest extends TestCase
 
             // Cloning an Object Class should clear its hash
             'o1, clone o1' => [ $o1, $o3 ]
+        ];
+    }
+
+
+    /**
+     * Run tests defined in IEquatableTestTrait
+     */
+    use IEquatableTestTrait;
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        $o1 = $this->createObjectClass();
+        return [
+            'o1' => [ $o1, $o1 ]
         ];
     }
 
