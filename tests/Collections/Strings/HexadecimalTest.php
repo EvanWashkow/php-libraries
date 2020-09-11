@@ -7,6 +7,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\Strings\Hexadecimal;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class HexadecimalTest extends TestCase
@@ -97,6 +98,37 @@ class HexadecimalTest extends TestCase
                 new ByteArray( 0x41, 4 ),
                 '41000000'
             ]
+        ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+     *                                                   IEquatable Tests
+     *******************************************************************************************************************/
+
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
+    {
+        return [
+        ];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        return [
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        return [
         ];
     }
 }
