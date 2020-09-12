@@ -279,11 +279,20 @@ class EnumTest extends TestCase
      */
     public function testGetValue( Enum $enum, $value, bool $expected )
     {
-        $this->assertEquals(
-            $expected,
-            $enum->getValue() === $value,
-            'Enum->getValue() did not return the expected value'
-        );
+        if ( $expected ) {
+            $this->assertEquals(
+                $enum->getValue(),
+                $value,
+                'Enum->getValue() did not return the expected value'
+            );
+        }
+        else {
+            $this->assertEquals(
+                $expected,
+                $enum->getValue() === $value,
+                'Enum->getValue() should NOT be equal to the value.'
+            );
+        }
     }
 
 
