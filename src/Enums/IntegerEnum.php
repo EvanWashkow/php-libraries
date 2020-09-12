@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Enums;
 
+use PHP\Collections\ByteArray;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Interfaces\IIntegerable;
 
@@ -73,5 +74,11 @@ abstract class IntegerEnum extends Enum implements IIntegerable
     final public function toInt(): int
     {
         return parent::getValue();
+    }
+
+
+    protected function createHash(): ByteArray
+    {
+        return new ByteArray($this->getValue());
     }
 }
