@@ -9,10 +9,12 @@ use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
 use PHP\Enums\StringEnum;
 use PHP\ObjectClass;
+use PHP\Serialization\PHPSerializer;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -202,22 +204,64 @@ class EnumTest extends TestCase
 
 
 
-    /*******************************************************************************************************************
-    *                                                    equals()
-    *******************************************************************************************************************/
 
-    /**
-     * Test Enum->equals()
-     * 
-     * @dataProvider getEnumAndPrimitiveComparisonData()
-     */
-    public function testEquals( Enum $enum, $value, bool $expected )
+    /*******************************************************************************************************************
+     *                                                   IEquatable Tests
+     *******************************************************************************************************************/
+
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
     {
-        $this->assertEquals(
-            $expected,
-            $enum->equals( $value ),
-            'Enum->equals() did not return the correct result'
-        );
+        return $this->getEnumAndPrimitiveComparisonData();
+    }
+
+
+    public function getHashTestData(): array
+    {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
+        // Test data
+        return [
+            'GoodEnum(GoodEnum::ARRAY)->hash() === (clone self)->hash()' => [
+                $enumArray, (clone $enumArray)->hash(), true
+            ],
+            'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
+                $enumArray, $enumOneInt->hash(), false
+            ],
+            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === (clone self)->hash()' => [
+                $enumOneInt, (clone $enumOneInt)->hash(), true
+            ],
+            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === GoodEnum(GoodEnum::ONE_STRING)->hash()' => [
+                $enumOneInt, $enumOneString->hash(), false
+            ],
+            'GoodEnum(GoodEnum::ONE_STRING)->hash() === (clone self)->hash()' => [
+                $enumOneString, (clone $enumOneString)->hash(), true
+            ],
+            'GoodEnum(GoodEnum::ONE_STRING)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
+                $enumOneString, $enumOneInt->hash(), false
+            ]
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
+        // Test data
+        return [
+            'GoodEnum(GoodEnum::ARRAY)'       => [ $enumArray,     clone $enumArray ],
+            'GoodEnum(GoodEnum::ONE_INTEGER)' => [ $enumOneInt,    clone $enumOneInt ],
+            'GoodEnum(GoodEnum::ONE_STRING)'  => [ $enumOneString, clone $enumOneString ]
+        ];
     }
 
 

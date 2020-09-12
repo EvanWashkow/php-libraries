@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace PHP\Enums;
 
+use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\ObjectClass;
+use PHP\Serialization\PHPSerializer;
 use ReflectionClass;
 
 /**
@@ -131,12 +133,6 @@ abstract class Enum extends ObjectClass
     *******************************************************************************************************************/
 
 
-    /**
-     * Determine if the current value is equal to another Enum or value
-     * 
-     * @param mixed $value Enum instance or value to compare to
-     * @return bool
-     */
     public function equals( $value ): bool
     {
         if ( $value instanceof Enum ) {
@@ -157,5 +153,11 @@ abstract class Enum extends ObjectClass
     public function getValue()
     {
         return $this->value;
+    }
+
+
+    protected function createHash(): ByteArray
+    {
+        return (new PHPSerializer())->serialize($this->getValue());
     }
 }
