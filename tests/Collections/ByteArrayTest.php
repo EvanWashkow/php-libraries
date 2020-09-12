@@ -404,9 +404,9 @@ class ByteArrayTest extends TestCase
         $byteArray2 = new ByteArray(2);
         return [
             'ByteArray(1), itself'       => [ $byteArray1, $byteArray1 ],
-            'ByteArray(1), ByteArray(1)' => [ $byteArray1, new ByteArray(1) ],
+            'ByteArray(1), ByteArray(1)' => [ $byteArray1, $byteArray1->clone() ],
             'ByteArray(2), itself'       => [ $byteArray2, $byteArray2 ],
-            'ByteArray(2), ByteArray(2)' => [ $byteArray2, new ByteArray(2) ]
+            'ByteArray(2), ByteArray(2)' => [ $byteArray2, $byteArray2->clone() ]
         ];
     }
 
