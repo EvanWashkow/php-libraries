@@ -386,38 +386,6 @@ class EnumTest extends TestCase
 
 
                 /**
-                 * IntegerEnum
-                 */
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === <same enum>' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    true
-                ],
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodStringEnum( GoodStringEnum::ONE )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    false
-                ],
-
-                // IntegerEnum cross-Enum equality checks
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    true
-                ],
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    false
-                ],
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    true
-                ],
-
-
-                /**
                  * StringEnum
                  */
                 'GoodStringEnum( GoodStringEnum::ONE ) === <same enum>' => [
