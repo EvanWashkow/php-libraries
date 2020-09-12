@@ -237,7 +237,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
 
     protected function createHash(): ByteArray
     {
-        return $this->clone();
+        return $this;
     }
 
 
