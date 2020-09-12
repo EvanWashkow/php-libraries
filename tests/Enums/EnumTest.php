@@ -301,26 +301,78 @@ class EnumTest extends TestCase
      */
     public function getEnumAndPrimitiveComparisonData(): array
     {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
         return array_merge(
             $this->getPrimitiveValueComparisonData(),
             [
                 /**
                  * GoodEnum
                  */
-                'GoodEnum( ONE_INTEGER ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                'GoodEnum( ONE_INTEGER ) === (clone self)' => [
+                    $enumOneInt,
+                    clone $enumOneInt,
                     true
                 ],
-                'GoodEnum( ONE_STRING ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
+                'GoodEnum( ONE_INTEGER ) === ONE_INTEGER' => [
+                    $enumOneInt,
+                    GoodEnum::ONE_INTEGER,
                     true
                 ],
-                'GoodEnum( ARRAY ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::ARRAY ),
-                    new GoodEnum( GoodEnum::ARRAY ),
+                'GoodEnum( ONE_INTEGER ) === GoodEnum( ONE_STRING )' => [
+                    $enumOneInt,
+                    $enumOneString,
+                    false
+                ],
+                'GoodEnum( ONE_INTEGER ) === ONE_STRING' => [
+                    $enumOneInt,
+                    GoodEnum::ONE_STRING,
+                    false
+                ],
+
+                'GoodEnum( ONE_STRING ) === (clone self)' => [
+                    $enumOneString,
+                    clone $enumOneString,
                     true
+                ],
+                'GoodEnum( ONE_STRING ) === ONE_STRING' => [
+                    $enumOneString,
+                    GoodEnum::ONE_STRING,
+                    true
+                ],
+                'GoodEnum( ONE_STRING ) === GoodEnum( ONE_INTEGER )' => [
+                    $enumOneString,
+                    $enumOneInt,
+                    false
+                ],
+                'GoodEnum( ONE_STRING ) === ONE_INTEGER' => [
+                    $enumOneString,
+                    GoodEnum::ONE_INTEGER,
+                    false
+                ],
+
+                'GoodEnum( ARRAY ) === (clone self)' => [
+                    $enumArray,
+                    clone $enumArray,
+                    true
+                ],
+                'GoodEnum( ARRAY ) === ARRAY' => [
+                    $enumArray,
+                    GoodEnum::ARRAY,
+                    true
+                ],
+                'GoodEnum( ARRAY ) === GoodEnum( ONE_INTEGER )' => [
+                    $enumArray,
+                    $enumOneInt,
+                    false
+                ],
+                'GoodEnum( ARRAY ) === ONE_INTEGER' => [
+                    $enumArray,
+                    GoodEnum::ONE_INTEGER,
+                    false
                 ],
 
                 // Enum cross-Enum equality checks
