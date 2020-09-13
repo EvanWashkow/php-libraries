@@ -127,6 +127,7 @@ class EnumTest extends TestCase
             'GoodEnum' => [
                 GoodEnum::getConstants(),
                 [
+                    'ONE_FLOAT'   => GoodEnum::ONE_FLOAT,
                     'ONE_INTEGER' => GoodEnum::ONE_INTEGER,
                     'ONE_STRING'  => GoodEnum::ONE_STRING,
                     'ARRAY'       => GoodEnum::ARRAY

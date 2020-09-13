@@ -8,6 +8,8 @@ use PHP\Enums\Enum;
 class GoodEnum extends Enum
 {
 
+    const ONE_FLOAT = 1.0;
+
     const ONE_INTEGER = 1;
 
     const ONE_STRING = '1';
