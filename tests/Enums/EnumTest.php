@@ -334,9 +334,6 @@ class EnumTest extends TestCase
         return array_merge(
             $this->getPrimitiveValueComparisonData(),
             [
-                /**
-                 * GoodEnum
-                 */
                 'GoodEnum( ARRAY ) === (clone self)' => [
                     $enumArray,
                     clone $enumArray,
@@ -418,52 +415,6 @@ class EnumTest extends TestCase
                 'GoodEnum( ONE_STRING ) === ONE_INTEGER' => [
                     $enumOneString,
                     GoodEnum::ONE_INTEGER,
-                    false
-                ],
-
-
-                /**
-                 * BitMapEnum
-                 * 
-                 * This is a less comprehensive test, as the primitive test already covers all the different variations
-                 * and combination of bit map equality. This shortened test makes sure that all the major pieces are in
-                 * place as the code simply converts the BitMapEnum to its primitive integer form.
-                 */
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === <same enum>' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    true
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    false
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === GoodBitMapEnum( GoodBitMapEnum::TWO )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::TWO ),
-                    false
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === GoodBitMapEnum( GoodBitMapEnum::FOUR )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
-                    false
-                ],
-
-                // BitEnum cross-Enum equality checks
-                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    true
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    true
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
                     false
                 ]
             ]
