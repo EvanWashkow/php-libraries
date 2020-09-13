@@ -339,30 +339,14 @@ class EnumTest extends TestCase
                     clone $enumArray,
                     true
                 ],
-                'GoodEnum( ARRAY ) === ARRAY' => [
-                    $enumArray,
-                    GoodEnum::ARRAY,
-                    true
-                ],
                 'GoodEnum( ARRAY ) === GoodEnum( ONE_INTEGER )' => [
                     $enumArray,
                     $enumOneInt,
                     false
                 ],
-                'GoodEnum( ARRAY ) === ONE_INTEGER' => [
-                    $enumArray,
-                    GoodEnum::ONE_INTEGER,
-                    false
-                ],
-
                 'GoodEnum( ONE_FLOAT ) === (clone self)' => [
                     $enumOneFloat,
                     clone $enumOneFloat,
-                    true
-                ],
-                'GoodEnum( ONE_FLOAT ) === ONE_FLOAT' => [
-                    $enumOneFloat,
-                    GoodEnum::ONE_FLOAT,
                     true
                 ],
                 'GoodEnum( ONE_FLOAT ) === GoodEnum( self::self::ONE_INTEGER )' => [
@@ -370,20 +354,9 @@ class EnumTest extends TestCase
                     $enumOneInt,
                     false
                 ],
-                'GoodEnum( ONE_FLOAT ) === self::self::ONE_INTEGER' => [
-                    $enumOneFloat,
-                    GoodEnum::ONE_INTEGER,
-                    false
-                ],
-
                 'GoodEnum( ONE_INTEGER ) === (clone self)' => [
                     $enumOneInt,
                     clone $enumOneInt,
-                    true
-                ],
-                'GoodEnum( ONE_INTEGER ) === ONE_INTEGER' => [
-                    $enumOneInt,
-                    GoodEnum::ONE_INTEGER,
                     true
                 ],
                 'GoodEnum( ONE_INTEGER ) === GoodEnum( ONE_STRING )' => [
@@ -391,30 +364,14 @@ class EnumTest extends TestCase
                     $enumOneString,
                     false
                 ],
-                'GoodEnum( ONE_INTEGER ) === ONE_STRING' => [
-                    $enumOneInt,
-                    GoodEnum::ONE_STRING,
-                    false
-                ],
-
                 'GoodEnum( ONE_STRING ) === (clone self)' => [
                     $enumOneString,
                     clone $enumOneString,
                     true
                 ],
-                'GoodEnum( ONE_STRING ) === ONE_STRING' => [
-                    $enumOneString,
-                    GoodEnum::ONE_STRING,
-                    true
-                ],
                 'GoodEnum( ONE_STRING ) === GoodEnum( ONE_INTEGER )' => [
                     $enumOneString,
                     $enumOneInt,
-                    false
-                ],
-                'GoodEnum( ONE_STRING ) === ONE_INTEGER' => [
-                    $enumOneString,
-                    GoodEnum::ONE_INTEGER,
                     false
                 ]
             ]
@@ -429,34 +386,50 @@ class EnumTest extends TestCase
      */
     public function getPrimitiveValueComparisonData(): array
     {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
         return [
-            'GoodEnum( ARRAY ) === <value>' => [
-                new GoodEnum( GoodEnum::ARRAY ),
+            'GoodEnum( ARRAY ) === self->getValue()' => [
+                $enumArray,
                 GoodEnum::ARRAY,
                 true
             ],
-            'GoodEnum( ARRAY ) === (string) <value>' => [
-                new GoodEnum( GoodEnum::ARRAY ),
+            'GoodEnum( ARRAY ) === (string) self->getValue()' => [
+                $enumArray,
                 GoodEnum::GetStringArray(),
                 false
             ],
-            'GoodEnum( ONE_INTEGER ) === <value>' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
+            'GoodEnum( ONE_FLOAT ) === self->getValue()' => [
+                $enumOneFloat,
+                GoodEnum::ONE_FLOAT,
+                true
+            ],
+            'GoodEnum( ONE_FLOAT ) === (string) self->getValue()' => [
+                $enumOneFloat,
+                "{$enumOneFloat->getValue()}",
+                false
+            ],
+            'GoodEnum( ONE_INTEGER ) === self->getValue()' => [
+                $enumOneInt,
                 GoodEnum::ONE_INTEGER,
                 true
             ],
             'GoodEnum( ONE_INTEGER ) === GoodEnum::ONE_STRING' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                $enumOneInt,
                 GoodEnum::ONE_STRING,
                 false
             ],
-            'GoodEnum( ONE_STRING ) === <value>' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
+            'GoodEnum( ONE_STRING ) === self->getValue()' => [
+                $enumOneString,
                 GoodEnum::ONE_STRING,
                 true
             ],
             'GoodEnum( ONE_STRING ) === GoodEnum::ONE_INTEGER' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
+                $enumOneString,
                 GoodEnum::ONE_INTEGER,
                 false
             ]
