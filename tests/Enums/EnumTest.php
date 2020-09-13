@@ -423,33 +423,6 @@ class EnumTest extends TestCase
 
 
                 /**
-                 * StringEnum
-                 */
-                'GoodStringEnum( GoodStringEnum::ONE ) === <same enum>' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    true
-                ],
-                'GoodStringEnum( GoodStringEnum::ONE ) === GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    false
-                ],
-
-                // StringEnum cross-Enum equality checks
-                'GoodStringEnum( GoodStringEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    true
-                ],
-                'GoodStringEnum( GoodStringEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    false
-                ],
-
-
-                /**
                  * BitMapEnum
                  * 
                  * This is a less comprehensive test, as the primitive test already covers all the different variations

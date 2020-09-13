@@ -29,6 +29,25 @@ class StringEnumTest extends TestCase
     }
 
 
+
+
+    /*******************************************************************************************************************
+     *                                                     getValue()
+     ******************************************************************************************************************/
+
+    /**
+     * Test getValue() to ensure that finalizing it did not break the base implementation
+     */
+    public function testGetValue()
+    {
+        $this->assertEquals(
+            GoodStringEnum::ONE,
+            (new GoodStringEnum(GoodStringEnum::ONE))->getValue(),
+            'StringEnum->getValue() did not return the expected value'
+        );
+    }
+
+
     /**
      * Ensure that StringEnum->__toString() returns the current value
      * 
