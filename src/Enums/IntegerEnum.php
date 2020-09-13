@@ -75,10 +75,4 @@ abstract class IntegerEnum extends Enum implements IIntegerable
     {
         return parent::getValue();
     }
-
-
-    protected function createHash(): ByteArray
-    {
-        return new ByteArray($this->getValue());
-    }
 }
