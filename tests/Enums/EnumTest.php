@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
+use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 use PHP\Enums\BitMapEnum;
 use PHP\Enums\Enum;
@@ -224,6 +225,10 @@ class EnumTest extends TestCase
         $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
         $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
 
+        // ByteArrays
+        $byteArrayOneInt    = new ByteArray(GoodEnum::ONE_INTEGER);
+        $byteArrayOneString = new ByteArray(GoodEnum::ONE_STRING);
+
         // Test data
         return [
             'GoodEnum(GoodEnum::ARRAY)->hash() === (clone self)->hash()' => [
@@ -232,11 +237,11 @@ class EnumTest extends TestCase
             'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
                 $enumArray, $enumOneInt->hash(), false
             ],
-            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === (clone self)->hash()' => [
-                $enumOneInt, (clone $enumOneInt)->hash(), true
+            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
+                $enumOneInt, $byteArrayOneInt, true
             ],
-            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === GoodEnum(GoodEnum::ONE_STRING)->hash()' => [
-                $enumOneInt, $enumOneString->hash(), false
+            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_STRING)' => [
+                $enumOneInt, $byteArrayOneString, false
             ],
             'GoodEnum(GoodEnum::ONE_STRING)->hash() === (clone self)->hash()' => [
                 $enumOneString, (clone $enumOneString)->hash(), true

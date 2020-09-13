@@ -158,6 +158,9 @@ abstract class Enum extends ObjectClass
 
     protected function createHash(): ByteArray
     {
-        return (new PHPSerializer())->serialize($this->getValue());
+        $value = $this->getValue();
+        return is_int($value) || is_string($value)
+            ? new ByteArray($value)
+            : (new PHPSerializer())->serialize($this->getValue());
     }
 }
