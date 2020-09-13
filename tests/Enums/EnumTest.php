@@ -223,10 +223,12 @@ class EnumTest extends TestCase
     {
         // Enums
         $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
         $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
         $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
 
         // ByteArrays
+        $byteArrayOneFloat  = new ByteArray(GoodEnum::ONE_FLOAT);
         $byteArrayOneInt    = new ByteArray(GoodEnum::ONE_INTEGER);
         $byteArrayOneString = new ByteArray(GoodEnum::ONE_STRING);
 
@@ -237,6 +239,12 @@ class EnumTest extends TestCase
             ],
             'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
                 $enumArray, $enumOneInt->hash(), false
+            ],
+            'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_FLOAT)' => [
+                $enumOneFloat, $byteArrayOneFloat, true
+            ],
+            'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
+                $enumOneFloat, $byteArrayOneInt, false
             ],
             'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
                 $enumOneInt, $byteArrayOneInt, true
