@@ -2,6 +2,7 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
@@ -55,26 +56,13 @@ class TypeTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                  Type->equals()
-    *******************************************************************************************************************/
+     *                                                   IEquatable Tests
+     *******************************************************************************************************************/
+
+    use IEquatableTestTrait;
 
 
-    /**
-     * Test the Type->equals() method
-     * 
-     * @dataProvider getEqualsData
-     */
-    public function testEquals( Type $type, $typeOrValue, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            $type->equals( $typeOrValue ),
-            'Type->equals() did not return the correct result'
-        );
-    }
-
-
-    public function getEqualsData(): array
+    public function getEqualsTestData(): array
     {
         $typeLookup = TypeLookupSingleton::getInstance();
 
@@ -151,6 +139,18 @@ class TypeTest extends TestCase
                 false
             ]
         ];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        return [];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        return [];
     }
     
     
