@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Hashing\Hashers;
+namespace PHP\Tests\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
 use PHP\Exceptions\NotImplementedException;
-use PHP\Hashing\Hashers\HasherDecorator;
-use PHP\Hashing\Hashers\IHasher;
+use PHP\Hashing\Hasher\HasherDecorator;
+use PHP\Hashing\Hasher\IHasher;
 
 /**
  * Tests HasherDecorator

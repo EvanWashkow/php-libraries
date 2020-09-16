@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Hashing\Hashers;
+namespace PHP\Tests\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
-use PHP\Hashing\Hashers\IHasher;
+use PHP\Hashing\Hasher\IHasher;
 use PHPUnit\Framework\TestCase;
 
 /**

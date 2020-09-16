@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Hashing\Hashers;
+namespace PHP\Tests\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
-use PHP\Hashing\Hashers\HasherDecorator;
-use PHP\Hashing\Hashers\IHasher;
-use PHP\Hashing\Hashers\ReturnEquatableHash;
+use PHP\Hashing\Hasher\HasherDecorator;
+use PHP\Hashing\Hasher\IHasher;
+use PHP\Hashing\Hasher\ReturnEquatableHash;
 use PHP\Interfaces\IEquatable;
 
 /**
