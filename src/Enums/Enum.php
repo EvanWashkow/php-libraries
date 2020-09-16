@@ -8,7 +8,7 @@ use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Hashing\HashAlgorithm\SHA256;
 use PHP\Hashing\Hasher\PrimitiveHasher;
-use PHP\Hashing\Hasher\SerializeAndHash;
+use PHP\Hashing\Hasher\SerializeThenApplyHashAlgorithm;
 use PHP\ObjectClass;
 use PHP\Serialization\PHPSerializer;
 use ReflectionClass;
@@ -163,7 +163,7 @@ abstract class Enum extends ObjectClass
     {
         static $hasher = null;
         if ($hasher === null ) {
-            $hasher = new PrimitiveHasher(new SerializeAndHash(new PHPSerializer(), new SHA256()));
+            $hasher = new PrimitiveHasher(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
         }
         return $hasher->hash($this->getValue());
     }
