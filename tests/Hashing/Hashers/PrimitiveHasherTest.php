@@ -81,21 +81,5 @@ class PrimitiveHasherTest extends \PHPUnit\Framework\TestCase
         $mockIHasher = $this->createMock(IHasher::class);
         $mockIHasher->method('hash')->willReturn( $returnValue );
         return $mockIHasher;
-
-
-//        return new class($returnValue) implements IHasher
-//        {
-//            private $returnValue;
-//
-//            public function __construct(ByteArray $returnValue)
-//            {
-//                $this->returnValue = $returnValue;
-//            }
-//
-//            public function hash($value): ByteArray
-//            {
-//                return $this->returnValue;
-//            }
-//        };
     }
 }
