@@ -6,13 +6,13 @@ namespace PHP\Tests\Hashing\Hasher;
 use PHP\Collections\ByteArray;
 use PHP\Hashing\Hasher\HasherDecorator;
 use PHP\Hashing\Hasher\IHasher;
-use PHP\Hashing\Hasher\ReturnEquatableHash;
+use PHP\Hashing\Hasher\EquatableHasher;
 use PHP\Interfaces\IEquatable;
 
 /**
  * Tests ReturnEquatableHash
  */
-class ReturnEquatableHashTest extends \PHPUnit\Framework\TestCase
+class EquatableHasherTest extends \PHPUnit\Framework\TestCase
 {
 
 
@@ -23,7 +23,7 @@ class ReturnEquatableHashTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             HasherDecorator::class,
-            $this->createMock(ReturnEquatableHash::class),
+            $this->createMock(EquatableHasher::class),
             'ReturnEquatableHash is not an instance of a HasherDecorator.'
         );
     }
@@ -40,7 +40,7 @@ class ReturnEquatableHashTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals(
             $expected->__toString(),
-            (new ReturnEquatableHash($nextHasher))->hash($valueToHash)->__toString(),
+            (new EquatableHasher($nextHasher))->hash($valueToHash)->__toString(),
             'ReturnEquatableHash->hash() did not return the expected value.'
         );
     }

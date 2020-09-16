@@ -7,9 +7,9 @@ use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
 
 /**
- * Hashes primitive value types (doubles, ints, strings) by simply returning their value as an array of bytes
+ * If the value is IEquatable, return the result of hash()
  */
-class ReturnEquatableHash extends HasherDecorator
+class EquatableHasher extends HasherDecorator
 {
 
     /**
