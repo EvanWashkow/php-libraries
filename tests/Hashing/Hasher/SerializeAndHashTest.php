@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 namespace PHP\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
-use PHP\Hashing\HashAlgorithms\IHashAlgorithm;
-use PHP\Hashing\HashAlgorithms\MD5;
+use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
+use PHP\Hashing\HashAlgorithm\MD5;
 use PHP\Hashing\Hasher\IHasher;
 use PHP\Hashing\Hasher\SerializeAndHash;
 use PHP\Serialization\ISerializer;

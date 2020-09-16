@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Hashing\HashAlgorithms;
+namespace PHP\Hashing\HashAlgorithm;
 
 use PHP\Collections\ByteArray;
 

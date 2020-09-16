@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Tests\Hashing\HashAlgorithms;
+namespace PHP\Tests\Hashing\HashAlgorithm;
 
 use PHP\Collections\ByteArray;
-use PHP\Hashing\HashAlgorithms\IHashAlgorithm;
-use PHP\Hashing\HashAlgorithms\MD5;
-use PHP\Hashing\HashAlgorithms\SHA1;
-use PHP\Hashing\HashAlgorithms\SHA256;
-use PHP\Hashing\HashAlgorithms\SHA384;
-use PHP\Hashing\HashAlgorithms\SHA512;
+use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
+use PHP\Hashing\HashAlgorithm\MD5;
+use PHP\Hashing\HashAlgorithm\SHA1;
+use PHP\Hashing\HashAlgorithm\SHA256;
+use PHP\Hashing\HashAlgorithm\SHA384;
+use PHP\Hashing\HashAlgorithm\SHA512;
 use PHPUnit\Framework\TestCase;
 
 /**

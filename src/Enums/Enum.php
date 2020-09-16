@@ -6,7 +6,7 @@ namespace PHP\Enums;
 use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
-use PHP\Hashing\HashAlgorithms\SHA256;
+use PHP\Hashing\HashAlgorithm\SHA256;
 use PHP\Hashing\Hasher\PrimitiveHasher;
 use PHP\Hashing\Hasher\SerializeAndHash;
 use PHP\ObjectClass;
