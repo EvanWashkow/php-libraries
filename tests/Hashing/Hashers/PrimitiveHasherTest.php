@@ -46,8 +46,8 @@ class PrimitiveHasherTest extends \PHPUnit\Framework\TestCase
 
     public function getHashTestData(): array
     {
-        $mockIHasher = $this->createMock(IHasher::class);
         $hasherFactory = new HasherFactory();
+        $mockIHasher   = $this->createMock(IHasher::class);
         return [
             'hash(1)'        => [ $mockIHasher, 1,        new ByteArray(1)],
             'hash(1.1)'      => [ $mockIHasher, 1.1,      new ByteArray(1.1)],
