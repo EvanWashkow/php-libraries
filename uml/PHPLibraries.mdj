@@ -14721,7 +14721,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 213,
-											"top": 62,
+											"top": 47,
 											"width": 122.03111267089844,
 											"height": 13,
 											"text": "IEquatable"
@@ -14734,7 +14734,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 213,
-											"top": 77,
+											"top": 62,
 											"width": 122.03111267089844,
 											"height": 13,
 											"text": "(from Interfaces)"
@@ -14755,7 +14755,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 208,
-									"top": 55,
+									"top": 40,
 									"width": 132.03111267089844,
 									"height": 40,
 									"stereotypeLabel": {
@@ -14808,18 +14808,35 @@
 											},
 											"font": "Arial;13;0",
 											"left": 213,
-											"top": 100,
+											"top": 85,
 											"width": 122.03111267089844,
 											"height": 13,
 											"text": "+equals(value): bool",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF0lJRlrBS+hec=",
+											"_parent": {
+												"$ref": "AAAAAAFr7GS9X892gzs="
+											},
+											"model": {
+												"$ref": "AAAAAAF0F0bvEbNklT4="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 100,
+											"width": 122.03111267089844,
+											"height": 13,
+											"text": "+hash(): ByteArray",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 208,
-									"top": 95,
+									"top": 80,
 									"width": 132.03111267089844,
-									"height": 23
+									"height": 38
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -14961,7 +14978,7 @@
 								"$ref": "AAAAAAFr7GRp6s9EPeU="
 							},
 							"lineStyle": 1,
-							"points": "164:82;262.0155563354492:48.99151472611861",
+							"points": "164:82;269.5155563354492:38.27016784205581",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFxmK4REAFu1AA="
@@ -19406,7 +19423,7 @@
 															"top": 39,
 															"width": 166.01014709472656,
 															"height": 13,
-															"text": "EquatableHasher"
+															"text": "ReturnEquatableHash"
 														},
 														{
 															"_type": "LabelView",
@@ -20918,7 +20935,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFzL05vnkiPTKg="
 									},
-									"name": "EquatableHasher",
+									"name": "ReturnEquatableHash",
 									"ownedElements": [
 										{
 											"_type": "UMLInterfaceRealization",
