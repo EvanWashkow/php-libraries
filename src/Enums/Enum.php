@@ -6,6 +6,9 @@ namespace PHP\Enums;
 use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
+use PHP\Hashing\HashAlgorithms\SHA256;
+use PHP\Hashing\Hashers\PrimitiveHasher;
+use PHP\Hashing\Hashers\SerializeAndHash;
 use PHP\ObjectClass;
 use PHP\Serialization\PHPSerializer;
 use ReflectionClass;
@@ -158,9 +161,7 @@ abstract class Enum extends ObjectClass
 
     protected function createHash(): ByteArray
     {
-        $value = $this->getValue();
-        return is_float($value) || is_int($value) || is_string($value)
-            ? new ByteArray($value)
-            : (new PHPSerializer())->serialize($this->getValue());
+        $hasher = new PrimitiveHasher(new SerializeAndHash(new PHPSerializer(), new SHA256()));
+        return $hasher->hash($this->getValue());
     }
 }

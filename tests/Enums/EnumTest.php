@@ -234,12 +234,7 @@ class EnumTest extends TestCase
 
         // Test data
         return [
-            'GoodEnum(GoodEnum::ARRAY)->hash() === (clone self)->hash()' => [
-                $enumArray, (clone $enumArray)->hash(), true
-            ],
-            'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
-                $enumArray, $enumOneInt->hash(), false
-            ],
+            // Ensure that primitive values are returned as their primitive counterparts
             'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_FLOAT)' => [
                 $enumOneFloat, $byteArrayOneFloat, true
             ],
@@ -257,7 +252,15 @@ class EnumTest extends TestCase
             ],
             'GoodEnum(GoodEnum::ONE_STRING)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
                 $enumOneString, $enumOneInt->hash(), false
-            ]
+            ],
+
+            // Ensure that non-primitive values' hashes match as expected
+            'GoodEnum(GoodEnum::ARRAY)->hash() === (clone self)->hash()' => [
+                $enumArray, (clone $enumArray)->hash(), true
+            ],
+            'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
+                $enumArray, $enumOneInt->hash(), false
+            ],
         ];
     }
 
