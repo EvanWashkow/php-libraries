@@ -18845,7 +18845,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFzGEOEGhnJxu8="
 							},
-							"name": "Hashers",
+							"name": "Hasher",
 							"ownedElements": [
 								{
 									"_type": "UMLClassDiagram",
@@ -18912,7 +18912,7 @@
 															"top": 320,
 															"width": 108.26406860351562,
 															"height": 13,
-															"text": "(from Hashers)"
+															"text": "(from Hasher)"
 														},
 														{
 															"_type": "LabelView",
@@ -19437,7 +19437,7 @@
 															"top": -96,
 															"width": 108.26406860351562,
 															"height": 13,
-															"text": "(from Hashers)"
+															"text": "(from Hasher)"
 														},
 														{
 															"_type": "LabelView",
@@ -19633,7 +19633,7 @@
 															"top": 333,
 															"width": 139.32113647460938,
 															"height": 13,
-															"text": "(from HashAlgorithms)"
+															"text": "(from HashAlgorithm)"
 														},
 														{
 															"_type": "LabelView",
@@ -19930,7 +19930,7 @@
 															"top": 224,
 															"width": 90.89607238769531,
 															"height": 13,
-															"text": "(from Hashers)"
+															"text": "(from Hasher)"
 														},
 														{
 															"_type": "LabelView",
@@ -20871,7 +20871,7 @@
 															"left": 416,
 															"width": 86.67724609375,
 															"height": 13,
-															"text": "(from Hashers)"
+															"text": "(from Hasher)"
 														},
 														{
 															"_type": "LabelView",
@@ -21063,7 +21063,7 @@
 															"top": -864,
 															"width": 86.67724609375,
 															"height": 13,
-															"text": "(from Hashers)"
+															"text": "(from Hasher)"
 														},
 														{
 															"_type": "LabelView",
@@ -21874,7 +21874,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFzGEOEGhnJxu8="
 							},
-							"name": "HashAlgorithms",
+							"name": "HashAlgorithm",
 							"ownedElements": [
 								{
 									"_type": "UMLClassDiagram",
