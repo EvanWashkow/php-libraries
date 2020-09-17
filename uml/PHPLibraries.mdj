@@ -18836,7 +18836,6 @@
 								"$ref": "AAAAAAFxkNo2qe3ire8="
 							},
 							"name": "Enums",
-							"defaultDiagram": true,
 							"ownedViews": [
 								{
 									"_type": "UMLClassView",
