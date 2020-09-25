@@ -5,13 +5,13 @@ namespace PHP\Tests\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
 use PHP\Exceptions\NotImplementedException;
-use PHP\Collections\ByteArrayConverter\HasherDecorator;
-use PHP\Collections\ByteArrayConverter\IHasher;
+use PHP\Collections\ByteArrayConverter\ByteArrayConverterDecorator;
+use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 
 /**
  * Tests HasherDecorator
  */
-class HasherDecoratorTest extends \PHPUnit\Framework\TestCase
+class ByteArrayConverterDecoratorTest extends \PHPUnit\Framework\TestCase
 {
 
 
@@ -21,8 +21,8 @@ class HasherDecoratorTest extends \PHPUnit\Framework\TestCase
     public function testInheritance(): void
     {
         $this->assertInstanceOf(
-            IHasher::class,
-            $this->createMock(HasherDecorator::class),
+            IByteArrayConverter::class,
+            $this->createMock(ByteArrayConverterDecorator::class),
             'HasherDecorator not an instance of IHasher.'
         );
     }
@@ -30,20 +30,20 @@ class HasherDecoratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test __construct() and getNextHasher()
-     * @param IHasher $hasher
+     * @param IByteArrayConverter $hasher
      * @dataProvider getConstructorAndGetNextTestData
      */
-    public function testConstructorAndGetNext(IHasher $hasher): void
+    public function testConstructorAndGetNext(IByteArrayConverter $hasher): void
     {
         // Create Hasher Decorator instance to test the __construct() and getNextHasher()
-        $hasherDecorator = new class($hasher) extends HasherDecorator
+        $hasherDecorator = new class($hasher) extends ByteArrayConverterDecorator
         {
-            public function hash($value): ByteArray
+            public function convert($value): ByteArray
             {
                 throw new NotImplementedException('Not implemented.');
             }
 
-            public function getNextHasherTest(): IHasher
+            public function getNextHasherTest(): IByteArrayConverter
             {
                 return parent::getNextHasher();
             }
@@ -58,33 +58,16 @@ class HasherDecoratorTest extends \PHPUnit\Framework\TestCase
 
     public function getConstructorAndGetNextTestData(): array
     {
+        $factory = new ByteArrayConverterFactory();
         return [
             'Hasher that returns ByteArray(1, 1)' => [
-                new class implements IHasher
-                {
-                    public function hash($value): ByteArray
-                    {
-                        return new ByteArray(1, 1);
-                    }
-                }
+                $factory->convertReturns(new ByteArray(1, 1))
             ],
             'Hasher that returns ByteArray(2, 1)' => [
-                new class implements IHasher
-                {
-                    public function hash($value): ByteArray
-                    {
-                        return new ByteArray(2, 1);
-                    }
-                }
+                $factory->convertReturns(new ByteArray(2, 1))
             ],
             'Hasher that returns ByteArray(3, 1)' => [
-                new class implements IHasher
-                {
-                    public function hash($value): ByteArray
-                    {
-                        return new ByteArray(3, 1);
-                    }
-                }
+                $factory->convertReturns(new ByteArray(3, 1))
             ]
         ];
     }

@@ -5,13 +5,13 @@ namespace PHP\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
 use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
-use PHP\Collections\ByteArrayConverter\IHasher;
+use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 use PHP\Serialization\ISerializer;
 
 /**
  * Serializes a given value and uses a Hash Algorithm compute its hash
  */
-class SerializeThenApplyHashAlgorithm implements IHasher
+class SerializeThenApplyHashAlgorithm implements IByteArrayConverter
 {
 
     /** @var IHashAlgorithm $hashAlgorithm The Hash Algorithm to compute the Hash */
@@ -34,7 +34,7 @@ class SerializeThenApplyHashAlgorithm implements IHasher
     }
 
 
-    final public function hash( $value ): ByteArray
+    final public function convert($value ): ByteArray
     {
         return $this->hashAlgorithm->hash(
             $this->serializer->serialize( $value )

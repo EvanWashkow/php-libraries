@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
-use PHP\Collections\ByteArrayConverter\IHasher;
+use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\SerializeThenApplyHashAlgorithm;
 use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
 use PHP\Hashing\HashAlgorithm\MD5;
@@ -25,7 +25,7 @@ class SerializeThenApplyHashAlgorithmTest extends TestCase
     public function testInheritance()
     {
         $this->assertInstanceOf(
-            IHasher::class,
+            IByteArrayConverter::class,
             new SerializeThenApplyHashAlgorithm(
                 $this->createReflectingSerializer(),
                 $this->createReflectingHashAlgorithm()
@@ -44,7 +44,7 @@ class SerializeThenApplyHashAlgorithmTest extends TestCase
     {
         $this->assertEquals(
             $expected,
-            ( new SerializeThenApplyHashAlgorithm( $serializer, $hashAlgorithm ))->hash( $value )->__toString(),
+            ( new SerializeThenApplyHashAlgorithm( $serializer, $hashAlgorithm ))->convert( $value )->__toString(),
             'SerializeAndHash->hash() did not return the expected value.'
         );
     }

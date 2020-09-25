@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PHP\Tests\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
-use PHP\Collections\ByteArrayConverter\HasherDecorator;
-use PHP\Collections\ByteArrayConverter\IHasher;
+use PHP\Collections\ByteArrayConverter\ByteArrayConverterDecorator;
+use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\EquatableHasher;
 use PHP\Interfaces\IEquatable;
 
@@ -22,7 +22,7 @@ class EquatableHasherTest extends \PHPUnit\Framework\TestCase
     public function testInheritance(): void
     {
         $this->assertInstanceOf(
-            HasherDecorator::class,
+            ByteArrayConverterDecorator::class,
             $this->createMock(EquatableHasher::class),
             'ReturnEquatableHash is not an instance of a HasherDecorator.'
         );
@@ -32,23 +32,23 @@ class EquatableHasherTest extends \PHPUnit\Framework\TestCase
     /**
      * Test the hash() function
      * @dataProvider getHashTestData
-     * @param IHasher $nextHasher
+     * @param IByteArrayConverter $nextHasher
      * @param $valueToHash
      * @param ByteArray $expected
      */
-    public function testHash(IHasher $nextHasher, $valueToHash, ByteArray $expected): void
+    public function testHash(IByteArrayConverter $nextHasher, $valueToHash, ByteArray $expected): void
     {
         $this->assertEquals(
             $expected->__toString(),
-            (new EquatableHasher($nextHasher))->hash($valueToHash)->__toString(),
+            (new EquatableHasher($nextHasher))->convert($valueToHash)->__toString(),
             'ReturnEquatableHash->hash() did not return the expected value.'
         );
     }
 
     public function getHashTestData(): array
     {
-        $hasherFactory  = new HasherFactory();
-        $mockIHasher    = $this->createMock(IHasher::class);
+        $hasherFactory  = new ByteArrayConverterFactory();
+        $mockIHasher    = $this->createMock(IByteArrayConverter::class);
         return [
             'hash( IEquatable->hash() === ByteArray(1) )' => [
                 $mockIHasher,
@@ -67,17 +67,17 @@ class EquatableHasherTest extends \PHPUnit\Framework\TestCase
             ],
 
             'hash(non-IEquatable) returns ByteArray(1)' => [
-                $hasherFactory->hashReturns(new ByteArray(1)),
+                $hasherFactory->convertReturns(new ByteArray(1)),
                 'Not IEquatable',
                 new ByteArray(1)
             ],
             'hash(non-IEquatable) returns ByteArray(2)' => [
-                $hasherFactory->hashReturns(new ByteArray(2)),
+                $hasherFactory->convertReturns(new ByteArray(2)),
                 'Not IEquatable',
                 new ByteArray(2)
             ],
             'hash(non-IEquatable) returns ByteArray(3)' => [
-                $hasherFactory->hashReturns(new ByteArray(3)),
+                $hasherFactory->convertReturns(new ByteArray(3)),
                 'Not IEquatable',
                 new ByteArray(3)
             ]

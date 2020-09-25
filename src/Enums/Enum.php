@@ -165,6 +165,6 @@ abstract class Enum extends ObjectClass
         if ($hasher === null ) {
             $hasher = new PrimitiveHasher(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
         }
-        return $hasher->hash($this->getValue());
+        return $hasher->convert($this->getValue());
     }
 }

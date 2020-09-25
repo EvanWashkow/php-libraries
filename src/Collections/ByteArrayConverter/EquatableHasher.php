@@ -9,14 +9,14 @@ use PHP\Interfaces\IEquatable;
 /**
  * If the value is IEquatable, return the result of hash()
  */
-class EquatableHasher extends HasherDecorator
+class EquatableHasher extends ByteArrayConverterDecorator
 {
 
     /**
      * Returns the primitive value as their natural array of bytes. If not a primitive value, will call the next hasher.
      */
-    public function hash($value): ByteArray
+    public function convert($value): ByteArray
     {
-        return ($value instanceof IEquatable) ? $value->hash() : $this->getNextHasher()->hash($value);
+        return ($value instanceof IEquatable) ? $value->hash() : $this->getNextHasher()->convert($value);
     }
 }
