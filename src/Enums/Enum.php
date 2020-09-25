@@ -7,7 +7,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Hashing\HashAlgorithm\SHA256;
-use PHP\Collections\ByteArrayConverter\PrimitiveHasher;
+use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\SerializeThenApplyHashAlgorithm;
 use PHP\ObjectClass;
 use PHP\Serialization\PHPSerializer;
@@ -163,7 +163,7 @@ abstract class Enum extends ObjectClass
     {
         static $hasher = null;
         if ($hasher === null ) {
-            $hasher = new PrimitiveHasher(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
+            $hasher = new PrimitiveValueByteArrayConverter(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
         }
         return $hasher->convert($this->getValue());
     }

@@ -6,13 +6,13 @@ namespace PHP\Collections\ByteArrayConverter;
 use PHP\Collections\ByteArray;
 
 /**
- * Hashes primitive value types (doubles, ints, strings) by simply returning their value as an array of bytes
+ * If the value is primitive (doubles, ints, strings), type-cast it to a Byte Array, and return the result
  */
-class PrimitiveHasher extends ByteArrayConverterDecorator
+class PrimitiveValueByteArrayConverter extends ByteArrayConverterDecorator
 {
 
     /**
-     * Returns the primitive value as their natural array of bytes. If not a primitive value, will call the next hasher.
+     * If the value is primitive (doubles, ints, strings), type-cast it to a Byte Array, and return the result
      */
     public function convert($value): ByteArray
     {
