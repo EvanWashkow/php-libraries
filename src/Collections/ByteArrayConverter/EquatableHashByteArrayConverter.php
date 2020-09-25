@@ -9,11 +9,11 @@ use PHP\Interfaces\IEquatable;
 /**
  * If the value is IEquatable, return the result of hash()
  */
-class EquatableHasher extends ByteArrayConverterDecorator
+class EquatableHashByteArrayConverter extends ByteArrayConverterDecorator
 {
 
     /**
-     * Returns the primitive value as their natural array of bytes. If not a primitive value, will call the next hasher.
+     * If the value is IEquatable, return the result of hash()
      */
     public function convert($value): ByteArray
     {
