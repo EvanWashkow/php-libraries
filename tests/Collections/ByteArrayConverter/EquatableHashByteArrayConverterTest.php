@@ -31,12 +31,12 @@ class EquatableHashByteArrayConverterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test the convert() function
-     * @dataProvider getHashTestData
+     * @dataProvider getConvertTestData
      * @param IByteArrayConverter $nextConverter
      * @param $value
      * @param ByteArray $expected
      */
-    public function testHash(IByteArrayConverter $nextConverter, $value, ByteArray $expected): void
+    public function testConvert(IByteArrayConverter $nextConverter, $value, ByteArray $expected): void
     {
         $this->assertEquals(
             $expected->__toString(),
@@ -45,7 +45,7 @@ class EquatableHashByteArrayConverterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function getHashTestData(): array
+    public function getConvertTestData(): array
     {
         $converterFactory = new ByteArrayConverterFactory();
         $mockConverter   = $this->createMock(IByteArrayConverter::class);
