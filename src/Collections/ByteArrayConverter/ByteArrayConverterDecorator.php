@@ -4,32 +4,34 @@ declare(strict_types=1);
 namespace PHP\Collections\ByteArrayConverter;
 
 /**
- * Modifies hash results using the Decorator pattern
+ * Modifies the Byte Array conversion process using the Decorator pattern
  */
 abstract class ByteArrayConverterDecorator implements IByteArrayConverter
 {
 
-    /** @var IByteArrayConverter $nextHasher The next Hasher in the sequence to execute */
-    private $nextHasher;
+    /** @var IByteArrayConverter $nextConverter The next Byte Array Converter in the execution sequence */
+    private $nextConverter;
 
 
     /**
-     * Create a new Hasher Decorator
-     * @param IByteArrayConverter $nextHasher The next Hasher in the sequence to execute
+     * Create a new Byte Array Converter Decorator
+     *
+     * @param IByteArrayConverter $nextConverter The next Byte Array Converter in the execution sequence
      */
-    public function __construct(IByteArrayConverter $nextHasher)
+    public function __construct(IByteArrayConverter $nextConverter)
     {
-        $this->nextHasher = $nextHasher;
+        $this->nextConverter = $nextConverter;
     }
 
 
     /**
-     * Retrieve the next IHasher in the execution sequence
+     * Retrieve the next Byte Array Converter in the execution sequence
+     *
      * @return IByteArrayConverter
-     *@internal Final as this should always return the value from the constructor.
+     * @internal Final as this should always return the value from the constructor.
      */
-    final protected function getNextHasher(): IByteArrayConverter
+    final protected function getNextConverter(): IByteArrayConverter
     {
-        return $this->nextHasher;
+        return $this->nextConverter;
     }
 }

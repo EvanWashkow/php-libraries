@@ -18,6 +18,6 @@ class PrimitiveHasher extends ByteArrayConverterDecorator
     {
         return is_float($value) || is_int($value) || is_string($value)
             ? new ByteArray($value)
-            : $this->getNextHasher()->convert($value);
+            : $this->getNextConverter()->convert($value);
     }
 }

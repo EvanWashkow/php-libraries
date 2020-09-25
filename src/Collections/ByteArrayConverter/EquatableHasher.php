@@ -17,6 +17,6 @@ class EquatableHasher extends ByteArrayConverterDecorator
      */
     public function convert($value): ByteArray
     {
-        return ($value instanceof IEquatable) ? $value->hash() : $this->getNextHasher()->convert($value);
+        return ($value instanceof IEquatable) ? $value->hash() : $this->getNextConverter()->convert($value);
     }
 }

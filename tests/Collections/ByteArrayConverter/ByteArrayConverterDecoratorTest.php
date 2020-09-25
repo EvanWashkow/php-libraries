@@ -9,7 +9,7 @@ use PHP\Collections\ByteArrayConverter\ByteArrayConverterDecorator;
 use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 
 /**
- * Tests HasherDecorator
+ * Tests ByteArrayConverterDecorator
  */
 class ByteArrayConverterDecoratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -23,36 +23,36 @@ class ByteArrayConverterDecoratorTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(
             IByteArrayConverter::class,
             $this->createMock(ByteArrayConverterDecorator::class),
-            'HasherDecorator not an instance of IHasher.'
+            'ByteArrayConverterDecorator not an instance of IByteArrayConverter.'
         );
     }
 
 
     /**
-     * Test __construct() and getNextHasher()
-     * @param IByteArrayConverter $hasher
+     * Test __construct() and getNextConverter()
+     * @param IByteArrayConverter $converter
      * @dataProvider getConstructorAndGetNextTestData
      */
-    public function testConstructorAndGetNext(IByteArrayConverter $hasher): void
+    public function testConstructorAndGetNext(IByteArrayConverter $converter): void
     {
-        // Create Hasher Decorator instance to test the __construct() and getNextHasher()
-        $hasherDecorator = new class($hasher) extends ByteArrayConverterDecorator
+        // Create Byte Array Converter Decorator instance to test the __construct() and getNextConverter()
+        $converterDecorator = new class($converter) extends ByteArrayConverterDecorator
         {
             public function convert($value): ByteArray
             {
                 throw new NotImplementedException('Not implemented.');
             }
 
-            public function getNextHasherTest(): IByteArrayConverter
+            public function getNextConverterTest(): IByteArrayConverter
             {
-                return parent::getNextHasher();
+                return parent::getNextConverter();
             }
         };
 
         $this->assertEquals(
-            $hasher,
-            $hasherDecorator->getNextHasherTest(),
-            'HasherDecorator->getNextHasher() does not return the expected IHasher instance.'
+            $converter,
+            $converterDecorator->getNextConverterTest(),
+            'ByteArrayConverterDecorator->getNextConverter() does not return the original IByteArrayConverter instance.'
         );
     }
 
@@ -60,13 +60,13 @@ class ByteArrayConverterDecoratorTest extends \PHPUnit\Framework\TestCase
     {
         $factory = new ByteArrayConverterFactory();
         return [
-            'Hasher that returns ByteArray(1, 1)' => [
+            'Byte Array Converter that returns ByteArray(1, 1)' => [
                 $factory->convertReturns(new ByteArray(1, 1))
             ],
-            'Hasher that returns ByteArray(2, 1)' => [
+            'Byte Array Converter that returns ByteArray(2, 1)' => [
                 $factory->convertReturns(new ByteArray(2, 1))
             ],
-            'Hasher that returns ByteArray(3, 1)' => [
+            'Byte Array Converter that returns ByteArray(3, 1)' => [
                 $factory->convertReturns(new ByteArray(3, 1))
             ]
         ];
