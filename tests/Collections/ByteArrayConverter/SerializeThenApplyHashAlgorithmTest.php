@@ -1,9 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Hashing\Hasher;
+namespace PHP\Tests\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
+use PHP\Collections\ByteArrayConverter\IHasher;
+use PHP\Collections\ByteArrayConverter\SerializeThenApplyHashAlgorithm;
 use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
 use PHP\Hashing\HashAlgorithm\MD5;
 use PHP\Serialization\ISerializer;

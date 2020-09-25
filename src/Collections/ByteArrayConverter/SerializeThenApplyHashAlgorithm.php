@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\Hashing\Hasher;
+namespace PHP\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
 use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
-use PHP\Hashing\Hasher\IHasher;
+use PHP\Collections\ByteArrayConverter\IHasher;
 use PHP\Serialization\ISerializer;
 
 /**
