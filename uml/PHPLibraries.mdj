@@ -5623,7 +5623,7 @@
 											}
 										}
 									],
-									"documentation": "Serializes the value before passing it to the Hash Algorithm",
+									"documentation": "Converts a value to a Byte Array using the specified Serializer",
 									"operations": [
 										{
 											"_type": "UMLOperation",
