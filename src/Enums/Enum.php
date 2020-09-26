@@ -161,10 +161,10 @@ abstract class Enum extends ObjectClass
 
     protected function createHash(): ByteArray
     {
-        static $hasher = null;
-        if ($hasher === null ) {
-            $hasher = new PrimitiveValueByteArrayConverter(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
+        static $converter = null;
+        if ($converter === null ) {
+            $converter = new PrimitiveValueByteArrayConverter(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
         }
-        return $hasher->convert($this->getValue());
+        return $converter->convert($this->getValue());
     }
 }
