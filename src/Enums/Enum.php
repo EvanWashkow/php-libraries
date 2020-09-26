@@ -4,11 +4,9 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\ByteArray;
-use PHP\Collections\ByteArrayConverter\HashAlgorithmByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
-use PHP\Hashing\HashAlgorithm\SHA256;
 use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
 use PHP\ObjectClass;
 use PHP\Serialization\PHPSerializer;
@@ -160,14 +158,17 @@ abstract class Enum extends ObjectClass
     }
 
 
+    /**
+     * @internal If not a primitive value, this will serialize tha value. This would possibly allow future
+     * implementations to be equals() to array values, and would also allow them to be retrieved, thus, from Collections
+     */
     protected function createHash(): ByteArray
     {
         static $converter = null;
         if ($converter === null ) {
-            $converter = new PrimitiveValueByteArrayConverter(new HashAlgorithmByteArrayConverter(
-                new SerializationByteArrayConverter(new PHPSerializer()),
-                new SHA256()
-            ));
+            $converter = new PrimitiveValueByteArrayConverter(
+                new SerializationByteArrayConverter(new PHPSerializer())
+            );
         }
         return $converter->convert($this->getValue());
     }
