@@ -34,6 +34,6 @@ class HashAlgorithmByteArrayConverter extends ByteArrayConverterDecorator
      */
     public function convert($value): ByteArray
     {
-        // TODO: Implement convert() method.
+        return $this->hashAlgorithm->hash($this->getNextConverter()->convert($value));
     }
 }
