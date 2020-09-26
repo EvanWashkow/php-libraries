@@ -29,6 +29,6 @@ class SerializationByteArrayConverter implements IByteArrayConverter
 
     public function convert($value): ByteArray
     {
-
+        return $this->serializer->serialize($value);
     }
 }
