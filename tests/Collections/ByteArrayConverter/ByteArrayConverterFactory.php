@@ -8,14 +8,15 @@ use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Factory that creates and returns IHasher instances, for testing
+ * Factory that creates and returns IByteArrayConverter instances, for testing
  */
 class ByteArrayConverterFactory
 {
 
 
     /**
-     * Create an IHasher so that its hash() function returns the given ByteArray
+     * Create an IByteArrayConverter so that its convert() function returns the given ByteArray
+     *
      * @param ByteArray $returnValue
      * @return IByteArrayConverter
      */

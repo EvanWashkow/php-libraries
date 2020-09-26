@@ -31,15 +31,15 @@ class PrimitiveValueByteArrayConverterTest extends \PHPUnit\Framework\TestCase
     /**
      * Test the convert() function
      * @dataProvider getConvertTestData
-     * @param IByteArrayConverter $nextHasher
+     * @param IByteArrayConverter $nextConverter
      * @param $value
      * @param ByteArray $expected
      */
-    public function testConvert(IByteArrayConverter $nextHasher, $value, ByteArray $expected): void
+    public function testConvert(IByteArrayConverter $nextConverter, $value, ByteArray $expected): void
     {
         $this->assertEquals(
             $expected->__toString(),
-            (new PrimitiveValueByteArrayConverter($nextHasher))->convert($value)->__toString(),
+            (new PrimitiveValueByteArrayConverter($nextConverter))->convert($value)->__toString(),
             'PrimitiveValueByteArrayConverter->convert() did not return the expected value.'
         );
     }
