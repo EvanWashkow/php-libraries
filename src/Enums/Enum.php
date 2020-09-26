@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\ByteArray;
+use PHP\Collections\ByteArrayConverter\HashAlgorithmByteArrayConverter;
+use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Hashing\HashAlgorithm\SHA256;
 use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
-use PHP\Collections\ByteArrayConverter\SerializeThenApplyHashAlgorithm;
 use PHP\ObjectClass;
 use PHP\Serialization\PHPSerializer;
 use ReflectionClass;
@@ -163,7 +164,10 @@ abstract class Enum extends ObjectClass
     {
         static $converter = null;
         if ($converter === null ) {
-            $converter = new PrimitiveValueByteArrayConverter(new SerializeThenApplyHashAlgorithm(new PHPSerializer(), new SHA256()));
+            $converter = new PrimitiveValueByteArrayConverter(new HashAlgorithmByteArrayConverter(
+                new SerializationByteArrayConverter(new PHPSerializer()),
+                new SHA256()
+            ));
         }
         return $converter->convert($this->getValue());
     }
