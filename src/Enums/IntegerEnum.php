@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace PHP\Enums;
 
-use PHP\Collections\ByteArray;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Interfaces\IIntegerable;
 
