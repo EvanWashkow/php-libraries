@@ -58,9 +58,6 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
      */
     public function __construct( $bytes )
     {
-        // Call parent constructor
-        parent::__construct();
-
         // Switch on variable type
         if ( is_array( $bytes )) {
             try {

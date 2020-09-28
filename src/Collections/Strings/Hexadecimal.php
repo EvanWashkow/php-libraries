@@ -28,7 +28,6 @@ class Hexadecimal extends ObjectClass implements IStringable
      */
     public function __construct( ByteArray $byteArray )
     {
-        parent::__construct();
         $this->byteArray = $byteArray;
         $this->string = bin2hex( $byteArray->__toString() );
     }

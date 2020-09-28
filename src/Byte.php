@@ -23,7 +23,6 @@ class Byte extends ObjectClass implements IIntegerable
      */
     public function __construct( int $byte )
     {
-        parent::__construct();
         if (( $byte < 0 ) || ( 255 < $byte )) {
             throw new \DomainException( "A Byte's integer value must be between 0 and 255." );
         }

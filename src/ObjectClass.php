@@ -16,17 +16,11 @@ use PHP\Interfaces\IEquatable;
 abstract class ObjectClass implements IEquatable
 {
 
+    /** @var null UNSET_HASH Value when the hash is unset */
+    private const UNSET_HASH = null;
+
     /** @var ?ByteArray $hash This Object's hash */
-    private $hash;
-
-
-    /**
-     * Create a new Object Class
-     */
-    public function __construct()
-    {
-        $this->invalidateHash();
-    }
+    private $hash = self::UNSET_HASH;
 
 
     /**
@@ -37,7 +31,7 @@ abstract class ObjectClass implements IEquatable
      */
     public function __clone()
     {
-        $this->invalidateHash();
+        $this->hash = self::UNSET_HASH;
     }
 
 
@@ -53,7 +47,7 @@ abstract class ObjectClass implements IEquatable
      */
     final public function hash(): ByteArray
     {
-        if ( null === $this->hash ) {
+        if ( self::UNSET_HASH === $this->hash ) {
             $this->hash = $this->createHash();
         }
         return $this->hash;
@@ -71,20 +65,6 @@ abstract class ObjectClass implements IEquatable
     protected function createHash(): ByteArray
     {
         return new ByteArray( self::getNextRandomNumber() );
-    }
-
-
-    /**
-     * Invalidate the hash
-     * 
-     * This should only be called in very few, and very specific situations when the hash becomes invalid. Such as after
-     * an object has been cloned.
-     * 
-     * @return void
-     */
-    private function invalidateHash(): void
-    {
-        $this->hash = null;
     }
 
 

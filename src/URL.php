@@ -99,7 +99,6 @@ class URL extends ObjectClass implements ICloneable
      */
     public function __construct( string $url )
     {
-        parent::__construct();
         $this->url = self::Sanitize( $url );
     }
     

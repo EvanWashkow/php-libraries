@@ -46,9 +46,6 @@ class Type extends ObjectClass
      */
     public function __construct( string $name, array $aliases = [] )
     {
-        // Call parent constructor
-        parent::__construct();
-
         // Set name
         if ( '' === ( $name = trim( $name ) )) {
             throw new \DomainException( 'Type name cannot be empty' );

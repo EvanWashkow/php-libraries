@@ -104,7 +104,6 @@ abstract class Enum extends ObjectClass
      **/
     public function __construct( $value )
     {
-        parent::__construct();
         $this->value = $this->sanitizeValue( $value );
     }
 
