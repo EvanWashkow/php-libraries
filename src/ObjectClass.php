@@ -26,8 +26,8 @@ abstract class ObjectClass implements IEquatable
     /**
      * Do some cleanup after clone
      * 
-     * @internal Although ICloneable is not implemented on this class, it does not prevent someone from calling
-     * `clone $object`.
+     * @internal Although ICloneable is not implemented on this class, it does not prevent someone from externally
+     * cloning the object via `clone $object`.
      */
     public function __clone()
     {
