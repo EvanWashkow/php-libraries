@@ -158,7 +158,7 @@ abstract class Enum extends ObjectClass
 
 
     /**
-     * @internal If not a primitive value, this will serialize tha value. This would possibly allow future
+     * @internal If not a primitive value, this will serialize the value. This would possibly allow future
      * implementations to be equals() to array values, and would also allow them to be retrieved, thus, from Collections
      */
     protected function createHash(): ByteArray
