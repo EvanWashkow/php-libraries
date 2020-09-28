@@ -64,17 +64,6 @@ abstract class ObjectClass implements IEquatable
      */
     protected function createHash(): ByteArray
     {
-        return new ByteArray( self::getNextRandomNumber() );
-    }
-
-
-    /**
-     * Retrieve next random number to use as the hash
-     * 
-     * @return int
-     */
-    private static function getNextRandomNumber(): int
-    {
-        return rand( PHP_INT_MIN, PHP_INT_MAX );
+        return new ByteArray( rand(PHP_INT_MIN, PHP_INT_MAX) );
     }
 }
