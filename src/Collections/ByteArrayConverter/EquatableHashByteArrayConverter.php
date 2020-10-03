@@ -11,6 +11,8 @@ use PHP\Interfaces\IEquatable;
  */
 class EquatableHashByteArrayConverter extends ByteArrayConverterDecorator
 {
+
+
     public function convert($value): ByteArray
     {
         return ($value instanceof IEquatable) ? $value->hash() : $this->getNextConverter()->convert($value);

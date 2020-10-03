@@ -10,6 +10,8 @@ use PHP\Collections\ByteArray;
  */
 class PrimitiveValueByteArrayConverter extends ByteArrayConverterDecorator
 {
+
+
     public function convert($value): ByteArray
     {
         return is_float($value) || is_int($value) || is_string($value)
