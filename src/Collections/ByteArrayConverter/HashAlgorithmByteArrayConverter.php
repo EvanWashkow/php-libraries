@@ -29,9 +29,6 @@ class HashAlgorithmByteArrayConverter extends ByteArrayConverterDecorator
     }
 
 
-    /**
-     * Applies the Hash Algorithm to the Byte Array, returning the result
-     */
     public function convert($value): ByteArray
     {
         return $this->hashAlgorithm->hash($this->getNextConverter()->convert($value));
