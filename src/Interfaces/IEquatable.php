@@ -16,9 +16,10 @@ interface IEquatable
      * 
      * Rules:
      * 
-     * An Object's equality should not change over time: it is not mathmatically or logically correct. For example,
-     * 1 always equals 1, it does not ever equal 2. Incrementing its value by 1 does not change its value: rather, it
-     * produces a new value, 2. All objects should behave the same way. See hash().
+     * Object equality should not change over time. It is not mathmatically or logically correct: 1 always equals 1, it
+     * never equals 2. Incrementing it by 1 doesn't change its value: it produces a new value, 2. Thus, any changes to
+     * an Object that would affect its equality should instead return a new, different Object. (i.e. Do not recycle
+     * Objects. It's a good habit to break).
      * 
      * @param mixed $value The value to compare this to
      * @return bool
@@ -41,8 +42,8 @@ interface IEquatable
      * @internal
      * Suggestions for Implementers:
      * 
-     * Either compute the hash from immutable fields, or, if there are none, return a new Object with the change. (It is
-     * good to get out of the habit of recycling Objects. An Object's equality should not change over time: see equals().)
+     * Either compute the hash from immutable fields, or, if there are none, return a new Object with the change.
+     * See equals().
      * 
      * @return ByteArray
      */
