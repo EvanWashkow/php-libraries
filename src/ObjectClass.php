@@ -16,11 +16,11 @@ use PHP\Interfaces\IEquatable;
 abstract class ObjectClass implements IEquatable
 {
 
-    /** @var null UNSET_HASH Value when the hash is unset */
-    private const UNSET_HASH = null;
+    /** @var null NO_HASH Value when the hash is unset */
+    private const NO_HASH = null;
 
     /** @var ?ByteArray $hash This Object's hash */
-    private $hash = self::UNSET_HASH;
+    private $hash = self::NO_HASH;
 
 
     /**
@@ -31,7 +31,7 @@ abstract class ObjectClass implements IEquatable
      */
     public function __clone()
     {
-        $this->hash = self::UNSET_HASH;
+        $this->hash = self::NO_HASH;
     }
 
 
@@ -47,7 +47,7 @@ abstract class ObjectClass implements IEquatable
      */
     final public function hash(): ByteArray
     {
-        if ( self::UNSET_HASH === $this->hash ) {
+        if ( self::NO_HASH === $this->hash ) {
             $this->hash = $this->createHash();
         }
         return $this->hash;
