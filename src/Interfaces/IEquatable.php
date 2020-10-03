@@ -16,8 +16,9 @@ interface IEquatable
      * 
      * Rules:
      * 
-     * An Object's equality should not change over time: it is not mathmatically or logically correct. As an example,
-     * 1 is always equal to 1. Incrementing 1 does not change its value: rather, it produces a new value, 2. See hash().
+     * An Object's equality should not change over time: it is not mathmatically or logically correct. For example,
+     * 1 always equals 1, it does not ever equal 2. Incrementing its value by 1 does not change its value: rather, it
+     * produces a new value, 2. All objects should behave the same way. See hash().
      * 
      * @param mixed $value The value to compare this to
      * @return bool
