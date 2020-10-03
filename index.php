@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 // Include local vendor libraries if being built with composer locally
 if ( file_exists( __DIR__ . '/vendor/autoload.php' )) {

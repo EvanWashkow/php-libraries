@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 namespace PHP\Tests;
 
 use PHP\Byte;
+use PHP\Collections\ByteArray;
 use PHP\Interfaces\IIntegerable;
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -75,58 +77,12 @@ class ByteTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                        equals()
+    *                                                   IEquatable Tests
     *******************************************************************************************************************/
 
-
-    /**
-     * Test equals( Byte ) result
-     * 
-     * @dataProvider getEqualsTestData
-     */
-    public function testEqualsByte( int $byteA, int $byteB, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            ( new Byte( $byteA ) )->equals( new Byte( $byteB )),
-            'Byte->equals( Byte ) did not return the expected result'
-        );
-    }
+    use IEquatableTestTrait;
 
 
-    /**
-     * Test equals( int ) result
-     * 
-     * @dataProvider getEqualsTestData
-     */
-    public function testEqualsInt( int $byteA, int $byteB, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            ( new Byte( $byteA ) )->equals( $byteB ),
-            'Byte->equals( int ) did not return the expected result'
-        );
-    }
-
-
-    /**
-     * Test equals( wrong_type ) result
-     */
-    public function testEqualsWrongType()
-    {
-        $this->assertEquals(
-            false,
-            ( new Byte( 1 ) )->equals( '1' ),
-            'Byte->equals( wrong_type ) did not return the expected result'
-        );
-    }
-
-
-    /**
-     * Retrieve equals() test data
-     * 
-     * @return array
-     */
     public function getEqualsTestData(): array
     {
         // Test data
@@ -134,20 +90,52 @@ class ByteTest extends TestCase
 
         // Append Byte Integers as true
         foreach ( $this->getByteIntegers() as $value ) {
-            $byte = $value[ 0 ];
-            $data[ "{$byte}, {$byte}, true" ] = [ $byte, $byte, true ];
+            $intByte = $value[ 0 ];
+            $byte    = new Byte( $intByte );
+            $data[ "Byte( {$intByte} ), Byte( {$intByte} ), true" ] = [ $byte, $byte,    true ];
+            $data[ "Byte( {$intByte} ), {$intByte},         true" ] = [ $byte, $intByte, true ];
         }
+
+        // Bytes
+        $b0   = new Byte( 0 );
+        $b254 = new Byte( 254 );
 
         // Append false
         $data = array_merge(
             $data,
             [
-                '0,   1,   false' => [ 0,   1,   false ],
-                '254, 255, false' => [ 254, 255, false ]
+                'Byte( 0 ),   "0",         false' => [ $b0,   '0',             false ],
+                'Byte( 0 ),   false,       false' => [ $b0,   false,           false ],
+                'Byte( 0 ),   Byte( 1 ),   false' => [ $b0,   new Byte( 1 ),   false ],
+                'Byte( 0 ),   1,           false' => [ $b0,   1,               false ],
+                'Byte( 254 ), Byte( 255 ), false' => [ $b254, new Byte( 255 ), false ],
+                'Byte( 254 ), 255,         false' => [ $b254, 255,             false ]
             ]
         );
 
         return $data;
+    }
+
+
+    public function getHashTestData(): array
+    {
+        $b0   = new Byte( 0 );
+        $b255 = new Byte( 255 );
+        return [
+            'Byte( 0 )'    => [ $b0,   new ByteArray([ $b0 ]),   true ],
+            '!Byte( 0 )'   => [ $b0,   new ByteArray([ $b255 ]), false ],
+            'Byte( 255 )'  => [ $b255, new ByteArray([ $b255 ]), true ],
+            '!Byte( 255 )' => [ $b255, new ByteArray([ $b0 ]),   false ]
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        return [
+            'Byte( 0 ),   Byte( 0 )'   => [ new Byte( 0 ),   new Byte( 0 ) ],
+            'Byte( 255 ), Byte( 255 )' => [ new Byte( 255 ), new Byte( 255 ) ]
+        ];
     }
 
 

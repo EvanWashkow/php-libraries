@@ -3,8 +3,8 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
+use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
-use ReflectionClass;
 
 /**
  * Defines a basic object
@@ -13,52 +13,57 @@ use ReflectionClass;
  * object should never be cloned since you cannot have two writers at the same time. ICloneable-ity must be determined
  * on a case-by-case basis.
  */
-class ObjectClass implements IEquatable
+abstract class ObjectClass implements IEquatable
 {
+
+    /** @var null NO_HASH Value when the hash is unset */
+    private const NO_HASH = null;
+
+    /** @var ?ByteArray $hash This Object's hash */
+    private $hash = self::NO_HASH;
 
 
     /**
-     * Determine if this object equals another object
+     * Do some cleanup after clone
      * 
-     * @internal Can't use "==" in any fashion. "==" implicitly converts
-     * property types if they aren't typed, which gives the wrong result.
-     * For example, Value->value = '1' and Value->value = 1 are considered equal
-     * (==) to eachother, when they are not.
-     * 
-     * @internal Interesting to note, "===" returns "true" for two different
-     * array instances which have the same values.
-     * 
-     * @param mixed $value The value to compare this Object to
-     * 
-     * @return bool
+     * @internal Although ICloneable is not implemented on this class, it does not prevent someone from externally
+     * cloning the object via `clone $object`.
      */
+    public function __clone()
+    {
+        $this->hash = self::NO_HASH;
+    }
+
+
     public function equals( $value ): bool
     {
-        // Compare instances
-        $isEqual = $this === $value;
+        return $this === $value;
+    }
 
-        // If not equals, compare individual object properties
-        if ( !$isEqual )
-        {
-            // Is $value derived from $this class? If not, false.
-            $class = new ReflectionClass( $this );
-            if ( is_a( $value, $class->getName() ) )
-            {
-                // For each of this class' properties, compare the two object's
-                // values for those properties.
-                $properties = $class->getProperties();
-                foreach ( $properties as $property ) {
-                    $property->setAccessible( true );
-                    $thisPropValue  = $property->getValue( $this );
-                    $valuePropValue = $property->getValue( $value );
-                    $isEqual        = $thisPropValue === $valuePropValue;
-                    if ( !$isEqual ) {
-                        break;
-                    }
-                }
-            }
+
+    /**
+     * @final The hash is only generated once. Successive calls to this function will always return the same hash.
+     * (@see \PHP\Interfaces\IEquatable::hash()). To change the hash, override createHash().
+     */
+    final public function hash(): ByteArray
+    {
+        if ( self::NO_HASH === $this->hash ) {
+            $this->hash = $this->createHash();
         }
+        return $this->hash;
+    }
 
-        return $isEqual;
+
+    /**
+     * Lazily-create this Object's hash sum.
+     * 
+     * This function will only be called once.
+     * 
+     * @see \PHP\ObjectClass::hash()
+     * @return ByteArray
+     */
+    protected function createHash(): ByteArray
+    {
+        return new ByteArray( rand(PHP_INT_MIN, PHP_INT_MAX) );
     }
 }

@@ -1,8 +1,11 @@
 <?php
+declare( strict_types = 1 );
+
 namespace PHP\Tests;
 
+use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
-use PHP\Tests\ObjectClass\Value;
 
 /**
  * Tests ObjectClass methods
@@ -10,54 +13,66 @@ use PHP\Tests\ObjectClass\Value;
 class ObjectClassTest extends TestCase
 {
 
-
     /**
-     * Test ObjectClass->equals() returns the expected result
-     * 
-     * @dataProvider getEqualsValues()
+     * Define test data for IEquatableTestTrait
      */
-    public function testEquals( Value $v1, Value $v2, bool $expected )
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
     {
-        $this->assertEquals(
-            $expected,
-            $v1->equals( $v2 ),
-            'ObjectClass->equals() did not return the expected results'
-        );
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+        $o3 = clone $o1;
+
+        // Test Data
+        return [
+            'o1, o1' => [ $o1, $o1, true ],
+            'o1, o2' => [ $o1, $o2, false ],
+            'o1, o3' => [ $o1, $o3, false ]
+        ];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+
+        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
+        $o1->hash();
+        $o3 = clone $o1;
+
+        // Test data
+        return
+        [
+            'o1, o1'       => [ $o1, $o1->hash(), true ],
+            'o1, o2'       => [ $o1, $o2->hash(), false ],
+
+            // Cloning an Object Class should clear its hash
+            'o1, clone o1' => [ $o1, $o3->hash(), false ]
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        $o1 = $this->createObjectClass();
+        return [
+            'o1' => [ $o1, $o1 ]
+        ];
     }
 
 
     /**
-     * Get ObjectClass->equals() test data
+     * Create a new Object Class
      * 
-     * @return array
+     * @return ObjectClass
      */
-    public function getEqualsValues(): array
+    private function createObjectClass(): ObjectClass
     {
-        // Values
-        $string_1 = new Value( '1' );
-        $int_1    = new Value( 1 );
-        $array    = new Value( [ 1, 2, 3 ] );
-
-        return [
-            'string_1->equals( string_1 )' => [
-                $string_1, $string_1, true
-            ],
-            'string_1->equals( clone string_1 )' => [
-                $string_1, clone $string_1, true
-            ],
-            'string_1->equals( int_1 )' => [
-                $string_1, $int_1, false
-            ],
-            'array->equals( array )' => [
-                $array, $array, true
-            ],
-
-            // Keep in mind that cloning the container of an array does not
-            // clone the array itself. Arrays, like objects, are referenced,
-            // and are not values themselves.
-            'array->equals( clone array )' => [
-                $array, clone $array, true
-            ]
-        ];
+        return new class extends ObjectClass {};
     }
 }

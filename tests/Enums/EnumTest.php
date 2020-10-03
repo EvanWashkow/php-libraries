@@ -3,16 +3,19 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
+use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 use PHP\Enums\BitMapEnum;
 use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
 use PHP\Enums\StringEnum;
 use PHP\ObjectClass;
+use PHP\Serialization\PHPSerializer;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -124,6 +127,7 @@ class EnumTest extends TestCase
             'GoodEnum' => [
                 GoodEnum::getConstants(),
                 [
+                    'ONE_FLOAT'   => GoodEnum::ONE_FLOAT,
                     'ONE_INTEGER' => GoodEnum::ONE_INTEGER,
                     'ONE_STRING'  => GoodEnum::ONE_STRING,
                     'ARRAY'       => GoodEnum::ARRAY
@@ -203,21 +207,79 @@ class EnumTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                    equals()
-    *******************************************************************************************************************/
+     *                                                   IEquatable Tests
+     *******************************************************************************************************************/
 
-    /**
-     * Test Enum->equals()
-     * 
-     * @dataProvider getEnumAndPrimitiveComparisonData()
-     */
-    public function testEquals( Enum $enum, $value, bool $expected )
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
     {
-        $this->assertEquals(
-            $expected,
-            $enum->equals( $value ),
-            'Enum->equals() did not return the correct result'
-        );
+        return $this->getEnumAndPrimitiveComparisonData();
+    }
+
+
+    public function getHashTestData(): array
+    {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
+        // ByteArrays
+        $byteArrayOneFloat  = new ByteArray(GoodEnum::ONE_FLOAT);
+        $byteArrayOneInt    = new ByteArray(GoodEnum::ONE_INTEGER);
+        $byteArrayOneString = new ByteArray(GoodEnum::ONE_STRING);
+
+        // Test data
+        return [
+            // Ensure that primitive values are returned as their primitive counterparts
+            'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_FLOAT)' => [
+                $enumOneFloat, $byteArrayOneFloat, true
+            ],
+            'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
+                $enumOneFloat, $byteArrayOneInt, false
+            ],
+            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
+                $enumOneInt, $byteArrayOneInt, true
+            ],
+            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_STRING)' => [
+                $enumOneInt, $byteArrayOneString, false
+            ],
+            'GoodEnum(GoodEnum::ONE_STRING)->hash() === (clone self)->hash()' => [
+                $enumOneString, (clone $enumOneString)->hash(), true
+            ],
+            'GoodEnum(GoodEnum::ONE_STRING)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
+                $enumOneString, $enumOneInt->hash(), false
+            ],
+
+            // Ensure that non-primitive values' hashes match as expected
+            'GoodEnum(GoodEnum::ARRAY)->hash() === (clone self)->hash()' => [
+                $enumArray, (clone $enumArray)->hash(), true
+            ],
+            'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
+                $enumArray, $enumOneInt->hash(), false
+            ],
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
+        // Test data
+        return [
+            'GoodEnum(GoodEnum::ARRAY)'       => [ $enumArray,     clone $enumArray ],
+            'GoodEnum(GoodEnum::ONE_FLOAT)'   => [ $enumOneFloat,  clone $enumOneFloat ],
+            'GoodEnum(GoodEnum::ONE_INTEGER)' => [ $enumOneInt,    clone $enumOneInt ],
+            'GoodEnum(GoodEnum::ONE_STRING)'  => [ $enumOneString, clone $enumOneString ]
+        ];
     }
 
 
@@ -235,11 +297,20 @@ class EnumTest extends TestCase
      */
     public function testGetValue( Enum $enum, $value, bool $expected )
     {
-        $this->assertEquals(
-            $expected,
-            $enum->getValue() === $value,
-            'Enum->getValue() did not return the expected value'
-        );
+        if ( $expected ) {
+            $this->assertEquals(
+                $enum->getValue(),
+                $value,
+                'Enum->getValue() did not return the expected value'
+            );
+        }
+        else {
+            $this->assertEquals(
+                $expected,
+                $enum->getValue() === $value,
+                'Enum->getValue() should NOT be equal to the value.'
+            );
+        }
     }
 
 
@@ -257,162 +328,53 @@ class EnumTest extends TestCase
      */
     public function getEnumAndPrimitiveComparisonData(): array
     {
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
+
         return array_merge(
             $this->getPrimitiveValueComparisonData(),
             [
-                /**
-                 * GoodEnum
-                 */
-                'GoodEnum( ONE_INTEGER ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
+                'GoodEnum( ARRAY ) === (clone self)' => [
+                    $enumArray,
+                    clone $enumArray,
                     true
                 ],
-                'GoodEnum( ONE_STRING ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    true
-                ],
-                'GoodEnum( ARRAY ) === <same enum>' => [
-                    new GoodEnum( GoodEnum::ARRAY ),
-                    new GoodEnum( GoodEnum::ARRAY ),
-                    true
-                ],
-
-                // Enum cross-Enum equality checks
-                'GoodEnum( GoodEnum::ONE_INTEGER ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    true
-                ],
-                'GoodEnum( GoodEnum::ONE_STRING ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                'GoodEnum( ARRAY ) === GoodEnum( ONE_INTEGER )' => [
+                    $enumArray,
+                    $enumOneInt,
                     false
                 ],
-                'GoodEnum( GoodEnum::ONE_STRING ) === new GoodStringEnum( GoodStringEnum::ONE )' => [
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    new GoodStringEnum( GoodStringEnum::ONE ),
+                'GoodEnum( ONE_FLOAT ) === (clone self)' => [
+                    $enumOneFloat,
+                    clone $enumOneFloat,
                     true
                 ],
-                'GoodEnum( GoodEnum::ONE_INTEGER ) === new GoodStringEnum( GoodStringEnum::ONE )' => [
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    new GoodStringEnum( GoodStringEnum::ONE ),
+                'GoodEnum( ONE_FLOAT ) === GoodEnum( self::self::ONE_INTEGER )' => [
+                    $enumOneFloat,
+                    $enumOneInt,
                     false
                 ],
-                'GoodEnum( GoodEnum::ONE_INTEGER ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                'GoodEnum( ONE_INTEGER ) === (clone self)' => [
+                    $enumOneInt,
+                    clone $enumOneInt,
                     true
                 ],
-                'GoodEnum( GoodEnum::ONE_STRING ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
+                'GoodEnum( ONE_INTEGER ) === GoodEnum( ONE_STRING )' => [
+                    $enumOneInt,
+                    $enumOneString,
                     false
                 ],
-
-
-                /**
-                 * IntegerEnum
-                 */
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === <same enum>' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
+                'GoodEnum( ONE_STRING ) === (clone self)' => [
+                    $enumOneString,
+                    clone $enumOneString,
                     true
                 ],
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodStringEnum( GoodStringEnum::ONE )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    false
-                ],
-
-                // IntegerEnum cross-Enum equality checks
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    true
-                ],
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    false
-                ],
-                'GoodIntegerEnum( GoodIntegerEnum::ONE ) === new GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    true
-                ],
-
-
-                /**
-                 * StringEnum
-                 */
-                'GoodStringEnum( GoodStringEnum::ONE ) === <same enum>' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    true
-                ],
-                'GoodStringEnum( GoodStringEnum::ONE ) === GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    false
-                ],
-
-                // StringEnum cross-Enum equality checks
-                'GoodStringEnum( GoodStringEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
-                    true
-                ],
-                'GoodStringEnum( GoodStringEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
-                    new GoodStringEnum( GoodStringEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    false
-                ],
-
-
-                /**
-                 * BitMapEnum
-                 * 
-                 * This is a less comprehensive test, as the primitive test already covers all the different variations
-                 * and combination of bit map equality. This shortened test makes sure that all the major pieces are in
-                 * place as the code simply converts the BitMapEnum to its primitive integer form.
-                 */
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === <same enum>' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    true
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === GoodBitMapEnum( GoodBitMapEnum::ONE )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    false
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === GoodBitMapEnum( GoodBitMapEnum::TWO )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::TWO ),
-                    false
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === GoodBitMapEnum( GoodBitMapEnum::FOUR )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                    new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
-                    false
-                ],
-
-                // BitEnum cross-Enum equality checks
-                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodEnum( GoodEnum::ONE_INTEGER )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_INTEGER ),
-                    true
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodIntegerEnum( GoodIntegerEnum::ONE )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                    true
-                ],
-                'GoodBitMapEnum( GoodBitMapEnum::ONE ) === new GoodEnum( GoodEnum::ONE_STRING )' => [
-                    new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                    new GoodEnum( GoodEnum::ONE_STRING ),
+                'GoodEnum( ONE_STRING ) === GoodEnum( ONE_INTEGER )' => [
+                    $enumOneString,
+                    $enumOneInt,
                     false
                 ]
             ]
@@ -427,197 +389,51 @@ class EnumTest extends TestCase
      */
     public function getPrimitiveValueComparisonData(): array
     {
-        return [
+        // Enums
+        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
 
-            /**
-             * GoodEnum
-             */
-            'GoodEnum( ONE_INTEGER ) === <value>' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
+        return [
+            'GoodEnum( ARRAY ) === self->getValue()' => [
+                $enumArray,
+                GoodEnum::ARRAY,
+                true
+            ],
+            'GoodEnum( ARRAY ) === (string) self->getValue()' => [
+                $enumArray,
+                GoodEnum::GetStringArray(),
+                false
+            ],
+            'GoodEnum( ONE_FLOAT ) === self->getValue()' => [
+                $enumOneFloat,
+                GoodEnum::ONE_FLOAT,
+                true
+            ],
+            'GoodEnum( ONE_FLOAT ) === (string) self->getValue()' => [
+                $enumOneFloat,
+                "{$enumOneFloat->getValue()}",
+                false
+            ],
+            'GoodEnum( ONE_INTEGER ) === self->getValue()' => [
+                $enumOneInt,
                 GoodEnum::ONE_INTEGER,
                 true
             ],
             'GoodEnum( ONE_INTEGER ) === GoodEnum::ONE_STRING' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
+                $enumOneInt,
                 GoodEnum::ONE_STRING,
                 false
             ],
-            'GoodEnum( ONE_STRING ) === <value>' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
+            'GoodEnum( ONE_STRING ) === self->getValue()' => [
+                $enumOneString,
                 GoodEnum::ONE_STRING,
                 true
             ],
             'GoodEnum( ONE_STRING ) === GoodEnum::ONE_INTEGER' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
+                $enumOneString,
                 GoodEnum::ONE_INTEGER,
-                false
-            ],
-            'GoodEnum( ARRAY ) === <value>' => [
-                new GoodEnum( GoodEnum::ARRAY ),
-                GoodEnum::ARRAY,
-                true
-            ],
-            'GoodEnum( ARRAY ) === (string) <value>' => [
-                new GoodEnum( GoodEnum::ARRAY ),
-                GoodEnum::GetStringArray(),
-                false
-            ],
-
-            // Enum cross-Enum equality checks
-            'GoodEnum( GoodEnum::ONE_INTEGER ) === GoodIntegerEnum::ONE' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
-                GoodIntegerEnum::ONE,
-                true
-            ],
-            'GoodEnum( GoodEnum::ONE_STRING ) === GoodIntegerEnum::ONE' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
-                GoodIntegerEnum::ONE,
-                false
-            ],
-            'GoodEnum( GoodEnum::ONE_STRING ) === GoodStringEnum::ONE' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
-                GoodStringEnum::ONE,
-                true
-            ],
-            'GoodEnum( GoodEnum::ONE_INTEGER ) === GoodStringEnum::ONE' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
-                GoodStringEnum::ONE,
-                false
-            ],
-            'GoodEnum( GoodEnum::ONE_INTEGER ) === GoodBitMapEnum::ONE' => [
-                new GoodEnum( GoodEnum::ONE_INTEGER ),
-                GoodBitMapEnum::ONE,
-                true
-            ],
-            'GoodEnum( GoodEnum::ONE_STRING ) === GoodBitMapEnum::ONE' => [
-                new GoodEnum( GoodEnum::ONE_STRING ),
-                GoodBitMapEnum::ONE,
-                false
-            ],
-
-
-            /**
-             * IntegerEnum
-             */
-            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === <value>' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                GoodIntegerEnum::ONE,
-                true
-            ],
-            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === (string) <value>' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                '' . GoodIntegerEnum::ONE,
-                false
-            ],
-
-            // IntegerEnum cross-Enum equality checks
-            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodEnum::ONE_INTEGER' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                GoodEnum::ONE_INTEGER,
-                true
-            ],
-            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodEnum::ONE_STRING' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                GoodEnum::ONE_STRING,
-                false
-            ],
-            'GoodIntegerEnum( GoodIntegerEnum::ONE ) === GoodBitMapEnum::ONE' => [
-                new GoodIntegerEnum( GoodIntegerEnum::ONE ),
-                GoodBitMapEnum::ONE,
-                true
-            ],
-
-
-            /** 
-             * StringEnum
-             */
-            'GoodStringEnum( GoodStringEnum::ONE ) === <value>' => [
-                new GoodStringEnum( GoodStringEnum::ONE ),
-                GoodStringEnum::ONE,
-                true
-            ],
-            'GoodStringEnum( GoodStringEnum::ONE ) === (int) <value>' => [
-                new GoodStringEnum( GoodStringEnum::ONE ),
-                intval( GoodStringEnum::ONE ),
-                false
-            ],
-
-            // StringEnum cross-Enum equality checks
-            'GoodStringEnum( GoodStringEnum::ONE ) === GoodEnum::ONE_STRING' => [
-                new GoodStringEnum( GoodStringEnum::ONE ),
-                GoodEnum::ONE_STRING,
-                true
-            ],
-            'GoodStringEnum( GoodStringEnum::ONE ) === GoodEnum::ONE_INTEGER' => [
-                new GoodStringEnum( GoodStringEnum::ONE ),
-                GoodEnum::ONE_INTEGER,
-                false
-            ],
-
-
-            /**
-             * BitMapEnum
-             */
-            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                GoodBitMapEnum::ONE,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::TWO ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::TWO ),
-                GoodBitMapEnum::TWO,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::FOUR ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::FOUR ),
-                GoodBitMapEnum::FOUR,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO ),
-                GoodBitMapEnum::ONE | GoodBitMapEnum::TWO,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
-                GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ) === <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR ),
-                GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === ( ONE_string ) <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                '' . GoodBitMapEnum::ONE,
-                false
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ) === ( ONE_string ) <value>' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                '' . ( GoodBitMapEnum::ONE | GoodBitMapEnum::FOUR ),
-                false
-            ],
-
-            // BitEnum cross-Enum equality checks
-            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodEnum::ONE_INTEGER' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                GoodEnum::ONE_INTEGER,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodIntegerEnum::ONE' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                GoodIntegerEnum::ONE,
-                true
-            ],
-            'GoodBitMapEnum( GoodBitMapEnum::ONE ) === GoodEnum::ONE_STRING' => [
-                new GoodBitMapEnum( GoodBitMapEnum::ONE ),
-                GoodEnum::ONE_STRING,
                 false
             ]
         ];

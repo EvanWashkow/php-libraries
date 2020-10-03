@@ -49,6 +49,25 @@ class IntegerEnumTest extends TestCase
 
 
     /*******************************************************************************************************************
+     *                                                     getValue()
+     ******************************************************************************************************************/
+
+    /**
+     * Test getValue() to ensure that finalizing it did not break the base implementation
+     */
+    public function testGetValue()
+    {
+        $this->assertEquals(
+            GoodIntegerEnum::ONE,
+            (new GoodIntegerEnum(GoodIntegerEnum::ONE))->getValue(),
+            'IntegerEnum->getValue() did not return the expected value'
+        );
+    }
+
+
+
+
+    /*******************************************************************************************************************
     *                                                       toInt()
     *******************************************************************************************************************/
 

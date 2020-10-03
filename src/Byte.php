@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP;
 
+use PHP\Collections\ByteArray;
 use PHP\Interfaces\IIntegerable;
 
 /**
@@ -48,5 +49,11 @@ class Byte extends ObjectClass implements IIntegerable
     public function toInt(): int
     {
         return $this->byte;
+    }
+
+
+    protected function createHash(): ByteArray
+    {
+        return new ByteArray([ $this ]);
     }
 }

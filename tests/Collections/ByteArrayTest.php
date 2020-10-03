@@ -12,6 +12,7 @@ use PHP\Interfaces\ICloneable;
 use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -357,6 +358,54 @@ class ByteArrayTest extends TestCase
                 hash( 'sha256', 'foobar', true ),
                 ( 256 / 8 )
             ]
+        ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                   IEquatable Tests
+    *******************************************************************************************************************/
+
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
+    {
+        $byteArray0 = new ByteArray(0);
+        return [
+            'ByteArray(0)->equals(0)'                  => [ $byteArray0,                 0,                       false ],
+            'ByteArray(0)->equals(itself)'             => [ $byteArray0,                 $byteArray0,             true ],
+            'ByteArray(0)->equals(ByteArray(0))'       => [ $byteArray0,                 new ByteArray(0),  true ],
+            'ByteArray(255, 1)->equals(ByteArray(""))' => [ new ByteArray(255, 1), new ByteArray(''), false ],
+            'ByteArray(255, 0)->equals(ByteArray(""))' => [ new ByteArray(255, 0), new ByteArray(''), true ]
+        ];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        $byteArray1 = new ByteArray(1);
+        $byteArray2 = new ByteArray(2);
+        return [
+            'ByteArray(1)->hash() === ByteArray(0)' => [ $byteArray1, new ByteArray(0), false ],
+            'ByteArray(1)->hash() === ByteArray(1)' => [ $byteArray1, new ByteArray(1), true ],
+            'ByteArray(2)->hash() === ByteArray(1)' => [ $byteArray2, new ByteArray(1), false ],
+            'ByteArray(2)->hash() === ByteArray(2)' => [ $byteArray2, new ByteArray(2), true ]
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        $byteArray1 = new ByteArray(1);
+        $byteArray2 = new ByteArray(2);
+        return [
+            'ByteArray(1), itself'       => [ $byteArray1, $byteArray1 ],
+            'ByteArray(1), ByteArray(1)' => [ $byteArray1, $byteArray1->clone() ],
+            'ByteArray(2), itself'       => [ $byteArray2, $byteArray2 ],
+            'ByteArray(2), ByteArray(2)' => [ $byteArray2, $byteArray2->clone() ]
         ];
     }
 

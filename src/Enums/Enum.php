@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace PHP\Enums;
 
+use PHP\Collections\ByteArray;
+use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
+use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
 use PHP\ObjectClass;
+use PHP\Serialization\PHPSerializer;
 use ReflectionClass;
 
 /**
@@ -130,12 +134,6 @@ abstract class Enum extends ObjectClass
     *******************************************************************************************************************/
 
 
-    /**
-     * Determine if the current value is equal to another Enum or value
-     * 
-     * @param mixed $value Enum instance or value to compare to
-     * @return bool
-     */
     public function equals( $value ): bool
     {
         if ( $value instanceof Enum ) {
@@ -156,5 +154,21 @@ abstract class Enum extends ObjectClass
     public function getValue()
     {
         return $this->value;
+    }
+
+
+    /**
+     * @internal If not a primitive value, this will serialize the value. This would possibly allow future
+     * implementations to be equals() to array values, and would also allow them to be retrieved, thus, from Collections
+     */
+    protected function createHash(): ByteArray
+    {
+        static $converter = null;
+        if ($converter === null ) {
+            $converter = new PrimitiveValueByteArrayConverter(
+                new SerializationByteArrayConverter(new PHPSerializer())
+            );
+        }
+        return $converter->convert($this->getValue());
     }
 }

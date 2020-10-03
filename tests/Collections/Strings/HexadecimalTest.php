@@ -7,6 +7,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\Strings\Hexadecimal;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class HexadecimalTest extends TestCase
@@ -97,6 +98,80 @@ class HexadecimalTest extends TestCase
                 new ByteArray( 0x41, 4 ),
                 '41000000'
             ]
+        ];
+    }
+
+
+
+
+
+    /*******************************************************************************************************************
+     *                                                   IEquatable Tests
+     *******************************************************************************************************************/
+
+    use IEquatableTestTrait;
+
+
+    public function getEqualsTestData(): array
+    {
+        $byteArray00 = new ByteArray(0x00, 2);
+        $byteArrayff = new ByteArray(0xff, 2);
+        $hex00 = new Hexadecimal($byteArray00);
+        $hexff = new Hexadecimal($byteArrayff);
+        return [
+            'Hexadecimal(0x00)->equals(0x00)' => [
+                $hex00, 0x00, false
+            ],
+            'Hexadecimal(0x00)->equals(ByteArray(0x00))' => [
+                $hex00, $byteArray00, false
+            ],
+            'Hexadecimal(0x00)->equals(Hexadecimal(0xff))' => [
+                $hex00, $hexff, false
+            ],
+            'Hexadecimal(0x00)->equals(Hexadecimal(0x0000))' => [
+                $hex00, new Hexadecimal(new ByteArray(0x00, 4)), false
+            ],
+            'Hexadecimal(0x00)->equals(Hexadecimal(0x00))' => [
+                $hex00, clone $hex00, true
+            ],
+            'Hexadecimal(0xff)->equals(Hexadecimal(0xff))' => [
+                $hexff, $hexff, true
+            ]
+        ];
+    }
+
+
+    public function getHashTestData(): array
+    {
+        $byteArray00 = new ByteArray(0x00, 2);
+        $byteArrayaa = new ByteArray(0xaa, 2);
+        $byteArrayff = new ByteArray(0xff, 2);
+        return [
+            'Hexadecimal(0x00)->hash() === ByteArray(0xff)' => [
+                new Hexadecimal($byteArray00), $byteArrayff, false
+            ],
+            'Hexadecimal(0x00)->hash() === ByteArray(0x00)' => [
+                new Hexadecimal($byteArray00), $byteArray00, true
+            ],
+            'Hexadecimal(0xaa)->hash() === ByteArray(0x00)' => [
+                new Hexadecimal($byteArrayaa), $byteArray00, false
+            ],
+            'Hexadecimal(0xaa)->hash() === ByteArray(0xaa)' => [
+                new Hexadecimal($byteArrayaa), $byteArrayaa, true
+            ]
+        ];
+    }
+
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        $byteArray00 = new ByteArray(0x00, 2);
+        $byteArrayff = new ByteArray(0xff, 2);
+        $hex00 = new Hexadecimal($byteArray00);
+        $hexff = new Hexadecimal($byteArrayff);
+        return [
+            'Hexadecimal(0x00), Hexadecimal(0x00)' => [ $hex00, clone $hex00 ],
+            'Hexadecimal(0xff), Hexadecimal(0xff)' => [ $hexff, clone $hexff ]
         ];
     }
 }

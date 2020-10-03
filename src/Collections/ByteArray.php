@@ -191,6 +191,15 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
     }
 
 
+    public function equals($value): bool
+    {
+        return (
+            ($value instanceof ByteArray) &&
+            ($this->__toString() === $value->__toString())
+        );
+    }
+
+
     public function getIterator(): Iterator
     {
         return new ArrayableIterator( $this );
@@ -222,6 +231,11 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, IIntegera
         return unpack( self::INT_FORMAT, $paddedBytes )[ 1 ];
     }
 
+
+    protected function createHash(): ByteArray
+    {
+        return $this;
+    }
 
 
 
