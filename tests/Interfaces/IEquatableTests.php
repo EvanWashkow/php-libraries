@@ -8,12 +8,12 @@ use PHP\Interfaces\IEquatable;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Defines a Test Case for IEquatable implementations
+ * Defines tests for IEquatable implementations
  *
  * To use this class, define a new test case, and create testX() methods (backed by dataProviders, if you so desire)
  * that call this class's methods.
  */
-final class IEquatableTestCase extends TestCase
+final class IEquatableTests extends TestCase
 {
 
 
