@@ -16,10 +16,10 @@ interface IEquatable
      * 
      * Rules:
      * 
-     * Object equality should not change over time. It is not mathmatically or logically correct: 1 always equals 1, it
-     * never equals 2. Incrementing it by 1 doesn't change its value: it produces a new value, 2. Thus, any changes to
-     * an Object that would affect its equality should instead return a new, different Object. (i.e. Do not recycle
-     * Objects. It's a good habit to break).
+     * Object equality should not change over time. This is not logically correct. 1 is always equal to 1, it never
+     * equals 2. Incrementing it by 1 _does not change its value_ to 2: it produces a _new_ value, 2. Changes to an
+     * Object that would affect its equality should instead return a new, different Object. (Do not recycle Objects:
+     * it's a bad habit).
      * 
      * @param mixed $value The value to compare this to
      * @return bool
