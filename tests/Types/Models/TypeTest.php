@@ -2,6 +2,7 @@
 namespace PHP\Tests\Types\Models;
 
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTests;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
@@ -37,40 +38,38 @@ class TypeTest extends TestCase
 
 
     /*******************************************************************************************************************
-    *                                                Type->__construct()
-    *******************************************************************************************************************/
+     *                                                  IEquatable Tests
+     ******************************************************************************************************************/
 
 
     /**
-     * Ensure Type->__construct throws an exception on an empty name
-     * 
-     * @expectedException \DomainException
-     **/
-    public function testConstructThrowsExceptionOnEmptyName()
+     * Retrieves a single instance of IEquatableTests
+     *
+     * @return IEquatableTests
+     */
+    private function getIEquatableTestsInstance(): IEquatableTests
     {
-        new Type( '' );
+        static $iequatableTests = null;
+        if (null ===$iequatableTests)
+        {
+            $iequatableTests = new IEquatableTests();
+        }
+        return $iequatableTests;
     }
-
-
-
-
-    /*******************************************************************************************************************
-    *                                                  Type->equals()
-    *******************************************************************************************************************/
 
 
     /**
      * Test the Type->equals() method
-     * 
+     *
      * @dataProvider getEqualsData
+     *
+     * @param Type $type
+     * @param $typeOrValue
+     * @param bool $expected
      */
     public function testEquals( Type $type, $typeOrValue, bool $expected )
     {
-        $this->assertEquals(
-            $expected,
-            $type->equals( $typeOrValue ),
-            'Type->equals() did not return the correct result'
-        );
+        $this->getIEquatableTestsInstance()->testEquals($type, $typeOrValue, $expected);
     }
 
 
@@ -151,6 +150,24 @@ class TypeTest extends TestCase
                 false
             ]
         ];
+    }
+
+
+
+
+    /*******************************************************************************************************************
+    *                                                Type->__construct()
+    *******************************************************************************************************************/
+
+
+    /**
+     * Ensure Type->__construct throws an exception on an empty name
+     * 
+     * @expectedException \DomainException
+     **/
+    public function testConstructThrowsExceptionOnEmptyName()
+    {
+        new Type( '' );
     }
     
     
