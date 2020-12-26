@@ -5,7 +5,6 @@ namespace PHP\Types\Models;
 
 use PHP\Collections\Sequence;
 use PHP\ObjectClass;
-use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
  * Retrieve information for a system type
@@ -102,15 +101,16 @@ class Type extends ObjectClass
     /*******************************************************************************************************************
     *                                                     COMPARISON
     *******************************************************************************************************************/
-    
-    
+
+
     /**
-     * Determine if the type or value is (derived from) this type
-     * 
-     * i.e. The given type must have all the same properties and methods;
-     * meaning this type <= that type.
+     * Determines Type equality
      *
-     * @param mixed $value A value or PHP\Types\Models\Type instance
+     * equals(Type $type): Determines if this Type is equal to another Type
+     *
+     * equals($value): Determines if a value is of this Type
+     *
+     * @param mixed $value The value to compare to (see method documentation)
      * @return bool
      */
     public function equals($value): bool
@@ -155,7 +155,7 @@ class Type extends ObjectClass
      *
      * i.e. This type has all the same properties and methods as the given type;
      * meaning this type >= that type.
-     * 
+     *
      * @internal Type comparison cannot reference collections: collections rely
      * on type comparison.
      *
