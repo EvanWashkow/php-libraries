@@ -110,22 +110,43 @@ class Type extends ObjectClass
      * i.e. The given type must have all the same properties and methods;
      * meaning this type <= that type.
      *
-     * @param mixed $item A value or PHP\Types\Models\Type instance
+     * @param mixed $value A value or PHP\Types\Models\Type instance
      * @return bool
      */
-    public function equals( $item ): bool
+    public function equals($value): bool
     {
-        return (
+        $equals = null;
+        if ($value instanceof Type) {
+            $equals = $this->equalsType($value);
+        }
+        else {
+            $equals = $this->equalsValue($value);
+        }
+        return $equals;
+    }
 
-            // Value comparison
-            is( $item, $this->getName() ) ||
 
-            // Type object comparison
-            (
-                is_a( $item, get_class( $this )) &&
-                $item->is( $this->getName() )
-            )
-        );
+    /**
+     * Determines if this Type equals another Type
+     *
+     * @param Type $type The Type to compare
+     * @return bool
+     */
+    private function equalsType(Type $type): bool
+    {
+        return $type->is($this->getName());
+    }
+
+
+    /**
+     * Determines if the value is of this Type
+     *
+     * @param mixed $value The value to compare
+     * @return bool
+     */
+    private function equalsValue($value): bool
+    {
+        return is($value, $this->getName());
     }
     
     
