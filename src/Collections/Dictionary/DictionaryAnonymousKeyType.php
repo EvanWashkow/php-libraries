@@ -15,19 +15,19 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
     /**
      * @see Type->equals()
      */
-    public function equals( $item ): bool
+    public function equals($value ): bool
     {
         return (
             
             // Check value
-            ( is_int( $item ) || is_string( $item ) ) ||
+            ( is_int( $value ) || is_string( $value ) ) ||
 
             // Check type
             (
-                is_a( $item, Type::class ) &&
+                is_a( $value, Type::class ) &&
                 (
-                    $item->is( 'int' ) ||
-                    $item->is( 'string' )
+                    $value->is( 'int' ) ||
+                    $value->is( 'string' )
                 )
             )
         );

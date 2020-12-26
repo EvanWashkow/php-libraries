@@ -15,14 +15,14 @@ class AnonymousKeyType extends AnonymousType
     /**
      * @see Type->equals()
      */
-    public function equals( $item ): bool
+    public function equals($value ): bool
     {
         $isEqual = true;
-        if ( null === $item ) {
+        if ( null === $value ) {
             $isEqual = false;
         }
-        elseif ( is_a( $item, Type::class ) ) {
-            $isEqual = !$item->is( 'null' );
+        elseif ( is_a( $value, Type::class ) ) {
+            $isEqual = !$value->is( 'null' );
         }
         return $isEqual;
     }

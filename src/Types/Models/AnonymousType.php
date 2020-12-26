@@ -44,7 +44,7 @@ class AnonymousType extends Type
     /**
      * @see Type->equals()
      */
-    public function equals( $item ): bool
+    public function equals($value ): bool
     {
         return true;
     }
