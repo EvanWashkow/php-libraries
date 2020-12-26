@@ -52,7 +52,7 @@ class TypeTest extends TestCase
         static $iequatableTests = null;
         if (null ===$iequatableTests)
         {
-            $iequatableTests = new IEquatableTests();
+            $iequatableTests = new IEquatableTests($this);
         }
         return $iequatableTests;
     }

@@ -13,8 +13,22 @@ use PHPUnit\Framework\TestCase;
  * To use this class, define a new test case, and create testX() methods (backed by dataProviders, if you so desire)
  * that call this class's methods.
  */
-final class IEquatableTests extends TestCase
+final class IEquatableTests
 {
+
+    /** @var TestCase The origining TestCase that is calling these test methods */
+    private $testCase;
+
+
+    /**
+     * Creates a new instance of IEquatable tests
+     *
+     * @param TestCase $originTestCase The origining TestCase that is calling these test methods
+     */
+    public function __construct(TestCase $originTestCase)
+    {
+        $this->testCase = $originTestCase;
+    }
 
 
     /**
@@ -27,7 +41,7 @@ final class IEquatableTests extends TestCase
      */
     public function testEquals( IEquatable $equatable, $value, bool $expected ): void
     {
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected,
             $equatable->equals( $value ),
             'equals( value ) did not return the expected results.'
@@ -46,14 +60,14 @@ final class IEquatableTests extends TestCase
     public function testHash( IEquatable $equatable, ByteArray $byteArray, bool $expected ): void
     {
         if ( $expected ) {
-            $this->assertEquals(
+            $this->testCase->assertEquals(
                 $equatable->hash()->__toString(),
                 $byteArray->__toString(),
                 'hash() should equal the ByteArray, but does not.'
             );
         }
         else {
-            $this->assertNotEquals(
+            $this->testCase->assertNotEquals(
                 $equatable->hash()->__toString(),
                 $byteArray->__toString(),
                 'hash() should not equal the ByteArray, but does.'
@@ -71,11 +85,11 @@ final class IEquatableTests extends TestCase
      */
     public function testEqualsAndHashConsistency( IEquatable $equatable1, IEquatable $equatable2 ): void
     {
-        $this->assertTrue(
+        $this->testCase->assertTrue(
             $equatable1->equals( $equatable2 ),
             'equatable_1->equals( equatable_2 ) must return true for this test.'
         );
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $equatable1->hash()->__toString(),
             $equatable2->hash()->__toString(),
             'equatable_1->hash() should equal equatable_2->hash(), but does not.'
