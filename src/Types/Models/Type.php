@@ -148,11 +148,11 @@ class Type extends ObjectClass
     {
         return is($value, $this->getName());
     }
-    
-    
+
+
     /**
      * Determine if this type is (derived from) the given type
-     * 
+     *
      * i.e. This type has all the same properties and methods as the given type;
      * meaning this type >= that type.
      * 
@@ -160,7 +160,8 @@ class Type extends ObjectClass
      * on type comparison.
      *
      * @param string $typeName The type to compare this type with
-     **/
+     * @return bool
+     */
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, $this->namesArray, true );
