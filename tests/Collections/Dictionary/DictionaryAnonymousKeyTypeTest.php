@@ -128,4 +128,39 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
             'DictionaryAnonymousKeyType->isInterface() should only return false'
         );
     }
+
+
+
+
+    /*******************************************************************************************************************
+     *                                                      isValueOfType()
+     ******************************************************************************************************************/
+
+
+    /**
+     * Tests isValueOfType()
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param $value
+     * @param bool $expected
+     */
+    public function testIsValueOfType($value, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            (new DictionaryAnonymousKeyType())->isValueOfType($value),
+            'AnonymousKeyType->isValueOfType() did not return the expected value.'
+        );
+    }
+
+    public function getIsValueOfTypeTestData(): array
+    {
+        return [
+            '1'        => [1,        true],
+            '"string"' => ['string', true],
+            '1.5'      => [1.5,      false],
+            'null'     => [null,     false]
+        ];
+    }
 }

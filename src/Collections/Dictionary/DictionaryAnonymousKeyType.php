@@ -45,5 +45,10 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
     {
         return false;
     }
-}
+
+
+    public function isValueOfType($value): bool
+    {
+        return is_int($value) || is_string($value);
+    }
 }
