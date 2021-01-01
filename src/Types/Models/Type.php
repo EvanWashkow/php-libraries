@@ -127,18 +127,6 @@ class Type extends ObjectClass
 
 
     /**
-     * Determines if the value is of this Type
-     *
-     * @param mixed $value The value to compare
-     * @return bool
-     */
-    public function isValueOfType($value): bool
-    {
-        return is($value, $this->getName());
-    }
-
-
-    /**
      * Determine if this type is (derived from) the given type
      *
      * i.e. This type has all the same properties and methods as the given type;
@@ -175,5 +163,17 @@ class Type extends ObjectClass
     public function isInterface(): bool
     {
         return false;
+    }
+
+
+    /**
+     * Determines if the value is of this Type
+     *
+     * @param mixed $value The value to compare
+     * @return bool
+     */
+    public function isValueOfType($value): bool
+    {
+        return is($value, $this->getName());
     }
 }

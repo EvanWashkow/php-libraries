@@ -242,6 +242,46 @@ class TypeTest extends TestCase
             ]
         ];
     }
+    
+    
+    
+    
+    /*******************************************************************************************************************
+    *                                                    Type->isClass()
+    *******************************************************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isClass() returns false for basic types
+     */
+    public function testIsClassReturnsFalse()
+    {
+        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
+        $this->assertFalse(
+            $type->isClass(),
+            'Expected Type->isClass() to return false for basic types'
+        );
+    }
+    
+    
+    
+    
+    /*******************************************************************************************************************
+    *                                                 Type->isInterface()
+    *******************************************************************************************************************/
+    
+    
+    /**
+     * Ensure Type->isInterface() returns false for basic types
+     */
+    public function testIsInterfaceReturnsFalse()
+    {
+        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
+        $this->assertFalse(
+            $type->isInterface(),
+            'Expected Type->isInterface() to return false for basic types'
+        );
+    }
 
 
 
@@ -296,45 +336,5 @@ class TypeTest extends TestCase
                 false
             ]
         ];
-    }
-    
-    
-    
-    
-    /*******************************************************************************************************************
-    *                                                    Type->isClass()
-    *******************************************************************************************************************/
-    
-    
-    /**
-     * Ensure Type->isClass() returns false for basic types
-     */
-    public function testIsClassReturnsFalse()
-    {
-        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
-        $this->assertFalse(
-            $type->isClass(),
-            'Expected Type->isClass() to return false for basic types'
-        );
-    }
-    
-    
-    
-    
-    /*******************************************************************************************************************
-    *                                                 Type->isInterface()
-    *******************************************************************************************************************/
-    
-    
-    /**
-     * Ensure Type->isInterface() returns false for basic types
-     */
-    public function testIsInterfaceReturnsFalse()
-    {
-        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
-        $this->assertFalse(
-            $type->isInterface(),
-            'Expected Type->isInterface() to return false for basic types'
-        );
     }
 }
