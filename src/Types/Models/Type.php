@@ -117,24 +117,12 @@ class Type extends ObjectClass
     {
         $equals = null;
         if ($value instanceof Type) {
-            $equals = $this->equalsType($value);
+            $equals = $value->is($this->getName());
         }
         else {
             $equals = $this->isValueOfType($value);
         }
         return $equals;
-    }
-
-
-    /**
-     * Determines if this Type equals another Type
-     *
-     * @param Type $type The Type to compare
-     * @return bool
-     */
-    private function equalsType(Type $type): bool
-    {
-        return $type->is($this->getName());
     }
 
 
