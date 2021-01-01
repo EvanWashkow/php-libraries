@@ -120,7 +120,7 @@ class Type extends ObjectClass
             $equals = $this->equalsType($value);
         }
         else {
-            $equals = $this->equalsValue($value);
+            $equals = $this->isValueOfType($value);
         }
         return $equals;
     }
@@ -144,7 +144,7 @@ class Type extends ObjectClass
      * @param mixed $value The value to compare
      * @return bool
      */
-    private function equalsValue($value): bool
+    private function isValueOfType($value): bool
     {
         return is($value, $this->getName());
     }
