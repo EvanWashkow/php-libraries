@@ -249,6 +249,54 @@ class TypeTest extends TestCase
     /*******************************************************************************************************************
      *                                                Type->isValueOfType()
      ******************************************************************************************************************/
+
+
+    /**
+     * Test Type->isValueOfType()
+     *
+     * @interal This test is bad, because there is no way to test that this function without duplicating all (or some)
+     * of the tests in is(). This should be refactored (using dependency injection?), to not dup tests.
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param Type $type
+     * @param $value
+     * @param bool $expected
+     */
+    public function testIsValueOfType(Type $type, $value, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $type->isValueOfType($value),
+            'Type->isValueOfType() returned the wrong value.'
+        );
+    }
+
+    public function getIsValueOfTypeTestData(): array
+    {
+        return [
+            'Type(int)->isValueOfType(1)' => [
+                new Type('int'),
+                1,
+                true
+            ],
+            'Type(int)->isValueOfType("1")' => [
+                new Type('int'),
+                '1',
+                false
+            ],
+            'Type(string)->isValueOfType("1")' => [
+                new Type('string'),
+                '1',
+                true
+            ],
+            'Type(string)->isValueOfType(1)' => [
+                new Type('string'),
+                1,
+                false
+            ]
+        ];
+    }
     
     
     
