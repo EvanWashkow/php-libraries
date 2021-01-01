@@ -12,51 +12,41 @@ use PHP\Collections\Collection\AnonymousKeyType;
 class DictionaryAnonymousKeyType extends AnonymousKeyType
 {
 
-    /**
-     * @see Type->equals()
-     */
-    public function equals( $item ): bool
+
+    public function equals($value): bool
     {
         return (
             
             // Check value
-            ( is_int( $item ) || is_string( $item ) ) ||
+            ( is_int( $value ) || is_string( $value ) ) ||
 
             // Check type
             (
-                is_a( $item, Type::class ) &&
+                is_a( $value, Type::class ) &&
                 (
-                    $item->is( 'int' ) ||
-                    $item->is( 'string' )
+                    $value->is( 'int' ) ||
+                    $value->is( 'string' )
                 )
             )
         );
     }
 
 
-    /**
-     * @see Type->is()
-     */
-    public function is( string $typeName ): bool
+    public function is(string $typeName): bool
     {
         return in_array( $typeName, [ 'int', 'string' ], true );
     }
 
 
-    /**
-     * @see Type->isClass()
-     */
     public function isClass(): bool
     {
         return false;
     }
 
 
-    /**
-     * @see Type->isInterface()
-     */
     public function isInterface(): bool
     {
         return false;
     }
+}
 }

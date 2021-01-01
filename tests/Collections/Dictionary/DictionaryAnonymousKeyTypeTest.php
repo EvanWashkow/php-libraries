@@ -55,7 +55,7 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
 
     /***************************************************************************
-    *                                     is()
+    *                                     is()
     ***************************************************************************/
 
 
@@ -95,7 +95,7 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
 
     /***************************************************************************
-    *                                  isClass()
+    *                                   isClass()
     ***************************************************************************/
 
 
@@ -114,7 +114,7 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
 
     /***************************************************************************
-    *                                 isInterface()
+    *                                   isInterface()
     ***************************************************************************/
 
 
