@@ -316,22 +316,22 @@ class TypeTest extends TestCase
     {
         return [
             'Type(int)->isValueOfType(1)' => [
-                new Type('int'),
+                new Type(TypeNames::INT),
                 1,
                 true
             ],
             'Type(int)->isValueOfType("1")' => [
-                new Type('int'),
+                new Type(TypeNames::INT),
                 '1',
                 false
             ],
             'Type(string)->isValueOfType("1")' => [
-                new Type('string'),
+                new Type(TypeNames::STRING),
                 '1',
                 true
             ],
             'Type(string)->isValueOfType(1)' => [
-                new Type('string'),
+                new Type(TypeNames::STRING),
                 1,
                 false
             ]
