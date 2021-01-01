@@ -12,8 +12,10 @@ use PHP\Collections\Collection\AnonymousKeyType;
 class DictionaryAnonymousKeyType extends AnonymousKeyType
 {
 
-
-    public function equals($value): bool
+    /**
+     * @see Type->equals()
+     */
+    public function equals($value ): bool
     {
         return (
             
