@@ -13,20 +13,7 @@ class AnonymousKeyType extends AnonymousType
 {
 
 
-    public function equals( $item ): bool
-    {
-        $isEqual = true;
-        if ( null === $item ) {
-            $isEqual = false;
-        }
-        elseif ( is_a( $item, Type::class ) ) {
-            $isEqual = !$item->is( 'null' );
-        }
-        return $isEqual;
-    }
-
-
-    public function is( string $typeName ): bool
+    public function is(string $typeName): bool
     {
         return 'null' !== $typeName;
     }
