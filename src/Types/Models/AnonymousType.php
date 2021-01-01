@@ -73,4 +73,10 @@ class AnonymousType extends Type
     {
         throw new \BadMethodCallException( 'AnonymousType->isInterface() is indeterminite.' );
     }
+
+
+    public function isValueOfType($value): bool
+    {
+        return true;
+    }
 }

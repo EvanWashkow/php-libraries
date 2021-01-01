@@ -83,4 +83,28 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
     {
         ( new AnonymousType() )->isInterface();
     }
+
+
+    /**
+     * Tests isValueOfType()
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param $value
+     */
+    public function testIsValueOfType($value): void
+    {
+        $this->assertTrue(
+            (new AnonymousType())->isValueOfType($value),
+            'AnonymousType->isValueOfType() should always return true.'
+        );
+    }
+
+    public function getIsValueOfTypeTestData(): array
+    {
+        return [
+            '1' => [1],
+            'null' => [null]
+        ];
+    }
 }
