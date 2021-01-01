@@ -2,7 +2,6 @@
 namespace PHP\Tests\Collections\Types;
 
 use PHP\Collections\Collection\AnonymousKeyType;
-use PHP\Types\Models\AnonymousType;
 use PHP\Types\TypeLookupSingleton;
 
 /**
@@ -59,9 +58,9 @@ class AnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsValueOfType($value, bool $expected): void
     {
-        $this->assertEquals(,
+        $this->assertEquals(
             $expected,
-            (new AnonymousType())->isValueOfType($value),
+            (new AnonymousKeyType())->isValueOfType($value),
             'AnonymousKeyType->isValueOfType() did not return the expected value.'
         );
     }
@@ -69,7 +68,8 @@ class AnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
     public function getIsValueOfTypeTestData(): array
     {
         return [
-            '1' =>    [1, true],
+            '1'    => [1,    true],
+            '1.5'  => [1.5,  true],
             'null' => [null, false]
         ];
     }

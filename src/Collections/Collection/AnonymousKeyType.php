@@ -12,7 +12,7 @@ use PHP\Types\Models\Type;
 class AnonymousKeyType extends AnonymousType
 {
 
-    
+
     public function equals( $item ): bool
     {
         $isEqual = true;
@@ -29,5 +29,11 @@ class AnonymousKeyType extends AnonymousType
     public function is( string $typeName ): bool
     {
         return 'null' !== $typeName;
+    }
+
+
+    public function isValueOfType($value): bool
+    {
+        return ($value !== null);
     }
 }
