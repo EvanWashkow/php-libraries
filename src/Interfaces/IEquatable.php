@@ -48,5 +48,5 @@ interface IEquatable
      * @param mixed $value The value to compare this to
      * @return bool
      */
-    public function equals( $value ): bool;
+    public function equals($value): bool;
 }

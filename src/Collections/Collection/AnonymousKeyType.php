@@ -12,10 +12,7 @@ use PHP\Types\Models\Type;
 class AnonymousKeyType extends AnonymousType
 {
 
-    /**
-     * @see Type->equals()
-     */
-    public function equals($value ): bool
+    public function equals($value): bool
     {
         $isEqual = true;
         if ( null === $value ) {
