@@ -14,17 +14,6 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
 {
 
 
-    public function equals($value): bool
-    {
-        $isEqual = null;
-        if ($value instanceof Type)
-        {
-            $isEqual = $value->is(TypeNames::INT) || $value->is(TypeNames::STRING);
-        }
-        return $isEqual;
-    }
-
-
     public function is(string $typeName): bool
     {
         return in_array( $typeName, [ 'int', 'string' ], true );

@@ -10,44 +10,6 @@ use PHP\Types\TypeLookupSingleton;
 class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
 
-    /*******************************************************************************************************************
-     *                                                         equals()
-     ******************************************************************************************************************/
-
-
-    /**
-     * Ensure equals() only returns true for ints and strings
-     * 
-     * @dataProvider getEqualsData
-     * 
-     * @param mixed $value    The value to test
-     * @param bool  $expected The expected result
-     **/
-    public function testEquals( $value, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            ( new DictionaryAnonymousKeyType() )->equals( $value ),
-            'DictionaryAnonymousKeyType->equals() should only returns true for ints and strings'
-        );
-    }
-
-
-    /**
-     * Get data for testing equals()
-     * 
-     * @return array
-     */
-    public function getEqualsData(): array
-    {
-        $typeLookup = TypeLookupSingleton::getInstance();
-        return [
-            [ $typeLookup->getByName( 'int' ),    true ],
-            [ $typeLookup->getByName( 'string' ), true ],
-            [ $typeLookup->getByName( 'float' ),  false ]
-        ];
-    }
-
 
 
 
