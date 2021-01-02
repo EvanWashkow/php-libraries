@@ -70,7 +70,7 @@ final class IEquatableTests
             $this->testCase->assertNotEquals(
                 $equatable->hash()->__toString(),
                 $byteArray->__toString(),
-                'hash() should not equal the ByteArray, but does.'
+                'hash() should not have returned the ByteArray.'
             );
         }
     }
