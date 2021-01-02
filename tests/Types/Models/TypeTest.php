@@ -146,6 +146,34 @@ class TypeTest extends TestCase
     }
 
 
+    /**
+     * Ensure hash() and equals() are consistent
+     *
+     * @dataProvider getEqualsAndHashConsistencyTestData
+     *
+     * @param Type $type1
+     * @param Type $type2
+     */
+    public function testEqualsAndHashConsistency(Type $type1, Type $type2): void
+    {
+        $this->getIEquatableTestsInstance()->testEqualsAndHashConsistency($type1, $type2);
+    }
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        return [
+            'Type(int), Type(int)' => [
+                new Type(TypeNames::INT),
+                new Type(TypeNames::INT)
+            ],
+            'Type(string), Type(string)' => [
+                new Type(TypeNames::STRING),
+                new Type(TypeNames::STRING)
+            ]
+        ];
+    }
+
+
 
 
     /*******************************************************************************************************************
