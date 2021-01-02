@@ -49,7 +49,7 @@ class Sequence extends Collection
         $valueType = $this->getValueType();
         if ( !is_a( $valueType, AnonymousType::class )) {
             foreach ( $entries as $key => $value ) {
-                if ( !$valueType->isValueOfType($value)) {
+                if ( !$valueType->isValueOfType($value) ) {
                     trigger_error( 'Wrong value type' );
                     unset( $entries[ $key ] );
                 }
@@ -258,10 +258,10 @@ class Sequence extends Collection
         $isSuccessful = false;
         
         // Log meaningful errors
-        if ( !$this->getKeyType()->isValueOfType($key)) {
+        if ( !$this->getKeyType()->isValueOfType($key) ) {
             trigger_error( 'Wrong key type' );
         }
-        elseif ( !$this->getValueType()->isValueOfType($value)) {
+        elseif ( !$this->getValueType()->isValueOfType($value) ) {
             trigger_error( 'Wrong value type' );
         }
         elseif ( $key < $this->getFirstKey() ) {
@@ -433,7 +433,7 @@ class Sequence extends Collection
         }
         
         // Invalid value type
-        elseif ( !$this->getValueType()->isValueOfType($value)) {
+        elseif ( !$this->getValueType()->isValueOfType($value) ) {
             trigger_error( "Wrong value type" );
         }
         
