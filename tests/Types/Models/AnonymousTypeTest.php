@@ -11,26 +11,6 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
-     * Ensure AnonymousType->equals() is true for anything
-     **/
-    public function testEqualsAlwaysReturnsTrue()
-    {
-        $values = [
-            1,
-            'string',
-            true
-        ];
-        $type = new AnonymousType();
-        foreach ( $values as $value ) {
-            $this->assertTrue(
-                $type->equals( $value ),
-                'AnonymousType->equals() should always return true'
-            );
-        }
-    }
-
-
-    /**
      * Ensure AnonymousType->getName() is an asterisk
      **/
     public function testGetNameIsAsterisk()
@@ -82,5 +62,29 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
     public function testIsInterface()
     {
         ( new AnonymousType() )->isInterface();
+    }
+
+
+    /**
+     * Tests isValueOfType()
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param $value
+     */
+    public function testIsValueOfType($value): void
+    {
+        $this->assertTrue(
+            (new AnonymousType())->isValueOfType($value),
+            'AnonymousType->isValueOfType() should always return true.'
+        );
+    }
+
+    public function getIsValueOfTypeTestData(): array
+    {
+        return [
+            '1' => [1],
+            'null' => [null]
+        ];
     }
 }

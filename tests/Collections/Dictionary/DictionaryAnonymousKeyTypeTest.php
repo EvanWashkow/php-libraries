@@ -10,53 +10,12 @@ use PHP\Types\TypeLookupSingleton;
 class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
 
-    /***************************************************************************
-    *                                   equals()
-    ***************************************************************************/
-
-
-    /**
-     * Ensure equals() only returns true for ints and strings
-     * 
-     * @dataProvider getEqualsData
-     * 
-     * @param mixed $value    The value to test
-     * @param bool  $expected The expected result
-     **/
-    public function testEquals( $value, bool $expected )
-    {
-        $this->assertEquals(
-            $expected,
-            ( new DictionaryAnonymousKeyType() )->equals( $value ),
-            'DictionaryAnonymousKeyType->equals() should only returns true for ints and strings'
-        );
-    }
-
-
-    /**
-     * Get data for testing equals()
-     * 
-     * @return array
-     */
-    public function getEqualsData(): array
-    {
-        $typeLookup = TypeLookupSingleton::getInstance();
-        return [
-            [ 1,                            true ],
-            [ 'string',                     true ],
-            [ $typeLookup->getByName( 'int' ),    true ],
-            [ $typeLookup->getByName( 'string' ), true ],
-            [ 1.5,                          false ],
-            [ $typeLookup->getByName( 'float' ),  false ]
-        ];
-    }
 
 
 
-
-    /***************************************************************************
-    *                                     is()
-    ***************************************************************************/
+    /*******************************************************************************************************************
+     *                                                         is()
+     ******************************************************************************************************************/
 
 
     /**
@@ -94,9 +53,9 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
 
 
-    /***************************************************************************
-    *                                  isClass()
-    ***************************************************************************/
+    /*******************************************************************************************************************
+     *                                                      isClass()
+     ******************************************************************************************************************/
 
 
     /**
@@ -113,9 +72,9 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
 
 
-    /***************************************************************************
-    *                                 isInterface()
-    ***************************************************************************/
+    /*******************************************************************************************************************
+     *                                                      isInterface()
+     ******************************************************************************************************************/
 
 
     /**
@@ -127,5 +86,40 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
             ( new DictionaryAnonymousKeyType() )->isInterface(),
             'DictionaryAnonymousKeyType->isInterface() should only return false'
         );
+    }
+
+
+
+
+    /*******************************************************************************************************************
+     *                                                      isValueOfType()
+     ******************************************************************************************************************/
+
+
+    /**
+     * Tests isValueOfType()
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param $value
+     * @param bool $expected
+     */
+    public function testIsValueOfType($value, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            (new DictionaryAnonymousKeyType())->isValueOfType($value),
+            'AnonymousKeyType->isValueOfType() did not return the expected value.'
+        );
+    }
+
+    public function getIsValueOfTypeTestData(): array
+    {
+        return [
+            '1'        => [1,        true],
+            '"string"' => ['string', true],
+            '1.5'      => [1.5,      false],
+            'null'     => [null,     false]
+        ];
     }
 }

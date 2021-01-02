@@ -12,27 +12,15 @@ use PHP\Types\Models\Type;
 class AnonymousKeyType extends AnonymousType
 {
 
-    /**
-     * @see Type->equals()
-     */
-    public function equals( $item ): bool
+
+    public function is(string $typeName): bool
     {
-        $isEqual = true;
-        if ( null === $item ) {
-            $isEqual = false;
-        }
-        elseif ( is_a( $item, Type::class ) ) {
-            $isEqual = !$item->is( 'null' );
-        }
-        return $isEqual;
+        return 'null' !== $typeName;
     }
 
 
-    /**
-     * @see Type->is()
-     */
-    public function is( string $typeName ): bool
+    public function isValueOfType($value): bool
     {
-        return 'null' !== $typeName;
+        return ($value !== null);
     }
 }

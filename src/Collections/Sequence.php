@@ -49,7 +49,7 @@ class Sequence extends Collection
         $valueType = $this->getValueType();
         if ( !is_a( $valueType, AnonymousType::class )) {
             foreach ( $entries as $key => $value ) {
-                if ( !$valueType->equals( $value )) {
+                if ( !$valueType->isValueOfType($value) ) {
                     trigger_error( 'Wrong value type' );
                     unset( $entries[ $key ] );
                 }
@@ -161,7 +161,7 @@ class Sequence extends Collection
         /**
          * Throw exception for wrong value type
          */
-        if ( !$this->getValueType()->equals( $value ) ) {
+        if ( !$this->getValueType()->isValueOfType($value) ) {
             throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
         }
 
@@ -258,10 +258,10 @@ class Sequence extends Collection
         $isSuccessful = false;
         
         // Log meaningful errors
-        if ( !$this->getKeyType()->equals( $key )) {
+        if ( !$this->getKeyType()->isValueOfType($key) ) {
             trigger_error( 'Wrong key type' );
         }
-        elseif ( !$this->getValueType()->equals( $value )) {
+        elseif ( !$this->getValueType()->isValueOfType($value) ) {
             trigger_error( 'Wrong value type' );
         }
         elseif ( $key < $this->getFirstKey() ) {
@@ -374,7 +374,7 @@ class Sequence extends Collection
      */
     public function add( $value ): bool
     {
-        $isSuccessful = $this->getValueType()->equals( $value );
+        $isSuccessful = $this->getValueType()->isValueOfType($value);
         if ( $isSuccessful ) {
             $this->entries[] = $value;
         }
@@ -433,7 +433,7 @@ class Sequence extends Collection
         }
         
         // Invalid value type
-        elseif ( !$this->getValueType()->equals( $value )) {
+        elseif ( !$this->getValueType()->isValueOfType($value) ) {
             trigger_error( "Wrong value type" );
         }
         

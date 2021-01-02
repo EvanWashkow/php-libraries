@@ -117,7 +117,7 @@ class Dictionary extends Collection
     public function getKeyOf( $value )
     {
         // Throw exception for wrong value type
-        if ( !$this->getValueType()->equals( $value ) ) {
+        if ( !$this->getValueType()->isValueOfType($value) ) {
             throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
         }
 
@@ -152,7 +152,7 @@ class Dictionary extends Collection
     public function hasKey( $key ): bool
     {
         return (
-            $this->getKeyType()->equals( $key ) &&
+            $this->getKeyType()->isValueOfType($key) &&
             array_key_exists( $key, $this->entries )
         );
     }
@@ -182,10 +182,10 @@ class Dictionary extends Collection
     {
         // Throw warnings
         $isSuccessful = false;
-        if ( !$this->getKeyType()->equals( $key )) {
+        if ( !$this->getKeyType()->isValueOfType($key) ) {
             trigger_error( 'Wrong key type' );
         }
-        elseif ( !$this->getValueType()->equals( $value )) {
+        elseif ( !$this->getValueType()->isValueOfType($value) ) {
             trigger_error( 'Wrong value type' );
         }
         

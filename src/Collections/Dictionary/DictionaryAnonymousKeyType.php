@@ -5,6 +5,7 @@ namespace PHP\Collections\Dictionary;
 
 use PHP\Types\Models\Type;
 use PHP\Collections\Collection\AnonymousKeyType;
+use PHP\Types\TypeNames;
 
 /**
  * Anonymous type for dictionary keys that returns true for ints and strings
@@ -12,51 +13,27 @@ use PHP\Collections\Collection\AnonymousKeyType;
 class DictionaryAnonymousKeyType extends AnonymousKeyType
 {
 
-    /**
-     * @see Type->equals()
-     */
-    public function equals( $item ): bool
-    {
-        return (
-            
-            // Check value
-            ( is_int( $item ) || is_string( $item ) ) ||
 
-            // Check type
-            (
-                is_a( $item, Type::class ) &&
-                (
-                    $item->is( 'int' ) ||
-                    $item->is( 'string' )
-                )
-            )
-        );
-    }
-
-
-    /**
-     * @see Type->is()
-     */
-    public function is( string $typeName ): bool
+    public function is(string $typeName): bool
     {
         return in_array( $typeName, [ 'int', 'string' ], true );
     }
 
 
-    /**
-     * @see Type->isClass()
-     */
     public function isClass(): bool
     {
         return false;
     }
 
 
-    /**
-     * @see Type->isInterface()
-     */
     public function isInterface(): bool
     {
         return false;
+    }
+
+
+    public function isValueOfType($value): bool
+    {
+        return is_int($value) || is_string($value);
     }
 }

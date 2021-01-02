@@ -3,9 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
+use PHP\Collections\ByteArray;
 use PHP\Collections\Sequence;
 use PHP\ObjectClass;
-use SebastianBergmann\ObjectReflector\InvalidArgumentException;
 
 /**
  * Retrieve information for a system type
@@ -102,44 +102,41 @@ class Type extends ObjectClass
     /*******************************************************************************************************************
     *                                                     COMPARISON
     *******************************************************************************************************************/
-    
-    
+
+
     /**
-     * Determine if the type or value is (derived from) this type
-     * 
-     * i.e. The given type must have all the same properties and methods;
-     * meaning this type <= that type.
+     * Determines Type equality
      *
-     * @param mixed $item A value or PHP\Types\Models\Type instance
+     * equals(Type $type): Determines if this Type is equal to another Type
+     *
+     * equals($value): Determines if a value is of this Type
+     *
+     * @param mixed $value The value to compare to (see method documentation)
      * @return bool
      */
-    public function equals( $item ): bool
+    public function equals($value): bool
     {
-        return (
-
-            // Value comparison
-            is( $item, $this->getName() ) ||
-
-            // Type object comparison
-            (
-                is_a( $item, get_class( $this )) &&
-                $item->is( $this->getName() )
-            )
-        );
+        $isEqual = false;
+        if ($value instanceof Type)
+        {
+            $isEqual = $this->getName() === $value->getName();
+        }
+        return $isEqual;
     }
-    
-    
+
+
     /**
      * Determine if this type is (derived from) the given type
-     * 
+     *
      * i.e. This type has all the same properties and methods as the given type;
      * meaning this type >= that type.
-     * 
+     *
      * @internal Type comparison cannot reference collections: collections rely
      * on type comparison.
      *
      * @param string $typeName The type to compare this type with
-     **/
+     * @return bool
+     */
     public function is( string $typeName ): bool
     {
         return in_array( $typeName, $this->namesArray, true );
@@ -165,5 +162,23 @@ class Type extends ObjectClass
     public function isInterface(): bool
     {
         return false;
+    }
+
+
+    /**
+     * Determines if the value is of this Type
+     *
+     * @param mixed $value The value to compare
+     * @return bool
+     */
+    public function isValueOfType($value): bool
+    {
+        return is($value, $this->getName());
+    }
+
+
+    protected function createHash(): ByteArray
+    {
+        return new ByteArray($this->getName());
     }
 }

@@ -41,19 +41,7 @@ class AnonymousType extends Type
     }
 
 
-    /**
-     * @see Type->equals()
-     */
-    public function equals( $item ): bool
-    {
-        return true;
-    }
-
-
-    /**
-     * @see Type->is()
-     */
-    public function is( string $typeName ): bool
+    public function is(string $typeName): bool
     {
         return true;
     }
@@ -78,5 +66,11 @@ class AnonymousType extends Type
     public function isInterface(): bool
     {
         throw new \BadMethodCallException( 'AnonymousType->isInterface() is indeterminite.' );
+    }
+
+
+    public function isValueOfType($value): bool
+    {
+        return true;
     }
 }
