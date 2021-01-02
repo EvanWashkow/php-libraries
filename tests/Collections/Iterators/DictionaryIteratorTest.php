@@ -7,6 +7,7 @@ use PHP\Collections\Dictionary;
 use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Collections\Iterators\DeprecatedKeyValuePair;
 use PHP\Collections\Iteration\IndexedIterator;
+use PHP\Types\TypeLookupSingleton;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -173,10 +174,10 @@ class DictionaryIteratorTest extends TestCase
      */
     public function testGetValueKeyType( Dictionary $dictionary )
     {
+        $typeLookup      = TypeLookupSingleton::getInstance();
+        $iteratorKeyType = $typeLookup->getByValue( $dictionary->getIterator()->getValue()->getKey() );
         $this->assertTrue(
-            $dictionary->getKeyType()->equals(
-                $dictionary->getIterator()->getValue()->getKey()
-            ),
+            $dictionary->getKeyType()->equals($iteratorKeyType),
             'DictionaryIterator->getValue()->getKey() returned the wrong type.'
         );
     }
