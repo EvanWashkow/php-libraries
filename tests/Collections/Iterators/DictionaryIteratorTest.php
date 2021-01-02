@@ -169,6 +169,12 @@ class DictionaryIteratorTest extends TestCase
 
     /**
      * Test getValue() returns the correct key type
+     *
+     * @todo Remove when new Collections (that don't rely on PHP arrays for key-value storage of Dictionary entries)
+     * are implemented.
+     *
+     * @internal This is needed to ensure that PHP does not implicitly convert string keys to integers and vice-versa.
+     * This was a known bug that had to be addressed.
      * 
      * @dataProvider getValueKeyTypeTestData
      */
