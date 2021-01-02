@@ -42,11 +42,8 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
     {
         $typeLookup = TypeLookupSingleton::getInstance();
         return [
-            [ 1,                            true ],
-            [ 'string',                     true ],
             [ $typeLookup->getByName( 'int' ),    true ],
             [ $typeLookup->getByName( 'string' ), true ],
-            [ 1.5,                          false ],
             [ $typeLookup->getByName( 'float' ),  false ]
         ];
     }

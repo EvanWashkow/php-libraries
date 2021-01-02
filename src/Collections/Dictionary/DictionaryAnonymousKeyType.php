@@ -21,10 +21,6 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
         {
             $isEqual = $value->is(TypeNames::INT) || $value->is(TypeNames::STRING);
         }
-        else
-        {
-            $isEqual = $this->isValueOfType($value);
-        };
         return $isEqual;
     }
 
