@@ -23,7 +23,7 @@ class DictionaryAnonymousKeyType extends AnonymousKeyType
         }
         else
         {
-            $isEqual = is_int($value) || is_string($value);
+            $isEqual = $this->isValueOfType($value);
         };
         return $isEqual;
     }
