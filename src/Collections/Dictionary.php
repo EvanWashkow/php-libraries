@@ -182,10 +182,10 @@ class Dictionary extends Collection
     {
         // Throw warnings
         $isSuccessful = false;
-        if ( !$this->getKeyType()->isValueOfType($key)) {
+        if ( !$this->getKeyType()->isValueOfType($key) ) {
             trigger_error( 'Wrong key type' );
         }
-        elseif ( !$this->getValueType()->isValueOfType($value)) {
+        elseif ( !$this->getValueType()->isValueOfType($value) ) {
             trigger_error( 'Wrong value type' );
         }
         
