@@ -9,15 +9,12 @@ use PHP\Enums\BitMapEnum;
 use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
 use PHP\Enums\StringEnum;
-use PHP\Interfaces\IEquatable;
 use PHP\ObjectClass;
-use PHP\Serialization\PHPSerializer;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
 use PHP\Tests\Interfaces\IEquatableTests;
-use PHP\Tests\Interfaces\IEquatableTestTrait;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 

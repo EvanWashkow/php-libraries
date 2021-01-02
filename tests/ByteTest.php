@@ -97,6 +97,33 @@ class ByteTest extends TestCase
 
 
     /**
+     * Test hash()
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param Byte $byte
+     * @param ByteArray $byteArray
+     * @param bool $expected
+     */
+    public function testHash(Byte $byte, ByteArray $byteArray, bool $expected): void
+    {
+        $this->getIEquatableTests()->testHash($byte, $byteArray, $expected);
+    }
+
+    public function getHashTestData(): array
+    {
+        $b0   = new Byte( 0 );
+        $b255 = new Byte( 255 );
+        return [
+            'Byte( 0 )'    => [ $b0,   new ByteArray([ $b0 ]),   true ],
+            '!Byte( 0 )'   => [ $b0,   new ByteArray([ $b255 ]), false ],
+            'Byte( 255 )'  => [ $b255, new ByteArray([ $b255 ]), true ],
+            '!Byte( 255 )' => [ $b255, new ByteArray([ $b0 ]),   false ]
+        ];
+    }
+
+
+    /**
      * Test equals()
      *
      * @dataProvider getEqualsTestData
@@ -142,33 +169,6 @@ class ByteTest extends TestCase
         );
 
         return $data;
-    }
-
-
-    /**
-     * Test hash()
-     *
-     * @dataProvider getHashTestData
-     *
-     * @param Byte $byte
-     * @param ByteArray $byteArray
-     * @param bool $expected
-     */
-    public function testHash(Byte $byte, ByteArray $byteArray, bool $expected): void
-    {
-        $this->getIEquatableTests()->testHash($byte, $byteArray, $expected);
-    }
-
-    public function getHashTestData(): array
-    {
-        $b0   = new Byte( 0 );
-        $b255 = new Byte( 255 );
-        return [
-            'Byte( 0 )'    => [ $b0,   new ByteArray([ $b0 ]),   true ],
-            '!Byte( 0 )'   => [ $b0,   new ByteArray([ $b255 ]), false ],
-            'Byte( 255 )'  => [ $b255, new ByteArray([ $b255 ]), true ],
-            '!Byte( 255 )' => [ $b255, new ByteArray([ $b0 ]),   false ]
-        ];
     }
 
 

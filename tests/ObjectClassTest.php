@@ -16,36 +16,6 @@ class ObjectClassTest extends TestCase
 
 
     /**
-     * Test equals() return value
-     *
-     * @dataProvider getEqualsTestData
-     *
-     * @param ObjectClass $objectClass
-     * @param $value
-     * @param bool $expected
-     */
-    public function testEquals(ObjectClass $objectClass, $value, bool $expected): void
-    {
-        $this->getIEquatableTests()->testEquals($objectClass, $value, $expected);
-    }
-
-    public function getEqualsTestData(): array
-    {
-        // Objects
-        $o1 = $this->createObjectClass();
-        $o2 = $this->createObjectClass();
-        $o3 = clone $o1;
-
-        // Test Data
-        return [
-            'o1, o1' => [ $o1, $o1, true ],
-            'o1, o2' => [ $o1, $o2, false ],
-            'o1, o3' => [ $o1, $o3, false ]
-        ];
-    }
-
-
-    /**
      * Test hash() return value
      *
      * @dataProvider getHashTestData
@@ -71,12 +41,42 @@ class ObjectClassTest extends TestCase
 
         // Test data
         return
-        [
-            'o1, o1'       => [ $o1, $o1->hash(), true ],
-            'o1, o2'       => [ $o1, $o2->hash(), false ],
+            [
+                'o1, o1'       => [ $o1, $o1->hash(), true ],
+                'o1, o2'       => [ $o1, $o2->hash(), false ],
 
-            // Cloning an Object Class should clear its hash
-            'o1, clone o1' => [ $o1, $o3->hash(), false ]
+                // Cloning an Object Class should clear its hash
+                'o1, clone o1' => [ $o1, $o3->hash(), false ]
+            ];
+    }
+
+
+    /**
+     * Test equals() return value
+     *
+     * @dataProvider getEqualsTestData
+     *
+     * @param ObjectClass $objectClass
+     * @param $value
+     * @param bool $expected
+     */
+    public function testEquals(ObjectClass $objectClass, $value, bool $expected): void
+    {
+        $this->getIEquatableTests()->testEquals($objectClass, $value, $expected);
+    }
+
+    public function getEqualsTestData(): array
+    {
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+        $o3 = clone $o1;
+
+        // Test Data
+        return [
+            'o1, o1' => [ $o1, $o1, true ],
+            'o1, o2' => [ $o1, $o2, false ],
+            'o1, o3' => [ $o1, $o3, false ]
         ];
     }
 
