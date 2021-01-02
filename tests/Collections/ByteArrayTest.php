@@ -9,7 +9,6 @@ use PHP\Collections\IArrayable;
 use PHP\Collections\IReadOnlyCollection;
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Interfaces\ICloneable;
-use PHP\Interfaces\IEquatable;
 use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
