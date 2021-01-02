@@ -32,26 +32,8 @@ final class IEquatableTests
 
 
     /**
-     * Test IEquatable->equals() returns the expected result
-     * 
-     * @param IEquatable $equatable The IEquatable to do the comparison
-     * @param mixed      $value     The value to compare to
-     * @param bool       $expected  The expected result of equatable->equals()
-     * @return void
-     */
-    public function testEquals(IEquatable $equatable, $value, bool $expected): void
-    {
-        $this->testCase->assertEquals(
-            $expected,
-            $equatable->equals( $value ),
-            'equals( value ) did not return the expected results.'
-        );
-    }
-
-
-    /**
      * Test hash() by comparing its results
-     * 
+     *
      * @param IEquatable $equatable The IEquatable to test
      * @param ByteArray  $byteArray The ByteArray (hash) to test against
      * @param bool       $expected  The expected result of equatable->hash() === byte_array
@@ -73,6 +55,24 @@ final class IEquatableTests
                 'hash() should not have returned the ByteArray.'
             );
         }
+    }
+
+
+    /**
+     * Test IEquatable->equals() returns the expected result
+     * 
+     * @param IEquatable $equatable The IEquatable to do the comparison
+     * @param mixed      $value     The value to compare to
+     * @param bool       $expected  The expected result of equatable->equals()
+     * @return void
+     */
+    public function testEquals(IEquatable $equatable, $value, bool $expected): void
+    {
+        $this->testCase->assertEquals(
+            $expected,
+            $equatable->equals( $value ),
+            'equals( value ) did not return the expected results.'
+        );
     }
 
 
