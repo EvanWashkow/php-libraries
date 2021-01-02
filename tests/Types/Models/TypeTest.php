@@ -1,6 +1,7 @@
 <?php
 namespace PHP\Tests\Types\Models;
 
+use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
 use PHP\Tests\Interfaces\IEquatableTests;
 use PHP\Types\Models\Type;
@@ -103,6 +104,42 @@ class TypeTest extends TestCase
             'Type(int)->equals(1)' => [
                 new Type(TypeNames::INT),
                 1,
+                false
+            ]
+        ];
+    }
+
+
+    /**
+     * Tests hash()
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param Type $type
+     * @param ByteArray $byteArray
+     * @param bool $expected
+     */
+    public function testHash(Type $type, ByteArray $byteArray, bool $expected): void
+    {
+        $this->getIEquatableTestsInstance()->testHash($type, $byteArray, $expected);
+    }
+
+    public function getHashTestData(): array
+    {
+        return [
+            'Type(int)->hash() === ByteArray(int)' => [
+                new Type(TypeNames::INT),
+                new ByteArray(TypeNames::INT),
+                true
+            ],
+            'Type(string)->hash() === ByteArray(string)' => [
+                new Type(TypeNames::STRING),
+                new ByteArray(TypeNames::STRING),
+                true
+            ],
+            'Type(int)->hash() === ByteArray(string)' => [
+                new Type(TypeNames::INT),
+                new ByteArray(TypeNames::STRING),
                 false
             ]
         ];

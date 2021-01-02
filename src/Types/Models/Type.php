@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
+use PHP\Collections\ByteArray;
 use PHP\Collections\Sequence;
 use PHP\ObjectClass;
 
@@ -173,5 +174,11 @@ class Type extends ObjectClass
     public function isValueOfType($value): bool
     {
         return is($value, $this->getName());
+    }
+
+
+    protected function createHash(): ByteArray
+    {
+        return new ByteArray($this->getName());
     }
 }
