@@ -41,13 +41,13 @@ class AnonymousType extends Type
     }
 
 
-    public function equals( $item ): bool
+    public function equals($value): bool
     {
         return true;
     }
 
 
-    public function is( string $typeName ): bool
+    public function is(string $typeName): bool
     {
         return true;
     }
