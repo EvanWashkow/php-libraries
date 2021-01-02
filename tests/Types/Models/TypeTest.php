@@ -64,88 +64,44 @@ class TypeTest extends TestCase
      * @dataProvider getEqualsData
      *
      * @param Type $type
-     * @param $typeOrValue
+     * @param $comparee
      * @param bool $expected
      */
-    public function testEquals( Type $type, $typeOrValue, bool $expected )
+    public function testEquals(Type $type, $comparee, bool $expected )
     {
-        $this->getIEquatableTestsInstance()->testEquals($type, $typeOrValue, $expected);
+        $this->getIEquatableTestsInstance()->testEquals($type, $comparee, $expected);
     }
-
 
     public function getEqualsData(): array
     {
-        $typeLookup = TypeLookupSingleton::getInstance();
-
         return [
-
-            // Integer
-            'getByValue(1)->equals( getByName("int") )' => [
-                $typeLookup->getByValue( 1 ),
-                $typeLookup->getByName( 'int' ),
+            'Type(int)->equals(Type(int))' => [
+                new Type(TypeNames::INT),
+                new Type(TypeNames::INT),
                 true
             ],
-            'getByValue(1)->equals( 2 )' => [
-                $typeLookup->getByValue( 1 ),
-                2,
+            'Type(string)->equals(Type(string))' => [
+                new Type(TypeNames::STRING),
+                new Type(TypeNames::STRING),
                 true
             ],
-            'getByValue(1)->equals( "1" )' => [
-                $typeLookup->getByValue( 1 ),
-                "1",
-                false
-            ],
-            'getByValue(1)->equals( getByName("bool") )' => [
-                $typeLookup->getByValue( 1 ),
-                $typeLookup->getByName( 'bool' ),
-                false
-            ],
-            'getByValue(1)->equals( true )' => [
-                $typeLookup->getByValue( 1 ),
-                true,
-                false
-            ],
-
-            // Strings
-            'getByValue( "1" )->equals( getByName("string") )' => [
-                $typeLookup->getByValue( '1' ),
-                $typeLookup->getByName( 'string' ),
+            'Type(null)->equals(Type(null))' => [
+                new Type(TypeNames::NULL),
+                new Type(TypeNames::NULL),
                 true
             ],
-            'getByValue( "1" )->equals( "2" )' => [
-                $typeLookup->getByValue( '1' ),
-                "2",
-                true
-            ],
-            'getByValue( "1" )->equals( 1 )' => [
-                $typeLookup->getByValue( '1' ),
-                1,
+            'Type(int)->equals(Type(string))' => [
+                new Type(TypeNames::INT),
+                new Type(TypeNames::STRING),
                 false
             ],
-            'getByValue( "1" )->equals( getByName( "bool" ) )' => [
-                $typeLookup->getByValue( '1' ),
-                $typeLookup->getByName( 'bool' ),
+            'Type(int)->equals("int")' => [
+                new Type(TypeNames::INT),
+                TypeNames::INT,
                 false
             ],
-            'getByValue( "1" )->equals( true )' => [
-                $typeLookup->getByValue( '1' ),
-                true,
-                false
-            ],
-
-            // Booleans
-            'getByValue( true )->equals( getByName("bool") )' => [
-                $typeLookup->getByValue( true ),
-                $typeLookup->getByName( 'bool' ),
-                true
-            ],
-            'getByValue( true )->equals( false )' => [
-                $typeLookup->getByValue( true ),
-                false,
-                true
-            ],
-            'getByValue( true )->equals( 1 )' => [
-                $typeLookup->getByValue( true ),
+            'Type(int)->equals(1)' => [
+                new Type(TypeNames::INT),
                 1,
                 false
             ]
