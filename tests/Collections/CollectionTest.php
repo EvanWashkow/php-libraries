@@ -8,7 +8,6 @@ use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\IArrayable;
 use PHP\Collections\ICountable;
-use PHP\Collections\IReadOnlyCollection;
 use PHP\Collections\Iteration\IIterable;
 use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;

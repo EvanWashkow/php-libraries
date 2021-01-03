@@ -4,8 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Collections;
 
 use PHP\Collections\ICountable;
-use PHP\Collections\IReadOnlyCollection;
-use PHP\Collections\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**
