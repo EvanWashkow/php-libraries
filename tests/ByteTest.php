@@ -137,7 +137,6 @@ class ByteTest extends TestCase
         $this->getIEquatableTests()->testEquals($byte, $value, $expected);
     }
 
-
     public function getEqualsTestData(): array
     {
         // Test data
