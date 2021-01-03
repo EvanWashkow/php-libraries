@@ -6,8 +6,9 @@ namespace PHP\Tests\Collections;
 use PHP\Byte;
 use PHP\Collections\ByteArray;
 use PHP\Collections\IArrayable;
-use PHP\Collections\IReadOnlyCollection;
+use PHP\Collections\ICountable;
 use PHP\Collections\Iteration\ArrayableIterator;
+use PHP\Collections\Iteration\IIterable;
 use PHP\Interfaces\ICloneable;
 use PHP\Interfaces\IIntegerable;
 use PHP\Interfaces\IStringable;
@@ -47,12 +48,13 @@ class ByteArrayTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            ObjectClass::class          => [ ObjectClass::class ],
-            IArrayable::class           => [ IArrayable::class ],
-            ICloneable::class           => [ ICloneable::class ],
-            IIntegerable::class         => [ IIntegerable::class ],
-            IReadOnlyCollection::class  => [ IReadOnlyCollection::class ],
-            IStringable::class          => [ IStringable::class ]
+            ObjectClass::class  => [ ObjectClass::class ],
+            IArrayable::class   => [ IArrayable::class ],
+            ICloneable::class   => [ ICloneable::class ],
+            ICountable::class   => [ ICountable::class ],
+            IIntegerable::class => [ IIntegerable::class ],
+            IIterable::class    => [ IIterable::class ],
+            IStringable::class  => [ IStringable::class ]
         ];
     }
 
