@@ -34,14 +34,6 @@ class InterfacesTest extends TestCase
             ICountable::class => [
                 ICountable::class,
                 \Countable::class
-            ],
-            IReadOnlyCollection::class . ' extends ' . ICountable::class => [
-                IReadOnlyCollection::class,
-                ICountable::class
-            ],
-            IReadOnlyCollection::class . ' extends ' . IIterable::class => [
-                IReadOnlyCollection::class,
-                IIterable::class
             ]
         ];
     }
