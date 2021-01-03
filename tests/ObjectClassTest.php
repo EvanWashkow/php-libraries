@@ -3,8 +3,9 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests;
 
+use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
-use PHP\Tests\Interfaces\IEquatableTestTrait;
+use PHP\Tests\Interfaces\IEquatableTests;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,11 +14,56 @@ use PHPUnit\Framework\TestCase;
 class ObjectClassTest extends TestCase
 {
 
-    /**
-     * Define test data for IEquatableTestTrait
-     */
-    use IEquatableTestTrait;
 
+    /**
+     * Test hash() return value
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param ObjectClass $objectClass
+     * @param ByteArray $byteArray
+     * @param bool $expected
+     */
+    public function testHash(ObjectClass $objectClass, ByteArray $byteArray, bool $expected): void
+    {
+        $this->getIEquatableTests()->testHash($objectClass, $byteArray, $expected);
+    }
+
+    public function getHashTestData(): array
+    {
+        // Objects
+        $o1 = $this->createObjectClass();
+        $o2 = $this->createObjectClass();
+
+        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
+        $o1->hash();
+        $o3 = clone $o1;
+
+        // Test data
+        return
+            [
+                'o1, o1'       => [ $o1, $o1->hash(), true ],
+                'o1, o2'       => [ $o1, $o2->hash(), false ],
+
+                // Cloning an Object Class should clear its hash
+                'o1, clone o1' => [ $o1, $o3->hash(), false ]
+            ];
+    }
+
+
+    /**
+     * Test equals() return value
+     *
+     * @dataProvider getEqualsTestData
+     *
+     * @param ObjectClass $objectClass
+     * @param $value
+     * @param bool $expected
+     */
+    public function testEquals(ObjectClass $objectClass, $value, bool $expected): void
+    {
+        $this->getIEquatableTests()->testEquals($objectClass, $value, $expected);
+    }
 
     public function getEqualsTestData(): array
     {
@@ -35,27 +81,18 @@ class ObjectClassTest extends TestCase
     }
 
 
-    public function getHashTestData(): array
+    /**
+     * Ensure hash() and equals() behave consistently
+     *
+     * @dataProvider getEqualsAndHashConsistencyTestData
+     *
+     * @param ObjectClass $objectClass1
+     * @param ObjectClass $objectClass2
+     */
+    public function testEqualsAndHashConsistency(ObjectClass $objectClass1, ObjectClass $objectClass2): void
     {
-        // Objects
-        $o1 = $this->createObjectClass();
-        $o2 = $this->createObjectClass();
-
-        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
-        $o1->hash();
-        $o3 = clone $o1;
-
-        // Test data
-        return
-        [
-            'o1, o1'       => [ $o1, $o1->hash(), true ],
-            'o1, o2'       => [ $o1, $o2->hash(), false ],
-
-            // Cloning an Object Class should clear its hash
-            'o1, clone o1' => [ $o1, $o3->hash(), false ]
-        ];
+        $this->getIEquatableTests()->testEqualsAndHashConsistency($objectClass1, $objectClass2);
     }
-
 
     public function getEqualsAndHashConsistencyTestData(): array
     {
@@ -63,6 +100,21 @@ class ObjectClassTest extends TestCase
         return [
             'o1' => [ $o1, $o1 ]
         ];
+    }
+
+
+    /**
+     * Retrieve IEquatable Tests for this Test Case
+     * @return IEquatableTests
+     */
+    private function getIEquatableTests(): IEquatableTests
+    {
+        static $iequatableTests = null;
+        if (null === $iequatableTests)
+        {
+            $iequatableTests = new IEquatableTests($this);
+        }
+        return $iequatableTests;
     }
 
 

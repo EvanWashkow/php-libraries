@@ -10,12 +10,11 @@ use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
 use PHP\Enums\StringEnum;
 use PHP\ObjectClass;
-use PHP\Serialization\PHPSerializer;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
-use PHP\Tests\Interfaces\IEquatableTestTrait;
+use PHP\Tests\Interfaces\IEquatableTests;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -208,16 +207,37 @@ class EnumTest extends TestCase
 
     /*******************************************************************************************************************
      *                                                   IEquatable Tests
-     *******************************************************************************************************************/
-
-    use IEquatableTestTrait;
+     ******************************************************************************************************************/
 
 
-    public function getEqualsTestData(): array
+    /**
+     * Retrieve IEquatable Tests for this Test Case
+     * @return IEquatableTests
+     */
+    private function getIEquatableTests(): IEquatableTests
     {
-        return $this->getEnumAndPrimitiveComparisonData();
+        static $iequatableTests = null;
+        if (null === $iequatableTests)
+        {
+            $iequatableTests = new IEquatableTests($this);
+        }
+        return $iequatableTests;
     }
 
+
+    /**
+     * Test hash() return value
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param Enum $enum
+     * @param ByteArray $byteArray
+     * @param bool $expected
+     */
+    public function testHash(Enum $enum, ByteArray $byteArray, bool $expected): void
+    {
+        $this->getIEquatableTests()->testHash($enum, $byteArray, $expected);
+    }
 
     public function getHashTestData(): array
     {
@@ -264,6 +284,34 @@ class EnumTest extends TestCase
         ];
     }
 
+
+    /**
+     * Test equals() return value
+     *
+     * @dataProvider getEnumAndPrimitiveComparisonData
+     *
+     * @param Enum $enum
+     * @param $value
+     * @param bool $expected
+     */
+    public function testEquals(Enum $enum, $value, bool $expected): void
+    {
+        $this->getIEquatableTests()->testEquals($enum, $value, $expected);
+    }
+
+
+    /**
+     * Ensure hash() and equals() are consistent
+     *
+     * @dataProvider getEqualsAndHashConsistencyTestData
+     *
+     * @param Enum $enum1
+     * @param Enum $enum2
+     */
+    public function testEqualsAndHashConsistency(Enum $enum1, Enum $enum2): void
+    {
+        $this->getIEquatableTests()->testEqualsAndHashConsistency($enum1, $enum2);
+    }
 
     public function getEqualsAndHashConsistencyTestData(): array
     {

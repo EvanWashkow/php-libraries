@@ -7,7 +7,7 @@ use PHP\Byte;
 use PHP\Collections\ByteArray;
 use PHP\Interfaces\IIntegerable;
 use PHP\ObjectClass;
-use PHP\Tests\Interfaces\IEquatableTestTrait;
+use PHP\Tests\Interfaces\IEquatableTests;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -80,8 +80,62 @@ class ByteTest extends TestCase
     *                                                   IEquatable Tests
     *******************************************************************************************************************/
 
-    use IEquatableTestTrait;
 
+    /**
+     * Retrieve IEquatable Tests for this Test Case
+     * @return IEquatableTests
+     */
+    private function getIEquatableTests(): IEquatableTests
+    {
+        static $iequatableTests = null;
+        if (null === $iequatableTests)
+        {
+            $iequatableTests = new IEquatableTests($this);
+        }
+        return $iequatableTests;
+    }
+
+
+    /**
+     * Test hash()
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param Byte $byte
+     * @param ByteArray $byteArray
+     * @param bool $expected
+     */
+    public function testHash(Byte $byte, ByteArray $byteArray, bool $expected): void
+    {
+        $this->getIEquatableTests()->testHash($byte, $byteArray, $expected);
+    }
+
+    public function getHashTestData(): array
+    {
+        $b0   = new Byte( 0 );
+        $b255 = new Byte( 255 );
+        return [
+            'Byte( 0 )'    => [ $b0,   new ByteArray([ $b0 ]),   true ],
+            '!Byte( 0 )'   => [ $b0,   new ByteArray([ $b255 ]), false ],
+            'Byte( 255 )'  => [ $b255, new ByteArray([ $b255 ]), true ],
+            '!Byte( 255 )' => [ $b255, new ByteArray([ $b0 ]),   false ]
+        ];
+    }
+
+
+    /**
+     * Test equals()
+     *
+     * @dataProvider getEqualsTestData
+     *
+     * @param Byte $byte
+     * @param $value
+     * @param bool $expected
+     */
+    public function testEquals(Byte $byte, $value, bool $expected): void
+    {
+        $this->getIEquatableTests()->testEquals($byte, $value, $expected);
+    }
 
     public function getEqualsTestData(): array
     {
@@ -117,18 +171,18 @@ class ByteTest extends TestCase
     }
 
 
-    public function getHashTestData(): array
+    /**
+     * Test that hash() and equals() are consistent
+     *
+     * @dataProvider getEqualsAndHashConsistencyTestData
+     *
+     * @param Byte $byte1
+     * @param Byte $byte2
+     */
+    public function testEqualsAndHashConsistency(Byte $byte1, Byte $byte2): void
     {
-        $b0   = new Byte( 0 );
-        $b255 = new Byte( 255 );
-        return [
-            'Byte( 0 )'    => [ $b0,   new ByteArray([ $b0 ]),   true ],
-            '!Byte( 0 )'   => [ $b0,   new ByteArray([ $b255 ]), false ],
-            'Byte( 255 )'  => [ $b255, new ByteArray([ $b255 ]), true ],
-            '!Byte( 255 )' => [ $b255, new ByteArray([ $b0 ]),   false ]
-        ];
+        $this->getIEquatableTests()->testEqualsAndHashConsistency($byte1, $byte2);
     }
-
 
     public function getEqualsAndHashConsistencyTestData(): array
     {

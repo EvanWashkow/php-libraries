@@ -7,7 +7,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\Strings\Hexadecimal;
 use PHP\Interfaces\IStringable;
 use PHP\ObjectClass;
-use PHP\Tests\Interfaces\IEquatableTestTrait;
+use PHP\Tests\Interfaces\IEquatableTests;
 use PHPUnit\Framework\TestCase;
 
 class HexadecimalTest extends TestCase
@@ -107,10 +107,73 @@ class HexadecimalTest extends TestCase
 
     /*******************************************************************************************************************
      *                                                   IEquatable Tests
-     *******************************************************************************************************************/
+     ******************************************************************************************************************/
 
-    use IEquatableTestTrait;
 
+    /**
+     * Retrieve IEquatable Tests for this Test Case
+     * @return IEquatableTests
+     */
+    private function getIEquatableTests(): IEquatableTests
+    {
+        static $iequatableTests = null;
+        if (null === $iequatableTests)
+        {
+            $iequatableTests = new IEquatableTests($this);
+        }
+        return $iequatableTests;
+    }
+
+
+    /**
+     * Test hash() return value
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param Hexadecimal $hexadecimal
+     * @param ByteArray $byteArray
+     * @param bool $expected
+     */
+    public function testHash(Hexadecimal $hexadecimal, ByteArray $byteArray, bool $expected): void
+    {
+        $this->getIEquatableTests()->testHash($hexadecimal, $byteArray, $expected);
+    }
+
+    public function getHashTestData(): array
+    {
+        $byteArray00 = new ByteArray(0x00, 2);
+        $byteArrayaa = new ByteArray(0xaa, 2);
+        $byteArrayff = new ByteArray(0xff, 2);
+        return [
+            'Hexadecimal(0x00)->hash() === ByteArray(0xff)' => [
+                new Hexadecimal($byteArray00), $byteArrayff, false
+            ],
+            'Hexadecimal(0x00)->hash() === ByteArray(0x00)' => [
+                new Hexadecimal($byteArray00), $byteArray00, true
+            ],
+            'Hexadecimal(0xaa)->hash() === ByteArray(0x00)' => [
+                new Hexadecimal($byteArrayaa), $byteArray00, false
+            ],
+            'Hexadecimal(0xaa)->hash() === ByteArray(0xaa)' => [
+                new Hexadecimal($byteArrayaa), $byteArrayaa, true
+            ]
+        ];
+    }
+
+
+    /**
+     * Test equals() return value
+     *
+     * @dataProvider getEqualsTestData
+     *
+     * @param Hexadecimal $hexadecimal
+     * @param $value
+     * @param bool $expected
+     */
+    public function testEquals(Hexadecimal $hexadecimal, $value, bool $expected): void
+    {
+        $this->getIEquatableTests()->testEquals($hexadecimal, $value, $expected);
+    }
 
     public function getEqualsTestData(): array
     {
@@ -141,27 +204,18 @@ class HexadecimalTest extends TestCase
     }
 
 
-    public function getHashTestData(): array
+    /**
+     * Ensure hash() and equals() are consistent
+     *
+     * @dataProvider getEqualsAndHashConsistencyTestData
+     *
+     * @param Hexadecimal $hexadecimal1
+     * @param Hexadecimal $hexadecimal2
+     */
+    public function testEqualsAndHashConsistency(Hexadecimal $hexadecimal1, Hexadecimal $hexadecimal2): void
     {
-        $byteArray00 = new ByteArray(0x00, 2);
-        $byteArrayaa = new ByteArray(0xaa, 2);
-        $byteArrayff = new ByteArray(0xff, 2);
-        return [
-            'Hexadecimal(0x00)->hash() === ByteArray(0xff)' => [
-                new Hexadecimal($byteArray00), $byteArrayff, false
-            ],
-            'Hexadecimal(0x00)->hash() === ByteArray(0x00)' => [
-                new Hexadecimal($byteArray00), $byteArray00, true
-            ],
-            'Hexadecimal(0xaa)->hash() === ByteArray(0x00)' => [
-                new Hexadecimal($byteArrayaa), $byteArray00, false
-            ],
-            'Hexadecimal(0xaa)->hash() === ByteArray(0xaa)' => [
-                new Hexadecimal($byteArrayaa), $byteArrayaa, true
-            ]
-        ];
+        $this->getIEquatableTests()->testEqualsAndHashConsistency($hexadecimal1, $hexadecimal2);
     }
-
 
     public function getEqualsAndHashConsistencyTestData(): array
     {
