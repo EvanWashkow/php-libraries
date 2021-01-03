@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Collections;
 
+use PHP\Collections\Iteration\IIterable;
 use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\ICloneable;
 use PHP\ObjectClass;
@@ -14,7 +15,7 @@ use PHP\Types\TypeNames;
 /**
  * Defines an iterable set of mutable, key-value pairs
  */
-abstract class Collection extends ObjectClass implements IArrayable, ICloneable, IReadOnlyCollection
+abstract class Collection extends ObjectClass implements IArrayable, ICloneable, ICountable, IIterable
 {
 
 

@@ -4,8 +4,6 @@ declare( strict_types = 1 );
 namespace PHP\Tests\Collections;
 
 use PHP\Collections\ICountable;
-use PHP\Collections\IReadOnlyCollection;
-use PHP\Collections\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -34,14 +32,6 @@ class InterfacesTest extends TestCase
             ICountable::class => [
                 ICountable::class,
                 \Countable::class
-            ],
-            IReadOnlyCollection::class . ' extends ' . ICountable::class => [
-                IReadOnlyCollection::class,
-                ICountable::class
-            ],
-            IReadOnlyCollection::class . ' extends ' . IIterable::class => [
-                IReadOnlyCollection::class,
-                IIterable::class
             ]
         ];
     }

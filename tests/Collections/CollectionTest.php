@@ -7,7 +7,8 @@ use PHP\Cache;
 use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 use PHP\Collections\IArrayable;
-use PHP\Collections\IReadOnlyCollection;
+use PHP\Collections\ICountable;
+use PHP\Collections\Iteration\IIterable;
 use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
 use PHP\Interfaces\ICloneable;
@@ -46,9 +47,10 @@ class CollectionTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            IArrayable::class          => [ IArrayable::class ],
-            ICloneable::class          => [ ICloneable::class ],
-            IReadOnlyCollection::class => [ IReadOnlyCollection::class ]
+            IArrayable::class => [ IArrayable::class ],
+            ICloneable::class => [ ICloneable::class ],
+            ICountable::class => [ ICountable::class ],
+            IIterable::class  => [ IIterable::class ]
         ];
     }
 
