@@ -34,7 +34,6 @@ class ObjectClassTest extends TestCase
         // Objects
         $o1 = $this->createObjectClass();
         $o2 = $this->createObjectClass();
-        $o3 = clone $o1;
 
         // Hashes
         $o1Hash = new ByteArray(spl_object_hash($o1));
@@ -42,9 +41,9 @@ class ObjectClassTest extends TestCase
 
         // Test data
         return [
-            'o1, o1'       => [ $o1, $o1Hash,     true ],
-            'o1, o2'       => [ $o1, $o2Hash,     false ],
-            'o1, clone o1' => [ $o1, $o3->hash(), false ]
+            'o1, o1'       => [ $o1, $o1Hash,             true ],
+            'o1, o2'       => [ $o1, $o2Hash,             false ],
+            'o1, clone o1' => [ $o1, (clone $o1)->hash(), false ]
         ];
     }
 
@@ -68,13 +67,12 @@ class ObjectClassTest extends TestCase
         // Objects
         $o1 = $this->createObjectClass();
         $o2 = $this->createObjectClass();
-        $o3 = clone $o1;
 
         // Test Data
         return [
-            'o1, o1' => [ $o1, $o1, true ],
-            'o1, o2' => [ $o1, $o2, false ],
-            'o1, o3' => [ $o1, $o3, false ]
+            'o1, o1' => [ $o1, $o1,       true ],
+            'o1, o2' => [ $o1, $o2,       false ],
+            'o1, o3' => [ $o1, clone $o1, false ]
         ];
     }
 
