@@ -102,9 +102,9 @@ abstract class Enum extends ObjectClass
      * @throws \DomainException If the value is not a constant of this class
      * @throws MalformedEnumException If an Enum constant is not public
      **/
-    public function __construct( $value )
+    public function __construct($value)
     {
-        $this->value = $this->sanitizeValue( $value );
+        $this->value = $this->sanitizeValue($value);
     }
 
 
