@@ -41,11 +41,7 @@ abstract class ObjectClass implements IEquatable
     }
 
 
-    /**
-     * @final The hash is only generated once. Successive calls to this function will always return the same hash.
-     * (@see \PHP\Interfaces\IEquatable::hash()). To change the hash, override createHash().
-     */
-    final public function hash(): ByteArray
+    public function hash(): ByteArray
     {
         if ( self::NO_HASH === $this->hash ) {
             $this->hash = $this->createHash();
