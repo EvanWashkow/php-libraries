@@ -192,6 +192,12 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
     }
 
 
+    public function hash(): ByteArray
+    {
+        return $this;
+    }
+
+
     public function equals($value): bool
     {
         return (
@@ -230,12 +236,6 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
     {
         $paddedBytes = str_pad( $this->bytes, 8, self::getNullChar() );
         return unpack( self::INT_FORMAT, $paddedBytes )[ 1 ];
-    }
-
-
-    protected function createHash(): ByteArray
-    {
-        return $this;
     }
 
 
