@@ -33,7 +33,8 @@ class Byte extends ObjectClass implements IIntegerable
     /**
      * Determine if this Byte is equal to the given value
      * 
-     * @param int|Byte $value The value to compare this Byte to 
+     * @param int|Byte $value The value to compare this Byte to
+     * @return bool
      */
     public function equals( $value ): bool
     {
