@@ -17,14 +17,14 @@ abstract class ObjectClass implements IEquatable
 {
 
 
-    public function equals( $value ): bool
-    {
-        return $this === $value;
-    }
-
-
     public function hash(): ByteArray
     {
         return new ByteArray(spl_object_hash($this));
+    }
+
+
+    public function equals( $value ): bool
+    {
+        return $this === $value;
     }
 }
