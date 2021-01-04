@@ -34,20 +34,18 @@ class ObjectClassTest extends TestCase
         // Objects
         $o1 = $this->createObjectClass();
         $o2 = $this->createObjectClass();
-
-        // Seed the hash of o1, and clone o1 as o3. Cloning an object should clear its hash.
-        $o1->hash();
         $o3 = clone $o1;
 
-        // Test data
-        return
-            [
-                'o1, o1'       => [ $o1, $o1->hash(), true ],
-                'o1, o2'       => [ $o1, $o2->hash(), false ],
+        // Hashes
+        $o1Hash = new ByteArray(spl_object_hash($o1));
+        $o2Hash = new ByteArray(spl_object_hash($o2));
 
-                // Cloning an Object Class should clear its hash
-                'o1, clone o1' => [ $o1, $o3->hash(), false ]
-            ];
+        // Test data
+        return [
+            'o1, o1'       => [ $o1, $o1Hash,     true ],
+            'o1, o2'       => [ $o1, $o2Hash,     false ],
+            'o1, clone o1' => [ $o1, $o3->hash(), false ]
+        ];
     }
 
 
