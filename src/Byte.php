@@ -30,6 +30,12 @@ class Byte extends ObjectClass implements IIntegerable
     }
 
 
+    public function hash(): ByteArray
+    {
+        return new ByteArray([ $this ]);
+    }
+
+
     /**
      * Determine if this Byte is equal to the given value
      * 
@@ -50,11 +56,5 @@ class Byte extends ObjectClass implements IIntegerable
     public function toInt(): int
     {
         return $this->byte;
-    }
-
-
-    protected function createHash(): ByteArray
-    {
-        return new ByteArray([ $this ]);
     }
 }
