@@ -26,10 +26,10 @@ class Hexadecimal extends ObjectClass implements IStringable
      * @param ByteArray $byteArray The array of bytes to be converted into Hexadecimal
      * @return void
      */
-    public function __construct( ByteArray $byteArray )
+    public function __construct(ByteArray $byteArray)
     {
         $this->byteArray = $byteArray;
-        $this->string = bin2hex( $byteArray->__toString() );
+        $this->string = bin2hex($byteArray->__toString());
     }
 
 
