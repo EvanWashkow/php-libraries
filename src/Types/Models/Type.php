@@ -44,18 +44,18 @@ class Type extends ObjectClass
      * @param string[] $aliases Alternate names for this type
      * @throws \DomainException
      */
-    public function __construct( string $name, array $aliases = [] )
+    public function __construct(string $name, array $aliases = [])
     {
         // Set name
-        if ( '' === ( $name = trim( $name ) )) {
+        if ( '' === ( $name = trim($name) )) {
             throw new \DomainException( 'Type name cannot be empty' );
         }
         
         // Set properties
         $this->name       = $name;
         $this->namesArray = $aliases;
-        if ( !in_array( $name, $this->namesArray )) {
-            array_splice( $this->namesArray, 0, 0, $name );
+        if ( !in_array($name, $this->namesArray)) {
+            array_splice($this->namesArray, 0, 0, $name);
         }
         $this->namesSequence = null;
     }
