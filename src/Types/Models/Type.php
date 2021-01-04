@@ -104,6 +104,12 @@ class Type extends ObjectClass
     *******************************************************************************************************************/
 
 
+    public function hash(): ByteArray
+    {
+        return new ByteArray($this->getName());
+    }
+
+
     /**
      * Determines Type equality
      *
@@ -174,11 +180,5 @@ class Type extends ObjectClass
     public function isValueOfType($value): bool
     {
         return is($value, $this->getName());
-    }
-
-
-    protected function createHash(): ByteArray
-    {
-        return new ByteArray($this->getName());
     }
 }
