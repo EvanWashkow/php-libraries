@@ -26,7 +26,8 @@ class PHPSerializerTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            ISerializer::class => [ISerializer::class]
+            ISerializer::class   => [ISerializer::class],
+            IDeserializer::class => [IDeserializer::class]
         ];
     }
 
