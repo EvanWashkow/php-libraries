@@ -20,14 +20,5 @@ interface ISerializer
      * @param mixed $value The value to serialize
      * @return ByteArray The serialized value
      */
-    public function serialize( $value ): ByteArray;
-
-
-    /**
-     * Deserializes a Byte Array to its corresponding value
-     * 
-     * @param ByteArray $byteArray The serialized value
-     * @return mixed The deserialized value
-     */
-    public function deserialize( ByteArray $byteArray );
+    public function serialize($value): ByteArray;
 }
