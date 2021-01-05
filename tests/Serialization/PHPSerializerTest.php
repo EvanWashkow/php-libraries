@@ -15,13 +15,19 @@ class PHPSerializerTest extends TestCase
 
     /**
      * Test Inheritance
+     *
+     * @dataProvider getInheritanceTestData
      */
-    public function testInheritance()
+    public function testInheritance(string $class): void
     {
-        $this->assertInstanceOf(
-            ISerializer::class,
-            new PHPSerializer()
-        );
+        $this->assertInstanceOf($class, new PHPSerializer());
+    }
+
+    public function getInheritanceTestData(): array
+    {
+        return [
+            ISerializer::class => [ISerializer::class]
+        ];
     }
 
 
