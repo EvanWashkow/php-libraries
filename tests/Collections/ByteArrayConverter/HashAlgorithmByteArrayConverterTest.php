@@ -11,7 +11,7 @@ use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\HashAlgorithm\IHashAlgorithm;
 use PHP\HashAlgorithm\MD5;
 use PHP\HashAlgorithm\SHA1;
-use PHP\Serialization\PHPSerializer;
+use PHP\Serialization\PHPSerialization;
 
 /**
  * Tests HashAlgorithmByteArrayConverter
@@ -28,7 +28,7 @@ class HashAlgorithmByteArrayConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(
             ByteArrayConverterDecorator::class,
             new HashAlgorithmByteArrayConverter(
-                new SerializationByteArrayConverter(new PHPSerializer()),
+                new SerializationByteArrayConverter(new PHPSerialization()),
                 new MD5()
             ),
             HashAlgorithmByteArrayConverter::class . ' is not an instance of '. ByteArrayConverterDecorator::class
@@ -63,7 +63,7 @@ class HashAlgorithmByteArrayConverterTest extends \PHPUnit\Framework\TestCase
     public function getConvertTestData(): array
     {
         // Byte Array Converters
-        $phpSerializeByteArrayConverter = new SerializationByteArrayConverter(new PHPSerializer());
+        $phpSerializeByteArrayConverter = new SerializationByteArrayConverter(new PHPSerialization());
         $mockByteArrayConverter = (function() {
             $mock = $this->createMock(IByteArrayConverter::class);
             $mock->method('convert')->willReturn(new ByteArray(1));

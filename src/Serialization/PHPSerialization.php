@@ -8,7 +8,7 @@ use PHP\Collections\ByteArray;
 /**
  * Serializer implementation that uses PHP's serialize() function
  */
-class PHPSerializer implements ISerializer
+final class PHPSerialization implements IDeserializer, ISerializer
 {
 
 

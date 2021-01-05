@@ -7,7 +7,7 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Serialization\ISerializer;
-use PHP\Serialization\PHPSerializer;
+use PHP\Serialization\PHPSerialization;
 
 /**
  * Tests for SerializationByteArrayConverter
@@ -23,7 +23,7 @@ class SerializationByteArrayConverterTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             IByteArrayConverter::class,
-            new SerializationByteArrayConverter(new PHPSerializer()),
+            new SerializationByteArrayConverter(new PHPSerialization()),
             SerializationByteArrayConverter::class . ' is not an instance of ' . IByteArrayConverter::class
         );
     }
@@ -50,7 +50,7 @@ class SerializationByteArrayConverterTest extends \PHPUnit\Framework\TestCase
 
     public function getConvertData(): array
     {
-        $phpSerializer = new PHPSerializer();
+        $phpSerializer = new PHPSerialization();
         return [
             'PHPSerializer, 1' => [
                 $phpSerializer, 1

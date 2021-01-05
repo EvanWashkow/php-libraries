@@ -9,19 +9,26 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests the PHPSerializer class
  */
-class PHPSerializerTest extends TestCase
+class PHPSerializationTest extends TestCase
 {
 
 
     /**
      * Test Inheritance
+     *
+     * @dataProvider getInheritanceTestData
      */
-    public function testInheritance()
+    public function testInheritance(string $class): void
     {
-        $this->assertInstanceOf(
-            ISerializer::class,
-            new PHPSerializer()
-        );
+        $this->assertInstanceOf($class, new PHPSerialization());
+    }
+
+    public function getInheritanceTestData(): array
+    {
+        return [
+            IDeserializer::class => [IDeserializer::class],
+            ISerializer::class   => [ISerializer::class]
+        ];
     }
 
 
@@ -34,7 +41,7 @@ class PHPSerializerTest extends TestCase
     {
         $this->assertEquals(
             $byteArrayString,
-            ( new PHPSerializer() )->serialize( $value )->__toString(),
+            ( new PHPSerialization() )->serialize( $value )->__toString(),
             'PHPSerializer->serialize() did not return the expected value.'
         );
     }
@@ -49,7 +56,7 @@ class PHPSerializerTest extends TestCase
     {
         $this->assertEquals(
             $value,
-            ( new PHPSerializer() )->deserialize( new ByteArray( $byteArrayString ) ),
+            ( new PHPSerialization() )->deserialize( new ByteArray( $byteArrayString ) ),
             'PHPSerializer->deserialize() did not return the expected value.'
         );
     }

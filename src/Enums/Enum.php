@@ -9,7 +9,7 @@ use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
 use PHP\ObjectClass;
-use PHP\Serialization\PHPSerializer;
+use PHP\Serialization\PHPSerialization;
 use ReflectionClass;
 
 /**
@@ -143,7 +143,7 @@ abstract class Enum extends ObjectClass
         static $converter = null;
         if ($converter === null ) {
             $converter = new PrimitiveValueByteArrayConverter(
-                new SerializationByteArrayConverter(new PHPSerializer())
+                new SerializationByteArrayConverter(new PHPSerialization())
             );
         }
         return $converter->convert($this->getValue());
