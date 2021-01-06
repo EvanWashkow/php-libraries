@@ -8,6 +8,7 @@ use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
+use PHP\Hashing\Hasher\Hasher;
 use PHP\ObjectClass;
 use PHP\Serialization\PHPSerialization;
 use ReflectionClass;
@@ -140,13 +141,7 @@ abstract class Enum extends ObjectClass
      */
     public function hash(): ByteArray
     {
-        static $converter = null;
-        if ($converter === null ) {
-            $converter = new PrimitiveValueByteArrayConverter(
-                new SerializationByteArrayConverter(new PHPSerialization())
-            );
-        }
-        return $converter->convert($this->getValue());
+        return (new Hasher())->hash($this->getValue());
     }
 
 

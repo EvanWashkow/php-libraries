@@ -9,6 +9,7 @@ use PHP\Enums\BitMapEnum;
 use PHP\Enums\Enum;
 use PHP\Enums\IntegerEnum;
 use PHP\Enums\StringEnum;
+use PHP\Hashing\Hasher\Hasher;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
@@ -241,46 +242,26 @@ class EnumTest extends TestCase
 
     public function getHashTestData(): array
     {
-        // Enums
-        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
-        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
-        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
-        $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
-
-        // ByteArrays
-        $byteArrayOneFloat  = new ByteArray(GoodEnum::ONE_FLOAT);
-        $byteArrayOneInt    = new ByteArray(GoodEnum::ONE_INTEGER);
-        $byteArrayOneString = new ByteArray(GoodEnum::ONE_STRING);
+        // Hasher
+        $hasher = new Hasher();
 
         // Test data
         return [
-            // Ensure that primitive values are returned as their primitive counterparts
-            'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_FLOAT)' => [
-                $enumOneFloat, $byteArrayOneFloat, true
+            'GoodEnum(ONE_FLOAT)' => [
+                new GoodEnum(GoodEnum::ONE_FLOAT),
+                $hasher->hash(GoodEnum::ONE_FLOAT),
+                true
             ],
-            'GoodEnum(GoodEnum::ONE_FLOAT)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
-                $enumOneFloat, $byteArrayOneInt, false
+            'GoodEnum(ONE_INTEGER)' => [
+                new GoodEnum(GoodEnum::ONE_INTEGER),
+                $hasher->hash(GoodEnum::ONE_INTEGER),
+                true
             ],
-            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_INTEGER)' => [
-                $enumOneInt, $byteArrayOneInt, true
-            ],
-            'GoodEnum(GoodEnum::ONE_INTEGER)->hash() === ByteArray(GoodEnum::ONE_STRING)' => [
-                $enumOneInt, $byteArrayOneString, false
-            ],
-            'GoodEnum(GoodEnum::ONE_STRING)->hash() === (clone self)->hash()' => [
-                $enumOneString, (clone $enumOneString)->hash(), true
-            ],
-            'GoodEnum(GoodEnum::ONE_STRING)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
-                $enumOneString, $enumOneInt->hash(), false
-            ],
-
-            // Ensure that non-primitive values' hashes match as expected
-            'GoodEnum(GoodEnum::ARRAY)->hash() === (clone self)->hash()' => [
-                $enumArray, (clone $enumArray)->hash(), true
-            ],
-            'GoodEnum(GoodEnum::ARRAY)->hash() === GoodEnum(GoodEnum::ONE_INTEGER)->hash()' => [
-                $enumArray, $enumOneInt->hash(), false
-            ],
+            'GoodEnum(ONE_STRING)' => [
+                new GoodEnum(GoodEnum::ONE_STRING),
+                $hasher->hash(GoodEnum::ONE_STRING),
+                true
+            ]
         ];
     }
 
