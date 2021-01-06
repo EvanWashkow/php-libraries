@@ -15,7 +15,7 @@ interface IHasher
     /**
      * Compute the hash sum for a value, regardless of its type.
      *
-     * @param $value The value to compute the hash sum of
+     * @param mixed $value The value to compute the hash sum of
      * @return ByteArray
      */
     public function hash($value): ByteArray;
