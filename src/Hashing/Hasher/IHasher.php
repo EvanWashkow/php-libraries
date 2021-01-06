@@ -6,7 +6,7 @@ namespace PHP\Hashing\Hasher;
 use PHP\Collections\ByteArray;
 
 /**
- * Describes a class that computes the hash sum for any value, regardless of type.
+ * Describes a class that computes the hash sum for a value, regardless of type.
  */
 interface IHasher
 {
