@@ -4,12 +4,10 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\ByteArray;
-use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
-use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
+use PHP\Hashing\Hasher\Hasher;
 use PHP\ObjectClass;
-use PHP\Serialization\PHPSerialization;
 use ReflectionClass;
 
 /**
@@ -134,19 +132,9 @@ abstract class Enum extends ObjectClass
     *******************************************************************************************************************/
 
 
-    /**
-     * @internal If not a primitive value, this will serialize the value. This would possibly allow future
-     * implementations to be equals() to array values, and would also allow them to be retrieved, thus, from Collections
-     */
     public function hash(): ByteArray
     {
-        static $converter = null;
-        if ($converter === null ) {
-            $converter = new PrimitiveValueByteArrayConverter(
-                new SerializationByteArrayConverter(new PHPSerialization())
-            );
-        }
-        return $converter->convert($this->getValue());
+        return (new Hasher())->hash($this->getValue());
     }
 
 
