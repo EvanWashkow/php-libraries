@@ -4,13 +4,10 @@ declare(strict_types=1);
 namespace PHP\Enums;
 
 use PHP\Collections\ByteArray;
-use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
 use PHP\Collections\Dictionary;
 use PHP\Enums\Exceptions\MalformedEnumException;
-use PHP\Collections\ByteArrayConverter\PrimitiveValueByteArrayConverter;
 use PHP\Hashing\Hasher\Hasher;
 use PHP\ObjectClass;
-use PHP\Serialization\PHPSerialization;
 use ReflectionClass;
 
 /**
@@ -134,7 +131,7 @@ abstract class Enum extends ObjectClass
     *                                                      MAIN
     *******************************************************************************************************************/
 
-    
+
     public function hash(): ByteArray
     {
         return (new Hasher())->hash($this->getValue());
