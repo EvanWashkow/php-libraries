@@ -134,11 +134,7 @@ abstract class Enum extends ObjectClass
     *                                                      MAIN
     *******************************************************************************************************************/
 
-
-    /**
-     * @internal If not a primitive value, this will serialize the value. This would possibly allow future
-     * implementations to be equals() to array values, and would also allow them to be retrieved, thus, from Collections
-     */
+    
     public function hash(): ByteArray
     {
         return (new Hasher())->hash($this->getValue());
