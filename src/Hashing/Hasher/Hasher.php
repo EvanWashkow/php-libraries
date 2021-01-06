@@ -5,6 +5,7 @@ namespace PHP\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
 use PHP\HashAlgorithm\SHA256;
+use PHP\Interfaces\IEquatable;
 use PHP\Serialization\PHPSerialization;
 
 /**
@@ -28,6 +29,10 @@ class Hasher implements IHasher
         elseif (is_float($value) || is_int($value) || is_string($value))
         {
             $hash = new ByteArray($value);
+        }
+        elseif ($value instanceof IEquatable)
+        {
+            $hash = $value->hash();
         }
         elseif (is_object($value))
         {
