@@ -6,8 +6,8 @@
             "src/Functions.php"
         ],
         "psr-4": {
-            "PHP\\": "src/",
-            "PHP\\Tests\\": "tests/"
+            "PHP\\": "src-php/",
+            "PHP\\Tests\\": "tests-php/"
         }
     },
     "require": {
