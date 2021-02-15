@@ -9,11 +9,12 @@ use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
 /**
  * Defines the SHA512 Hash Algorithm
  */
-class SHA512 implements IHashAlgorithm
+final class SHA512 implements IHashAlgorithm
 {
-
-    public function hash( ByteArray $byteArray ): ByteArray
+    public function hash(ByteArray $byteArray): ByteArray
     {
-        return new ByteArray( hash( 'sha512', $byteArray->__toString(), true ) );
+        return new ByteArray(
+            hash('sha512', $byteArray->__toString(), true)
+        );
     }
 }

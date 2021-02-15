@@ -8,11 +8,12 @@ use PHP\Collections\ByteArray;
 /**
  * Defines the MD5 Hash Algorithm
  */
-class MD5 implements IHashAlgorithm
+final class MD5 implements IHashAlgorithm
 {
-
-    public function hash( ByteArray $byteArray ): ByteArray
+    public function hash(ByteArray $byteArray): ByteArray
     {
-        return new ByteArray( md5( $byteArray->__toString(), true ) );
+        return new ByteArray(
+            md5($byteArray->__toString(), true)
+        );
     }
 }

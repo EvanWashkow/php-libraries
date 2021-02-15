@@ -8,11 +8,12 @@ use PHP\Collections\ByteArray;
 /**
  * Defines the SHA384 Hash Algorithm
  */
-class SHA384 implements IHashAlgorithm
+final class SHA384 implements IHashAlgorithm
 {
-
-    public function hash( ByteArray $byteArray ): ByteArray
+    public function hash(ByteArray $byteArray): ByteArray
     {
-        return new ByteArray( hash( 'sha384', $byteArray->__toString(), true ) );
+        return new ByteArray(
+            hash('sha384', $byteArray->__toString(), true)
+        );
     }
 }
