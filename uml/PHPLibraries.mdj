@@ -248,6 +248,94 @@
 							"ownedElements": [
 								{
 									"_type": "UMLClass",
+									"_id": "AAAAAAF3o0nnBYBVhaE=",
+									"_parent": {
+										"$ref": "AAAAAAF3o0S6lH8bTj8="
+									},
+									"name": "AliasedType",
+									"ownedElements": [
+										{
+											"_type": "UMLGeneralization",
+											"_id": "AAAAAAF3o044BYFdH08=",
+											"_parent": {
+												"$ref": "AAAAAAF3o0nnBYBVhaE="
+											},
+											"source": {
+												"$ref": "AAAAAAF3o0nnBYBVhaE="
+											},
+											"target": {
+												"$ref": "AAAAAAF3o0aGUn+Kfj8="
+											}
+										}
+									],
+									"documentation": "Type with aliased names",
+									"operations": [
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAF3o1Om8oHEBXM=",
+											"_parent": {
+												"$ref": "AAAAAAF3o0nnBYBVhaE="
+											},
+											"name": "__construct",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3o1PXw4HL8IQ=",
+													"_parent": {
+														"$ref": "AAAAAAF3o1Om8oHEBXM="
+													},
+													"name": "typeGetter",
+													"type": {
+														"$ref": "AAAAAAF3o0Wg/H8npaE="
+													}
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3o1PXw4HM8aE=",
+													"_parent": {
+														"$ref": "AAAAAAF3o1Om8oHEBXM="
+													},
+													"name": "primaryName",
+													"type": "string"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3o1PXxIHNCnM=",
+													"_parent": {
+														"$ref": "AAAAAAF3o1Om8oHEBXM="
+													},
+													"name": "altNames",
+													"type": "string",
+													"multiplicity": "0..*"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAF3o1QRdIHWaR4=",
+											"_parent": {
+												"$ref": "AAAAAAF3o0nnBYBVhaE="
+											},
+											"name": "getNames",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3o1QX9oHdGn0=",
+													"_parent": {
+														"$ref": "AAAAAAF3o1QRdIHWaR4="
+													},
+													"type": {
+														"$ref": "AAAAAAFwkh6KGkJam2o="
+													},
+													"direction": "return"
+												}
+											]
+										}
+									],
+									"isAbstract": true
+								},
+								{
+									"_type": "UMLClass",
 									"_id": "AAAAAAF3o2XexYI78Rw=",
 									"_parent": {
 										"$ref": "AAAAAAF3o0S6lH8bTj8="
@@ -553,93 +641,6 @@
 										}
 									],
 									"isFinalSpecialization": true
-								},
-								{
-									"_type": "UMLClass",
-									"_id": "AAAAAAF3o0nnBYBVhaE=",
-									"_parent": {
-										"$ref": "AAAAAAF3o0S6lH8bTj8="
-									},
-									"name": "PrimitiveType",
-									"ownedElements": [
-										{
-											"_type": "UMLGeneralization",
-											"_id": "AAAAAAF3o044BYFdH08=",
-											"_parent": {
-												"$ref": "AAAAAAF3o0nnBYBVhaE="
-											},
-											"source": {
-												"$ref": "AAAAAAF3o0nnBYBVhaE="
-											},
-											"target": {
-												"$ref": "AAAAAAF3o0aGUn+Kfj8="
-											}
-										}
-									],
-									"operations": [
-										{
-											"_type": "UMLOperation",
-											"_id": "AAAAAAF3o1Om8oHEBXM=",
-											"_parent": {
-												"$ref": "AAAAAAF3o0nnBYBVhaE="
-											},
-											"name": "__construct",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3o1PXw4HL8IQ=",
-													"_parent": {
-														"$ref": "AAAAAAF3o1Om8oHEBXM="
-													},
-													"name": "typeGetter",
-													"type": {
-														"$ref": "AAAAAAF3o0Wg/H8npaE="
-													}
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3o1PXw4HM8aE=",
-													"_parent": {
-														"$ref": "AAAAAAF3o1Om8oHEBXM="
-													},
-													"name": "primaryName",
-													"type": "string"
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3o1PXxIHNCnM=",
-													"_parent": {
-														"$ref": "AAAAAAF3o1Om8oHEBXM="
-													},
-													"name": "altNames",
-													"type": "string",
-													"multiplicity": "0..*"
-												}
-											]
-										},
-										{
-											"_type": "UMLOperation",
-											"_id": "AAAAAAF3o1QRdIHWaR4=",
-											"_parent": {
-												"$ref": "AAAAAAF3o0nnBYBVhaE="
-											},
-											"name": "getNames",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3o1QX9oHdGn0=",
-													"_parent": {
-														"$ref": "AAAAAAF3o1QRdIHWaR4="
-													},
-													"type": {
-														"$ref": "AAAAAAFwkh6KGkJam2o="
-													},
-													"direction": "return"
-												}
-											]
-										}
-									],
-									"isAbstract": true
 								},
 								{
 									"_type": "UMLClass",
@@ -2664,7 +2665,7 @@
 													"top": 679,
 													"width": 470.7041015625,
 													"height": 13,
-													"text": "PrimitiveType"
+													"text": "AliasedType"
 												},
 												{
 													"_type": "LabelView",
