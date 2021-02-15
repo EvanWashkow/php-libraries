@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace PHP\Tests\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
-use PHP\HashAlgorithm\SHA256;
+use PHP\Hashing\HashAlgorithm\SHA256;
 use PHP\Hashing\Hasher\Hasher;
 use PHP\Hashing\Hasher\IHasher;
 use PHP\Interfaces\IEquatable;
