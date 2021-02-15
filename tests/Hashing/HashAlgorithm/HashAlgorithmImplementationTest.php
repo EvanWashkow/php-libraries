@@ -60,67 +60,24 @@ final class HashAlgorithmImplementationTest extends TestCase
     {
         $this->assertEquals(
             $expectedHash,
-            $hashAlgorithm->hash( $value )->__toString(),
+            $hashAlgorithm->hash($value)->__toString(),
             'IHashAlgorithm->hash() did not return the expected value.'
         );
     }
 
     public function getHashTestData(): array
     {
-        // Variables
-        $hashAlgorithms = [
-            'md5'    => new MD5(),
-            'sha1'   => new SHA1(),
-            'sha256' => new SHA256(),
-            'sha384' => new SHA384(),
-            'sha512' => new SHA512()
-        ];
-        $values = [
-            '1',
-            '12',
-            '123',
-            '1234'
-        ];
-        $testData = [];
-
-        // Build and return the Test Data
-        foreach ($hashAlgorithms as $hashAlgorithmSlug => $hashAlgorithm) {
-            foreach ( $values as $value ) {
-                $testData[ "{$hashAlgorithmSlug}({$value})" ] =
-                    $this->createHashTest($hashAlgorithm, $hashAlgorithmSlug, $value);
-            }
-        }
-        return $testData;
-    }
-
-
-    /**
-     * Create a new IHashAlgorithm->hash() test
-     * 
-     * @param IHashAlgorithm $hashAlgorithm     The Hash Algorithm to test
-     * @param string         $hashAlgorithmSlug The Hash Algorithm slug
-     * @param string         $value             The value to be hashed
-     * @return array The test data
-     */
-    private function createHashTest(IHashAlgorithm $hashAlgorithm, string $hashAlgorithmSlug, string $value): array
-    {
         return [
-            $hashAlgorithm,
-            new ByteArray( $value ),
-            $this->computeHash($hashAlgorithmSlug, $value)
+            'md5(lorem)'    => [new MD5(),    new ByteArray('lorem'), \md5('lorem', true)],
+            'md5(ipsum)'    => [new MD5(),    new ByteArray('ipsum'), \md5('ipsum', true)],
+            'sha1(lorem)'   => [new SHA1(),   new ByteArray('lorem'), \sha1('lorem', true)],
+            'sha1(ipsum)'   => [new SHA1(),   new ByteArray('ipsum'), \sha1('ipsum', true)],
+            'sha256(lorem)' => [new SHA256(), new ByteArray('lorem'), \hash('sha256','lorem', true)],
+            'sha256(ipsum)' => [new SHA256(), new ByteArray('ipsum'), \hash('sha256','ipsum', true)],
+            'sha384(lorem)' => [new SHA384(), new ByteArray('lorem'), \hash('sha384','lorem', true)],
+            'sha384(ipsum)' => [new SHA384(), new ByteArray('ipsum'), \hash('sha384','ipsum', true)],
+            'sha512(lorem)' => [new SHA512(), new ByteArray('lorem'), \hash('sha512','lorem', true)],
+            'sha512(ipsum)' => [new SHA512(), new ByteArray('ipsum'), \hash('sha512','ipsum', true)],
         ];
-    }
-
-
-    /**
-     * Compute the Hash of a given string
-     * 
-     * @param string $hashAlgorithmSlug The Hash Algorithm slug (md5, sha1, sha256, etc.)
-     * @param string $value             The value to hash
-     * @return string The raw hash sum
-     */
-    private function computeHash( string $hashAlgorithmSlug, string $value ): string
-    {
-        return hash($hashAlgorithmSlug, $value, true);
     }
 }
