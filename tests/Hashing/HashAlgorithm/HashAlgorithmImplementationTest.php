@@ -15,25 +15,27 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests the various IHashAlgorithm implementations (MD5, SHA1, SHA256, etc)
  */
-class HashAlgorithmImplementationTest extends TestCase
+final class HashAlgorithmImplementationTest extends TestCase
 {
 
 
     /**
      * Test the Inheritance of each Hash Algorithm
-     * 
+     *
      * @dataProvider getInheritanceTestData
+     *
+     * @param $hashAlgorithm
      */
-    public function testInheritance( $object )
+    public function testInheritance($hashAlgorithm): void
     {
         $this->assertInstanceOf(
             IHashAlgorithm::class,
-            $object,
+            $hashAlgorithm,
             'Hash Algorithm does not implement IHashAlgorithm.'
         );
     }
 
-    public function getInheritanceTestData()
+    public function getInheritanceTestData(): array
     {
         return [
             MD5::class    => [ new MD5() ],
@@ -47,10 +49,14 @@ class HashAlgorithmImplementationTest extends TestCase
 
     /**
      * Test each Hash Algorithm's hash() function
-     * 
+     *
      * @dataProvider getHashTestData
+     *
+     * @param IHashAlgorithm $hashAlgorithm
+     * @param ByteArray $value
+     * @param string $expectedHash
      */
-    public function testHash( IHashAlgorithm $hashAlgorithm, ByteArray $value, string $expectedHash )
+    public function testHash(IHashAlgorithm $hashAlgorithm, ByteArray $value, string $expectedHash): void
     {
         $this->assertEquals(
             $expectedHash,
@@ -59,7 +65,7 @@ class HashAlgorithmImplementationTest extends TestCase
         );
     }
 
-    public function getHashTestData()
+    public function getHashTestData(): array
     {
         // Variables
         $hashAlgorithms = [
@@ -78,10 +84,10 @@ class HashAlgorithmImplementationTest extends TestCase
         $testData = [];
 
         // Build and return the Test Data
-        foreach ( $hashAlgorithms as $hashAlgorithmSlug => $hashAlgorithm ) {
+        foreach ($hashAlgorithms as $hashAlgorithmSlug => $hashAlgorithm) {
             foreach ( $values as $value ) {
                 $testData[ "{$hashAlgorithmSlug}({$value})" ] =
-                    $this->createHashTest( $hashAlgorithm, $hashAlgorithmSlug, $value );
+                    $this->createHashTest($hashAlgorithm, $hashAlgorithmSlug, $value);
             }
         }
         return $testData;
@@ -96,12 +102,12 @@ class HashAlgorithmImplementationTest extends TestCase
      * @param string         $value             The value to be hashed
      * @return array The test data
      */
-    private function createHashTest( IHashAlgorithm $hashAlgorithm, string $hashAlgorithmSlug, string $value ): array
+    private function createHashTest(IHashAlgorithm $hashAlgorithm, string $hashAlgorithmSlug, string $value): array
     {
         return [
             $hashAlgorithm,
             new ByteArray( $value ),
-            $this->computeHash( $hashAlgorithmSlug, $value )
+            $this->computeHash($hashAlgorithmSlug, $value)
         ];
     }
 
@@ -115,6 +121,6 @@ class HashAlgorithmImplementationTest extends TestCase
      */
     private function computeHash( string $hashAlgorithmSlug, string $value ): string
     {
-        return hash( $hashAlgorithmSlug, $value, true );
+        return hash($hashAlgorithmSlug, $value, true);
     }
 }
