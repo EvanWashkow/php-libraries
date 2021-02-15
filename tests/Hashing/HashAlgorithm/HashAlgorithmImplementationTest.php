@@ -38,11 +38,11 @@ final class HashAlgorithmImplementationTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            MD5::class    => [ new MD5() ],
-            SHA1::class   => [ new SHA1() ],
-            SHA256::class => [ new SHA256() ],
-            SHA384::class => [ new SHA384() ],
-            SHA512::class => [ new SHA512() ]
+            MD5::class    => [new MD5()],
+            SHA1::class   => [new SHA1()],
+            SHA256::class => [new SHA256()],
+            SHA384::class => [new SHA384()],
+            SHA512::class => [new SHA512()],
         ];
     }
 
