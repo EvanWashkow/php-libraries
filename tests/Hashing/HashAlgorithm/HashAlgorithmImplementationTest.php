@@ -73,10 +73,10 @@ final class HashAlgorithmImplementationTest extends TestCase
         };
 
         return [
-            'md5(lorem)'    => [new MD5(),    new ByteArray('lorem'), \md5('lorem', true)],
-            'md5(ipsum)'    => [new MD5(),    new ByteArray('ipsum'), \md5('ipsum', true)],
-            'sha1(lorem)'   => [new SHA1(),   new ByteArray('lorem'), \sha1('lorem', true)],
-            'sha1(ipsum)'   => [new SHA1(),   new ByteArray('ipsum'), \sha1('ipsum', true)],
+            'md5(lorem)'    => [new MD5(),    new ByteArray('lorem'), $hash('md5',   'lorem')],
+            'md5(ipsum)'    => [new MD5(),    new ByteArray('ipsum'), $hash('md5',   'ipsum')],
+            'sha1(lorem)'   => [new SHA1(),   new ByteArray('lorem'), $hash('sha1',  'lorem')],
+            'sha1(ipsum)'   => [new SHA1(),   new ByteArray('ipsum'), $hash('sha1',  'ipsum')],
             'sha256(lorem)' => [new SHA256(), new ByteArray('lorem'), $hash('sha256','lorem')],
             'sha256(ipsum)' => [new SHA256(), new ByteArray('ipsum'), $hash('sha256','ipsum')],
             'sha384(lorem)' => [new SHA384(), new ByteArray('lorem'), $hash('sha384','lorem')],
