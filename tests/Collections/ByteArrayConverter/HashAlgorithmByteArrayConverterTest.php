@@ -8,9 +8,9 @@ use PHP\Collections\ByteArrayConverter\ByteArrayConverterDecorator;
 use PHP\Collections\ByteArrayConverter\HashAlgorithmByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\IByteArrayConverter;
 use PHP\Collections\ByteArrayConverter\SerializationByteArrayConverter;
-use PHP\HashAlgorithm\IHashAlgorithm;
-use PHP\HashAlgorithm\MD5;
-use PHP\HashAlgorithm\SHA1;
+use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
+use PHP\Hashing\HashAlgorithm\MD5;
+use PHP\Hashing\HashAlgorithm\SHA1;
 use PHP\Serialization\PHPSerialization;
 
 /**

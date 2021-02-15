@@ -1,9 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace PHP\HashAlgorithm;
+namespace PHP\Hashing\HashAlgorithm;
 
 use PHP\Collections\ByteArray;
+use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
 
 /**
  * Defines the SHA512 Hash Algorithm

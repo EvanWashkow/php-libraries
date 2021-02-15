@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace PHP\Collections\ByteArrayConverter;
 
 use PHP\Collections\ByteArray;
-use PHP\HashAlgorithm\IHashAlgorithm;
+use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
 
 /**
  * Applies a Hash Algorithm to the Byte Array

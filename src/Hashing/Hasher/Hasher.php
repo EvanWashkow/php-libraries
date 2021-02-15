@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace PHP\Hashing\Hasher;
 
 use PHP\Collections\ByteArray;
-use PHP\HashAlgorithm\SHA256;
+use PHP\Hashing\HashAlgorithm\SHA256;
 use PHP\Interfaces\IEquatable;
 use PHP\Serialization\PHPSerialization;
 
