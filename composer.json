@@ -3,11 +3,13 @@
     "description": "Foundational shared libraries for PHP",
     "autoload": {
         "files": [
-            "src/Functions.php"
+            "src-php/Functions.php"
         ],
         "psr-4": {
-            "PHP\\": "src/",
-            "PHP\\Tests\\": "tests/"
+            "EvanWashkow\\PHPLibraries\\": "src/",
+            "EvanWashkow\\PHPLibraries\\Tests\\": "tests/",
+            "PHP\\": "src-php/",
+            "PHP\\Tests\\": "tests-php/"
         }
     },
     "require": {
