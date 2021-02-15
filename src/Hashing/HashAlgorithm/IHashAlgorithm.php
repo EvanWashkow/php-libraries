@@ -10,11 +10,10 @@ use PHP\Collections\ByteArray;
  */
 interface IHashAlgorithm
 {
-
     /**
      * Compute the hash of the Byte Array, returning the result
      * 
      * @return ByteArray
      */
-    public function hash( ByteArray $byteArray ): ByteArray;
+    public function hash(ByteArray $byteArray): ByteArray;
 }
