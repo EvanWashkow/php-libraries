@@ -34,6 +34,14 @@ abstract class Type extends \PHP\ObjectClass
 
 
     /**
+     * Determine if a value is of this Type
+     *
+     * @param mixed $value The value
+     */
+    abstract public function isValueOfType($value): bool;
+
+
+    /**
      * Retrieves this type name
      */
     final public function getName(): string
