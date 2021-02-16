@@ -18,20 +18,25 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             ObjectClass::class,
-            $this->getType()
+            $this->getType('integer')
         );
     }
 
 
     /**
      * Retrieve type instance for this test
+     *
+     * @param string $name The type name
      */
-    private function getType(): Type
+    private function getType(string $name): Type
     {
         static $type = null;
         if ($type === null)
         {
-            $type = $this->createMock(Type::class);
+            $type = $this
+                ->getMockBuilder(Type::class)
+                ->setConstructorArgs([$name])
+                ->getMock();
         }
         return $type;
     }
