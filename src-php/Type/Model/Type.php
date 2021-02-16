@@ -26,6 +26,14 @@ abstract class Type extends \PHP\ObjectClass
 
 
     /**
+     * Determine if this Type is of the specified type
+     *
+     * @param self|string $type The Type or Type name
+     */
+    abstract public function is($type): bool;
+
+
+    /**
      * Retrieves this type name
      */
     final public function getName(): string
