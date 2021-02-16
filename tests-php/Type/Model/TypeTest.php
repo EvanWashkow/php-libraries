@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Type\Model;
 
+use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
+use PHP\Tests\Interfaces\IEquatableTests;
 use PHP\Type\Model\Type;
 
 /**
@@ -18,8 +20,48 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             ObjectClass::class,
-            $this->getType('integer')
+            $this->mockType('integer')
         );
+    }
+
+
+    /**
+     * Test hash() results
+     *
+     * @dataProvider getHashTestData
+     *
+     * @param string $typeName The type name
+     */
+    public function testHash(string $typeName): void
+    {
+        $this->getEquatableTests()->testHash(
+            $this->mockType($typeName),
+            new ByteArray($typeName),
+            true
+        );
+    }
+
+    public function getHashTestData(): array
+    {
+        return [
+            'bool'    => ['bool'],
+            'float'   => ['float'],
+            'integer' => ['integer'],
+        ];
+    }
+
+
+    /**
+     * Retrieves IEquatableTests instance for this test
+     */
+    private function getEquatableTests(): IEquatableTests
+    {
+        static $equatableTest = null;
+        if ($equatableTest === null)
+        {
+            $equatableTest = new IEquatableTests($this);
+        }
+        return $equatableTest;
     }
 
 
@@ -28,16 +70,11 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
      *
      * @param string $name The type name
      */
-    private function getType(string $name): Type
+    private function mockType(string $name): Type
     {
-        static $type = null;
-        if ($type === null)
-        {
-            $type = $this
-                ->getMockBuilder(Type::class)
-                ->setConstructorArgs([$name])
-                ->getMock();
-        }
-        return $type;
+        return $this
+            ->getMockBuilder(Type::class)
+            ->setConstructorArgs([$name])
+            ->getMock();
     }
 }
