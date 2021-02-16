@@ -41,7 +41,7 @@ abstract class Type extends \PHP\ObjectClass
 
 
     /**
-     * Determines if this Type is exactly the same Type as the other
+     * Determines if this Type is exactly the given Type
      *
      * @param self|string $value The Type or Type name
      */
