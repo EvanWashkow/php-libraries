@@ -52,7 +52,7 @@ abstract class Type extends \PHP\ObjectClass
 
     final public function hash(): ByteArray
     {
-        return new ByteArray($this->name);
+        return new ByteArray($this->getName());
     }
 
 
