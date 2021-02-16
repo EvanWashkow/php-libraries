@@ -37,7 +37,6 @@ final class IEquatableTests
      * @param IEquatable $equatable The IEquatable to test
      * @param ByteArray  $byteArray The ByteArray (hash) to test against
      * @param bool       $expected  The expected result of equatable->hash() === byte_array
-     * @return void
      */
     public function testHash(IEquatable $equatable, ByteArray $byteArray, bool $expected): void
     {
@@ -64,7 +63,6 @@ final class IEquatableTests
      * @param IEquatable $equatable The IEquatable to do the comparison
      * @param mixed      $value     The value to compare to
      * @param bool       $expected  The expected result of equatable->equals()
-     * @return void
      */
     public function testEquals(IEquatable $equatable, $value, bool $expected): void
     {
@@ -81,7 +79,6 @@ final class IEquatableTests
      * 
      * @param IEquatable $equatable1 The IEquatable to do the comparison
      * @param IEquatable $equatable2 The IEquatable to compare to
-     * @return void
      */
     public function testEqualsAndHashConsistency(IEquatable $equatable1, IEquatable $equatable2): void
     {
