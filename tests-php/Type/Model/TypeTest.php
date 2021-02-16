@@ -78,6 +78,48 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * Test equals() returns the expected result
+     *
+     * @dataProvider getEqualsTestData
+     *
+     * @param string $typeName The type name as a string
+     * @param mixed  $value    The value to compare to
+     * @param bool   $expected The expected result of equatable->equals()
+     */
+    public function testEquals(string $typeName, $value, bool $expected): void
+    {
+        $this->getEquatableTests()->testEquals($this->mockType($typeName), $value, $expected);
+    }
+
+    public function getEqualsTestData(): array
+    {
+        return [
+            /**
+             * equals(string)
+             */
+            'array === array'     => ['array', 'array', true],
+            'array !== float'     => ['array', 'float',  false],
+            'integer === integer' => ['integer', 'integer', true],
+            'integer !== string'  => ['integer', 'string',  false],
+
+            /**
+             * equals(Type)
+             */
+            'bool === Type(bool)'       => ['bool',    $this->mockType('bool'),    true],
+            'bool !== Type(string)'     => ['bool',    $this->mockType('string'),  false],
+            'integer === Type(integer)' => ['integer', $this->mockType('integer'), true],
+            'integer !== Type(bool)'    => ['integer', $this->mockType('bool'),    false],
+
+            /**
+             * equals( <wrong_type> )
+             */
+            'integer === true' => ['integer', true, false],
+            'integer === 1'    => ['integer', 1,    false],
+        ];
+    }
+
+
+    /**
      * Retrieves IEquatableTests instance for this test
      */
     private function getEquatableTests(): IEquatableTests

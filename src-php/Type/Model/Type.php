@@ -38,4 +38,24 @@ abstract class Type extends \PHP\ObjectClass
     {
         return new ByteArray($this->name);
     }
+
+
+    /**
+     * Determines if this Type is exactly the same Type as the other
+     *
+     * @param self|string $value The Type or Type name
+     */
+    final public function equals($value): bool
+    {
+        $isEqual = false;
+        if ($value instanceof Type)
+        {
+            $isEqual = $this->getName() === $value->getName();
+        }
+        elseif (is_string($value))
+        {
+            $isEqual = $this->getName() === $value;
+        }
+        return $isEqual;
+    }
 }
