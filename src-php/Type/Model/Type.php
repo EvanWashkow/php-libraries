@@ -24,7 +24,16 @@ abstract class Type extends \PHP\ObjectClass
         $this->name = $name;
     }
 
-    
+
+    /**
+     * Retrieves this type name
+     */
+    final public function getName(): string
+    {
+        return $this->name;
+    }
+
+
     final public function hash(): ByteArray
     {
         return new ByteArray($this->name);

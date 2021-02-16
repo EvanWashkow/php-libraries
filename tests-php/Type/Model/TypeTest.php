@@ -26,6 +26,32 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * Test getName() results
+     *
+     * @dataProvider getGetNamesTestData
+     *
+     * @param string $typeName
+     */
+    public function testGetName(string $typeName): void
+    {
+        $this->assertEquals(
+            $typeName,
+            $this->mockType($typeName)->getName(),
+            Type::class . '->getName() did not return the expected type name.'
+        );
+    }
+
+    public function getGetNamesTestData(): array
+    {
+        return [
+            'bool'    => ['bool'],
+            'float'   => ['float'],
+            'integer' => ['integer'],
+        ];
+    }
+
+
+    /**
      * Test hash() results
      *
      * @dataProvider getHashTestData
