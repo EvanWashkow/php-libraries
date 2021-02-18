@@ -120,6 +120,46 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * Tests the consistency of equals() and hash() as described on IEquatable
+     *
+     * @dataProvider getEqualsAndHashConsistencyTestData
+     *
+     * @param Type $type1 The Type to do the comparison
+     * @param Type $type2 The Type to compare to
+     */
+    public function testEqualsAndHashConsistency(Type $type1, Type $type2): void
+    {
+        $this->getEquatableTests()->testEqualsAndHashConsistency($type1, $type2);
+    }
+
+    public function getEqualsAndHashConsistencyTestData(): array
+    {
+        return [
+            'array, array' => [
+                $this->mockType('array'),
+                $this->mockType('array')
+            ],
+            'bool, bool' => [
+                $this->mockType('bool'),
+                $this->mockType('bool')
+            ],
+            'float, float' => [
+                $this->mockType('float'),
+                $this->mockType('float')
+            ],
+            'integer, integer' => [
+                $this->mockType('integer'),
+                $this->mockType('integer')
+            ],
+            'string, string' => [
+                $this->mockType('string'),
+                $this->mockType('string')
+            ],
+        ];
+    }
+
+
+    /**
      * Retrieves IEquatableTests instance for this test
      */
     private function getEquatableTests(): IEquatableTests
