@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Type\Model;
+namespace PHP\Tests\Type\Model\TestDefinition;
 
 use PHP\Type\Model\Type;
 
