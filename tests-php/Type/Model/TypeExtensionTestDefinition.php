@@ -19,14 +19,6 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
 
 
     /**
-     * Invoke is() with the wrong argument type
-     *
-     * @param mixed $wrongArgumentType Wrong argument type for is()
-     */
-    abstract protected function callIsWithWrongArgumenttype($wrongArgumentType): void;
-
-
-    /**
      * Ensure is() returns the expected results
      *
      * @dataProvider getIsTestData
@@ -42,30 +34,5 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
             $type->is($typeToCheck),
             Type::class . '->is() did not return the expected result.'
         );
-    }
-
-
-    /**
-     * Ensure is() throws \InvalidArgumentException
-     *
-     * @dataProvider getIsThrowsInvalidArgumentExceptionTestData
-     *
-     * @param mixed $wrongArgumentType Wrong argument type for is()
-     */
-    final public function testIsThrowsInvalidArgumentException($wrongArgumentType): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->callIsWithWrongArgumenttype($wrongArgumentType);
-    }
-
-    final public function getIsThrowsInvalidArgumentExceptionTestData(): array
-    {
-        return [
-            'array'     => [[]],
-            'bool'      => [true],
-            'float'     => [-7.2],
-            'int'       => [9],
-            '\stdClass' => [new \stdClass()]
-        ];
     }
 }
