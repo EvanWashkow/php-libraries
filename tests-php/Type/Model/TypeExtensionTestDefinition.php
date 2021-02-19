@@ -13,9 +13,17 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
     /**
      * Retrieves is() test data
      *
-     * @return array In the form [[Type, string|Type, bool]]
+     * @return array In the form [[Type $type, string|Type $isType, bool $expected]]
      */
     abstract public function getIsTestData(): array;
+
+
+    /**
+     * Retrieves isValueOfType() test data
+     *
+     * @return array In the form [[Type $type, mixed $value, bool $expected]]
+     */
+    abstract public function getIsValueOfTypeTestData(): array;
 
 
     /**
@@ -23,7 +31,7 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
      *
      * @param mixed $wrongArgumentType Wrong argument type for is()
      */
-    abstract protected function callIsWithWrongArgumenttype($wrongArgumentType): void;
+    abstract protected function callIsWithWrongArgumentType($wrongArgumentType): void;
 
 
     /**
@@ -32,14 +40,14 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
      * @dataProvider getIsTestData
      *
      * @param Type $type
-     * @param string|Type $typeToCheck
+     * @param string|Type $isType
      * @param bool $expected
      */
-    final public function testIs(Type $type, $typeToCheck, bool $expected): void
+    final public function testIs(Type $type, $isType, bool $expected): void
     {
         $this->assertEquals(
             $expected,
-            $type->is($typeToCheck),
+            $type->is($isType),
             Type::class . '->is() did not return the expected result.'
         );
     }
@@ -55,7 +63,7 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
     final public function testIsThrowsInvalidArgumentException($wrongArgumentType): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->callIsWithWrongArgumenttype($wrongArgumentType);
+        $this->callIsWithWrongArgumentType($wrongArgumentType);
     }
 
     final public function getIsThrowsInvalidArgumentExceptionTestData(): array
@@ -67,5 +75,24 @@ abstract class TypeExtensionTestDefinition extends \PHPUnit\Framework\TestCase
             'int'       => [9],
             '\stdClass' => [new \stdClass()]
         ];
+    }
+
+
+    /**
+     * Ensure isValueOfType() returns the expected results
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param Type $type
+     * @param mixed $value
+     * @param bool $expected
+     */
+    final public function testIsValueOfType(Type $type, $value, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $type->isValueOfType($value),
+            Type::class . '->isValueOfType() did not return the expected result.'
+        );
     }
 }
