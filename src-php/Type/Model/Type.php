@@ -59,6 +59,8 @@ abstract class Type extends \PHP\ObjectClass
     /**
      * Determines if this Type is exactly the given Type
      *
+     * @interal For consistency with IEquatable->equals(), this will accept any value type without throwing an exception
+     *
      * @param self|string $value The Type or Type name
      */
     final public function equals($value): bool
