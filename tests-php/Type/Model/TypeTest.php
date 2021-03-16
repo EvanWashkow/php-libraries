@@ -52,6 +52,43 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * Ensures that is() is correctly hooked up to its abstract sub-methods
+     *
+     * @dataProvider getIsCallsSubMethodsTestData
+     *
+     * @param Type $typeA
+     * @param $typeB
+     * @param bool $expected
+     */
+    public function testIsCallsSubMethods(Type $typeA, $typeB, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $typeA->is($typeB),
+            Type::class . '->is() did not return the expected value.'
+        );
+    }
+
+    public function getIsCallsSubMethodsTestData(): array
+    {
+        $mockedType = $this->mockType('MockedType');
+
+        return [
+            'is(5) - wrong type' => [
+                $mockedType,
+                5,
+                false
+            ],
+            'is(true) - wrong type' => [
+                $mockedType,
+                true,
+                false
+            ],
+        ];
+    }
+
+
+    /**
      * Test hash() results
      *
      * @dataProvider getHashTestData
