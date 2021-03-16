@@ -42,6 +42,14 @@ abstract class Type extends \PHP\ObjectClass
 
 
     /**
+     * Determines if this Type is of the type name
+     *
+     * @param string $typeName The type name
+     */
+    abstract protected function isOfTypeName(string $typeName): bool;
+
+
+    /**
      * Retrieves this type name
      */
     final public function getName(): string
@@ -58,7 +66,11 @@ abstract class Type extends \PHP\ObjectClass
     final public function is($type): bool
     {
         $isOfType = false;
-        if ($type instanceof self)
+        if (is_string($type))
+        {
+            $isOfType = $this->isOfTypeName($type);
+        }
+        elseif ($type instanceof self)
         {
             $isOfType = $this->isOfType($type);
         }
