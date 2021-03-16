@@ -71,7 +71,8 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
     public function getIsCallsSubMethodsTestData(): array
     {
-        $mockedType = $this->mockType('MockedType');
+        $mockedTypeName = 'MockedType';
+        $mockedType     = $this->mockType($mockedTypeName);
 
         return [
             'is(5) - wrong type' => [
@@ -82,6 +83,16 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
             'is(true) - wrong type' => [
                 $mockedType,
                 true,
+                false
+            ],
+            'is() calls isOfType(); isOfType() returns true' => [
+                $this->mockTypeIsOfType($mockedTypeName, true),
+                $mockedType,
+                true
+            ],
+            'is() calls isOfType(); isOfType() returns false' => [
+                $this->mockTypeIsOfType($mockedTypeName, false),
+                $mockedType,
                 false
             ],
         ];
@@ -213,13 +224,44 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
     /**
      * Retrieve type instance for this test
      *
-     * @param string $name The type name
+     * @param string $typeName The type name
      */
-    private function mockType(string $name): Type
+    private function mockType(string $typeName): Type
     {
         return $this
             ->getMockBuilder(Type::class)
-            ->setConstructorArgs([$name])
+            ->setConstructorArgs([$typeName])
             ->getMock();
+    }
+
+
+    /**
+     * Mock Type->isOfType()
+     *
+     * @param string $typeName The type name
+     * @param bool $returnValue The return value
+     */
+    private function mockTypeIsOfType(string $typeName, bool $returnValue): Type
+    {
+        return new class($typeName, $returnValue) extends Type
+        {
+            private $returnValue;
+
+            public function __construct(string $typeName, $returnValue)
+            {
+                parent::__construct($typeName);
+                $this->returnValue = $returnValue;
+            }
+
+            public function isValueOfType($value): bool
+            {
+                return true;
+            }
+
+            protected function isOfType(Type $type): bool
+            {
+                return $this->returnValue;
+            }
+        };
     }
 }
