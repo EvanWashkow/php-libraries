@@ -52,39 +52,23 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
-     * Ensures that is() is correctly hooked up to its abstract sub-methods
+     * Ensures that is() throws InvalidArgumentException for wrong types
      *
-     * @dataProvider getIsCallsSubMethodsTestData
+     * @dataProvider getIsThrowsInvalidArgumentExceptionTestData
      *
-     * @param Type $typeA
-     * @param $typeB
-     * @param bool $expected
+     * @param $type
      */
-    public function testIsCallsSubMethods(Type $typeA, $typeB, bool $expected): void
+    public function testIsThrowsInvalidArgumentException($type): void
     {
-        $this->assertEquals(
-            $expected,
-            $typeA->is($typeB),
-            Type::class . '->is() did not return the expected value.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->mockType('MockedType')->is($type);
     }
 
-    public function getIsCallsSubMethodsTestData(): array
+    public function getIsThrowsInvalidArgumentExceptionTestData(): array
     {
-        $mockedTypeName = 'MockedType';
-        $mockedType     = $this->mockType($mockedTypeName);
-
         return [
-            'is(5) - wrong type' => [
-                $mockedType,
-                5,
-                false
-            ],
-            'is(true) - wrong type' => [
-                $mockedType,
-                true,
-                false
-            ],
+            'is(5)'    => [5],
+            'is(true)' => [true],
         ];
     }
 
