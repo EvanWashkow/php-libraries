@@ -18,7 +18,7 @@ abstract class TypeImplementationTestDefinition extends TestCase
     /**
      * Return is() test data
      */
-    abstract protected function getIsTestData(): array;
+    abstract public function getIsTestData(): array;
 
 
     /**
