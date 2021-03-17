@@ -16,9 +16,33 @@ abstract class TypeImplementationTestDefinition extends TestCase
 
 
     /**
+     * Return is() test data
+     */
+    abstract protected function getIsTestData(): array;
+
+
+    /**
      * Creates a new Type instance to be tested
      */
     abstract protected function createType(): Type;
+
+
+    /**
+     * Tests the is() function
+     *
+     * @dataProvider getIsTestData
+     *
+     * @param string|Type $type The Type or Type name
+     * @param bool $expected The expected result
+     */
+    final public function testIs($type, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $this->getOrCreateType()->is($type),
+            "{$this->getTypeClassName()}->is() returned the wrong result."
+        );
+    }
 
 
     /**
@@ -31,5 +55,14 @@ abstract class TypeImplementationTestDefinition extends TestCase
             $this->type = $this->createType();
         }
         return $this->type;
+    }
+
+
+    /**
+     * Retrieves the Type class name
+     */
+    final protected function getTypeClassName(): string
+    {
+        return get_class($this->getOrCreateType());
     }
 }
