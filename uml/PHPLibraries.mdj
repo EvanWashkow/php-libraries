@@ -25992,35 +25992,6 @@
 									"operations": [
 										{
 											"_type": "UMLOperation",
-											"_id": "AAAAAAF3qXG+nM5MoHk=",
-											"_parent": {
-												"$ref": "AAAAAAF3qXG+nM5KNgs="
-											},
-											"name": "is",
-											"documentation": "Returns true only if the given type name is \"*\".\n\nAnonymous types are merely a type container that can house any type, whose final type is not known until it has a value.",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3qXG+nM5N5F4=",
-													"_parent": {
-														"$ref": "AAAAAAF3qXG+nM5MoHk="
-													},
-													"name": "typeName",
-													"type": "string|Type"
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3qXG+nM5OyZM=",
-													"_parent": {
-														"$ref": "AAAAAAF3qXG+nM5MoHk="
-													},
-													"type": "bool",
-													"direction": "return"
-												}
-											]
-										},
-										{
-											"_type": "UMLOperation",
 											"_id": "AAAAAAF3qXG+nM5P1MY=",
 											"_parent": {
 												"$ref": "AAAAAAF3qXG+nM5KNgs="
@@ -26042,6 +26013,36 @@
 													"_id": "AAAAAAF3qXG+nM5R5Ps=",
 													"_parent": {
 														"$ref": "AAAAAAF3qXG+nM5P1MY="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAF3qXG+nM5MoHk=",
+											"_parent": {
+												"$ref": "AAAAAAF3qXG+nM5KNgs="
+											},
+											"name": "isOfTypeName",
+											"documentation": "Returns true only if the given type name is \"*\".\n\nAnonymous types are merely a type container that can house any type, whose final type is not known until it has a value.",
+											"visibility": "protected",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3qXG+nM5N5F4=",
+													"_parent": {
+														"$ref": "AAAAAAF3qXG+nM5MoHk="
+													},
+													"name": "typeName",
+													"type": "string"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3qXG+nM5OyZM=",
+													"_parent": {
+														"$ref": "AAAAAAF3qXG+nM5MoHk="
 													},
 													"type": "bool",
 													"direction": "return"
@@ -28030,7 +28031,7 @@
 													"font": "Arial;13;1",
 													"left": 741,
 													"top": 23,
-													"width": 200.69419860839844,
+													"width": 232.2861328125,
 													"height": 13,
 													"text": "AnonymousType"
 												},
@@ -28043,7 +28044,7 @@
 													"font": "Arial;13;0",
 													"left": 741,
 													"top": 38,
-													"width": 200.69419860839844,
+													"width": 232.2861328125,
 													"height": 13,
 													"text": "(from Model)"
 												},
@@ -28064,7 +28065,7 @@
 											"font": "Arial;13;0",
 											"left": 736,
 											"top": 16,
-											"width": 210.69419860839844,
+											"width": 242.2861328125,
 											"height": 40,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAF3qXG+ns8Pcqc="
@@ -28091,7 +28092,7 @@
 											"font": "Arial;13;0",
 											"left": 736,
 											"top": 56,
-											"width": 210.69419860839844,
+											"width": 242.2861328125,
 											"height": 10
 										},
 										{
@@ -28106,23 +28107,6 @@
 											"subViews": [
 												{
 													"_type": "UMLOperationView",
-													"_id": "AAAAAAF4OJgbPfVN2nk=",
-													"_parent": {
-														"$ref": "AAAAAAF3qXG+ns8UCPA="
-													},
-													"model": {
-														"$ref": "AAAAAAF3qXG+nM5MoHk="
-													},
-													"font": "Arial;13;0",
-													"left": 741,
-													"top": 71,
-													"width": 200.69419860839844,
-													"height": 13,
-													"text": "+is(typeName: string|Type): bool",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
 													"_id": "AAAAAAF4OJgbP/VQ5QI=",
 													"_parent": {
 														"$ref": "AAAAAAF3qXG+ns8UCPA="
@@ -28132,17 +28116,34 @@
 													},
 													"font": "Arial;13;0",
 													"left": 741,
-													"top": 86,
-													"width": 200.69419860839844,
+													"top": 71,
+													"width": 232.2861328125,
 													"height": 13,
 													"text": "+isValueOfType(value): bool",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAF4OJgbPfVN2nk=",
+													"_parent": {
+														"$ref": "AAAAAAF3qXG+ns8UCPA="
+													},
+													"model": {
+														"$ref": "AAAAAAF3qXG+nM5MoHk="
+													},
+													"font": "Arial;13;0",
+													"left": 741,
+													"top": 86,
+													"width": 232.2861328125,
+													"height": 13,
+													"text": "#isOfTypeName(typeName: string): bool",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 736,
 											"top": 66,
-											"width": 210.69419860839844,
+											"width": 242.2861328125,
 											"height": 38
 										},
 										{
@@ -28182,7 +28183,7 @@
 									"containerChangeable": true,
 									"left": 736,
 									"top": 16,
-									"width": 210.69419860839844,
+									"width": 242.2861328125,
 									"height": 88,
 									"showNamespace": true,
 									"nameCompartment": {
@@ -28222,7 +28223,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 699,
+											"left": 707,
 											"top": 238,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -28243,7 +28244,7 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 710,
+											"left": 718,
 											"top": 248,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -28264,7 +28265,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 676,
+											"left": 684,
 											"top": 219,
 											"height": 13,
 											"alpha": -1.5707963267948966,
@@ -28283,7 +28284,7 @@
 										"$ref": "AAAAAAF3qXG+ns8NDw8="
 									},
 									"lineStyle": 1,
-									"points": "801:104;575:367",
+									"points": "815:104;578:367",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAF3qXG+ns8a/9A="
