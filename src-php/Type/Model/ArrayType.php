@@ -28,6 +28,6 @@ class ArrayType extends Type
 
     final protected function isOfTypeName(string $typeName): bool
     {
-        return $typeName === $this->getName();
+        return $this->getName() === $typeName;
     }
 }

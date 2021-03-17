@@ -13,14 +13,15 @@ final class ArrayTypeTest extends TestDefinition\TypeImplementationTestDefinitio
 {
     public function getIsTestData(): array
     {
-        $mockArrayType = $this->createMock(ArrayType::class);
-
         return [
 
             // Same type
-            'is(array)'         => ['array',         true],
-            'is(ArrayType)'     => [new ArrayType(), true],
-            'is(MockArrayType)' => [$mockArrayType,  true],
+            'is(array)'     => ['array',             true],
+            'is(ArrayType)' => [$this->createType(), true],
+            'is(MockArrayType)' => [
+                $this->createMock(ArrayType::class),
+                true
+            ],
 
             /**
              * Different types
