@@ -14,6 +14,12 @@ use PHPUnit\Framework\TestCase;
 abstract class DynamicTypeTestDefinition extends TestCase
 {
     /**
+     * Return getName() test data
+     */
+    abstract public function getGetNameTestData(): array;
+
+
+    /**
      * Return is() test data
      */
     abstract public function getIsTestData(): array;
@@ -23,6 +29,24 @@ abstract class DynamicTypeTestDefinition extends TestCase
      * Return isValueOfType() test data
      */
     abstract public function getIsValueOfTypeTestData(): array;
+
+
+    /**
+     * Tests getName()
+     *
+     * @dataProvider getGetNameTestData
+     *
+     * @param Type $type The Type
+     * @param string $expected The expected type name
+     */
+    final public function testGetName(Type $type, string $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $type->getName(),
+            "{$this->getTypeClassName($type)}->getName() returned the wrong value."
+        );
+    }
 
 
     /**

@@ -13,6 +13,25 @@ use PHP\Type\Model\ClassType;
  */
 final class ClassTypeTest extends DynamicTypeTestDefinition
 {
+    public function getGetNameTestData(): array
+    {
+        return [
+            \Exception::class => [
+                new ClassType(new \ReflectionClass(\Exception::class)),
+                \Exception::class
+            ],
+            \RuntimeException::class => [
+                new ClassType(new \ReflectionClass(\RuntimeException::class)),
+                \RuntimeException::class
+            ],
+            \LogicException::class => [
+                new ClassType(new \ReflectionClass(\LogicException::class)),
+                \LogicException::class
+            ],
+        ];
+    }
+
+
     public function getIsTestData(): array
     {
         $error            = new ClassType(new \ReflectionClass(\Error::class));
@@ -197,34 +216,6 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
                 new \Exception(),
                 false
             ],
-        ];
-    }
-
-
-    /**
-     * Tests getName(), ensuring the parent constructor is called
-     *
-     * @dataProvider getGetNameTestData
-     *
-     * @param string $className
-     *
-     * @throws \ReflectionException
-     */
-    public function testGetName(string $className): void
-    {
-        $this->assertEquals(
-            $className,
-            (new ClassType(new \ReflectionClass($className)))->getName(),
-            ClassType::class . '->getName() did not return the expected value'
-        );
-    }
-
-    public function getGetNameTestData(): array
-    {
-        return [
-            \Exception::class => [\Exception::class],
-            \RuntimeException::class => [\RuntimeException::class],
-            \LogicException::class => [\LogicException::class],
         ];
     }
 }
