@@ -26,12 +26,6 @@ abstract class DynamicTypeTestDefinition extends TestCase
 
 
     /**
-     * Creates a new Type instance to be tested
-     */
-    abstract protected function createType(): Type;
-
-
-    /**
      * Tests the is() function
      *
      * @dataProvider getIsTestData
