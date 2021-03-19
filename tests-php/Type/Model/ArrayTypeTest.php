@@ -16,7 +16,7 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
         return [
 
             // Same type
-            'is(array)'     => ['array',             true],
+            'is(array)' => ['array', true],
             'is(ArrayType)' => [$this->createType(), true],
             'is(MockArrayType)' => [
                 $this->createMock(ArrayType::class),
@@ -28,8 +28,8 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
              *
              * @todo Add different Type instances to this test
              */
-            'is(bool)'    => ['bool',    false],
-            'is(float)'   => ['float',   false],
+            'is(bool)' => ['bool', false],
+            'is(float)' => ['float', false],
             'is(integer)' => ['integer', false],
         ];
     }
@@ -38,11 +38,11 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsValueOfTypeTestData(): array
     {
         return [
-            'isValueOfType([])'      => [[],      true],
+            'isValueOfType([])' => [[], true],
             'isValueOfType([1,2,3])' => [[1,2,3], true],
-            'isValueOfType(1)'       => [1,       false],
-            'isValueOfType(2.7)'     => [2.7,     false],
-            'isValueOfType(false)'   => [false,   false],
+            'isValueOfType(1)' => [1, false],
+            'isValueOfType(2.7)' => [2.7, false],
+            'isValueOfType(false)' => [false, false],
         ];
     }
 
