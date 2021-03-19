@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace PHP\Tests\Type\Model;
 
 use PHP\Type\Model\ArrayType;
+use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\FloatType;
 use PHP\Type\Model\Type;
 
@@ -33,6 +34,7 @@ final class FloatTypeTest extends TestDefinition\StaticTypeTestDefinition
             'is(array)' => ['array', false],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(bool)' => ['bool', false],
+            'is(BooleanType)' => [new BooleanType(), false],
             'is(integer)' => ['integer', false],
         ];
     }
