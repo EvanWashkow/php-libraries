@@ -6,7 +6,7 @@ namespace PHP\Tests\Type\Model;
 use PHP\Type\Model\AnonymousType;
 use PHP\Type\Model\Type;
 
-class AnonymousTypeTest extends TestDefinition\TypeImplementationTestDefinition
+class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
     public function getIsTestData(): array
     {

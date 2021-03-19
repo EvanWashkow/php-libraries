@@ -9,7 +9,7 @@ use PHP\Type\Model\Type;
 /**
  * Tests the ArrayType class
  */
-final class ArrayTypeTest extends TestDefinition\TypeImplementationTestDefinition
+final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
     public function getIsTestData(): array
     {

@@ -7,9 +7,11 @@ use PHP\Type\Model\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Defines a test for Type implementations
+ * Defines a test for Type implementations that do not change on a per-instance basis
+ *
+ * Generally, these Type implementations do not take any arguments in the constructor
  */
-abstract class TypeImplementationTestDefinition extends TestCase
+abstract class StaticTypeTestDefinition extends TestCase
 {
     /** @var ?Type The Type instance */
     private $type = null;
