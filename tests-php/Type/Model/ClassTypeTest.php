@@ -173,7 +173,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
 
         return [
 
-            // Primitive type
+            // Primitive value
             'Exception->isValueOfType([])' => [
                 $exception,
                 [],
@@ -195,7 +195,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
                 false
             ],
 
-            // Class type
+            // Object instance
             'Exception->isValueOfType(LogicException)' => [
                 $exception,
                 new \LogicException(),
