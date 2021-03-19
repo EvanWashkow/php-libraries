@@ -49,4 +49,10 @@ class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
     {
         return new AnonymousType();
     }
+
+
+    protected function getExpectedTypeName(): string
+    {
+        return '*';
+    }
 }

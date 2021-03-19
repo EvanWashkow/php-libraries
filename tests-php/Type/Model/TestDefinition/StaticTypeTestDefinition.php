@@ -18,13 +18,13 @@ abstract class StaticTypeTestDefinition extends TestCase
 
 
     /**
-     * Return is() test data
+     * Retrieves the data for the is() function tests
      */
     abstract public function getIsTestData(): array;
 
 
     /**
-     * Return isValueOfType() test data
+     * Retrieves the data for the isValueOfType() function tests
      */
     abstract public function getIsValueOfTypeTestData(): array;
 
@@ -33,6 +33,25 @@ abstract class StaticTypeTestDefinition extends TestCase
      * Creates a new Type instance to be tested
      */
     abstract protected function createType(): Type;
+
+
+    /**
+     * Retrieves the expected type name for this type
+     */
+    abstract protected function getExpectedTypeName(): string;
+
+
+    /**
+     * Tests the getName() function
+     */
+    final public function testGetName(): void
+    {
+        $this->assertEquals(
+            $this->getExpectedTypeName(),
+            $this->getOrCreateType()->getName(),
+            "{$this->getTypeClassName()}->getName() returned the wrong result."
+        );
+    }
 
 
     /**

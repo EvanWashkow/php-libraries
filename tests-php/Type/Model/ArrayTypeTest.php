@@ -51,4 +51,10 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
     {
         return new ArrayType();
     }
+
+
+    protected function getExpectedTypeName(): string
+    {
+        return 'array';
+    }
 }
