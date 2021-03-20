@@ -21,6 +21,12 @@ class InterfaceType extends Type
      */
     public function __construct(\ReflectionClass $interfaceReflection)
     {
+        if (!$interfaceReflection->isInterface())
+        {
+            throw new \DomainException(
+                'Expected an Interface, but got a Class instead.'
+            );
+        }
         parent::__construct($interfaceReflection->getName());
         $this->interfaceReflection = $interfaceReflection;
     }

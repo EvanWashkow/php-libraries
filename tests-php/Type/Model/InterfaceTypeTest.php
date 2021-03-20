@@ -146,6 +146,16 @@ final class InterfaceTypeTest extends DynamicTypeTestDefinition
             'InterfaceX->isValueOfType(ObjectA)' => [$interfaceX, $objectA, false],
         ];
     }
+
+
+    /**
+     * Ensure the constructor throws an exception for classes
+     */
+    public function testConstructorThrowsException(): void
+    {
+        $this->expectException(\DomainException::class);
+        new InterfaceType(new \ReflectionClass(ClassA::class));
+    }
 }
 
 
