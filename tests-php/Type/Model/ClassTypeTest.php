@@ -150,4 +150,14 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
             'RuntimeException->isValueOfType(Exception)' => [$runtimeException, new \Exception(), false],
         ];
     }
+
+
+    /**
+     * Ensure the constructor throws an exception for interfaces
+     */
+    public function testConstructorThrowsException(): void
+    {
+        $this->expectException(\DomainException::class);
+        new ClassType(new \ReflectionClass(\Throwable::class));
+    }
 }
