@@ -9,6 +9,7 @@ use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\ClassType;
 use PHP\Type\Model\FloatType;
+use PHP\Type\Model\InterfaceType;
 
 /**
  * Tests the ClassType class
@@ -47,146 +48,78 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
         return [
 
             // Other Type instances
-            'Error->is(ArrayType)' => [
-                $error,
-                new ArrayType(),
-                false
-            ],
-            'Exception->is(ArrayType)' => [
+            'Error->is(ArrayType)' => [$error, new ArrayType(), false],
+            'Exception->is(ArrayType)' => [$exception, new ArrayType(), false],
+            'Error->is(BooleanType)' => [$error, new BooleanType(), false],
+            'Exception->is(BooleanType)' => [$exception, new BooleanType(), false],
+            'Error->is(FloatType)' => [$error, new FloatType(), false],
+            'Exception->is(FloatType)' => [$exception, new FloatType(), false],
+
+            // InterfaceType
+            'Exception->is(InterfaceType(Throwable))' => [
                 $exception,
-                new ArrayType(),
-                false
+                new InterfaceType(new \ReflectionClass(\Throwable::class)),
+                true
             ],
-            'Error->is(BooleanType)' => [
-                $error,
-                new BooleanType(),
-                false
-            ],
-            'Exception->is(BooleanType)' => [
+            'Exception->is(InterfaceType(Iterator))' => [
                 $exception,
-                new BooleanType(),
+                new InterfaceType(new \ReflectionClass(\Iterator::class)),
                 false
             ],
-            'Error->is(FloatType)' => [
-                $error,
-                new FloatType(),
-                false
-            ],
-            'Exception->is(FloatType)' => [
+            'Exception->is(InterfaceType(Traversable))' => [
                 $exception,
-                new FloatType(),
+                new InterfaceType(new \ReflectionClass(\Traversable::class)),
+                false
+            ],
+            'Error->is(InterfaceType(Throwable))' => [
+                $error,
+                new InterfaceType(new \ReflectionClass(\Throwable::class)),
+                true
+            ],
+            'Error->is(InterfaceType(Iterator))' => [
+                $error,
+                new InterfaceType(new \ReflectionClass(\Iterator::class)),
+                false
+            ],
+            'Error->is(InterfaceType(Traversable))' => [
+                $error,
+                new InterfaceType(new \ReflectionClass(\Traversable::class)),
                 false
             ],
 
-            /**
-             * @todo Add InterfaceType
-             */
-
-            /**
-             * ClassType instances
-             *
-             * @todo Add same checks for the same type (see InterfaceType)
-             */
-            'LogicException->is(ClassType(Exception))' => [
-                $logicException,
-                $exception,
-                true
-            ],
-            'Exception->is(ClassType(LogicException))' => [
-                $exception,
-                $logicException,
-                false
-            ],
-            'RuntimeException->is(ClassType(Exception))' => [
-                $runtimeException,
-                $exception,
-                true
-            ],
-            'Exception->is(ClassType(RuntimeException))' => [
-                $exception,
-                $runtimeException,
-                false
-            ],
+            // ClassType instances
+            'Error->is(ClassType(Error))' => [$error, $error, true],
+            'Error->is(ClassType(Exception))' => [$error, $exception, false],
+            'Exception->is(ClassType(Exception))' => [$exception, $exception, true],
+            'Exception->is(ClassType(Error))' => [$exception, $error, false],
+            'LogicException->is(ClassType(Exception))' => [$logicException, $exception, true],
+            'Exception->is(ClassType(LogicException))' => [$exception, $logicException, false],
+            'RuntimeException->is(ClassType(Exception))' => [$runtimeException, $exception, true],
+            'Exception->is(ClassType(RuntimeException))' => [$exception, $runtimeException, false],
 
             // Primitive names
-            'Exception->is(array)' => [
-                $exception,
-                'array',
-                false
-            ],
-            'Exception->is(bool)' => [
-                $exception,
-                'bool',
-                false
-            ],
-            'Exception->is(integer)' => [
-                $exception,
-                'integer',
-                false
-            ],
-            'Exception->is(float)' => [
-                $exception,
-                'float',
-                false
-            ],
+            'Exception->is(array)' => [$exception, 'array', false],
+            'Exception->is(bool)' => [$exception, 'bool', false],
+            'Exception->is(integer)' => [$exception, 'integer', false],
+            'Exception->is(float)' => [$exception, 'float', false],
 
             // Interface names
-            'Exception->is(Throwable::class)' => [
-                $exception,
-                \Throwable::class,
-                true
-            ],
-            'Exception->is(Iterator::class)' => [
-                $exception,
-                \Iterator::class,
-                false
-            ],
-            'Exception->is(Traversable::class)' => [
-                $exception,
-                \Traversable::class,
-                false
-            ],
-            'Error->is(Throwable::class)' => [
-                $error,
-                \Throwable::class,
-                true
-            ],
-            'Error->is(Iterator::class)' => [
-                $error,
-                \Iterator::class,
-                false
-            ],
-            'Error->is(Traversable::class)' => [
-                $error,
-                \Traversable::class,
-                false
-            ],
+            'Exception->is(Throwable::class)' => [$exception, \Throwable::class, true],
+            'Exception->is(Iterator::class)' => [$exception, \Iterator::class, false],
+            'Exception->is(Traversable::class)' => [$exception, \Traversable::class, false],
+            'Error->is(Throwable::class)' => [$error, \Throwable::class, true],
+            'Error->is(Iterator::class)' => [$error, \Iterator::class, false],
+            'Error->is(Traversable::class)' => [$error, \Traversable::class, false],
 
-            /**
-             * Class names
-             *
-             * @todo Add same checks for the same type (see InterfaceType)
-             */
-            'LogicException->is(Exception::class)' => [
-                $logicException,
-                \Exception::class,
-                true
-            ],
-            'Exception->is(LogicException::class)' => [
-                $exception,
-                \LogicException::class,
-                false
-            ],
-            'RuntimeException->is(Exception::class)' => [
-                $runtimeException,
-                \Exception::class,
-                true
-            ],
-            'Exception->is(RuntimeException::class)' => [
-                $exception,
-                \RuntimeException::class,
-                false
-            ],
+            // Class names
+            'Error->is(Error::class)' => [$error, \Error::class, true],
+            'Error->is(Exception::class)' => [$error, \Exception::class, false],
+            'Exception->is(Exception::class)' => [$exception, \Exception::class, true],
+            'Exception->is(Error::class)' => [$exception, \Error::class, false],
+            'LogicException->is(Exception::class)' => [$logicException, \Exception::class, true],
+            'Exception->is(LogicException::class)' => [$exception, \LogicException::class, false],
+            'RuntimeException->is(Exception::class)' => [$runtimeException, \Exception::class, true],
+            'Exception->is(RuntimeException::class)' => [$exception, \RuntimeException::class, false],
         ];
     }
 

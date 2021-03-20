@@ -30,13 +30,16 @@ class ClassType extends Type
 
     protected function isOfType(Type $type): bool
     {
-        $isClass = $type instanceof ClassType;
-        return $isClass && $this->classReflection->isSubclassOf($type->getName());
+        return $this->isOfTypeName($type->getName());
     }
 
     protected function isOfTypeName(string $typeName): bool
     {
-        $isClassOrInterface = class_exists($typeName) || interface_exists($typeName);
-        return $isClassOrInterface && $this->classReflection->isSubclassOf($typeName);
+        $isOfType = false;
+        if (class_exists($typeName) || interface_exists($typeName)) {
+            $isOfType = $this->getName() === $typeName ||
+                $this->classReflection->isSubclassOf($typeName);
+        }
+        return $isOfType;
     }
 }
