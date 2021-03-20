@@ -113,7 +113,38 @@ final class InterfaceTypeTest extends DynamicTypeTestDefinition
 
     public function getIsValueOfTypeTestData(): array
     {
-        return [];
+        $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
+        $interfaceB = new InterfaceType(new \ReflectionClass(InterfaceB::class));
+        $interfaceC = new InterfaceType(new \ReflectionClass(InterfaceC::class));
+        $interfaceX = new InterfaceType(new \ReflectionClass(InterfaceX::class));
+
+        $objectA = new ClassA();
+        $objectB = new ClassB();
+        $objectC = new ClassC();
+        $objectX = new ClassX();
+
+        return [
+
+            // Primitive types
+            'InterfaceA->isValueOfType([])' => [$interfaceA, [], false],
+            'InterfaceA->isValueOfType(1)' => [$interfaceA, 1, false],
+            'InterfaceA->isValueOfType(false)' => [$interfaceA, false, false],
+            'InterfaceA->isValueOfType(6.7)' => [$interfaceA, 6.7, false],
+
+            // Object instances
+            'InterfaceA->isValueOfType(ObjectA)' => [$interfaceA, $objectA, true],
+            'InterfaceA->isValueOfType(ObjectX)' => [$interfaceA, $objectX, false],
+            'InterfaceA->isValueOfType(ObjectB)' => [$interfaceA, $objectB, true],
+            'InterfaceA->isValueOfType(ObjectC)' => [$interfaceA, $objectC, true],
+            'InterfaceB->isValueOfType(ObjectA)' => [$interfaceB, $objectA, false],
+            'InterfaceB->isValueOfType(ObjectB)' => [$interfaceB, $objectB, true],
+            'InterfaceB->isValueOfType(ObjectC)' => [$interfaceB, $objectC, false],
+            'InterfaceC->isValueOfType(ObjectA)' => [$interfaceC, $objectA, false],
+            'InterfaceC->isValueOfType(ObjectB)' => [$interfaceC, $objectB, false],
+            'InterfaceC->isValueOfType(ObjectC)' => [$interfaceC, $objectC, true],
+            'InterfaceX->isValueOfType(ObjectX)' => [$interfaceX, $objectX, true],
+            'InterfaceX->isValueOfType(ObjectA)' => [$interfaceX, $objectA, false],
+        ];
     }
 }
 
