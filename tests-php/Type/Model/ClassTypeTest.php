@@ -45,7 +45,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
         return [
 
             /**
-             * Type
+             * Other Type instances
              *
              * @todo Add more Type tests
              */
@@ -64,7 +64,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
              * @todo Add InterfaceType
              */
 
-            // ClassType
+            // ClassType instances
             'LogicException->is(ClassType(Exception))' => [
                 $logicException,
                 $exception,
@@ -86,7 +86,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
                 false
             ],
 
-            // Primitive name
+            // Primitive names
             'Exception->is(array)' => [
                 $exception,
                 'array',
@@ -108,7 +108,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
                 false
             ],
 
-            // Interface name
+            // Interface names
             'Exception->is(Throwable::class)' => [
                 $exception,
                 \Throwable::class,
@@ -140,7 +140,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
                 false
             ],
 
-            // Class name
+            // Class names
             'LogicException->is(Exception::class)' => [
                 $logicException,
                 \Exception::class,
