@@ -9,18 +9,18 @@ namespace PHP\Type\Model;
 class ClassType extends Type
 {
     /** @var \ReflectionClass The Reflection of the class */
-    private $reflectionClass;
+    private $classReflection;
 
 
     /**
      * Creates a new ClassType for the given class
      *
-     * @param \ReflectionClass $reflectionClass The Reflection of the class
+     * @param \ReflectionClass $classReflection The Reflection of the class
      */
-    public function __construct(\ReflectionClass $reflectionClass)
+    public function __construct(\ReflectionClass $classReflection)
     {
-        parent::__construct($reflectionClass->getName());
-        $this->reflectionClass = $reflectionClass;
+        parent::__construct($classReflection->getName());
+        $this->classReflection = $classReflection;
     }
 
     public function isValueOfType($value): bool
@@ -31,12 +31,12 @@ class ClassType extends Type
     protected function isOfType(Type $type): bool
     {
         $isClass = $type instanceof ClassType;
-        return $isClass && $this->reflectionClass->isSubclassOf($type->getName());
+        return $isClass && $this->classReflection->isSubclassOf($type->getName());
     }
 
     protected function isOfTypeName(string $typeName): bool
     {
         $isClassOrInterface = class_exists($typeName) || interface_exists($typeName);
-        return $isClassOrInterface && $this->reflectionClass->isSubclassOf($typeName);
+        return $isClassOrInterface && $this->classReflection->isSubclassOf($typeName);
     }
 }
