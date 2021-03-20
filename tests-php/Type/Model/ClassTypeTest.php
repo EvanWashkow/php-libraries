@@ -82,7 +82,11 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
              * @todo Add InterfaceType
              */
 
-            // ClassType instances
+            /**
+             * ClassType instances
+             *
+             * @todo Add same checks for the same type (see InterfaceType)
+             */
             'LogicException->is(ClassType(Exception))' => [
                 $logicException,
                 $exception,
@@ -158,7 +162,11 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
                 false
             ],
 
-            // Class names
+            /**
+             * Class names
+             *
+             * @todo Add same checks for the same type (see InterfaceType)
+             */
             'LogicException->is(Exception::class)' => [
                 $logicException,
                 \Exception::class,
