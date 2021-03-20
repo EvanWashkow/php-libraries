@@ -126,6 +126,7 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
 
     public function getIsValueOfTypeTestData(): array
     {
+        $error            = new ClassType(new \ReflectionClass(\Error::class));
         $exception        = new ClassType(new \ReflectionClass(\Exception::class));
         $logicException   = new ClassType(new \ReflectionClass(\LogicException::class));
         $runtimeException = new ClassType(new \ReflectionClass(\RuntimeException::class));
@@ -133,48 +134,20 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
         return [
 
             // Primitive value
-            'Exception->isValueOfType([])' => [
-                $exception,
-                [],
-                false
-            ],
-            'Exception->isValueOfType(true)' => [
-                $exception,
-                true,
-                false
-            ],
-            'Exception->isValueOfType(1)' => [
-                $exception,
-                1,
-                false
-            ],
-            'Exception->isValueOfType(8.7)' => [
-                $exception,
-                8.7,
-                false
-            ],
+            'Exception->isValueOfType([])' => [$exception, [], false],
+            'Exception->isValueOfType(true)' => [$exception, true, false],
+            'Exception->isValueOfType(1)' => [$exception, 1, false],
+            'Exception->isValueOfType(8.7)' => [$exception, 8.7, false],
 
             // Object instance
-            'Exception->isValueOfType(LogicException)' => [
-                $exception,
-                new \LogicException(),
-                true
-            ],
-            'Exception->isValueOfType(RuntimeException)' => [
-                $exception,
-                new \RuntimeException(),
-                true
-            ],
-            'LogicException->isValueOfType(Exception)' => [
-                $logicException,
-                new \Exception(),
-                false
-            ],
-            'RuntimeException->isValueOfType(Exception)' => [
-                $runtimeException,
-                new \Exception(),
-                false
-            ],
+            'Error->isValueOfType(Error)' => [$error, new \Error(), true],
+            'Error->isValueOfType(Exception)' => [$error, new \Exception(), false],
+            'Exception->isValueOfType(Exception)' => [$exception, new \Exception(), true],
+            'Exception->isValueOfType(Error)' => [$exception, new \Error(), false],
+            'Exception->isValueOfType(LogicException)' => [$exception, new \LogicException(), true],
+            'Exception->isValueOfType(RuntimeException)' => [$exception, new \RuntimeException(), true],
+            'LogicException->isValueOfType(Exception)' => [$logicException, new \Exception(), false],
+            'RuntimeException->isValueOfType(Exception)' => [$runtimeException, new \Exception(), false],
         ];
     }
 }

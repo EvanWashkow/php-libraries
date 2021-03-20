@@ -25,7 +25,7 @@ class ClassType extends Type
 
     public function isValueOfType($value): bool
     {
-        return is_subclass_of($value, $this->getName());
+        return is_a($value, $this->getName());
     }
 
     protected function isOfType(Type $type): bool
