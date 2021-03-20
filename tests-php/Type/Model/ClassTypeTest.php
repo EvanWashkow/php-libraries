@@ -6,7 +6,9 @@ namespace PHP\Tests\Type\Model;
 use PHP\Tests\Type\Model\TestDefinition\DynamicTypeTestDefinition;
 use PHP\Type\Model\AnonymousType;
 use PHP\Type\Model\ArrayType;
+use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\ClassType;
+use PHP\Type\Model\FloatType;
 
 /**
  * Tests the ClassType class
@@ -44,19 +46,35 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
          */
         return [
 
-            /**
-             * Other Type instances
-             *
-             * @todo Add more Type tests
-             */
-            'Exception->is(AnonymousType)' => [
-                $exception,
-                new AnonymousType(),
+            // Other Type instances
+            'Error->is(ArrayType)' => [
+                $error,
+                new ArrayType(),
                 false
             ],
             'Exception->is(ArrayType)' => [
                 $exception,
                 new ArrayType(),
+                false
+            ],
+            'Error->is(BooleanType)' => [
+                $error,
+                new BooleanType(),
+                false
+            ],
+            'Exception->is(BooleanType)' => [
+                $exception,
+                new BooleanType(),
+                false
+            ],
+            'Error->is(FloatType)' => [
+                $error,
+                new FloatType(),
+                false
+            ],
+            'Exception->is(FloatType)' => [
+                $exception,
+                new FloatType(),
                 false
             ],
 
