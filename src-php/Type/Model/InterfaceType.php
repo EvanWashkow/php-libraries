@@ -6,7 +6,7 @@ namespace PHP\Type\Model;
 use phpDocumentor\Reflection\Types\Self_;
 
 /**
- * Defines a interface type
+ * Defines an interface type
  */
 class InterfaceType extends Type
 {

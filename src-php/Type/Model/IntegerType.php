@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace PHP\Type\Model;
 
 /**
- * Defines a integer type
+ * Defines an integer type
  */
 class IntegerType extends Type
 {
