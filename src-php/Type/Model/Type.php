@@ -21,6 +21,14 @@ abstract class Type extends \PHP\ObjectClass
      */
     public function __construct(string $name)
     {
+        if ($name === '')
+        {
+            throw new \DomainException('Type name cannot be empty.');
+        }
+        elseif (false !== strpos($name, ' '))
+        {
+            throw new \DomainException('Type name cannot contain spaces.');
+        }
         $this->name = $name;
     }
 

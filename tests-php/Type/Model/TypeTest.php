@@ -26,6 +26,32 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * Ensures __construct() throws a DomainException on invalid type names
+     *
+     * @dataProvider getConstructorExceptionTestData
+     *
+     * @param string $typeName
+     */
+    public function testConstructorException(string $typeName): void
+    {
+        $this->expectException(\DomainException::class);
+        $this->mockType($typeName);
+    }
+
+    public function getConstructorExceptionTestData(): array
+    {
+        return [
+            '' => [''],
+            ' ' => [' '],
+            ' integer' => [' integer'],
+            'integer ' => ['integer '],
+            ' integer ' => [' integer '],
+            'integer string' => ['integer string'],
+        ];
+    }
+
+
+    /**
      * Test getName() results
      *
      * @dataProvider getGetNamesTestData
