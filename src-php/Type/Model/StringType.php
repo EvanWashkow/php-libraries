@@ -13,18 +13,18 @@ class StringType extends Type
         parent::__construct('string');
     }
 
-    public function isValueOfType($value): bool
+    final public function isValueOfType($value): bool
     {
-
+        return is_string($value);
     }
 
-    protected function isOfType(Type $type): bool
+    final protected function isOfType(Type $type): bool
     {
-
+        return $type instanceof self;
     }
 
-    protected function isOfTypeName(string $typeName): bool
+    final protected function isOfTypeName(string $typeName): bool
     {
-
+        return $typeName === $this->getName();
     }
 }
