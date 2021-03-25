@@ -13,18 +13,15 @@ class BooleanType extends Type
         parent::__construct('boolean');
     }
 
-
     final public function isValueOfType($value): bool
     {
         return is_bool($value);
     }
 
-
     final protected function isOfType(Type $type): bool
     {
         return $type instanceof BooleanType;
     }
-
 
     final protected function isOfTypeName(string $typeName): bool
     {

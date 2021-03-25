@@ -13,18 +13,15 @@ class FloatType extends Type
         parent::__construct('float');
     }
 
-
     public function isValueOfType($value): bool
     {
         return is_float($value);
     }
 
-
     protected function isOfType(Type $type): bool
     {
         return $type instanceof FloatType;
     }
-
 
     protected function isOfTypeName(string $typeName): bool
     {

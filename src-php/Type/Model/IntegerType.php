@@ -13,18 +13,15 @@ class IntegerType extends Type
         parent::__construct('integer');
     }
 
-
     final public function isValueOfType($value): bool
     {
         return is_int($value);
     }
 
-
     final protected function isOfType(Type $type): bool
     {
         return $type instanceof IntegerType;
     }
-
 
     final protected function isOfTypeName(string $typeName): bool
     {

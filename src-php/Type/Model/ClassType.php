@@ -29,15 +29,18 @@ class ClassType extends Type
         $this->classReflection = $classReflection;
     }
 
+
     final public function isValueOfType($value): bool
     {
         return is_a($value, $this->getName());
     }
 
+
     final protected function isOfType(Type $type): bool
     {
         return $this->isOfTypeName($type->getName());
     }
+
 
     final protected function isOfTypeName(string $typeName): bool
     {

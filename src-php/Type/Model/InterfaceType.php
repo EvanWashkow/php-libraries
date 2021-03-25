@@ -31,16 +31,19 @@ class InterfaceType extends Type
         $this->interfaceReflection = $interfaceReflection;
     }
 
+
     final public function isValueOfType($value): bool
     {
         return is_subclass_of($value, $this->getName());
     }
+
 
     final protected function isOfType(Type $type): bool
     {
         return $this->isOfTypeName($type->getName());
     }
 
+    
     final protected function isOfTypeName(string $typeName): bool
     {
         $isOfType = false;

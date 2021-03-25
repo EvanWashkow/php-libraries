@@ -13,18 +13,15 @@ class ArrayType extends Type
         parent::__construct('array');
     }
 
-
     final public function isValueOfType($value): bool
     {
         return is_array($value);
     }
 
-
     final protected function isOfType(Type $type): bool
     {
         return true;
     }
-
 
     final protected function isOfTypeName(string $typeName): bool
     {
