@@ -30,6 +30,8 @@ class AnonymousType extends Type
     /**
      * @inheritDoc
      *
+     * @todo Implement
+     *
      * @interal Only returns true if the type name is equal to this. This type is a derivative of any other type.
      */
     final protected function isOfType(Type $type): bool
