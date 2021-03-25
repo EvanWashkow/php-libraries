@@ -29,17 +29,17 @@ class ClassType extends Type
         $this->classReflection = $classReflection;
     }
 
-    public function isValueOfType($value): bool
+    final public function isValueOfType($value): bool
     {
         return is_a($value, $this->getName());
     }
 
-    protected function isOfType(Type $type): bool
+    final protected function isOfType(Type $type): bool
     {
         return $this->isOfTypeName($type->getName());
     }
 
-    protected function isOfTypeName(string $typeName): bool
+    final protected function isOfTypeName(string $typeName): bool
     {
         $isOfType = false;
         if (class_exists($typeName) || interface_exists($typeName)) {
