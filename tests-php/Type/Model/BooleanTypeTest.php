@@ -6,6 +6,7 @@ namespace PHP\Tests\Type\Model;
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\FloatType;
+use PHP\Type\Model\IntegerType;
 use PHP\Type\Model\Type;
 
 /**
@@ -26,16 +27,13 @@ final class BooleanTypeTest extends TestDefinition\StaticTypeTestDefinition
                 true
             ],
 
-            /**
-             * Different types
-             *
-             * @todo Add different Type instances to this test
-             */
+            // Different types
             'is(array)' => ['array', false],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(float)' => ['float', false],
             'is(FloatType)' => [new FloatType(), false],
             'is(integer)' => ['integer', false],
+            'is(IntegerType)' => [new IntegerType(), false],
         ];
     }
 

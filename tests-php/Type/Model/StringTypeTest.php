@@ -26,11 +26,7 @@ final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
                 true
             ],
 
-            /**
-             * Different types
-             *
-             * @todo Add different Type instances to this test
-             */
+            // Different types
             'is(array)' => ['array', false],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(bool)' => ['bool', false],
