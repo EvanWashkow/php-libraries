@@ -4,6 +4,9 @@ declare(strict_types = 1);
 namespace PHP\Tests\Type\Model;
 
 use PHP\Type\Model\AnonymousType;
+use PHP\Type\Model\BooleanType;
+use PHP\Type\Model\FloatType;
+use PHP\Type\Model\IntegerType;
 use PHP\Type\Model\Type;
 
 class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
@@ -22,14 +25,13 @@ class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
                 true
             ],
 
-            /**
-             * Different types
-             *
-             * @todo Add different Type instances to this test
-             */
-            'is(bool)'    => ['bool',    false],
-            'is(float)'   => ['float',   false],
+            // Different types
+            'is(bool)' => ['bool', false],
+            'is(BooleanType)' => [new BooleanType(), false],
+            'is(float)' => ['float', false],
+            'is(FloatType)' => [new FloatType(), false],
             'is(integer)' => ['integer', false],
+            'is(IntegerType)' => [new IntegerType(), false],
         ];
     }
 

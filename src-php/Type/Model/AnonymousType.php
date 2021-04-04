@@ -36,7 +36,7 @@ class AnonymousType extends Type
      */
     final protected function isOfType(Type $type): bool
     {
-        return true;
+        return $type instanceof self;
     }
 
 
