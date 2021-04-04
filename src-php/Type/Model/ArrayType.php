@@ -20,7 +20,7 @@ class ArrayType extends Type
 
     final protected function isOfType(Type $type): bool
     {
-        return true;
+        return $type instanceof self;
     }
 
     final protected function isOfTypeName(string $typeName): bool
