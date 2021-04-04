@@ -42,9 +42,6 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
         $logicException   = new ClassType(new \ReflectionClass(\LogicException::class));
         $runtimeException = new ClassType(new \ReflectionClass(\RuntimeException::class));
 
-        /**
-         * @todo Add more tests
-         */
         return [
 
             // Other Type instances
