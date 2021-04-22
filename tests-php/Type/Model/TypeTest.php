@@ -7,6 +7,7 @@ use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
 use PHP\Tests\Interfaces\IEquatableTests;
 use PHP\Type\Model\Type;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the Type class
@@ -95,6 +96,55 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
         return [
             'is(5)'    => [5],
             'is(true)' => [true],
+        ];
+    }
+
+
+    /**
+     * Test is(Type) calls isOfTypeName() with the Type->getName()
+     *
+     * @dataProvider getIsCallsIsOfTypeNameWithTypeNameTestData
+     *
+     * @param Type $type
+     */
+    public function testIsCallsIsOfTypeNameWithTypeName(Type $type): void
+    {
+        $mockType = new class($this, $type->getName()) extends Type
+        {
+            private $expectedTypeName;
+            private $testCase;
+
+            public function __construct(TestCase $testCase, string $expectedTypeName)
+            {
+                parent::__construct('TypeMock');
+                $this->expectedTypeName = $expectedTypeName;
+                $this->testCase         = $testCase;
+            }
+
+            public function isValueOfType($value): bool { throw new \BadMethodCallException(); }
+            protected function isOfType(Type $type): bool { throw new \BadMethodCallException(); }
+
+            protected function isOfTypeName(string $typeName): bool
+            {
+                $this->testCase->assertEquals(
+                    $this->expectedTypeName,
+                    $typeName,
+                    Type::class . '->is(Type) did not pass the type name to isOfTypeName()'
+                );
+                return true;
+            }
+        };
+
+        $mockType->is($type);
+    }
+
+    public function getIsCallsIsOfTypeNameWithTypeNameTestData(): array
+    {
+        return [
+            'Type(array)' => [$this->mockType('array')],
+            'Type(integer)' => [$this->mockType('integer')],
+            'Type(float)' => [$this->mockType('float')],
+            'Type(string)' => [$this->mockType('string')]
         ];
     }
 
