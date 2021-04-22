@@ -123,11 +123,6 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
                 throw new \BadMethodCallException();
             }
 
-            protected function isOfType(Type $type): bool
-            {
-                throw new \BadMethodCallException();
-            }
-
             protected function isOfTypeName(string $typeName): bool
             {
                 return $this->isOfTypeNameResult;
@@ -172,7 +167,6 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
             }
 
             public function isValueOfType($value): bool { throw new \BadMethodCallException(); }
-            protected function isOfType(Type $type): bool { throw new \BadMethodCallException(); }
 
             protected function isOfTypeName(string $typeName): bool
             {
