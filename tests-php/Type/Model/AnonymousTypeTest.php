@@ -13,8 +13,6 @@ class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
     public function getIsTestData(): array
     {
-        $mockType = $this->createMock(AnonymousType::class);
-
         return [
 
             // Same type
