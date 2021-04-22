@@ -71,8 +71,8 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
     public function getGetNamesTestData(): array
     {
         return [
-            'bool'    => ['bool'],
-            'float'   => ['float'],
+            'bool' => ['bool'],
+            'float' => ['float'],
             'integer' => ['integer'],
         ];
     }
@@ -94,8 +94,58 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
     public function getIsThrowsInvalidArgumentExceptionTestData(): array
     {
         return [
-            'is(5)'    => [5],
+            'is(5)' => [5],
             'is(true)' => [true],
+        ];
+    }
+
+
+    /**
+     * Test is() returns the result of isOfTypeName()
+     *
+     * @dataProvider getIsReturnsIsOfTypeNameResultTestData
+     *
+     * @param bool $isOfTypeNameResult isOfTypeName() return value
+     */
+    public function testIsReturnsIsOfTypeNameResult(bool $isOfTypeNameResult): void
+    {
+        $mockType = new class($isOfTypeNameResult) extends Type {
+            private $isOfTypeNameResult;
+
+            public function __construct(bool $isOfTypeNameResult)
+            {
+                parent::__construct('TypeMock');
+                $this->isOfTypeNameResult = $isOfTypeNameResult;
+            }
+
+            public function isValueOfType($value): bool
+            {
+                throw new \BadMethodCallException();
+            }
+
+            protected function isOfType(Type $type): bool
+            {
+                throw new \BadMethodCallException();
+            }
+
+            protected function isOfTypeName(string $typeName): bool
+            {
+                return $this->isOfTypeNameResult;
+            }
+        };
+
+        $this->assertEquals(
+            $isOfTypeNameResult,
+            $mockType->is('DummyType'),
+            Type::class . 'is() did not return the result of isOfTypeName()'
+        );
+    }
+
+    public function getIsReturnsIsOfTypeNameResultTestData(): array
+    {
+        return [
+            'true' => [true],
+            'false' => [false],
         ];
     }
 
