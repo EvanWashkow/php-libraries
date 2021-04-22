@@ -22,10 +22,6 @@ final class BooleanTypeTest extends TestDefinition\StaticTypeTestDefinition
             'is(bool)' => ['bool', true],
             'is(boolean)' => ['boolean', true],
             'is(BooleanType)' => [$this->createType(), true],
-            'is(MockBooleanType)' => [
-                $this->createMock(BooleanType::class),
-                true
-            ],
 
             // Different types
             'is(array)' => ['array', false],

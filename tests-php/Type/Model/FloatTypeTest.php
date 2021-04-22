@@ -22,10 +22,6 @@ final class FloatTypeTest extends TestDefinition\StaticTypeTestDefinition
             'is(double)' => ['double', true],
             'is(float)' => ['float', true],
             'is(FloatType)' => [$this->createType(), true],
-            'is(MockFloatType)' => [
-                $this->createMock(FloatType::class),
-                true
-            ],
 
             // Different types
             'is(array)' => ['array', false],

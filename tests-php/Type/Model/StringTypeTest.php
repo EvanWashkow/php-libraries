@@ -21,10 +21,6 @@ final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
             // Same type
             'is(string)' => ['string', true],
             'is(StringType)' => [$this->createType(), true],
-            'is(MockStringType)' => [
-                $this->createMock(StringType::class),
-                true
-            ],
 
             // Different types
             'is(array)' => ['array', false],

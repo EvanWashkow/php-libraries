@@ -18,10 +18,6 @@ class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
             // Same type
             'is(*)'             => ['*',                 true],
             'is(AnonymousType)' => [$this->createType(), true],
-            'is(MockedAnonymousType)' => [
-                $this->createMock(AnonymousType::class),
-                true
-            ],
 
             // Different types
             'is(bool)' => ['bool', false],

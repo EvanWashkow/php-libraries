@@ -22,10 +22,6 @@ final class IntegerTypeTest extends TestDefinition\StaticTypeTestDefinition
             'is(int)' => ['int', true],
             'is(integer)' => ['integer', true],
             'is(IntegerType)' => [$this->createType(), true],
-            'is(MockIntegerType)' => [
-                $this->createMock(IntegerType::class),
-                true
-            ],
 
             // Different types
             'is(array)' => ['array', false],

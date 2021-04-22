@@ -21,10 +21,6 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
             // Same type
             'is(array)' => ['array', true],
             'is(ArrayType)' => [$this->createType(), true],
-            'is(MockArrayType)' => [
-                $this->createMock(ArrayType::class),
-                true
-            ],
 
             // Different types
             'is(bool)' => ['bool', false],
