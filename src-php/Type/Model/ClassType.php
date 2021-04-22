@@ -36,12 +36,6 @@ class ClassType extends Type
     }
 
 
-    final protected function isOfType(Type $type): bool
-    {
-        return $this->isOfTypeName($type->getName());
-    }
-
-
     final protected function isOfTypeName(string $typeName): bool
     {
         $isOfType = false;

@@ -18,11 +18,6 @@ class ArrayType extends Type
         return is_array($value);
     }
 
-    final protected function isOfType(Type $type): bool
-    {
-        return $type instanceof self;
-    }
-
     final protected function isOfTypeName(string $typeName): bool
     {
         return $this->getName() === $typeName;

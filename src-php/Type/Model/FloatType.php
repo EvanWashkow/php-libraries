@@ -18,11 +18,6 @@ class FloatType extends Type
         return is_float($value);
     }
 
-    final protected function isOfType(Type $type): bool
-    {
-        return $type instanceof FloatType;
-    }
-
     final protected function isOfTypeName(string $typeName): bool
     {
         return in_array($typeName, [$this->getName(), 'double'], true);
