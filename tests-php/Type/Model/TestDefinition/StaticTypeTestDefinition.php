@@ -42,18 +42,6 @@ abstract class StaticTypeTestDefinition extends TestCase
 
 
     /**
-     * Retrieve the data for the is() function tests
-     */
-    final public function getIsTestData(): array
-    {
-        return array_merge(
-            $this->getIsOfTypeTestData(),
-            $this->getIsOfTypeNameTestData()
-        );
-    }
-
-
-    /**
      * Retrieve the data for the isOfType() function tests
      */
     final public function getIsOfTypeNameTestData(): array
@@ -86,19 +74,37 @@ abstract class StaticTypeTestDefinition extends TestCase
 
 
     /**
-     * Tests the is() function
+     * Tests the isOfType() function, via is()
      *
-     * @dataProvider getIsTestData
+     * @dataProvider getIsOfTypeTestData
      *
-     * @param string|Type $type The Type or Type name
+     * @param Type $type The Type
      * @param bool $expected The expected result
      */
-    final public function testIs($type, bool $expected): void
+    final public function testIsOfType(Type $type, bool $expected): void
     {
         $this->assertEquals(
             $expected,
             $this->getOrCreateType()->is($type),
-            "{$this->getTypeClassName()}->is() returned the wrong result."
+            "{$this->getTypeClassName()}->isOfType() returned the wrong result."
+        );
+    }
+
+
+    /**
+     * Tests the isOfType() function, via is()
+     *
+     * @dataProvider getIsOfTypeNameTestData
+     *
+     * @param string $type The Type name
+     * @param bool $expected The expected result
+     */
+    final public function testIsOfTypeName(string $type, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $this->getOrCreateType()->is($type),
+            "{$this->getTypeClassName()}->isOfTypeName() returned the wrong result."
         );
     }
 
