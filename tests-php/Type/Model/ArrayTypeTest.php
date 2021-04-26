@@ -17,7 +17,7 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(ArrayType)' => [$this->createType(), true],
+            'is(ArrayType)' => [$this->getOrCreateType(), true],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(FloatType)' => [new FloatType(), false],
             'is(IntegerType)' => [new IntegerType(), false],

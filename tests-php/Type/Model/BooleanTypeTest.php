@@ -17,7 +17,7 @@ final class BooleanTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(BooleanType)' => [$this->createType(), true],
+            'is(BooleanType)' => [$this->getOrCreateType(), true],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(FloatType)' => [new FloatType(), false],
             'is(IntegerType)' => [new IntegerType(), false],

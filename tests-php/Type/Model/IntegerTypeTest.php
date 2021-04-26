@@ -17,7 +17,7 @@ final class IntegerTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(IntegerType)' => [$this->createType(), true],
+            'is(IntegerType)' => [$this->getOrCreateType(), true],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(FloatType)' => [new FloatType(), false],

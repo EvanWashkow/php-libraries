@@ -17,7 +17,7 @@ final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(StringType)' => [$this->createType(), true],
+            'is(StringType)' => [$this->getOrCreateType(), true],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(FloatType)' => [new FloatType(), false],

@@ -14,7 +14,7 @@ class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(AnonymousType)' => [$this->createType(), true],
+            'is(AnonymousType)' => [$this->getOrCreateType(), true],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(FloatType)' => [new FloatType(), false],
             'is(IntegerType)' => [new IntegerType(), false],

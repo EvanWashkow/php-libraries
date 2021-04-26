@@ -17,7 +17,7 @@ final class FloatTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(FloatType)' => [$this->createType(), true],
+            'is(FloatType)' => [$this->getOrCreateType(), true],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(IntegerType)' => [new IntegerType(), false],
