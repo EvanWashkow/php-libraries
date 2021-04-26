@@ -11,22 +11,34 @@ use PHP\Type\Model\Type;
 
 class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
-    public function getIsTestData(): array
+    public function getIsOfTypeTestData(): array
     {
         return [
-
-            // Same type
-            'is(*)'             => ['*',                 true],
             'is(AnonymousType)' => [$this->createType(), true],
-
-            // Different types
-            'is(bool)' => ['bool', false],
             'is(BooleanType)' => [new BooleanType(), false],
-            'is(float)' => ['float', false],
             'is(FloatType)' => [new FloatType(), false],
-            'is(integer)' => ['integer', false],
             'is(IntegerType)' => [new IntegerType(), false],
         ];
+    }
+
+
+    public function getIsOfTypeNameTestData(): array
+    {
+        return [
+            'is(*)' => ['*', true],
+            'is(bool)' => ['bool', false],
+            'is(float)' => ['float', false],
+            'is(integer)' => ['integer', false],
+        ];
+    }
+
+
+    public function getIsTestData(): array
+    {
+        return array_merge(
+            $this->getIsOfTypeTestData(),
+            $this->getIsOfTypeNameTestData()
+        );
     }
 
 
