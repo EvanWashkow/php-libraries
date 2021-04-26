@@ -8,7 +8,7 @@ use PHP\Type\Model\Type;
 /**
  * Defines a base model for Type->is() tests
  */
-abstract class TypeIsTestModel
+abstract class TypeIs
 {
     /** @var bool The expected result of calling is() */
     private $expectedResult;
@@ -18,7 +18,7 @@ abstract class TypeIsTestModel
 
 
     /**
-     * Creates a new TypeIsTestModel instance
+     * Creates a new TypeIs instance
      *
      * @param Type $type The Type to call is() on
      * @param bool $expectedResult The expected result of calling is()
