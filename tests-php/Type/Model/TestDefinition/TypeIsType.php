@@ -7,6 +7,8 @@ use PHP\Type\Model\Type;
 
 /**
  * Defines a model to test Type->is(Type)
+ *
+ * Used to test test Type->is(Type) and Type->is(string $typeName)
  */
 final class TypeIsType extends TypeIs
 {
@@ -33,5 +35,18 @@ final class TypeIsType extends TypeIs
     public function getTypeArg(): Type
     {
         return $this->typeArg;
+    }
+
+
+    /**
+     * Converts this instance to a TypeIsTypeName instance
+     */
+    public function toTypeIsTypeName(): TypeIsTypeName
+    {
+        return new TypeIsTypeName(
+            $this->getType(),
+            $this->getTypeArg()->getName(),
+            $this->getExpectedResult()
+        );
     }
 }

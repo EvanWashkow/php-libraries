@@ -7,6 +7,8 @@ use PHP\Type\Model\Type;
 
 /**
  * Defines a model to test Type->is(string $typeName)
+ *
+ * Used to test test Type->is(string $typeName)
  */
 final class TypeIsTypeName extends TypeIs
 {
