@@ -46,7 +46,12 @@ abstract class StaticTypeTestDefinition extends TestCase
      */
     final public function getIsOfTypeNameTestData(): array
     {
-        $typeNameTestData = [];
+        $typeNameTestData = [
+            'invalid type name, or one that does not exist' => [
+                'invalid type name',
+                false
+            ],
+        ];
         foreach ($this->getIsOfTypeTestData() as $typeTestData)
         {
             $type               = $typeTestData[0];
