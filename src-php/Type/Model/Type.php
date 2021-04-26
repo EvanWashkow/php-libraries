@@ -44,7 +44,7 @@ abstract class Type extends \PHP\ObjectClass
     /**
      * Determines if this Type is of the type name
      *
-     * @param string $typeName The type name
+     * @param string $typeName The type nameepwashkow@gmail.com
      */
     abstract protected function isOfTypeName(string $typeName): bool;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Tests\Type\ModelOldTests;
+namespace PHP\Tests\Type\Model;
 
 use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
@@ -96,99 +96,6 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
         return [
             'is(5)' => [5],
             'is(true)' => [true],
-        ];
-    }
-
-
-    /**
-     * Test is() returns the result of isOfTypeName()
-     *
-     * @dataProvider getIsReturnsIsOfTypeNameResultTestData
-     *
-     * @param bool $isOfTypeNameResult isOfTypeName() return value
-     */
-    public function testIsReturnsIsOfTypeNameResult(bool $isOfTypeNameResult): void
-    {
-        $mockType = new class($isOfTypeNameResult) extends Type {
-            private $isOfTypeNameResult;
-
-            public function __construct(bool $isOfTypeNameResult)
-            {
-                parent::__construct('TypeMock');
-                $this->isOfTypeNameResult = $isOfTypeNameResult;
-            }
-
-            public function isValueOfType($value): bool
-            {
-                throw new \BadMethodCallException();
-            }
-
-            protected function isOfTypeName(string $typeName): bool
-            {
-                return $this->isOfTypeNameResult;
-            }
-        };
-
-        $this->assertEquals(
-            $isOfTypeNameResult,
-            $mockType->is('DummyType'),
-            Type::class . 'is() did not return the result of isOfTypeName()'
-        );
-    }
-
-    public function getIsReturnsIsOfTypeNameResultTestData(): array
-    {
-        return [
-            'true' => [true],
-            'false' => [false],
-        ];
-    }
-
-
-    /**
-     * Test is(Type) calls isOfTypeName() with the Type->getName()
-     *
-     * @dataProvider getIsCallsIsOfTypeNameWithTypeNameTestData
-     *
-     * @param Type $type
-     */
-    public function testIsCallsIsOfTypeNameWithTypeName(Type $type): void
-    {
-        $mockType = new class($this, $type->getName()) extends Type
-        {
-            private $expectedTypeName;
-            private $testCase;
-
-            public function __construct(TestCase $testCase, string $expectedTypeName)
-            {
-                parent::__construct('TypeMock');
-                $this->expectedTypeName = $expectedTypeName;
-                $this->testCase         = $testCase;
-            }
-
-            public function isValueOfType($value): bool { throw new \BadMethodCallException(); }
-
-            protected function isOfTypeName(string $typeName): bool
-            {
-                $this->testCase->assertEquals(
-                    $this->expectedTypeName,
-                    $typeName,
-                    Type::class . '->is(Type) did not pass the type name to isOfTypeName()'
-                );
-                return true;
-            }
-        };
-
-        $mockType->is($type);
-    }
-
-    public function getIsCallsIsOfTypeNameWithTypeNameTestData(): array
-    {
-        return [
-            'Type(array)' => [$this->mockType('array')],
-            'Type(integer)' => [$this->mockType('integer')],
-            'Type(float)' => [$this->mockType('float')],
-            'Type(string)' => [$this->mockType('string')]
         ];
     }
 
