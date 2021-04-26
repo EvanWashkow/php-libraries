@@ -22,26 +22,6 @@ class AnonymousTypeTest extends TestDefinition\StaticTypeTestDefinition
     }
 
 
-    public function getIsOfTypeNameTestData(): array
-    {
-        return [
-            'is(*)' => ['*', true],
-            'is(bool)' => ['bool', false],
-            'is(float)' => ['float', false],
-            'is(integer)' => ['integer', false],
-        ];
-    }
-
-
-    public function getIsTestData(): array
-    {
-        return array_merge(
-            $this->getIsOfTypeTestData(),
-            $this->getIsOfTypeNameTestData()
-        );
-    }
-
-
     public function getIsValueOfTypeTestData(): array
     {
         return [

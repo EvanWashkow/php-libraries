@@ -14,20 +14,12 @@ use PHP\Type\Model\Type;
  */
 final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
-    public function getIsTestData(): array
+    public function getIsOfTypeTestData(): array
     {
         return [
-
-            // Same type
-            'is(string)' => ['string', true],
             'is(StringType)' => [$this->createType(), true],
-
-            // Different types
-            'is(array)' => ['array', false],
             'is(ArrayType)' => [new ArrayType(), false],
-            'is(bool)' => ['bool', false],
             'is(BooleanType)' => [new BooleanType(), false],
-            'is(float)' => ['float', false],
             'is(FloatType)' => [new FloatType(), false],
         ];
     }

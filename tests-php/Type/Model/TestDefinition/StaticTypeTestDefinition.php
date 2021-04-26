@@ -18,27 +18,58 @@ abstract class StaticTypeTestDefinition extends TestCase
 
 
     /**
-     * Retrieves the data for the is() function tests
+     * Retrieve the data for the isOfType() function tests
      */
-    abstract public function getIsTestData(): array;
+    abstract public function getIsOfTypeTestData(): array;
 
 
     /**
-     * Retrieves the data for the isValueOfType() function tests
+     * Retrieve the data for the isValueOfType() function tests
      */
     abstract public function getIsValueOfTypeTestData(): array;
 
 
     /**
-     * Creates a new Type instance to be tested
+     * Create a new Type instance to be tested
      */
     abstract protected function createType(): Type;
 
 
     /**
-     * Retrieves the expected type name for this type
+     * Retrieve the expected type name for this type
      */
     abstract protected function getExpectedTypeName(): string;
+
+
+    /**
+     * Retrieve the data for the is() function tests
+     */
+    final public function getIsTestData(): array
+    {
+        return array_merge(
+            $this->getIsOfTypeTestData(),
+            $this->getIsOfTypeNameTestData()
+        );
+    }
+
+
+    /**
+     * Retrieve the data for the isOfType() function tests
+     */
+    final public function getIsOfTypeNameTestData(): array
+    {
+        $typeNameTestData = [];
+        foreach ($this->getIsOfTypeTestData() as $typeTestData)
+        {
+            $type               = $typeTestData[0];
+            $expected           = $typeTestData[1];
+            $typeNameTestData[] = [$type->getName(), $expected];
+        }
+        return array_merge(
+            $typeNameTestData,
+            $this->getIsOfTypeNameCustomTestData()
+        );
+    }
 
 
     /**
@@ -104,10 +135,19 @@ abstract class StaticTypeTestDefinition extends TestCase
 
 
     /**
-     * Retrieves the Type class name
+     * Retrieve the Type class name
      */
     final protected function getTypeClassName(): string
     {
         return get_class($this->getOrCreateType());
+    }
+
+
+    /**
+     * Retrieve custom data for the isOfType() function tests
+     */
+    protected function getIsOfTypeNameCustomTestData(): array
+    {
+        return [];
     }
 }

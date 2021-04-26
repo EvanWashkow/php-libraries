@@ -14,21 +14,12 @@ use PHP\Type\Model\Type;
  */
 final class FloatTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
-    public function getIsTestData(): array
+    public function getIsOfTypeTestData(): array
     {
         return [
-
-            // Same type
-            'is(double)' => ['double', true],
-            'is(float)' => ['float', true],
             'is(FloatType)' => [$this->createType(), true],
-
-            // Different types
-            'is(array)' => ['array', false],
             'is(ArrayType)' => [new ArrayType(), false],
-            'is(bool)' => ['bool', false],
             'is(BooleanType)' => [new BooleanType(), false],
-            'is(integer)' => ['integer', false],
             'is(IntegerType)' => [new IntegerType(), false],
         ];
     }
@@ -56,5 +47,12 @@ final class FloatTypeTest extends TestDefinition\StaticTypeTestDefinition
     protected function getExpectedTypeName(): string
     {
         return 'float';
+    }
+
+    protected function getIsOfTypeNameCustomTestData(): array
+    {
+        return [
+            'is(double)' => ['double', true],
+        ];
     }
 }
