@@ -68,7 +68,7 @@ abstract class Type extends \PHP\ObjectClass
         $isOfType = null;
         if ($type instanceof self)
         {
-            $isOfType = $this->isOfTypeName($type->getName());
+            $isOfType = $this->isOfType($type);
         }
         elseif (is_string($type))
         {
@@ -106,5 +106,16 @@ abstract class Type extends \PHP\ObjectClass
             $isEqual = $this->getName() === $value;
         }
         return $isEqual;
+    }
+
+
+    /**
+     * Determines if this Type is of another Type
+     *
+     * @param self $type The Type instance
+     */
+    protected function isOfType(self $type): bool
+    {
+        return $this->isOfTypeName($type->getName());
     }
 }
