@@ -17,6 +17,12 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
 
 
     /**
+     * Return isValueOfType() test data
+     */
+    abstract public function getIsValueOfTypeTestData(): array;
+
+
+    /**
      * Test getName() results
      *
      * @dataProvider getNamesTestData
@@ -29,7 +35,37 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             $expectedName,
             $type->getName(),
-            get_class($type) . '->getName() did not return the expected type name.'
+            "{$this->getClassName($type)}->getName() did not return the expected type name."
         );
+    }
+
+
+    /**
+     * Tests the isValueOfType() function
+     *
+     * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param Type $type The Type
+     * @param mixed $value The value
+     * @param bool $expected The expected result
+     */
+    final public function testIsValueOfType(Type $type, $value, bool $expected): void
+    {
+        $this->assertEquals(
+            $expected,
+            $type->isValueOfType($value),
+            "{$this->getClassName($type)}->isValueOfType() returned the wrong result."
+        );
+    }
+
+
+    /**
+     * Retrieves the class name for the given Type instance
+     *
+     * @param Type $type The Type
+     */
+    private function getClassName(Type $type): string
+    {
+        return get_class($type);
     }
 }
