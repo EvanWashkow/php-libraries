@@ -1,23 +1,23 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Tests\Type\Model;
+namespace PHP\Tests\Type\ModelOldTests;
 
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
-use PHP\Type\Model\StringType;
+use PHP\Type\Model\IntegerType;
 use PHP\Type\Model\FloatType;
 use PHP\Type\Model\Type;
 
 /**
- * Tests the StringType class
+ * Tests the IntegerType class
  */
-final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
+final class IntegerTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(StringType)' => [$this->getOrCreateType(), true],
+            'is(IntegerType)' => [$this->getOrCreateType(), true],
             'is(ArrayType)' => [new ArrayType(), false],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(FloatType)' => [new FloatType(), false],
@@ -28,10 +28,7 @@ final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsValueOfTypeTestData(): array
     {
         return [
-            'isValueOfType(foobar)' => ['foobar', true],
-            'isValueOfType(lorem)' => ['lorem', true],
-            'isValueOfType(ipsum)' => ['ipsum', true],
-            'isValueOfType(1)' => [1, false],
+            'isValueOfType(1)' => [1, true],
             'isValueOfType([])' => [[], false],
             'isValueOfType(1.0)' => [1.0, false],
             'isValueOfType(2.7)' => [2.7, false],
@@ -42,12 +39,20 @@ final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
 
     protected function createType(): Type
     {
-        return new StringType();
+        return new IntegerType();
     }
 
 
     protected function getExpectedTypeName(): string
     {
-        return 'string';
+        return 'integer';
+    }
+
+
+    protected function getIsOfTypeNameCustomTestData(): array
+    {
+        return [
+            'is(int)' => ['int', true],
+        ];
     }
 }

@@ -1,26 +1,26 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Tests\Type\Model;
+namespace PHP\Tests\Type\ModelOldTests;
 
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
+use PHP\Type\Model\StringType;
 use PHP\Type\Model\FloatType;
-use PHP\Type\Model\IntegerType;
 use PHP\Type\Model\Type;
 
 /**
- * Tests the ArrayType class
+ * Tests the StringType class
  */
-final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
+final class StringTypeTest extends TestDefinition\StaticTypeTestDefinition
 {
     public function getIsOfTypeTestData(): array
     {
         return [
-            'is(ArrayType)' => [$this->getOrCreateType(), true],
+            'is(StringType)' => [$this->getOrCreateType(), true],
+            'is(ArrayType)' => [new ArrayType(), false],
             'is(BooleanType)' => [new BooleanType(), false],
             'is(FloatType)' => [new FloatType(), false],
-            'is(IntegerType)' => [new IntegerType(), false],
         ];
     }
 
@@ -28,9 +28,12 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
     public function getIsValueOfTypeTestData(): array
     {
         return [
-            'isValueOfType([])' => [[], true],
-            'isValueOfType([1,2,3])' => [[1,2,3], true],
+            'isValueOfType(foobar)' => ['foobar', true],
+            'isValueOfType(lorem)' => ['lorem', true],
+            'isValueOfType(ipsum)' => ['ipsum', true],
             'isValueOfType(1)' => [1, false],
+            'isValueOfType([])' => [[], false],
+            'isValueOfType(1.0)' => [1.0, false],
             'isValueOfType(2.7)' => [2.7, false],
             'isValueOfType(false)' => [false, false],
         ];
@@ -39,12 +42,12 @@ final class ArrayTypeTest extends TestDefinition\StaticTypeTestDefinition
 
     protected function createType(): Type
     {
-        return new ArrayType();
+        return new StringType();
     }
 
 
     protected function getExpectedTypeName(): string
     {
-        return 'array';
+        return 'string';
     }
 }

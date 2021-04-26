@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Type\Model;
+namespace PHP\Tests\Type\ModelOldTests;
 
-use PHP\Tests\Type\Model\TestDefinition\DynamicTypeTestDefinition;
+use PHP\Tests\Type\ModelOldTests\TestDefinition\DynamicTypeTestDefinition;
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\ClassType;

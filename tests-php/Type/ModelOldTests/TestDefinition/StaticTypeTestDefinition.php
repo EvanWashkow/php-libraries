@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Tests\Type\Model\TestDefinition;
+namespace PHP\Tests\Type\ModelOldTests\TestDefinition;
 
 use PHP\Type\Model\Type;
 use PHPUnit\Framework\TestCase;

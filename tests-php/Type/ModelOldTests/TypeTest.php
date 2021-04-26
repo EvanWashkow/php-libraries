@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Tests\Type\Model;
+namespace PHP\Tests\Type\ModelOldTests;
 
 use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
