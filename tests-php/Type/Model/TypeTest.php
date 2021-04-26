@@ -55,7 +55,7 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
     /**
      * Test getName() results
      *
-     * @dataProvider getGetNamesTestData
+     * @dataProvider getNamesTestData
      *
      * @param string $typeName
      */
@@ -68,7 +68,7 @@ final class TypeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function getGetNamesTestData(): array
+    public function getNamesTestData(): array
     {
         return [
             'bool' => ['bool'],
