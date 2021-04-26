@@ -14392,7 +14392,7 @@
 											"font": "Arial;13;0",
 											"left": 200,
 											"top": 39,
-											"width": 81.83804321289062,
+											"width": 77.16455078125,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAF20984qYvsOAQ="
@@ -14593,7 +14593,7 @@
 											"font": "Arial;13;0",
 											"left": 464,
 											"top": 39,
-											"width": 103.56106567382812,
+											"width": 95.24267578125,
 											"height": 40,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAF209+wZoxXDE0="
@@ -16312,7 +16312,7 @@
 											"font": "Arial;13;0",
 											"left": 624,
 											"top": 359,
-											"width": 81.83804321289062,
+											"width": 77.16455078125,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAF20+CkPoy9myA="
@@ -16513,7 +16513,7 @@
 											"font": "Arial;13;0",
 											"left": 624,
 											"top": 439,
-											"width": 103.56106567382812,
+											"width": 95.24267578125,
 											"height": 40,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAF20+DOpYz1VUI="
@@ -25612,7 +25612,7 @@
 											"font": "Arial;13;0",
 											"left": 384,
 											"top": 144,
-											"width": 260.3801574707031,
+											"width": 250.220703125,
 											"height": 23
 										},
 										{
@@ -26414,36 +26414,6 @@
 										},
 										{
 											"_type": "UMLOperation",
-											"_id": "AAAAAAF3qXG+nc6Wgio=",
-											"_parent": {
-												"$ref": "AAAAAAF3qXG+nc6GL2Y="
-											},
-											"name": "isValueOfType",
-											"documentation": "Determines if the given value is of this type.",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3qXG+nc6XCAA=",
-													"_parent": {
-														"$ref": "AAAAAAF3qXG+nc6Wgio="
-													},
-													"name": "value",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAF3qXG+nc6Yt9o=",
-													"_parent": {
-														"$ref": "AAAAAAF3qXG+nc6Wgio="
-													},
-													"type": "bool",
-													"direction": "return"
-												}
-											],
-											"isAbstract": true
-										},
-										{
-											"_type": "UMLOperation",
 											"_id": "AAAAAAF4Pi9YwzJwI2M=",
 											"_parent": {
 												"$ref": "AAAAAAF3qXG+nc6GL2Y="
@@ -26467,6 +26437,35 @@
 													"_id": "AAAAAAF4Pi+NBjJ48xw=",
 													"_parent": {
 														"$ref": "AAAAAAF4Pi9YwzJwI2M="
+													},
+													"type": "bool",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAF3qXG+nc6Wgio=",
+											"_parent": {
+												"$ref": "AAAAAAF3qXG+nc6GL2Y="
+											},
+											"name": "isValueOfType",
+											"documentation": "Determines if the given value is of this type.",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3qXG+nc6XCAA=",
+													"_parent": {
+														"$ref": "AAAAAAF3qXG+nc6Wgio="
+													},
+													"name": "value",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF3qXG+nc6Yt9o=",
+													"_parent": {
+														"$ref": "AAAAAAF3qXG+nc6Wgio="
 													},
 													"type": "bool",
 													"direction": "return"
@@ -27014,6 +27013,23 @@
 												},
 												{
 													"_type": "UMLOperationView",
+													"_id": "AAAAAAF4Pi9Y6zJz5ss=",
+													"_parent": {
+														"$ref": "AAAAAAF3qXG+nc62iaY="
+													},
+													"model": {
+														"$ref": "AAAAAAF4Pi9YwzJwI2M="
+													},
+													"font": "Arial;13;0",
+													"left": 389,
+													"top": 498,
+													"width": 231.6767578125,
+													"height": 13,
+													"text": "#isOfType(type: Type): bool",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
 													"_id": "AAAAAAF3qXG+nc68ml8=",
 													"_parent": {
 														"$ref": "AAAAAAF3qXG+nc62iaY="
@@ -27023,27 +27039,10 @@
 													},
 													"font": "Arial;13;2",
 													"left": 389,
-													"top": 498,
-													"width": 231.6767578125,
-													"height": 13,
-													"text": "+isValueOfType(value): bool",
-													"horizontalAlignment": 0
-												},
-												{
-													"_type": "UMLOperationView",
-													"_id": "AAAAAAF4Pi9Y6zJz5ss=",
-													"_parent": {
-														"$ref": "AAAAAAF3qXG+nc62iaY="
-													},
-													"model": {
-														"$ref": "AAAAAAF4Pi9YwzJwI2M="
-													},
-													"font": "Arial;13;2",
-													"left": 389,
 													"top": 513,
 													"width": 231.6767578125,
 													"height": 13,
-													"text": "#isOfType(type: Type): bool",
+													"text": "+isValueOfType(value): bool",
 													"horizontalAlignment": 0
 												},
 												{
