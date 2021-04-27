@@ -51,7 +51,10 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider getIsTestData
      *
-     * @param TypeIs $typeIsExpression
+     * @param Type $type The Type instance
+     * @param string|Type $isFuncArg The Type->is() function argument. Specifying a Type instance will test both is()
+     * overloaded implementations. Specifying a string will only test the is(string) implementation.
+     * @param bool $expectedResult The expected result from Type->is()
      */
     final public function testIs(Type $type, $isFuncArg, bool $expectedResult): void
     {
