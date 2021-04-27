@@ -24,6 +24,13 @@ final class AnonymousTypeTest extends TestDefinition\TypeTestDefinition
         ];
     }
 
+    public function getIsUnknownTypeNameTestData(): array
+    {
+        return [
+            'AnonymousType' => [new AnonymousType()]
+        ];
+    }
+
 
     public function getIsValueOfTypeTestData(): array
     {
@@ -40,7 +47,7 @@ final class AnonymousTypeTest extends TestDefinition\TypeTestDefinition
     public function getNamesTestData(): array
     {
         return [
-            '*' => [new AnonymousType(), '*'],
+            'AnonymousType' => [new AnonymousType(), '*'],
         ];
     }
 }

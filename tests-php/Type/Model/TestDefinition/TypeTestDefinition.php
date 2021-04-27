@@ -11,12 +11,17 @@ use PHP\Type\Model\Type;
 abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Return isValueOfType() test data
+     * Return is() test data
      */
     abstract public function getIsTestData(): array;
 
     /**
-     * Return isValueOfType() test data
+     * Return is('unknown type') test data
+     */
+    abstract public function getIsUnknownTypeNameTestData(): array;
+
+    /**
+     * Return isValueOf() test data
      */
     abstract public function getIsValueOfTypeTestData(): array;
 
@@ -90,6 +95,23 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
         {
             throw new \InvalidArgumentException('$isFuncArg expected to be a Type or a string.');
         }
+    }
+
+
+    /**
+     * Test Type->is('unknown type') returns false
+     *
+     * @dataProvider getIsUnknownTypeNameTestData
+     *
+     * @param Type $type The Type instance to test
+     */
+    final public function testIsUnknownTypeName(Type $type): void
+    {
+        $this->assertEquals(
+            false,
+            $type->is('unknown type'),
+            "{$this->getClassName($type)}->is('unknown type') returned the wrong value."
+        );
     }
 
 
