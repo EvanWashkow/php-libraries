@@ -11,15 +11,21 @@ use PHP\Type\Model\Type;
 abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Retrieve test data for getNames() test
+     * Return isValueOfType() test data
+     *
+     * @return array<TypeIs[]>
      */
-    abstract public function getNamesTestData(): array;
-
+    abstract public function getIsTestData(): array;
 
     /**
      * Return isValueOfType() test data
      */
     abstract public function getIsValueOfTypeTestData(): array;
+
+    /**
+     * Retrieve test data for getNames() test
+     */
+    abstract public function getNamesTestData(): array;
 
 
     /**
@@ -37,6 +43,47 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
             $type->getName(),
             "{$this->getClassName($type)}->getName() did not return the expected type name."
         );
+    }
+
+
+    /**
+     * Tests the Type->is() function
+     *
+     * @dataProvider getIsTestData
+     *
+     * @param TypeIs $typeIsExpression
+     */
+    final public function testIs(TypeIs $typeIsExpression): void
+    {
+        $expectedResult = $typeIsExpression->getExpectedResult();
+        $type           = $typeIsExpression->getType();
+
+        /**
+         * Test Type->is(Type)
+         */
+        if ($typeIsExpression instanceof TypeIsType)
+        {
+            $this->assertEquals(
+                $expectedResult,
+                $type->is($typeIsExpression->getTypeArg()),
+                "{$this->getClassName($type)}->is(Type) returned the wrong value."
+            );
+
+            // Call the test again, this time with the TypeIsTypeName to test Type->is(string $typeName)
+            $this->testIs($typeIsExpression->toTypeIsTypeName());
+        }
+
+        /**
+         * Test Type->is(string)
+         */
+        elseif ($typeIsExpression instanceof TypeIsTypeName)
+        {
+            $this->assertEquals(
+                $expectedResult,
+                $type->is($typeIsExpression->getTypeName()),
+                "{$this->getClassName($type)}->is(string) returned the wrong value."
+            );
+        }
     }
 
 
