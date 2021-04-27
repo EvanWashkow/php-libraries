@@ -53,36 +53,41 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
      *
      * @param TypeIs $typeIsExpression
      */
-    final public function testIs(TypeIs $typeIsExpression): void
+    final public function testIs(Type $type, $isFuncArg, bool $expectedResult): void
     {
-        $expectedResult = $typeIsExpression->getExpectedResult();
-        $type           = $typeIsExpression->getType();
-
         /**
          * Test Type->is(Type)
          */
-        if ($typeIsExpression instanceof TypeIsType)
+        if ($isFuncArg instanceof Type)
         {
             $this->assertEquals(
                 $expectedResult,
-                $type->is($typeIsExpression->getTypeArg()),
+                $type->is($isFuncArg),
                 "{$this->getClassName($type)}->is(Type) returned the wrong value."
             );
 
-            // Call the test again, this time with the TypeIsTypeName to test Type->is(string $typeName)
-            $this->testIs($typeIsExpression->toTypeIsTypeName());
+            // Call the test again, this time to test Type->is(string $typeName)
+            $this->testIs($type, $isFuncArg->getName(), $expectedResult);
         }
 
         /**
          * Test Type->is(string)
          */
-        elseif ($typeIsExpression instanceof TypeIsTypeName)
+        elseif (is_string($isFuncArg))
         {
             $this->assertEquals(
                 $expectedResult,
-                $type->is($typeIsExpression->getTypeName()),
+                $type->is($isFuncArg),
                 "{$this->getClassName($type)}->is(string) returned the wrong value."
             );
+        }
+
+        /**
+         * Somebody wrote the test wrong
+         */
+        else
+        {
+            throw new \InvalidArgumentException('$isFuncArg expected to be a Type or a string.');
         }
     }
 

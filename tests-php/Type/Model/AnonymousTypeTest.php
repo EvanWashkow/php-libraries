@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace PHP\Tests\Type\Model;
 
-use PHP\Tests\Type\Model\TestDefinition\TypeIsType;
 use PHP\Type\Model\AnonymousType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\FloatType;
@@ -18,10 +17,10 @@ final class AnonymousTypeTest extends TestDefinition\TypeTestDefinition
     {
         $type = new AnonymousType();
         return [
-            'AnonymousType' => [new TypeIsType($type, $type, true)],
-            'BooleanType' => [new TypeIsType($type, new BooleanType(), false)],
-            'FloatType' => [new TypeIsType($type, new FloatType(), false)],
-            'IntegerType' => [new TypeIsType($type, new IntegerType(), false)],
+            'AnonymousType' => [$type, $type, true],
+            'BooleanType' => [$type, new BooleanType(), false],
+            'FloatType' => [$type, new FloatType(), false],
+            'IntegerType' => [$type, new IntegerType(), false],
         ];
     }
 
