@@ -12,8 +12,6 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
 {
     /**
      * Return isValueOfType() test data
-     *
-     * @return array<TypeIs[]>
      */
     abstract public function getIsTestData(): array;
 
