@@ -1,40 +1,20 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace PHP\Tests\Type\ModelOldTests;
+namespace PHP\Tests\Type\Model;
 
-use PHP\Tests\Type\ModelOldTests\TestDefinition\DynamicTypeTestDefinition;
-use PHP\Type\Model\AnonymousType;
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\ClassType;
 use PHP\Type\Model\FloatType;
 use PHP\Type\Model\InterfaceType;
 
-/**
- * Tests the ClassType class
- */
-final class ClassTypeTest extends DynamicTypeTestDefinition
+final class ClassTypeTest extends TestDefinition\TypeTestDefinition
 {
-    public function getGetNameTestData(): array
-    {
-        return [
-            \Exception::class => [
-                new ClassType(new \ReflectionClass(\Exception::class)),
-                \Exception::class
-            ],
-            \RuntimeException::class => [
-                new ClassType(new \ReflectionClass(\RuntimeException::class)),
-                \RuntimeException::class
-            ],
-            \LogicException::class => [
-                new ClassType(new \ReflectionClass(\LogicException::class)),
-                \LogicException::class
-            ],
-        ];
-    }
 
-
+    /**
+     * @inheritDoc
+     */
     public function getIsTestData(): array
     {
         $error            = new ClassType(new \ReflectionClass(\Error::class));
@@ -121,6 +101,21 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public function getIsUnknownTypeNameTestData(): array
+    {
+        $exception = new ClassType(new \ReflectionClass(\Exception::class));
+        return [
+            'ClassType(Exception)' => [$exception],
+        ];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function getIsValueOfTypeTestData(): array
     {
         $error            = new ClassType(new \ReflectionClass(\Error::class));
@@ -150,11 +145,23 @@ final class ClassTypeTest extends DynamicTypeTestDefinition
 
 
     /**
-     * Ensure the constructor throws an exception for interfaces
+     * @inheritDoc
      */
-    public function testConstructorThrowsException(): void
+    public function getNameTestData(): array
     {
-        $this->expectException(\DomainException::class);
-        new ClassType(new \ReflectionClass(\Throwable::class));
+        return [
+            \Exception::class => [
+                new ClassType(new \ReflectionClass(\Exception::class)),
+                \Exception::class
+            ],
+            \RuntimeException::class => [
+                new ClassType(new \ReflectionClass(\RuntimeException::class)),
+                \RuntimeException::class
+            ],
+            \LogicException::class => [
+                new ClassType(new \ReflectionClass(\LogicException::class)),
+                \LogicException::class
+            ],
+        ];
     }
 }
