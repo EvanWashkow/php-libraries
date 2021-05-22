@@ -18,6 +18,11 @@ class IntegerType extends Type
         return is_int($value);
     }
 
+    final protected function isOfType(Type $type): bool
+    {
+        return $type instanceof self;
+    }
+
     final protected function isOfTypeName(string $typeName): bool
     {
         return in_array($typeName, [$this->getName(), 'int'], true);

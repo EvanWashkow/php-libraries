@@ -18,6 +18,11 @@ class BooleanType extends Type
         return is_bool($value);
     }
 
+    final protected function isOfType(Type $type): bool
+    {
+        return $type instanceof self;
+    }
+
     final protected function isOfTypeName(string $typeName): bool
     {
         return in_array($typeName, [$this->getName(), 'bool'], true);
