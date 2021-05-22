@@ -16,8 +16,11 @@ final class AnonymousTypeTest extends TestDefinition\TypeTestDefinition
     public function getIsTestData(): array
     {
         $type = new AnonymousType();
+        $childType = new class extends AnonymousType{};
         return [
             'AnonymousType' => [$type, $type, true],
+            'AnonymousType->is(ChildType)' => [$type, $childType, true],
+            'ChildType->is(AnonymousType)' => [$childType, $type, true],
             'BooleanType' => [$type, new BooleanType(), false],
             'FloatType' => [$type, new FloatType(), false],
             'IntegerType' => [$type, new IntegerType(), false],
