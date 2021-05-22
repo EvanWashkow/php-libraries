@@ -9,6 +9,9 @@ use PHP\Type\Model\ClassType;
 use PHP\Type\Model\FloatType;
 use PHP\Type\Model\InterfaceType;
 
+/**
+ * Tests the ClassType class
+ */
 final class ClassTypeTest extends TestDefinition\TypeTestDefinition
 {
 
