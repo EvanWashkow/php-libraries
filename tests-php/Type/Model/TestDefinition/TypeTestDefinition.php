@@ -26,15 +26,15 @@ abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
     abstract public function getIsValueOfTypeTestData(): array;
 
     /**
-     * Retrieve test data for getNames() test
+     * Retrieve test data for getName() test
      */
-    abstract public function getNamesTestData(): array;
+    abstract public function getNameTestData(): array;
 
 
     /**
      * Test getName() results
      *
-     * @dataProvider getNamesTestData
+     * @dataProvider getNameTestData
      *
      * @param Type $type
      * @param string $expectedName

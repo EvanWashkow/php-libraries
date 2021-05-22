@@ -47,7 +47,7 @@ final class AnonymousTypeTest extends TestDefinition\TypeTestDefinition
     }
 
 
-    public function getNamesTestData(): array
+    public function getNameTestData(): array
     {
         return [
             'AnonymousType' => [new AnonymousType(), '*'],

@@ -61,7 +61,7 @@ final class FloatTypeTest extends TestDefinition\TypeTestDefinition
     /**
      * @inheritDoc
      */
-    public function getNamesTestData(): array
+    public function getNameTestData(): array
     {
         return [
             'FloatType' => [new FloatType(), 'float'],

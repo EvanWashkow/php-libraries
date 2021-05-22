@@ -6,12 +6,9 @@ namespace PHP\Tests\Type\Model;
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\FloatType;
-use PHP\Type\Model\IntegerType;
+use PHP\Type\Model\StringType;
 
-/**
- * Tests the BooleanType class
- */
-final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
+final class StringTypeTest extends TestDefinition\TypeTestDefinition
 {
 
     /**
@@ -19,16 +16,15 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
      */
     public function getIsTestData(): array
     {
-        $type = new BooleanType();
-        $childType = new class extends BooleanType{};
+        $type = new StringType();
+        $childType = new class extends StringType {};
         return [
-            'BooleanType' => [$type, $type, true],
-            'BooleanType->is(ChildType)' => [$type, $childType, true],
-            'ChildType->is(BooleanType)' => [$childType, $type, true],
+            'StringType' => [$type, $type, true],
+            'StringType->is(ChildType)' => [$type, $childType, true],
+            'ChildType->is(StringType)' => [$childType, $type, true],
             'ArrayType' => [$type, new ArrayType(), false],
+            'BooleanType' => [$type, new BooleanType(), false],
             'FloatType' => [$type, new FloatType(), false],
-            'IntegerType' => [$type, new IntegerType(), false],
-            'bool' => [$type, 'bool', true],
         ];
     }
 
@@ -38,7 +34,7 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
     public function getIsUnknownTypeNameTestData(): array
     {
         return [
-            'BooleanType' => [new BooleanType()]
+            'StringType' => [new StringType()],
         ];
     }
 
@@ -47,13 +43,16 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
      */
     public function getIsValueOfTypeTestData(): array
     {
-        $type = new BooleanType();
+        $type = new StringType();
         return [
-            'true' => [$type, true, true],
-            'false' => [$type, false, true],
-            '[]' => [$type, [], false],
+            'foobar' => [$type, 'foobar', true],
+            'lorem' => [$type, 'lorem', true],
+            'ipsum' => [$type, 'ipsum', true],
             '1' => [$type, 1, false],
+            '[]' => [$type, [], false],
+            '1.0' => [$type, 1.0, false],
             '2.7' => [$type, 2.7, false],
+            'false' => [$type, false, false],
         ];
     }
 
@@ -63,7 +62,7 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'BooleanType' => [new BooleanType(), 'boolean']
+            'StringType' => [new StringType(), 'string'],
         ];
     }
 }

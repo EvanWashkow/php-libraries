@@ -47,7 +47,7 @@ final class ArrayTypeTest extends TypeTestDefinition
     }
 
 
-    public function getNamesTestData(): array
+    public function getNameTestData(): array
     {
         return [
             'ArrayType' => [new ArrayType(), 'array'],
