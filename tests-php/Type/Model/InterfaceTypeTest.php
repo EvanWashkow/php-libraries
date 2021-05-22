@@ -1,9 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Type\ModelOldTests;
+namespace PHP\Tests\Type\Model;
 
-use PHP\Tests\Type\ModelOldTests\TestDefinition\DynamicTypeTestDefinition;
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\ClassType;
@@ -13,31 +12,12 @@ use PHP\Type\Model\InterfaceType;
 /**
  * Tests the InterfaceType class
  */
-final class InterfaceTypeTest extends DynamicTypeTestDefinition
+final class InterfaceTypeTest extends TestDefinition\TypeTestDefinition
 {
 
-    public function getGetNameTestData(): array
-    {
-        return [
-            InterfaceA::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceA::class)),
-                InterfaceA::class
-            ],
-            InterfaceB::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceB::class)),
-                InterfaceB::class
-            ],
-            InterfaceC::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceC::class)),
-                InterfaceC::class
-            ],
-            InterfaceX::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceX::class)),
-                InterfaceX::class
-            ],
-        ];
-    }
-
+    /**
+     * @inheritDoc
+     */
     public function getIsTestData(): array
     {
         $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
@@ -85,32 +65,25 @@ final class InterfaceTypeTest extends DynamicTypeTestDefinition
                 new ClassType(new \ReflectionClass(ClassX::class)),
                 false
             ],
-
-            // Primitive names
-            'InterfaceA->is(array)' => [$interfaceA, 'array', false],
-            'InterfaceB->is(array)' => [$interfaceB, 'array', false],
-            'InterfaceA->is(bool)' => [$interfaceA, 'bool', false],
-            'InterfaceB->is(bool)' => [$interfaceB, 'bool', false],
-            'InterfaceA->is(float)' => [$interfaceA, 'float', false],
-            'InterfaceB->is(float)' => [$interfaceB, 'float', false],
-
-            // Interface names
-            'InterfaceA->is(InterfaceB::class)' => [$interfaceA, InterfaceB::class, false],
-            'InterfaceA->is(InterfaceC::class)' => [$interfaceA, InterfaceC::class, false],
-            'InterfaceA->is(InterfaceX::class)' => [$interfaceA, InterfaceX::class, false],
-            'InterfaceA->is(InterfaceA::class)' => [$interfaceA, InterfaceA::class, true],
-            'InterfaceB->is(InterfaceA::class)' => [$interfaceB, InterfaceA::class, true],
-            'InterfaceC->is(InterfaceA::class)' => [$interfaceC, InterfaceA::class, true],
-            'InterfaceX->is(InterfaceX::class)' => [$interfaceX, InterfaceX::class, true],
-
-            // Class names
-            'InterfaceA->is(ClassA::class)' => [$interfaceA, ClassA::class, false],
-            'InterfaceB->is(ClassB::class)' => [$interfaceB, ClassB::class, false],
-            'InterfaceC->is(ClassC::class)' => [$interfaceC, ClassC::class, false],
-            'InterfaceX->is(ClassX::class)' => [$interfaceX, ClassX::class, false],
         ];
     }
 
+
+    /**
+     * @inheritDoc
+     */
+    public function getIsUnknownTypeNameTestData(): array
+    {
+        $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
+        return [
+            'InterfaceType(InterfaceA)' => [$interfaceA],
+        ];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function getIsValueOfTypeTestData(): array
     {
         $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
@@ -149,12 +122,28 @@ final class InterfaceTypeTest extends DynamicTypeTestDefinition
 
 
     /**
-     * Ensure the constructor throws an exception for classes
+     * @inheritDoc
      */
-    public function testConstructorThrowsException(): void
+    public function getNameTestData(): array
     {
-        $this->expectException(\DomainException::class);
-        new InterfaceType(new \ReflectionClass(ClassA::class));
+        return [
+            InterfaceA::class => [
+                new InterfaceType(new \ReflectionClass(InterfaceA::class)),
+                InterfaceA::class
+            ],
+            InterfaceB::class => [
+                new InterfaceType(new \ReflectionClass(InterfaceB::class)),
+                InterfaceB::class
+            ],
+            InterfaceC::class => [
+                new InterfaceType(new \ReflectionClass(InterfaceC::class)),
+                InterfaceC::class
+            ],
+            InterfaceX::class => [
+                new InterfaceType(new \ReflectionClass(InterfaceX::class)),
+                InterfaceX::class
+            ],
+        ];
     }
 }
 
