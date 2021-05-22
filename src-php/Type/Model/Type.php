@@ -42,6 +42,14 @@ abstract class Type extends \PHP\ObjectClass
 
 
     /**
+     * Determines if this Type is of another Type
+     *
+     * @param self $type The Type instance
+     */
+    abstract protected function isOfType(self $type): bool;
+
+
+    /**
      * Determines if this Type is of the type name
      *
      * @param string $typeName The type nameepwashkow@gmail.com
@@ -106,16 +114,5 @@ abstract class Type extends \PHP\ObjectClass
             $isEqual = $this->getName() === $value;
         }
         return $isEqual;
-    }
-
-
-    /**
-     * Determines if this Type is of another Type
-     *
-     * @param self $type The Type instance
-     */
-    protected function isOfType(self $type): bool
-    {
-        return $this->isOfTypeName($type->getName());
     }
 }

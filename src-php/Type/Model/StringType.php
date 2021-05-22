@@ -18,6 +18,11 @@ class StringType extends Type
         return is_string($value);
     }
 
+    final protected function isOfType(Type $type): bool
+    {
+        return $this->isOfTypeName($type->getName());
+    }
+
     final protected function isOfTypeName(string $typeName): bool
     {
         return $typeName === $this->getName();
