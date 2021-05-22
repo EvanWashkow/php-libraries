@@ -76,30 +76,6 @@ final class ClassTypeTest extends TestDefinition\TypeTestDefinition
             'Exception->is(ClassType(LogicException))' => [$exception, $logicException, false],
             'RuntimeException->is(ClassType(Exception))' => [$runtimeException, $exception, true],
             'Exception->is(ClassType(RuntimeException))' => [$exception, $runtimeException, false],
-
-            // Primitive names
-            'Exception->is(array)' => [$exception, 'array', false],
-            'Exception->is(bool)' => [$exception, 'bool', false],
-            'Exception->is(integer)' => [$exception, 'integer', false],
-            'Exception->is(float)' => [$exception, 'float', false],
-
-            // Interface names
-            'Exception->is(Throwable::class)' => [$exception, \Throwable::class, true],
-            'Exception->is(Iterator::class)' => [$exception, \Iterator::class, false],
-            'Exception->is(Traversable::class)' => [$exception, \Traversable::class, false],
-            'Error->is(Throwable::class)' => [$error, \Throwable::class, true],
-            'Error->is(Iterator::class)' => [$error, \Iterator::class, false],
-            'Error->is(Traversable::class)' => [$error, \Traversable::class, false],
-
-            // Class names
-            'Error->is(Error::class)' => [$error, \Error::class, true],
-            'Error->is(Exception::class)' => [$error, \Exception::class, false],
-            'Exception->is(Exception::class)' => [$exception, \Exception::class, true],
-            'Exception->is(Error::class)' => [$exception, \Error::class, false],
-            'LogicException->is(Exception::class)' => [$logicException, \Exception::class, true],
-            'Exception->is(LogicException::class)' => [$exception, \LogicException::class, false],
-            'RuntimeException->is(Exception::class)' => [$runtimeException, \Exception::class, true],
-            'Exception->is(RuntimeException::class)' => [$exception, \RuntimeException::class, false],
         ];
     }
 
