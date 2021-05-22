@@ -28,6 +28,7 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
             'ArrayType' => [$type, new ArrayType(), false],
             'FloatType' => [$type, new FloatType(), false],
             'IntegerType' => [$type, new IntegerType(), false],
+            'bool' => [$type, 'bool', true],
         ];
     }
 
