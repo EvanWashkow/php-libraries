@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests the Type class
  */
-final class TypeTest extends \PHPUnit\Framework\TestCase
+final class TypeTest extends TestCase
 {
     /**
      * Checks the type of Type
