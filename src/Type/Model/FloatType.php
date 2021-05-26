@@ -1,21 +1,21 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Type\Model;
+namespace EvanWashkow\PHPLibraries\Type\Model;
 
 /**
- * Defines an integer type
+ * Defines a floating point number type
  */
-class IntegerType extends Type
+class FloatType extends Type
 {
     public function __construct()
     {
-        parent::__construct('integer');
+        parent::__construct('float');
     }
 
     final public function isValueOfType($value): bool
     {
-        return is_int($value);
+        return is_float($value);
     }
 
     final protected function isOfType(Type $type): bool
@@ -25,6 +25,6 @@ class IntegerType extends Type
 
     final protected function isOfTypeName(string $typeName): bool
     {
-        return in_array($typeName, [$this->getName(), 'int'], true);
+        return in_array($typeName, [$this->getName(), 'double'], true);
     }
 }

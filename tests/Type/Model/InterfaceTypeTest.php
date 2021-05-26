@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
 
-use PHP\Type\Model\ArrayType;
-use PHP\Type\Model\BooleanType;
-use PHP\Type\Model\ClassType;
-use PHP\Type\Model\FloatType;
-use PHP\Type\Model\InterfaceType;
+use EvanWashkow\PHPLibraries\Type\Model\ArrayType;
+use EvanWashkow\PHPLibraries\Type\Model\BooleanType;
+use EvanWashkow\PHPLibraries\Type\Model\ClassType;
+use EvanWashkow\PHPLibraries\Type\Model\FloatType;
+use EvanWashkow\PHPLibraries\Type\Model\InterfaceType;
 
 /**
  * Tests the InterfaceType class

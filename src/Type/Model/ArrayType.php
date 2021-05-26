@@ -1,30 +1,30 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Type\Model;
+namespace EvanWashkow\PHPLibraries\Type\Model;
 
 /**
- * Defines a boolean type
+ * Defines an array type
  */
-class BooleanType extends Type
+class ArrayType extends Type
 {
     public function __construct()
     {
-        parent::__construct('boolean');
+        parent::__construct('array');
     }
 
     final public function isValueOfType($value): bool
     {
-        return is_bool($value);
+        return is_array($value);
     }
 
     final protected function isOfType(Type $type): bool
     {
-        return $type instanceof self;
+        return $this->isOfTypeName($type->getName());
     }
 
     final protected function isOfTypeName(string $typeName): bool
     {
-        return in_array($typeName, [$this->getName(), 'bool'], true);
+        return $this->getName() === $typeName;
     }
 }

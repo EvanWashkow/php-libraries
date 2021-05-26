@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type\Model\TestDefinition;
 
-use PHP\Type\Model\Type;
+use EvanWashkow\PHPLibraries\Type\Model\Type;
 
 /**
  * Defines tests for a Type implementation

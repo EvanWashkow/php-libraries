@@ -6,7 +6,7 @@ namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
 use PHP\Collections\ByteArray;
 use PHP\ObjectClass;
 use PHP\Tests\Interfaces\IEquatableTests;
-use PHP\Type\Model\Type;
+use EvanWashkow\PHPLibraries\Type\Model\Type;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
 
-use PHP\Type\Model\AnonymousType;
-use PHP\Type\Model\BooleanType;
-use PHP\Type\Model\FloatType;
-use PHP\Type\Model\IntegerType;
+use EvanWashkow\PHPLibraries\Type\Model\AnonymousType;
+use EvanWashkow\PHPLibraries\Type\Model\BooleanType;
+use EvanWashkow\PHPLibraries\Type\Model\FloatType;
+use EvanWashkow\PHPLibraries\Type\Model\IntegerType;
 
 /**
  * Tests the AnonymousType class

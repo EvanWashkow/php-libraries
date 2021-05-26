@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
 
 use EvanWashkow\PHPLibraries\Tests\Type\Model\TestDefinition\TypeTestDefinition;
-use PHP\Type\Model\ArrayType;
-use PHP\Type\Model\BooleanType;
-use PHP\Type\Model\FloatType;
-use PHP\Type\Model\IntegerType;
+use EvanWashkow\PHPLibraries\Type\Model\ArrayType;
+use EvanWashkow\PHPLibraries\Type\Model\BooleanType;
+use EvanWashkow\PHPLibraries\Type\Model\FloatType;
+use EvanWashkow\PHPLibraries\Type\Model\IntegerType;
 
 final class ArrayTypeTest extends TypeTestDefinition
 {

@@ -1,9 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Type\Model;
-
-use phpDocumentor\Reflection\Types\Self_;
+namespace EvanWashkow\PHPLibraries\Type\Model;
 
 /**
  * Defines an interface type

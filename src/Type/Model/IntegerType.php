@@ -1,30 +1,30 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Type\Model;
+namespace EvanWashkow\PHPLibraries\Type\Model;
 
 /**
- * Defines an array type
+ * Defines an integer type
  */
-class ArrayType extends Type
+class IntegerType extends Type
 {
     public function __construct()
     {
-        parent::__construct('array');
+        parent::__construct('integer');
     }
 
     final public function isValueOfType($value): bool
     {
-        return is_array($value);
+        return is_int($value);
     }
 
     final protected function isOfType(Type $type): bool
     {
-        return $this->isOfTypeName($type->getName());
+        return $type instanceof self;
     }
 
     final protected function isOfTypeName(string $typeName): bool
     {
-        return $this->getName() === $typeName;
+        return in_array($typeName, [$this->getName(), 'int'], true);
     }
 }

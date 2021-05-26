@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PHP\Type\Model;
+namespace EvanWashkow\PHPLibraries\Type\Model;
 
 use PHP\Collections\ByteArray;
 
