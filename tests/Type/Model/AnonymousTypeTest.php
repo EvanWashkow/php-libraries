@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Type\Model;
+namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
 
 use PHP\Type\Model\AnonymousType;
 use PHP\Type\Model\BooleanType;

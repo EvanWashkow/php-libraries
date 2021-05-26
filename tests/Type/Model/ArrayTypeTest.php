@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace PHP\Tests\Type\Model;
+namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
 
-use PHP\Tests\Type\Model\TestDefinition\TypeTestDefinition;
+use EvanWashkow\PHPLibraries\Tests\Type\Model\TestDefinition\TypeTestDefinition;
 use PHP\Type\Model\ArrayType;
 use PHP\Type\Model\BooleanType;
 use PHP\Type\Model\FloatType;
