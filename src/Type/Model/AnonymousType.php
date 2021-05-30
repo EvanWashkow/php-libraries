@@ -9,7 +9,7 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class AnonymousType extends Type
 {
-    /** @var string Type name */
+    /** @var string The type name */
     public const NAME = '*';
 
 

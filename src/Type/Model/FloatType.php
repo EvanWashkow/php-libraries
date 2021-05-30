@@ -8,9 +8,15 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class FloatType extends Type
 {
+    /** @var string The type name for a double */
+    public const DOUBLE_NAME = 'double';
+
+    /** @var string The type name for a float */
+    public const FLOAT_NAME = 'float';
+
     public function __construct()
     {
-        parent::__construct('float');
+        parent::__construct(self::FLOAT_NAME);
     }
 
     final public function isValueOfType($value): bool
@@ -25,6 +31,6 @@ class FloatType extends Type
 
     final protected function isOfTypeName(string $typeName): bool
     {
-        return in_array($typeName, [$this->getName(), 'double'], true);
+        return in_array($typeName, [self::FLOAT_NAME, self::DOUBLE_NAME], true);
     }
 }

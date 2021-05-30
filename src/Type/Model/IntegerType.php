@@ -8,9 +8,15 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class IntegerType extends Type
 {
+    /** @var string The longer type name */
+    public const INTEGER_NAME = 'integer';
+
+    /** @var string The shorter type name */
+    public const INT_NAME = 'int';
+
     public function __construct()
     {
-        parent::__construct('integer');
+        parent::__construct(self::INTEGER_NAME);
     }
 
     final public function isValueOfType($value): bool
@@ -25,6 +31,6 @@ class IntegerType extends Type
 
     final protected function isOfTypeName(string $typeName): bool
     {
-        return in_array($typeName, [$this->getName(), 'int'], true);
+        return in_array($typeName, [self::INTEGER_NAME, self::INT_NAME], true);
     }
 }

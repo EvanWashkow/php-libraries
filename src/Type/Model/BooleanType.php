@@ -8,9 +8,15 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class BooleanType extends Type
 {
+    /** @var string The full type name */
+    public const BOOLEAN_NAME = 'boolean';
+
+    /** @var string A common alias for the type name */
+    public const BOOL_NAME = 'bool';
+
     public function __construct()
     {
-        parent::__construct('boolean');
+        parent::__construct(self::BOOLEAN_NAME);
     }
 
     final public function isValueOfType($value): bool

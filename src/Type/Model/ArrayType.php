@@ -8,9 +8,12 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class ArrayType extends Type
 {
+    /** @var string The type name */
+    public const NAME = 'array';
+
     public function __construct()
     {
-        parent::__construct('array');
+        parent::__construct(self::NAME);
     }
 
     final public function isValueOfType($value): bool

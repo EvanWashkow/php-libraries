@@ -63,7 +63,7 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'BooleanType' => [new BooleanType(), 'boolean']
+            'BooleanType' => [new BooleanType(), BooleanType::BOOLEAN_NAME]
         ];
     }
 }

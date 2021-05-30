@@ -62,7 +62,7 @@ final class StringTypeTest extends TestDefinition\TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'StringType' => [new StringType(), 'string'],
+            'StringType' => [new StringType(), StringType::NAME],
         ];
     }
 }

@@ -8,9 +8,12 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class StringType extends Type
 {
+    /** @var string The type name */
+    public const NAME = 'string';
+
     public function __construct()
     {
-        parent::__construct('string');
+        parent::__construct(self::NAME);
     }
 
     final public function isValueOfType($value): bool

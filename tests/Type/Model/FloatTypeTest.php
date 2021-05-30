@@ -64,7 +64,7 @@ final class FloatTypeTest extends TestDefinition\TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'FloatType' => [new FloatType(), 'float'],
+            'FloatType' => [new FloatType(), FloatType::FLOAT_NAME],
         ];
     }
 }

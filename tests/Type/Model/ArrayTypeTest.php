@@ -50,7 +50,7 @@ final class ArrayTypeTest extends TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'ArrayType' => [new ArrayType(), 'array'],
+            'ArrayType' => [new ArrayType(), ArrayType::NAME],
         ];
     }
 }
