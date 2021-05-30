@@ -50,7 +50,7 @@ final class AnonymousTypeTest extends TestDefinition\TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'AnonymousType' => [new AnonymousType(), '*'],
+            'AnonymousType' => [new AnonymousType(), AnonymousType::NAME],
         ];
     }
 }

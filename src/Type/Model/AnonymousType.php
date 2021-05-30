@@ -9,9 +9,13 @@ namespace EvanWashkow\PhpLibraries\Type\Model;
  */
 class AnonymousType extends Type
 {
+    /** @var string Type name */
+    public const NAME = '*';
+
+
     public function __construct()
     {
-        parent::__construct('*');
+        parent::__construct(self::NAME);
     }
 
 
