@@ -6,8 +6,8 @@
             "src-php/Functions.php"
         ],
         "psr-4": {
-            "EvanWashkow\\PHPLibraries\\": "src/",
-            "EvanWashkow\\PHPLibraries\\Tests\\": "tests/",
+            "EvanWashkow\\PhpLibraries\\": "src/",
+            "EvanWashkow\\PhpLibraries\\Tests\\": "tests/",
             "PHP\\": "src-php/",
             "PHP\\Tests\\": "tests-php/"
         }

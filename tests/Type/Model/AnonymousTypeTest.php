@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Type\Model;
+namespace EvanWashkow\PhpLibraries\Tests\Type\Model;
 
-use EvanWashkow\PHPLibraries\Type\Model\AnonymousType;
-use EvanWashkow\PHPLibraries\Type\Model\BooleanType;
-use EvanWashkow\PHPLibraries\Type\Model\FloatType;
-use EvanWashkow\PHPLibraries\Type\Model\IntegerType;
+use EvanWashkow\PhpLibraries\Type\Model\AnonymousType;
+use EvanWashkow\PhpLibraries\Type\Model\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Model\FloatType;
+use EvanWashkow\PhpLibraries\Type\Model\IntegerType;
 
 /**
  * Tests the AnonymousType class

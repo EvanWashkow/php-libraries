@@ -1,6 +1,6 @@
 <phpunit bootstrap="vendor/autoload.php">
   <testsuites>
-    <testsuite name="EvanWashkow\PHPLibraries\Tests">
+    <testsuite name="EvanWashkow\PhpLibraries\Tests">
       <directory>tests</directory>
     </testsuite>
     <testsuite name="PHP\Tests">

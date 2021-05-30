@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace EvanWashkow\PHPLibraries\Type\Model;
+namespace EvanWashkow\PhpLibraries\Type\Model;
 
 /**
  * Anonymous Types define a Type without any strict Type constraints. Rather, the resulting Type is determined at
