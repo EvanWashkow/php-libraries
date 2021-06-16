@@ -1,5 +1,3 @@
 #!/bin/sh
 
-docker run --rm --interactive --tty \
-  --volume $PWD:/app \
-  composer update
+docker-compose run php-libraries composer update
