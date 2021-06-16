@@ -5,46 +5,13 @@ namespace PHP\Tests\Collections;
 
 use PHP\Byte;
 use PHP\Collections\ByteArray;
-use PHP\Collections\Collection;
 use PHP\Collections\Dictionary;
 
 /**
  * Tests the Dictionary class
  */
-final class DictionaryTest extends \PHPUnit\Framework\TestCase
+final class DictionaryTest extends CollectionTestDefinition
 {
-
-
-    /**
-     * Ensures a Dictionary can be serialized / deserialized
-     *
-     * @dataProvider getSerializationTestData
-     *
-     * @param Collection $originalCollection
-     */
-    public function testSerialization(Collection $originalCollection): void
-    {
-        /** @var Collection $deserializedCollection */
-        $deserializedCollection = unserialize(serialize($originalCollection));
-
-        // Do tests
-        $this->assertSame(
-            $originalCollection->getKeyType()->getName(),
-            $deserializedCollection->getKeyType()->getName(),
-            'DeserializedCollection->getKeyType() does not match the OriginalCollection->getKeyType()'
-        );
-        $this->assertSame(
-            $originalCollection->getValueType()->getName(),
-            $deserializedCollection->getValueType()->getName(),
-            'DeserializedCollection->getValueType() does not match the OriginalCollection->getValueType()'
-        );
-        $this->assertEquals(
-            $originalCollection->toArray(),
-            $deserializedCollection->toArray(),
-            'DeserializedCollection->toArray() does not match the OriginalCollection->toArray()'
-        );
-    }
-
 
     public function getSerializationTestData(): array
     {
