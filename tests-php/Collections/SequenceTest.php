@@ -154,19 +154,20 @@ class SequenceTest extends TestCase
     /**
      * Test getKeyOf() return values
      * 
-     * @dataProvider      getGetKeyOfExceptionData
-     * @expectedException \Exception
+     * @dataProvider getGetKeyOfExceptionData
      *
      * @param Sequence $sequence        The sequence
      * @param mixed    $value           The value to get the key of
      * @param int      $offset          The offset to start the search from
      * @param bool     $isReverseSearch Start from the end of the sequence?
      **/
-    public function testGetKeyOfException( Sequence $sequence,
-                                                    $value,
-                                           int      $offset,
-                                           bool     $isReverseSearch )
-    {
+    public function testGetKeyOfException(
+        Sequence $sequence,
+        $value,
+        int $offset,
+        bool $isReverseSearch
+    ) {
+        $this->expectException(\Exception::class);
         $sequence->getKeyOf( $value, $offset, $isReverseSearch );
     }
 

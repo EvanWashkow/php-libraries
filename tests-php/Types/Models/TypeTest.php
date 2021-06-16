@@ -183,11 +183,10 @@ class TypeTest extends TestCase
 
     /**
      * Ensure Type->__construct throws an exception on an empty name
-     * 
-     * @expectedException \DomainException
      **/
     public function testConstructThrowsExceptionOnEmptyName()
     {
+        $this->expectException(\DomainException::class);
         new Type( '' );
     }
     

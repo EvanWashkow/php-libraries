@@ -35,11 +35,10 @@ class TypeLookupTest extends TestCase
 
     /**
      * Ensure TypeLookup->getByName() throws a DomainException
-     * 
-     * @expectedException \DomainException
      */
     public function testGetByXDomainException(): void
     {
+        $this->expectException(\DomainException::class);
         TypeLookupSingleton::getInstance()->getByName( 'foobar' );
     }
 

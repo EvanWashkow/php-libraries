@@ -17,12 +17,11 @@ class BitMapEnumTest extends TestCase
 
     /**
      * Ensure isSet() throws InvalidArgumentException
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testIsSetException(): void
     {
         $enum = new GoodBitMapEnum( GoodBitMapEnum::ONE | GoodBitMapEnum::TWO | GoodBitMapEnum::FOUR );
+        $this->expectException(\InvalidArgumentException::class);
         $enum->isSet( new Sequence( 'int', [ GoodBitMapEnum::FOUR ] ) );
     }
 
