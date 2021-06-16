@@ -1,7 +1,7 @@
 services:
   php-libraries:
-    image: php-libraries:7.3
     build: .
+    image: php-libraries:7.3
     container_name: php-libraries-7.3
     command: composer install
     volumes:
