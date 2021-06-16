@@ -1,8 +1,8 @@
 services:
   php-libraries:
     build: .
-    image: php-libraries:7.3
-    container_name: php-libraries-7.3
+    image: php-libraries:8.0
+    container_name: php-libraries-8.0
     command: composer install
     volumes:
     - .:/usr/src/php-libraries
