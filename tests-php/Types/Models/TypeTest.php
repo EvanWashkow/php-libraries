@@ -11,7 +11,7 @@ use PHP\Types\TypeNames;
 /**
  * Tests the base Type functionality
  */
-class TypeTest extends TypeTestDefinition
+final class TypeTest extends TypeTestDefinition
 {
 
 
