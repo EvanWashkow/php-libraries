@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose run php-libraries composer update
+docker-compose run --rm php-libraries composer update
