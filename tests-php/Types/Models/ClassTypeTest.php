@@ -3,13 +3,25 @@ namespace PHP\Tests\Types\Models;
 
 use PHP\Types\Models\ClassType;
 use PHP\Types\TypeLookupSingleton;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Ensure all ClassTypes have same basic functionality
  */
-class ClassTypeTest extends TestCase
+final class ClassTypeTest extends TypeTestDefinition
 {
+
+
+    public function getSerializationTestData(): array
+    {
+        return [
+            'ClassType(ReflectionObject)' => [
+                new ClassType(new \ReflectionClass(\ReflectionObject::class)),
+            ],
+            'ClassType(ReflectionClass)' => [
+                new ClassType(new \ReflectionClass(\ReflectionClass::class)),
+            ],
+        ];
+    }
 
 
 

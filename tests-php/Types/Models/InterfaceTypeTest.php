@@ -2,15 +2,28 @@
 namespace PHP\Tests\Types\Models;
 
 use ArrayAccess;
+use PHP\Collections\Iteration\Iterator;
 use PHP\Types\Models\InterfaceType;
 use PHP\Types\TypeLookupSingleton;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the \PHP\Types\InterfaceType functionality
  */
-class InterfaceTypeTest extends TestCase
+final class InterfaceTypeTest extends TypeTestDefinition
 {
+
+
+    public function getSerializationTestData(): array
+    {
+        return [
+            'InterfaceType(Iterator)' => [
+                new InterfaceType(new \ReflectionClass(Iterator::class))
+            ],
+            'InterfaceType(SeekableIterator)' => [
+                new InterfaceType(new \ReflectionClass(\SeekableIterator::class))
+            ],
+        ];
+    }
 
 
 

@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
+use Exception;
 use PHP\Collections\ByteArray;
 use PHP\Collections\Sequence;
 use PHP\ObjectClass;

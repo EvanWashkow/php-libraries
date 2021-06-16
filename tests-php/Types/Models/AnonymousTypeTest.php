@@ -6,8 +6,16 @@ use PHP\Types\Models\AnonymousType;
 /**
  * Tests AnonymousType
  */
-class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
+final class AnonymousTypeTest extends TypeTestDefinition
 {
+
+
+    public function getSerializationTestData(): array
+    {
+        return [
+            'AnonymousType' => [ new AnonymousType() ],
+        ];
+    }
 
 
     /**
