@@ -7,13 +7,30 @@ use PHP\Tests\Interfaces\IEquatableTests;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the base Type functionality
  */
-class TypeTest extends TestCase
+class TypeTest extends TypeTestDefinition
 {
+
+
+
+
+    /*******************************************************************************************************************
+    *                                    TypeTestDefinition abstraction implementors
+    *******************************************************************************************************************/
+
+
+    public function getSerializationTestData(): array
+    {
+        return [
+            'name = foo' => [ new Type('foo') ],
+            'name = bar' => [ new Type('bar') ],
+            'name = foo, alias = lorem, ipsum' => [ new Type('foo', ['lorem', 'ipsum']) ],
+            'name = bar, alias = sunday, monday' => [ new Type('bar', ['sunday', 'monday']) ],
+        ];
+    }
 
 
 
@@ -170,45 +187,6 @@ class TypeTest extends TestCase
                 new Type(TypeNames::STRING),
                 new Type(TypeNames::STRING)
             ]
-        ];
-    }
-
-
-    /**
-     * Ensures a Type can be serialized / deserialized
-     *
-     * @dataProvider getSerializationTestData
-     *
-     * @param Type $originalType
-     */
-    public function testSerialization(Type $originalType): void
-    {
-        // Prime Type->namesSequence by calling Type->getNames()
-        $originalType->getNames();
-
-        /** @var Type $deserializedType */
-        $deserializedType = unserialize(serialize($originalType));
-
-        // Do tests
-        $this->assertSame(
-            $originalType->getName(),
-            $deserializedType->getName(),
-            'DeserializedType->getName() does not match the OriginalType->getName()'
-        );
-        $this->assertSame(
-            $originalType->getNames()->toArray(),
-            $deserializedType->getNames()->toArray(),
-            'DeserializedType->getNames() does not match the OriginalType->getNames()'
-        );
-    }
-
-    public function getSerializationTestData(): array
-    {
-        return [
-            'name = foo' => [ new Type('foo') ],
-            'name = bar' => [ new Type('bar') ],
-            'name = foo, alias = lorem, ipsum' => [ new Type('foo', ['lorem', 'ipsum']) ],
-            'name = bar, alias = sunday, monday' => [ new Type('bar', ['sunday', 'monday']) ],
         ];
     }
 
