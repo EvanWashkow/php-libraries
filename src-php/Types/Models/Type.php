@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Types\Models;
 
+use Exception;
 use PHP\Collections\ByteArray;
 use PHP\Collections\Sequence;
 use PHP\ObjectClass;
@@ -10,7 +11,7 @@ use PHP\ObjectClass;
 /**
  * Retrieve information for a system type
  */
-class Type extends ObjectClass
+class Type extends ObjectClass implements \Serializable
 {
     
     /*******************************************************************************************************************
@@ -180,5 +181,22 @@ class Type extends ObjectClass
     public function isValueOfType($value): bool
     {
         return is($value, $this->getName());
+    }
+
+    public function serialize(): string
+    {
+        return serialize([
+            'name' => $this->name,
+            'namesArray' => $this->namesArray
+        ]);
+    }
+
+
+    public function unserialize($data)
+    {
+        $unserializedData = unserialize($data);
+        $this->name          = $unserializedData['name'];
+        $this->namesArray    = $unserializedData['namesArray'];
+        $this->namesSequence = null;
     }
 }

@@ -6,7 +6,7 @@ namespace PHP\Types\Models;
 /**
  * Retrieve type information for a interface
  */
-class InterfaceType extends Type
+class InterfaceType extends Type implements \Serializable
 {
     
     /**
@@ -49,6 +49,19 @@ class InterfaceType extends Type
     public function isInterface(): bool
     {
         return true;
+    }
+
+
+    public function serialize(): string
+    {
+        return parent::serialize();
+    }
+
+
+    public function unserialize($data)
+    {
+        parent::unserialize($data);
+        $this->reflectionClass = new \ReflectionClass($this->getName());
     }
 
 
