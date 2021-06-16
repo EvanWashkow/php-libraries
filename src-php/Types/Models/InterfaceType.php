@@ -54,14 +54,13 @@ class InterfaceType extends Type implements \Serializable
 
     public function serialize(): string
     {
-        return parent::serialize();
+        return $this->reflectionClass->getName();
     }
 
 
     public function unserialize($data)
     {
-        parent::unserialize($data);
-        $this->reflectionClass = new \ReflectionClass($this->getName());
+        $this->__construct(new \ReflectionClass($data));
     }
 
 
