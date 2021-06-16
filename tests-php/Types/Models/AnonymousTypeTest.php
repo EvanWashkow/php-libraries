@@ -45,22 +45,20 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Ensure AnonymousType->isClass() throws an exception
-     * 
-     * @expectedException \BadMethodCallException
      **/
     public function testIsClass()
     {
+        $this->expectException(\BadMethodCallException::class);
         ( new AnonymousType() )->isClass();
     }
 
 
     /**
      * Ensure AnonymousType->isInterface() throws an exception
-     * 
-     * @expectedException \BadMethodCallException
      **/
     public function testIsInterface()
     {
+        $this->expectException(\BadMethodCallException::class);
         ( new AnonymousType() )->isInterface();
     }
 

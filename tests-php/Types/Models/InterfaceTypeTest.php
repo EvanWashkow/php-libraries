@@ -74,11 +74,6 @@ class InterfaceTypeTest extends TestCase
                 'int',
                 false
             ],
-            '->getByName( \SeekableIterator::class )->is( 1 )' => [
-                $typeLookup->getByName( \SeekableIterator::class ),
-                1,
-                false
-            ]
         ];
     }
     

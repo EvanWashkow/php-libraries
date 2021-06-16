@@ -1,2 +1,5 @@
 vendor/
 debug.log
+.idea/workspace.xml
+
+.phpunit.result.cache
