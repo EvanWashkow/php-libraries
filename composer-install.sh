@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose up
+docker-compose run --rm php-libraries composer install
