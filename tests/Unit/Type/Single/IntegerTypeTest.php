@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Single;
 
+use EvanWashkow\PhpLibraries\Tests\Unit\Type\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Single\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Single\BooleanType;
 use EvanWashkow\PhpLibraries\Type\Single\FloatType;
@@ -11,7 +12,7 @@ use EvanWashkow\PhpLibraries\Type\Single\IntegerType;
 /**
  * Tests the IntegerType class
  */
-final class IntegerTypeTest extends TestDefinition\TypeTestDefinition
+final class IntegerTypeTest extends TypeTestDefinition
 {
     public function getIsTestData(): array
     {
