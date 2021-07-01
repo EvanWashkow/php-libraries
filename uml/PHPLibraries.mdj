@@ -29075,7 +29075,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3qXG+m85Bw38="
 							},
-							"name": "Model",
+							"name": "Single",
 							"ownedElements": [
 								{
 									"_type": "UMLClass",
@@ -29662,7 +29662,7 @@
 													"top": 278,
 													"width": 272.22021484375,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
@@ -30368,7 +30368,7 @@
 													"top": 534,
 													"width": 79.31306457519531,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
@@ -30544,7 +30544,7 @@
 													"top": 406,
 													"width": 79.11807250976562,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
@@ -30720,7 +30720,7 @@
 													"top": 54,
 													"width": 79.11807250976562,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
@@ -30896,7 +30896,7 @@
 													"top": 790,
 													"width": 79.11807250976562,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
@@ -31260,7 +31260,7 @@
 													"top": 662,
 													"width": 272.22021484375,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
@@ -31643,7 +31643,7 @@
 													"top": 166,
 													"width": 83.44706726074219,
 													"height": 13,
-													"text": "(from Model)"
+													"text": "(from Single)"
 												},
 												{
 													"_type": "LabelView",
