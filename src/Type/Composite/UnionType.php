@@ -25,16 +25,19 @@ class UnionType extends Type
      */
     public function __construct(Type $type, Type ...$types)
     {
-        // Set properties
-        $this->types = array_merge([$type], $types);
+        // Add type to first array position
+        array_unshift($types, $type);
 
         // Call parent constructor
         $names = [];
-        foreach ($this->types as $type)
+        foreach ($types as $type)
         {
             $names[] = $type->getName();
         }
         parent::__construct(implode('|', $names));
+
+        // Set properties
+        $this->types = $types;
     }
 
 
