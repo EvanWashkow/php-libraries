@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Type\Model\TestDefinition;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition;
 
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 

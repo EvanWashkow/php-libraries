@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Type\Model;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model;
 
 use EvanWashkow\PhpLibraries\Type\Model\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Model\BooleanType;
@@ -9,9 +9,9 @@ use EvanWashkow\PhpLibraries\Type\Model\FloatType;
 use EvanWashkow\PhpLibraries\Type\Model\IntegerType;
 
 /**
- * Tests the BooleanType class
+ * Tests the FloatType class
  */
-final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
+final class FloatTypeTest extends TestDefinition\TypeTestDefinition
 {
 
     /**
@@ -19,16 +19,16 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
      */
     public function getIsTestData(): array
     {
-        $type = new BooleanType();
-        $childType = new class extends BooleanType{};
+        $type = new FloatType();
+        $childType = new class extends FloatType {};
         return [
-            'BooleanType' => [$type, $type, true],
-            'BooleanType->is(ChildType)' => [$type, $childType, true],
-            'ChildType->is(BooleanType)' => [$childType, $type, true],
+            'FloatType' => [$type, $type, true],
+            'FloatType->is(ChildType)' => [$type, $childType, true],
+            'ChildType->is(FloatType)' => [$childType, $type, true],
             'ArrayType' => [$type, new ArrayType(), false],
-            'FloatType' => [$type, new FloatType(), false],
+            'BooleanType' => [$type, new BooleanType(), false],
             'IntegerType' => [$type, new IntegerType(), false],
-            'bool' => [$type, 'bool', true],
+            'double' => [$type, 'double', true],
         ];
     }
 
@@ -38,7 +38,7 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
     public function getIsUnknownTypeNameTestData(): array
     {
         return [
-            'BooleanType' => [new BooleanType()]
+            'FloatType' => [new FloatType()],
         ];
     }
 
@@ -47,13 +47,14 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
      */
     public function getIsValueOfTypeTestData(): array
     {
-        $type = new BooleanType();
+        $type = new FloatType();
         return [
-            'true' => [$type, true, true],
-            'false' => [$type, false, true],
+            '-8.9' => [$type, -8.9, true],
+            '1.0' => [$type, 1.0, true],
+            '31.4' => [$type, 31.4, true],
             '[]' => [$type, [], false],
+            'false' => [$type, false, false],
             '1' => [$type, 1, false],
-            '2.7' => [$type, 2.7, false],
         ];
     }
 
@@ -63,7 +64,7 @@ final class BooleanTypeTest extends TestDefinition\TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'BooleanType' => [new BooleanType(), BooleanType::BOOLEAN_NAME]
+            'FloatType' => [new FloatType(), FloatType::FLOAT_NAME],
         ];
     }
 }

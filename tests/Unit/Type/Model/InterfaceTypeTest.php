@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Type\Model;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model;
 
 use EvanWashkow\PhpLibraries\Type\Model\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Model\BooleanType;
