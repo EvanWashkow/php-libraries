@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace EvanWashkow\PhpLibraries\Tests\Type\Model;
 
 use PHP\Collections\ByteArray;
-use PHP\ObjectClass;
+use PHP\Interfaces\IEquatable;
 use PHP\Tests\Interfaces\IEquatableTests;
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ final class TypeTest extends TestCase
     public function testType(): void
     {
         $this->assertInstanceOf(
-            ObjectClass::class,
+            IEquatable::class,
             $this->mockType('integer')
         );
     }

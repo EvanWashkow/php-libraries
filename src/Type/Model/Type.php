@@ -4,11 +4,12 @@ declare(strict_types = 1);
 namespace EvanWashkow\PhpLibraries\Type\Model;
 
 use PHP\Collections\ByteArray;
+use PHP\Interfaces\IEquatable;
 
 /**
  * Defines a PHP Type
  */
-abstract class Type extends \PHP\ObjectClass
+abstract class Type implements IEquatable
 {
     /** @var string The type name */
     private $name;
