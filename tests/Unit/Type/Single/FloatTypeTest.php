@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Single;
 
-use EvanWashkow\PhpLibraries\Type\Model\ArrayType;
-use EvanWashkow\PhpLibraries\Type\Model\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Model\FloatType;
-use EvanWashkow\PhpLibraries\Type\Model\IntegerType;
+use EvanWashkow\PhpLibraries\Type\Single\ArrayType;
+use EvanWashkow\PhpLibraries\Type\Single\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Single\FloatType;
+use EvanWashkow\PhpLibraries\Type\Single\IntegerType;
 
 /**
  * Tests the FloatType class

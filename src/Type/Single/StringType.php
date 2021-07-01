@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Type\Model;
+namespace EvanWashkow\PhpLibraries\Type\Single;
 
 /**
  * Defines a string type

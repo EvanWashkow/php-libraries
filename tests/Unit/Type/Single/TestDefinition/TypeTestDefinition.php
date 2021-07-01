@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Single\TestDefinition;
 
-use EvanWashkow\PhpLibraries\Type\Model\Type;
+use EvanWashkow\PhpLibraries\Type\Single\Type;
 
 /**
  * Defines tests for a Type implementation
