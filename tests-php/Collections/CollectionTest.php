@@ -11,6 +11,7 @@ use PHP\Collections\ICountable;
 use PHP\Collections\Iteration\IIterable;
 use PHP\Collections\KeyValuePair;
 use PHP\Collections\Sequence;
+use PHP\Exceptions\NotFoundException;
 use PHP\Interfaces\ICloneable;
 use PHP\Types\Models\AnonymousType;
 use PHPUnit\Framework\TestCase;
@@ -65,13 +66,13 @@ class CollectionTest extends TestCase
     /**
      * Ensure the constructor throws an error for null key types
      * 
-     * @dataProvider      getConstructorExceptionsData
-     * @expectedException \DomainException
+     * @dataProvider getConstructorExceptionsData
      * 
      * @param Closure $function Function callback with the exceptions
      **/
     public function testConstructorExceptions( \Closure $function )
     {
+        $this->expectException(\DomainException::class);
         $function();
     }
 
@@ -404,14 +405,14 @@ class CollectionTest extends TestCase
     /**
      * Ensure Collection->get() throws an exception on missing key
      * 
-     * @dataProvider      getGetExceptionData
-     * @expectedException \OutOfBoundsException
+     * @dataProvider getGetExceptionData
      * 
      * @param Collection $collection The collection to test
      * @param mixed      $key        The key to access
      **/
     public function testGetException( Collection $collection, $key )
     {
+        $this->expectException(\OutOfBoundsException::class);
         $collection->get( $key );
     }
 
@@ -458,14 +459,15 @@ class CollectionTest extends TestCase
      * Ensure getKeyOf() throws exceptions when expected
      * 
      * @dataProvider getGetKeyOfExceptionsData
-     * @expectedException \PHP\Exceptions\NotFoundException
      *
      * @param Collection $sequence The collection
      * @param mixed      $badValue A bad value to try to find
      **/
-    public function testGetKeyOfExceptions( Collection $collection,
-                                                       $badValue )
-    {
+    public function testGetKeyOfExceptions(
+        Collection $collection,
+        $badValue
+    ) {
+        $this->expectException(NotFoundException::class);
         $collection->getKeyOf( $badValue );
     }
 

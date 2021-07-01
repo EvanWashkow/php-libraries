@@ -172,10 +172,10 @@ class EnumTest extends TestCase
      * Test the DomainException when constructing an Enum
      * 
      * @dataProvider getConstructorDomainExceptionData()
-     * @expectedException \DomainException
      */
     public function testConstructorDomainException( \Closure $callback )
     {
+        $this->expectException(\DomainException::class);
         $callback();
     }
 

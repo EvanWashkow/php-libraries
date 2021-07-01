@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests\Enums\Exceptions;
 
+use PHP\Enums\Exceptions\MalformedEnumException;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedBitMapEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\MaltypedStringEnum;
@@ -19,11 +20,11 @@ class MalformedEnumExceptionTest extends TestCase
     /**
      * Test the construction / fetching of bad Enum definitions to ensure they throw exceptions
      * 
-     * @expectedException \PHP\Enums\Exceptions\MalformedEnumException
      * @dataProvider getData()
      */
     public function test( \Closure $callback )
     {
+        $this->expectException(MalformedEnumException::class);
         $callback();
     }
 

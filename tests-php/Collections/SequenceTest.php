@@ -3,17 +3,55 @@ declare( strict_types = 1 );
 
 namespace PHP\Tests;
 
+use PHP\Byte;
+use PHP\Collections\ByteArray;
 use PHP\Collections\Sequence;
-use PHPUnit\Framework\TestCase;
+use PHP\Tests\Collections\CollectionTestDefinition;
 
 require_once( __DIR__ . '/SequenceData.php' );
 
 /**
  * Test all Sequence methods to ensure consistent functionality
  */
-class SequenceTest extends TestCase
+final class SequenceTest extends CollectionTestDefinition
 {
-    
+
+
+    public function getSerializationTestData(): array
+    {
+        return [
+            'Sequence(int)' => [
+                new Sequence('int', [1, 2, 3]),
+            ],
+            'Sequence(string)' => [
+                new Sequence('string', ['one', 'two', 'three']),
+            ],
+            'Sequence(Byte)' => [
+                new Sequence(
+                    Byte::class,
+                    [
+                        new Byte(1),
+                        new Byte(2),
+                        new Byte(3)
+                    ]
+                ),
+            ],
+            'Sequence(ByteArray)' => [
+                new Sequence(
+                    ByteArray::class,
+                    [
+                        new ByteArray(1),
+                        new ByteArray(2),
+                        new ByteArray(3)
+                    ]
+                ),
+            ],
+        ];
+    }
+
+
+
+
     /***************************************************************************
     *                            Sequence->add()
     ***************************************************************************/
@@ -154,19 +192,20 @@ class SequenceTest extends TestCase
     /**
      * Test getKeyOf() return values
      * 
-     * @dataProvider      getGetKeyOfExceptionData
-     * @expectedException \Exception
+     * @dataProvider getGetKeyOfExceptionData
      *
      * @param Sequence $sequence        The sequence
      * @param mixed    $value           The value to get the key of
      * @param int      $offset          The offset to start the search from
      * @param bool     $isReverseSearch Start from the end of the sequence?
      **/
-    public function testGetKeyOfException( Sequence $sequence,
-                                                    $value,
-                                           int      $offset,
-                                           bool     $isReverseSearch )
-    {
+    public function testGetKeyOfException(
+        Sequence $sequence,
+        $value,
+        int $offset,
+        bool $isReverseSearch
+    ) {
+        $this->expectException(\Exception::class);
         $sequence->getKeyOf( $value, $offset, $isReverseSearch );
     }
 

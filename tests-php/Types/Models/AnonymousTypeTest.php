@@ -6,8 +6,16 @@ use PHP\Types\Models\AnonymousType;
 /**
  * Tests AnonymousType
  */
-class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
+final class AnonymousTypeTest extends TypeTestDefinition
 {
+
+
+    public function getSerializationTestData(): array
+    {
+        return [
+            'AnonymousType' => [ new AnonymousType() ],
+        ];
+    }
 
 
     /**
@@ -45,22 +53,20 @@ class AnonymousTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Ensure AnonymousType->isClass() throws an exception
-     * 
-     * @expectedException \BadMethodCallException
      **/
     public function testIsClass()
     {
+        $this->expectException(\BadMethodCallException::class);
         ( new AnonymousType() )->isClass();
     }
 
 
     /**
      * Ensure AnonymousType->isInterface() throws an exception
-     * 
-     * @expectedException \BadMethodCallException
      **/
     public function testIsInterface()
     {
+        $this->expectException(\BadMethodCallException::class);
         ( new AnonymousType() )->isInterface();
     }
 
