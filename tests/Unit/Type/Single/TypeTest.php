@@ -6,7 +6,7 @@ namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Single;
 use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
 use PHP\Tests\Interfaces\IEquatableTests;
-use EvanWashkow\PhpLibraries\Type\Single\Type;
+use EvanWashkow\PhpLibraries\Type\Type;
 use PHPUnit\Framework\TestCase;
 
 /**

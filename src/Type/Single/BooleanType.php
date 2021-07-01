@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace EvanWashkow\PhpLibraries\Type\Single;
 
+use EvanWashkow\PhpLibraries\Type\Type;
+
 /**
  * Defines a boolean type
  */
