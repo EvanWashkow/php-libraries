@@ -12,7 +12,6 @@ use EvanWashkow\PhpLibraries\Type\Single\IntegerType;
 use EvanWashkow\PhpLibraries\Type\Single\InterfaceType;
 use EvanWashkow\PhpLibraries\Type\Single\StringType;
 use EvanWashkow\PhpLibraries\Type\Type;
-use PHP\Byte;
 use PHP\Interfaces\IEquatable;
 
 /**
@@ -37,12 +36,12 @@ final class UnionTypeTest extends TypeTestDefinition
                 new BooleanType(),
                 false,
             ],
-            'IntegerType|BooleanType is Byte' => [
+            'IntegerType|BooleanType is ReflectionClass' => [
                 new UnionType(
                     new ClassType(new \ReflectionClass(IntegerType::class)),
                     new ClassType(new \ReflectionClass(BooleanType::class)),
                 ),
-                new ClassType(new \ReflectionClass(Byte::class)),
+                new ClassType(new \ReflectionClass(\ReflectionClass::class)),
                 false
             ],
             'IntegerType|BooleanType is Throwable' => [
