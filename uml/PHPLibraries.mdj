@@ -29564,7 +29564,7 @@
 															"top": 278,
 															"width": 186.7607421875,
 															"height": 13,
-															"text": "(from Class)"
+															"text": "(from ClassType)"
 														},
 														{
 															"_type": "LabelView",
@@ -31162,7 +31162,7 @@
 															"top": 662,
 															"width": 207.00341796875,
 															"height": 13,
-															"text": "(from Interface)"
+															"text": "(from InterfaceType)"
 														},
 														{
 															"_type": "LabelView",
@@ -32174,7 +32174,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF6eAK8QLvBA+s="
 									},
-									"name": "Class",
+									"name": "ClassType",
 									"ownedElements": [
 										{
 											"_type": "UMLClass",
@@ -32357,7 +32357,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF6eAK8QLvBA+s="
 									},
-									"name": "Interface",
+									"name": "InterfaceType",
 									"ownedElements": [
 										{
 											"_type": "UMLClass",
