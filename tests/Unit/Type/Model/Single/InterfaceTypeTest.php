@@ -6,7 +6,7 @@ namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Single;
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Model\Single\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\ClassType;
+use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\InterfaceType;
 

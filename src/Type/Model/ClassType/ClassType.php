@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace EvanWashkow\PhpLibraries\Type\Model\Single;
+namespace EvanWashkow\PhpLibraries\Type\Model\ClassType;
 
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 
