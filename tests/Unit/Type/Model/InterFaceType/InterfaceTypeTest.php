@@ -6,9 +6,9 @@ namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\InterFaceType;
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
 use EvanWashkow\PhpLibraries\Type\Model\InterfaceType\InterfaceType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\ArrayType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\ArrayType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\FloatType;
 
 /**
  * Tests the InterfaceType class

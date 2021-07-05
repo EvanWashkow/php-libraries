@@ -1,13 +1,13 @@
 <?php
 declare(strict_types = 1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Single;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Primitive;
 
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
-use EvanWashkow\PhpLibraries\Type\Model\Single\ArrayType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\IntegerType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\ArrayType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\FloatType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\IntegerType;
 
 /**
  * Tests the IntegerType class

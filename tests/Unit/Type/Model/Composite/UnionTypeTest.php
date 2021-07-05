@@ -5,12 +5,12 @@ namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Composite;
 
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Model\Composite\UnionType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\BooleanType;
 use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\IntegerType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\FloatType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\IntegerType;
 use EvanWashkow\PhpLibraries\Type\Model\InterfaceType\InterfaceType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\StringType;
+use EvanWashkow\PhpLibraries\Type\Model\Primitive\StringType;
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 use PHP\Interfaces\IEquatable;
 
