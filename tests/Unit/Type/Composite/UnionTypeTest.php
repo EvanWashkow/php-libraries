@@ -5,12 +5,15 @@ namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Composite;
 
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Composite\UnionType;
-use EvanWashkow\PhpLibraries\Type\Single\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Single\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Single\ClassType;
 use EvanWashkow\PhpLibraries\Type\Single\FloatType;
 use EvanWashkow\PhpLibraries\Type\Single\IntegerType;
+use EvanWashkow\PhpLibraries\Type\Single\InterfaceType;
 use EvanWashkow\PhpLibraries\Type\Single\StringType;
 use EvanWashkow\PhpLibraries\Type\Type;
+use PHP\Byte;
+use PHP\Interfaces\IEquatable;
 
 /**
  * Tests the UnionType class
@@ -23,7 +26,50 @@ final class UnionTypeTest extends TypeTestDefinition
      */
     public function getIsTestData(): array
     {
-        return [];
+        return [
+            'int|bool is int' => [
+                new UnionType(new IntegerType(), new BooleanType()),
+                new IntegerType(),
+                false,
+            ],
+            'int|bool is bool' => [
+                new UnionType(new IntegerType(), new BooleanType()),
+                new BooleanType(),
+                false,
+            ],
+            'IntegerType|BooleanType is Byte' => [
+                new UnionType(
+                    new ClassType(new \ReflectionClass(IntegerType::class)),
+                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                ),
+                new ClassType(new \ReflectionClass(Byte::class)),
+                false
+            ],
+            'IntegerType|BooleanType is Throwable' => [
+                new UnionType(
+                    new ClassType(new \ReflectionClass(IntegerType::class)),
+                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                ),
+                new InterfaceType(new \ReflectionClass(\Throwable::class)),
+                false
+            ],
+            'IntegerType|BooleanType is Type' => [
+                new UnionType(
+                    new ClassType(new \ReflectionClass(IntegerType::class)),
+                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                ),
+                new ClassType(new \ReflectionClass(Type::class)),
+                true
+            ],
+            'IntegerType|BooleanType is IEquatable' => [
+                new UnionType(
+                    new ClassType(new \ReflectionClass(IntegerType::class)),
+                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                ),
+                new InterfaceType(new \ReflectionClass(IEquatable::class)),
+                true
+            ],
+        ];
     }
 
     /**
@@ -31,7 +77,9 @@ final class UnionTypeTest extends TypeTestDefinition
      */
     public function getIsUnknownTypeNameTestData(): array
     {
-        return [];
+        return [
+            UnionType::class => [new UnionType(new IntegerType(), new BooleanType())],
+        ];
     }
 
     /**

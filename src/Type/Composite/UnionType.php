@@ -47,8 +47,10 @@ class UnionType extends Type
 
     /**
      * @inheritDoc
+     *
+     * @returns bool True if the value is at least one of these types. False otherwise.
      */
-    public function isValueOfType($value): bool
+    final public function isValueOfType($value): bool
     {
         foreach ($this->types as $type)
         {
@@ -62,17 +64,34 @@ class UnionType extends Type
 
     /**
      * @inheritDoc
+     *
+     * @internal Returns whether all the types in this union are of the given type. For example, (int|string)->is(int)
+     * is false, because a string is not an integer. However, given a union where both classes A and B implement
+     * interface I; (A|B)->is(I) should return true.
+     *
+     * @returns bool True if every type in this union is of the given type. False otherwise.
      */
-    protected function isOfType(Type $type): bool
+    final protected function isOfType(Type $type): bool
     {
-        // TODO: Implement isOfType() method.
+        return $this->isOfTypeName($type->getName());
     }
 
     /**
      * @inheritDoc
+     *
+     * @internal See isOfType().
+     *
+     * @returns bool True if every type in this union is of the given type. False otherwise.
      */
-    protected function isOfTypeName(string $typeName): bool
+    final protected function isOfTypeName(string $typeName): bool
     {
-        // TODO: Implement isOfTypeName() method.
+        foreach ($this->types as $type)
+        {
+            if (!$type->is($typeName))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
