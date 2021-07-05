@@ -79,17 +79,6 @@ final class UnionTypeTest extends TypeTestDefinition
         };
 
         return [
-            'true' => [
-                new UnionType($true),
-                'does not matter',
-                true
-            ],
-            'false' => [
-                new UnionType($false),
-                'does not matter',
-                false
-            ],
-
             'true, true' => [
                 new UnionType($true, $true),
                 'does not matter',
@@ -140,14 +129,6 @@ final class UnionTypeTest extends TypeTestDefinition
     public function getNameTestData(): array
     {
         return [
-            'array' => [
-                new UnionType(new ArrayType()),
-                'array'
-            ],
-            'string' => [
-                new UnionType(new StringType()),
-                'string'
-            ],
             'integer|string' => [
                 new UnionType(new IntegerType(), new StringType()),
                 'integer|string'

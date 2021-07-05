@@ -20,24 +20,28 @@ class UnionType extends Type
     /**
      * Creates a new UnionType instance
      *
-     * @param Type $type The types for this union (there must be at least one)
-     * @param Type ...$types The types for this union
+     * @param Type $typeA The first type for this union
+     * @param Type $typeB The second type for this union
+     * @param Type ...$additionalTypes Any additional types for this union
      */
-    public function __construct(Type $type, Type ...$types)
+    public function __construct(Type $typeA, Type $typeB, Type ...$additionalTypes)
     {
-        // Add type to first array position
-        array_unshift($types, $type);
+        // Set types property
+        $this->types = array_merge(
+            [
+                $typeA,
+                $typeB
+            ],
+            $additionalTypes
+        );
 
         // Call parent constructor
         $names = [];
-        foreach ($types as $type)
+        foreach ($this->types as $type)
         {
             $names[] = $type->getName();
         }
         parent::__construct(implode('|', $names));
-
-        // Set properties
-        $this->types = $types;
     }
 
 
