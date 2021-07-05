@@ -9,7 +9,7 @@ use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
 use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\IntegerType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\InterfaceType;
+use EvanWashkow\PhpLibraries\Type\Model\InterfaceType\InterfaceType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\StringType;
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 use PHP\Interfaces\IEquatable;

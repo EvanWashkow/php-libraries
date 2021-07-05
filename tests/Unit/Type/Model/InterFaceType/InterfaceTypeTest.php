@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Single;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\InterFaceType;
 
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
+use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
+use EvanWashkow\PhpLibraries\Type\Model\InterfaceType\InterfaceType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
 use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
-use EvanWashkow\PhpLibraries\Type\Model\Single\InterfaceType;
 
 /**
  * Tests the InterfaceType class
@@ -37,7 +37,7 @@ final class InterfaceTypeTest extends TypeTestDefinition
             'InterfaceB->is(FloatType)' => [$interfaceB, new FloatType(), false],
 
             // InterfaceType instances
-            'InterfaceA->is(InterfaceB)' =>[$interfaceA, $interfaceB, false],
+            'InterfaceA->is(InterfaceB)' => [$interfaceA, $interfaceB, false],
             'InterfaceA->is(InterfaceC)' => [$interfaceA, $interfaceC, false],
             'InterfaceA->is(InterfaceX)' => [$interfaceA, $interfaceX, false],
             'InterfaceA->is(InterfaceA)' => [$interfaceA, $interfaceA, true],
