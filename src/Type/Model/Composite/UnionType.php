@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Type\Composite;
+namespace EvanWashkow\PhpLibraries\Type\Model\Composite;
 
-use EvanWashkow\PhpLibraries\Type\Type;
+use EvanWashkow\PhpLibraries\Type\Model\Type;
 
 /**
  * Defines a Union Type

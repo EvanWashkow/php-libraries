@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Composite;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Composite;
 
-use EvanWashkow\PhpLibraries\Tests\Unit\Type\TestDefinition\TypeTestDefinition;
-use EvanWashkow\PhpLibraries\Type\Composite\UnionType;
-use EvanWashkow\PhpLibraries\Type\Single\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Single\ClassType;
-use EvanWashkow\PhpLibraries\Type\Single\FloatType;
-use EvanWashkow\PhpLibraries\Type\Single\IntegerType;
-use EvanWashkow\PhpLibraries\Type\Single\InterfaceType;
-use EvanWashkow\PhpLibraries\Type\Single\StringType;
-use EvanWashkow\PhpLibraries\Type\Type;
+use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
+use EvanWashkow\PhpLibraries\Type\Model\Composite\UnionType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\ClassType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\IntegerType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\InterfaceType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\StringType;
+use EvanWashkow\PhpLibraries\Type\Model\Type;
 use PHP\Interfaces\IEquatable;
 
 /**

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace EvanWashkow\PhpLibraries\Type\Single;
+namespace EvanWashkow\PhpLibraries\Type\Model\Single;
 
-use EvanWashkow\PhpLibraries\Type\Type;
+use EvanWashkow\PhpLibraries\Type\Model\Type;
 
 /**
  * Defines a floating point number type

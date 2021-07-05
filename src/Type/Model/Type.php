@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace EvanWashkow\PhpLibraries\Type;
+namespace EvanWashkow\PhpLibraries\Type\Model;
 
 use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;

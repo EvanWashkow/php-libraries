@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Single;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\Single;
 
-use EvanWashkow\PhpLibraries\Tests\Unit\Type\TestDefinition\TypeTestDefinition;
-use EvanWashkow\PhpLibraries\Type\Single\ArrayType;
-use EvanWashkow\PhpLibraries\Type\Single\BooleanType;
-use EvanWashkow\PhpLibraries\Type\Single\FloatType;
-use EvanWashkow\PhpLibraries\Type\Single\StringType;
+use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
+use EvanWashkow\PhpLibraries\Type\Model\Single\ArrayType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\BooleanType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\FloatType;
+use EvanWashkow\PhpLibraries\Type\Model\Single\StringType;
 
 final class StringTypeTest extends TypeTestDefinition
 {

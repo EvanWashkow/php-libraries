@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
 
-namespace EvanWashkow\PhpLibraries\Tests\Unit\Type;
+namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model;
 
 use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
 use PHP\Tests\Interfaces\IEquatableTests;
-use EvanWashkow\PhpLibraries\Type\Type;
+use EvanWashkow\PhpLibraries\Type\Model\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
