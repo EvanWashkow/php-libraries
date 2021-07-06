@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\ClassType;
 
+use EvanWashkow\PhpLibraries\Exception\Logic\NotExistsException;
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Model\Primitive\ArrayType;
 use EvanWashkow\PhpLibraries\Type\Model\Primitive\BooleanType;
@@ -15,6 +16,28 @@ use EvanWashkow\PhpLibraries\Type\Model\InterfaceType\InterfaceType;
  */
 final class ClassTypeTest extends TypeTestDefinition
 {
+
+    /**
+     * Tests the constructor exception
+     *
+     * @dataProvider getConstructorExceptionTestData
+     *
+     * @param string $badClassName
+     */
+    public function testConstructorException(string $badClassName): void
+    {
+        $this->expectException(NotExistsException::class);
+        new ClassType($badClassName);
+    }
+
+    public function getConstructorExceptionTestData(): array
+    {
+        return [
+            'foobar' => ['foobar'],
+            'Interface' => [\Iterator::class],
+        ];
+    }
+
 
     /**
      * @inheritDoc

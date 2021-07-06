@@ -22,12 +22,15 @@ class ClassType extends Type
      */
     public function __construct(string $className)
     {
+        // Set property
         if (!class_exists($className))
         {
             throw new NotExistsException("The class does not exist: \"{$className}\".");
         }
-        parent::__construct($className);
         $this->classReflection = new \ReflectionClass($className);
+
+        // Call parent constructor
+        parent::__construct($className);
     }
 
 
