@@ -21,10 +21,10 @@ final class ClassTypeTest extends TypeTestDefinition
      */
     public function getIsTestData(): array
     {
-        $error            = new ClassType(new \ReflectionClass(\Error::class));
-        $exception        = new ClassType(new \ReflectionClass(\Exception::class));
-        $logicException   = new ClassType(new \ReflectionClass(\LogicException::class));
-        $runtimeException = new ClassType(new \ReflectionClass(\RuntimeException::class));
+        $error            = new ClassType(\Error::class);
+        $exception        = new ClassType(\Exception::class);
+        $logicException   = new ClassType(\LogicException::class);
+        $runtimeException = new ClassType(\RuntimeException::class);
 
         return [
 
@@ -86,7 +86,7 @@ final class ClassTypeTest extends TypeTestDefinition
      */
     public function getIsUnknownTypeNameTestData(): array
     {
-        $exception = new ClassType(new \ReflectionClass(\Exception::class));
+        $exception = new ClassType(\Exception::class);
         return [
             'ClassType(Exception)' => [$exception],
         ];
@@ -98,10 +98,10 @@ final class ClassTypeTest extends TypeTestDefinition
      */
     public function getIsValueOfTypeTestData(): array
     {
-        $error            = new ClassType(new \ReflectionClass(\Error::class));
-        $exception        = new ClassType(new \ReflectionClass(\Exception::class));
-        $logicException   = new ClassType(new \ReflectionClass(\LogicException::class));
-        $runtimeException = new ClassType(new \ReflectionClass(\RuntimeException::class));
+        $error            = new ClassType(\Error::class);
+        $exception        = new ClassType(\Exception::class);
+        $logicException   = new ClassType(\LogicException::class);
+        $runtimeException = new ClassType(\RuntimeException::class);
 
         return [
 
@@ -131,15 +131,15 @@ final class ClassTypeTest extends TypeTestDefinition
     {
         return [
             \Exception::class => [
-                new ClassType(new \ReflectionClass(\Exception::class)),
+                new ClassType(\Exception::class),
                 \Exception::class
             ],
             \RuntimeException::class => [
-                new ClassType(new \ReflectionClass(\RuntimeException::class)),
+                new ClassType(\RuntimeException::class),
                 \RuntimeException::class
             ],
             \LogicException::class => [
-                new ClassType(new \ReflectionClass(\LogicException::class)),
+                new ClassType(\LogicException::class),
                 \LogicException::class
             ],
         ];

@@ -48,22 +48,22 @@ final class InterfaceTypeTest extends TypeTestDefinition
             // ClassType instances
             'InterfaceA->is(ClassType(ClassA))' => [
                 $interfaceA,
-                new ClassType(new \ReflectionClass(ClassA::class)),
+                new ClassType(ClassA::class),
                 false
             ],
             'InterfaceB->is(ClassType(ClassB))' => [
                 $interfaceB,
-                new ClassType(new \ReflectionClass(ClassB::class)),
+                new ClassType(ClassB::class),
                 false
             ],
             'InterfaceC->is(ClassType(ClassC))' => [
                 $interfaceC,
-                new ClassType(new \ReflectionClass(ClassC::class)),
+                new ClassType(ClassC::class),
                 false
             ],
             'InterfaceX->is(ClassType(ClassX))' => [
                 $interfaceX,
-                new ClassType(new \ReflectionClass(ClassX::class)),
+                new ClassType(ClassX::class),
                 false
             ],
         ];

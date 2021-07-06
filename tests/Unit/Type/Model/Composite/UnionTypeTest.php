@@ -38,32 +38,32 @@ final class UnionTypeTest extends TypeTestDefinition
             ],
             'IntegerType|BooleanType is ReflectionClass' => [
                 new UnionType(
-                    new ClassType(new \ReflectionClass(IntegerType::class)),
-                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                    new ClassType(IntegerType::class),
+                    new ClassType(BooleanType::class),
                 ),
-                new ClassType(new \ReflectionClass(\ReflectionClass::class)),
+                new ClassType(\ReflectionClass::class),
                 false
             ],
             'IntegerType|BooleanType is Throwable' => [
                 new UnionType(
-                    new ClassType(new \ReflectionClass(IntegerType::class)),
-                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                    new ClassType(IntegerType::class),
+                    new ClassType(BooleanType::class),
                 ),
                 new InterfaceType(new \ReflectionClass(\Throwable::class)),
                 false
             ],
             'IntegerType|BooleanType is Type' => [
                 new UnionType(
-                    new ClassType(new \ReflectionClass(IntegerType::class)),
-                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                    new ClassType(IntegerType::class),
+                    new ClassType(BooleanType::class),
                 ),
-                new ClassType(new \ReflectionClass(Type::class)),
+                new ClassType(Type::class),
                 true
             ],
             'IntegerType|BooleanType is IEquatable' => [
                 new UnionType(
-                    new ClassType(new \ReflectionClass(IntegerType::class)),
-                    new ClassType(new \ReflectionClass(BooleanType::class)),
+                    new ClassType(IntegerType::class),
+                    new ClassType(BooleanType::class),
                 ),
                 new InterfaceType(new \ReflectionClass(IEquatable::class)),
                 true

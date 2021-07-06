@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace EvanWashkow\PhpLibraries\Type\Model\ClassType;
 
+use EvanWashkow\PhpLibraries\Exception\Logic\NotExistsException;
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 
 /**
@@ -17,18 +18,16 @@ class ClassType extends Type
     /**
      * Creates a new ClassType for the given class
      *
-     * @param \ReflectionClass $classReflection The Reflection of the class
+     * @param string $className The class name
      */
-    public function __construct(\ReflectionClass $classReflection)
+    public function __construct(string $className)
     {
-        if ($classReflection->isInterface())
+        if (!class_exists($className))
         {
-            throw new \DomainException(
-                'Expected a Class, but got an Interface instead.'
-            );
+            throw new NotExistsException("The class does not exist: \"{$className}\".");
         }
-        parent::__construct($classReflection->getName());
-        $this->classReflection = $classReflection;
+        parent::__construct($className);
+        $this->classReflection = new \ReflectionClass($className);
     }
 
 
