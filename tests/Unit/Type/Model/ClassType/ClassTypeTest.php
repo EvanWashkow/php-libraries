@@ -62,32 +62,32 @@ final class ClassTypeTest extends TypeTestDefinition
             // InterfaceType
             'Exception->is(InterfaceType(Throwable))' => [
                 $exception,
-                new InterfaceType(new \ReflectionClass(\Throwable::class)),
+                new InterfaceType(\Throwable::class),
                 true
             ],
             'Exception->is(InterfaceType(Iterator))' => [
                 $exception,
-                new InterfaceType(new \ReflectionClass(\Iterator::class)),
+                new InterfaceType(\Iterator::class),
                 false
             ],
             'Exception->is(InterfaceType(Traversable))' => [
                 $exception,
-                new InterfaceType(new \ReflectionClass(\Traversable::class)),
+                new InterfaceType(\Traversable::class),
                 false
             ],
             'Error->is(InterfaceType(Throwable))' => [
                 $error,
-                new InterfaceType(new \ReflectionClass(\Throwable::class)),
+                new InterfaceType(\Throwable::class),
                 true
             ],
             'Error->is(InterfaceType(Iterator))' => [
                 $error,
-                new InterfaceType(new \ReflectionClass(\Iterator::class)),
+                new InterfaceType(\Iterator::class),
                 false
             ],
             'Error->is(InterfaceType(Traversable))' => [
                 $error,
-                new InterfaceType(new \ReflectionClass(\Traversable::class)),
+                new InterfaceType(\Traversable::class),
                 false
             ],
 

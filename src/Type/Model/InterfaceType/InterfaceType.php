@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace EvanWashkow\PhpLibraries\Type\Model\InterfaceType;
 
+use EvanWashkow\PhpLibraries\Exception\Logic\NotExistsException;
 use EvanWashkow\PhpLibraries\Type\Model\Type;
 
 /**
@@ -17,18 +18,19 @@ class InterfaceType extends Type
     /**
      * Creates a new InterfaceType for the given interface
      *
-     * @param \ReflectionClass $interfaceReflection The Reflection of the interface
+     * @param string $interfaceName The interface name
      */
-    public function __construct(\ReflectionClass $interfaceReflection)
+    public function __construct(string $interfaceName)
     {
-        if (!$interfaceReflection->isInterface())
+        // Set property
+        if (!interface_exists($interfaceName))
         {
-            throw new \DomainException(
-                'Expected an Interface, but got a Class instead.'
-            );
+            throw new NotExistsException("The interface does not exist: \"{$interfaceName}\".");
         }
-        parent::__construct($interfaceReflection->getName());
-        $this->interfaceReflection = $interfaceReflection;
+        $this->interfaceReflection = new \ReflectionClass($interfaceName);
+
+        // Call parent constructor
+        parent::__construct($interfaceName);
     }
 
 

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\InterFaceType;
 
+use EvanWashkow\PhpLibraries\Exception\Logic\NotExistsException;
 use EvanWashkow\PhpLibraries\Tests\Unit\Type\Model\TestDefinition\TypeTestDefinition;
 use EvanWashkow\PhpLibraries\Type\Model\ClassType\ClassType;
 use EvanWashkow\PhpLibraries\Type\Model\InterfaceType\InterfaceType;
@@ -17,14 +18,35 @@ final class InterfaceTypeTest extends TypeTestDefinition
 {
 
     /**
+     * Tests the constructor exception
+     *
+     * @dataProvider getConstructorExceptionTestData
+     *
+     * @param string $badInterfaceName
+     */
+    public function testConstructorException(string $badInterfaceName): void
+    {
+        $this->expectException(NotExistsException::class);
+        new InterfaceType($badInterfaceName);
+    }
+
+    public function getConstructorExceptionTestData(): array
+    {
+        return [
+            'foobar' => ['foobar'],
+            'Class' => [\Exception::class],
+        ];
+    }
+
+    /**
      * @inheritDoc
      */
     public function getIsTestData(): array
     {
-        $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
-        $interfaceB = new InterfaceType(new \ReflectionClass(InterfaceB::class));
-        $interfaceC = new InterfaceType(new \ReflectionClass(InterfaceC::class));
-        $interfaceX = new InterfaceType(new \ReflectionClass(InterfaceX::class));
+        $interfaceA = new InterfaceType(InterfaceA::class);
+        $interfaceB = new InterfaceType(InterfaceB::class);
+        $interfaceC = new InterfaceType(InterfaceC::class);
+        $interfaceX = new InterfaceType(InterfaceX::class);
 
         return [
 
@@ -75,7 +97,7 @@ final class InterfaceTypeTest extends TypeTestDefinition
      */
     public function getIsUnknownTypeNameTestData(): array
     {
-        $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
+        $interfaceA = new InterfaceType(InterfaceA::class);
         return [
             'InterfaceType(InterfaceA)' => [$interfaceA],
         ];
@@ -87,10 +109,10 @@ final class InterfaceTypeTest extends TypeTestDefinition
      */
     public function getIsValueOfTypeTestData(): array
     {
-        $interfaceA = new InterfaceType(new \ReflectionClass(InterfaceA::class));
-        $interfaceB = new InterfaceType(new \ReflectionClass(InterfaceB::class));
-        $interfaceC = new InterfaceType(new \ReflectionClass(InterfaceC::class));
-        $interfaceX = new InterfaceType(new \ReflectionClass(InterfaceX::class));
+        $interfaceA = new InterfaceType(InterfaceA::class);
+        $interfaceB = new InterfaceType(InterfaceB::class);
+        $interfaceC = new InterfaceType(InterfaceC::class);
+        $interfaceX = new InterfaceType(InterfaceX::class);
 
         $objectA = new ClassA();
         $objectB = new ClassB();
@@ -129,19 +151,19 @@ final class InterfaceTypeTest extends TypeTestDefinition
     {
         return [
             InterfaceA::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceA::class)),
+                new InterfaceType(InterfaceA::class),
                 InterfaceA::class
             ],
             InterfaceB::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceB::class)),
+                new InterfaceType(InterfaceB::class),
                 InterfaceB::class
             ],
             InterfaceC::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceC::class)),
+                new InterfaceType(InterfaceC::class),
                 InterfaceC::class
             ],
             InterfaceX::class => [
-                new InterfaceType(new \ReflectionClass(InterfaceX::class)),
+                new InterfaceType(InterfaceX::class),
                 InterfaceX::class
             ],
         ];

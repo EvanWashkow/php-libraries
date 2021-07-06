@@ -49,7 +49,7 @@ final class UnionTypeTest extends TypeTestDefinition
                     new ClassType(IntegerType::class),
                     new ClassType(BooleanType::class),
                 ),
-                new InterfaceType(new \ReflectionClass(\Throwable::class)),
+                new InterfaceType(\Throwable::class),
                 false
             ],
             'IntegerType|BooleanType is Type' => [
@@ -65,7 +65,7 @@ final class UnionTypeTest extends TypeTestDefinition
                     new ClassType(IntegerType::class),
                     new ClassType(BooleanType::class),
                 ),
-                new InterfaceType(new \ReflectionClass(IEquatable::class)),
+                new InterfaceType(IEquatable::class),
                 true
             ],
         ];
