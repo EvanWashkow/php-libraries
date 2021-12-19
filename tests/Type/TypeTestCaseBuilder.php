@@ -13,6 +13,8 @@ final class TypeTestCaseBuilder
     private Type $type;
     private array $equals;
     private array $notEquals;
+    private array $is;
+    private array $notIs;
 
     public function __construct(Type $type)
     {
@@ -44,6 +46,30 @@ final class TypeTestCaseBuilder
     }
 
     /**
+     * Type->is() these values.
+     *
+     * @param Type ...$is
+     * @return self
+     */
+    public function is(Type ...$is): self
+    {
+        $this->is = $is;
+        return $this;
+    }
+
+    /**
+     * ! Type->is() these values.
+     *
+     * @param Type ...$notIs
+     * @return self
+     */
+    public function notIs(Type ...$notIs): self
+    {
+        $this->notIs = $notIs;
+        return $this;
+    }
+
+    /**
      * Build a TypeTestCase
      * 
      * @throws \UnexpectedValueException on bad TypeTestCase data
@@ -52,14 +78,18 @@ final class TypeTestCaseBuilder
     {
         if (
             count($this->equals) == 0 ||
-            count($this->notEquals) <= 1
+            count($this->notEquals) <= 1 ||
+            count($this->is) == 0 ||
+            count($this->notIs) == 0
         ) {
             throw new \UnexpectedValueException('insufficient data to build TypeTestCase');
         }
         return new TypeTestCase(
             $this->type,
             $this->equals,
-            $this->notEquals
+            $this->notEquals,
+            $this->is,
+            $this->notIs
         );
     }
 }
