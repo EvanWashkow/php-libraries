@@ -11,6 +11,8 @@ use EvanWashkow\PHPLibraries\Type\Type;
 final class TypeTestCaseBuilder
 {
     private Type $type;
+    private array $equals;
+    private array $notEquals;
 
     public function __construct(Type $type)
     {
@@ -20,6 +22,28 @@ final class TypeTestCaseBuilder
     public function getType(): Type
     {
         return $this->type;
+    }
+
+    /**
+     * Type->equals() these values.
+     *
+     * @param mixed ...$equals
+     * @return void
+     */
+    public function equals(...$equals)
+    {
+        $this->equals = $equals;
+    }
+
+    /**
+     * ! Type->equals() these values.
+     *
+     * @param mixed ...$notEquals
+     * @return void
+     */
+    public function notEquals(...$notEquals)
+    {
+        $this->notEquals = $notEquals;
     }
 
     /**
