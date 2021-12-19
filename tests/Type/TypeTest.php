@@ -117,6 +117,8 @@ final class TypeTest extends TestCase
                     ->notEquals(...$notEquals)
                     ->is(new ArrayType())
                     ->notIs($typeMock)
+                    ->isValueOfType([], [1,2,3], ['a', 'b', 'c'])
+                    ->notIsValueOfType(1, false, 'string', 3.1415)
                     ->build()
             ],
         ];

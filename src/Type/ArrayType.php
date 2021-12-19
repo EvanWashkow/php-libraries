@@ -17,4 +17,9 @@ final class ArrayType implements Type
     {
         return $type instanceof self;
     }
+
+    public function isValueOfType($value): bool
+    {
+        return is_array($value);
+    }
 }
