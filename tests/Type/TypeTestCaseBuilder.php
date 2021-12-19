@@ -19,11 +19,6 @@ final class TypeTestCaseBuilder
         $this->type = $type;
     }
 
-    public function getType(): Type
-    {
-        return $this->type;
-    }
-
     /**
      * Type->equals() these values.
      *
@@ -53,6 +48,16 @@ final class TypeTestCaseBuilder
      */
     public function build(): TypeTestCase
     {
-        return new TypeTestCase(clone $this);
+        if (
+            count($this->equals) == 0 ||
+            count($this->notEquals) <= 1
+        ) {
+            throw new \UnexpectedValueException('insufficient data to build TypeTestCase');
+        }
+        return new TypeTestCase(
+            $this->type,
+            $this->equals,
+            $this->notEquals
+        );
     }
 }
