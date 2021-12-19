@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
 use EvanWashkow\PHPLibraries\Type\ArrayType;
+use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\Type;
 use PHPUnit\Framework\TestCase;
 
@@ -119,6 +120,16 @@ final class TypeTest extends TestCase
                     ->notIs($typeMock)
                     ->isValueOfType([], [1,2,3], ['a', 'b', 'c'])
                     ->notIsValueOfType(1, false, 'string', 3.1415)
+                    ->build()
+            ],
+            BooleanType::class => [
+                (new TypeTestCaseBuilder(new BooleanType()))
+                    ->equals(new BooleanType())
+                    ->notEquals(...$notEquals)
+                    ->is(new BooleanType())
+                    ->notIs($typeMock)
+                    ->isValueOfType(true, false)
+                    ->notIsValueOfType(1, 'string', 3.1415, [])
                     ->build()
             ],
         ];
