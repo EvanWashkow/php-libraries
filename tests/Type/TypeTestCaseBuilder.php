@@ -17,6 +17,11 @@ final class TypeTestCaseBuilder
         $this->type = $type;
     }
 
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
     /**
      * Build a TypeTestCase
      * 

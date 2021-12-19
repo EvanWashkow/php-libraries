@@ -13,4 +13,9 @@ final class TypeTestCase
     {
         $this->builder = $builder;
     }
+
+    public function getType(): Type
+    {
+        return $this->builder->getType();
+    }
 }
