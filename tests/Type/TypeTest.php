@@ -46,14 +46,39 @@ final class TypeTest extends TestCase
     }
 
     /**
+     * @dataProvider getTestCases
+     */
+    public function testIs(TypeTestCase $tc)
+    {
+        foreach ($tc->getIs() as $value) {
+            $this->assertTrue(
+                $tc->getType()->is($value)
+            );
+        }
+    }
+
+    /**
+     * @dataProvider getTestCases
+     */
+    public function testNotIs(TypeTestCase $tc)
+    {
+        foreach ($tc->getNotIs() as $value) {
+            $this->assertFalse(
+                $tc->getType()->is($value)
+            );
+        }
+    }
+
+    /**
      * Retrieve TypeTestCases
      *
      * @return array<TypeTestCase>
      */
     public function getTestCases(): array
     {
+        $typeMock = $this->createMock(Type::class);
         $notEquals = [
-            $this->createMock(Type::class),
+            $typeMock,
             1,
             false,
             "string",
@@ -65,6 +90,8 @@ final class TypeTest extends TestCase
                 (new TypeTestCaseBuilder(new ArrayType()))
                     ->equals(new ArrayType())
                     ->notEquals(...$notEquals)
+                    ->is(new ArrayType())
+                    ->notIs($typeMock)
                     ->build()
             ],
         ];

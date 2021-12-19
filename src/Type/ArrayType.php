@@ -15,6 +15,6 @@ final class ArrayType implements Type
 
     public function is(Type $type): bool
     {
-        return false;
+        return $type instanceof self;
     }
 }
