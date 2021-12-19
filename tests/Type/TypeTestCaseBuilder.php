@@ -74,10 +74,10 @@ final class TypeTestCaseBuilder
     /**
      * Type->isValueOfType() these values.
      *
-     * @param Type ...$isValueOfType
+     * @param mixed ...$isValueOfType
      * @return self
      */
-    public function isValueOfType(Type ...$isValueOfType): self
+    public function isValueOfType(...$isValueOfType): self
     {
         $this->isValueOfType = $isValueOfType;
         return $this;
@@ -86,10 +86,10 @@ final class TypeTestCaseBuilder
     /**
      * ! Type->isValueOfType() these values.
      *
-     * @param Type ...$notIsValueOfType
+     * @param mixed ...$notIsValueOfType
      * @return self
      */
-    public function notIsValueOfType(Type ...$notIsValueOfType): self
+    public function notIsValueOfType(...$notIsValueOfType): self
     {
         $this->notIsValueOfType = $notIsValueOfType;
         return $this;
@@ -107,7 +107,7 @@ final class TypeTestCaseBuilder
             count($this->notEquals) <= 1 ||
             count($this->is) == 0 ||
             count($this->notIs) == 0 ||
-            count($this->isValueOfType) == 0 ||
+            count($this->isValueOfType) <= 1 ||
             count($this->notIsValueOfType) <= 1
         ) {
             throw new \UnexpectedValueException('insufficient data to build TypeTestCase');
