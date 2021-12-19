@@ -9,8 +9,9 @@ interface Equatable
     /**
      * Compare values for equality.
      * 
-     * - Determines if an object is _exactly_ equal to another value.
-     * - Internal changes to an object should not change its equality.
+     * - Determines if an object is _exactly_ equal to the given value.
+     * - Object equality must be idempotent. Internal changes to an object must not affect its equality; return a new
+     * value instead.
      */
     function equals($value): bool;
 }
