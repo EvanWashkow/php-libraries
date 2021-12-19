@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace EvanWashkow\PHPLibraries\Type;
 
 /**
- * An Array type
+ * An Array Type.
  */
 final class ArrayType implements Type
 {
