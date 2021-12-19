@@ -10,7 +10,7 @@ final class ArrayType implements Type
 {
     public function equals($value): bool
     {
-        return false;
+        return $value instanceof ArrayType;
     }
 
     public function is(Type $type): bool
