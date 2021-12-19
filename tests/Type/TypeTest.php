@@ -105,8 +105,9 @@ final class TypeTest extends TestCase
             $typeMock,
             1,
             false,
-            "string",
+            'string',
             3.1415,
+            []
         ];
 
         return [
