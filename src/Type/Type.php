@@ -16,13 +16,16 @@ interface Type extends Equatable
      * True if this type is:
      * - the same as the given type
      * - derived from the given type
+     * 
+     * @param Type $type The type to check.
+     * @return boolean
      */
     function is(Type $type): bool;
 
     /**
      * Determines if the given value is of this type.
      *
-     * @param mixed $value The value to check
+     * @param mixed $value The value to check.
      * @return boolean
      */
     function isValueOfType($value): bool;
