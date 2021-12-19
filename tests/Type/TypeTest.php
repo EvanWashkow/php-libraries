@@ -70,6 +70,30 @@ final class TypeTest extends TestCase
     }
 
     /**
+     * @dataProvider getTestCases
+     */
+    public function testIsValueOfType(TypeTestCase $tc)
+    {
+        foreach ($tc->getIsValueOfType() as $value) {
+            $this->assertTrue(
+                $tc->getType()->isValueOfType($value)
+            );
+        }
+    }
+
+    /**
+     * @dataProvider getTestCases
+     */
+    public function testNotIsValueOfType(TypeTestCase $tc)
+    {
+        foreach ($tc->getNotIsValueOfType() as $value) {
+            $this->assertFalse(
+                $tc->getType()->isValueOfType($value)
+            );
+        }
+    }
+
+    /**
      * Retrieve TypeTestCases
      *
      * @return array<TypeTestCase>
