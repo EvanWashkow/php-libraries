@@ -13,68 +13,60 @@ use PHPUnit\Framework\TestCase;
 final class TypeTest extends TestCase
 {
     /**
-     * @dataProvider getTypes
+     * @dataProvider getTestCases
      */
-    public function testFinal(Type $type)
+    public function testFinal(TypeTestCase $tc)
     {
-        $rc = new \ReflectionClass($type);
+        $rc = new \ReflectionClass($tc->getType());
         $this->assertTrue($rc->isFinal(), "Type is not final");
     }
 
     /**
-     * @dataProvider getEqualsData
+     * @dataProvider getTestCases
      */
-    public function testEquals(Type $type, $value, bool $expected)
+    public function testEquals(TypeTestCase $tc)
     {
-        $this->assertEquals(
-            $expected,
-            $type->equals($value)
-        );
-    }
-
-    public function getEqualsData(): array
-    {
-        $tests = [];
-        foreach ($this->getTypes() as $name => $test) {
-            $type = $test[0];
-            $tests = array_merge(
-                $tests,
-                [
-                    "{$name}->equals(same Type)" => [
-                        $type,
-                        clone $type,
-                        true
-                    ],
-                    "{$name}->equals(mock Type)" => [
-                        $type,
-                        $this->createMock(Type::class),
-                        false
-                    ],
-                    "{$name}->equals(integer)" => [
-                        $type,
-                        1,
-                        false
-                    ],
-                    "{$name}->equals(bool)" => [
-                        $type,
-                        false,
-                        false
-                    ],
-                    "{$name}->equals(string)" => [
-                        $type,
-                        "string",
-                        false
-                    ],
-                ]
+        foreach ($tc->getEquals() as $value) {
+            $this->assertTrue(
+                $tc->getType()->equals($value)
             );
         }
-        return $tests;
     }
 
-    public function getTypes(): array
+    /**
+     * @dataProvider getTestCases
+     */
+    public function testNotEquals(TypeTestCase $tc)
     {
+        foreach ($tc->getNotEquals() as $value) {
+            $this->assertFalse(
+                $tc->getType()->equals($value)
+            );
+        }
+    }
+
+    /**
+     * Retrieve TypeTestCases
+     *
+     * @return array<TypeTestCase>
+     */
+    public function getTestCases(): array
+    {
+        $notEquals = [
+            $this->createMock(Type::class),
+            1,
+            false,
+            "string",
+            3.1415,
+        ];
+
         return [
-            ArrayType::class => [new ArrayType()],
+            ArrayType::class => [
+                (new TypeTestCaseBuilder(new ArrayType()))
+                    ->equals(new ArrayType())
+                    ->notEquals(...$notEquals)
+                    ->build()
+            ],
         ];
     }
 }

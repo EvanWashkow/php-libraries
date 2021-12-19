@@ -23,22 +23,24 @@ final class TypeTestCaseBuilder
      * Type->equals() these values.
      *
      * @param mixed ...$equals
-     * @return void
+     * @return self
      */
-    public function equals(...$equals)
+    public function equals(...$equals): self
     {
         $this->equals = $equals;
+        return $this;
     }
 
     /**
      * ! Type->equals() these values.
      *
      * @param mixed ...$notEquals
-     * @return void
+     * @return self
      */
-    public function notEquals(...$notEquals)
+    public function notEquals(...$notEquals): self
     {
         $this->notEquals = $notEquals;
+        return $this;
     }
 
     /**
