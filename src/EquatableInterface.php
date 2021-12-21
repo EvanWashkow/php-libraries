@@ -6,7 +6,7 @@ namespace EvanWashkow\PHPLibraries;
 /**
  * Describes Object equality comparison.
  */
-interface Equatable
+interface EquatableInterface
 {
     /**
      * Compare values for equality.
