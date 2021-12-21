@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests;
+namespace EvanWashkow\PHPLibraries\Tests\EquatableInterface;
 
 use EvanWashkow\PHPLibraries\EquatableInterface;
 
 /**
  * A test case for EquatableInterface tests.
  */
-final class EquatableInterfaceTestCase
+final class EquatableTestCase
 {
     private string $testName;
 
