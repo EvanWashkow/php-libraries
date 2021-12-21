@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Type;
+namespace EvanWashkow\PHPLibraries\Tests;
 
 use EvanWashkow\PHPLibraries\EquatableInterface;
 
