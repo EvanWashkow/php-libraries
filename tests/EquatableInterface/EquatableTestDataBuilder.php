@@ -8,7 +8,7 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
 /**
  * Builds EquatableTestCases.
  * 
- * EquatableInterface must equal its clone. This test will be added on EquatableTestDataBuilder creation.
+ * A test for an EquatableInterface to equal its clone will be added on EquatableTestDataBuilder creation.
  */
 final class EquatableTestDataBuilder
 {
