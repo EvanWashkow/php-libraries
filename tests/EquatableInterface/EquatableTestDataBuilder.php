@@ -8,7 +8,7 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
 /**
  * Builds EquatableTestCases.
  */
-final class EquatableTestCaseBuilder
+final class EquatableTestDataBuilder
 {
     private string $testNamePrefix;
 
@@ -19,7 +19,7 @@ final class EquatableTestCaseBuilder
     private array $notEquals;
 
     /**
-     * Creates a new EquatableTestCaseBuilder.
+     * Creates a new EquatableTestDataBuilder.
      *
      * @param string $testNamePrefix The test name prefix.
      * @param EquatableInterface $equatable The EquatableInterface instance.
