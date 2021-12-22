@@ -7,6 +7,8 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
 
 /**
  * Builds EquatableTestCases.
+ * 
+ * EquatableInterface must equal its clone. This test will be added on EquatableTestDataBuilder creation.
  */
 final class EquatableTestDataBuilder
 {
@@ -30,6 +32,9 @@ final class EquatableTestDataBuilder
         $this->equatable = $equatable;
         $this->equals = [];
         $this->notEquals = [];
+
+        // All EquatableInterfaces should be equal to their clone.
+        $this->equals('clone', clone $equatable);
     }
 
 
