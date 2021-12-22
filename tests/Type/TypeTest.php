@@ -25,30 +25,6 @@ final class TypeTest extends TestCase
     /**
      * @dataProvider getTestCases
      */
-    public function testEquals(TypeTestCase $tc)
-    {
-        foreach ($tc->getEquals() as $value) {
-            $this->assertTrue(
-                $tc->getType()->equals($value)
-            );
-        }
-    }
-
-    /**
-     * @dataProvider getTestCases
-     */
-    public function testNotEquals(TypeTestCase $tc)
-    {
-        foreach ($tc->getNotEquals() as $value) {
-            $this->assertFalse(
-                $tc->getType()->equals($value)
-            );
-        }
-    }
-
-    /**
-     * @dataProvider getTestCases
-     */
     public function testIs(TypeTestCase $tc)
     {
         foreach ($tc->getIs() as $value) {
