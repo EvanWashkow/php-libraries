@@ -12,17 +12,22 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
 {
     public function getTestData(): array
     {
-        $typeMock = $this->createMock(Type::class);
         return array_merge(
-            (new EquatableTestDataBuilder(ArrayType::class, new ArrayType))
-                ->equals('ArrayType', new ArrayType())
-                ->notEquals('Type mock', $typeMock)
-                ->notEquals('integer', 1)
-                ->notEquals('bool', false)
-                ->notEquals('string', 'string')
-                ->notEquals('float', 3.1415)
-                ->notEquals('array', [])
-                ->build()
+            $this->newDefaultTestDataBuilder(ArrayType::class, new ArrayType())->build(),
         );
+    }
+
+
+    private function newDefaultTestDataBuilder(string $testNamePrefix, Type $type): EquatableTestDataBuilder
+    {
+        $typeMock = $this->createMock(Type::class);
+        return (new EquatableTestDataBuilder($testNamePrefix, $type))
+            ->equals('clone', clone $type)
+            ->notEquals('Type mock', $typeMock)
+            ->notEquals('integer', 1)
+            ->notEquals('bool', false)
+            ->notEquals('string', 'string')
+            ->notEquals('float', 3.1415)
+            ->notEquals('array', []);
     }
 }
