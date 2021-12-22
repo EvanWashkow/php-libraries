@@ -6,9 +6,10 @@ namespace EvanWashkow\PHPLibraries;
 /**
  * Describes Object equality comparison.
  * 
- * - Determines if an object is _exactly_ equal to the given value.
- * - Object equality must be idempotent. Internal changes to an object must not affect its equality; return a new
- * value instead.
+ * - Equality must compare two values for equivalence and should not be used for other behavior.
+ * - An object must be equivalent to a clone of itself.
+ * - Equality must be bi-directional. Calling `equals()` on the opposing object should result in the same value.
+ * - Equality must be idempotent. Internal changes should not affect an object's equality; return a new value instead.
  */
 interface EquatableInterface
 {
