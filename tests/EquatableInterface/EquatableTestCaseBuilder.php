@@ -14,10 +14,8 @@ final class EquatableTestCaseBuilder
 
     private EquatableInterface $equatable;
 
-    /** @var array<EquatableTestCase> */
     private array $equals;
 
-    /** @var array<EquatableTestCase> */
     private array $notEquals;
 
     /**
@@ -44,8 +42,8 @@ final class EquatableTestCaseBuilder
      */
     public function equals(string $testNameSuffix, $value): self
     {
-        $testName = "{$this->testNamePrefix} SHOULD EQUAL {$testNameSuffix}";
-        $this->equals[$testName] = new EquatableTestCase($testName, $this->equatable, $value, true);
+        $this->equals["{$this->testNamePrefix} SHOULD EQUAL {$testNameSuffix}"] =
+            $this->newTestCase($value, true);
         return $this;
     }
 
@@ -59,8 +57,8 @@ final class EquatableTestCaseBuilder
      */
     public function notEquals(string $testNameSuffix, $value): self
     {
-        $testName = "{$this->testNamePrefix} SHOULD NOT EQUAL {$testNameSuffix}";
-        $this->notEquals[$testName] = new EquatableTestCase($testName, $this->equatable, $value, false);
+        $this->notEquals["{$this->testNamePrefix} SHOULD NOT EQUAL {$testNameSuffix}"] =
+            $this->newTestCase($value, false);
         return $this;
     }
 
@@ -77,5 +75,18 @@ final class EquatableTestCaseBuilder
             throw new \DomainException("insufficient test cases for EquatableInterface");
         }
         return array_merge($this->equals, $this->notEquals);
+    }
+
+
+    /**
+     * Creates a new test case.
+     *
+     * @param mixed $value The value to test.
+     * @param boolean $expected The expected result.
+     * @return array
+     */
+    private function newTestCase($value, bool $expected): array
+    {
+        return [$this->equatable, $value, $expected];
     }
 }
