@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\EquatableInterface;
 
+use EvanWashkow\PHPLibraries\EquatableInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,20 +14,20 @@ abstract class AbstractEquatableTestDefinition extends TestCase
     /**
      * Tests the EquatableInterface
      * 
-     * @dataProvider getTestCases
+     * @dataProvider getTestData
      */
-    final public function testEquatableInterface(EquatableTestCase $test)
+    final public function testEquatableInterface(EquatableInterface $equatable, $value, bool $expected)
     {
         $this->assertSame(
-            $test->getExpected(),
-            $test->getEquatable()->equals($test->getValue()),
+            $expected,
+            $equatable->equals($value)
         );
     }
 
     /**
-     * Get the EquatableTestCases
-     *
-     * @return array<EquatableTestCase>
+     * Get the test data.
+     * 
+     * Use EquatableTestDataBuilder to generate these tests.
      */
-    abstract public function getTestCases(): array;
+    abstract public function getTestData(): array;
 }
