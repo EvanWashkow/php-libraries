@@ -8,8 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests EquatableInterface implementations.
- * 
- * EquatableInterface must equal its clone. This test will be added on EquatableTestDataBuilder creation.
  */
 abstract class AbstractEquatableTestDefinition extends TestCase
 {
