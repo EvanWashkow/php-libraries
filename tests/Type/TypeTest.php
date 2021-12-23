@@ -33,15 +33,11 @@ final class TypeTest extends TestCase
 
     public function getIsTestData(): array
     {
-        $typeMock = $this->createMock(Type::class);
-        return array_merge(
-            (new TypeTestDataBuilder(ArrayType::class, new ArrayType()))
-                ->notIs('Type mock', $typeMock)
-                ->buildIsTestData(),
-            (new TypeTestDataBuilder(BooleanType::class, new BooleanType()))
-                ->notIs('Type mock', $typeMock)
-                ->buildIsTestData(),
-        );
+        $data = [];
+        foreach ($this->getTestDataBuilders() as $builder) {
+            $data = array_merge($data, $builder->buildIsTestData());
+        }
+        return $data;
     }
 
 
@@ -55,24 +51,41 @@ final class TypeTest extends TestCase
 
     public function getIsValueOfTypeTestData(): array
     {
-        return array_merge(
+        $data = [];
+        foreach ($this->getTestDataBuilders() as $builder) {
+            $data = array_merge($data, $builder->buildIsValueOfTypeTestData());
+        }
+        return $data;
+    }
+
+
+    /**
+     * Retrieves the TypeTestDataBuilders
+     *
+     * @return array<TypeTestDataBuilder>
+     */
+    public function getTestDataBuilders(): array
+    {
+        $typeMock = $this->createMock(Type::class);
+
+        return [
             (new TypeTestDataBuilder(ArrayType::class, new ArrayType()))
+                ->notIs('Type mock', $typeMock)
                 ->isValueOfType('empty array', [])
                 ->isValueOfType('full array', [1, 2, 3])
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
-                ->notIsValueOfType('string', 'string')
-                ->buildIsValueOfTypeTestData(),
+                ->notIsValueOfType('string', 'string'),
             (new TypeTestDataBuilder(BooleanType::class, new BooleanType()))
+                ->notIs('Type mock', $typeMock)
                 ->isValueOfType('true', true)
                 ->isValueOfType('false', false)
                 ->notIsValueOfType('array', [])
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
-                ->notIsValueOfType('string', 'string')
-                ->buildIsValueOfTypeTestData(),
-        );
+                ->notIsValueOfType('string', 'string'),
+        ];
     }
 
 
