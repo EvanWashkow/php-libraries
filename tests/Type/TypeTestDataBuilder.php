@@ -36,6 +36,15 @@ final class TypeTestDataBuilder
 
 
     /**
+     * Get the Type
+     */ 
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
+
+    /**
      * Add a test for is()
      *
      * @param string $testedName The name of the Type being tested.
