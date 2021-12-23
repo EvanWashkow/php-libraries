@@ -22,6 +22,29 @@ final class TypeTest extends TestCase
         $this->assertTrue($rc->isFinal(), "Type is not final");
     }
 
+
+    /**
+     * @dataProvider getIsTestData
+     */
+    public function testIs(Type $tester, Type $testee, bool $expected): void
+    {
+        $this->assertSame($expected, $tester->is($testee));
+    }
+
+    public function getIsTestData(): array
+    {
+        $typeMock = $this->createMock(Type::class);
+        return array_merge(
+            (new TypeTestDataBuilder(ArrayType::class, new ArrayType()))
+                ->notIs('Type mock', $typeMock)
+                ->buildIsTestData(),
+            (new TypeTestDataBuilder(BooleanType::class, new BooleanType()))
+                ->notIs('Type mock', $typeMock)
+                ->buildIsTestData(),
+        );
+    }
+
+
     /**
      * Retrieve TypeTestCases
      *
