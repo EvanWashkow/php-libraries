@@ -23,6 +23,7 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
     private function newDefaultTestDataBuilder(string $testNamePrefix, Type $type): EquatableTestDataBuilder
     {
         return (new EquatableTestDataBuilder($testNamePrefix, $type))
+            ->equals('clone', clone $type)
             ->notEquals('Type mock', $this->createMock(Type::class))
             ->notEquals('integer', 1)
             ->notEquals('bool', false)
