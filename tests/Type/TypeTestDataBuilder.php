@@ -100,7 +100,7 @@ final class TypeTestDataBuilder
      */
     public function buildIsTestData(): array
     {
-        if (count($this->notIs) <= 1) {
+        if (count($this->notIs) == 0) {
             throw new \DomainException("insufficient test cases for Type->is()");
         }
         return array_merge($this->is, $this->notIs);
