@@ -12,7 +12,7 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
  */
 final class EquatableTestDataBuilder
 {
-    private string $testNamePrefix;
+    private string $moduleName;
 
     private EquatableInterface $equatable;
 
@@ -23,12 +23,12 @@ final class EquatableTestDataBuilder
     /**
      * Creates a new EquatableTestDataBuilder.
      *
-     * @param string $testNamePrefix The test name prefix.
+     * @param string $moduleName The name of the module under.
      * @param EquatableInterface $equatable The EquatableInterface instance.
      */
-    public function __construct(string $testNamePrefix, EquatableInterface $equatable)
+    public function __construct(string $moduleName, EquatableInterface $equatable)
     {
-        $this->testNamePrefix = $testNamePrefix;
+        $this->moduleName = $moduleName;
         $this->equatable = $equatable;
         $this->equals = [];
         $this->notEquals = [];
@@ -41,13 +41,13 @@ final class EquatableTestDataBuilder
     /**
      * Add test for value that should be equal.
      *
-     * @param string $testNameSuffix The test name suffix.
+     * @param string $valueName The name of the value.
      * @param mixed $value The value to test.
      * @return self
      */
-    public function equals(string $testNameSuffix, $value): self
+    public function equals(string $valueName, $value): self
     {
-        $this->equals["{$this->testNamePrefix} SHOULD EQUAL {$testNameSuffix}"] =
+        $this->equals["{$this->moduleName} SHOULD EQUAL {$valueName}"] =
             $this->newTestCase($value, true);
         return $this;
     }
@@ -56,13 +56,13 @@ final class EquatableTestDataBuilder
     /**
      * Add test for value that should not be equal.
      *
-     * @param string $testNameSuffix The test name suffix.
+     * @param string $valueName The name of the value.
      * @param mixed $value The value to test.
      * @return self
      */
-    public function notEquals(string $testNameSuffix, $value): self
+    public function notEquals(string $valueName, $value): self
     {
-        $this->notEquals["{$this->testNamePrefix} SHOULD NOT EQUAL {$testNameSuffix}"] =
+        $this->notEquals["{$this->moduleName} SHOULD NOT EQUAL {$valueName}"] =
             $this->newTestCase($value, false);
         return $this;
     }
