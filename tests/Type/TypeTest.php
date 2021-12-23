@@ -14,12 +14,22 @@ use PHPUnit\Framework\TestCase;
 final class TypeTest extends TestCase
 {
     /**
-     * @dataProvider getTestCases
+     * @dataProvider getFinalTestData
      */
-    public function testFinal(TypeTestCase $tc)
+    public function testFinal(Type $type): void
     {
-        $rc = new \ReflectionClass($tc->getType());
+        $rc = new \ReflectionClass($type);
         $this->assertTrue($rc->isFinal(), "Type is not final");
+    }
+
+    public function getFinalTestData(): array
+    {
+        $data = [];
+        foreach ($this->getTestDataBuilders() as $builder) {
+            $type = $builder->getType();
+            $data[get_class($type)] = [$type];
+        }
+        return $data;
     }
 
 
