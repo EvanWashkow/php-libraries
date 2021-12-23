@@ -79,16 +79,14 @@ final class TypeTest extends TestCase
         $typeMock = $this->createMock(Type::class);
 
         return [
-            (new TypeTestDataBuilder(ArrayType::class, new ArrayType()))
-                ->notIs('Type mock', $typeMock)
+            $this->newDefaultTypeTestDataBuilder(ArrayType::class, new ArrayType())
                 ->isValueOfType('empty array', [])
                 ->isValueOfType('full array', [1, 2, 3])
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
-            (new TypeTestDataBuilder(BooleanType::class, new BooleanType()))
-                ->notIs('Type mock', $typeMock)
+            $this->newDefaultTypeTestDataBuilder(BooleanType::class, new BooleanType())
                 ->isValueOfType('true', true)
                 ->isValueOfType('false', false)
                 ->notIsValueOfType('array', [])
@@ -96,5 +94,15 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
         ];
+    }
+
+
+    /**
+     * Creates a new default TypeTestDataBuilder
+     */
+    private function newDefaultTypeTestDataBuilder(string $testName, Type $type): TypeTestDataBuilder
+    {
+        return (new TypeTestDataBuilder($testName, $type))
+            ->notIs('Type mock', $this->createMock(Type::class));
     }
 }
