@@ -48,7 +48,7 @@ final class EquatableTestDataBuilder
     public function equals(string $valueName, $value): self
     {
         $this->equals["{$this->moduleName} SHOULD EQUAL {$valueName}"] =
-            $this->newTestCase($value, true);
+            $this->newTestCase($this->equatable, $value, true);
         return $this;
     }
 
@@ -63,7 +63,7 @@ final class EquatableTestDataBuilder
     public function notEquals(string $valueName, $value): self
     {
         $this->notEquals["{$this->moduleName} SHOULD NOT EQUAL {$valueName}"] =
-            $this->newTestCase($value, false);
+            $this->newTestCase($this->equatable, $value, false);
         return $this;
     }
 
@@ -86,12 +86,13 @@ final class EquatableTestDataBuilder
     /**
      * Creates a new test case.
      *
+     * @param EquatableInterface $equatable The equatable object under test.
      * @param mixed $value The value to test.
      * @param boolean $expected The expected result.
      * @return array
      */
-    private function newTestCase($value, bool $expected): array
+    private function newTestCase(EquatableInterface $equatable, $value, bool $expected): array
     {
-        return [$this->equatable, $value, $expected];
+        return [$equatable, $value, $expected];
     }
 }
