@@ -116,7 +116,7 @@ final class TypeTestDataBuilder
      */
     public function buildIsValueOfTypeTestData(): array
     {
-        if (count($this->notIsValueOfType) <= 1) {
+        if (count($this->isValueOfType) <= 1 || count($this->notIsValueOfType) <= 1) {
             throw new \DomainException("insufficient test cases for Type->isValueOfType()");
         }
         return array_merge($this->isValueOfType, $this->notIsValueOfType);
