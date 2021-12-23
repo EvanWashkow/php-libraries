@@ -87,7 +87,7 @@ final class TypeTestDataBuilder
      */
     public function notIsValueOfType(string $testedName, $value): self
     {
-        $this->notIsValueOfType["{$this->testName} NOT IS VALUE OF TYPE {$testedName}"] =
+        $this->notIsValueOfType["{$this->testName} IS NOT VALUE OF TYPE {$testedName}"] =
             $this->newIsValueOfTypeTestData($value, false);
         return $this;
     }
