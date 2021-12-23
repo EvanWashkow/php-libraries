@@ -49,11 +49,11 @@ final class EquatableTestDataBuilder
     public function equals(string $valueName, $value): self
     {
         $this->equals["{$this->moduleName} SHOULD EQUAL {$valueName}"] =
-            $this->newTestCase($this->equatable, $value, true);
+            $this->newTestData($this->equatable, $value, true);
 
         if ($value instanceof EquatableInterface) {
             $this->equals["{$this->moduleName} SHOULD BIDIRECTIONALLY EQUAL {$valueName}"] =
-                $this->newTestCase($value, $this->equatable, true);
+                $this->newTestData($value, $this->equatable, true);
         }
 
         return $this;
@@ -70,7 +70,7 @@ final class EquatableTestDataBuilder
     public function notEquals(string $valueName, $value): self
     {
         $this->notEquals["{$this->moduleName} SHOULD NOT EQUAL {$valueName}"] =
-            $this->newTestCase($this->equatable, $value, false);
+            $this->newTestData($this->equatable, $value, false);
         return $this;
     }
 
@@ -98,7 +98,7 @@ final class EquatableTestDataBuilder
      * @param boolean $expected The expected result.
      * @return array
      */
-    private function newTestCase(EquatableInterface $equatable, $value, bool $expected): array
+    private function newTestData(EquatableInterface $equatable, $value, bool $expected): array
     {
         return [$equatable, $value, $expected];
     }
