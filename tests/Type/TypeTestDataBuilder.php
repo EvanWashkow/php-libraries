@@ -64,6 +64,36 @@ final class TypeTestDataBuilder
 
 
     /**
+     * Add a test for isValueOfType()
+     *
+     * @param string $testedName The name of the value being tested.
+     * @param mixed $value The value being tested.
+     * @return self
+     */
+    public function isValueOfType(string $testedName, $value): self
+    {
+        $this->isValueOfType["{$this->testName} IS VALUE OF TYPE {$testedName}"] =
+            $this->newIsValueOfTypeTestData($value, true);
+        return $this;
+    }
+
+
+    /**
+     * Add a test for !isValueOfType()
+     *
+     * @param string $testedName The name of the value being tested.
+     * @param mixed $value The value being tested.
+     * @return self
+     */
+    public function notIsValueOfType(string $testedName, $value): self
+    {
+        $this->notIsValueOfType["{$this->testName} NOT IS VALUE OF TYPE {$testedName}"] =
+            $this->newIsValueOfTypeTestData($value, false);
+        return $this;
+    }
+
+
+    /**
      * Builds is() test data
      *
      * @return array
@@ -77,8 +107,28 @@ final class TypeTestDataBuilder
     }
 
 
+    /**
+     * Builds isValueOfType() test data
+     *
+     * @return array
+     */
+    public function buildIsValueOfTypeTestData(): array
+    {
+        if (count($this->notIsValueOfType) <= 1) {
+            throw new \DomainException("insufficient test cases for Type->isValueOfType()");
+        }
+        return array_merge($this->isValueOfType, $this->notIsValueOfType);
+    }
+
+
     private function newIsTestData(Type $type, bool $expected): array
     {
         return [$this->type, $type, $expected];
+    }
+
+
+    private function newIsValueOfTypeTestData($value, bool $expected): array
+    {
+        return [$this->type, $value, $expected];
     }
 }
