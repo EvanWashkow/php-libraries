@@ -57,7 +57,7 @@ final class TypeTestDataBuilder
      */
     public function notIs(string $testedName, Type $type): self
     {
-        $this->is["{$this->testName} IS NOT {$testedName}"] =
+        $this->notIs["{$this->testName} IS NOT {$testedName}"] =
             $this->newIsTestData($type, false);
         return $this;
     }
