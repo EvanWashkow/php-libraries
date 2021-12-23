@@ -8,7 +8,7 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
 /**
  * Builds EquatableTestCases.
  * 
- * - A test for the EquatableInterface to equal itself will be added on Builder creation.
+ * - A test for self equivalence will be added on Builder creation.
  * - A test for bidirectional equality will be added when calling equals().
  */
 final class EquatableTestDataBuilder
