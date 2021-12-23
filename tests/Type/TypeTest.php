@@ -46,6 +46,37 @@ final class TypeTest extends TestCase
 
 
     /**
+     * @dataProvider getIsValueOfTypeTestData
+     */
+    public function testIsValueOfType(Type $type, $value, bool $expected): void
+    {
+        $this->assertSame($expected, $type->isValueOfType($value));
+    }
+
+    public function getIsValueOfTypeTestData(): array
+    {
+        return array_merge(
+            (new TypeTestDataBuilder(ArrayType::class, new ArrayType()))
+                ->isValueOfType('empty array', [])
+                ->isValueOfType('full array', [1, 2, 3])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string')
+                ->buildIsValueOfTypeTestData(),
+            (new TypeTestDataBuilder(BooleanType::class, new BooleanType()))
+                ->isValueOfType('true', true)
+                ->isValueOfType('false', false)
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string')
+                ->buildIsValueOfTypeTestData(),
+        );
+    }
+
+
+    /**
      * Retrieve TypeTestCases
      *
      * @return array<TypeTestCase>
