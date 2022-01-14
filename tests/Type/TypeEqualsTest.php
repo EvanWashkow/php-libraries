@@ -28,7 +28,7 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
     {
         return (new EquatableTestDataBuilder($testNamePrefix, $type))
             ->equals('clone', clone $type)
-            ->notEquals('Type mock', $this->createMock(TypeInterface::class))
+            ->notEquals('TypeInterface mock', $this->createMock(TypeInterface::class))
             ->notEquals('integer', 1)
             ->notEquals('bool', false)
             ->notEquals('string', 'string')
