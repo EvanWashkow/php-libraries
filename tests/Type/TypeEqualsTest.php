@@ -9,7 +9,7 @@ use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
-use EvanWashkow\PHPLibraries\Type\Type;
+use EvanWashkow\PHPLibraries\Type\TypeInterface;
 
 final class TypeEqualsTest extends AbstractEquatableTestDefinition
 {
@@ -24,11 +24,11 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
     }
 
 
-    private function newDefaultTestDataBuilder(string $testNamePrefix, Type $type): EquatableTestDataBuilder
+    private function newDefaultTestDataBuilder(string $testNamePrefix, TypeInterface $type): EquatableTestDataBuilder
     {
         return (new EquatableTestDataBuilder($testNamePrefix, $type))
             ->equals('clone', clone $type)
-            ->notEquals('Type mock', $this->createMock(Type::class))
+            ->notEquals('Type mock', $this->createMock(TypeInterface::class))
             ->notEquals('integer', 1)
             ->notEquals('bool', false)
             ->notEquals('string', 'string')

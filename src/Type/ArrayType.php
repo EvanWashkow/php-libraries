@@ -6,14 +6,14 @@ namespace EvanWashkow\PHPLibraries\Type;
 /**
  * An Array Type.
  */
-final class ArrayType implements Type
+final class ArrayType implements TypeInterface
 {
     public function equals($value): bool
     {
         return $value instanceof self;
     }
 
-    public function is(Type $type): bool
+    public function is(TypeInterface $type): bool
     {
         return $type instanceof self;
     }

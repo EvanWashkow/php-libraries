@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Type\Type;
+use EvanWashkow\PHPLibraries\Type\TypeInterface;
 
 /**
  * Builds test data for Types.
@@ -14,13 +14,13 @@ use EvanWashkow\PHPLibraries\Type\Type;
 final class TypeTestDataBuilder
 {
     private string $testName;
-    private Type $type;
+    private TypeInterface $type;
     private array $is;
     private array $notIs;
     private array $isValueOfType;
     private array $notIsValueOfType;
 
-    public function __construct(string $testName, Type $type)
+    public function __construct(string $testName, TypeInterface $type)
     {
         $this->testName = $testName;
         $this->type = $type;
@@ -38,7 +38,7 @@ final class TypeTestDataBuilder
     /**
      * Get the Type
      */ 
-    public function getType(): Type
+    public function getType(): TypeInterface
     {
         return $this->type;
     }
@@ -48,10 +48,10 @@ final class TypeTestDataBuilder
      * Add a test for is()
      *
      * @param string $testedName The name of the Type being tested.
-     * @param Type $type The Type being tested.
+     * @param TypeInterface $type The Type being tested.
      * @return self
      */
-    public function is(string $testedName, Type $type): self
+    public function is(string $testedName, TypeInterface $type): self
     {
         $this->is["{$this->testName} IS {$testedName}"] =
             $this->newIsTestData($type, true);
@@ -63,10 +63,10 @@ final class TypeTestDataBuilder
      * Add a test for !is()
      *
      * @param string $testedName The name of the Type being tested.
-     * @param Type $type The Type being tested.
+     * @param TypeInterface $type The Type being tested.
      * @return self
      */
-    public function notIs(string $testedName, Type $type): self
+    public function notIs(string $testedName, TypeInterface $type): self
     {
         $this->notIs["{$this->testName} IS NOT {$testedName}"] =
             $this->newIsTestData($type, false);
@@ -132,7 +132,7 @@ final class TypeTestDataBuilder
     }
 
 
-    private function newIsTestData(Type $type, bool $expected): array
+    private function newIsTestData(TypeInterface $type, bool $expected): array
     {
         return [$this->type, $type, $expected];
     }

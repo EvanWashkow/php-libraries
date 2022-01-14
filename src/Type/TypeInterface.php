@@ -8,7 +8,7 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
 /**
  * Describes a Type.
  */
-interface Type extends EquatableInterface
+interface TypeInterface extends EquatableInterface
 {
     /**
      * Check type inheritance.
@@ -17,10 +17,10 @@ interface Type extends EquatableInterface
      * - the same as the given type
      * - derived from the given type
      * 
-     * @param Type $type The type to check.
+     * @param TypeInterface $type The type to check.
      * @return boolean
      */
-    function is(Type $type): bool;
+    function is(TypeInterface $type): bool;
 
     /**
      * Determines if the given value is of this type.

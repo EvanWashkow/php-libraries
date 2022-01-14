@@ -7,7 +7,7 @@ use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
-use EvanWashkow\PHPLibraries\Type\Type;
+use EvanWashkow\PHPLibraries\Type\TypeInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +18,7 @@ final class TypeTest extends TestCase
     /**
      * @dataProvider getFinalTestData
      */
-    public function testFinal(Type $type): void
+    public function testFinal(TypeInterface $type): void
     {
         $rc = new \ReflectionClass($type);
         $this->assertTrue($rc->isFinal(), "Type is not final");
@@ -38,7 +38,7 @@ final class TypeTest extends TestCase
     /**
      * @dataProvider getIsTestData
      */
-    public function testIs(Type $tester, Type $testee, bool $expected): void
+    public function testIs(TypeInterface $tester, TypeInterface $testee, bool $expected): void
     {
         $this->assertSame($expected, $tester->is($testee));
     }
@@ -56,7 +56,7 @@ final class TypeTest extends TestCase
     /**
      * @dataProvider getIsValueOfTypeTestData
      */
-    public function testIsValueOfType(Type $type, $value, bool $expected): void
+    public function testIsValueOfType(TypeInterface $type, $value, bool $expected): void
     {
         $this->assertSame($expected, $type->isValueOfType($value));
     }
@@ -117,9 +117,9 @@ final class TypeTest extends TestCase
     /**
      * Creates a new default TypeTestDataBuilder
      */
-    private function newDefaultTypeTestDataBuilder(string $testName, Type $type): TypeTestDataBuilder
+    private function newDefaultTypeTestDataBuilder(string $testName, TypeInterface $type): TypeTestDataBuilder
     {
         return (new TypeTestDataBuilder($testName, $type))
-            ->notIs('Type mock', $this->createMock(Type::class));
+            ->notIs('Type mock', $this->createMock(TypeInterface::class));
     }
 }

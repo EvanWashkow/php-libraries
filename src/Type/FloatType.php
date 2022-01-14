@@ -6,14 +6,14 @@ namespace EvanWashkow\PHPLibraries\Type;
 /**
  * A Float Type.
  */
-final class FloatType implements Type
+final class FloatType implements TypeInterface
 {
     public function equals($value): bool
     {
         return $value instanceof self;
     }
 
-    public function is(Type $type): bool
+    public function is(TypeInterface $type): bool
     {
         return $type instanceof self;
     }
