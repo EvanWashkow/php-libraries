@@ -5,6 +5,7 @@ namespace EvanWashkow\PHPLibraries\Tests\Type;
 
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
+use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\StringType;
@@ -33,6 +34,35 @@ final class TypeTest extends TestCase
             $data[get_class($type)] = [$type];
         }
         return $data;
+    }
+
+
+    /**
+     * @dataProvider getConstructorExceptionTestData
+     */
+    public function testConstructorException(callable $fn, string $expected): void
+    {
+        $this->expectException($expected);
+        $fn();
+    }
+
+    public function getConstructorExceptionTestData(): array
+    {
+        $classType = ClassType::class;
+        return [
+            "{$classType} empty string" => [
+                function() {
+                    new ClassType('');
+                },
+                \DomainException::class
+            ],
+            "{$classType} foobar" => [
+                function() {
+                    new ClassType('foobar');
+                },
+                \DomainException::class
+            ],
+        ];
     }
 
 
