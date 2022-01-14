@@ -6,6 +6,7 @@ namespace EvanWashkow\PHPLibraries\Tests\Type;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
+use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\Type;
 use PHPUnit\Framework\TestCase;
 
@@ -101,6 +102,15 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('array', [])
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string'),
+            $this->newDefaultTypeTestDataBuilder(IntegerType::class, new IntegerType())
+                ->isValueOfType('PHP_INT_MAX', PHP_INT_MAX)
+                ->isValueOfType('1', 1)
+                ->isValueOfType('-1', -1)
+                ->isValueOfType('PHP_INT_MIN', PHP_INT_MIN)
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('string', 'string'),
         ];
     }
