@@ -9,6 +9,7 @@ use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
+use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\Type\TypeInterface;
 
 final class TypeEqualsTest extends AbstractEquatableTestDefinition
@@ -20,6 +21,7 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
             $this->newDefaultTestDataBuilder(BooleanType::class, new BooleanType())->build(),
             $this->newDefaultTestDataBuilder(FloatType::class, new FloatType())->build(),
             $this->newDefaultTestDataBuilder(IntegerType::class, new IntegerType())->build(),
+            $this->newDefaultTestDataBuilder(StringType::class, new StringType())->build(),
         );
     }
 

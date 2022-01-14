@@ -7,6 +7,7 @@ use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
+use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\Type\TypeInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -110,6 +111,13 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('string', 'string'),
+            $this->newDefaultTypeTestDataBuilder(StringType::class, new StringType())
+                ->isValueOfType('string', 'string')
+                ->isValueOfType('empty string', '')
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1),
         ];
     }
 
