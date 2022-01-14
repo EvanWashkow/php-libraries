@@ -7,6 +7,7 @@ use EvanWashkow\PHPLibraries\Tests\EquatableInterface\AbstractEquatableTestDefin
 use EvanWashkow\PHPLibraries\Tests\EquatableInterface\EquatableTestDataBuilder;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
+use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\Type;
 
 final class TypeEqualsTest extends AbstractEquatableTestDefinition
@@ -16,6 +17,7 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
         return array_merge(
             $this->newDefaultTestDataBuilder(ArrayType::class, new ArrayType())->build(),
             $this->newDefaultTestDataBuilder(BooleanType::class, new BooleanType())->build(),
+            $this->newDefaultTestDataBuilder(FloatType::class, new FloatType())->build(),
         );
     }
 
