@@ -78,8 +78,6 @@ final class TypeTest extends TestCase
      */
     public function getTestDataBuilders(): array
     {
-        $typeMock = $this->createMock(Type::class);
-
         return [
             $this->newDefaultTypeTestDataBuilder(ArrayType::class, new ArrayType())
                 ->isValueOfType('empty array', [])
