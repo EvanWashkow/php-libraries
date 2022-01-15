@@ -168,6 +168,18 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
+            $this->newDefaultTypeTestDataBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
+                ->is('StubClassA', new ClassType(StubClassA::class))
+                ->notIs('StubClassC', new ClassType(StubClassC::class))
+                ->isValueOfType('StubClassB', new StubClassB())
+                ->isValueOfType('mockStubClassB', $this->createMock(StubClassB::class))
+                ->notIsValueOfType('StubClassA', new StubClassA())
+                ->notIsValueOfType('StubClassC', new StubClassC())
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string'),
         ];
     }
 
