@@ -49,7 +49,6 @@ final class TypeTest extends TestCase
     public function getConstructorExceptionTestData(): array
     {
         $classType = ClassType::class;
-        $interface = StubInterfaceA::class;
         return [
             "{$classType}('')" => [
                 function() {
@@ -63,7 +62,7 @@ final class TypeTest extends TestCase
                 },
                 \DomainException::class
             ],
-            "{$classType}({$interface})" => [
+            "{$classType}(StubInterfaceA)" => [
                 function() {
                     new ClassType(StubInterfaceA::class);
                 },
