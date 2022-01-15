@@ -30,7 +30,6 @@ final class TypeInterfacesTest extends TestCase
     {
         return [
             TypeInterface::class => [TypeInterface::class, EquatableInterface::class],
-            NameableTypeInterface::class => [NameableTypeInterface::class, TypeInterface::class],
         ];
     }
 }
