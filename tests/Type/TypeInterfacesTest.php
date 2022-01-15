@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
+use EvanWashkow\PHPLibraries\EquatableInterface;
 use EvanWashkow\PHPLibraries\Type\NameableTypeInterface;
 use EvanWashkow\PHPLibraries\Type\TypeInterface;
 use PHPUnit\Framework\TestCase;
@@ -28,6 +29,7 @@ final class TypeInterfacesTest extends TestCase
     public function getTestData(): array
     {
         return [
+            TypeInterface::class => [TypeInterface::class, EquatableInterface::class],
             NameableTypeInterface::class => [NameableTypeInterface::class, TypeInterface::class],
         ];
     }
