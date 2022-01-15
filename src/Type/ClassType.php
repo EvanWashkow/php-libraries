@@ -18,10 +18,16 @@ class ClassType implements TypeInterface
      */
     public function __construct(string $class)
     {
+        $exception = "not a class name: \"{$class}\"";
+
         try {
             $this->class = new \ReflectionClass($class);
         } catch (\ReflectionException $e) {
-            throw new \DomainException("not a class name: \"{$class}\"");
+            throw new \DomainException($exception);
+        }
+
+        if ($this->class->isInterface()) {
+            throw new \DomainException($exception);
         }
     }
 
