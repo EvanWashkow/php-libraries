@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Tests\EquatableInterface\AbstractEquatableTestDefinition;
-use EvanWashkow\PHPLibraries\Tests\EquatableInterface\EquatableTestDataBuilder;
+use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\AbstractEquatableInterfaceTestCase;
+use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\EquatableInterfaceTestBuilder;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
@@ -14,7 +14,7 @@ use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\Type\TypeInterface;
 
-final class TypeEqualsTest extends AbstractEquatableTestDefinition
+final class TypeEqualsTest extends AbstractEquatableInterfaceTestCase
 {
     public function getTestData(): array
     {
@@ -57,9 +57,9 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
     }
 
 
-    private function newDefaultTestDataBuilder(string $testNamePrefix, TypeInterface $type): EquatableTestDataBuilder
+    private function newDefaultTestDataBuilder(string $testHeader, TypeInterface $type): EquatableInterfaceTestBuilder
     {
-        return (new EquatableTestDataBuilder($testNamePrefix, $type))
+        return (new EquatableInterfaceTestBuilder($testHeader, $type))
             ->equals('clone', clone $type)
             ->notEquals('TypeInterface mock', $this->createMock(TypeInterface::class))
             ->notEquals('integer', 1)
