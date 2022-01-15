@@ -26,27 +26,29 @@ final class InterfaceType implements TypeInterface
             throw new \DomainException($exception);
         }
 
-        if (!$this->reflector->isInterface()) {
+        if (!$this->getReflector()->isInterface()) {
             throw new \DomainException($exception);
         }
     }
 
     public function equals($value): bool
     {
-        return $value instanceof self && $this->reflector->getName() == $value->reflector->getName();
+        return $value instanceof self && $this->getReflector()->getName() == $value->getReflector()->getName();
     }
 
     public function is(TypeInterface $type): bool
     {
         if ($type instanceof InterfaceType) {
-            return $this->reflector->getName() == $type->reflector->getName() || $this->reflector->isSubclassOf($type->reflector);
+            return
+                $this->getReflector()->getName() == $type->getReflector()->getName() ||
+                $this->getReflector()->isSubclassOf($type->getReflector());
         }
         return false;
     }
 
     public function isValueOfType($value): bool
     {
-        return is_object($value) && $this->reflector->isInstance($value);
+        return is_object($value) && $this->getReflector()->isInstance($value);
     }
 
     /**
