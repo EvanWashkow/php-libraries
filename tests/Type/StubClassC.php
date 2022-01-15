@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-final class StubClassC extends StubClassA implements StubInterfaceA
+class StubClassC extends StubClassA implements StubInterfaceA
 {
     
 }
