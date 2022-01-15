@@ -8,7 +8,7 @@ namespace EvanWashkow\PHPLibraries\Type;
  */
 final class ClassType implements TypeInterface
 {
-    private \ReflectionClass $class;
+    private \ReflectionClass $reflector;
 
     /**
      * Create a new ClassType.
@@ -21,31 +21,31 @@ final class ClassType implements TypeInterface
         $exception = "not a class name: \"{$class}\"";
 
         try {
-            $this->class = new \ReflectionClass($class);
+            $this->reflector = new \ReflectionClass($class);
         } catch (\ReflectionException $e) {
             throw new \DomainException($exception);
         }
 
-        if ($this->class->isInterface()) {
+        if ($this->reflector->isInterface()) {
             throw new \DomainException($exception);
         }
     }
 
     public function equals($value): bool
     {
-        return $value instanceof self && $this->class->getName() == $value->class->getName();
+        return $value instanceof self && $this->reflector->getName() == $value->reflector->getName();
     }
 
     public function is(TypeInterface $type): bool
     {
         if ($type instanceof ClassType) {
-            return $this->class->getName() == $type->class->getName() || $this->class->isSubclassOf($type->class);
+            return $this->reflector->getName() == $type->reflector->getName() || $this->reflector->isSubclassOf($type->reflector);
         }
         return false;
     }
 
     public function isValueOfType($value): bool
     {
-        return is_object($value) && $this->class->isInstance($value);
+        return is_object($value) && $this->reflector->isInstance($value);
     }
 }
