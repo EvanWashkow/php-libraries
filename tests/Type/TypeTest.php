@@ -116,6 +116,8 @@ final class TypeTest extends TestCase
      */
     public function getTestDataBuilders(): array
     {
+        $classType = ClassType::class;
+
         return [
             $this->newDefaultTypeTestDataBuilder(ArrayType::class, new ArrayType())
                 ->isValueOfType('empty array', [])
@@ -155,6 +157,18 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1),
+
+            $this->newDefaultTypeTestDataBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
+                ->notIs('StubClassB', new ClassType(StubClassB::class))
+                ->notIs('StubClassC', new ClassType(StubClassC::class))
+                ->isValueOfType('StubClassA', new StubClassA())
+                ->isValueOfType('StubClassB', new StubClassB())
+                ->isValueOfType('StubClassC', new StubClassC())
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string'),
         ];
     }
 

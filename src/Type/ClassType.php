@@ -6,7 +6,7 @@ namespace EvanWashkow\PHPLibraries\Type;
 /**
  * A Class Type.
  */
-class ClassType implements TypeInterface
+final class ClassType implements TypeInterface
 {
     private \ReflectionClass $class;
 
@@ -38,11 +38,14 @@ class ClassType implements TypeInterface
 
     public function is(TypeInterface $type): bool
     {
-        return true;
+        if ($type instanceof ClassType) {
+            return $this->class->getName() == $type->class->getName() || $this->class->isSubclassOf($type->class);
+        }
+        return false;
     }
 
     public function isValueOfType($value): bool
     {
-        return true;
+        return is_object($value) && $this->class->isInstance($value);
     }
 }
