@@ -50,13 +50,13 @@ final class TypeTest extends TestCase
     {
         $classType = ClassType::class;
         return [
-            "{$classType} empty string" => [
+            "{$classType}('')" => [
                 function() {
                     new ClassType('');
                 },
                 \DomainException::class
             ],
-            "{$classType} foobar" => [
+            "{$classType}('foobar')" => [
                 function() {
                     new ClassType('foobar');
                 },
