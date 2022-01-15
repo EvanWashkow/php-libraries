@@ -30,7 +30,7 @@ final class TypeTest extends TestCase
     public function getFinalTestData(): array
     {
         $data = [];
-        foreach ($this->getTestDataBuilders() as $builder) {
+        foreach ($this->getTestBuilders() as $builder) {
             $type = $builder->getType();
             $data[get_class($type)] = [$type];
         }
@@ -104,7 +104,7 @@ final class TypeTest extends TestCase
     public function getIsTestData(): array
     {
         $data = [];
-        foreach ($this->getTestDataBuilders() as $builder) {
+        foreach ($this->getTestBuilders() as $builder) {
             $data = array_merge($data, $builder->buildIsTestData());
         }
         return $data;
@@ -122,7 +122,7 @@ final class TypeTest extends TestCase
     public function getIsValueOfTypeTestData(): array
     {
         $data = [];
-        foreach ($this->getTestDataBuilders() as $builder) {
+        foreach ($this->getTestBuilders() as $builder) {
             $data = array_merge($data, $builder->buildIsValueOfTypeTestData());
         }
         return $data;
@@ -134,27 +134,27 @@ final class TypeTest extends TestCase
      *
      * @return array<TypeTestDataBuilder>
      */
-    public function getTestDataBuilders(): array
+    public function getTestBuilders(): array
     {
         $classType = ClassType::class;
         $interfaceType = InterfaceType::class;
 
         return [
-            $this->newDefaultTypeTestDataBuilder(ArrayType::class, new ArrayType())
+            $this->newTestBuilder(ArrayType::class, new ArrayType())
                 ->isValueOfType('empty array', [])
                 ->isValueOfType('full array', [1, 2, 3])
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
-            $this->newDefaultTypeTestDataBuilder(BooleanType::class, new BooleanType())
+            $this->newTestBuilder(BooleanType::class, new BooleanType())
                 ->isValueOfType('true', true)
                 ->isValueOfType('false', false)
                 ->notIsValueOfType('array', [])
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
-            $this->newDefaultTypeTestDataBuilder(FloatType::class, new FloatType())
+            $this->newTestBuilder(FloatType::class, new FloatType())
                 ->isValueOfType('3.1415', 3.1415)
                 ->isValueOfType('1.5', 1.5)
                 ->isValueOfType('-2.9', -2.9)
@@ -162,7 +162,7 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
-            $this->newDefaultTypeTestDataBuilder(IntegerType::class, new IntegerType())
+            $this->newTestBuilder(IntegerType::class, new IntegerType())
                 ->isValueOfType('PHP_INT_MAX', PHP_INT_MAX)
                 ->isValueOfType('1', 1)
                 ->isValueOfType('-1', -1)
@@ -171,7 +171,7 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('bool', false)
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('string', 'string'),
-            $this->newDefaultTypeTestDataBuilder(StringType::class, new StringType())
+            $this->newTestBuilder(StringType::class, new StringType())
                 ->isValueOfType('string', 'string')
                 ->isValueOfType('empty string', '')
                 ->notIsValueOfType('array', [])
@@ -179,7 +179,7 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1),
 
-            $this->newDefaultTypeTestDataBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
+            $this->newTestBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
@@ -194,7 +194,7 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
-            $this->newDefaultTypeTestDataBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
+            $this->newTestBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->is('StubClassA', new ClassType(StubClassA::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->is('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
@@ -210,7 +210,7 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
 
-            $this->newDefaultTypeTestDataBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
+            $this->newTestBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassA', new ClassType(StubClassA::class))
@@ -225,7 +225,7 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('float', 3.1415)
                 ->notIsValueOfType('integer', 1)
                 ->notIsValueOfType('string', 'string'),
-            $this->newDefaultTypeTestDataBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
+            $this->newTestBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassA', new ClassType(StubClassA::class))
@@ -247,7 +247,7 @@ final class TypeTest extends TestCase
     /**
      * Creates a new default TypeTestDataBuilder
      */
-    private function newDefaultTypeTestDataBuilder(string $testName, TypeInterface $type): TypeTestDataBuilder
+    private function newTestBuilder(string $testName, TypeInterface $type): TypeTestDataBuilder
     {
         return (new TypeTestDataBuilder($testName, $type))
             ->notIs('Type mock', $this->createMock(TypeInterface::class));
