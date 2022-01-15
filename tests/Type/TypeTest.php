@@ -180,6 +180,9 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('integer', 1),
 
             $this->newDefaultTypeTestDataBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
+                ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
+                ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
+                ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassB', new ClassType(StubClassB::class))
                 ->notIs('StubClassC', new ClassType(StubClassC::class))
                 ->isValueOfType('mockStubClassA', $this->createMock(StubClassA::class))
@@ -193,6 +196,9 @@ final class TypeTest extends TestCase
                 ->notIsValueOfType('string', 'string'),
             $this->newDefaultTypeTestDataBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->is('StubClassA', new ClassType(StubClassA::class))
+                ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
+                ->is('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
+                ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassC', new ClassType(StubClassC::class))
                 ->isValueOfType('mockStubClassB', $this->createMock(StubClassB::class))
                 ->isValueOfType('StubClassB', new StubClassB())

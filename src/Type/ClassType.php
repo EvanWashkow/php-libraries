@@ -43,6 +43,9 @@ final class ClassType implements TypeInterface
                 $this->getReflector()->getName() == $type->getReflector()->getName() ||
                 $this->getReflector()->isSubclassOf($type->getReflector());
         }
+        elseif ($type instanceof InterfaceType) {
+            return $this->getReflector()->isSubclassOf($type->getReflector());
+        }
         return false;
     }
 
