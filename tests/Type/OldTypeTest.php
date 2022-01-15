@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests Types
  */
-final class TypeTest extends TestCase
+final class OldTypeTest extends TestCase
 {
     /**
      * @dataProvider getFinalTestData
