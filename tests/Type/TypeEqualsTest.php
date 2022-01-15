@@ -10,6 +10,7 @@ use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
+use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\Type\TypeInterface;
 
@@ -18,6 +19,7 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
     public function getTestData(): array
     {
         $classType = ClassType::class;
+        $interfaceType = InterfaceType::class;
 
         return array_merge(
             $this->newDefaultTestDataBuilder(ArrayType::class, new ArrayType())->build(),
@@ -37,6 +39,19 @@ final class TypeEqualsTest extends AbstractEquatableTestDefinition
             $this->newDefaultTestDataBuilder("{$classType}(StubClassC)", new ClassType(StubClassC::class))
                 ->notEquals("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->notEquals("{$classType}(StubClassB)", new ClassType(StubClassB::class))
+                ->build(),
+
+            $this->newDefaultTestDataBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
+                ->notEquals("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
+                ->notEquals("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
+                ->build(),
+            $this->newDefaultTestDataBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
+                ->notEquals("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
+                ->notEquals("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
+                ->build(),
+            $this->newDefaultTestDataBuilder("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
+                ->notEquals("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
+                ->notEquals("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->build(),
         );
     }

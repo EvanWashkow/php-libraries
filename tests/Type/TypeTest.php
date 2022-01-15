@@ -8,6 +8,7 @@ use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
+use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\Type\TypeInterface;
 use PHPUnit\Framework\TestCase;
@@ -49,6 +50,8 @@ final class TypeTest extends TestCase
     public function getConstructorExceptionTestData(): array
     {
         $classType = ClassType::class;
+        $interfaceType = InterfaceType::class;
+
         return [
             "{$classType}('')" => [
                 function() {
@@ -65,6 +68,24 @@ final class TypeTest extends TestCase
             "{$classType}(StubInterfaceA)" => [
                 function() {
                     new ClassType(StubInterfaceA::class);
+                },
+                \DomainException::class
+            ],
+            "{$interfaceType}('')" => [
+                function() {
+                    new InterfaceType('');
+                },
+                \DomainException::class
+            ],
+            "{$interfaceType}('foobar')" => [
+                function() {
+                    new InterfaceType('foobar');
+                },
+                \DomainException::class
+            ],
+            "{$interfaceType}(StubClassA)" => [
+                function() {
+                    new InterfaceType(StubClassA::class);
                 },
                 \DomainException::class
             ],
@@ -116,6 +137,7 @@ final class TypeTest extends TestCase
     public function getTestDataBuilders(): array
     {
         $classType = ClassType::class;
+        $interfaceType = InterfaceType::class;
 
         return [
             $this->newDefaultTypeTestDataBuilder(ArrayType::class, new ArrayType())
@@ -173,6 +195,31 @@ final class TypeTest extends TestCase
                 ->notIs('StubClassC', new ClassType(StubClassC::class))
                 ->isValueOfType('StubClassB', new StubClassB())
                 ->isValueOfType('mockStubClassB', $this->createMock(StubClassB::class))
+                ->notIsValueOfType('StubClassA', new StubClassA())
+                ->notIsValueOfType('StubClassC', new StubClassC())
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string'),
+
+            $this->newDefaultTypeTestDataBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
+                ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
+                ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
+                ->isValueOfType('mockStubInterfaceA', $this->createMock(StubInterfaceA::class))
+                ->isValueOfType('StubClassA', new StubClassA())
+                ->isValueOfType('StubClassB', new StubClassB())
+                ->isValueOfType('StubClassC', new StubClassC())
+                ->notIsValueOfType('array', [])
+                ->notIsValueOfType('bool', false)
+                ->notIsValueOfType('float', 3.1415)
+                ->notIsValueOfType('integer', 1)
+                ->notIsValueOfType('string', 'string'),
+            $this->newDefaultTypeTestDataBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
+                ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
+                ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
+                ->isValueOfType('StubClassB', new StubClassB())
+                ->isValueOfType('mockStubInterfaceB', $this->createMock(StubInterfaceB::class))
                 ->notIsValueOfType('StubClassA', new StubClassA())
                 ->notIsValueOfType('StubClassC', new StubClassC())
                 ->notIsValueOfType('array', [])
