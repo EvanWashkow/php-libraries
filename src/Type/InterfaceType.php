@@ -48,4 +48,12 @@ final class InterfaceType implements TypeInterface
     {
         return is_object($value) && $this->reflector->isInstance($value);
     }
+
+    /**
+     * Retrieve the Reflection of the interface.
+     */
+    public function getReflector(): \ReflectionClass
+    {
+        return $this->reflector;
+    }
 }
