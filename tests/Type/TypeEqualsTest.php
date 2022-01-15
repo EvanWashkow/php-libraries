@@ -22,34 +22,34 @@ final class TypeEqualsTest extends AbstractEquatableInterfaceTestCase
         $interfaceType = InterfaceType::class;
 
         return array_merge(
-            $this->newDefaultTestDataBuilder(ArrayType::class, new ArrayType())->build(),
-            $this->newDefaultTestDataBuilder(BooleanType::class, new BooleanType())->build(),
-            $this->newDefaultTestDataBuilder(FloatType::class, new FloatType())->build(),
-            $this->newDefaultTestDataBuilder(IntegerType::class, new IntegerType())->build(),
-            $this->newDefaultTestDataBuilder(StringType::class, new StringType())->build(),
+            $this->newTestBuilder(ArrayType::class, new ArrayType())->build(),
+            $this->newTestBuilder(BooleanType::class, new BooleanType())->build(),
+            $this->newTestBuilder(FloatType::class, new FloatType())->build(),
+            $this->newTestBuilder(IntegerType::class, new IntegerType())->build(),
+            $this->newTestBuilder(StringType::class, new StringType())->build(),
 
-            $this->newDefaultTestDataBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
+            $this->newTestBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->notEquals("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->notEquals("{$classType}(StubClassC)", new ClassType(StubClassC::class))
                 ->build(),
-            $this->newDefaultTestDataBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
+            $this->newTestBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->notEquals("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->notEquals("{$classType}(StubClassC)", new ClassType(StubClassC::class))
                 ->build(),
-            $this->newDefaultTestDataBuilder("{$classType}(StubClassC)", new ClassType(StubClassC::class))
+            $this->newTestBuilder("{$classType}(StubClassC)", new ClassType(StubClassC::class))
                 ->notEquals("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->notEquals("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->build(),
 
-            $this->newDefaultTestDataBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
+            $this->newTestBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notEquals("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->notEquals("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
                 ->build(),
-            $this->newDefaultTestDataBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
+            $this->newTestBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->notEquals("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notEquals("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
                 ->build(),
-            $this->newDefaultTestDataBuilder("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
+            $this->newTestBuilder("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
                 ->notEquals("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notEquals("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->build(),
@@ -57,7 +57,7 @@ final class TypeEqualsTest extends AbstractEquatableInterfaceTestCase
     }
 
 
-    private function newDefaultTestDataBuilder(string $testHeader, TypeInterface $type): EquatableInterfaceTestBuilder
+    private function newTestBuilder(string $testHeader, TypeInterface $type): EquatableInterfaceTestBuilder
     {
         return (new EquatableInterfaceTestBuilder($testHeader, $type))
             ->equals('clone', clone $type)
