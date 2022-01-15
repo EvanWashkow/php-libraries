@@ -46,6 +46,6 @@ final class InterfaceType implements TypeInterface
 
     public function isValueOfType($value): bool
     {
-        return is_object($value) && $this->class->isInstance($value);
+        return is_object($value) && $this->reflector->isInstance($value);
     }
 }
