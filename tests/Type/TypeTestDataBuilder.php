@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Type\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
  * Builds test data for Types.

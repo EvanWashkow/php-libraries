@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
-
 /**
  * Describes a Type.
  */
-interface TypeInterface extends EquatableInterface
+interface TypeInterface extends \EvanWashkow\PHPLibraries\TypeInterface\TypeInterface
 {
     /**
      * Check type inheritance.
@@ -21,12 +19,4 @@ interface TypeInterface extends EquatableInterface
      * @return boolean
      */
     function is(TypeInterface $type): bool;
-
-    /**
-     * Determines if the given value is of this type.
-     *
-     * @param mixed $value The value to check.
-     * @return boolean
-     */
-    function isValueOfType($value): bool;
 }
