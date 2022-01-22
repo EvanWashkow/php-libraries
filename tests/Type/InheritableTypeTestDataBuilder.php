@@ -33,15 +33,6 @@ final class InheritableTypeTestDataBuilder
 
 
     /**
-     * Get the Type
-     */ 
-    public function getType(): InheritableTypeInterface
-    {
-        return $this->type;
-    }
-
-
-    /**
      * Add a test for is()
      *
      * @param string $testedName The name of the Type being tested.
@@ -50,7 +41,7 @@ final class InheritableTypeTestDataBuilder
     public function is(string $testedName, TypeInterface $type): self
     {
         $this->is["{$this->testName} IS {$testedName}"] =
-            $this->newIsTestData($type, true);
+            $this->newTestData($type, true);
         return $this;
     }
     
@@ -65,7 +56,7 @@ final class InheritableTypeTestDataBuilder
     public function notIs(string $testedName, TypeInterface $type): self
     {
         $this->notIs["{$this->testName} IS NOT {$testedName}"] =
-            $this->newIsTestData($type, false);
+            $this->newTestData($type, false);
         return $this;
     }
 
@@ -84,7 +75,7 @@ final class InheritableTypeTestDataBuilder
     }
 
 
-    private function newIsTestData(TypeInterface $type, bool $expected): array
+    private function newTestData(TypeInterface $type, bool $expected): array
     {
         return [$this->type, $type, $expected];
     }
