@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
@@ -15,6 +16,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Types.
+ *
+ * @internal
+ * @coversNothing
  */
 final class TypeTest extends TestCase
 {
@@ -24,7 +28,7 @@ final class TypeTest extends TestCase
     public function testFinal(TypeInterface $type): void
     {
         $rc = new \ReflectionClass($type);
-        $this->assertTrue($rc->isFinal(), "Type is not final");
+        $this->assertTrue($rc->isFinal(), 'Type is not final');
     }
 
     public function getFinalTestData(): array
@@ -39,7 +43,6 @@ final class TypeTest extends TestCase
             StringType::class => [new StringType()],
         ];
     }
-
 
     /**
      * @dataProvider getConstructorExceptionTestData
@@ -57,47 +60,48 @@ final class TypeTest extends TestCase
 
         return [
             "{$classType}('')" => [
-                function() {
+                function () {
                     new ClassType('');
                 },
-                \DomainException::class
+                \DomainException::class,
             ],
             "{$classType}('foobar')" => [
-                function() {
+                function () {
                     new ClassType('foobar');
                 },
-                \DomainException::class
+                \DomainException::class,
             ],
             "{$classType}(StubInterfaceA)" => [
-                function() {
+                function () {
                     new ClassType(StubInterfaceA::class);
                 },
-                \DomainException::class
+                \DomainException::class,
             ],
             "{$interfaceType}('')" => [
-                function() {
+                function () {
                     new InterfaceType('');
                 },
-                \DomainException::class
+                \DomainException::class,
             ],
             "{$interfaceType}('foobar')" => [
-                function() {
+                function () {
                     new InterfaceType('foobar');
                 },
-                \DomainException::class
+                \DomainException::class,
             ],
             "{$interfaceType}(StubClassA)" => [
-                function() {
+                function () {
                     new InterfaceType(StubClassA::class);
                 },
-                \DomainException::class
+                \DomainException::class,
             ],
         ];
     }
 
-
     /**
      * @dataProvider getIsValueOfTypeTestData
+     *
+     * @param mixed $value
      */
     public function testIsValueOfType(TypeInterface $type, $value, bool $expected): void
     {
@@ -110,12 +114,12 @@ final class TypeTest extends TestCase
         foreach ($this->getTestBuilders() as $builder) {
             $data = array_merge($data, $builder->build());
         }
+
         return $data;
     }
 
-
     /**
-     * Retrieves the TypeTestDataBuilders
+     * Retrieves the TypeTestDataBuilders.
      *
      * @return array<TypeTestDataBuilder>
      */
@@ -208,9 +212,8 @@ final class TypeTest extends TestCase
         ];
     }
 
-
     /**
-     * Creates a new default TypeTestDataBuilder
+     * Creates a new default TypeTestDataBuilder.
      */
     private function newTestBuilder(string $testName, TypeInterface $type): TypeTestDataBuilder
     {

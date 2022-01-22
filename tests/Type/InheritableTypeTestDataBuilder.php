@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
@@ -8,7 +9,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
  * Builds test data for InheritableTypes.
- * 
+ *
  * - A test for is(self) will be added on Builder creation.
  * - A test for is(clone self) will be added on Builder creation.
  */
@@ -31,49 +32,45 @@ final class InheritableTypeTestDataBuilder
         $this->is('clone', clone $type);
     }
 
-
     /**
-     * Add a test for is()
+     * Add a test for is().
      *
-     * @param string $testedName The name of the Type being tested.
-     * @param TypeInterface $type The Type being tested.
+     * @param string        $testedName the name of the Type being tested
+     * @param TypeInterface $type       the Type being tested
      */
     public function is(string $testedName, TypeInterface $type): self
     {
         $this->is["{$this->testName} IS {$testedName}"] =
             $this->newTestData($type, true);
+
         return $this;
     }
-    
 
     /**
-     * Add a test for !is()
+     * Add a test for !is().
      *
-     * @param string $testedName The name of the Type being tested.
-     * @param TypeInterface $type The Type being tested.
-     * @return self
+     * @param string        $testedName the name of the Type being tested
+     * @param TypeInterface $type       the Type being tested
      */
     public function notIs(string $testedName, TypeInterface $type): self
     {
         $this->notIs["{$this->testName} IS NOT {$testedName}"] =
             $this->newTestData($type, false);
+
         return $this;
     }
 
-
     /**
-     * Builds is() test data
-     *
-     * @return array
+     * Builds is() test data.
      */
     public function build(): array
     {
-        if (count($this->notIs) == 0) {
-            throw new \DomainException("insufficient test cases for Type->is()");
+        if (0 == count($this->notIs)) {
+            throw new \DomainException('insufficient test cases for Type->is()');
         }
+
         return array_merge($this->is, $this->notIs);
     }
-
 
     private function newTestData(TypeInterface $type, bool $expected): array
     {

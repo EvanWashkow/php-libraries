@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
@@ -12,6 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests InheritableTypes.
+ *
+ * @internal
+ * @coversNothing
  */
 final class InheritableTypeTest extends TestCase
 {
@@ -43,7 +47,6 @@ final class InheritableTypeTest extends TestCase
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassC', new ClassType(StubClassC::class))
                 ->build(),
-
             $this->newTestBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
@@ -55,9 +58,10 @@ final class InheritableTypeTest extends TestCase
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->is(
                     'StubbedNameableType(StubInterfaceA)',
-                    (function() {
+                    (function () {
                         $mock = $this->createStub(NameableTypeInterface::class);
                         $mock->method('getName')->willReturn(StubInterfaceA::class);
+
                         return $mock;
                     })()
                 )
@@ -69,13 +73,13 @@ final class InheritableTypeTest extends TestCase
         );
     }
 
-
     /**
-     * Creates a new default TypeTestDataBuilder
+     * Creates a new default TypeTestDataBuilder.
      */
     private function newTestBuilder(string $testName, TypeInterface $type): InheritableTypeTestDataBuilder
     {
         return (new InheritableTypeTestDataBuilder($testName, $type))
-            ->notIs('Type mock', $this->createMock(TypeInterface::class));
+            ->notIs('Type mock', $this->createMock(TypeInterface::class))
+        ;
     }
 }

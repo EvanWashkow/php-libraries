@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\TypeInterface;
@@ -13,7 +14,7 @@ interface TypeInterface extends EquatableInterface
     /**
      * Determines if the given value is of this type.
      *
-     * @param mixed $value The value to check.
+     * @param mixed $value the value to check
      */
-    function isValueOfType($value): bool;
+    public function isValueOfType($value): bool;
 }

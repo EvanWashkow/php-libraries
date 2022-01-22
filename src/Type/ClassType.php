@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
@@ -17,7 +18,8 @@ final class ClassType implements InheritableTypeInterface, NameableTypeInterface
     /**
      * Create a new ClassType.
      *
-     * @param string $class The class name.
+     * @param string $class the class name
+     *
      * @throws \DomainException
      */
     public function __construct(string $class)
@@ -49,9 +51,10 @@ final class ClassType implements InheritableTypeInterface, NameableTypeInterface
     {
         if ($type instanceof NameableTypeInterface) {
             return
-                $this->reflector->getName() == $type->getName() ||
-                $this->reflector->isSubclassOf($type->getName());
+                $this->reflector->getName() == $type->getName()
+                || $this->reflector->isSubclassOf($type->getName());
         }
+
         return false;
     }
 

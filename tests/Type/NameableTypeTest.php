@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
@@ -10,14 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Types that implement NameableTypeInterface.
+ *
+ * @internal
+ * @coversNothing
  */
 final class NameableTypeTest extends TestCase
 {
     /**
      * @dataProvider getNameTestData
-     *
-     * @param NameableTypeInterface $type
-     * @param string $expected
      */
     public function testGetName(NameableTypeInterface $type, string $expected): void
     {

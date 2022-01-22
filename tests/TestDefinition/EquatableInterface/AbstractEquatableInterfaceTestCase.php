@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface;
@@ -12,9 +13,11 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractEquatableInterfaceTestCase extends TestCase
 {
     /**
-     * Tests the EquatableInterface
-     * 
+     * Tests the EquatableInterface.
+     *
      * @dataProvider getEqualsTestData
+     *
+     * @param mixed $value
      */
     final public function testEquals(EquatableInterface $equatable, $value, bool $expected)
     {
@@ -26,7 +29,7 @@ abstract class AbstractEquatableInterfaceTestCase extends TestCase
 
     /**
      * Get the test data.
-     * 
+     *
      * Use EquatableInterfaceTestBuilder to generate these tests.
      */
     abstract public function getEqualsTestData(): array;

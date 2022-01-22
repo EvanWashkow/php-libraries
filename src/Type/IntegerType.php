@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
@@ -17,6 +18,6 @@ final class IntegerType implements TypeInterface
 
     public function isValueOfType($value): bool
     {
-        return is_int($value);        
+        return is_int($value);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\TypeInterface;
@@ -11,11 +12,17 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Type interfaces.
+ *
+ * @internal
+ * @coversNothing
  */
 final class TypeInterfaceTest extends TestCase
 {
     /**
      * @dataProvider getTestData
+     *
+     * @param mixed $interface
+     * @param mixed $expectedParent
      */
     public function test($interface, $expectedParent): void
     {

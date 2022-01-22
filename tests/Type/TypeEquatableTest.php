@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
@@ -16,6 +17,9 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
  * Tests Types' EquatableInterface implementation.
+ *
+ * @internal
+ * @coversNothing
  */
 final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
 {
@@ -30,7 +34,6 @@ final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
             $this->newTestBuilder(FloatType::class, new FloatType())->build(),
             $this->newTestBuilder(IntegerType::class, new IntegerType())->build(),
             $this->newTestBuilder(StringType::class, new StringType())->build(),
-
             $this->newTestBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->notEquals("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->notEquals("{$classType}(StubClassC)", new ClassType(StubClassC::class))
@@ -43,7 +46,6 @@ final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
                 ->notEquals("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->notEquals("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->build(),
-
             $this->newTestBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notEquals("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->notEquals("{$interfaceType}(StubInterfaceC)", new InterfaceType(StubInterfaceC::class))
@@ -59,7 +61,6 @@ final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
         );
     }
 
-
     private function newTestBuilder(string $testHeader, TypeInterface $type): EquatableInterfaceTestBuilder
     {
         return (new EquatableInterfaceTestBuilder($testHeader, $type))
@@ -69,6 +70,7 @@ final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
             ->notEquals('bool', false)
             ->notEquals('string', 'string')
             ->notEquals('float', 3.1415)
-            ->notEquals('array', []);
+            ->notEquals('array', [])
+        ;
     }
 }

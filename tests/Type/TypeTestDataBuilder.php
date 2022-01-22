@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
@@ -23,48 +24,45 @@ final class TypeTestDataBuilder
         $this->notIsValueOfType = [];
     }
 
-
     /**
-     * Add a test for isValueOfType()
+     * Add a test for isValueOfType().
      *
-     * @param string $testedName The name of the value being tested.
-     * @param mixed $value The value being tested.
+     * @param string $testedName the name of the value being tested
+     * @param mixed  $value      the value being tested
      */
     public function isValueOfType(string $testedName, $value): self
     {
         $this->isValueOfType["{$this->testName} IS VALUE OF TYPE {$testedName}"] =
             $this->newTestData($value, true);
+
         return $this;
     }
 
-
     /**
-     * Add a test for !isValueOfType()
+     * Add a test for !isValueOfType().
      *
-     * @param string $testedName The name of the value being tested.
-     * @param mixed $value The value being tested.
+     * @param string $testedName the name of the value being tested
+     * @param mixed  $value      the value being tested
      */
     public function notIsValueOfType(string $testedName, $value): self
     {
         $this->notIsValueOfType["{$this->testName} IS NOT VALUE OF TYPE {$testedName}"] =
             $this->newTestData($value, false);
+
         return $this;
     }
 
-
     /**
-     * Builds isValueOfType() test data
-     *
-     * @return array
+     * Builds isValueOfType() test data.
      */
     public function build(): array
     {
         if (count($this->isValueOfType) <= 1 || count($this->notIsValueOfType) <= 1) {
-            throw new \DomainException("insufficient test cases for Type->isValueOfType()");
+            throw new \DomainException('insufficient test cases for Type->isValueOfType()');
         }
+
         return array_merge($this->isValueOfType, $this->notIsValueOfType);
     }
-
 
     private function newTestData($value, bool $expected): array
     {
