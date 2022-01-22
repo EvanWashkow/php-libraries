@@ -12,7 +12,7 @@ use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\Type\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 final class TypeEqualsTest extends AbstractEquatableInterfaceTestCase
 {

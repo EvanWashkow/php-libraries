@@ -3,14 +3,9 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Type\ArrayType;
-use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
-use EvanWashkow\PHPLibraries\Type\FloatType;
-use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
-use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\Type\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

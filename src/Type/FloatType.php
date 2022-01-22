@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
+use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+
 /**
  * A Float Type.
  */
