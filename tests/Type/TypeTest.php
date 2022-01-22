@@ -29,12 +29,15 @@ final class TypeTest extends TestCase
 
     public function getFinalTestData(): array
     {
-        $data = [];
-        foreach ($this->getTestBuilders() as $builder) {
-            $type = $builder->getType();
-            $data[get_class($type)] = [$type];
-        }
-        return $data;
+        return [
+            ArrayType::class => [new ArrayType()],
+            BooleanType::class => [new BooleanType()],
+            ClassType::class => [new ClassType(StubClassA::class)],
+            FloatType::class => [new FloatType()],
+            IntegerType::class => [new IntegerType()],
+            InterfaceType::class => [new InterfaceType(StubInterfaceA::class)],
+            StringType::class => [new StringType()],
+        ];
     }
 
 
