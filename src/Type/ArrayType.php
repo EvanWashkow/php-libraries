@@ -15,11 +15,6 @@ final class ArrayType implements TypeInterface
         return $value instanceof self;
     }
 
-    public function is(TypeInterface $type): bool
-    {
-        return $type instanceof self;
-    }
-
     public function isValueOfType($value): bool
     {
         return is_array($value);
