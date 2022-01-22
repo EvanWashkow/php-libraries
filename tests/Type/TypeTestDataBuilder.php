@@ -25,15 +25,6 @@ final class TypeTestDataBuilder
 
 
     /**
-     * Get the Type
-     */ 
-    public function getType(): TypeInterface
-    {
-        return $this->type;
-    }
-
-
-    /**
      * Add a test for isValueOfType()
      *
      * @param string $testedName The name of the value being tested.
@@ -42,7 +33,7 @@ final class TypeTestDataBuilder
     public function isValueOfType(string $testedName, $value): self
     {
         $this->isValueOfType["{$this->testName} IS VALUE OF TYPE {$testedName}"] =
-            $this->newIsValueOfTypeTestData($value, true);
+            $this->newTestData($value, true);
         return $this;
     }
 
@@ -56,7 +47,7 @@ final class TypeTestDataBuilder
     public function notIsValueOfType(string $testedName, $value): self
     {
         $this->notIsValueOfType["{$this->testName} IS NOT VALUE OF TYPE {$testedName}"] =
-            $this->newIsValueOfTypeTestData($value, false);
+            $this->newTestData($value, false);
         return $this;
     }
 
@@ -75,7 +66,7 @@ final class TypeTestDataBuilder
     }
 
 
-    private function newIsValueOfTypeTestData($value, bool $expected): array
+    private function newTestData($value, bool $expected): array
     {
         return [$this->type, $value, $expected];
     }
