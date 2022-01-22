@@ -14,9 +14,9 @@ abstract class AbstractEquatableInterfaceTestCase extends TestCase
     /**
      * Tests the EquatableInterface
      * 
-     * @dataProvider getTestData
+     * @dataProvider getEqualsTestData
      */
-    final public function testEquatableInterface(EquatableInterface $equatable, $value, bool $expected)
+    final public function testEquals(EquatableInterface $equatable, $value, bool $expected)
     {
         $this->assertSame(
             $expected,
@@ -29,5 +29,5 @@ abstract class AbstractEquatableInterfaceTestCase extends TestCase
      * 
      * Use EquatableInterfaceTestBuilder to generate these tests.
      */
-    abstract public function getTestData(): array;
+    abstract public function getEqualsTestData(): array;
 }

@@ -16,7 +16,7 @@ use EvanWashkow\PHPLibraries\Type\TypeInterface;
 
 final class TypeEqualsTest extends AbstractEquatableInterfaceTestCase
 {
-    public function getTestData(): array
+    public function getEqualsTestData(): array
     {
         $classType = ClassType::class;
         $interfaceType = InterfaceType::class;
