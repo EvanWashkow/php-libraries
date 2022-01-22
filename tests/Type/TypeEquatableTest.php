@@ -14,7 +14,10 @@ use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
-final class TypeEqualsTest extends AbstractEquatableInterfaceTestCase
+/**
+ * Tests Types' EquatableInterface implementation.
+ */
+final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
 {
     public function getEqualsTestData(): array
     {
