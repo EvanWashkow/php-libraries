@@ -25,4 +25,4 @@ php7.4-linter-job:
   stage: test
   image: php:7.4-cli-alpine
   script:
-    - vendor/bin/php-cs-fixer fix -v --dry-run --stop-on-violation --using-cache=no
+    - vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
