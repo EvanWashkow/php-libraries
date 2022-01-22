@@ -1,50 +1,49 @@
 <?php
+
 namespace PHP\Tests;
 
 /**
- * Test data mapped by type
+ * Test data mapped by type.
  *
  * Use this going forward for all future collection tests.
  */
 final class CollectionsTestData
 {
-    
     /**
-     * Retrieve a mapped array of sequence type => test data
-     * 
-     * @return array
+     * Retrieve a mapped array of sequence type => test data.
      */
     public static function Get(): array
     {
         $typeMap = [
             'integer' => [
                 0,
-                1
+                1,
             ],
             'string' => [
                 '0',
-                '1'
+                '1',
             ],
             'boolean' => [
                 false,
-                true
+                true,
             ],
             'stdClass' => [
                 new \stdClass(),
-                (object) [ 0, 1 ]
+                (object) [0, 1],
             ],
             '' => [
-                null
-            ]
+                null,
+            ],
         ];
-        foreach ( $typeMap as $type => $values ) {
-            if ( '' !== $type ) {
-                $typeMap[ '' ] = array_merge(
-                    $typeMap[ '' ],
+        foreach ($typeMap as $type => $values) {
+            if ('' !== $type) {
+                $typeMap[''] = array_merge(
+                    $typeMap[''],
                     $values
                 );
             }
         }
+
         return $typeMap;
     }
 }

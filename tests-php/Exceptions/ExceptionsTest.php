@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Exceptions;
 
@@ -8,18 +9,21 @@ use PHP\Exceptions\NotImplementedException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test exceptions
+ * Test exceptions.
+ *
+ * @internal
+ * @coversNothing
  */
 class ExceptionsTest extends TestCase
 {
-
-
     /**
-     * Test class inheritance
-     * 
+     * Test class inheritance.
+     *
      * @dataProvider getClassInheritanceData
+     *
+     * @param mixed $exception
      */
-    public function testClassInheritance( $exception, string $parentClassOrInterfaceName )
+    public function testClassInheritance($exception, string $parentClassOrInterfaceName)
     {
         $this->assertInstanceOf(
             $parentClassOrInterfaceName,
@@ -33,12 +37,12 @@ class ExceptionsTest extends TestCase
         return [
             'NotFoundException' => [
                 new NotFoundException(),
-                \RuntimeException::class
+                \RuntimeException::class,
             ],
             'NotImplementedException' => [
                 new NotImplementedException(),
-                \RuntimeException::class
-            ]
+                \RuntimeException::class,
+            ],
         ];
     }
 }

@@ -1,13 +1,13 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Hashing\HashAlgorithm;
 
 use PHP\Collections\ByteArray;
-use PHP\Hashing\HashAlgorithm\IHashAlgorithm;
 
 /**
- * Defines the SHA512 Hash Algorithm
+ * Defines the SHA512 Hash Algorithm.
  */
 final class SHA512 implements IHashAlgorithm
 {

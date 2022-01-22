@@ -1,12 +1,13 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Hashing\HashAlgorithm;
 
 use PHP\Collections\ByteArray;
 
 /**
- * Defines the SHA384 Hash Algorithm
+ * Defines the SHA384 Hash Algorithm.
  */
 final class SHA384 implements IHashAlgorithm
 {

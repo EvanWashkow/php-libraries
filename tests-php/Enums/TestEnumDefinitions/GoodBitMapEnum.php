@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Enums\TestEnumDefinitions;
 
@@ -7,10 +8,9 @@ use PHP\Enums\BitMapEnum;
 
 class GoodBitMapEnum extends BitMapEnum
 {
+    public const ONE = 1;
 
-    const ONE = 1;
+    public const TWO = 2;
 
-    const TWO = 2;
-
-    const FOUR = 4;
+    public const FOUR = 4;
 }

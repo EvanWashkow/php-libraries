@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
@@ -10,29 +11,25 @@ use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests IntegerEnum
+ * Tests IntegerEnum.
+ *
+ * @internal
+ * @coversNothing
  */
 class IntegerEnumTest extends TestCase
 {
-
-
-
-
-    /*******************************************************************************************************************
-    *                                                     INHERITANCE
-    *******************************************************************************************************************/
-
+    // INHERITANCE
 
     /**
-     * Test inheritance
-     * 
+     * Test inheritance.
+     *
      * @dataProvider getInheritanceTestData()
      */
-    public function testInheritance( string $expectedParent )
+    public function testInheritance(string $expectedParent)
     {
         $this->assertInstanceOf(
             $expectedParent,
-            $this->createMock( IntegerEnum::class ),
+            $this->createMock(IntegerEnum::class),
             'IntegerEnum does not have the expected parent.'
         );
     }
@@ -40,20 +37,15 @@ class IntegerEnumTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            Enum::class         => [ Enum::class ],
-            IIntegerable::class => [ IIntegerable::class ]
+            Enum::class => [Enum::class],
+            IIntegerable::class => [IIntegerable::class],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                     getValue()
-     ******************************************************************************************************************/
+    // getValue()
 
     /**
-     * Test getValue() to ensure that finalizing it did not break the base implementation
+     * Test getValue() to ensure that finalizing it did not break the base implementation.
      */
     public function testGetValue()
     {
@@ -64,24 +56,18 @@ class IntegerEnumTest extends TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                       toInt()
-    *******************************************************************************************************************/
-
+    // toInt()
 
     /**
-     * Test toInt()
-     * 
+     * Test toInt().
+     *
      * @dataProvider getToIntTestData
      */
-    public function testToInt( int $value )
+    public function testToInt(int $value)
     {
         $this->assertEquals(
             $value,
-            ( new GoodIntegerEnum( $value ) )->toInt(),
+            ( new GoodIntegerEnum($value) )->toInt(),
             'IntegerEnum->toInt() did not return the expected value.'
         );
     }
@@ -89,9 +75,9 @@ class IntegerEnumTest extends TestCase
     public function getToIntTestData(): array
     {
         return [
-            GoodIntegerEnum::ONE  => [ GoodIntegerEnum::ONE ],
-            GoodIntegerEnum::TWO  => [ GoodIntegerEnum::TWO ],
-            GoodIntegerEnum::FOUR => [ GoodIntegerEnum::FOUR ]
+            GoodIntegerEnum::ONE => [GoodIntegerEnum::ONE],
+            GoodIntegerEnum::TWO => [GoodIntegerEnum::TWO],
+            GoodIntegerEnum::FOUR => [GoodIntegerEnum::FOUR],
         ];
     }
 }
