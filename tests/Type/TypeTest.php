@@ -105,7 +105,7 @@ final class TypeTest extends TestCase
     {
         $data = [];
         foreach ($this->getTestBuilders() as $builder) {
-            $data = array_merge($data, $builder->buildIsValueOfTypeTestData());
+            $data = array_merge($data, $builder->build());
         }
         return $data;
     }

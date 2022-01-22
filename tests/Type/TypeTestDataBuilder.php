@@ -15,8 +15,6 @@ final class TypeTestDataBuilder
 {
     private string $testName;
     private TypeInterface $type;
-    private array $is;
-    private array $notIs;
     private array $isValueOfType;
     private array $notIsValueOfType;
 
@@ -24,14 +22,8 @@ final class TypeTestDataBuilder
     {
         $this->testName = $testName;
         $this->type = $type;
-        $this->is = [];
-        $this->notIs = [];
         $this->isValueOfType = [];
         $this->notIsValueOfType = [];
-
-        // Add test for is(clone self)
-        $this->is('self', $type);
-        $this->is('clone', clone $type);
     }
 
 
@@ -45,41 +37,10 @@ final class TypeTestDataBuilder
 
 
     /**
-     * Add a test for is()
-     *
-     * @param string $testedName The name of the Type being tested.
-     * @param TypeInterface $type The Type being tested.
-     * @return self
-     */
-    public function is(string $testedName, TypeInterface $type): self
-    {
-        $this->is["{$this->testName} IS {$testedName}"] =
-            $this->newIsTestData($type, true);
-        return $this;
-    }
-    
-
-    /**
-     * Add a test for !is()
-     *
-     * @param string $testedName The name of the Type being tested.
-     * @param TypeInterface $type The Type being tested.
-     * @return self
-     */
-    public function notIs(string $testedName, TypeInterface $type): self
-    {
-        $this->notIs["{$this->testName} IS NOT {$testedName}"] =
-            $this->newIsTestData($type, false);
-        return $this;
-    }
-
-
-    /**
      * Add a test for isValueOfType()
      *
      * @param string $testedName The name of the value being tested.
      * @param mixed $value The value being tested.
-     * @return self
      */
     public function isValueOfType(string $testedName, $value): self
     {
@@ -94,7 +55,6 @@ final class TypeTestDataBuilder
      *
      * @param string $testedName The name of the value being tested.
      * @param mixed $value The value being tested.
-     * @return self
      */
     public function notIsValueOfType(string $testedName, $value): self
     {
@@ -105,36 +65,16 @@ final class TypeTestDataBuilder
 
 
     /**
-     * Builds is() test data
-     *
-     * @return array
-     */
-    public function buildIsTestData(): array
-    {
-        if (count($this->notIs) == 0) {
-            throw new \DomainException("insufficient test cases for Type->is()");
-        }
-        return array_merge($this->is, $this->notIs);
-    }
-
-
-    /**
      * Builds isValueOfType() test data
      *
      * @return array
      */
-    public function buildIsValueOfTypeTestData(): array
+    public function build(): array
     {
         if (count($this->isValueOfType) <= 1 || count($this->notIsValueOfType) <= 1) {
             throw new \DomainException("insufficient test cases for Type->isValueOfType()");
         }
         return array_merge($this->isValueOfType, $this->notIsValueOfType);
-    }
-
-
-    private function newIsTestData(TypeInterface $type, bool $expected): array
-    {
-        return [$this->type, $type, $expected];
     }
 
 
