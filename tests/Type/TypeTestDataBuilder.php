@@ -7,9 +7,6 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
  * Builds test data for Types.
- * 
- * - A test for is(self) will be added on Builder creation.
- * - A test for is(clone self) will be added on Builder creation.
  */
 final class TypeTestDataBuilder
 {
