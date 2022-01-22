@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests\Types\Models;
 
 use PHP\Collections\ByteArray;
@@ -9,83 +10,47 @@ use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
 
 /**
- * Tests the base Type functionality
+ * Tests the base Type functionality.
+ *
+ * @internal
+ * @coversNothing
  */
 final class TypeTest extends TypeTestDefinition
 {
-
-
-
-
-    /*******************************************************************************************************************
-    *                                    TypeTestDefinition abstraction implementors
-    *******************************************************************************************************************/
-
+    // TypeTestDefinition abstraction implementors
 
     public function getSerializationTestData(): array
     {
         return [
-            'name = foo' => [ new Type('foo') ],
-            'name = bar' => [ new Type('bar') ],
-            'name = foo, alias = lorem, ipsum' => [ new Type('foo', ['lorem', 'ipsum']) ],
-            'name = bar, alias = sunday, monday' => [ new Type('bar', ['sunday', 'monday']) ],
+            'name = foo' => [new Type('foo')],
+            'name = bar' => [new Type('bar')],
+            'name = foo, alias = lorem, ipsum' => [new Type('foo', ['lorem', 'ipsum'])],
+            'name = bar, alias = sunday, monday' => [new Type('bar', ['sunday', 'monday'])],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                  Type inheritance
-    *******************************************************************************************************************/
-
+    // Type inheritance
 
     /**
-     * Ensure Type is an ObjectClass
+     * Ensure Type is an ObjectClass.
      */
     public function testTypeIsObjectClass(): void
     {
         $this->assertInstanceOf(
             ObjectClass::class,
-            TypeLookupSingleton::getInstance()->getByName( TypeNames::INT ),
+            TypeLookupSingleton::getInstance()->getByName(TypeNames::INT),
             'Type is not an ObjectClass'
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                  IEquatable Tests
-     ******************************************************************************************************************/
-
-
     /**
-     * Retrieves a single instance of IEquatableTests
-     *
-     * @return IEquatableTests
-     */
-    private function getIEquatableTestsInstance(): IEquatableTests
-    {
-        static $iequatableTests = null;
-        if (null ===$iequatableTests)
-        {
-            $iequatableTests = new IEquatableTests($this);
-        }
-        return $iequatableTests;
-    }
-
-
-    /**
-     * Test the Type->equals() method
+     * Test the Type->equals() method.
      *
      * @dataProvider getEqualsData
      *
-     * @param Type $type
      * @param $comparee
-     * @param bool $expected
      */
-    public function testEquals(Type $type, $comparee, bool $expected )
+    public function testEquals(Type $type, $comparee, bool $expected)
     {
         $this->getIEquatableTestsInstance()->testEquals($type, $comparee, $expected);
     }
@@ -96,45 +61,40 @@ final class TypeTest extends TypeTestDefinition
             'Type(int)->equals(Type(int))' => [
                 new Type(TypeNames::INT),
                 new Type(TypeNames::INT),
-                true
+                true,
             ],
             'Type(string)->equals(Type(string))' => [
                 new Type(TypeNames::STRING),
                 new Type(TypeNames::STRING),
-                true
+                true,
             ],
             'Type(null)->equals(Type(null))' => [
                 new Type(TypeNames::NULL),
                 new Type(TypeNames::NULL),
-                true
+                true,
             ],
             'Type(int)->equals(Type(string))' => [
                 new Type(TypeNames::INT),
                 new Type(TypeNames::STRING),
-                false
+                false,
             ],
             'Type(int)->equals("int")' => [
                 new Type(TypeNames::INT),
                 TypeNames::INT,
-                false
+                false,
             ],
             'Type(int)->equals(1)' => [
                 new Type(TypeNames::INT),
                 1,
-                false
-            ]
+                false,
+            ],
         ];
     }
 
-
     /**
-     * Tests hash()
+     * Tests hash().
      *
      * @dataProvider getHashTestData
-     *
-     * @param Type $type
-     * @param ByteArray $byteArray
-     * @param bool $expected
      */
     public function testHash(Type $type, ByteArray $byteArray, bool $expected): void
     {
@@ -147,29 +107,25 @@ final class TypeTest extends TypeTestDefinition
             'Type(int)->hash() === ByteArray(int)' => [
                 new Type(TypeNames::INT),
                 new ByteArray(TypeNames::INT),
-                true
+                true,
             ],
             'Type(string)->hash() === ByteArray(string)' => [
                 new Type(TypeNames::STRING),
                 new ByteArray(TypeNames::STRING),
-                true
+                true,
             ],
             'Type(int)->hash() === ByteArray(string)' => [
                 new Type(TypeNames::INT),
                 new ByteArray(TypeNames::STRING),
-                false
-            ]
+                false,
+            ],
         ];
     }
 
-
     /**
-     * Ensure hash() and equals() are consistent
+     * Ensure hash() and equals() are consistent.
      *
      * @dataProvider getEqualsAndHashConsistencyTestData
-     *
-     * @param Type $type1
-     * @param Type $type2
      */
     public function testEqualsAndHashConsistency(Type $type1, Type $type2): void
     {
@@ -181,164 +137,126 @@ final class TypeTest extends TypeTestDefinition
         return [
             'Type(int), Type(int)' => [
                 new Type(TypeNames::INT),
-                new Type(TypeNames::INT)
+                new Type(TypeNames::INT),
             ],
             'Type(string), Type(string)' => [
                 new Type(TypeNames::STRING),
-                new Type(TypeNames::STRING)
-            ]
+                new Type(TypeNames::STRING),
+            ],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                Type->__construct()
-    *******************************************************************************************************************/
-
+    // Type->__construct()
 
     /**
-     * Ensure Type->__construct throws an exception on an empty name
-     **/
+     * Ensure Type->__construct throws an exception on an empty name.
+     */
     public function testConstructThrowsExceptionOnEmptyName()
     {
         $this->expectException(\DomainException::class);
-        new Type( '' );
+        new Type('');
     }
-    
-    
-    
-    
-    /*******************************************************************************************************************
+
+    /*
     *                                             Type->getName() and getNames()
     *
     * This was already tested when testing type lookup in TypesTest. Nothing to
     * do here.
-    *******************************************************************************************************************/
-    
-    
-    
-    
-    /*******************************************************************************************************************
-    *                                                      Type->is()
-    *******************************************************************************************************************/
+    */
 
+    // Type->is()
 
     /**
-     * Test Type->is()
-     * 
+     * Test Type->is().
+     *
      * @dataProvider getIsData
-     * 
+     *
      * @param Type   $type     Type to call is() on
      * @param string $typeName Type name to compare to
      * @param bool   $expected The expected result of calling $type->is()
      */
-    public function testIs( Type $type, string $typeName, bool $expected )
+    public function testIs(Type $type, string $typeName, bool $expected)
     {
         $this->assertEquals(
             $expected,
-            $type->is( $typeName ),
+            $type->is($typeName),
             'Type->is() did not return the correct value'
         );
     }
 
-
     /**
-     * Data provider for is() test
-     *
-     * @return array
-     **/
+     * Data provider for is() test.
+     */
     public function getIsData(): array
     {
         return [
             'getByValue( 1 )->is( "int" )' => [
-                TypeLookupSingleton::getInstance()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue(1),
                 'int',
-                true
+                true,
             ],
             'getByValue( 1 )->is( "integer" )' => [
-                TypeLookupSingleton::getInstance()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue(1),
                 'integer',
-                true
+                true,
             ],
             'getByValue( 1 )->is( "integ" )' => [
-                TypeLookupSingleton::getInstance()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue(1),
                 'integ',
-                false
+                false,
             ],
             'getByValue( 1 )->is( "bool" )' => [
-                TypeLookupSingleton::getInstance()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue(1),
                 'bool',
-                false
+                false,
             ],
             'getByValue( 1 )->is( "boolean" )' => [
-                TypeLookupSingleton::getInstance()->getByValue( 1 ),
+                TypeLookupSingleton::getInstance()->getByValue(1),
                 'boolean',
-                false
-            ]
+                false,
+            ],
         ];
     }
-    
-    
-    
-    
-    /*******************************************************************************************************************
-    *                                                    Type->isClass()
-    *******************************************************************************************************************/
-    
-    
+
+    // Type->isClass()
+
     /**
-     * Ensure Type->isClass() returns false for basic types
+     * Ensure Type->isClass() returns false for basic types.
      */
     public function testIsClassReturnsFalse()
     {
-        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
+        $type = TypeLookupSingleton::getInstance()->getByValue(1);
         $this->assertFalse(
             $type->isClass(),
             'Expected Type->isClass() to return false for basic types'
         );
     }
-    
-    
-    
-    
-    /*******************************************************************************************************************
-    *                                                 Type->isInterface()
-    *******************************************************************************************************************/
-    
-    
+
+    // Type->isInterface()
+
     /**
-     * Ensure Type->isInterface() returns false for basic types
+     * Ensure Type->isInterface() returns false for basic types.
      */
     public function testIsInterfaceReturnsFalse()
     {
-        $type = TypeLookupSingleton::getInstance()->getByValue( 1 );
+        $type = TypeLookupSingleton::getInstance()->getByValue(1);
         $this->assertFalse(
             $type->isInterface(),
             'Expected Type->isInterface() to return false for basic types'
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                Type->isValueOfType()
-     ******************************************************************************************************************/
-
+    // Type->isValueOfType()
 
     /**
-     * Test Type->isValueOfType()
+     * Test Type->isValueOfType().
      *
      * @interal This test is bad, because there is no way to test that this function without duplicating all (or some)
      * of the tests in is(). This should be refactored (using dependency injection?), to not dup tests.
      *
      * @dataProvider getIsValueOfTypeTestData
      *
-     * @param Type $type
      * @param $value
-     * @param bool $expected
      */
     public function testIsValueOfType(Type $type, $value, bool $expected): void
     {
@@ -355,23 +273,38 @@ final class TypeTest extends TypeTestDefinition
             'Type(int)->isValueOfType(1)' => [
                 new Type(TypeNames::INT),
                 1,
-                true
+                true,
             ],
             'Type(int)->isValueOfType("1")' => [
                 new Type(TypeNames::INT),
                 '1',
-                false
+                false,
             ],
             'Type(string)->isValueOfType("1")' => [
                 new Type(TypeNames::STRING),
                 '1',
-                true
+                true,
             ],
             'Type(string)->isValueOfType(1)' => [
                 new Type(TypeNames::STRING),
                 1,
-                false
-            ]
+                false,
+            ],
         ];
+    }
+
+    // IEquatable Tests
+
+    /**
+     * Retrieves a single instance of IEquatableTests.
+     */
+    private function getIEquatableTestsInstance(): IEquatableTests
+    {
+        static $iequatableTests = null;
+        if (null === $iequatableTests) {
+            $iequatableTests = new IEquatableTests($this);
+        }
+
+        return $iequatableTests;
     }
 }

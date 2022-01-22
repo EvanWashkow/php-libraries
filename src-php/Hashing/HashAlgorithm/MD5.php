@@ -1,12 +1,13 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Hashing\HashAlgorithm;
 
 use PHP\Collections\ByteArray;
 
 /**
- * Defines the MD5 Hash Algorithm
+ * Defines the MD5 Hash Algorithm.
  */
 final class MD5 implements IHashAlgorithm
 {

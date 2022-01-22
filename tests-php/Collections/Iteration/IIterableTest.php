@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections\Iteration;
 
@@ -7,50 +8,40 @@ use PHP\Collections\Iteration\IIterable;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the IIterable definition
+ * Tests the IIterable definition.
+ *
+ * @internal
+ * @coversNothing
  */
 class IIterableTest extends TestCase
 {
-
-
-
-
-    /*******************************************************************************************************************
-    *                                                     INHERITANCE
-    *******************************************************************************************************************/
-
+    // INHERITANCE
 
     /**
-     * Ensure class implements the \IteratorAggregate interface
+     * Ensure class implements the \IteratorAggregate interface.
      */
     public function testIsIteratorAggregate()
     {
-        $iterable = $this->createMock( IIterable::class );
+        $iterable = $this->createMock(IIterable::class);
         $this->assertInstanceOf(
             \IteratorAggregate::class,
             $iterable,
-            IIterable::class . ' is not an instance of \\IteratorAggregate.'
+            IIterable::class.' is not an instance of \\IteratorAggregate.'
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                   foreach() loop test
-    *******************************************************************************************************************/
-
+    // foreach() loop test
 
     /**
-     * Ensure IIterable works in a single-level foreach loop
-     * 
+     * Ensure IIterable works in a single-level foreach loop.
+     *
      * @dataProvider getIIterables
      */
-    public function testSingleLevelForEachLoop( IIterable $iterable, array $expected )
+    public function testSingleLevelForEachLoop(IIterable $iterable, array $expected)
     {
         $iterated = [];
-        foreach ( $iterable as $key => $value ) {
-            $iterated[ $key ] = $value;
+        foreach ($iterable as $key => $value) {
+            $iterated[$key] = $value;
         }
 
         $this->assertEquals(
@@ -60,24 +51,23 @@ class IIterableTest extends TestCase
         );
     }
 
-
     /**
-     * Ensure IIterable works in a nested foreach loop structure
-     * 
+     * Ensure IIterable works in a nested foreach loop structure.
+     *
      * @dataProvider getIIterables
      */
-    public function testNestedForEachIteration( IIterable $iterable, array $expected )
+    public function testNestedForEachIteration(IIterable $iterable, array $expected)
     {
         // Registers for each loop
         $outerIterated = [];
         $innerIterated = [];
 
         // Nest the loop structures and add entries to the registers for each loop
-        foreach ( $iterable as $outerKey => $outerValue ) {
-            $outerIterated[ $outerKey ] = $outerValue;
+        foreach ($iterable as $outerKey => $outerValue) {
+            $outerIterated[$outerKey] = $outerValue;
 
-            foreach ( $iterable as $innerKey => $innerValue ) {
-                $innerIterated[ $innerKey ] = $innerValue;
+            foreach ($iterable as $innerKey => $innerValue) {
+                $innerIterated[$innerKey] = $innerValue;
             }
         }
 
@@ -93,18 +83,16 @@ class IIterableTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve sample IIterable test data
+     * Retrieve sample IIterable test data.
      */
     public function getIIterables(): array
     {
         return [
-
             'SampleIterable' => [
-                new SampleIterable,
-                SampleIterable::VALUES
-            ]
+                new SampleIterable(),
+                SampleIterable::VALUES,
+            ],
         ];
     }
 }
