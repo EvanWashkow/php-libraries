@@ -16,7 +16,6 @@ interface InheritableTypeInterface extends TypeInterface
      * - derived from the given type
      * 
      * @param TypeInterface $type The type to check.
-     * @return boolean
      */
     function is(TypeInterface $type): bool;
 }
