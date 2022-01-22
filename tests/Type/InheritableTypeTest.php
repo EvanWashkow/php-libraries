@@ -6,6 +6,7 @@ namespace EvanWashkow\PHPLibraries\Tests\Type;
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -52,6 +53,14 @@ final class InheritableTypeTest extends TestCase
                 ->build(),
             $this->newTestBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
+                ->is(
+                    'StubbedNameableType(StubInterfaceA)',
+                    (function() {
+                        $mock = $this->createStub(NameableTypeInterface::class);
+                        $mock->method('getName')->willReturn(StubInterfaceA::class);
+                        return $mock;
+                    })()
+                )
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassA', new ClassType(StubClassA::class))
                 ->notIs('StubClassB', new ClassType(StubClassB::class))

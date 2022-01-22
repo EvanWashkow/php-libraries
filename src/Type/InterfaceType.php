@@ -47,10 +47,10 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
 
     public function is(TypeInterface $type): bool
     {
-        if ($type instanceof InterfaceType) {
+        if ($type instanceof NameableTypeInterface) {
             return
                 $this->reflector->getName() == $type->getName() ||
-                $this->reflector->isSubclassOf($type->reflector);
+                $this->reflector->isSubclassOf($type->getName());
         }
         return false;
     }
