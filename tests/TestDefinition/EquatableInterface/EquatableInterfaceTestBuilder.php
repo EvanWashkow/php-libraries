@@ -42,7 +42,6 @@ final class EquatableInterfaceTestBuilder
      *
      * @param string $testEntry The test entry description.
      * @param mixed $value The value to test.
-     * @return self
      */
     public function equals(string $testEntry, $value): self
     {
@@ -63,7 +62,6 @@ final class EquatableInterfaceTestBuilder
      *
      * @param string $testEntry The test entry description.
      * @param mixed $value The value to test.
-     * @return self
      */
     public function notEquals(string $testEntry, $value): self
     {
@@ -75,8 +73,6 @@ final class EquatableInterfaceTestBuilder
 
     /**
      * Builds a set of EquatableTestCases.
-     *
-     * @return array<EquatableTestCase>
      */
     public function build(): array
     {
