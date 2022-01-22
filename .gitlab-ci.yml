@@ -5,8 +5,7 @@ stages:
 build-job:
   stage: build
   script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
+    - docker build -t env:latest .
 
 unit-test-job:
   stage: test
