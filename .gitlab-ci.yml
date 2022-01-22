@@ -1,15 +1,12 @@
 stages:
-  - build
   - test
 
-build-job:
-  stage: build
-  script:
-    - docker build -t env:latest .
-
+# Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 unit-test-job:
   stage: test
+  image: php:7.4-cli-alpine
+  before_script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
   script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
+    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never --testsuite unit-test
