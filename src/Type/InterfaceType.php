@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
  * A Interface Type.
  */
-final class InterfaceType implements TypeInterface
+final class InterfaceType implements InheritableTypeInterface
 {
     private \ReflectionClass $reflector;
 
