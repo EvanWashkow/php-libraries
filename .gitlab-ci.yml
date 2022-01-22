@@ -3,17 +3,13 @@ default:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-variables:
-  MIN_PHP_VER: "7.4"
-  MAX_PHP_VER: "8.1"
-
 stages:
   - test
 
 # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
-$MIN_PHP_VER-linter-job:
+php7.4-linter-job:
   stage: test
-  image: php:$MIN_PHP_VER-cli-alpine
+  image: php:7.4-cli-alpine
   script:
     - vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
 
