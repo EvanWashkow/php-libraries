@@ -24,51 +24,40 @@ final class InheritableTypeTest extends TestCase
 
     public function getIsTestData(): array
     {
-        $data = [];
-        foreach ($this->getTestBuilders() as $builder) {
-            $data = array_merge($data, $builder->build());
-        }
-        return $data;
-    }
-
-
-    /**
-     * Retrieves the TypeTestDataBuilders
-     *
-     * @return InheritableTypeTestDataBuilder[]
-     */
-    public function getTestBuilders(): array
-    {
         $classType = ClassType::class;
         $interfaceType = InterfaceType::class;
 
-        return [
+        return array_merge(
             $this->newTestBuilder("{$classType}(StubClassA)", new ClassType(StubClassA::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassB', new ClassType(StubClassB::class))
-                ->notIs('StubClassC', new ClassType(StubClassC::class)),
+                ->notIs('StubClassC', new ClassType(StubClassC::class))
+                ->build(),
             $this->newTestBuilder("{$classType}(StubClassB)", new ClassType(StubClassB::class))
                 ->is('StubClassA', new ClassType(StubClassA::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->is('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
-                ->notIs('StubClassC', new ClassType(StubClassC::class)),
+                ->notIs('StubClassC', new ClassType(StubClassC::class))
+                ->build(),
 
             $this->newTestBuilder("{$interfaceType}(StubInterfaceA)", new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceB', new InterfaceType(StubInterfaceB::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassA', new ClassType(StubClassA::class))
                 ->notIs('StubClassB', new ClassType(StubClassB::class))
-                ->notIs('StubClassC', new ClassType(StubClassC::class)),
+                ->notIs('StubClassC', new ClassType(StubClassC::class))
+                ->build(),
             $this->newTestBuilder("{$interfaceType}(StubInterfaceB)", new InterfaceType(StubInterfaceB::class))
                 ->is('StubInterfaceA', new InterfaceType(StubInterfaceA::class))
                 ->notIs('StubInterfaceC', new InterfaceType(StubInterfaceC::class))
                 ->notIs('StubClassA', new ClassType(StubClassA::class))
                 ->notIs('StubClassB', new ClassType(StubClassB::class))
-                ->notIs('StubClassC', new ClassType(StubClassC::class)),
-        ];
+                ->notIs('StubClassC', new ClassType(StubClassC::class))
+                ->build(),
+        );
     }
 
 
