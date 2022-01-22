@@ -4,12 +4,13 @@ declare(strict_types=1);
 namespace EvanWashkow\PHPLibraries\Type;
 
 use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
  * A Class Type.
  */
-final class ClassType implements InheritableTypeInterface
+final class ClassType implements InheritableTypeInterface, NameableTypeInterface
 {
     private \ReflectionClass $reflector;
 
@@ -37,6 +38,11 @@ final class ClassType implements InheritableTypeInterface
     public function equals($value): bool
     {
         return $value instanceof self && $this->getReflector()->getName() == $value->getReflector()->getName();
+    }
+
+    public function getName(): string
+    {
+        return $this->reflector->getName();
     }
 
     public function is(TypeInterface $type): bool
