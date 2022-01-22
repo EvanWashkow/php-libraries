@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections\Iteration;
 
@@ -13,10 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class IndexedIteratorTest extends TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                       TESTS
     *******************************************************************************************************************/
@@ -29,7 +26,7 @@ class IndexedIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             Iterator::class,
-            $this->mockIndexedIterator( 0 )->getMock(),
+            $this->mockIndexedIterator(0)->getMock(),
             'IndexedIterator is not an Iterator instance.'
         );
     }
@@ -40,19 +37,19 @@ class IndexedIteratorTest extends TestCase
      */
     public function testConstructThrowsDomainExceptionOnZeroIncrements()
     {
-        $this->expectException( \DomainException::class );
-        $this->mockIndexedIterator( 0, 0 )->getMock();
+        $this->expectException(\DomainException::class);
+        $this->mockIndexedIterator(0, 0)->getMock();
     }
 
 
     /**
      * Test rewind()
-     * 
+     *
      * @dataProvider getStartingIndices
      */
-    public function testRewind( int $startingKey )
+    public function testRewind(int $startingKey)
     {
-        $iterator = $this->mockIndexedIterator( $startingKey )->getMock();
+        $iterator = $this->mockIndexedIterator($startingKey)->getMock();
         $iterator->goToNext();
         $iterator->goToNext();
         $iterator->goToNext();
@@ -68,14 +65,14 @@ class IndexedIteratorTest extends TestCase
 
     /**
      * Test getKey()
-     * 
+     *
      * @dataProvider getStartingIndices
      */
-    public function testGetKeys( int $startingKey )
+    public function testGetKeys(int $startingKey)
     {
         $this->assertEquals(
             $startingKey,
-            $this->mockIndexedIterator( $startingKey )->getMock()->getKey(),
+            $this->mockIndexedIterator($startingKey)->getMock()->getKey(),
             'IndexedIterator->getKey() did not return the expected key.'
         );
     }
@@ -83,10 +80,10 @@ class IndexedIteratorTest extends TestCase
 
     /**
      * Test goToNext()
-     * 
+     *
      * @dataProvider getGoToNextTestData
      */
-    public function testGoToNext( IndexedIterator $iterator, int $expectedKey )
+    public function testGoToNext(IndexedIterator $iterator, int $expectedKey)
     {
         $iterator->goToNext();
         $this->assertEquals(
@@ -100,15 +97,15 @@ class IndexedIteratorTest extends TestCase
     {
         return [
             'startingIndex = -5, increment = 3' => [
-                $this->mockIndexedIterator( -5, 3 )->getMock(),
+                $this->mockIndexedIterator(-5, 3)->getMock(),
                 -2
             ],
             'startingIndex = 0, increment = 1' => [
-                $this->mockIndexedIterator( 0, 1 )->getMock(),
+                $this->mockIndexedIterator(0, 1)->getMock(),
                 1
             ],
             'startingIndex = 3, increment = -2' => [
-                $this->mockIndexedIterator( 3, -2 )->getMock(),
+                $this->mockIndexedIterator(3, -2)->getMock(),
                 1
             ]
         ];
@@ -124,7 +121,7 @@ class IndexedIteratorTest extends TestCase
 
     /**
      * Retrieve starting indices for testing purposes
-     * 
+     *
      * @return int[]
      */
     public function getStartingIndices(): array
@@ -139,12 +136,12 @@ class IndexedIteratorTest extends TestCase
 
     /**
      * Mock a new IndexedIterator instance
-     * 
+     *
      * @return MockBuilder
      */
-    private function mockIndexedIterator( int $startingIndex, int $incrementBy = 1 ): MockBuilder
+    private function mockIndexedIterator(int $startingIndex, int $incrementBy = 1): MockBuilder
     {
-        return $this->getMockBuilder( IndexedIterator::class )
+        return $this->getMockBuilder(IndexedIterator::class)
             ->setConstructorArgs([ $startingIndex, $incrementBy ])
             ->setMethodsExcept([ 'rewind', 'getKey', 'goToNext' ]);
     }

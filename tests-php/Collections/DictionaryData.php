@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests;
 
 use PHP\Collections\Dictionary;
@@ -8,7 +9,6 @@ use PHP\Collections\Dictionary;
  */
 class DictionaryData
 {
-    
     /**
      * Retrieve non-empty test dictionaries
      *
@@ -21,8 +21,8 @@ class DictionaryData
             self::GetMixed()
         );
     }
-    
-    
+
+
     /**
      * Retrieve sample Dictionary with mixed string and value types
      *
@@ -30,18 +30,18 @@ class DictionaryData
      */
     public static function GetMixed(): array
     {
-        $dictionary = new Dictionary( '*', '*' );
-        foreach ( self::GetTyped() as $typedDictionary ) {
-            foreach ( $typedDictionary as $value ) {
-                $dictionary->set( $value->getKey(), $value->getValue() );
+        $dictionary = new Dictionary('*', '*');
+        foreach (self::GetTyped() as $typedDictionary) {
+            foreach ($typedDictionary as $value) {
+                $dictionary->set($value->getKey(), $value->getValue());
             }
         }
         return [
             $dictionary
         ];
     }
-    
-    
+
+
     /**
      * Retrieve all test typed dictionaries
      *
@@ -62,12 +62,12 @@ class DictionaryData
             self::getStringObject()
         ];
     }
-    
-    
+
+
     /***************************************************************************
     *                                   TYPED
     ***************************************************************************/
-    
+
     /**
      * Return sample Dictionary with 0, 1 => false, true
      *
@@ -75,13 +75,13 @@ class DictionaryData
      */
     private static function getIntBool(): Dictionary
     {
-        $dictionary = new Dictionary( 'integer', 'boolean' );
-        $dictionary->set( 0, false );
-        $dictionary->set( 1, true );
+        $dictionary = new Dictionary('integer', 'boolean');
+        $dictionary->set(0, false);
+        $dictionary->set(1, true);
         return $dictionary;
     }
-    
-    
+
+
     /**
      * Return sample Dictionary with "0"-"1" => 0-1
      *
@@ -89,14 +89,14 @@ class DictionaryData
      */
     private static function getStringInt(): Dictionary
     {
-        $dictionary = new Dictionary( 'string', 'integer' );
-        for ( $i = 0; $i <= 1; $i++ ) {
-            $dictionary->set( (string) $i, $i );
+        $dictionary = new Dictionary('string', 'integer');
+        for ($i = 0; $i <= 1; $i++) {
+            $dictionary->set((string) $i, $i);
         }
         return $dictionary;
     }
-    
-    
+
+
     /**
      * Return sample Dictionary with "0" => new stdClass()
      *
@@ -104,8 +104,8 @@ class DictionaryData
      */
     private static function getStringObject(): Dictionary
     {
-        $dictionary = new Dictionary( 'string', 'stdClass' );
-        $dictionary->set( "0", new \stdClass() );
+        $dictionary = new Dictionary('string', 'stdClass');
+        $dictionary->set("0", new \stdClass());
         return $dictionary;
     }
 }

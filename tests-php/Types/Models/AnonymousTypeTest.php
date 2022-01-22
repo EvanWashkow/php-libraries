@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests\Types\Models;
 
 use PHP\Types\Models\AnonymousType;
@@ -8,8 +9,6 @@ use PHP\Types\Models\AnonymousType;
  */
 final class AnonymousTypeTest extends TypeTestDefinition
 {
-
-
     public function getSerializationTestData(): array
     {
         return [
@@ -42,9 +41,9 @@ final class AnonymousTypeTest extends TypeTestDefinition
             'bool'
         ];
         $type = new AnonymousType();
-        foreach ( $typeNames as $typeName ) {
+        foreach ($typeNames as $typeName) {
             $this->assertTrue(
-                $type->is( $typeName ),
+                $type->is($typeName),
                 'AnonymousType->is() should always return true'
             );
         }

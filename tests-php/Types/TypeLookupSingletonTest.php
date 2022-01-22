@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Types;
 
@@ -12,8 +13,6 @@ use PHPUnit\Framework\TestCase;
  */
 class TypeLookupSingletonTest extends TestCase
 {
-
-
     /**
      * Test that TypeLookupSingleton::getInstance() returns an instance of TypeLookup
      */

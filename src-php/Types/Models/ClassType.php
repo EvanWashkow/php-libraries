@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Types\Models;
 
@@ -8,8 +9,6 @@ namespace PHP\Types\Models;
  */
 class ClassType extends InterfaceType
 {
-
-
     /**
      * @internal Final: this class will always be a class.
      */

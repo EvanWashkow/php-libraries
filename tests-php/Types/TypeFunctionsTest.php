@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests;
 
 /**
@@ -6,7 +7,6 @@ namespace PHP\Tests;
  */
 class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 {
-
     /***************************************************************************
     *                                   is()
     ***************************************************************************/
@@ -14,18 +14,18 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test is() methods
-     * 
+     *
      * @dataProvider getIsData
-     * 
+     *
      * @param mixed  $value    The value to check
      * @param string $type     The type name to comapare the value to
      * @param bool   $expected The expected return value of is()
      */
-    public function testIs( $value, string $type, bool $expected )
+    public function testIs($value, string $type, bool $expected)
     {
         $this->assertEquals(
             $expected,
-            is( $value, $type ),
+            is($value, $type),
             'is() did not return the correct value'
         );
     }
@@ -33,7 +33,7 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Get test data for is()
-     * 
+     *
      * @return array
      **/
     public function getIsData(): array
@@ -89,16 +89,16 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 
             // Null
             "is( NULL, 'null' )" => [
-                NULL, 'null', true
+                null, 'null', true
             ],
             "is( null, 'null' )" => [
                 null, 'null', true
             ],
             "is( NULL, 'bool' )" => [
-                NULL, 'bool', false
+                null, 'bool', false
             ],
             "is( NULL, 'int' )" => [
-                NULL, 'int', false
+                null, 'int', false
             ],
 
             // String
@@ -119,39 +119,39 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 
             // Classes
             "is( ReflectionFunction, 'ReflectionFunction' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'ReflectionFunction',
                 true
             ],
             "is( ReflectionFunction, 'ReflectionFunctionAbstract' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'ReflectionFunctionAbstract',
                 true
             ],
             "is( ReflectionFunction, 'ReflectionClass' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'ReflectionClass',
                 false
             ],
             "is( ReflectionFunction, 'int' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'int',
                 false
             ],
 
             // Interfaces
             "is( ReflectionFunction, 'Reflector' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'Reflector',
                 true
             ],
             "is( ReflectionFunction, 'Iterator' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'Iterator',
                 false
             ],
             "is( ReflectionFunction, 'int' )" => [
-                new \ReflectionFunction( 'substr' ),
+                new \ReflectionFunction('substr'),
                 'int',
                 false
             ]

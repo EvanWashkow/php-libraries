@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests\Types\Models;
 
 use PHP\Types\Models\ClassType;
@@ -9,8 +10,6 @@ use PHP\Types\TypeLookupSingleton;
  */
 final class ClassTypeTest extends TypeTestDefinition
 {
-
-
     public function getSerializationTestData(): array
     {
         return [
@@ -39,11 +38,11 @@ final class ClassTypeTest extends TypeTestDefinition
      * @param string     $typeB    Class name to compare A to
      * @param bool       $expected The expected result
      */
-    public function testIs( ClassType $typeA, string $typeB, bool $expected )
+    public function testIs(ClassType $typeA, string $typeB, bool $expected)
     {
         $this->assertSame(
             $expected,
-            $typeA->is( $typeB )
+            $typeA->is($typeB)
         );
     }
 
@@ -59,32 +58,32 @@ final class ClassTypeTest extends TypeTestDefinition
 
         return [
             '->getByName( \ReflectionObject::class )->is( \ReflectionObject::class )' => [
-                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName(\ReflectionObject::class),
                 \ReflectionObject::class,
                 true
             ],
             '->getByName( \ReflectionObject::class )->is( \ReflectionClass::class )' => [
-                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName(\ReflectionObject::class),
                 \ReflectionClass::class,
                 true
             ],
             '->getByName( \ReflectionObject::class )->is( \Reflector::class )' => [
-                $typeLookup->getByName( \ReflectionObject::class ),
+                $typeLookup->getByName(\ReflectionObject::class),
                 \Reflector::class,
                 true
             ],
             '->getByName( \ReflectionClass::class )->is( "int" )' => [
-                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName(\ReflectionClass::class),
                 'int',
                 false
             ],
             '->getByName( \ReflectionClass::class )->is( \ReflectionFunction::class )' => [
-                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName(\ReflectionClass::class),
                 \ReflectionFunction::class,
                 false
             ],
             '->getByName( \ReflectionClass::class )->is( \ReflectionObject::class )' => [
-                $typeLookup->getByName( \ReflectionClass::class ),
+                $typeLookup->getByName(\ReflectionClass::class),
                 \ReflectionObject::class,
                 false
             ]
@@ -105,9 +104,9 @@ final class ClassTypeTest extends TypeTestDefinition
      *
      * @param ClassType $type The class type to check
      */
-    public function testIsClass( ClassType $type )
+    public function testIsClass(ClassType $type)
     {
-        $class = get_class( $type );
+        $class = get_class($type);
         $this->assertTrue(
             $type->isClass(),
             "{$class} implements ClassType: {$class}->isClass() should return true"
@@ -122,9 +121,9 @@ final class ClassTypeTest extends TypeTestDefinition
      *
      * @param ClassType $type The class type to check
      */
-    public function testIsInterface( ClassType $type )
+    public function testIsInterface(ClassType $type)
     {
-        $class = get_class( $type );
+        $class = get_class($type);
         $this->assertFalse(
             $type->isInterface(),
             "{$class} implements ClassType: {$class}->isInterface() should return false"
@@ -147,7 +146,7 @@ final class ClassTypeTest extends TypeTestDefinition
     public function getClassTypes(): array
     {
         return [
-            [ TypeLookupSingleton::getInstance()->getByName( \PHP\Collections\Dictionary::class ) ]
+            [ TypeLookupSingleton::getInstance()->getByName(\PHP\Collections\Dictionary::class) ]
         ];
     }
 }

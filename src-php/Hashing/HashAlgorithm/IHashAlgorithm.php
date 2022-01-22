@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Hashing\HashAlgorithm;
 
@@ -12,7 +13,7 @@ interface IHashAlgorithm
 {
     /**
      * Compute the hash of the Byte Array, returning the result
-     * 
+     *
      * @return ByteArray
      */
     public function hash(ByteArray $byteArray): ByteArray;

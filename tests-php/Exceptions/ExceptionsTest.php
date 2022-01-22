@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Exceptions;
 
@@ -12,14 +13,12 @@ use PHPUnit\Framework\TestCase;
  */
 class ExceptionsTest extends TestCase
 {
-
-
     /**
      * Test class inheritance
-     * 
+     *
      * @dataProvider getClassInheritanceData
      */
-    public function testClassInheritance( $exception, string $parentClassOrInterfaceName )
+    public function testClassInheritance($exception, string $parentClassOrInterfaceName)
     {
         $this->assertInstanceOf(
             $parentClassOrInterfaceName,

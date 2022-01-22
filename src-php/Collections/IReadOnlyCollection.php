@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections;
 
@@ -12,4 +13,6 @@ trigger_error('Deprecated. Use the individual interfaces instead.', E_USER_DEPRE
  *
  * @deprecated Use the individual interfaces instead. 01-2021.
  */
-interface IReadOnlyCollection extends ICountable, IIterable {}
+interface IReadOnlyCollection extends ICountable, IIterable
+{
+}

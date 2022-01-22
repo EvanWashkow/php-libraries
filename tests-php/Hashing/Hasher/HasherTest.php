@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PHP\Tests\Hashing\Hasher;
@@ -16,8 +17,6 @@ use PHP\Serialization\PHPSerialization;
  */
 class HasherTest extends \PHPUnit\Framework\TestCase
 {
-
-
     /**
      * Test class inheritance
      */
@@ -43,16 +42,13 @@ class HasherTest extends \PHPUnit\Framework\TestCase
     {
         $hashString      = $hash->__toString();
         $valueHashString = (new Hasher())->hash($value)->__toString();
-        if ($isEqual)
-        {
+        if ($isEqual) {
             $this->assertEquals(
                 $hashString,
                 $valueHashString,
                 'Hashing the value should return the ByteArray, but did not.'
             );
-        }
-        else
-        {
+        } else {
             $this->assertNotEquals(
                 $hashString,
                 $valueHashString,

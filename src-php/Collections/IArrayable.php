@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections;
 
@@ -8,10 +9,9 @@ namespace PHP\Collections;
  */
 interface IArrayable
 {
-
     /**
      * Convert this object to an array
-     * 
+     *
      * @return array
      */
     public function toArray(): array;

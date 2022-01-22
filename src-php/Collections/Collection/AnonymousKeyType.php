@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections\Collection;
 
@@ -11,8 +12,6 @@ use PHP\Types\Models\Type;
  */
 class AnonymousKeyType extends AnonymousType
 {
-
-
     public function is(string $typeName): bool
     {
         return 'null' !== $typeName;

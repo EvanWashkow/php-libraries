@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
 
@@ -14,10 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class IntegerEnumTest extends TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                     INHERITANCE
     *******************************************************************************************************************/
@@ -25,14 +22,14 @@ class IntegerEnumTest extends TestCase
 
     /**
      * Test inheritance
-     * 
+     *
      * @dataProvider getInheritanceTestData()
      */
-    public function testInheritance( string $expectedParent )
+    public function testInheritance(string $expectedParent)
     {
         $this->assertInstanceOf(
             $expectedParent,
-            $this->createMock( IntegerEnum::class ),
+            $this->createMock(IntegerEnum::class),
             'IntegerEnum does not have the expected parent.'
         );
     }
@@ -74,14 +71,14 @@ class IntegerEnumTest extends TestCase
 
     /**
      * Test toInt()
-     * 
+     *
      * @dataProvider getToIntTestData
      */
-    public function testToInt( int $value )
+    public function testToInt(int $value)
     {
         $this->assertEquals(
             $value,
-            ( new GoodIntegerEnum( $value ) )->toInt(),
+            ( new GoodIntegerEnum($value) )->toInt(),
             'IntegerEnum->toInt() did not return the expected value.'
         );
     }

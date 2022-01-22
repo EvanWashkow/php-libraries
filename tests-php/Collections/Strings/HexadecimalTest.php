@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections\Strings;
 
@@ -12,18 +13,16 @@ use PHPUnit\Framework\TestCase;
 
 class HexadecimalTest extends TestCase
 {
-
-
     /**
      * Ensure Hexadecimal is of  the expected parent types
-     * 
+     *
      * @dataProvider getInheritanceTestData
      */
-    public function testInheritance( string $typeName )
+    public function testInheritance(string $typeName)
     {
         $this->assertInstanceOf(
             $typeName,
-            new Hexadecimal( new ByteArray( 'ABC' ) ),
+            new Hexadecimal(new ByteArray('ABC')),
             Hexadecimal::class . " is not of type {$typeName}"
         );
     }
@@ -39,14 +38,14 @@ class HexadecimalTest extends TestCase
 
     /**
      * Test __toString()
-     * 
+     *
      * @dataProvider getToStringTestData
      */
-    public function testToString( ByteArray $byteArray, string $expected )
+    public function testToString(ByteArray $byteArray, string $expected)
     {
         $this->assertEquals(
             $expected,
-            ( new Hexadecimal( $byteArray ))->__toString(),
+            ( new Hexadecimal($byteArray))->__toString(),
             'Hexadecimal->__toString() did not return the expected hexadecimal string'
         );
     }
@@ -55,47 +54,47 @@ class HexadecimalTest extends TestCase
     {
         return [
             'A' => [
-                new ByteArray( 'A' ),
+                new ByteArray('A'),
                 '41'
             ],
             'B' => [
-                new ByteArray( 'B' ),
+                new ByteArray('B'),
                 '42'
             ],
             'C' => [
-                new ByteArray( 'C' ),
+                new ByteArray('C'),
                 '43'
             ],
             ':' => [
-                new ByteArray( ':' ),
+                new ByteArray(':'),
                 '3a'
             ],
             ';' => [
-                new ByteArray( ';' ),
+                new ByteArray(';'),
                 '3b'
             ],
             '?' => [
-                new ByteArray( '?' ),
+                new ByteArray('?'),
                 '3f'
             ],
             'ABC:;?' => [
-                new ByteArray( 'ABC:;?' ),
+                new ByteArray('ABC:;?'),
                 '4142433a3b3f'
             ],
             0x6e617645 => [
-                new ByteArray( 0x6e617645, 4 ), // Hexadecimal notation is little-endian
+                new ByteArray(0x6e617645, 4), // Hexadecimal notation is little-endian
                 '4576616e'                      // Hexadecimal strings are big-endian
             ],
             0x4100 => [
-                new ByteArray( 0x4100, 2 ),
+                new ByteArray(0x4100, 2),
                 '0041'
             ],
             0x0041 => [
-                new ByteArray( 0x0041, 2 ),
+                new ByteArray(0x0041, 2),
                 '4100'
             ],
             0x41 => [
-                new ByteArray( 0x41, 4 ),
+                new ByteArray(0x41, 4),
                 '41000000'
             ]
         ];
@@ -117,8 +116,7 @@ class HexadecimalTest extends TestCase
     private function getIEquatableTests(): IEquatableTests
     {
         static $iequatableTests = null;
-        if (null === $iequatableTests)
-        {
+        if (null === $iequatableTests) {
             $iequatableTests = new IEquatableTests($this);
         }
         return $iequatableTests;

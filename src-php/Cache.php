@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP;
 
 use PHP\Collections\Dictionary;
@@ -8,7 +9,6 @@ use PHP\Collections\Dictionary;
  */
 class Cache extends Dictionary
 {
-    
     /**
      * Are the items in this cache complete?
      *
@@ -24,28 +24,30 @@ class Cache extends Dictionary
      * @param string $valueType Type requirement for values. '*' allows all types.
      * @param array  $entries   Initial entries [ key => value ]
      */
-    public function __construct( string $keyType,
-                                 string $valueType,
-                                 array  $entries = [] )
+    public function __construct(
+        string $keyType,
+        string $valueType,
+        array  $entries = []
+    )
     {
-        parent::__construct( $keyType, $valueType, $entries );
+        parent::__construct($keyType, $valueType, $entries);
         $this->markIncomplete();
     }
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
     *                                CACHE STATUS
     ***************************************************************************/
-    
-    
+
+
     /**
      * Has this cache been marked complete?
      *
      * Useful for flagging an interative cache as "complete", to prevent further
      * lookups.
-     * 
+     *
      * @internal Declared final since it represents the state of the cache.
      * Override mark(In)Complete() to prevent it from reaching this state.
      *
@@ -55,8 +57,8 @@ class Cache extends Dictionary
     {
         return $this->isComplete;
     }
-    
-    
+
+
     /**
      * Mark cache as complete
      *
@@ -67,8 +69,8 @@ class Cache extends Dictionary
     {
         $this->isComplete = true;
     }
-    
-    
+
+
     /**
      * Mark cache as incomplete
      *

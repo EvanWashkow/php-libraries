@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Types;
 
@@ -13,10 +14,6 @@ use PHP\Types\TypeNames;
  */
 class TypeLookup
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                   LOOKUP METHODS
     *******************************************************************************************************************/
@@ -29,14 +26,13 @@ class TypeLookup
      * @return Type
      * @throws \DomainException If domain name could not be found
      */
-    public function getByName( string $typeName ): Type
+    public function getByName(string $typeName): Type
     {
         // Type result
         $type = null;
 
         // Switch on the type name to create the appropriate Type instance
-        switch ( $typeName )
-        {
+        switch ($typeName) {
 
 
             /**
@@ -76,42 +72,39 @@ class TypeLookup
 
             /**
              * Advanced types
-             * 
+             *
              * @throws \DomainException If tyoe could not be found
              */
             default:
-                if ( interface_exists( $typeName )) {
-                    $type = $this->createInterfaceType( new \ReflectionClass( $typeName ) );
-                }
-                elseif ( class_exists( $typeName )) {
-                    $type = $this->createClassType( new \ReflectionClass( $typeName ) );
-                }
-                else {
-                    throw new \DomainException( "Type does not exist for the type name \"{$typeName}\"" );
+                if (interface_exists($typeName)) {
+                    $type = $this->createInterfaceType(new \ReflectionClass($typeName));
+                } elseif (class_exists($typeName)) {
+                    $type = $this->createClassType(new \ReflectionClass($typeName));
+                } else {
+                    throw new \DomainException("Type does not exist for the type name \"{$typeName}\"");
                 }
                 break;
         }
 
         return $type;
     }
-    
-    
+
+
     /**
      * Lookup Type information by its value
      *
      * @param mixed $value The value to lookup Type information for
      * @return Type
      */
-    public function getByValue( $value ): Type
+    public function getByValue($value): Type
     {
-        $typeName = gettype( $value );
-        if ( 'NULL' === $typeName ) {
+        $typeName = gettype($value);
+        if ('NULL' === $typeName) {
             $typeName = TypeNames::NULL;
+        } elseif ('object' === $typeName) {
+            $typeName = get_class($value);
         }
-        elseif ( 'object' === $typeName ) {
-            $typeName = get_class( $value );
-        }
-        return $this->getByName( $typeName );
+        return $this->getByName($typeName);
     }
 
 
@@ -124,78 +117,78 @@ class TypeLookup
 
     /**
      * Create an Array type instance
-     * 
+     *
      * @return Type
      */
     protected function createArrayType(): Type
     {
-        return new Type( TypeNames::ARRAY );
+        return new Type(TypeNames::ARRAY);
     }
 
 
     /**
      * Create a Boolean type instance
-     * 
+     *
      * @return Type
      */
     protected function createBooleanType(): Type
     {
-        return new Type( TypeNames::BOOL, [ TypeNames::BOOLEAN ] );
+        return new Type(TypeNames::BOOL, [ TypeNames::BOOLEAN ]);
     }
 
 
     /**
      * Create a Float type instance
-     * 
+     *
      * @return Type
      */
     protected function createFloatType(): Type
     {
-        return new Type( TypeNames::FLOAT, [ TypeNames::DOUBLE ] );
+        return new Type(TypeNames::FLOAT, [ TypeNames::DOUBLE ]);
     }
 
 
     /**
      * Create a Function type instance
-     * 
+     *
      * @return Type
      */
     protected function createFunctionType(): Type
     {
-        return new Type( TypeNames::FUNCTION );
+        return new Type(TypeNames::FUNCTION);
     }
 
 
     /**
      * Create a Integer type instance
-     * 
+     *
      * @return Type
      */
     protected function createIntegerType(): Type
     {
-        return new Type( TypeNames::INT, [ TypeNames::INTEGER ] );
+        return new Type(TypeNames::INT, [ TypeNames::INTEGER ]);
     }
 
 
     /**
      * Create a Null type instance
-     * 
+     *
      * @return Type
      */
     protected function createNullType(): Type
     {
-        return new Type( TypeNames::NULL );
+        return new Type(TypeNames::NULL);
     }
 
 
     /**
      * Create a String type instance
-     * 
+     *
      * @return Type
      */
     protected function createStringType(): Type
     {
-        return new Type( TypeNames::STRING );
+        return new Type(TypeNames::STRING);
     }
 
 
@@ -208,24 +201,24 @@ class TypeLookup
 
     /**
      * Create a Interface type instance
-     * 
+     *
      * @param \ReflectionClass $interface The ReflectionClass instance for the interface
      * @return InterfaceType
      */
-    protected function createInterfaceType( \ReflectionClass $interface ): InterfaceType
+    protected function createInterfaceType(\ReflectionClass $interface): InterfaceType
     {
-        return new InterfaceType( $interface );
+        return new InterfaceType($interface);
     }
 
 
     /**
      * Create a Class type instance
-     * 
+     *
      * @param \ReflectionClass $class The ReflectionClass instance for the class
      * @return ClassType
      */
-    protected function createClassType( \ReflectionClass $class ): ClassType
+    protected function createClassType(\ReflectionClass $class): ClassType
     {
-        return new ClassType( $class );
+        return new ClassType($class);
     }
 }

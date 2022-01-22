@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Interfaces;
 
@@ -15,7 +16,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class IEquatableTests
 {
-
     /** @var TestCase The origining TestCase that is calling these test methods */
     private $testCase;
 
@@ -41,14 +41,13 @@ final class IEquatableTests
      */
     public function testHash(IEquatable $equatable, ByteArray $byteArray, bool $expected): void
     {
-        if ( $expected ) {
+        if ($expected) {
             $this->testCase->assertEquals(
                 $equatable->hash()->__toString(),
                 $byteArray->__toString(),
                 'hash() should equal the ByteArray, but does not.'
             );
-        }
-        else {
+        } else {
             $this->testCase->assertNotEquals(
                 $equatable->hash()->__toString(),
                 $byteArray->__toString(),
@@ -60,7 +59,7 @@ final class IEquatableTests
 
     /**
      * Test IEquatable->equals() returns the expected result
-     * 
+     *
      * @param IEquatable $equatable The IEquatable to do the comparison
      * @param mixed      $value     The value to compare to
      * @param bool       $expected  The expected result of equatable->equals()
@@ -70,7 +69,7 @@ final class IEquatableTests
     {
         $this->testCase->assertEquals(
             $expected,
-            $equatable->equals( $value ),
+            $equatable->equals($value),
             'equals( value ) did not return the expected results.'
         );
     }
@@ -78,7 +77,7 @@ final class IEquatableTests
 
     /**
      * Tests the consistency of equals() and hash() as described on IEquatable
-     * 
+     *
      * @param IEquatable $equatable1 The IEquatable to do the comparison
      * @param IEquatable $equatable2 The IEquatable to compare to
      * @return void
@@ -86,7 +85,7 @@ final class IEquatableTests
     public function testEqualsAndHashConsistency(IEquatable $equatable1, IEquatable $equatable2): void
     {
         $this->testCase->assertTrue(
-            $equatable1->equals( $equatable2 ),
+            $equatable1->equals($equatable2),
             'equatable_1->equals( equatable_2 ) must return true for this test.'
         );
         $this->testCase->assertEquals(

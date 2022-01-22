@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections;
 
@@ -13,8 +14,6 @@ use PHP\Types\Models\AnonymousType;
  */
 class Dictionary extends Collection
 {
-
-
     /***************************************************************************
     *                               PROPERTIES
     ***************************************************************************/
@@ -32,9 +31,9 @@ class Dictionary extends Collection
 
     /**
      * Create a new collection of entries, stored in key-value pairs
-     * 
+     *
      * Only supports string and integer keys, for the time being.
-     * 
+     *
      * Throws \InvalidArgumentException on bad key or value type
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
@@ -42,26 +41,27 @@ class Dictionary extends Collection
      * @param array  $entries   Initial entries [ key => value ]
      * @throws \InvalidArgumentException On bad key / value type
      */
-    public function __construct( string $keyType,
-                                 string $valueType,
-                                 array  $entries = [] )
+    public function __construct(
+        string $keyType,
+        string $valueType,
+        array  $entries = []
+    )
     {
         // Set properties
         $this->clear();
-        parent::__construct( $keyType, $valueType, $entries );
+        parent::__construct($keyType, $valueType, $entries);
 
         // Exit. The key type must be either an integer or string.
-        if ( !$this->getKeyType()->is( 'int' ) &&
-             !$this->getKeyType()->is( 'string' ) )
-        {
-            throw new \InvalidArgumentException( 'Dictionary keys must either be integers or strings' );
+        if (!$this->getKeyType()->is('int') &&
+             !$this->getKeyType()->is('string')) {
+            throw new \InvalidArgumentException('Dictionary keys must either be integers or strings');
         }
     }
 
 
     /**
      * @see Collection->createAnoymousKeyType()
-     * 
+     *
      * @internal This can be overridden to add more anonymous type support
      */
     protected function createAnonymousKeyType(): AnonymousType
@@ -89,23 +89,23 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->count()
-     * 
+     *
      * @internal Final: counting items is rather boring work, and this is
      * critical to other methods working correctly.
      */
     final public function count(): int
     {
-        return count( $this->entries );
+        return count($this->entries);
     }
 
 
     /**
      * @see Collection->get()
      */
-    public function get( $key )
+    public function get($key)
     {
-        if ( !$this->hasKey( $key )) {
-            throw new \OutOfBoundsException( 'Key doesn\'t exist' );
+        if (!$this->hasKey($key)) {
+            throw new \OutOfBoundsException('Key doesn\'t exist');
         }
         return $this->entries[ $key ];
     }
@@ -114,19 +114,19 @@ class Dictionary extends Collection
     /**
      * @see Collection->getKeyOf()
      */
-    public function getKeyOf( $value )
+    public function getKeyOf($value)
     {
         // Throw exception for wrong value type
-        if ( !$this->getValueType()->isValueOfType($value) ) {
-            throw new NotFoundException( 'Could not find key. Value is the wrong type.' );
+        if (!$this->getValueType()->isValueOfType($value)) {
+            throw new NotFoundException('Could not find key. Value is the wrong type.');
         }
 
         // Search for the value
-        $key = array_search( $value, $this->entries, true );
+        $key = array_search($value, $this->entries, true);
 
         // Throw exception for key not found
-        if ( false === $key ) {
-            throw new NotFoundException( 'Value (and key) not found.' );
+        if (false === $key) {
+            throw new NotFoundException('Value (and key) not found.');
         }
 
         // Return the key
@@ -141,7 +141,7 @@ class Dictionary extends Collection
     {
         return new Sequence(
             $this->getKeyType()->getName(),
-            array_keys( $this->entries )
+            array_keys($this->entries)
         );
     }
 
@@ -149,11 +149,11 @@ class Dictionary extends Collection
     /**
      * @see Collection->hasKey()
      */
-    public function hasKey( $key ): bool
+    public function hasKey($key): bool
     {
         return (
             $this->getKeyType()->isValueOfType($key) &&
-            array_key_exists( $key, $this->entries )
+            array_key_exists($key, $this->entries)
         );
     }
 
@@ -161,15 +161,14 @@ class Dictionary extends Collection
     /**
      * @see Collection->remove()
      */
-    public function remove( $key ): bool
+    public function remove($key): bool
     {
         $isSuccessful = false;
-        if ( $this->hasKey( $key )) {
-            unset( $this->entries[ $key ] );
+        if ($this->hasKey($key)) {
+            unset($this->entries[ $key ]);
             $isSuccessful = true;
-        }
-        else {
-            trigger_error( "Key does not exist" );
+        } else {
+            trigger_error("Key does not exist");
         }
         return $isSuccessful;
     }
@@ -178,17 +177,16 @@ class Dictionary extends Collection
     /**
      * @see Collection->set()
      */
-    public function set( $key, $value ): bool
+    public function set($key, $value): bool
     {
         // Throw warnings
         $isSuccessful = false;
-        if ( !$this->getKeyType()->isValueOfType($key) ) {
-            trigger_error( 'Wrong key type' );
+        if (!$this->getKeyType()->isValueOfType($key)) {
+            trigger_error('Wrong key type');
+        } elseif (!$this->getValueType()->isValueOfType($value)) {
+            trigger_error('Wrong value type');
         }
-        elseif ( !$this->getValueType()->isValueOfType($value) ) {
-            trigger_error( 'Wrong value type' );
-        }
-        
+
         // Set the key value pair
         else {
             $this->entries[ $key ] = $value;
@@ -200,7 +198,7 @@ class Dictionary extends Collection
 
     /**
      * @see Collection->toArray()
-     * 
+     *
      * @internal Final: this method should always return an array of the
      * original values.
      */
@@ -219,7 +217,7 @@ class Dictionary extends Collection
 
     public function getIterator(): Iterator
     {
-        return new DictionaryIterator( $this );
+        return new DictionaryIterator($this);
     }
 
 
@@ -229,11 +227,11 @@ class Dictionary extends Collection
     final public function current()
     {
         static $isFirstCurrent = true;
-        if ( $isFirstCurrent ) {
-            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        if ($isFirstCurrent) {
+            trigger_error('Deprecated. Use getIterator() instead.', E_USER_DEPRECATED);
             $isFirstCurrent = false;
         }
-        return current( $this->entries );
+        return current($this->entries);
     }
 
     /**
@@ -242,19 +240,19 @@ class Dictionary extends Collection
     final public function key()
     {
         static $isFirstKey = true;
-        if ( $isFirstKey ) {
-            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        if ($isFirstKey) {
+            trigger_error('Deprecated. Use getIterator() instead.', E_USER_DEPRECATED);
             $isFirstKey = false;
         }
-        $key = key( $this->entries );
-        
+        $key = key($this->entries);
+
         /**
          * PHP implicitly implicitly converts string indices--like "0"--to integers
          *
          * TODO: Remove this when converting to two internal sequences for keys
          * and values
          */
-        if (( null !== $key ) && $this->getKeyType()->is( 'string' ) ) {
+        if ((null !== $key) && $this->getKeyType()->is('string')) {
             $key = ( string ) $key;
         }
         return $key;
@@ -266,11 +264,11 @@ class Dictionary extends Collection
     final public function next()
     {
         static $isFirstNext = true;
-        if ( $isFirstNext ) {
-            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        if ($isFirstNext) {
+            trigger_error('Deprecated. Use getIterator() instead.', E_USER_DEPRECATED);
             $isFirstNext = false;
         }
-        next( $this->entries );
+        next($this->entries);
     }
 
     /**
@@ -279,10 +277,10 @@ class Dictionary extends Collection
     final public function rewind()
     {
         static $isFirstRewind = true;
-        if ( $isFirstRewind ) {
-            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        if ($isFirstRewind) {
+            trigger_error('Deprecated. Use getIterator() instead.', E_USER_DEPRECATED);
             $isFirstRewind = false;
         }
-        reset( $this->entries );
+        reset($this->entries);
     }
 }

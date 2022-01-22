@@ -1,26 +1,25 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Types;
 
 /**
  * Retrieves a singleton instance of the default Type Lookup implementation
- * 
+ *
  * Marked as final. See README.md.
  */
 final class TypeLookupSingleton extends TypeLookup
 {
-
-
     /**
      * Retrieve a singleton instance of the default Type Lookup implementation
-     * 
+     *
      * @return self
      */
     public static function getInstance(): self
     {
         static $instance = null;
-        if ( null === $instance ) {
+        if (null === $instance) {
             $instance = new self();
         }
         return $instance;

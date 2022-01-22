@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Interfaces;
 
@@ -12,4 +13,6 @@ trigger_error(
 /**
  * @deprecated Use IEquatable instead.
  */
-interface Equatable extends IEquatable {}
+interface Equatable extends IEquatable
+{
+}

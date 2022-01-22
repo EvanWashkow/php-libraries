@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections\Iteration;
 
@@ -8,11 +9,9 @@ namespace PHP\Collections\Iteration;
  */
 interface IIterable extends \IteratorAggregate
 {
-
-
     /**
      * @internal Specified for additional clarity and to change the return type.
-     * 
+     *
      * @return Iterator
      * @throws void
      */

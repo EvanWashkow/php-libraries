@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections\Strings;
 
@@ -12,7 +13,6 @@ use PHP\ObjectClass;
  */
 class Hexadecimal extends ObjectClass implements IStringable
 {
-
     /** @var ByteArray $byteArray The Byte Array */
     private $byteArray;
 
@@ -22,7 +22,7 @@ class Hexadecimal extends ObjectClass implements IStringable
 
     /**
      * Create a new instance of a Hexadecimal String
-     * 
+     *
      * @param ByteArray $byteArray The array of bytes to be converted into Hexadecimal
      * @return void
      */

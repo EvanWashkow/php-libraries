@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections;
 
@@ -11,17 +12,16 @@ use PHPUnit\Framework\TestCase;
  */
 class InterfacesTest extends TestCase
 {
-
     /**
      * Test inheritance
-     * 
+     *
      * @dataProvider getInheritanceTestData
      */
-    public function testInheritance( string $interface, string $expectedParent )
+    public function testInheritance(string $interface, string $expectedParent)
     {
         $this->assertInstanceOf(
             $expectedParent,
-            $this->createMock( $interface ),
+            $this->createMock($interface),
             "Interface does not extend parent. Interace: \\{$interface}; Parent: \\{$expectedParent}."
         );
     }

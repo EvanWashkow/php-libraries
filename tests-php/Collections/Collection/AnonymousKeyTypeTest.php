@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests\Collections\Types;
 
 use PHP\Collections\Collection\AnonymousKeyType;
@@ -9,15 +10,13 @@ use PHP\Types\TypeLookupSingleton;
  */
 class AnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
-
-
     /**
      * Ensure is() returns false for null
      **/
     public function testIsReturnsFalseForNull()
     {
         $this->assertFalse(
-            ( new AnonymousKeyType() )->is( 'null' ),
+            ( new AnonymousKeyType() )->is('null'),
             'AnonymousKeyType->is() should return false for "null"'
         );
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PHP\Tests\Collections;
@@ -12,7 +13,6 @@ use PHP\Collections\Dictionary;
  */
 final class DictionaryTest extends CollectionTestDefinition
 {
-
     public function getSerializationTestData(): array
     {
         return [
@@ -49,9 +49,9 @@ final class DictionaryTest extends CollectionTestDefinition
                     'string',
                     ByteArray::class,
                     [
-                        'one' => new ByteArray( 1 ),
-                        'two' => new ByteArray( 2 ),
-                        'three' => new ByteArray( 3 )
+                        'one' => new ByteArray(1),
+                        'two' => new ByteArray(2),
+                        'three' => new ByteArray(3)
                     ]
                 ),
             ],

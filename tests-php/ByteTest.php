@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests;
 
@@ -15,10 +16,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ByteTest extends TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                    INHERITANCE
     *******************************************************************************************************************/
@@ -26,14 +23,14 @@ class ByteTest extends TestCase
 
     /**
      * Test inheritance
-     * 
+     *
      * @dataProvider getInheritanceTestData
      */
-    public function testInheritance( string $expectedParent )
+    public function testInheritance(string $expectedParent)
     {
         $this->assertInstanceOf(
             $expectedParent,
-            new Byte( 0 ),
+            new Byte(0),
             "Byte is not of type \\{$expectedParent}."
         );
     }
@@ -56,13 +53,13 @@ class ByteTest extends TestCase
 
     /**
      * Test __construct() exceptions
-     * 
+     *
      * @dataProvider getConstructorExceptionsTestData
      */
-    public function testConstructorExceptions( $constructorArg, string $exceptionName )
+    public function testConstructorExceptions($constructorArg, string $exceptionName)
     {
-        $this->expectException( $exceptionName );
-        new Byte( $constructorArg );
+        $this->expectException($exceptionName);
+        new Byte($constructorArg);
     }
 
     public function getConstructorExceptionsTestData(): array
@@ -88,8 +85,7 @@ class ByteTest extends TestCase
     private function getIEquatableTests(): IEquatableTests
     {
         static $iequatableTests = null;
-        if (null === $iequatableTests)
-        {
+        if (null === $iequatableTests) {
             $iequatableTests = new IEquatableTests($this);
         }
         return $iequatableTests;
@@ -112,8 +108,8 @@ class ByteTest extends TestCase
 
     public function getHashTestData(): array
     {
-        $b0   = new Byte( 0 );
-        $b255 = new Byte( 255 );
+        $b0   = new Byte(0);
+        $b255 = new Byte(255);
         return [
             'Byte( 0 )'    => [ $b0,   new ByteArray([ $b0 ]),   true ],
             '!Byte( 0 )'   => [ $b0,   new ByteArray([ $b255 ]), false ],
@@ -143,16 +139,16 @@ class ByteTest extends TestCase
         $data = [];
 
         // Append Byte Integers as true
-        foreach ( $this->getByteIntegers() as $value ) {
+        foreach ($this->getByteIntegers() as $value) {
             $intByte = $value[ 0 ];
-            $byte    = new Byte( $intByte );
+            $byte    = new Byte($intByte);
             $data[ "Byte( {$intByte} ), Byte( {$intByte} ), true" ] = [ $byte, $byte,    true ];
             $data[ "Byte( {$intByte} ), {$intByte},         true" ] = [ $byte, $intByte, true ];
         }
 
         // Bytes
-        $b0   = new Byte( 0 );
-        $b254 = new Byte( 254 );
+        $b0   = new Byte(0);
+        $b254 = new Byte(254);
 
         // Append false
         $data = array_merge(
@@ -160,9 +156,9 @@ class ByteTest extends TestCase
             [
                 'Byte( 0 ),   "0",         false' => [ $b0,   '0',             false ],
                 'Byte( 0 ),   false,       false' => [ $b0,   false,           false ],
-                'Byte( 0 ),   Byte( 1 ),   false' => [ $b0,   new Byte( 1 ),   false ],
+                'Byte( 0 ),   Byte( 1 ),   false' => [ $b0,   new Byte(1),   false ],
                 'Byte( 0 ),   1,           false' => [ $b0,   1,               false ],
-                'Byte( 254 ), Byte( 255 ), false' => [ $b254, new Byte( 255 ), false ],
+                'Byte( 254 ), Byte( 255 ), false' => [ $b254, new Byte(255), false ],
                 'Byte( 254 ), 255,         false' => [ $b254, 255,             false ]
             ]
         );
@@ -187,8 +183,8 @@ class ByteTest extends TestCase
     public function getEqualsAndHashConsistencyTestData(): array
     {
         return [
-            'Byte( 0 ),   Byte( 0 )'   => [ new Byte( 0 ),   new Byte( 0 ) ],
-            'Byte( 255 ), Byte( 255 )' => [ new Byte( 255 ), new Byte( 255 ) ]
+            'Byte( 0 ),   Byte( 0 )'   => [ new Byte(0),   new Byte(0) ],
+            'Byte( 255 ), Byte( 255 )' => [ new Byte(255), new Byte(255) ]
         ];
     }
 
@@ -202,14 +198,14 @@ class ByteTest extends TestCase
 
     /**
      * Test toInt() return value
-     * 
+     *
      * @dataProvider getByteIntegers
      */
-    public function testToInt( int $byte )
+    public function testToInt(int $byte)
     {
         $this->assertEquals(
             $byte,
-            ( new Byte( $byte ))->toInt(),
+            ( new Byte($byte))->toInt(),
             "Byte->toInt() did not return the Byte's integer value"
         );
     }

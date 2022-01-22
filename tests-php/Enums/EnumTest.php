@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PHP\Tests\Enums;
@@ -24,10 +25,6 @@ use ReflectionClass;
  */
 class EnumTest extends TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                     INHERITANCE
     *******************************************************************************************************************/
@@ -35,10 +32,10 @@ class EnumTest extends TestCase
 
     /**
      * Test the construction of Enums
-     * 
+     *
      * @dataProvider getEnumTypeData()
      */
-    public function testEnumType( Enum $enum, string $enumClass )
+    public function testEnumType(Enum $enum, string $enumClass)
     {
         $this->assertInstanceOf(
             $enumClass,
@@ -52,15 +49,15 @@ class EnumTest extends TestCase
     {
         return [
             'Enum is ObjectClass' => [
-                $this->createMock( Enum::class ),
+                $this->createMock(Enum::class),
                 ObjectClass::class
             ],
             'BitmapEnum is IntegerEnum' => [
-                $this->createMock( BitMapEnum::class ),
+                $this->createMock(BitMapEnum::class),
                 IntegerEnum::class
             ],
             'StringEnum is Enum' => [
-                $this->createMock( StringEnum::class ),
+                $this->createMock(StringEnum::class),
                 Enum::class
             ]
         ];
@@ -75,14 +72,14 @@ class EnumTest extends TestCase
 
     /**
      * Ensure that all base Enum class definitions are abstract
-     * 
+     *
      * @dataProvider getEnumClassNames()
      * @return void
      **/
-    public function testAbstractClass( string $className )
+    public function testAbstractClass(string $className)
     {
         $this->assertTrue(
-            ( new ReflectionClass( $className ) )->isAbstract(),
+            ( new ReflectionClass($className) )->isAbstract(),
             "All Enum base classes should be abstract. {$className} is not abstract."
         );
     }
@@ -108,10 +105,10 @@ class EnumTest extends TestCase
 
     /**
      * Test the results of getConstants()
-     * 
+     *
      * @dataProvider getConstantsData()
      */
-    public function testGetConstants( Dictionary $constants, array $expected )
+    public function testGetConstants(Dictionary $constants, array $expected)
     {
         $this->assertEquals(
             $expected,
@@ -170,10 +167,10 @@ class EnumTest extends TestCase
 
     /**
      * Test the DomainException when constructing an Enum
-     * 
+     *
      * @dataProvider getConstructorDomainExceptionData()
      */
-    public function testConstructorDomainException( \Closure $callback )
+    public function testConstructorDomainException(\Closure $callback)
     {
         $this->expectException(\DomainException::class);
         $callback();
@@ -182,23 +179,23 @@ class EnumTest extends TestCase
     public function getConstructorDomainExceptionData(): array
     {
         return [
-            'new GoodEnum( GoodEnum::ONE_INTEGER )' => [function() {
-                return new GoodEnum( 'foobar' );
+            'new GoodEnum( GoodEnum::ONE_INTEGER )' => [function () {
+                return new GoodEnum('foobar');
             }],
-            'new GoodEnum( GoodEnum::ARRAY )' => [function() {
-                return new GoodEnum( GoodEnum::GetStringArray() );
+            'new GoodEnum( GoodEnum::ARRAY )' => [function () {
+                return new GoodEnum(GoodEnum::GetStringArray());
             }],
-            'new GoodIntegerEnum( 100 )' => [function() {
-                return new GoodIntegerEnum( 100 );
+            'new GoodIntegerEnum( 100 )' => [function () {
+                return new GoodIntegerEnum(100);
             }],
-            'new GoodStringEnum( \'stryng\' )' => [function() {
-                return new GoodStringEnum( 'stryng' );
+            'new GoodStringEnum( \'stryng\' )' => [function () {
+                return new GoodStringEnum('stryng');
             }],
-            'new GoodBitMapEnum( 8 )' => [function() {
-                return new GoodBitMapEnum( 8 );
+            'new GoodBitMapEnum( 8 )' => [function () {
+                return new GoodBitMapEnum(8);
             }],
-            'new GoodBitMapEnum( 4 | 8 )' => [function() {
-                return new GoodBitMapEnum( 4 | 8 );
+            'new GoodBitMapEnum( 4 | 8 )' => [function () {
+                return new GoodBitMapEnum(4 | 8);
             }]
         ];
     }
@@ -218,8 +215,7 @@ class EnumTest extends TestCase
     private function getIEquatableTests(): IEquatableTests
     {
         static $iequatableTests = null;
-        if (null === $iequatableTests)
-        {
+        if (null === $iequatableTests) {
             $iequatableTests = new IEquatableTests($this);
         }
         return $iequatableTests;
@@ -321,19 +317,18 @@ class EnumTest extends TestCase
 
     /**
      * Test getValue()
-     * 
+     *
      * @dataProvider getPrimitiveValueComparisonData()
      */
-    public function testGetValue( Enum $enum, $value, bool $expected )
+    public function testGetValue(Enum $enum, $value, bool $expected)
     {
-        if ( $expected ) {
+        if ($expected) {
             $this->assertEquals(
                 $enum->getValue(),
                 $value,
                 'Enum->getValue() did not return the expected value'
             );
-        }
-        else {
+        } else {
             $this->assertEquals(
                 $expected,
                 $enum->getValue() === $value,
@@ -352,7 +347,7 @@ class EnumTest extends TestCase
 
     /**
      * Returns Enum comparison data against other Enums and Primitive data types
-     * 
+     *
      * @return array
      */
     public function getEnumAndPrimitiveComparisonData(): array
@@ -413,7 +408,7 @@ class EnumTest extends TestCase
 
     /**
      * Returns Enum comparison data against Primitive data types
-     * 
+     *
      * @return array
      */
     public function getPrimitiveValueComparisonData(): array

@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP;
 
@@ -11,20 +12,19 @@ use PHP\Interfaces\IIntegerable;
  */
 class Byte extends ObjectClass implements IIntegerable
 {
-
     /** @var int $byte The Integer equivalent of the Byte */
     private $byte;
 
 
     /**
      * Creates a new Byte instance
-     * 
+     *
      * @param int $byte The Integer equivalent of the Byte
      */
-    public function __construct( int $byte )
+    public function __construct(int $byte)
     {
-        if (( $byte < 0 ) || ( 255 < $byte )) {
-            throw new \DomainException( "A Byte's integer value must be between 0 and 255." );
+        if (($byte < 0) || (255 < $byte)) {
+            throw new \DomainException("A Byte's integer value must be between 0 and 255.");
         }
         $this->byte = $byte;
     }
@@ -38,13 +38,13 @@ class Byte extends ObjectClass implements IIntegerable
 
     /**
      * Determine if this Byte is equal to the given value
-     * 
+     *
      * @param int|Byte $value The value to compare this Byte to
      * @return bool
      */
-    public function equals( $value ): bool
+    public function equals($value): bool
     {
-        return ( $value instanceof Byte )
+        return ($value instanceof Byte)
             ? $this->toInt() === $value->toInt()
             : $this->toInt() === $value;
     }

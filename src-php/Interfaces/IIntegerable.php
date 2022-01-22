@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Interfaces;
 
@@ -8,10 +9,9 @@ namespace PHP\Interfaces;
  */
 interface IIntegerable
 {
-
     /**
      * Convert this object to an integer
-     * 
+     *
      * @return int Architecture-dependent bit size
      */
     public function toInt(): int;

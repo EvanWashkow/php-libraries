@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PHP\Hashing\Hasher;
@@ -10,8 +11,6 @@ use PHP\Collections\ByteArray;
  */
 interface IHasher
 {
-
-
     /**
      * Compute the hash sum for a value, regardless of its type.
      *

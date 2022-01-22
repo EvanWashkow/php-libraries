@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests\Collections\Dictionary;
 
 use PHP\Collections\Dictionary\DictionaryAnonymousKeyType;
@@ -9,10 +10,6 @@ use PHP\Types\TypeLookupSingleton;
  */
 class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
      *                                                         is()
      ******************************************************************************************************************/
@@ -20,17 +17,17 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Ensure is() only returns true for ints and strings
-     * 
+     *
      * @dataProvider getIsData
-     * 
+     *
      * @param string $typeName The type name to test
      * @param bool   $expected The expected result
      **/
-    public function testIs( $value, bool $expected )
+    public function testIs($value, bool $expected)
     {
         $this->assertEquals(
             $expected,
-            ( new DictionaryAnonymousKeyType() )->is( $value ),
+            ( new DictionaryAnonymousKeyType() )->is($value),
             'DictionaryAnonymousKeyType->is() should only returns true for ints and strings'
         );
     }
@@ -38,7 +35,7 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Get data for testing is()
-     * 
+     *
      * @return array
      */
     public function getIsData(): array

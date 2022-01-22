@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP\Tests;
 
 /**
@@ -8,10 +9,9 @@ namespace PHP\Tests;
  */
 final class CollectionsTestData
 {
-    
     /**
      * Retrieve a mapped array of sequence type => test data
-     * 
+     *
      * @return array
      */
     public static function Get(): array
@@ -37,8 +37,8 @@ final class CollectionsTestData
                 null
             ]
         ];
-        foreach ( $typeMap as $type => $values ) {
-            if ( '' !== $type ) {
+        foreach ($typeMap as $type => $values) {
+            if ('' !== $type) {
                 $typeMap[ '' ] = array_merge(
                     $typeMap[ '' ],
                     $values

@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests;
 
@@ -13,8 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ObjectClassTest extends TestCase
 {
-
-
     /**
      * Test hash() return value
      *
@@ -106,8 +105,7 @@ class ObjectClassTest extends TestCase
     private function getIEquatableTests(): IEquatableTests
     {
         static $iequatableTests = null;
-        if (null === $iequatableTests)
-        {
+        if (null === $iequatableTests) {
             $iequatableTests = new IEquatableTests($this);
         }
         return $iequatableTests;
@@ -116,11 +114,11 @@ class ObjectClassTest extends TestCase
 
     /**
      * Create a new Object Class
-     * 
+     *
      * @return ObjectClass
      */
     private function createObjectClass(): ObjectClass
     {
-        return new class extends ObjectClass {};
+        return new class () extends ObjectClass {};
     }
 }

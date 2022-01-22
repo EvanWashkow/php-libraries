@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections;
 
@@ -14,7 +15,7 @@ use PHP\ObjectClass;
 
 /**
  * Defines an array of Bytes
- * 
+ *
  * @method void __construct( Byte[] $bytes )                               Create a new Byte Array using the bytes of the given Byte[]
  * @method void __construct( double $bytes, int $byteSize = PHP_INT_SIZE ) Create a new Byte Array using the bytes of the given double-precision floating point number
  * @method void __construct( int $bytes, int $byteSize = PHP_INT_SIZE )    Create a new Byte Array using the bytes of the given integer
@@ -22,8 +23,6 @@ use PHP\ObjectClass;
  */
 class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountable, IIntegerable, IIterable, IStringable
 {
-
-
     /*******************************************************************************************************************
     *                                                       CONSTANTS
     *******************************************************************************************************************/
@@ -57,62 +56,58 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
      * @throws \InvalidArgumentException If bytes is not a Byte[], integer, or string
      * @throws \DomainException          If bytes is an integer, and the byteSize < 0
      */
-    public function __construct( $bytes )
+    public function __construct($bytes)
     {
         // Switch on variable type
-        if ( is_array( $bytes )) {
+        if (is_array($bytes)) {
             try {
-                $this->__constructByteArray( ...$bytes );
-            } catch ( \TypeError $te ) {
-                throw new \InvalidArgumentException( 'ByteArray->__construct() expecting a Byte[]. An element in the array was not a Byte.' );
+                $this->__constructByteArray(...$bytes);
+            } catch (\TypeError $te) {
+                throw new \InvalidArgumentException('ByteArray->__construct() expecting a Byte[]. An element in the array was not a Byte.');
             }
-        }
-        elseif ( is_string( $bytes )) {
-            $this->__constructString( $bytes );
-        }
-        elseif (
-            ( $isInt    = is_int(    $bytes ) ) ||
-            ( $isDouble = is_double( $bytes ) )
-        )
-        {
+        } elseif (is_string($bytes)) {
+            $this->__constructString($bytes);
+        } elseif (
+            ($isInt    = is_int($bytes)) ||
+            ($isDouble = is_double($bytes))
+        ) {
             $args       = func_get_args();
             $packFormat = $isInt ? self::INT_FORMAT : self::DOUBLE_FORMAT;
             try {
-                $byteString = $this->packAndFixSize( $packFormat, ...$args );
-            } catch ( \DomainException $de ) {
-                throw new \DomainException( $de->getMessage(), $de->getCode(), $de );
+                $byteString = $this->packAndFixSize($packFormat, ...$args);
+            } catch (\DomainException $de) {
+                throw new \DomainException($de->getMessage(), $de->getCode(), $de);
             }
-            $this->__constructString( $byteString );
-        }
-        else {
-            throw new \InvalidArgumentException( 'ByteArray->__construct() expects a Byte[], integer, or string.' );
+            $this->__constructString($byteString);
+        } else {
+            throw new \InvalidArgumentException('ByteArray->__construct() expects a Byte[], integer, or string.');
         }
     }
 
 
     /**
      * Create a new Byte Array instance using the given Byte[]
-     * 
+     *
      * @param Byte ...$bytes The Byte[] representing the bytes
      * @return void
      */
-    private function __constructByteArray( Byte ...$bytes ): void
+    private function __constructByteArray(Byte ...$bytes): void
     {
         $byteString = '';
-        foreach ( $bytes as $byte ) {
-            $byteString .= $this->packAndFixSize( self::INT_FORMAT, $byte->toInt(), 1 );
+        foreach ($bytes as $byte) {
+            $byteString .= $this->packAndFixSize(self::INT_FORMAT, $byte->toInt(), 1);
         }
-        $this->__constructString( $byteString );
+        $this->__constructString($byteString);
     }
 
 
     /**
      * Create a new Byte Array instance using the bytes of the given string
-     * 
+     *
      * @param string $bytes The string representing the bytes
      * @return void
      */
-    private function __constructString( string $bytes ): void
+    private function __constructString(string $bytes): void
     {
         $this->bytes = $bytes;
     }
@@ -120,32 +115,31 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
 
     /**
      * Pack the value with the given format, truncating / padding it be a fixed Byte Size
-     * 
+     *
      * @param string $packFormat The pack() function's format string
      * @param mixed  $value      The value to pack
      * @param int    $byteSize   Truncates or pads (with 0x00) the binary string to be N number of Bytes long. Defaults
      * to the current architecture's byte size.
      * @throws \DomainException If the Byte Size < 0
      */
-    private function packAndFixSize( string $packFormat, $value, int $byteSize = PHP_INT_SIZE ): string
+    private function packAndFixSize(string $packFormat, $value, int $byteSize = PHP_INT_SIZE): string
     {
         // Ensure Byte Size range is valid
-        if ( $byteSize < 0 ) {
-            throw new \DomainException( 'Byte Size cannot be less than 0.' );
+        if ($byteSize < 0) {
+            throw new \DomainException('Byte Size cannot be less than 0.');
         }
 
         // pack() the value, and gather information on it
-        $packedValue = pack( $packFormat, $value );
-        $maxIndex    = strlen( $packedValue ) - 1;
+        $packedValue = pack($packFormat, $value);
+        $maxIndex    = strlen($packedValue) - 1;
         $nullChar    = self::getNullChar();
-        
+
         // Truncate or pad (with 0x00) the packed value to be N number of bytes long
         $byteString  = '';
-        for ( $i = 0; $i < $byteSize; $i++ ) {
-            if ( $i <= $maxIndex ) {
+        for ($i = 0; $i < $byteSize; $i++) {
+            if ($i <= $maxIndex) {
                 $byteString .= $packedValue[ $i ];
-            }
-            else {
+            } else {
                 $byteString .= $nullChar;
             }
         }
@@ -163,7 +157,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
 
     /**
      * Type-casts this Byte Array to a String, and returns the result.
-     * 
+     *
      * This does not return a Hexidecimal String representation of this Byte Array. It type-casts the bits to a string.
      * (This is the native way PHP represents byte arrays). Character encoding will affect the string's appearance, but
      * not its contents.
@@ -179,7 +173,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
      */
     public function clone(): ICloneable
     {
-        return ( clone $this );
+        return (clone $this);
     }
 
 
@@ -188,7 +182,7 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
      */
     public function count(): int
     {
-        return strlen( $this->__toString() );
+        return strlen($this->__toString());
     }
 
 
@@ -209,21 +203,21 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
 
     public function getIterator(): Iterator
     {
-        return new ArrayableIterator( $this );
+        return new ArrayableIterator($this);
     }
 
 
     /**
      * Retrieve the array of Byte instances
-     * 
+     *
      * @return Byte[]
      */
     public function toArray(): array
     {
         $bytes            = [];
-        $bytesAsIntsArray = unpack( 'C*', $this->__toString() );
-        foreach ( $bytesAsIntsArray as $byteAsInt ) {
-            $bytes[] = new Byte( $byteAsInt );
+        $bytesAsIntsArray = unpack('C*', $this->__toString());
+        foreach ($bytesAsIntsArray as $byteAsInt) {
+            $bytes[] = new Byte($byteAsInt);
         }
         return $bytes;
     }
@@ -234,8 +228,8 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
      */
     public function toInt(): int
     {
-        $paddedBytes = str_pad( $this->bytes, 8, self::getNullChar() );
-        return unpack( self::INT_FORMAT, $paddedBytes )[ 1 ];
+        $paddedBytes = str_pad($this->bytes, 8, self::getNullChar());
+        return unpack(self::INT_FORMAT, $paddedBytes)[ 1 ];
     }
 
 
@@ -248,14 +242,14 @@ class ByteArray extends ObjectClass implements IArrayable, ICloneable, ICountabl
 
     /**
      * Retrieve Null Character (0x00)
-     * 
+     *
      * @return string
      */
     private static function getNullChar(): string
     {
         static $nullChar = null;
-        if ( null === $nullChar ) {
-            $nullChar =  pack( 'x' );
+        if (null === $nullChar) {
+            $nullChar =  pack('x');
         }
         return $nullChar;
     }

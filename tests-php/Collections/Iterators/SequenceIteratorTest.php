@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections\Iterators;
 
@@ -13,10 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class SequenceIteratorTest extends TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                      INHERITANCE
     *******************************************************************************************************************/
@@ -29,7 +26,7 @@ class SequenceIteratorTest extends TestCase
     {
         $this->assertInstanceOf(
             ArrayableIterator::class,
-            new SequenceIterator( new Sequence( 'int' )),
+            new SequenceIterator(new Sequence('int')),
             'SequenceIterator is not an ArrayableIterator instance.'
         );
     }
@@ -44,14 +41,14 @@ class SequenceIteratorTest extends TestCase
 
     /**
      * Test __construct() correctly sets the starting index
-     * 
+     *
      * @dataProvider getConstructStartingIndexTestData
      */
-    public function testConstructStartingIndex( Sequence $sequence )
+    public function testConstructStartingIndex(Sequence $sequence)
     {
         $this->assertEquals(
             $sequence->getFirstKey(),
-            ( new SequenceIterator( $sequence ) )->getKey(),
+            ( new SequenceIterator($sequence) )->getKey(),
             'SequenceIterator->getKey() did not return the Sequence->getFirstKey().'
         );
     }
@@ -60,19 +57,19 @@ class SequenceIteratorTest extends TestCase
     {
         return [
             'Sequence->getFirstKey() === -2' => [
-                (function() {
-                    $sequence = $this->createMock( Sequence::class );
-                    $sequence->method( 'getFirstKey' )->willReturn( -2 );
+                (function () {
+                    $sequence = $this->createMock(Sequence::class);
+                    $sequence->method('getFirstKey')->willReturn(-2);
                     return $sequence;
                 })()
             ],
             'Sequence->getFirstKey() === 0' => [
-                new Sequence( '*' )
+                new Sequence('*')
             ],
             'Sequence->getFirstKey() === 3' => [
-                (function() {
-                    $sequence = $this->createMock( Sequence::class );
-                    $sequence->method( 'getFirstKey' )->willReturn( 3 );
+                (function () {
+                    $sequence = $this->createMock(Sequence::class);
+                    $sequence->method('getFirstKey')->willReturn(3);
                     return $sequence;
                 })()
             ]
@@ -88,16 +85,15 @@ class SequenceIteratorTest extends TestCase
 
     /**
      * Test getValue() return key
-     * 
+     *
      * @dataProvider getIterators
      */
-    public function testGetValue( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    public function testGetValue(SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value)
     {
-        if ( null === $value ) {
-            $this->expectException( \OutOfBoundsException::class );
+        if (null === $value) {
+            $this->expectException(\OutOfBoundsException::class);
             $iterator->getValue();
-        }
-        else {
+        } else {
             $this->assertEquals(
                 $value,
                 $iterator->getValue(),
@@ -115,10 +111,10 @@ class SequenceIteratorTest extends TestCase
 
     /**
      * Test getKey() return key
-     * 
+     *
      * @dataProvider getIterators
      */
-    public function testGetKey( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    public function testGetKey(SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value)
     {
         $this->assertEquals(
             $key,
@@ -136,10 +132,10 @@ class SequenceIteratorTest extends TestCase
 
     /**
      * Test hasCurrent() return value
-     * 
+     *
      * @dataProvider getIterators
      */
-    public function testHasCurrent( SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value )
+    public function testHasCurrent(SequenceIterator $iterator, bool $hasCurrent, int $key, ?int $value)
     {
         $this->assertEquals(
             $hasCurrent,
@@ -158,23 +154,23 @@ class SequenceIteratorTest extends TestCase
 
     /**
      * Retrieve sample SequenceIterator test data
-     * 
+     *
      * @return array
      */
     public function getIterators(): array
     {
         // Zero-based index Sequences
-        $zeroBased  = new Sequence( 'int', [ 1, 2, 3 ] );
+        $zeroBased  = new Sequence('int', [ 1, 2, 3 ]);
 
         // Three-based index Sequences
-        $threeBased = $this->getMockBuilder( Sequence::class )
+        $threeBased = $this->getMockBuilder(Sequence::class)
             ->setConstructorArgs([ 'int' ])
             ->setMethods([ 'getFirstKey' ])
             ->getMock();
-        $threeBased->method( 'getFirstKey' )->willReturn( 3 );
-        $threeBased->set( 3, 1 );
-        $threeBased->set( 4, 2 );
-        $threeBased->set( 5, 2 );
+        $threeBased->method('getFirstKey')->willReturn(3);
+        $threeBased->set(3, 1);
+        $threeBased->set(4, 2);
+        $threeBased->set(5, 2);
 
         return [
 
@@ -182,7 +178,7 @@ class SequenceIteratorTest extends TestCase
              * Example SequenceIterator with no entries
              */
             'SequenceIterator([]), zero-based index' => [
-                new SequenceIterator( new Sequence( 'int' ) ),      // SequenceIterator
+                new SequenceIterator(new Sequence('int')),      // SequenceIterator
                 false,                                              // ->hasCurrent()
                 0,                                                  // ->getKey()
                 null                                                // ->getValue()
@@ -193,14 +189,14 @@ class SequenceIteratorTest extends TestCase
              * Zero-based indexed Sequences
              */
             'SequenceIterator( zeroBased )' => [
-                new SequenceIterator( $zeroBased ),
+                new SequenceIterator($zeroBased),
                 true,
                 0,
                 1
             ],
             'SequenceIterator( zeroBased )->goToNext()' => [
-                (function() use ( $zeroBased ) {
-                    $iterator = new SequenceIterator( $zeroBased );
+                (function () use ($zeroBased) {
+                    $iterator = new SequenceIterator($zeroBased);
                     $iterator->goToNext();
                     return $iterator;
                 })(),
@@ -209,8 +205,8 @@ class SequenceIteratorTest extends TestCase
                 2
             ],
             'SequenceIterator( zeroBased )->goToNext()->goToNext()->goToNext()' => [
-                (function() use ( $zeroBased ) {
-                    $iterator = new SequenceIterator( $zeroBased );
+                (function () use ($zeroBased) {
+                    $iterator = new SequenceIterator($zeroBased);
                     $iterator->goToNext();
                     $iterator->goToNext();
                     $iterator->goToNext();
@@ -226,14 +222,14 @@ class SequenceIteratorTest extends TestCase
              * Three-based indexed Sequences
              */
             'SequenceIterator( threeBased )' => [
-                new SequenceIterator( $threeBased ),
+                new SequenceIterator($threeBased),
                 true,
                 3,
                 1
             ],
             'SequenceIterator( threeBased )->goToNext()' => [
-                (function() use ( $threeBased ) {
-                    $iterator = new SequenceIterator( $threeBased );
+                (function () use ($threeBased) {
+                    $iterator = new SequenceIterator($threeBased);
                     $iterator->goToNext();
                     return $iterator;
                 })(),
@@ -242,8 +238,8 @@ class SequenceIteratorTest extends TestCase
                 2
             ],
             'SequenceIterator( threeBased )->goToNext()->goToNext()->goToNext()' => [
-                (function() use ( $threeBased ) {
-                    $iterator = new SequenceIterator( $threeBased );
+                (function () use ($threeBased) {
+                    $iterator = new SequenceIterator($threeBased);
                     $iterator->goToNext();
                     $iterator->goToNext();
                     $iterator->goToNext();

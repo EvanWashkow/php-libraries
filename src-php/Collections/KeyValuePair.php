@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections;
 
@@ -8,7 +9,6 @@ namespace PHP\Collections;
  */
 class KeyValuePair
 {
-
     /** @var mixed $key The key */
     private $key;
 
@@ -23,10 +23,10 @@ class KeyValuePair
      * @param mixed $value The value (can be null)
      * @throws \InvalidArgumentException On null key
      **/
-    public function __construct( $key, $value )
+    public function __construct($key, $value)
     {
-        if ( null === $key ) {
-            throw new \InvalidArgumentException( 'Key cannot be null.' );
+        if (null === $key) {
+            throw new \InvalidArgumentException('Key cannot be null.');
         }
         $this->key   = $key;
         $this->value = $value;
@@ -35,7 +35,7 @@ class KeyValuePair
 
     /**
      * Retrieve the key
-     * 
+     *
      * @return mixed
      */
     public function getKey()
@@ -46,7 +46,7 @@ class KeyValuePair
 
     /**
      * Retrieve the value
-     * 
+     *
      * @return mixed
      */
     public function getValue()

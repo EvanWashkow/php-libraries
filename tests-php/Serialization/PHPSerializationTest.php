@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Serialization;
 
@@ -11,8 +12,6 @@ use PHPUnit\Framework\TestCase;
  */
 class PHPSerializationTest extends TestCase
 {
-
-
     /**
      * Test Inheritance
      *
@@ -34,14 +33,14 @@ class PHPSerializationTest extends TestCase
 
     /**
      * Test serialize()
-     * 
+     *
      * @dataProvider getSerializeTestData
      */
-    public function testSerialize( $value, string $byteArrayString )
+    public function testSerialize($value, string $byteArrayString)
     {
         $this->assertEquals(
             $byteArrayString,
-            ( new PHPSerialization() )->serialize( $value )->__toString(),
+            ( new PHPSerialization() )->serialize($value)->__toString(),
             'PHPSerializer->serialize() did not return the expected value.'
         );
     }
@@ -49,14 +48,14 @@ class PHPSerializationTest extends TestCase
 
     /**
      * Test deserialize()
-     * 
+     *
      * @dataProvider getSerializeTestData
      */
-    public function testDeserialize( $value, string $byteArrayString )
+    public function testDeserialize($value, string $byteArrayString)
     {
         $this->assertEquals(
             $value,
-            ( new PHPSerialization() )->deserialize( new ByteArray( $byteArrayString ) ),
+            ( new PHPSerialization() )->deserialize(new ByteArray($byteArrayString)),
             'PHPSerializer->deserialize() did not return the expected value.'
         );
     }
@@ -64,16 +63,16 @@ class PHPSerializationTest extends TestCase
 
     /**
      * Serialization test data
-     * 
+     *
      * @return array
      */
     public function getSerializeTestData(): array
     {
         return [
-            '0'           => [ 0,           serialize( 0 ) ],
-            '1'           => [ 1,           serialize( 1 ) ],
-            '2'           => [ 2,           serialize( 2 ) ],
-            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], serialize( [ 1, 2, 3 ] ) ]
+            '0'           => [ 0,           serialize(0) ],
+            '1'           => [ 1,           serialize(1) ],
+            '2'           => [ 2,           serialize(2) ],
+            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], serialize([ 1, 2, 3 ]) ]
         ];
     }
 }

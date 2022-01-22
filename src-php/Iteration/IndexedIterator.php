@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Iteration;
 
@@ -14,4 +15,6 @@ trigger_error(
 /**
  * @deprecated Moved to the Collections namespace
  */
-abstract class IndexedIterator extends IterationIndexedIterator {}
+abstract class IndexedIterator extends IterationIndexedIterator
+{
+}

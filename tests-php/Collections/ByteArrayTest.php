@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections;
 
@@ -21,11 +22,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ByteArrayTest extends TestCase
 {
-
-
-
-
-
     /*******************************************************************************************************************
     *                                                    INHERITANCE
     *******************************************************************************************************************/
@@ -33,14 +29,14 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test inheritance
-     * 
+     *
      * @dataProvider getInheritanceTestData
      */
-    public function testInheritance( string $expectedParent )
+    public function testInheritance(string $expectedParent)
     {
         $this->assertInstanceOf(
             $expectedParent,
-            new ByteArray( '' ),
+            new ByteArray(''),
             "ByteArray is not of type \\{$expectedParent}."
         );
     }
@@ -66,7 +62,7 @@ class ByteArrayTest extends TestCase
     *                                            __construct() and __toString()
     *
     * All other tests are built with the assumption these methods work correctly.
-    * 
+    *
     * The reason these two functions are being tested together is that there should be a x:1 correlation between
     * __construct() and __toString(). Namely, __construct() should convert the x number of parameters it supports to a
     * string, and __toString() should return that string.
@@ -75,13 +71,13 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test __construct() exceptions
-     * 
+     *
      * @dataProvider getConstructorExceptionsTestData
      */
-    public function testConstructExceptions( array $constructorArgs, string $expectedException )
+    public function testConstructExceptions(array $constructorArgs, string $expectedException)
     {
-        $this->expectException( $expectedException );
-        new ByteArray( ...$constructorArgs );
+        $this->expectException($expectedException);
+        new ByteArray(...$constructorArgs);
     }
 
     public function getConstructorExceptionsTestData(): array
@@ -109,21 +105,21 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test __construct( Byte[] )
-     * 
+     *
      * @dataProvider getByteArrayConstructorTestData
      */
-    public function testByteArrayConstructor( array $intByteArray, string $expectedString )
+    public function testByteArrayConstructor(array $intByteArray, string $expectedString)
     {
         // Convert integer bytes into Byte instances
         $byteArray = [];
-        foreach ( $intByteArray as $i => $intByte ) {
-            $byteArray[] = new Byte( $intByte );
+        foreach ($intByteArray as $i => $intByte) {
+            $byteArray[] = new Byte($intByte);
         }
 
         // Run test
         $this->assertEquals(
             $expectedString,
-            ( new ByteArray( $byteArray ) )->__toString(),
+            ( new ByteArray($byteArray) )->__toString(),
             '( new ByteArray( Byte[] ) )->__toString() did not return the expected string.'
         );
     }
@@ -161,16 +157,16 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test __construct( float )
-     * 
+     *
      * @dataProvider getIntegerConstructorTestData
      */
-    public function testFloatConstructor( int $intBytes, int $byteSize, string $expectedString )
+    public function testFloatConstructor(int $intBytes, int $byteSize, string $expectedString)
     {
-        $floatBytes = unpack( 'd', pack( 'q', $intBytes ))[ 1 ];
+        $floatBytes = unpack('d', pack('q', $intBytes))[ 1 ];
 
         $this->assertEquals(
             $expectedString,
-            ( new ByteArray( $floatBytes, $byteSize ))->__toString(),
+            ( new ByteArray($floatBytes, $byteSize))->__toString(),
             '( new ByteArray( float, int ) )->__toString() did not return the expected string.'
         );
     }
@@ -178,14 +174,14 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test __construct( int )
-     * 
+     *
      * @dataProvider getIntegerConstructorTestData
      */
-    public function testIntegerConstructor( int $bytes, int $byteSize, string $expectedString )
+    public function testIntegerConstructor(int $bytes, int $byteSize, string $expectedString)
     {
         $this->assertEquals(
             $expectedString,
-            ( new ByteArray( $bytes, $byteSize ))->__toString(),
+            ( new ByteArray($bytes, $byteSize))->__toString(),
             '( new ByteArray( int, int ) )->__toString() did not return the expected string.'
         );
     }
@@ -193,7 +189,7 @@ class ByteArrayTest extends TestCase
 
     /**
      * Retrieves __construct() test data of int $bytes, int $byteSize, and string $expectedString
-     *  
+     *
      * @todo Remove nullChar tests by implementing a String class with a type of fix(int length, string pad) function
      * @return array
      */
@@ -220,8 +216,7 @@ class ByteArrayTest extends TestCase
         ];
 
         // 64-bit architecture
-        if ( 8 === PHP_INT_SIZE )
-        {
+        if (8 === PHP_INT_SIZE) {
             // 64-bit integer equivalent of ABCDEFGH
             $int64 = 0x4847464500000000 + $int32;
 
@@ -247,14 +242,14 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test __construct( string )
-     * 
+     *
      * @dataProvider getStringConstructorTestData
      */
-    public function testStringConstructor( string $bytes, string $expectedString )
+    public function testStringConstructor(string $bytes, string $expectedString)
     {
         $this->assertEquals(
             $expectedString,
-            ( new ByteArray( $bytes ))->__toString(),
+            ( new ByteArray($bytes))->__toString(),
             '( new ByteArray( string ) )->__toString() did not return the expected string.'
         );
     }
@@ -278,10 +273,10 @@ class ByteArrayTest extends TestCase
 
     /**
      * Ensure clone() the exact same ByteArray
-     * 
+     *
      * @dataProvider getCloneTestData()
      */
-    public function testClone( ByteArray $byteArray )
+    public function testClone(ByteArray $byteArray)
     {
         $this->assertEquals(
             $byteArray->__toString(),
@@ -294,16 +289,16 @@ class ByteArrayTest extends TestCase
     {
         return [
             '0' => [
-                new ByteArray( 0 )
+                new ByteArray(0)
             ],
             '1' => [
-                new ByteArray( 1 )
+                new ByteArray(1)
             ],
             'A' => [
-                new ByteArray( 'A' )
+                new ByteArray('A')
             ],
             'XYZ' => [
-                new ByteArray( 'XYZ' )
+                new ByteArray('XYZ')
             ]
         ];
     }
@@ -319,14 +314,14 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test count return value
-     * 
+     *
      * @dataProvider getCountTestData
      */
-    public function testCount( $bytes, int $expected )
+    public function testCount($bytes, int $expected)
     {
         $this->assertEquals(
             $expected,
-            ( new ByteArray( $bytes ))->count(),
+            ( new ByteArray($bytes))->count(),
             'ByteArray->count() did not return the expected result.'
         );
     }
@@ -349,16 +344,16 @@ class ByteArrayTest extends TestCase
 
             // Hash algorithm count = bit size / bits per byte
             'md5' => [
-                hash( 'md5', 'foobar', true ),
-                ( 128 / 8 )
+                hash('md5', 'foobar', true),
+                (128 / 8)
             ],
             'sha1' => [
-                hash( 'sha1', 'foobar', true ),
-                ( 160 / 8 )
+                hash('sha1', 'foobar', true),
+                (160 / 8)
             ],
             'sha256' => [
-                hash( 'sha256', 'foobar', true ),
-                ( 256 / 8 )
+                hash('sha256', 'foobar', true),
+                (256 / 8)
             ]
         ];
     }
@@ -378,8 +373,7 @@ class ByteArrayTest extends TestCase
     private function getIEquatableTests(): IEquatableTests
     {
         static $iequatableTests = null;
-        if (null === $iequatableTests)
-        {
+        if (null === $iequatableTests) {
             $iequatableTests = new IEquatableTests($this);
         }
         return $iequatableTests;
@@ -481,7 +475,7 @@ class ByteArrayTest extends TestCase
     {
         $this->assertInstanceOf(
             ArrayableIterator::class,
-            ( new ByteArray( 'ABC' ) )->getIterator(),
+            ( new ByteArray('ABC') )->getIterator(),
             'ByteArray->getIterator() did not return an ArrayableIterator instance.'
         );
     }
@@ -497,14 +491,14 @@ class ByteArrayTest extends TestCase
 
     /**
      * Test toArray return value
-     * 
+     *
      * @dataProvider getToArrayTestData
      */
-    public function testToArray( $bytes, array $expected )
+    public function testToArray($bytes, array $expected)
     {
         $this->assertEquals(
             $expected,
-            ( new ByteArray( $bytes ))->toArray(),
+            ( new ByteArray($bytes))->toArray(),
             'ByteArray->toArray() did not return the expected array.'
         );
     }
@@ -519,17 +513,17 @@ class ByteArrayTest extends TestCase
             'ABC' => [
                 'ABC',
                 [
-                    new Byte( 65 ),
-                    new Byte( 66 ),
-                    new Byte( 67 )
+                    new Byte(65),
+                    new Byte(66),
+                    new Byte(67)
                 ]
             ],
             'abc' => [
                 'abc',
                 [
-                    new Byte( 97 ),
-                    new Byte( 98 ),
-                    new Byte( 99 )
+                    new Byte(97),
+                    new Byte(98),
+                    new Byte(99)
                 ]
             ]
         ];
@@ -546,10 +540,10 @@ class ByteArrayTest extends TestCase
 
     /**
      * Ensure toInt() returns the expected value
-     * 
+     *
      * @dataProvider getToIntTestData()
      */
-    public function testToInt( ByteArray $byteArray, int $expected )
+    public function testToInt(ByteArray $byteArray, int $expected)
     {
         $this->assertEquals(
             $expected,
@@ -562,27 +556,27 @@ class ByteArrayTest extends TestCase
     {
         return [
             '0' => [
-                new ByteArray( 0 ),
+                new ByteArray(0),
                 0
             ],
             '1' => [
-                new ByteArray( 1 ),
+                new ByteArray(1),
                 1
             ],
             '2' => [
-                new ByteArray( 2 ),
+                new ByteArray(2),
                 2
             ],
             '3' => [
-                new ByteArray( 3 ),
+                new ByteArray(3),
                 3
             ],
             'A' => [
-                new ByteArray( 'A' ),
+                new ByteArray('A'),
                 0x00000041
             ],
             'XYZ' => [
-                new ByteArray( 'XYZ' ),
+                new ByteArray('XYZ'),
                 0x005A5958
             ]
         ];
@@ -599,14 +593,14 @@ class ByteArrayTest extends TestCase
 
     /**
      * Retrieve the null character
-     * 
+     *
      * @return string
      */
     private static function getNullChar(): string
     {
         static $nullChar = null;
-        if ( null === $nullChar ) {
-            $nullChar = pack( 'x' );
+        if (null === $nullChar) {
+            $nullChar = pack('x');
         }
         return $nullChar;
     }

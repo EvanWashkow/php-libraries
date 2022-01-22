@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Types\TypeLookupTest;
 
@@ -8,10 +9,9 @@ use PHP\Types\Models\Type;
 
 class InterfaceTypeDetails extends TypeDetails
 {
-
     private $interfaceName;
 
-    public function __construct( string $interfaceName )
+    public function __construct(string $interfaceName)
     {
         $this->interfaceName = $interfaceName;
     }

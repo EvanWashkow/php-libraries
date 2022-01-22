@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections;
 
@@ -11,28 +12,26 @@ use PHPUnit\Framework\TestCase;
  */
 class KeyValuePairTest extends TestCase
 {
-
-
     /**
      * Test __construct() throws \InvalidArgumentException on null keys
      */
     public function testConstructThrowsInvalidArgumentExceptionOnNullKey()
     {
-        $this->expectException( \InvalidArgumentException::class );
-        new KeyValuePair( null, 1 );
+        $this->expectException(\InvalidArgumentException::class);
+        new KeyValuePair(null, 1);
     }
 
 
     /**
      * Test getKey() return value
-     * 
+     *
      * @dataProvider getTestKeyValueData
      */
-    public function testGetKey( $key )
+    public function testGetKey($key)
     {
         $this->assertEquals(
             $key,
-            ( new KeyValuePair( $key, 0 ) )->getKey(),
+            ( new KeyValuePair($key, 0) )->getKey(),
             'KeyValuePair->getKey() did not return the original key.'
         );
     }
@@ -40,14 +39,14 @@ class KeyValuePairTest extends TestCase
 
     /**
      * Test getValue() return value
-     * 
+     *
      * @dataProvider getTestKeyValueData
      */
-    public function testGetValue( $value )
+    public function testGetValue($value)
     {
         $this->assertEquals(
             $value,
-            ( new KeyValuePair( 0, $value ) )->getValue(),
+            ( new KeyValuePair(0, $value) )->getValue(),
             'KeyValuePair->getValue() did not return the original value.'
         );
     }

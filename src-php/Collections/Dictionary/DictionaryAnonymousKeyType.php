@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections\Dictionary;
 
@@ -12,11 +13,9 @@ use PHP\Types\TypeNames;
  */
 class DictionaryAnonymousKeyType extends AnonymousKeyType
 {
-
-
     public function is(string $typeName): bool
     {
-        return in_array( $typeName, [ 'int', 'string' ], true );
+        return in_array($typeName, [ 'int', 'string' ], true);
     }
 
 

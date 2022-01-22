@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections\Iteration;
 
@@ -13,10 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ArrayableIteratorTest extends TestCase
 {
-
-
-
-
     /*******************************************************************************************************************
     *                                                    INHERITANCE
     *******************************************************************************************************************/
@@ -24,14 +21,14 @@ class ArrayableIteratorTest extends TestCase
 
     /**
      * Test inheritance
-     * 
+     *
      * @dataProvider getInheritanceTestData
      */
-    public function testInheritance( string $expectedParent )
+    public function testInheritance(string $expectedParent)
     {
         $this->assertInstanceOf(
             $expectedParent,
-            new ArrayableIterator( $this->createArrayable( [ 1, 2, 3 ] ) ),
+            new ArrayableIterator($this->createArrayable([ 1, 2, 3 ])),
             "ArrayableIterator is not of type \\{$expectedParent}."
         );
     }
@@ -56,9 +53,9 @@ class ArrayableIteratorTest extends TestCase
      */
     public function testConstructThrowsDomainException()
     {
-        $this->expectException( \DomainException::class );
+        $this->expectException(\DomainException::class);
         new ArrayableIterator(
-            $this->createArrayable( [ 1, 2, 3 ] ),
+            $this->createArrayable([ 1, 2, 3 ]),
             0,
             0
         );
@@ -67,21 +64,21 @@ class ArrayableIteratorTest extends TestCase
 
     /**
      * Test __construct() sets parent constructor values
-     * 
+     *
      * @dataProvider getParentConstructorTestData
      */
-    public function testParentConstructor( int $startingIndex, int $incrementBy )
+    public function testParentConstructor(int $startingIndex, int $incrementBy)
     {
         // Create Iterator
-        $arrayable = $this->createArrayable( [ 1, 2, 3 ] );
-        $iterator  = new ArrayableIterator( $arrayable, $startingIndex, $incrementBy );
+        $arrayable = $this->createArrayable([ 1, 2, 3 ]);
+        $iterator  = new ArrayableIterator($arrayable, $startingIndex, $incrementBy);
 
         // goToNext() to test startingIndex and incrementBy
         $iterator->goToNext();
 
         // Test
         $this->assertEquals(
-            ( $startingIndex + $incrementBy ),
+            ($startingIndex + $incrementBy),
             $iterator->getKey(),
             'ArrayableIterator->getKey() did not return the expected index.'
         );
@@ -106,16 +103,15 @@ class ArrayableIteratorTest extends TestCase
 
     /**
      * Test getValue() return value and Exception
-     * 
+     *
      * @dataProvider getIterators
      */
-    public function testGetValue( ArrayableIterator $iterator, bool $hasCurrent, ?int $getValue )
+    public function testGetValue(ArrayableIterator $iterator, bool $hasCurrent, ?int $getValue)
     {
-        if ( null === $getValue ) {
-            $this->expectException( \OutOfBoundsException::class );
+        if (null === $getValue) {
+            $this->expectException(\OutOfBoundsException::class);
             $iterator->getValue();
-        }
-        else {
+        } else {
             $this->assertEquals(
                 $getValue,
                 $iterator->getValue(),
@@ -134,10 +130,10 @@ class ArrayableIteratorTest extends TestCase
 
     /**
      * Ensure hasCurrent() returns expected result
-     * 
+     *
      * @dataProvider getIterators
      */
-    public function testHasCurrent( ArrayableIterator $iterator, bool $hasCurrent, ?int $getValue )
+    public function testHasCurrent(ArrayableIterator $iterator, bool $hasCurrent, ?int $getValue)
     {
         $this->assertEquals(
             $hasCurrent,
@@ -169,7 +165,7 @@ class ArrayableIteratorTest extends TestCase
              * Example ArrayableIterator for empty IArrayable
              */
             'ArrayableIterator( [], 0 )' => [
-                $this->createArrayableIterator( [], 0 ),    // ArrayableIterator
+                $this->createArrayableIterator([], 0),    // ArrayableIterator
                 false,                                      // ->hasCurrent()
                 null                                        // ->getValue()
             ],
@@ -179,22 +175,22 @@ class ArrayableIteratorTest extends TestCase
              * ArrayableIterator( indexedArray )
              */
             'ArrayableIterator( indexedArray, -1 )' => [
-                $this->createArrayableIterator( $indexedArray, -1 ),
+                $this->createArrayableIterator($indexedArray, -1),
                 false,
                 null
             ],
             'ArrayableIterator( indexedArray, 0 )' => [
-                $this->createArrayableIterator( $indexedArray, 0 ),
+                $this->createArrayableIterator($indexedArray, 0),
                 true,
                 1
             ],
             'ArrayableIterator( indexedArray, 2 )' => [
-                $this->createArrayableIterator( $indexedArray, 2 ),
+                $this->createArrayableIterator($indexedArray, 2),
                 true,
                 3
             ],
             'ArrayableIterator( indexedArray, 3 )' => [
-                $this->createArrayableIterator( $indexedArray, 3 ),
+                $this->createArrayableIterator($indexedArray, 3),
                 false,
                 null
             ],
@@ -204,22 +200,22 @@ class ArrayableIteratorTest extends TestCase
              * ArrayableIterator( mappedArray )
              */
             'ArrayableIterator( mappedArray, -1 )' => [
-                $this->createArrayableIterator( $mappedArray, -1 ),
+                $this->createArrayableIterator($mappedArray, -1),
                 false,
                 null
             ],
             'ArrayableIterator( mappedArray, 0 )' => [
-                $this->createArrayableIterator( $mappedArray, 0 ),
+                $this->createArrayableIterator($mappedArray, 0),
                 true,
                 1
             ],
             'ArrayableIterator( mappedArray, 2 )' => [
-                $this->createArrayableIterator( $mappedArray, 2 ),
+                $this->createArrayableIterator($mappedArray, 2),
                 true,
                 3
             ],
             'ArrayableIterator( mappedArray, 3 )' => [
-                $this->createArrayableIterator( $mappedArray, 3 ),
+                $this->createArrayableIterator($mappedArray, 3),
                 false,
                 null
             ]
@@ -236,7 +232,7 @@ class ArrayableIteratorTest extends TestCase
 
     /**
      * Create an ArrayableIterator instance
-     * 
+     *
      * @param array $array         The return value of IArrayable->toArray()
      * @param int   $startingIndex The starting index
      * @param int   $incrementBy   The amount to increment the index by on every goToNext()
@@ -245,22 +241,21 @@ class ArrayableIteratorTest extends TestCase
         array $array,
         int   $startingIndex = 0,
         int   $incrementBy   = 1
-    ): ArrayableIterator
-    {
-        return new ArrayableIterator( $this->createArrayable( $array ), $startingIndex, $incrementBy );
+    ): ArrayableIterator {
+        return new ArrayableIterator($this->createArrayable($array), $startingIndex, $incrementBy);
     }
 
 
     /**
      * Create an IArrayable instance
-     * 
+     *
      * @param array $array The return value of toArray()
      * @return IArrayable
      */
-    private function createArrayable( array $array ): IArrayable
+    private function createArrayable(array $array): IArrayable
     {
-        $arrayable = $this->createMock( IArrayable::class );
-        $arrayable->method( 'toArray' )->willReturn( $array );
+        $arrayable = $this->createMock(IArrayable::class);
+        $arrayable->method('toArray')->willReturn($array);
         return $arrayable;
     }
 }

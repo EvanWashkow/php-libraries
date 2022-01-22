@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PHP\Serialization;
@@ -12,8 +13,6 @@ use PHP\Collections\ByteArray;
  */
 interface IDeserializer
 {
-
-
     /**
      * Deserializes a serialized Byte Array to its original value
      *

@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Collections;
 
@@ -17,8 +18,6 @@ use PHP\Types\TypeNames;
  */
 abstract class Collection extends ObjectClass implements IArrayable, ICloneable, ICountable, IIterable
 {
-
-
     /***************************************************************************
     *                               PROPERTIES
     ***************************************************************************/
@@ -45,55 +44,55 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
      * @param array  $entries   Initial entries [ key => value ]
      * @throws \DomainException When key or value type either does not exist or is null.
      */
-    public function __construct( string $keyType,
-                                 string $valueType,
-                                 array  $entries   = [] )
+    public function __construct(
+        string $keyType,
+        string $valueType,
+        array  $entries   = []
+    )
     {
         // Create type lookup
         $typeLookup = TypeLookupSingleton::getInstance();
 
         // Lookup key type
-        if ( AnonymousType::NAME === $keyType ) {
+        if (AnonymousType::NAME === $keyType) {
             $this->keyType = $this->createAnonymousKeyType();
-        }
-        else {
+        } else {
             try {
-                $this->keyType = $typeLookup->getByName( $keyType );
-            } catch ( \DomainException $e ) {
-                throw new \DomainException( "\"$keyType\" cannot be used for the key type: it does not exist." );
+                $this->keyType = $typeLookup->getByName($keyType);
+            } catch (\DomainException $e) {
+                throw new \DomainException("\"$keyType\" cannot be used for the key type: it does not exist.");
             }
         }
 
         // Lookup value type
-        if ( AnonymousType::NAME === $valueType ) {
+        if (AnonymousType::NAME === $valueType) {
             $this->valueType = $this->createAnonymousValueType();
-        }
-        else {
+        } else {
             try {
-                $this->valueType = $typeLookup->getByName( $valueType );
-            } catch ( \DomainException $e ) {
-                throw new \DomainException( "\"$valueType\" cannot be used for the value type: it does not exist." );
+                $this->valueType = $typeLookup->getByName($valueType);
+            } catch (\DomainException $e) {
+                throw new \DomainException("\"$valueType\" cannot be used for the value type: it does not exist.");
             }
         }
 
         // Throw exception on types
-        if ( TypeNames::NULL === $this->getKeyType()->getName() ) {
-            throw new \DomainException( 'Key type cannot be "null"' );
+        if (TypeNames::NULL === $this->getKeyType()->getName()) {
+            throw new \DomainException('Key type cannot be "null"');
         }
-        if ( TypeNames::NULL === $this->getValueType()->getName() ) {
-            throw new \DomainException( 'Value type cannot be "null"' );
+        if (TypeNames::NULL === $this->getValueType()->getName()) {
+            throw new \DomainException('Value type cannot be "null"');
         }
 
         // For each initial entry, add it to this collection
-        foreach ( $entries as $key => $value ) {
-            $this->set( $key, $value );
+        foreach ($entries as $key => $value) {
+            $this->set($key, $value);
         }
     }
 
 
     /**
      * Create an anonymous key type
-     * 
+     *
      * @internal This allows the child class to customize the anonymous type to
      * allow / prevent certain types.
      *
@@ -107,7 +106,7 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
     /**
      * Create an anonymous value type
-     * 
+     *
      * @internal This allows the child class to customize the anonymous type to
      * allow / prevent certain types.
      *
@@ -135,7 +134,7 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
     /**
      * Retrieve the number of entries in the collection
-     * 
+     *
      * @internal No way to write an optimal implementation (using toArray()).
      * Depending on the collection, toArray() may take time to complete.
      *
@@ -145,18 +144,18 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
     /**
      * Retrieve the value
-     * 
+     *
      * Throws \OutOfBoundsException if the key does not exist
      *
      * @param mixed $key The key to retrieve the value from
      * @return mixed The value if the key exists. NULL otherwise.
      * @throws \OutOfBoundsException Key doesn't exist
      */
-    abstract public function get( $key );
+    abstract public function get($key);
 
     /**
      * Retrieve all keys
-     * 
+     *
      * @internal There's no way to write a solution for this (using toArray())
      * without also making it incorrect.
      *
@@ -166,11 +165,11 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
     /**
      * Retrieve the key of the first value found
-     * 
+     *
      * Throws \PHP\Exceptions\NotFoundException if key not found. This *always* has to be
      * handled by the caller, even if a default value was returned. Throwing an
      * exception provides more information to the caller about what happened.
-     * 
+     *
      * @internal There's no way to write a solution for this (using toArray())
      * without also making it incorrect.
      *
@@ -178,18 +177,18 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
      * @return mixed The key
      * @throws \PHP\Exceptions\NotFoundException When key not found
      */
-    abstract public function getKeyOf( $value );
+    abstract public function getKeyOf($value);
 
     /**
      * Determine if the key exists
-     * 
+     *
      * @internal There's no way to write an optimal solution for this
      * (using getKeys()). getKeys() takes time to complete.
      *
      * @param mixed $key The key to check for
      * @return bool
      */
-    abstract public function hasKey( $key ): bool;
+    abstract public function hasKey($key): bool;
 
     /**
      * Remove key (and its corresponding value) from this collection
@@ -197,7 +196,7 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
      * @param mixed $key The key to remove the value from
      * @return bool Whether or not the operation was successful
      */
-    abstract public function remove( $key ): bool;
+    abstract public function remove($key): bool;
 
     /**
      * Store the value at the key
@@ -209,18 +208,18 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
      * @param mixed $value The value to store
      * @return bool Whether or not the operation was successful
      */
-    abstract public function set( $key, $value ): bool;
+    abstract public function set($key, $value): bool;
 
     /**
      * Convert to a native PHP array
-     * 
+     *
      * @return array
      */
     abstract public function toArray(): array;
-    
-    
-    
-    
+
+
+
+
     /***************************************************************************
     *                                     OVERRIDES
     ***************************************************************************/
@@ -232,11 +231,11 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
     final public function valid(): bool
     {
         static $isFirstValid = true;
-        if ( $isFirstValid ) {
-            trigger_error( 'Deprecated. Use getIterator() instead.', E_USER_DEPRECATED );
+        if ($isFirstValid) {
+            trigger_error('Deprecated. Use getIterator() instead.', E_USER_DEPRECATED);
             $isFirstValid = false;
         }
-        return $this->hasKey( $this->key() );
+        return $this->hasKey($this->key());
     }
 
 
@@ -267,9 +266,9 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
     /**
      * Retrieve key type
-     * 
+     *
      * @internal Final. The key type cannot be modified after construction.
-     * 
+     *
      * @return Type
      **/
     final public function getKeyType(): Type
@@ -287,16 +286,16 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
     {
         return new Sequence(
             $this->getValueType()->getName(),
-            array_values( $this->toArray() )
+            array_values($this->toArray())
         );
     }
 
 
     /**
      * Retrieve value type
-     * 
+     *
      * @internal Final. The value type cannot be modified after construction.
-     * 
+     *
      * @return Type
      **/
     final public function getValueType(): Type
@@ -307,20 +306,19 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
     /**
      * Determine if the value exists
-     * 
+     *
      * @internal Not final since a child class may have optimizations to make,
      * especially if they have a limited data set.
      *
      * @param mixed $value The value to check for
      * @return bool
      */
-    public function hasValue( $value ): bool
+    public function hasValue($value): bool
     {
         $hasValue = true;
         try {
-            $this->getKeyOf( $value );
-        }
-        catch ( NotFoundException $e ) {
+            $this->getKeyOf($value);
+        } catch (NotFoundException $e) {
             $hasValue = false;
         }
         return $hasValue;
@@ -330,10 +328,10 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
     /**
      * @deprecated Use foreach( Collection ) instead. 04-2020.
      */
-    final public function loop( \Closure $function )
+    final public function loop(\Closure $function)
     {
         static $isFirstLoop = true;
-        if ( $isFirstLoop ) {
+        if ($isFirstLoop) {
             trigger_error(
                 'Collection->loop() deprecated. Use foreach( Collection ) instead.',
                 E_USER_DEPRECATED
@@ -343,13 +341,12 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
 
         // Loop through each value, until the end of the collection is reached,
         // or caller wants to stop the loop
-        foreach ( $this as $entry ) {
-            $canContinue = $function( $entry->getKey(), $entry->getValue() );
-            if ( false === $canContinue ) {
+        foreach ($this as $entry) {
+            $canContinue = $function($entry->getKey(), $entry->getValue());
+            if (false === $canContinue) {
                 break;
-            }
-            elseif ( true !== $canContinue ) {
-                throw new \TypeError( 'Collection->loop() callback function did not return a boolean value' );
+            } elseif (true !== $canContinue) {
+                throw new \TypeError('Collection->loop() callback function did not return a boolean value');
             }
         }
     }

@@ -1,5 +1,6 @@
 <?php
-declare( strict_types = 1 );
+
+declare(strict_types=1);
 
 namespace PHP\Tests\Collections\Iterators;
 
@@ -12,8 +13,6 @@ use PHPUnit\Framework\TestCase;
  */
 class DeprecatedKeyValuePairTest extends TestCase
 {
-
-
     /**
      * Ensure it is a KeyValuePair
      */
@@ -21,7 +20,7 @@ class DeprecatedKeyValuePairTest extends TestCase
     {
         $this->assertInstanceOf(
             KeyValuePair::class,
-            new DeprecatedKeyValuePair( 'one', 'two' ),
+            new DeprecatedKeyValuePair('one', 'two'),
             'DeprecatedKeyValuePair is not a KeyValuePair.'
         );
     }
