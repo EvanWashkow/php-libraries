@@ -2,7 +2,7 @@ stages:
   - test
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
-unit-test-job:
+php7.4-unit-test-job:
   stage: test
   image: php:7.4-cli-alpine
   before_script:
