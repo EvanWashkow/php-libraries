@@ -14,12 +14,10 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
 final class EquatableInterfaceTestBuilder
 {
     private string $testHeader;
-
     private EquatableInterface $equatable;
-
     private array $equals;
-
     private array $notEquals;
+
 
     /**
      * Creates a new EquatableTestDataBuilder.
