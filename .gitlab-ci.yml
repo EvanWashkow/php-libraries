@@ -1,0 +1,21 @@
+default:
+  before_script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
+
+stages:
+  - test
+
+# Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
+php7.4-unit-test-job:
+  stage: test
+  image: php:7.4-cli-alpine
+  script:
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+
+# Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
+php8.1-unit-test-job:
+  stage: test
+  image: php:8.1-cli-alpine
+  script:
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
