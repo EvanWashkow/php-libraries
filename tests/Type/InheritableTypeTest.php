@@ -5,18 +5,19 @@ namespace EvanWashkow\PHPLibraries\Tests\Type;
 
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests Types
+ * Tests InheritableTypes.
  */
-final class OldTypeTest extends TestCase
+final class InheritableTypeTest extends TestCase
 {
     /**
      * @dataProvider getIsTestData
      */
-    public function testIs(TypeInterface $tester, TypeInterface $testee, bool $expected): void
+    public function testIs(InheritableTypeInterface $tester, TypeInterface $testee, bool $expected): void
     {
         $this->assertSame($expected, $tester->is($testee));
     }
@@ -25,7 +26,7 @@ final class OldTypeTest extends TestCase
     {
         $data = [];
         foreach ($this->getTestBuilders() as $builder) {
-            $data = array_merge($data, $builder->buildIsTestData());
+            $data = array_merge($data, $builder->build());
         }
         return $data;
     }
@@ -34,7 +35,7 @@ final class OldTypeTest extends TestCase
     /**
      * Retrieves the TypeTestDataBuilders
      *
-     * @return array<TypeTestDataBuilder>
+     * @return InheritableTypeTestDataBuilder[]
      */
     public function getTestBuilders(): array
     {
@@ -74,9 +75,9 @@ final class OldTypeTest extends TestCase
     /**
      * Creates a new default TypeTestDataBuilder
      */
-    private function newTestBuilder(string $testName, TypeInterface $type): TypeTestDataBuilder
+    private function newTestBuilder(string $testName, TypeInterface $type): InheritableTypeTestDataBuilder
     {
-        return (new TypeTestDataBuilder($testName, $type))
+        return (new InheritableTypeTestDataBuilder($testName, $type))
             ->notIs('Type mock', $this->createMock(TypeInterface::class));
     }
 }
