@@ -1,3 +1,8 @@
+default:
+  before_script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
+
 stages:
   - test
 
@@ -5,9 +10,6 @@ stages:
 php7.4-unit-test-job:
   stage: test
   image: php:7.4-cli-alpine
-  before_script:
-    - curl -sS https://getcomposer.org/installer | php
-    - php composer.phar install
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
@@ -15,8 +17,5 @@ php7.4-unit-test-job:
 php8.1-unit-test-job:
   stage: test
   image: php:8.1-cli-alpine
-  before_script:
-    - curl -sS https://getcomposer.org/installer | php
-    - php composer.phar install
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
