@@ -10,7 +10,7 @@ use PHP\Interfaces\IEquatable;
 use PHP\Serialization\PHPSerialization;
 
 /**
- * Computes the hash sum of a value, regardless of type
+ * Computes the hash sum of a value, regardless of type.
  */
 class Hasher implements IHasher
 {
@@ -32,6 +32,7 @@ class Hasher implements IHasher
                 (new PHPSerialization())->serialize($value)
             );
         }
+
         return $hash;
     }
 }

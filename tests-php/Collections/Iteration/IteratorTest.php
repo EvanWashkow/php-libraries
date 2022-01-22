@@ -8,17 +8,17 @@ use PHP\Collections\Iteration\Iterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the Iterator definition
+ * Tests the Iterator definition.
+ *
+ * @internal
+ * @coversNothing
  */
 class IteratorTest extends TestCase
 {
-    /*******************************************************************************************************************
-    *                                                     INHERITANCE
-    *******************************************************************************************************************/
-
+    // INHERITANCE
 
     /**
-     * Ensure class implements the \Iterator interface
+     * Ensure class implements the \Iterator interface.
      */
     public function testIsIterator()
     {
@@ -26,22 +26,18 @@ class IteratorTest extends TestCase
         $this->assertInstanceOf(
             \Iterator::class,
             $iterator,
-            Iterator::class . ' is not an instance of \\Iterator.'
+            Iterator::class.' is not an instance of \\Iterator.'
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                       current()
-    *******************************************************************************************************************/
-
+    // current()
 
     /**
-     * Ensure current() returns the expected value
+     * Ensure current() returns the expected value.
      *
      * @dataProvider getCurrentReturnValues
+     *
+     * @param mixed $expected
      */
     public function testCurrentReturnValue(Iterator $iterator, $expected)
     {
@@ -55,15 +51,15 @@ class IteratorTest extends TestCase
     public function getCurrentReturnValues(): array
     {
         return [
-
             'getValue() === 1' => [
                 (function () {
                     $mock = $this->createMock(Iterator::class);
                     $mock->method('hasCurrent')->willReturn(true);
                     $mock->method('getValue')->willReturn(1);
+
                     return $mock;
                 })(),
-                1
+                1,
             ],
 
             'getValue() === 2' => [
@@ -71,9 +67,10 @@ class IteratorTest extends TestCase
                     $mock = $this->createMock(Iterator::class);
                     $mock->method('hasCurrent')->willReturn(true);
                     $mock->method('getValue')->willReturn(2);
+
                     return $mock;
                 })(),
-                2
+                2,
             ],
 
             'hasCurrent() === false' => [
@@ -83,25 +80,22 @@ class IteratorTest extends TestCase
                     $mock->method('getValue')->willThrowException(
                         new \OutOfBoundsException('Key does not exist at this position.')
                     );
+
                     return $mock;
                 })(),
-                null
-            ]
+                null,
+            ],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                         key()
-    *******************************************************************************************************************/
-
+    // key()
 
     /**
-     * Ensure key() returns the expected value
+     * Ensure key() returns the expected value.
      *
      * @dataProvider getKeyReturnValues
+     *
+     * @param mixed $expected
      */
     public function testKeyReturnValue(Iterator $iterator, $expected)
     {
@@ -115,15 +109,15 @@ class IteratorTest extends TestCase
     public function getKeyReturnValues(): array
     {
         return [
-
             'getKey() === 1' => [
                 (function () {
                     $mock = $this->createMock(Iterator::class);
                     $mock->method('hasCurrent')->willReturn(true);
                     $mock->method('getKey')->willReturn(1);
+
                     return $mock;
                 })(),
-                1
+                1,
             ],
 
             'getKey() === 2' => [
@@ -131,9 +125,10 @@ class IteratorTest extends TestCase
                     $mock = $this->createMock(Iterator::class);
                     $mock->method('hasCurrent')->willReturn(true);
                     $mock->method('getKey')->willReturn(2);
+
                     return $mock;
                 })(),
-                2
+                2,
             ],
 
             'hasCurrent() === false' => [
@@ -143,23 +138,18 @@ class IteratorTest extends TestCase
                     $mock->method('getKey')->willThrowException(
                         new \OutOfBoundsException('Key does not exist at this position.')
                     );
+
                     return $mock;
                 })(),
-                null
-            ]
+                null,
+            ],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                         next()
-    *******************************************************************************************************************/
-
+    // next()
 
     /**
-     * Ensure next() forwards the call to goToNext()
+     * Ensure next() forwards the call to goToNext().
      */
     public function testNext()
     {
@@ -176,16 +166,10 @@ class IteratorTest extends TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                        valid()
-    *******************************************************************************************************************/
-
+    // valid()
 
     /**
-     * Ensure valid() reflects hasCurrent()
+     * Ensure valid() reflects hasCurrent().
      *
      * @dataProvider getValidTestData
      */
@@ -200,22 +184,23 @@ class IteratorTest extends TestCase
     public function getValidTestData(): array
     {
         return [
-
-            'hasCurrent() === true'  => [
+            'hasCurrent() === true' => [
                 (function () {
                     $mock = $this->createMock(Iterator::class);
                     $mock->method('hasCurrent')->willReturn(true);
+
                     return $mock;
-                })()
+                })(),
             ],
 
             'hasCurrent() === false' => [
                 (function () {
                     $mock = $this->createMock(Iterator::class);
                     $mock->method('hasCurrent')->willReturn(false);
+
                     return $mock;
-                })()
-            ]
+                })(),
+            ],
         ];
     }
 }

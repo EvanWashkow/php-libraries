@@ -7,7 +7,7 @@ namespace PHP\Serialization;
 use PHP\Collections\ByteArray;
 
 /**
- * Serializer implementation that uses PHP's serialize() function
+ * Serializer implementation that uses PHP's serialize() function.
  */
 final class PHPSerialization implements IDeserializer, ISerializer
 {
@@ -15,7 +15,6 @@ final class PHPSerialization implements IDeserializer, ISerializer
     {
         return new ByteArray(serialize($value));
     }
-
 
     public function deserialize(ByteArray $byteArray)
     {

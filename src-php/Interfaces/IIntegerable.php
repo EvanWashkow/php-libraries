@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace PHP\Interfaces;
 
 /**
- * Describes an object that can be converted to PHP's integer type (machine-dependant bit size)
+ * Describes an object that can be converted to PHP's integer type (machine-dependant bit size).
  */
 interface IIntegerable
 {
     /**
-     * Convert this object to an integer
+     * Convert this object to an integer.
      *
      * @return int Architecture-dependent bit size
      */

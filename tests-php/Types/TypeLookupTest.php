@@ -21,17 +21,17 @@ use PHP\Types\TypeNames;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test TypeLookup class
+ * Test TypeLookup class.
+ *
+ * @internal
+ * @coversNothing
  */
 class TypeLookupTest extends TestCase
 {
-    /*******************************************************************************************************************
-    *                                               getByName() / getByValue()
-    *******************************************************************************************************************/
-
+    // getByName() / getByValue()
 
     /**
-     * Ensure TypeLookup->getByName() throws a DomainException
+     * Ensure TypeLookup->getByName() throws a DomainException.
      */
     public function testGetByXDomainException(): void
     {
@@ -39,24 +39,22 @@ class TypeLookupTest extends TestCase
         TypeLookupSingleton::getInstance()->getByName('foobar');
     }
 
-
     /**
-     * Ensure TypeLookup->getByX() returns a Type with the same primary name
+     * Ensure TypeLookup->getByX() returns a Type with the same primary name.
      *
      * @dataProvider getExpectedTypeDetails()
      */
     public function testGetByXTypeName(Type $type, TypeDetails $expected): void
     {
         $this->assertEquals(
-            $expected->getNames()[ 0 ],
+            $expected->getNames()[0],
             $type->getName(),
             'TypeLookup->getByX() returned a Type instance with the wrong name.'
         );
     }
 
-
     /**
-     * Ensure TypeLookup->getByXs() returns a Type with the same names (primary + aliases)
+     * Ensure TypeLookup->getByXs() returns a Type with the same names (primary + aliases).
      *
      * @dataProvider getExpectedTypeDetails()
      */
@@ -69,9 +67,8 @@ class TypeLookupTest extends TestCase
         );
     }
 
-
     /**
-     * Ensure TypeLookup->getByX() returns the correct type
+     * Ensure TypeLookup->getByX() returns the correct type.
      *
      * @dataProvider getExpectedTypeDetails()
      */
@@ -86,110 +83,101 @@ class TypeLookupTest extends TestCase
         }
     }
 
-
     /**
-     * Retrieve TypeDetails to run tests against
-     *
-     * @return array
+     * Retrieve TypeDetails to run tests against.
      */
     public function getExpectedTypeDetails(): array
     {
         $typeLookup = TypeLookupSingleton::getInstance();
 
         return [
-
-            /**
-             * TypeLookup->getByName()
-             */
+            // TypeLookup->getByName()
             'TypeLookup->getByName( TypeNames::ARRAY )' => [
                 $typeLookup->getByName(TypeNames::ARRAY),
-                new ArrayTypeDetails()
+                new ArrayTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::BOOL )' => [
                 $typeLookup->getByName(TypeNames::BOOL),
-                new BooleanTypeDetails()
+                new BooleanTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::BOOLEAN )' => [
                 $typeLookup->getByName(TypeNames::BOOLEAN),
-                new BooleanTypeDetails()
+                new BooleanTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::FUNCTION )' => [
                 $typeLookup->getByName(TypeNames::FUNCTION),
-                new FunctionTypeDetails()
+                new FunctionTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::DOUBLE )' => [
                 $typeLookup->getByName(TypeNames::DOUBLE),
-                new FloatTypeDetails()
+                new FloatTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::FLOAT )' => [
                 $typeLookup->getByName(TypeNames::FLOAT),
-                new FloatTypeDetails()
+                new FloatTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::INT )' => [
                 $typeLookup->getByName(TypeNames::INT),
-                new IntegerTypeDetails()
+                new IntegerTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::INTEGER )' => [
                 $typeLookup->getByName(TypeNames::INTEGER),
-                new IntegerTypeDetails()
+                new IntegerTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::NULL )' => [
                 $typeLookup->getByName(TypeNames::NULL),
-                new NullTypeDetails()
+                new NullTypeDetails(),
             ],
             'TypeLookup->getByName( TypeNames::STRING )' => [
                 $typeLookup->getByName(TypeNames::STRING),
-                new StringTypeDetails()
+                new StringTypeDetails(),
             ],
             'TypeLookup->getByName( \Iterator::class )' => [
                 $typeLookup->getByName(\Iterator::class),
-                new InterfaceTypeDetails(\Iterator::class)
+                new InterfaceTypeDetails(\Iterator::class),
             ],
             'TypeLookup->getByName( Sequence::class )' => [
                 $typeLookup->getByName(Sequence::class),
-                new ClassTypeDetails(Sequence::class)
+                new ClassTypeDetails(Sequence::class),
             ],
 
-
-            /**
-             * TypeLookup->getByValue()
-             */
+            // TypeLookup->getByValue()
             'TypeLookup->getByValue( [ 1 ] )' => [
-                $typeLookup->getByValue([ 1 ]),
-                new ArrayTypeDetails()
+                $typeLookup->getByValue([1]),
+                new ArrayTypeDetails(),
             ],
             'TypeLookup->getByValue( true )' => [
                 $typeLookup->getByValue(true),
-                new BooleanTypeDetails()
+                new BooleanTypeDetails(),
             ],
             'TypeLookup->getByValue( 0.0 )' => [
                 $typeLookup->getByValue(0.0),
-                new FloatTypeDetails()
+                new FloatTypeDetails(),
             ],
             'TypeLookup->getByValue( 1.0 )' => [
                 $typeLookup->getByValue(1.0),
-                new FloatTypeDetails()
+                new FloatTypeDetails(),
             ],
             'TypeLookup->getByValue( 0 )' => [
                 $typeLookup->getByValue(0),
-                new IntegerTypeDetails()
+                new IntegerTypeDetails(),
             ],
             'TypeLookup->getByValue( 1 )' => [
                 $typeLookup->getByValue(1),
-                new IntegerTypeDetails()
+                new IntegerTypeDetails(),
             ],
             'TypeLookup->getByValue( NULL )' => [
                 $typeLookup->getByValue(null),
-                new NullTypeDetails()
+                new NullTypeDetails(),
             ],
             'TypeLookup->getByValue( \'1\' )' => [
                 $typeLookup->getByValue('1'),
-                new StringTypeDetails()
+                new StringTypeDetails(),
             ],
             'TypeLookup->getByValue( new Sequence( \'int\', [ 1 ] ))' => [
-                $typeLookup->getByValue(new Sequence('int', [ 1 ])),
-                new ClassTypeDetails(Sequence::class)
-            ]
+                $typeLookup->getByValue(new Sequence('int', [1])),
+                new ClassTypeDetails(Sequence::class),
+            ],
         ];
     }
 }

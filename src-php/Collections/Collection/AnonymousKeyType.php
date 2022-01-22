@@ -8,7 +8,7 @@ use PHP\Types\Models\AnonymousType;
 use PHP\Types\Models\Type;
 
 /**
- * Anonymous type for keys that evaluates to true for any type other than null
+ * Anonymous type for keys that evaluates to true for any type other than null.
  */
 class AnonymousKeyType extends AnonymousType
 {
@@ -17,9 +17,8 @@ class AnonymousKeyType extends AnonymousType
         return 'null' !== $typeName;
     }
 
-
     public function isValueOfType($value): bool
     {
-        return ($value !== null);
+        return null !== $value;
     }
 }

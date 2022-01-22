@@ -8,12 +8,15 @@ use PHP\Collections\KeyValuePair;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for KeyValuePoir
+ * Tests for KeyValuePoir.
+ *
+ * @internal
+ * @coversNothing
  */
 class KeyValuePairTest extends TestCase
 {
     /**
-     * Test __construct() throws \InvalidArgumentException on null keys
+     * Test __construct() throws \InvalidArgumentException on null keys.
      */
     public function testConstructThrowsInvalidArgumentExceptionOnNullKey()
     {
@@ -21,11 +24,12 @@ class KeyValuePairTest extends TestCase
         new KeyValuePair(null, 1);
     }
 
-
     /**
-     * Test getKey() return value
+     * Test getKey() return value.
      *
      * @dataProvider getTestKeyValueData
+     *
+     * @param mixed $key
      */
     public function testGetKey($key)
     {
@@ -36,11 +40,12 @@ class KeyValuePairTest extends TestCase
         );
     }
 
-
     /**
-     * Test getValue() return value
+     * Test getValue() return value.
      *
      * @dataProvider getTestKeyValueData
+     *
+     * @param mixed $value
      */
     public function testGetValue($value)
     {
@@ -51,16 +56,15 @@ class KeyValuePairTest extends TestCase
         );
     }
 
-
     /**
-     * Data provider for getKey() and getValue() tests
+     * Data provider for getKey() and getValue() tests.
      */
     public function getTestKeyValueData(): array
     {
         return [
-            '1'    => [ 1 ],
-            '"1"'  => [ '1' ],
-            'true' => [ true ]
+            '1' => [1],
+            '"1"' => ['1'],
+            'true' => [true],
         ];
     }
 }

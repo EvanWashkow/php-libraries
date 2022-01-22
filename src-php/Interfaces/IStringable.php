@@ -12,9 +12,7 @@ namespace PHP\Interfaces;
 interface IStringable
 {
     /**
-     * Convert this object to a string
-     *
-     * @return string
+     * Convert this object to a string.
      */
     public function __toString(): string;
 }

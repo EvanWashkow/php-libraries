@@ -14,42 +14,34 @@ use PHP\Types\TypeLookupSingleton;
 use PHP\Types\TypeNames;
 
 /**
- * Defines an iterable set of mutable, key-value pairs
+ * Defines an iterable set of mutable, key-value pairs.
  */
 abstract class Collection extends ObjectClass implements IArrayable, ICloneable, ICountable, IIterable
 {
-    /***************************************************************************
-    *                               PROPERTIES
-    ***************************************************************************/
+    // PROPERTIES
 
-    /** @var Type $keyType Type requirement for all keys */
+    /** @var Type Type requirement for all keys */
     private $keyType;
 
-    /** @var Type $valueType Type requirement for all values */
+    /** @var Type Type requirement for all values */
     private $valueType;
 
-
-
-
-    /***************************************************************************
-    *                              CONSTRUCTOR
-    ***************************************************************************/
-
+    // CONSTRUCTOR
 
     /**
-     * Create a new Collection
+     * Create a new Collection.
      *
      * @param string $keyType   Type requirement for keys. '*' allows all types.
      * @param string $valueType Type requirement for values. '*' allows all types.
      * @param array  $entries   Initial entries [ key => value ]
-     * @throws \DomainException When key or value type either does not exist or is null.
+     *
+     * @throws \DomainException when key or value type either does not exist or is null
      */
     public function __construct(
         string $keyType,
         string $valueType,
-        array  $entries   = []
-    )
-    {
+        array $entries = []
+    ) {
         // Create type lookup
         $typeLookup = TypeLookupSingleton::getInstance();
 
@@ -60,7 +52,7 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
             try {
                 $this->keyType = $typeLookup->getByName($keyType);
             } catch (\DomainException $e) {
-                throw new \DomainException("\"$keyType\" cannot be used for the key type: it does not exist.");
+                throw new \DomainException("\"{$keyType}\" cannot be used for the key type: it does not exist.");
             }
         }
 
@@ -71,7 +63,7 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
             try {
                 $this->valueType = $typeLookup->getByName($valueType);
             } catch (\DomainException $e) {
-                throw new \DomainException("\"$valueType\" cannot be used for the value type: it does not exist.");
+                throw new \DomainException("\"{$valueType}\" cannot be used for the value type: it does not exist.");
             }
         }
 
@@ -89,141 +81,98 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
         }
     }
 
+    // ABSTRACT
 
     /**
-     * Create an anonymous key type
-     *
-     * @internal This allows the child class to customize the anonymous type to
-     * allow / prevent certain types.
-     *
-     * @return AnonymousType
-     **/
-    protected function createAnonymousKeyType(): AnonymousType
-    {
-        return new Collection\AnonymousKeyType();
-    }
-
-
-    /**
-     * Create an anonymous value type
-     *
-     * @internal This allows the child class to customize the anonymous type to
-     * allow / prevent certain types.
-     *
-     * @return AnonymousType
-     **/
-    protected function createAnonymousValueType(): AnonymousType
-    {
-        return new AnonymousType();
-    }
-
-
-
-
-    /***************************************************************************
-    *                                 ABSTRACT
-    ***************************************************************************/
-
-    /**
-     * Remove all entries
-     *
-     * @return bool
+     * Remove all entries.
      */
     abstract public function clear(): bool;
 
-
     /**
-     * Retrieve the number of entries in the collection
+     * Retrieve the number of entries in the collection.
      *
      * @internal No way to write an optimal implementation (using toArray()).
      * Depending on the collection, toArray() may take time to complete.
-     *
-     * @return int
-     **/
+     */
     abstract public function count(): int;
 
     /**
-     * Retrieve the value
+     * Retrieve the value.
      *
      * Throws \OutOfBoundsException if the key does not exist
      *
      * @param mixed $key The key to retrieve the value from
-     * @return mixed The value if the key exists. NULL otherwise.
+     *
      * @throws \OutOfBoundsException Key doesn't exist
+     *
+     * @return mixed The value if the key exists. NULL otherwise.
      */
     abstract public function get($key);
 
     /**
-     * Retrieve all keys
+     * Retrieve all keys.
      *
-     * @internal There's no way to write a solution for this (using toArray())
-     * without also making it incorrect.
-     *
-     * @return Sequence
+     * @internal there's no way to write a solution for this (using toArray())
+     * without also making it incorrect
      */
     abstract public function getKeys(): Sequence;
 
     /**
-     * Retrieve the key of the first value found
+     * Retrieve the key of the first value found.
      *
      * Throws \PHP\Exceptions\NotFoundException if key not found. This *always* has to be
      * handled by the caller, even if a default value was returned. Throwing an
      * exception provides more information to the caller about what happened.
      *
-     * @internal There's no way to write a solution for this (using toArray())
-     * without also making it incorrect.
+     * @internal there's no way to write a solution for this (using toArray())
+     * without also making it incorrect
      *
      * @param mixed $value The value to find
-     * @return mixed The key
+     *
      * @throws \PHP\Exceptions\NotFoundException When key not found
+     *
+     * @return mixed The key
      */
     abstract public function getKeyOf($value);
 
     /**
-     * Determine if the key exists
+     * Determine if the key exists.
      *
      * @internal There's no way to write an optimal solution for this
      * (using getKeys()). getKeys() takes time to complete.
      *
      * @param mixed $key The key to check for
-     * @return bool
      */
     abstract public function hasKey($key): bool;
 
     /**
-     * Remove key (and its corresponding value) from this collection
+     * Remove key (and its corresponding value) from this collection.
      *
      * @param mixed $key The key to remove the value from
+     *
      * @return bool Whether or not the operation was successful
      */
     abstract public function remove($key): bool;
 
     /**
-     * Store the value at the key
+     * Store the value at the key.
      *
      * Adds a new key or updates existing. Rejects entry if key or value aren't
      * the right type, returning false.
      *
-     * @param mixed $key The key to store the value at
+     * @param mixed $key   The key to store the value at
      * @param mixed $value The value to store
+     *
      * @return bool Whether or not the operation was successful
      */
     abstract public function set($key, $value): bool;
 
     /**
-     * Convert to a native PHP array
-     *
-     * @return array
+     * Convert to a native PHP array.
      */
     abstract public function toArray(): array;
 
-
-
-
-    /***************************************************************************
-    *                                     OVERRIDES
-    ***************************************************************************/
-
+    // OVERRIDES
 
     /**
      * @deprecated Use getIterator() instead. 04-2020.
@@ -235,19 +184,14 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
             trigger_error('Deprecated. Use getIterator() instead.', E_USER_DEPRECATED);
             $isFirstValid = false;
         }
+
         return $this->hasKey($this->key());
     }
 
-
-
-
-    /***************************************************************************
-    *                                   CLONE
-    ***************************************************************************/
-
+    // CLONE
 
     /**
-     * Creates a new Collection that is a copy of the current instance
+     * Creates a new Collection that is a copy of the current instance.
      *
      * @return static
      */
@@ -256,31 +200,20 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
         return clone $this;
     }
 
-
-
-
-    /***************************************************************************
-    *                                 OWN METHODS
-    ***************************************************************************/
-
+    // OWN METHODS
 
     /**
-     * Retrieve key type
+     * Retrieve key type.
      *
      * @internal Final. The key type cannot be modified after construction.
-     *
-     * @return Type
-     **/
+     */
     final public function getKeyType(): Type
     {
         return $this->keyType;
     }
 
-
     /**
-     * Retrieve all values
-     *
-     * @return Sequence
+     * Retrieve all values.
      */
     public function getValues(): Sequence
     {
@@ -290,40 +223,36 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
         );
     }
 
-
     /**
-     * Retrieve value type
+     * Retrieve value type.
      *
      * @internal Final. The value type cannot be modified after construction.
-     *
-     * @return Type
-     **/
+     */
     final public function getValueType(): Type
     {
         return $this->valueType;
     }
 
-
     /**
-     * Determine if the value exists
+     * Determine if the value exists.
      *
-     * @internal Not final since a child class may have optimizations to make,
-     * especially if they have a limited data set.
+     * @internal not final since a child class may have optimizations to make,
+     * especially if they have a limited data set
      *
      * @param mixed $value The value to check for
-     * @return bool
      */
     public function hasValue($value): bool
     {
         $hasValue = true;
+
         try {
             $this->getKeyOf($value);
         } catch (NotFoundException $e) {
             $hasValue = false;
         }
+
         return $hasValue;
     }
-
 
     /**
      * @deprecated Use foreach( Collection ) instead. 04-2020.
@@ -345,9 +274,32 @@ abstract class Collection extends ObjectClass implements IArrayable, ICloneable,
             $canContinue = $function($entry->getKey(), $entry->getValue());
             if (false === $canContinue) {
                 break;
-            } elseif (true !== $canContinue) {
+            }
+            if (true !== $canContinue) {
                 throw new \TypeError('Collection->loop() callback function did not return a boolean value');
             }
         }
+    }
+
+    /**
+     * Create an anonymous key type.
+     *
+     * @internal this allows the child class to customize the anonymous type to
+     * allow / prevent certain types
+     */
+    protected function createAnonymousKeyType(): AnonymousType
+    {
+        return new Collection\AnonymousKeyType();
+    }
+
+    /**
+     * Create an anonymous value type.
+     *
+     * @internal this allows the child class to customize the anonymous type to
+     * allow / prevent certain types
+     */
+    protected function createAnonymousValueType(): AnonymousType
+    {
+        return new AnonymousType();
     }
 }

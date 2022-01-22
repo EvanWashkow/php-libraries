@@ -18,7 +18,7 @@ use PHP\Collections\KeyValuePair;
 class DeprecatedKeyValuePair extends KeyValuePair
 {
     /**
-     * Forward any calls on to the value
+     * Forward any calls on to the value.
      */
     public function __call(string $name, array $arguments)
     {
@@ -30,12 +30,12 @@ class DeprecatedKeyValuePair extends KeyValuePair
             );
             $isFirstCall = false;
         }
-        return call_user_func([ $this->getValue(), $name ], ...$arguments);
+
+        return call_user_func([$this->getValue(), $name], ...$arguments);
     }
 
-
     /**
-     * Forward any property access on to the value
+     * Forward any property access on to the value.
      */
     public function __get(string $name)
     {
@@ -47,6 +47,7 @@ class DeprecatedKeyValuePair extends KeyValuePair
             );
             $isFirstGet = false;
         }
-        return $this->getValue()->$name;
+
+        return $this->getValue()->{$name};
     }
 }

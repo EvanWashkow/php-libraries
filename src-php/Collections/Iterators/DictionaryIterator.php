@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Dictionary;
-use PHP\Collections\KeyValuePair;
 use PHP\Collections\Iteration\IndexedIterator;
+use PHP\Collections\KeyValuePair;
 
 /**
- * Defines an Iterator to traverse a dictionary
+ * Defines an Iterator to traverse a dictionary.
  */
 class DictionaryIterator extends IndexedIterator
 {
-    /** @var Dictionary $dictionary The Dictionary to traverse */
+    /** @var Dictionary The Dictionary to traverse */
     private $dictionary;
 
-
     /**
-     * Create a new Dictionary Iterator
+     * Create a new Dictionary Iterator.
      *
      * @param Dictionary $dictionary The Dictionary to traverse
      */
@@ -28,12 +27,10 @@ class DictionaryIterator extends IndexedIterator
         $this->dictionary = $dictionary;
     }
 
-
     public function hasCurrent(): bool
     {
         return array_key_exists($this->getKey(), $this->getIndexedKeys());
     }
-
 
     public function getValue(): KeyValuePair
     {
@@ -45,24 +42,21 @@ class DictionaryIterator extends IndexedIterator
         }
 
         // Convert the Dictionary keys to an indexed array, and get the current loop index key
-        $key = $this->getIndexedKeys()[ $this->getKey() ];
+        $key = $this->getIndexedKeys()[$this->getKey()];
 
         // Convert the current key to the Dictionary key type
         $keyType = $this->dictionary->getKeyType();
         if ($keyType->is('int')) {
             $key = intval($key);
         } elseif ($keyType->is('string')) {
-            $key = "$key";
+            $key = "{$key}";
         }
 
         return new DeprecatedKeyValuePair($key, $this->dictionary->get($key));
     }
 
-
     /**
-     * Retrieve the dictionary keys as an indexed array
-     *
-     * @return array
+     * Retrieve the dictionary keys as an indexed array.
      */
     private function getIndexedKeys(): array
     {

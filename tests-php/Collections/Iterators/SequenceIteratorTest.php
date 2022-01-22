@@ -10,17 +10,17 @@ use PHP\Collections\Sequence;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests SequenceIterator
+ * Tests SequenceIterator.
+ *
+ * @internal
+ * @coversNothing
  */
 class SequenceIteratorTest extends TestCase
 {
-    /*******************************************************************************************************************
-    *                                                      INHERITANCE
-    *******************************************************************************************************************/
-
+    // INHERITANCE
 
     /**
-     * Ensure SequenceIterator is an instance of a ArrayableIterator
+     * Ensure SequenceIterator is an instance of a ArrayableIterator.
      */
     public function testIsArrayableIterator()
     {
@@ -31,16 +31,10 @@ class SequenceIteratorTest extends TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                     __construct()
-    *******************************************************************************************************************/
-
+    // __construct()
 
     /**
-     * Test __construct() correctly sets the starting index
+     * Test __construct() correctly sets the starting index.
      *
      * @dataProvider getConstructStartingIndexTestData
      */
@@ -60,31 +54,28 @@ class SequenceIteratorTest extends TestCase
                 (function () {
                     $sequence = $this->createMock(Sequence::class);
                     $sequence->method('getFirstKey')->willReturn(-2);
+
                     return $sequence;
-                })()
+                })(),
             ],
             'Sequence->getFirstKey() === 0' => [
-                new Sequence('*')
+                new Sequence('*'),
             ],
             'Sequence->getFirstKey() === 3' => [
                 (function () {
                     $sequence = $this->createMock(Sequence::class);
                     $sequence->method('getFirstKey')->willReturn(3);
+
                     return $sequence;
-                })()
-            ]
+                })(),
+            ],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                       getValue()
-    *******************************************************************************************************************/
+    // getValue()
 
     /**
-     * Test getValue() return key
+     * Test getValue() return key.
      *
      * @dataProvider getIterators
      */
@@ -102,15 +93,10 @@ class SequenceIteratorTest extends TestCase
         }
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                       getKey()
-    *******************************************************************************************************************/
+    // getKey()
 
     /**
-     * Test getKey() return key
+     * Test getKey() return key.
      *
      * @dataProvider getIterators
      */
@@ -123,15 +109,10 @@ class SequenceIteratorTest extends TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                      hasCurrent()
-    *******************************************************************************************************************/
+    // hasCurrent()
 
     /**
-     * Test hasCurrent() return value
+     * Test hasCurrent() return value.
      *
      * @dataProvider getIterators
      */
@@ -144,65 +125,53 @@ class SequenceIteratorTest extends TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                   SHARED DATA PROVIDERS
-    *******************************************************************************************************************/
-
+    // SHARED DATA PROVIDERS
 
     /**
-     * Retrieve sample SequenceIterator test data
-     *
-     * @return array
+     * Retrieve sample SequenceIterator test data.
      */
     public function getIterators(): array
     {
         // Zero-based index Sequences
-        $zeroBased  = new Sequence('int', [ 1, 2, 3 ]);
+        $zeroBased = new Sequence('int', [1, 2, 3]);
 
         // Three-based index Sequences
         $threeBased = $this->getMockBuilder(Sequence::class)
-            ->setConstructorArgs([ 'int' ])
-            ->setMethods([ 'getFirstKey' ])
-            ->getMock();
+            ->setConstructorArgs(['int'])
+            ->setMethods(['getFirstKey'])
+            ->getMock()
+        ;
         $threeBased->method('getFirstKey')->willReturn(3);
         $threeBased->set(3, 1);
         $threeBased->set(4, 2);
         $threeBased->set(5, 2);
 
         return [
-
-            /**
-             * Example SequenceIterator with no entries
-             */
+            // Example SequenceIterator with no entries
             'SequenceIterator([]), zero-based index' => [
                 new SequenceIterator(new Sequence('int')),      // SequenceIterator
                 false,                                              // ->hasCurrent()
                 0,                                                  // ->getKey()
-                null                                                // ->getValue()
+                null,                                                // ->getValue()
             ],
 
-
-            /**
-             * Zero-based indexed Sequences
-             */
+            // Zero-based indexed Sequences
             'SequenceIterator( zeroBased )' => [
                 new SequenceIterator($zeroBased),
                 true,
                 0,
-                1
+                1,
             ],
             'SequenceIterator( zeroBased )->goToNext()' => [
                 (function () use ($zeroBased) {
                     $iterator = new SequenceIterator($zeroBased);
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
                 true,
                 1,
-                2
+                2,
             ],
             'SequenceIterator( zeroBased )->goToNext()->goToNext()->goToNext()' => [
                 (function () use ($zeroBased) {
@@ -210,32 +179,31 @@ class SequenceIteratorTest extends TestCase
                     $iterator->goToNext();
                     $iterator->goToNext();
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
                 false,
                 3,
-                null
+                null,
             ],
 
-
-            /**
-             * Three-based indexed Sequences
-             */
+            // Three-based indexed Sequences
             'SequenceIterator( threeBased )' => [
                 new SequenceIterator($threeBased),
                 true,
                 3,
-                1
+                1,
             ],
             'SequenceIterator( threeBased )->goToNext()' => [
                 (function () use ($threeBased) {
                     $iterator = new SequenceIterator($threeBased);
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
                 true,
                 4,
-                2
+                2,
             ],
             'SequenceIterator( threeBased )->goToNext()->goToNext()->goToNext()' => [
                 (function () use ($threeBased) {
@@ -243,12 +211,13 @@ class SequenceIteratorTest extends TestCase
                     $iterator->goToNext();
                     $iterator->goToNext();
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
                 false,
                 6,
-                null
-            ]
+                null,
+            ],
         ];
     }
 }

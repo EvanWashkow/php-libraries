@@ -14,9 +14,8 @@ class ClassTypeDetails extends InterfaceTypeDetails
         parent::__construct($className);
     }
 
-
     public function getTypeNames(): array
     {
-        return [ ClassType::class, InterfaceType::class ];
+        return [ClassType::class, InterfaceType::class];
     }
 }

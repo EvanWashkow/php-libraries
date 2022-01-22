@@ -8,20 +8,18 @@ use PHP\Exceptions\NotFoundException;
 use PHP\Types\Models\Type;
 use PHP\Types\TypeLookupSingleton;
 
-/**
- * @deprecated 2020-02-29
- */
+// @deprecated 2020-02-29
 trigger_error('\\PHP\\Types is deprecated. Use \\PHP\\Types\\TypeLookup instead.', E_USER_DEPRECATED);
 
 /**
- * Deprecated
+ * Deprecated.
  *
  * @deprecated 2020-02-29
  */
 final class Types
 {
     /**
-     * Deprecated
+     * Deprecated.
      *
      * @deprecated 2020-02-29
      */
@@ -35,19 +33,22 @@ final class Types
             );
             $isFirstGetByName = false;
         }
+
         try {
             $type = TypeLookupSingleton::getInstance()->getByName($name);
         } catch (\DomainException $de) {
             throw new NotFoundException($de->getMessage());
         }
+
         return $type;
     }
 
-
     /**
-     * Deprecated
+     * Deprecated.
      *
      * @deprecated 2020-02-29
+     *
+     * @param mixed $value
      */
     public static function GetByValue($value): Type
     {
@@ -59,6 +60,7 @@ final class Types
             );
             $isFirstGetByValue = false;
         }
+
         return TypeLookupSingleton::getInstance()->getByValue($value);
     }
 }

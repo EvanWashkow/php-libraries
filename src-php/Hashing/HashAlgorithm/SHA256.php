@@ -7,7 +7,7 @@ namespace PHP\Hashing\HashAlgorithm;
 use PHP\Collections\ByteArray;
 
 /**
- * Defines the SHA256 Hash Algorithm
+ * Defines the SHA256 Hash Algorithm.
  */
 final class SHA256 implements IHashAlgorithm
 {

@@ -6,7 +6,10 @@ use PHP\Types\Models\ClassType;
 use PHP\Types\TypeLookupSingleton;
 
 /**
- * Ensure all ClassTypes have same basic functionality
+ * Ensure all ClassTypes have same basic functionality.
+ *
+ * @internal
+ * @coversNothing
  */
 final class ClassTypeTest extends TypeTestDefinition
 {
@@ -22,21 +25,16 @@ final class ClassTypeTest extends TypeTestDefinition
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                   ClassType->is()
-    *******************************************************************************************************************/
+    // ClassType->is()
 
     /**
-     * Test ClassType->is()
+     * Test ClassType->is().
      *
      * @dataProvider isProvider
      *
      * @param ClassType $typeA    Class type
-     * @param string     $typeB    Class name to compare A to
-     * @param bool       $expected The expected result
+     * @param string    $typeB    Class name to compare A to
+     * @param bool      $expected The expected result
      */
     public function testIs(ClassType $typeA, string $typeB, bool $expected)
     {
@@ -46,12 +44,9 @@ final class ClassTypeTest extends TypeTestDefinition
         );
     }
 
-
     /**
-     * Data provider for is() test
-     *
-     * @return array
-     **/
+     * Data provider for is() test.
+     */
     public function isProvider(): array
     {
         $typeLookup = TypeLookupSingleton::getInstance();
@@ -60,45 +55,40 @@ final class ClassTypeTest extends TypeTestDefinition
             '->getByName( \ReflectionObject::class )->is( \ReflectionObject::class )' => [
                 $typeLookup->getByName(\ReflectionObject::class),
                 \ReflectionObject::class,
-                true
+                true,
             ],
             '->getByName( \ReflectionObject::class )->is( \ReflectionClass::class )' => [
                 $typeLookup->getByName(\ReflectionObject::class),
                 \ReflectionClass::class,
-                true
+                true,
             ],
             '->getByName( \ReflectionObject::class )->is( \Reflector::class )' => [
                 $typeLookup->getByName(\ReflectionObject::class),
                 \Reflector::class,
-                true
+                true,
             ],
             '->getByName( \ReflectionClass::class )->is( "int" )' => [
                 $typeLookup->getByName(\ReflectionClass::class),
                 'int',
-                false
+                false,
             ],
             '->getByName( \ReflectionClass::class )->is( \ReflectionFunction::class )' => [
                 $typeLookup->getByName(\ReflectionClass::class),
                 \ReflectionFunction::class,
-                false
+                false,
             ],
             '->getByName( \ReflectionClass::class )->is( \ReflectionObject::class )' => [
                 $typeLookup->getByName(\ReflectionClass::class),
                 \ReflectionObject::class,
-                false
-            ]
+                false,
+            ],
         ];
     }
 
-
-
-    /*******************************************************************************************************************
-    *                                       ClassType->isClass() and ->isInterface()
-    *******************************************************************************************************************/
-
+    // ClassType->isClass() and ->isInterface()
 
     /**
-     * Ensure ClassType->isClass() returns true for classes
+     * Ensure ClassType->isClass() returns true for classes.
      *
      * @dataProvider getClassTypes
      *
@@ -113,9 +103,8 @@ final class ClassTypeTest extends TypeTestDefinition
         );
     }
 
-
     /**
-     * Ensure ClassType->isInterface() returns false for class types
+     * Ensure ClassType->isInterface() returns false for class types.
      *
      * @dataProvider getClassTypes
      *
@@ -130,23 +119,17 @@ final class ClassTypeTest extends TypeTestDefinition
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                 SHARED DATA PROVIDERS
-    *******************************************************************************************************************/
-
+    // SHARED DATA PROVIDERS
 
     /**
-     * Retrieve a list of types as a data provider
+     * Retrieve a list of types as a data provider.
      *
      * @return ClassType[]
-     **/
+     */
     public function getClassTypes(): array
     {
         return [
-            [ TypeLookupSingleton::getInstance()->getByName(\PHP\Collections\Dictionary::class) ]
+            [TypeLookupSingleton::getInstance()->getByName(\PHP\Collections\Dictionary::class)],
         ];
     }
 }

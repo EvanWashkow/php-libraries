@@ -17,19 +17,20 @@ use PHP\Interfaces\ICloneable;
 use PHP\Types\Models\AnonymousType;
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . '/CollectionData.php');
+require_once __DIR__.'/CollectionData.php';
 
 /**
- * Test all Collection methods to ensure consistent functionality
+ * Test all Collection methods to ensure consistent functionality.
+ *
+ * @internal
+ * @coversNothing
  */
 class CollectionTest extends TestCase
 {
-    /***************************************************************************
-    *                                 INHERITANCE
-    ***************************************************************************/
+    // INHERITANCE
 
     /**
-     * Test inheritance
+     * Test inheritance.
      *
      * @dataProvider getInheritanceTestData
      */
@@ -45,109 +46,97 @@ class CollectionTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            IArrayable::class => [ IArrayable::class ],
-            ICloneable::class => [ ICloneable::class ],
-            ICountable::class => [ ICountable::class ],
-            IIterable::class  => [ IIterable::class ]
+            IArrayable::class => [IArrayable::class],
+            ICloneable::class => [ICloneable::class],
+            ICountable::class => [ICountable::class],
+            IIterable::class => [IIterable::class],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                           Collection->__construct()
-    ***************************************************************************/
-
+    // Collection->__construct()
 
     /**
-     * Ensure the constructor throws an error for null key types
+     * Ensure the constructor throws an error for null key types.
      *
      * @dataProvider getConstructorExceptionsData
      *
      * @param Closure $function Function callback with the exceptions
-     **/
+     */
     public function testConstructorExceptions(\Closure $function)
     {
         $this->expectException(\DomainException::class);
         $function();
     }
 
-
     /**
-     * Get test data for testing constructor throws exception on bad key
-     *
-     * @return array
+     * Get test data for testing constructor throws exception on bad key.
      */
     public function getConstructorExceptionsData(): array
     {
         return [
-
             // Dictionary
             "new Dictionary( '', 'int' )" => [
                 function () {
                     new Dictionary('', 'int');
-                }
+                },
             ],
             "new Dictionary( 'int', '' )" => [
                 function () {
                     new Dictionary('int', '');
-                }
+                },
             ],
-            'new Dictionary( null )'   => [
+            'new Dictionary( null )' => [
                 function () {
                     new Dictionary('null', '*');
-                }
+                },
             ],
             'new Dictionary( foobar )' => [
                 function () {
                     new Dictionary('foobar', '*');
-                }
+                },
             ],
-            'new Dictionary( *, null )'   => [
+            'new Dictionary( *, null )' => [
                 function () {
                     new Dictionary('*', 'null');
-                }
+                },
             ],
             'new Dictionary( *, foobar )' => [
                 function () {
                     new Dictionary('*', 'foobar');
-                }
+                },
             ],
 
             // Sequence
             "new Sequence( '' )" => [
                 function () {
                     new Sequence('');
-                }
+                },
             ],
-            'new Sequence( null )'   => [
+            'new Sequence( null )' => [
                 function () {
                     new Sequence('null');
-                }
+                },
             ],
             'new Sequence( foobar )' => [
                 function () {
                     new Sequence('foobar');
-                }
+                },
             ],
         ];
     }
 
-
     /**
-     * Ensure the constructor sets initial entries
+     * Ensure the constructor sets initial entries.
      *
      * @dataProvider getConstructorEntriesData
      *
      * @param Collection $collection The collection instance
      * @param array      $expected   The expected entries
-     **/
+     */
     public function testConstructorEntries(
         Collection $collection,
-        array      $expected
-    )
-    {
+        array $expected
+    ) {
         $this->assertEquals(
             $expected,
             $collection->toArray(),
@@ -155,82 +144,74 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Get test data for testing constructor sets initial entries
-     *
-     * @return array
+     * Get test data for testing constructor sets initial entries.
      */
     public function getConstructorEntriesData(): array
     {
         set_error_handler(function () {
         });
         $array = [
-
             // Dictionary
             'Dictionary with no entries' => [
-                new Dictionary('string', 'string', []), []
+                new Dictionary('string', 'string', []), [],
             ],
             'Dictionary with entries' => [
-                new Dictionary('string', 'string', [ 'foo' => 'bar' ]),
-                [ 'foo' => 'bar' ]
+                new Dictionary('string', 'string', ['foo' => 'bar']),
+                ['foo' => 'bar'],
             ],
             'Dictionary with wrong key type' => [
-                new Dictionary('int', 'string', [ 'foo' => 'bar' ]),
-                []
+                new Dictionary('int', 'string', ['foo' => 'bar']),
+                [],
             ],
             'Dictionary with wrong value type' => [
-                new Dictionary('string', 'int', [ 'foo' => 'bar' ]),
-                []
+                new Dictionary('string', 'int', ['foo' => 'bar']),
+                [],
             ],
 
             // Cache
             'Cache with no entries' => [
-                new Cache('string', 'string', []), []
+                new Cache('string', 'string', []), [],
             ],
             'Cache with entries' => [
-                new Cache('string', 'string', [ 'foo' => 'bar' ]),
-                [ 'foo' => 'bar' ]
+                new Cache('string', 'string', ['foo' => 'bar']),
+                ['foo' => 'bar'],
             ],
             'Cache with wrong key type' => [
-                new Cache('int', 'string', [ 'foo' => 'bar' ]),
-                []
+                new Cache('int', 'string', ['foo' => 'bar']),
+                [],
             ],
             'Cache with wrong value type' => [
-                new Cache('string', 'int', [ 'foo' => 'bar' ]),
-                []
+                new Cache('string', 'int', ['foo' => 'bar']),
+                [],
             ],
 
             // Sequence
             'Sequence with no entries' => [
-                new Sequence('string', []), []
+                new Sequence('string', []), [],
             ],
             'Sequence with entries' => [
-                new Sequence('string', [ 5 => 'bar' ]),
-                [ 0 => 'bar' ]
+                new Sequence('string', [5 => 'bar']),
+                [0 => 'bar'],
             ],
             'Sequence with wrong value type' => [
-                new Sequence('string', [ 5, 'foo' => 'bar' ]),
-                [ 0 => 'bar' ]
+                new Sequence('string', [5, 'foo' => 'bar']),
+                [0 => 'bar'],
             ],
             'Anonymous Sequence with entries' => [
-                new Sequence('*', [ 5 => 'bar' ]),
-                [ 0 => 'bar' ]
+                new Sequence('*', [5 => 'bar']),
+                [0 => 'bar'],
             ],
         ];
         restore_error_handler();
+
         return $array;
     }
 
-
-
-
-    /***************************************************************************
-    *                           Collection->clear()
-    ***************************************************************************/
+    // Collection->clear()
 
     /**
-     * Ensure clear() has no entries
+     * Ensure clear() has no entries.
      */
     public function testClearHasNoEntries()
     {
@@ -245,16 +226,10 @@ class CollectionTest extends TestCase
         }
     }
 
-
-
-
-    /***************************************************************************
-    *                           Collection->clone()
-    ***************************************************************************/
-
+    // Collection->clone()
 
     /**
-     * Ensure shallow clone $this has the same entries
+     * Ensure shallow clone $this has the same entries.
      *
      * @dataProvider getCloneEntriesData
      *
@@ -263,9 +238,8 @@ class CollectionTest extends TestCase
      */
     public function testShallowCloneEntries(
         Collection $collection,
-        array      $expected
-    )
-    {
+        array $expected
+    ) {
         $clone = clone $collection;
         $this->assertEquals(
             $expected,
@@ -274,69 +248,60 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for testing that clone rewinds the collection
-     *
-     * @return array
+     * Retrieve test data for testing that clone rewinds the collection.
      */
     public function getCloneEntriesData(): array
     {
         return [
-
             // Dictionary
             'Empty Dictionary' => [
                 new Dictionary('*', '*'),
-                []
+                [],
             ],
             'Non-empty Dictionary' => [
                 new Dictionary('*', '*', [
                     'foo' => 'bar',
-                    'biz' => 'baz'
+                    'biz' => 'baz',
                 ]),
                 [
                     'foo' => 'bar',
-                    'biz' => 'baz'
-                ]
+                    'biz' => 'baz',
+                ],
             ],
 
             // Sequence
             'Empty Sequence' => [
                 new Sequence('*'),
-                []
+                [],
             ],
             'Non-empty Sequence' => [
                 new Sequence('*', [
                     'foo',
                     'bar',
                     'biz',
-                    'baz'
+                    'baz',
                 ]),
                 [
                     'foo',
                     'bar',
                     'biz',
-                    'baz'
-                ]
-            ]
+                    'baz',
+                ],
+            ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Collection->count()
-    ***************************************************************************/
+    // Collection->count()
 
     /**
-     * Ensure Collection->count() returns the correct count
+     * Ensure Collection->count() returns the correct count.
      *
      * @dataProvider getCountData
      *
      * @param Collection $collection The collection to test
      * @param int        $expected   The expected count
-     **/
+     */
     public function testCount(Collection $collection, int $expected)
     {
         $this->assertTrue(
@@ -345,11 +310,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for count tests
-     *
-     * @return array
+     * Retrieve test data for count tests.
      */
     public function getCountData(): array
     {
@@ -364,31 +326,24 @@ class CollectionTest extends TestCase
         $sequence->add(2);
 
         return [
-            [ ( new Dictionary('*', '*') ), 0 ],
-            [ $dictionary,          3 ],
-            [ ( new Sequence('*') ),   0 ],
-            [ $sequence,            3 ]
-
+            [( new Dictionary('*', '*') ), 0],
+            [$dictionary,          3],
+            [( new Sequence('*') ),   0],
+            [$sequence,            3],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                              Collection->get()
-    ***************************************************************************/
-
+    // Collection->get()
 
     /**
-     * Ensure Collection->get() returns the correct value
+     * Ensure Collection->get() returns the correct value.
      *
      * @dataProvider getGetData
      *
      * @param Collection $collection The collection to test
      * @param mixed      $key        The key to access
      * @param mixed      $expected   The expected value
-     **/
+     */
     public function testGet(Collection $collection, $key, $expected)
     {
         $this->assertTrue(
@@ -397,11 +352,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for get tests
-     *
-     * @return array
+     * Retrieve test data for get tests.
      */
     public function getGetData(): array
     {
@@ -416,31 +368,27 @@ class CollectionTest extends TestCase
         $sequence->add('bar');
 
         return [
-            [ $dictionary, 1, true ],
-            [ $sequence,   1, true ]
+            [$dictionary, 1, true],
+            [$sequence,   1, true],
         ];
     }
 
-
     /**
-     * Ensure Collection->get() throws an exception on missing key
+     * Ensure Collection->get() throws an exception on missing key.
      *
      * @dataProvider getGetExceptionData
      *
      * @param Collection $collection The collection to test
      * @param mixed      $key        The key to access
-     **/
+     */
     public function testGetException(Collection $collection, $key)
     {
         $this->expectException(\OutOfBoundsException::class);
         $collection->get($key);
     }
 
-
     /**
-     * Retrieve test data for get tests
-     *
-     * @return array
+     * Retrieve test data for get tests.
      */
     public function getGetExceptionData(): array
     {
@@ -451,38 +399,30 @@ class CollectionTest extends TestCase
         $sequence->add('0');
 
         return [
-
             // null cannot be a key
-            [ new Dictionary('*', '*'), null ],
-            [ new Sequence('*'),   null ],
-
+            [new Dictionary('*', '*'), null],
+            [new Sequence('*'),   null],
 
             // Missing keys
-            [ new Dictionary('*', '*'), 0 ],
-            [ new Sequence('*'),   0 ],
+            [new Dictionary('*', '*'), 0],
+            [new Sequence('*'),   0],
 
             // Wrong key type
-            [ $dictionary, '0' ],
-            [ $sequence,   '0' ]
+            [$dictionary, '0'],
+            [$sequence,   '0'],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Collection->getKeyOf()
-    ***************************************************************************/
-
+    // Collection->getKeyOf()
 
     /**
-     * Ensure getKeyOf() throws exceptions when expected
+     * Ensure getKeyOf() throws exceptions when expected.
      *
      * @dataProvider getGetKeyOfExceptionsData
      *
      * @param Collection $sequence The collection
      * @param mixed      $badValue A bad value to try to find
-     **/
+     */
     public function testGetKeyOfExceptions(
         Collection $collection,
         $badValue
@@ -491,12 +431,9 @@ class CollectionTest extends TestCase
         $collection->getKeyOf($badValue);
     }
 
-
     /**
-     * Retrieve test data for the getKeyOf() result test
-     *
-     * @return array
-     **/
+     * Retrieve test data for the getKeyOf() result test.
+     */
     public function getGetKeyOfExceptionsData(): array
     {
         $dictionary = new Dictionary('*', '*');
@@ -508,56 +445,50 @@ class CollectionTest extends TestCase
         $sequence->add(1);
 
         return [
-
             // Dictionary
             'Empty Dictionary; missing value' => [
-                new Dictionary('*', '*'), 0
+                new Dictionary('*', '*'), 0,
             ],
             'Non-empty Dictionary; missing value' => [
-                $dictionary, 2
+                $dictionary, 2,
             ],
             'Non-empty Dictionary; wrong value type' => [
-                $dictionary, '0'
+                $dictionary, '0',
             ],
 
             // Sequence
             'Empty Sequence; missing value' => [
-                new Sequence('*'), 0
+                new Sequence('*'), 0,
             ],
             'Non-empty Sequence; missing value' => [
-                $sequence, 2
+                $sequence, 2,
             ],
             'Non-empty Sequence; wrong value type' => [
-                $sequence, '0'
-            ]
+                $sequence, '0',
+            ],
         ];
     }
 
-
     /**
-     * Test getKeyOf() result
+     * Test getKeyOf() result.
      *
      * @dataProvider getGetKeyOfResultData
      *
      * @param Collection $sequence The collection
      * @param mixed      $value    The value to get the key of
      * @param mixed      $expected The expected key
-     **/
+     */
     public function testGetKeyOfResult(
         Collection $collection,
         $value,
         $expected
-    )
-    {
+    ) {
         $this->assertEquals($collection->getKeyOf($value), $expected);
     }
 
-
     /**
-     * Retrieve test data for the getKeyOf() result test
-     *
-     * @return array
-     **/
+     * Retrieve test data for the getKeyOf() result test.
+     */
     public function getGetKeyOfResultData(): array
     {
         $dictionary = new Dictionary('*', '*');
@@ -569,35 +500,28 @@ class CollectionTest extends TestCase
         $sequence->add(1);
 
         return [
-
             // Dictionary
             'Dictionary; value 0' => [
-                $dictionary, 0, '0'
+                $dictionary, 0, '0',
             ],
             'Dictionary; value 1' => [
-                $dictionary, 1, '1'
+                $dictionary, 1, '1',
             ],
 
             // Sequence
             'Sequence; value 0' => [
-                $sequence, 0, 0
+                $sequence, 0, 0,
             ],
             'Sequence; value 1' => [
-                $sequence, 1, 1
-            ]
+                $sequence, 1, 1,
+            ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Collection->getKeys()
-    ***************************************************************************/
-
+    // Collection->getKeys()
 
     /**
-     * Ensure getKeys() returns a sequence
+     * Ensure getKeys() returns a sequence.
      *
      * @dataProvider getCollectionData
      *
@@ -612,9 +536,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Ensure getKeys() returns the correct results
+     * Ensure getKeys() returns the correct results.
      *
      * @dataProvider getGetKeysData
      *
@@ -629,9 +552,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for getKeys() test
+     * Retrieve test data for getKeys() test.
      *
      * @todo Test Dictionary->getKeys() does not return strings for integer keys
      */
@@ -640,29 +562,23 @@ class CollectionTest extends TestCase
         return [
             [
                 new Dictionary('*', '*', [
-                    'foo'   => 'bar',
+                    'foo' => 'bar',
                     'false' => true,
-                    '1'     => 0
+                    '1' => 0,
                 ]),
-                [ 'foo', 'false', '1' ]
+                ['foo', 'false', '1'],
             ],
             [
-                new Sequence('*', [ 2, '1', false ]),
-                [ 0, 1, 2 ]
-            ]
+                new Sequence('*', [2, '1', false]),
+                [0, 1, 2],
+            ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                          Collection->getKeyType()
-    ***************************************************************************/
-
+    // Collection->getKeyType()
 
     /**
-     * Ensure getKeyType() has the same name
+     * Ensure getKeyType() has the same name.
      */
     public function testGetKeyTypeHasSameName()
     {
@@ -673,9 +589,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Ensure getKeyType() returns a Anonymous type
+     * Ensure getKeyType() returns a Anonymous type.
      */
     public function testGetKeyTypeAnonymous()
     {
@@ -686,16 +601,10 @@ class CollectionTest extends TestCase
         );
     }
 
-
-
-
-    /***************************************************************************
-    *                            Collection->getValues()
-    ***************************************************************************/
-
+    // Collection->getValues()
 
     /**
-     * Ensure getValues() returns a sequence
+     * Ensure getValues() returns a sequence.
      *
      * @dataProvider getCollectionData
      *
@@ -710,9 +619,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Ensure getValues() returns the correct results
+     * Ensure getValues() returns the correct results.
      *
      * @dataProvider getGetValuesData
      *
@@ -727,51 +635,43 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for getValues() test
+     * Retrieve test data for getValues() test.
      */
     public function getGetValuesData(): array
     {
         return [
             [
                 new Dictionary('*', '*', [
-                    'foo'   => 'bar',
+                    'foo' => 'bar',
                     'false' => true,
-                    '1'     => 0
+                    '1' => 0,
                 ]),
-                [ 'bar', true, 0 ]
+                ['bar', true, 0],
             ],
             [
-                new Sequence('*', [ 2, '1', false ]),
-                [ 2, '1', false ]
-            ]
+                new Sequence('*', [2, '1', false]),
+                [2, '1', false],
+            ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                          Collection->getValueType()
-    ***************************************************************************/
-
+    // Collection->getValueType()
 
     /**
-     * Ensure getValueType() has the same name
+     * Ensure getValueType() has the same name.
      */
     public function testGetValueTypeHasSameName()
     {
         $this->assertEquals(
             'int',
             ( new Dictionary('*', 'integer') )->getValueType()->getName(),
-            "Collection->getValueType() return the wrong value type"
+            'Collection->getValueType() return the wrong value type'
         );
     }
 
-
     /**
-     * Ensure getValueType() returns a Anonymous type
+     * Ensure getValueType() returns a Anonymous type.
      */
     public function testGetValueTypeAnonymous()
     {
@@ -782,16 +682,10 @@ class CollectionTest extends TestCase
         );
     }
 
-
-
-
-    /***************************************************************************
-    *                            Collection->hasKey()
-    ***************************************************************************/
-
+    // Collection->hasKey()
 
     /**
-     * Ensure Collection->hasKey() returns the correct values
+     * Ensure Collection->hasKey() returns the correct values.
      *
      * @dataProvider getHasKeyData
      *
@@ -807,9 +701,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for hasKey() test
+     * Retrieve test data for hasKey() test.
      *
      * @todo Test Dictionary->hasKey() with mixure of strings and integers
      */
@@ -826,25 +719,19 @@ class CollectionTest extends TestCase
         $sequence->add(false);
 
         return [
-            'Dictionary valid'    => [ $dictionary, 'false',         true ],
-            'Dictionary bad type' => [ $dictionary, new \stdClass(), false ],
-            'Dictionary partial'  => [ $dictionary, 'foo',           false ],
-            'Sequence valid'      => [ $sequence,   0,               true ],
-            'Sequence unknown'    => [ $sequence,   5,               false ],
-            'Sequence bad type'   => [ $sequence,   new \stdClass(), false ]
+            'Dictionary valid' => [$dictionary, 'false',         true],
+            'Dictionary bad type' => [$dictionary, new \stdClass(), false],
+            'Dictionary partial' => [$dictionary, 'foo',           false],
+            'Sequence valid' => [$sequence,   0,               true],
+            'Sequence unknown' => [$sequence,   5,               false],
+            'Sequence bad type' => [$sequence,   new \stdClass(), false],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Collection->hasValue()
-    ***************************************************************************/
-
+    // Collection->hasValue()
 
     /**
-     * Ensure Collection->hasValue() returns the correct values
+     * Ensure Collection->hasValue() returns the correct values.
      *
      * @dataProvider getHasValueData
      *
@@ -860,9 +747,8 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Retrieve test data for hasValue() test
+     * Retrieve test data for hasValue() test.
      *
      * @todo Test Dictionary->hasValue() with mixure of strings and integers
      */
@@ -880,25 +766,19 @@ class CollectionTest extends TestCase
         $sequence->add('foobar');
 
         return [
-            'Dictionary valid'          => [ $dictionary, true,  true ],
-            'Dictionary type-sensitive' => [ $dictionary, '0',   false ],
-            'Dictionary partial'        => [ $dictionary, 'foo', false ],
-            'Sequence valid'            => [ $sequence,   false, true ],
-            'Sequence type-sensitive'   => [ $sequence,   1,     false ],
-            'Sequence partial'          => [ $sequence,   'foo', false ]
+            'Dictionary valid' => [$dictionary, true,  true],
+            'Dictionary type-sensitive' => [$dictionary, '0',   false],
+            'Dictionary partial' => [$dictionary, 'foo', false],
+            'Sequence valid' => [$sequence,   false, true],
+            'Sequence type-sensitive' => [$sequence,   1,     false],
+            'Sequence partial' => [$sequence,   'foo', false],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                           Collection->remove()
-    ***************************************************************************/
-
+    // Collection->remove()
 
     /**
-     * Ensure remove() has the expected entries
+     * Ensure remove() has the expected entries.
      *
      * @dataProvider getRemoveKeyEntriesData
      *
@@ -908,10 +788,9 @@ class CollectionTest extends TestCase
      */
     public function testRemoveKeyEntries(
         Collection $collection,
-        array      $keysToRemove,
-        array      $expected
-    )
-    {
+        array $keysToRemove,
+        array $expected
+    ) {
         foreach ($keysToRemove as $key) {
             $collection->remove($key);
         }
@@ -922,47 +801,44 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Get test data for removing key entries
+     * Get test data for removing key entries.
      */
     public function getRemoveKeyEntriesData(): array
     {
         return [
             'Dictionary' => [
                 new Dictionary('*', 'string', [
-                    '0'   => '1',
+                    '0' => '1',
                     'foo' => 'bar',
-                    'biz' => 'baz'
+                    'biz' => 'baz',
                 ]),
-                [ '0', 'foo' ],
-                [ 'biz' => 'baz' ]
+                ['0', 'foo'],
+                ['biz' => 'baz'],
             ],
             'Sequence' => [
                 new Sequence('string', [
                     'foo',
                     'bar',
                     'biz',
-                    'baz'
+                    'baz',
                 ]),
-                [ 0, 1 ],
-                [ 'bar', 'baz' ]
-            ]
+                [0, 1],
+                ['bar', 'baz'],
+            ],
         ];
     }
 
-
     /**
-     * Ensure remove() produces errors
+     * Ensure remove() produces errors.
      *
      * @dataProvider getRemoveKeyErrorsData
      *
-     * @param Collection $collection   The collection to remove keys from
-     * @param mixed      $keyToRemove  The key to remove
+     * @param Collection $collection  The collection to remove keys from
+     * @param mixed      $keyToRemove The key to remove
      */
     public function testRemoveKeyErrors(Collection $collection, $keyToRemove)
     {
-        $isError;
         try {
             $collection->remove($keyToRemove);
             $isError = false;
@@ -975,43 +851,36 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Get data for testing remove() errors
+     * Get data for testing remove() errors.
      */
     public function getRemoveKeyErrorsData(): array
     {
         return [
             'Dictionary: non-existing key' => [
                 new Dictionary('*', 'string', [
-                    '0'   => '1',
+                    '0' => '1',
                     'foo' => 'bar',
-                    'biz' => 'baz'
+                    'biz' => 'baz',
                 ]),
-                'baz'
+                'baz',
             ],
             'Sequence: non-existing key' => [
                 new Sequence('string', [
                     'foo',
                     'bar',
                     'biz',
-                    'baz'
+                    'baz',
                 ]),
-                4
-            ]
+                4,
+            ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                              Collection->set()
-    ***************************************************************************/
-
+    // Collection->set()
 
     /**
-     * Ensure set() with a new key works
+     * Ensure set() with a new key works.
      */
     public function testSetNewKey()
     {
@@ -1021,15 +890,16 @@ class CollectionTest extends TestCase
             }
 
             // Get first key and value
-            $key   = null;
+            $key = null;
             $value = null;
             foreach ($collection as $k => $v) {
                 if ($v instanceof KeyValuePair) {
                     $k = $v->getKey();
                     $v = $v->getValue();
                 }
-                $key   = $k;
+                $key = $k;
                 $value = $v;
+
                 break;
             }
             $collection->clear();
@@ -1045,21 +915,19 @@ class CollectionTest extends TestCase
         }
     }
 
-
     /**
-     * Ensure set() with an existing key works
+     * Ensure set() with an existing key works.
      */
     public function testSetExistingKey()
     {
         foreach (CollectionData::Get() as $collection) {
-
             // Continue on. This collection has no data.
-            if ($collection->count() === 0) {
+            if (0 === $collection->count()) {
                 continue;
             }
 
             // Set first key to last value
-            $key   = null;
+            $key = null;
             $value = null;
             foreach ($collection as $k => $v) {
                 if ($v instanceof KeyValuePair) {
@@ -1083,26 +951,25 @@ class CollectionTest extends TestCase
         }
     }
 
-
     /**
-     * Ensure set() errors when given wrong key type
+     * Ensure set() errors when given wrong key type.
      */
     public function testSetErrorsOnWrongKeyType()
     {
         foreach (CollectionData::GetTyped() as $collection) {
-            $key;
-            $value;
             foreach ($collection as $k => $v) {
                 if ($v instanceof KeyValuePair) {
                     $k = $v->getKey();
                     $v = $v->getValue();
                 }
-                $key   = $k;
+                $key = $k;
                 $value = $v;
+
                 break;
             }
 
             $isError = false;
+
             try {
                 $collection->set($value, $value);
             } catch (\Exception $e) {
@@ -1117,24 +984,25 @@ class CollectionTest extends TestCase
         }
     }
 
-
     /**
-     * Ensure set() rejects keys of the wrong type
+     * Ensure set() rejects keys of the wrong type.
      */
     public function testSetRejectsWrongKeyType()
     {
         foreach (CollectionData::GetTyped() as $collection) {
-            $key   = null;
+            $key = null;
             $value = null;
             foreach ($collection as $k => $v) {
                 if ($v instanceof KeyValuePair) {
                     $k = $v->getKey();
                     $v = $v->getValue();
                 }
-                $key   = $k;
+                $key = $k;
                 $value = $v;
+
                 break;
             }
+
             try {
                 $collection->set($value, $value);
             } catch (\Exception $e) {
@@ -1148,26 +1016,25 @@ class CollectionTest extends TestCase
         }
     }
 
-
     /**
-     * Ensure set() errors when given wrong value type
+     * Ensure set() errors when given wrong value type.
      */
     public function testSetErrorsOnWrongValueType()
     {
         foreach (CollectionData::GetTyped() as $collection) {
-            $key;
-            $value;
             foreach ($collection as $k => $v) {
                 if ($v instanceof KeyValuePair) {
                     $k = $v->getKey();
                     $v = $v->getValue();
                 }
-                $key   = $k;
+                $key = $k;
                 $value = $v;
+
                 break;
             }
 
             $isError = false;
+
             try {
                 $collection->set($key, $key);
             } catch (\Exception $e) {
@@ -1182,28 +1049,27 @@ class CollectionTest extends TestCase
         }
     }
 
-
     /**
-     * Ensure set() rejects values of the wrong type
+     * Ensure set() rejects values of the wrong type.
      */
     public function testSetRejectsWrongValueType()
     {
         foreach (CollectionData::GetTyped() as $collection) {
-            if ($collection->count() === 0) {
+            if (0 === $collection->count()) {
                 continue;
             }
 
-            $key;
-            $value;
             foreach ($collection as $k => $v) {
                 if ($v instanceof KeyValuePair) {
                     $k = $v->getKey();
                     $v = $v->getValue();
                 }
-                $key   = $k;
+                $key = $k;
                 $value = $v;
+
                 break;
             }
+
             try {
                 $collection->set($key, $key);
             } catch (\Exception $e) {
@@ -1217,20 +1083,15 @@ class CollectionTest extends TestCase
         }
     }
 
-
-
-
-    /***************************************************************************
-    *                             Collection->toArray()
-    ***************************************************************************/
+    // Collection->toArray()
 
     /**
-     * Ensure Collection->toArray() returns the correct array
+     * Ensure Collection->toArray() returns the correct array.
      *
      * @dataProvider getToArrayData
      *
      * @param Collection $collection The collection to convert to array
-     * @param array      $array    The expected array
+     * @param array      $array      The expected array
      */
     public function testToArray(Collection $collection, array $array)
     {
@@ -1241,67 +1102,56 @@ class CollectionTest extends TestCase
         );
     }
 
-
     /**
-     * Provides data for array tests
-     *
-     * @return array
+     * Provides data for array tests.
      */
     public function getToArrayData(): array
     {
         $data = [];
 
         // Empty sequence
-        $data[ 'Empty Sequence' ] = [  new Sequence('*'), [] ];
+        $data['Empty Sequence'] = [new Sequence('*'), []];
 
         // Non-empty Sequence
         $sequence = new Sequence('*');
         $sequence->add(0);
         $sequence->add('1');
-        $data[ 'Non-empty Sequence' ] = [
+        $data['Non-empty Sequence'] = [
             $sequence,
             [
                 0 => 0,
-                1 => '1'
-            ]
+                1 => '1',
+            ],
         ];
 
         // Empty dictionary
-        $data[ 'Empty Dictionary' ] = [  new Dictionary('*', '*'), [] ];
+        $data['Empty Dictionary'] = [new Dictionary('*', '*'), []];
 
         // Non-empty dictionary
         $dictionary = new Dictionary('*', '*');
         $dictionary->set('foo', 'bar');
         $dictionary->set(1, '1');
-        $data[ 'Non-empty Dictionary' ] = [
+        $data['Non-empty Dictionary'] = [
             $dictionary,
             [
                 'foo' => 'bar',
-                    1 => '1'
-            ]
+                1 => '1',
+            ],
         ];
 
         return $data;
     }
 
-
-
-
-    /***************************************************************************
-    *                           Collection Test Data
-    ***************************************************************************/
-
+    // Collection Test Data
 
     /**
-     * Retrieve collection data
-     *
-     * @return array
+     * Retrieve collection data.
      */
     public function getCollectionData(): array
     {
         return [
-            'Dictionary' => [ new Dictionary('*', '*') ],
-            'Sequence'   => [ new Sequence('*') ]
+            'Dictionary' => [new Dictionary('*', '*')],
+            'Sequence' => [new Sequence('*')],
         ];
     }
 }

@@ -8,16 +8,15 @@ use PHP\Collections\ByteArray;
 use PHP\Interfaces\IIntegerable;
 
 /**
- * Defines an 8-bit Byte
+ * Defines an 8-bit Byte.
  */
 class Byte extends ObjectClass implements IIntegerable
 {
-    /** @var int $byte The Integer equivalent of the Byte */
+    /** @var int The Integer equivalent of the Byte */
     private $byte;
 
-
     /**
-     * Creates a new Byte instance
+     * Creates a new Byte instance.
      *
      * @param int $byte The Integer equivalent of the Byte
      */
@@ -29,18 +28,15 @@ class Byte extends ObjectClass implements IIntegerable
         $this->byte = $byte;
     }
 
-
     public function hash(): ByteArray
     {
-        return new ByteArray([ $this ]);
+        return new ByteArray([$this]);
     }
 
-
     /**
-     * Determine if this Byte is equal to the given value
+     * Determine if this Byte is equal to the given value.
      *
-     * @param int|Byte $value The value to compare this Byte to
-     * @return bool
+     * @param Byte|int $value The value to compare this Byte to
      */
     public function equals($value): bool
     {
@@ -49,9 +45,8 @@ class Byte extends ObjectClass implements IIntegerable
             : $this->toInt() === $value;
     }
 
-
     /**
-     * Retrieve the Integer equivalent of this Byte
+     * Retrieve the Integer equivalent of this Byte.
      */
     public function toInt(): int
     {

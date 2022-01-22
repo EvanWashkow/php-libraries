@@ -7,24 +7,21 @@ namespace PHP\Tests\Types\Models;
 use PHP\Types\Models\Type;
 
 /**
- * Shared tests for Type instances
+ * Shared tests for Type instances.
  */
 abstract class TypeTestDefinition extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Retrieves serialization test data
+     * Retrieves serialization test data.
      *
      * @return array<string, array<int, Type>>
      */
     abstract public function getSerializationTestData(): array;
 
-
     /**
-     * Ensures a Type can be serialized / deserialized
+     * Ensures a Type can be serialized / deserialized.
      *
      * @dataProvider getSerializationTestData
-     *
-     * @param Type $originalType
      */
     final public function testSerialization(Type $originalType): void
     {

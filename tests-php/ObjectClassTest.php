@@ -10,18 +10,17 @@ use PHP\Tests\Interfaces\IEquatableTests;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests ObjectClass methods
+ * Tests ObjectClass methods.
+ *
+ * @internal
+ * @coversNothing
  */
 class ObjectClassTest extends TestCase
 {
     /**
-     * Test hash() return value
+     * Test hash() return value.
      *
      * @dataProvider getHashTestData
-     *
-     * @param ObjectClass $objectClass
-     * @param ByteArray $byteArray
-     * @param bool $expected
      */
     public function testHash(ObjectClass $objectClass, ByteArray $byteArray, bool $expected): void
     {
@@ -40,21 +39,18 @@ class ObjectClassTest extends TestCase
 
         // Test data
         return [
-            'o1, o1'       => [ $o1, $o1Hash,             true ],
-            'o1, o2'       => [ $o1, $o2Hash,             false ],
-            'o1, clone o1' => [ $o1, (clone $o1)->hash(), false ]
+            'o1, o1' => [$o1, $o1Hash,             true],
+            'o1, o2' => [$o1, $o2Hash,             false],
+            'o1, clone o1' => [$o1, (clone $o1)->hash(), false],
         ];
     }
 
-
     /**
-     * Test equals() return value
+     * Test equals() return value.
      *
      * @dataProvider getEqualsTestData
      *
-     * @param ObjectClass $objectClass
      * @param $value
-     * @param bool $expected
      */
     public function testEquals(ObjectClass $objectClass, $value, bool $expected): void
     {
@@ -69,20 +65,16 @@ class ObjectClassTest extends TestCase
 
         // Test Data
         return [
-            'o1, o1' => [ $o1, $o1,       true ],
-            'o1, o2' => [ $o1, $o2,       false ],
-            'o1, o3' => [ $o1, clone $o1, false ]
+            'o1, o1' => [$o1, $o1,       true],
+            'o1, o2' => [$o1, $o2,       false],
+            'o1, o3' => [$o1, clone $o1, false],
         ];
     }
 
-
     /**
-     * Ensure hash() and equals() behave consistently
+     * Ensure hash() and equals() behave consistently.
      *
      * @dataProvider getEqualsAndHashConsistencyTestData
-     *
-     * @param ObjectClass $objectClass1
-     * @param ObjectClass $objectClass2
      */
     public function testEqualsAndHashConsistency(ObjectClass $objectClass1, ObjectClass $objectClass2): void
     {
@@ -92,15 +84,14 @@ class ObjectClassTest extends TestCase
     public function getEqualsAndHashConsistencyTestData(): array
     {
         $o1 = $this->createObjectClass();
+
         return [
-            'o1' => [ $o1, $o1 ]
+            'o1' => [$o1, $o1],
         ];
     }
 
-
     /**
-     * Retrieve IEquatable Tests for this Test Case
-     * @return IEquatableTests
+     * Retrieve IEquatable Tests for this Test Case.
      */
     private function getIEquatableTests(): IEquatableTests
     {
@@ -108,17 +99,15 @@ class ObjectClassTest extends TestCase
         if (null === $iequatableTests) {
             $iequatableTests = new IEquatableTests($this);
         }
+
         return $iequatableTests;
     }
 
-
     /**
-     * Create a new Object Class
-     *
-     * @return ObjectClass
+     * Create a new Object Class.
      */
     private function createObjectClass(): ObjectClass
     {
-        return new class () extends ObjectClass {};
+        return new class() extends ObjectClass {};
     }
 }

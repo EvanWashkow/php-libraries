@@ -13,16 +13,16 @@ use PHP\Collections\IArrayable;
  */
 class ArrayableIterator extends IndexedIterator
 {
-    /** @var IArrayable $arrayable The IArrayable object instance */
+    /** @var IArrayable The IArrayable object instance */
     private $arrayable;
 
-
     /**
-     * Create a new Arrayable Iterator
+     * Create a new Arrayable Iterator.
      *
      * @param IArrayable $arrayable     The IArrayable object instance
      * @param int        $startingIndex The starting index
      * @param int        $incrementBy   The amount to increment the current index by on every goToNext()
+     *
      * @throws \DomainException If incrementBy is zero
      */
     public function __construct(IArrayable $arrayable, int $startingIndex = 0, int $incrementBy = 1)
@@ -38,39 +38,32 @@ class ArrayableIterator extends IndexedIterator
         $this->arrayable = $arrayable;
     }
 
-
     public function hasCurrent(): bool
     {
         return array_key_exists($this->getKey(), $this->toArray());
     }
-
 
     public function getValue()
     {
         if (!$this->hasCurrent()) {
             throw new \OutOfBoundsException('Value could not be retrieved. Not at a valid position.');
         }
-        return $this->toArray()[ $this->getKey() ];
+
+        return $this->toArray()[$this->getKey()];
     }
 
-
     /**
-     * Retrieves the IArrayable object instance
-     *
-     * @return IArrayable
+     * Retrieves the IArrayable object instance.
      */
     protected function getArrayable(): IArrayable
     {
         return $this->arrayable;
     }
 
-
     /**
-     * Retrieve the IArrayable array with integer indexes
+     * Retrieve the IArrayable array with integer indexes.
      *
      * This will fetch the current values from IArrayable, which will reflect any changes (additions / removals) there.
-     *
-     * @return array
      */
     protected function toArray(): array
     {

@@ -9,8 +9,7 @@ use PHP\Collections\Iteration\Iterator;
 
 class SampleIterable implements IIterable
 {
-    public const VALUES = [ 1, 2, 3 ];
-
+    public const VALUES = [1, 2, 3];
 
     public function getIterator(): Iterator
     {

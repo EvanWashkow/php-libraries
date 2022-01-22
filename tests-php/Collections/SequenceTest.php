@@ -9,10 +9,13 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\Sequence;
 use PHP\Tests\Collections\CollectionTestDefinition;
 
-require_once(__DIR__ . '/SequenceData.php');
+require_once __DIR__.'/SequenceData.php';
 
 /**
- * Test all Sequence methods to ensure consistent functionality
+ * Test all Sequence methods to ensure consistent functionality.
+ *
+ * @internal
+ * @coversNothing
  */
 final class SequenceTest extends CollectionTestDefinition
 {
@@ -31,7 +34,7 @@ final class SequenceTest extends CollectionTestDefinition
                     [
                         new Byte(1),
                         new Byte(2),
-                        new Byte(3)
+                        new Byte(3),
                     ]
                 ),
             ],
@@ -41,22 +44,17 @@ final class SequenceTest extends CollectionTestDefinition
                     [
                         new ByteArray(1),
                         new ByteArray(2),
-                        new ByteArray(3)
+                        new ByteArray(3),
                     ]
                 ),
             ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Sequence->add()
-    ***************************************************************************/
+    // Sequence->add()
 
     /**
-     * Ensure Sequence->add() returns the correct results
+     * Ensure Sequence->add() returns the correct results.
      *
      * @dataProvider getAddData
      *
@@ -67,13 +65,13 @@ final class SequenceTest extends CollectionTestDefinition
      */
     public function testAdd(
         Sequence $sequence,
-        array    $newValues,
-        array    $expectedValues,
-        bool     $isErrorExpected
-    )
-    {
+        array $newValues,
+        array $expectedValues,
+        bool $isErrorExpected
+    ) {
         // Tests
         $isError = false;
+
         try {
             foreach ($newValues as $value) {
                 $sequence->add($value);
@@ -100,56 +98,49 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     public function getAddData(): array
     {
         return [
-
             // Non-errors
             'Empty Sequence, adding no values' => [
                 new Sequence('string'),
                 [],
                 [],
-                false
+                false,
             ],
             'Empty Sequence, adding right value types' => [
                 new Sequence('string'),
-                [ 'foo', 'bar' ],
-                [ 'foo', 'bar' ],
-                false
+                ['foo', 'bar'],
+                ['foo', 'bar'],
+                false,
             ],
             'Non-empty Sequence, adding right value types' => [
-                new Sequence('string', [ 'foo', 'bar' ]),
-                [ 'biz', 'baz' ],
-                [ 'foo', 'bar', 'biz', 'baz' ],
-                false
+                new Sequence('string', ['foo', 'bar']),
+                ['biz', 'baz'],
+                ['foo', 'bar', 'biz', 'baz'],
+                false,
             ],
 
             // Errors
             'Empty Sequence, adding wrong value types' => [
                 new Sequence('string'),
-                [ 1, 2 ],
+                [1, 2],
                 [],
-                true
+                true,
             ],
             'Non-empty Sequence, adding wrong value types' => [
-                new Sequence('string', [ 'foo', 'bar' ]),
-                [ 1, 2 ],
-                [ 'foo', 'bar' ],
-                true
-            ]
+                new Sequence('string', ['foo', 'bar']),
+                [1, 2],
+                ['foo', 'bar'],
+                true,
+            ],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Sequence->getFirstKey()
-    ***************************************************************************/
+    // Sequence->getFirstKey()
 
     /**
-     * Ensure       Sequence->getFirstKey() returns zero
+     * Ensure       Sequence->getFirstKey() returns zero.
      */
     public function testGetFirstKeyReturnsZero()
     {
@@ -160,16 +151,10 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
-
-
-    /***************************************************************************
-    *                            Sequence->getLastKey()
-    ***************************************************************************/
-
+    // Sequence->getLastKey()
 
     /**
-     * Ensure       Sequence->getLastKey() returns one less than count
+     * Ensure       Sequence->getLastKey() returns one less than count.
      *
      * @dataProvider getSequenceData
      */
@@ -182,16 +167,10 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
-
-
-    /***************************************************************************
-    *                            Sequence->getKeyOf()
-    ***************************************************************************/
-
+    // Sequence->getKeyOf()
 
     /**
-     * Test getKeyOf() return values
+     * Test getKeyOf() return values.
      *
      * @dataProvider getGetKeyOfExceptionData
      *
@@ -199,7 +178,7 @@ final class SequenceTest extends CollectionTestDefinition
      * @param mixed    $value           The value to get the key of
      * @param int      $offset          The offset to start the search from
      * @param bool     $isReverseSearch Start from the end of the sequence?
-     **/
+     */
     public function testGetKeyOfException(
         Sequence $sequence,
         $value,
@@ -210,14 +189,11 @@ final class SequenceTest extends CollectionTestDefinition
         $sequence->getKeyOf($value, $offset, $isReverseSearch);
     }
 
-
     /**
-     * Retrieve test data for the getKeyOf() test
+     * Retrieve test data for the getKeyOf() test.
      *
      * See CollectionTest->testKeyOf() for more tests
-     *
-     * @return array
-     **/
+     */
     public function getGetKeyOfExceptionData(): array
     {
         $sequence = new Sequence('*');
@@ -230,23 +206,22 @@ final class SequenceTest extends CollectionTestDefinition
 
         return [
             'Non-empty sequence with offset too small' => [
-                $sequence, 0, -1, false
+                $sequence, 0, -1, false,
             ],
             'Non-empty sequence with offset too large' => [
-                $sequence, 0, 10, false
+                $sequence, 0, 10, false,
             ],
             'Non-empty sequence unfound value: Offset 5, Reverse false' => [
-                $sequence, 0, 5, false
+                $sequence, 0, 5, false,
             ],
             'Non-empty sequence unfound value: Offset 0, Reverse true' => [
-                $sequence, 1, 0, true
-            ]
+                $sequence, 1, 0, true,
+            ],
         ];
     }
 
-
     /**
-     * Test getKeyOf() return values
+     * Test getKeyOf() return values.
      *
      * @dataProvider getGetKeyOfResultData
      *
@@ -255,29 +230,25 @@ final class SequenceTest extends CollectionTestDefinition
      * @param int      $offset          The offset to start the search from
      * @param bool     $isReverseSearch Start from the end of the sequence?
      * @param int      $expected        The expected key
-     **/
+     */
     public function testGetKeyOfResult(
         Sequence $sequence,
         $value,
-        int      $offset,
-        bool     $isReverseSearch,
-        int      $expected
-    )
-    {
+        int $offset,
+        bool $isReverseSearch,
+        int $expected
+    ) {
         $this->assertEquals(
             $sequence->getKeyOf($value, $offset, $isReverseSearch),
             $expected
         );
     }
 
-
     /**
-     * Retrieve test data for the getKeyOf() test
+     * Retrieve test data for the getKeyOf() test.
      *
      * See CollectionTest->testKeyOf() for more tests
-     *
-     * @return array
-     **/
+     */
     public function getGetKeyOfResultData(): array
     {
         $sequence = new Sequence('*');
@@ -289,39 +260,32 @@ final class SequenceTest extends CollectionTestDefinition
         $sequence->add(1);    // Offset 5
 
         return [
-
             // Non-reverse search
-            'Value 1, Offset 0, Reverse false' => [ $sequence, 1, 0, false, 1 ],
-            'Value 1, Offset 2, Reverse false' => [ $sequence, 1, 2, false, 2 ],
-            'Value 0, Offset 1, Reverse false' => [ $sequence, 0, 1, false, 3 ],
+            'Value 1, Offset 0, Reverse false' => [$sequence, 1, 0, false, 1],
+            'Value 1, Offset 2, Reverse false' => [$sequence, 1, 2, false, 2],
+            'Value 0, Offset 1, Reverse false' => [$sequence, 0, 1, false, 3],
 
             // Reverse search
-            'Value 1, Offset 5, Reverse true'  => [ $sequence, 1, 5, true,  5 ],
-            'Value 0, Offset 5, Reverse true'  => [ $sequence, 0, 5, true,  4 ],
-            'Value 0, Offset 3, Reverse true'  => [ $sequence, 0, 3, true,  3 ],
-            'Value 1, Offset 4, Reverse true'  => [ $sequence, 1, 4, true,  2 ]
+            'Value 1, Offset 5, Reverse true' => [$sequence, 1, 5, true,  5],
+            'Value 0, Offset 5, Reverse true' => [$sequence, 0, 5, true,  4],
+            'Value 0, Offset 3, Reverse true' => [$sequence, 0, 3, true,  3],
+            'Value 1, Offset 4, Reverse true' => [$sequence, 1, 4, true,  2],
         ];
     }
 
-
-
-
-    /***************************************************************************
-    *                            Sequence->insert()
-    ***************************************************************************/
-
+    // Sequence->insert()
 
     /**
      * Ensure Sequence->insert() has the inserted value at the beginning of the
-     * sequence
+     * sequence.
      */
     public function testInsertAtBeginning()
     {
         $values = CollectionsTestData::Get();
         foreach (SequenceData::Get() as $type => $sequences) {
-            $value = $values[ $type ][ 0 ];
+            $value = $values[$type][0];
             foreach ($sequences as $sequence) {
-                $key   = $sequence->getFirstKey();
+                $key = $sequence->getFirstKey();
                 $class = get_class($sequence);
                 $sequence->insert($key, $value);
                 $this->assertEquals(
@@ -333,18 +297,17 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
     /**
      * Ensure Sequence->insert() has the inserted value at the end of the
-     * sequence
+     * sequence.
      */
     public function testInsertAtEnd()
     {
         $values = CollectionsTestData::Get();
         foreach (SequenceData::Get() as $type => $sequences) {
-            $value = $values[ $type ][ 0 ];
+            $value = $values[$type][0];
             foreach ($sequences as $sequence) {
-                $key   = $sequence->getLastKey() + 1;
+                $key = $sequence->getLastKey() + 1;
                 $class = get_class($sequence);
                 $sequence->insert($key, $value);
                 $this->assertEquals(
@@ -356,9 +319,8 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
     /**
-     * Ensure Sequence->insert() shifts values
+     * Ensure Sequence->insert() shifts values.
      */
     public function testInsertShiftsValues()
     {
@@ -368,10 +330,10 @@ final class SequenceTest extends CollectionTestDefinition
                 if (0 === $sequence->count()) {
                     continue;
                 }
-                $value         = $values[ $type ][ 0 ];
-                $key           = $sequence->getFirstKey();
+                $value = $values[$type][0];
+                $key = $sequence->getFirstKey();
                 $previousValue = $sequence->get($key);
-                $class         = get_class($sequence);
+                $class = get_class($sequence);
                 $sequence->insert($key, $value);
                 $this->assertEquals(
                     $previousValue,
@@ -382,17 +344,17 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
     /**
-     * Ensure Sequence->insert() errors on key too small
+     * Ensure Sequence->insert() errors on key too small.
      */
     public function testInsertErrorsOnKeyTooSmall()
     {
         $values = CollectionsTestData::Get();
         foreach (SequenceData::Get() as $type => $sequences) {
-            $typeValues = $values[ $type ];
+            $typeValues = $values[$type];
             foreach ($sequences as $sequence) {
                 $isError = false;
+
                 try {
                     $sequence->insert($sequence->getFirstKey() - 1, $typeValues[0]);
                 } catch (\Exception $e) {
@@ -407,17 +369,17 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
     /**
-     * Ensure Sequence->insert() errors on key too large
+     * Ensure Sequence->insert() errors on key too large.
      */
     public function testInsertErrorsOnKeyTooLarge()
     {
         $values = CollectionsTestData::Get();
         foreach (SequenceData::Get() as $type => $sequences) {
-            $typeValues = $values[ $type ];
+            $typeValues = $values[$type];
             foreach ($sequences as $sequence) {
                 $isError = false;
+
                 try {
                     $sequence->insert($sequence->getLastKey() + 2, $typeValues[0]);
                 } catch (\Exception $e) {
@@ -432,17 +394,17 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
     /**
-     * Ensure Sequence->insert() errors on wrong key type
+     * Ensure Sequence->insert() errors on wrong key type.
      */
     public function testInsertErrorsOnWrongKeyType()
     {
         $values = CollectionsTestData::Get();
         foreach (SequenceData::Get() as $type => $sequences) {
-            $value = $values[ $type ][0];
+            $value = $values[$type][0];
             foreach ($sequences as $sequence) {
                 $isError = false;
+
                 try {
                     $sequence->insert('string', $value);
                 } catch (\TypeError $e) {
@@ -457,9 +419,8 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
     /**
-     * Ensure Sequence->insert() errors on wrong value type
+     * Ensure Sequence->insert() errors on wrong value type.
      */
     public function testInsertErrorsOnWrongValueType()
     {
@@ -470,13 +431,14 @@ final class SequenceTest extends CollectionTestDefinition
 
             foreach ($sequences as $sequence) {
                 foreach (CollectionsTestData::Get() as $valueType => $values) {
-                    if (in_array($valueType, [ '', $type ])) {
+                    if (in_array($valueType, ['', $type])) {
                         continue;
                     }
 
                     $isError = false;
+
                     try {
-                        $sequence->insert($sequence->getFirstKey(), $values[ 0 ]);
+                        $sequence->insert($sequence->getFirstKey(), $values[0]);
                     } catch (\Exception $e) {
                         $isError = true;
                     }
@@ -490,17 +452,11 @@ final class SequenceTest extends CollectionTestDefinition
         }
     }
 
-
-
-
-    /***************************************************************************
-    *                             Sequence->reverse()
-    ***************************************************************************/
-
+    // Sequence->reverse()
 
     /**
-     * Ensure Sequence->reverse() returns a Sequence
-     **/
+     * Ensure Sequence->reverse() returns a Sequence.
+     */
     public function testReverseReturnType()
     {
         $this->assertInstanceOf(
@@ -510,14 +466,13 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     /**
-     * Ensure Sequence->reverse() has the keys in reverse
+     * Ensure Sequence->reverse() has the keys in reverse.
      *
      * @dataProvider getSequenceData
      *
      * @param Sequence $sequence Original sequence
-     **/
+     */
     public function testReverse(Sequence $sequence)
     {
         $reversedArray = array_reverse($sequence->toArray());
@@ -528,17 +483,11 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
-
-
-    /***************************************************************************
-    *                              Sequence->slice()
-    ***************************************************************************/
-
+    // Sequence->slice()
 
     /**
-     * Ensure Sequence->slice() returns a Sequence
-     **/
+     * Ensure Sequence->slice() returns a Sequence.
+     */
     public function testSliceReturnType()
     {
         $this->assertInstanceOf(
@@ -548,9 +497,8 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     /**
-     * Ensure Sequence->slice() returns the correct values
+     * Ensure Sequence->slice() returns the correct values.
      *
      * @dataProvider getTestSliceResultsData
      *
@@ -558,14 +506,13 @@ final class SequenceTest extends CollectionTestDefinition
      * @param int      $offset   Where to start the split
      * @param int      $count    Number of entries to return
      * @param array    $expected The expected result
-     **/
+     */
     public function testSliceResults(
         Sequence $sequence,
-        int      $offset,
-        int      $count,
-        array    $expected
-    )
-    {
+        int $offset,
+        int $count,
+        array $expected
+    ) {
         $this->assertEquals(
             $expected,
             $sequence->slice($offset, $count)->toArray(),
@@ -573,12 +520,9 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     /**
-     * Retrieve test slice results data
-     *
-     * @return array
-     **/
+     * Retrieve test slice results data.
+     */
     public function getTestSliceResultsData(): array
     {
         $sequence = new Sequence('*');
@@ -590,30 +534,29 @@ final class SequenceTest extends CollectionTestDefinition
 
         return [
             'Offset 0, Count max' => [
-                $sequence, 0, PHP_INT_MAX, [ 1, 2, 3, 4, 5 ]
+                $sequence, 0, PHP_INT_MAX, [1, 2, 3, 4, 5],
             ],
             'Offset 1, Count max' => [
-                $sequence, 1, PHP_INT_MAX, [ 2, 3, 4, 5 ]
+                $sequence, 1, PHP_INT_MAX, [2, 3, 4, 5],
             ],
             'Offset 0, Count 0' => [
-                $sequence, 0, 0, []
+                $sequence, 0, 0, [],
             ],
             'Offset 0, Count 1' => [
-                $sequence, 0, 1, [ 1 ]
+                $sequence, 0, 1, [1],
             ],
             'Offset 0, Count 3' => [
-                $sequence, 0, 3, [ 1, 2, 3 ]
+                $sequence, 0, 3, [1, 2, 3],
             ],
             'Offset 1, Count 3' => [
-                $sequence, 1, 3, [ 2, 3, 4 ]
+                $sequence, 1, 3, [2, 3, 4],
             ],
         ];
     }
 
-
     /**
-     * Ensure Sequence->slice() errors on negative offset
-     **/
+     * Ensure Sequence->slice() errors on negative offset.
+     */
     public function testSliceOffetError()
     {
         try {
@@ -628,10 +571,9 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     /**
-     * Ensure Sequence->slice() errors on negative count
-     **/
+     * Ensure Sequence->slice() errors on negative count.
+     */
     public function testSliceCountError()
     {
         try {
@@ -646,17 +588,11 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
-
-
-    /***************************************************************************
-    *                              Sequence->split()
-    ***************************************************************************/
-
+    // Sequence->split()
 
     /**
-     * Ensure Sequence->split() returns a Sequence
-     **/
+     * Ensure Sequence->split() returns a Sequence.
+     */
     public function testSplitReturnType()
     {
         $this->assertInstanceOf(
@@ -666,10 +602,9 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     /**
-     * Ensure Sequence->split() returns an inner Sequence
-     **/
+     * Ensure Sequence->split() returns an inner Sequence.
+     */
     public function testSplitInnerReturnType()
     {
         $sequence = new Sequence('*');
@@ -683,9 +618,8 @@ final class SequenceTest extends CollectionTestDefinition
         );
     }
 
-
     /**
-     * Ensure Sequence->split() returns the correct results
+     * Ensure Sequence->split() returns the correct results.
      *
      * @dataProvider getSplitResultsData
      *
@@ -693,18 +627,17 @@ final class SequenceTest extends CollectionTestDefinition
      * @param mixed    $delimiter The dilimeter to split sequence over
      * @param int      $limit     Maximum number of entries to return
      * @param array    $expected  Expected results
-     **/
+     */
     public function testSplitResults(
         Sequence $sequence,
         $delimiter,
-        int      $limit,
-        array    $expected
-    )
-    {
+        int $limit,
+        array $expected
+    ) {
         // Variables
         $errorMessage = '';
-        $isSame       = true;
-        $result       = $sequence->split($delimiter, $limit);
+        $isSame = true;
+        $result = $sequence->split($delimiter, $limit);
 
         // Ensure both have the same number of entry groups
         $isSame = ($result->count() === count($expected));
@@ -715,7 +648,7 @@ final class SequenceTest extends CollectionTestDefinition
         // Ensure both entry groupings are identical
         else {
             foreach ($result as $index => $innerSequence) {
-                $isSame = ($expected[ $index ] === $innerSequence->toArray());
+                $isSame = ($expected[$index] === $innerSequence->toArray());
                 if (!$isSame) {
                     $errorMessage = 'Sequence->split() returned the wrong sub-entries';
                 }
@@ -726,11 +659,8 @@ final class SequenceTest extends CollectionTestDefinition
         $this->assertTrue($isSame, $errorMessage);
     }
 
-
     /**
-     * Retrieve test data for Sequence->split()
-     *
-     * @return array
+     * Retrieve test data for Sequence->split().
      */
     public function getSplitResultsData(): array
     {
@@ -741,73 +671,66 @@ final class SequenceTest extends CollectionTestDefinition
             3 => 0,
             4 => 1,
             5 => 0,
-            6 => 0
+            6 => 0,
         ]);
 
         return [
             'No entries' => [
-                new Sequence('*'), 0, PHP_INT_MAX, []
+                new Sequence('*'), 0, PHP_INT_MAX, [],
             ],
             'One entry, found delimiter' => [
-                new Sequence('*', [ 1 ]),
+                new Sequence('*', [1]),
                 1,
                 PHP_INT_MAX,
-                []
+                [],
             ],
             'One entry, unfound delimiter' => [
-                new Sequence('*', [ 1 ]),
+                new Sequence('*', [1]),
                 0,
                 PHP_INT_MAX,
-                [ [ 1 ] ]
+                [[1]],
             ],
             'Multiple entries, Delimiter 0, Limit max' => [
-                $sequence, 0, PHP_INT_MAX, [ [ 1, 1 ], [ 1 ] ]
+                $sequence, 0, PHP_INT_MAX, [[1, 1], [1]],
             ],
             'Multiple entries, Delimiter 1, Limit max' => [
-                $sequence, 1, PHP_INT_MAX, [ [ 0 ], [ 0 ], [ 0, 0 ] ]
+                $sequence, 1, PHP_INT_MAX, [[0], [0], [0, 0]],
             ],
             'Multiple entries, Delimiter 1, Limit 0' => [
-                $sequence, 1, 0, []
+                $sequence, 1, 0, [],
             ],
             'Multiple entries, Delimiter 1, Limit 2' => [
-                $sequence, 1, 2, [ [ 0 ], [ 0 ] ]
+                $sequence, 1, 2, [[0], [0]],
             ],
             'Multiple entries, Unfound delimiter' => [
-                $sequence, 5, PHP_INT_MAX, [ [ 0, 1, 1, 0, 1, 0, 0 ] ]
-            ]
+                $sequence, 5, PHP_INT_MAX, [[0, 1, 1, 0, 1, 0, 0]],
+            ],
         ];
     }
 
-
-
-
-    /****************************************************************************                               SHARED DATA PROVIDERS
-    ***************************************************************************/
-
+    // SHARED DATA PROVIDERS
 
     /**
-     * Retrieve test data for sequences
-     *
-     * @return array
-     **/
+     * Retrieve test data for sequences.
+     */
     public function getSequenceData(): array
     {
         $data = [];
 
         // Empty sequence
-        $data[ 'Empty Sequence' ] = [ new Sequence('*') ];
+        $data['Empty Sequence'] = [new Sequence('*')];
 
         // Sequence with one entry
         $sequence = new Sequence('*');
         $sequence->add(0);
-        $data[ 'Sequence with one entry' ] = [ $sequence ];
+        $data['Sequence with one entry'] = [$sequence];
 
         // Sequence with multiple entries
         $sequence = new Sequence('*');
         $sequence->add(0);
         $sequence->add(1);
         $sequence->add(2);
-        $data[ 'Sequence with multiple entries' ] = [ $sequence ];
+        $data['Sequence with multiple entries'] = [$sequence];
 
         return $data;
     }

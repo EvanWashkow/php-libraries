@@ -9,7 +9,10 @@ use PHP\Collections\ByteArray;
 use PHP\Collections\Dictionary;
 
 /**
- * Tests the Dictionary class
+ * Tests the Dictionary class.
+ *
+ * @internal
+ * @coversNothing
  */
 final class DictionaryTest extends CollectionTestDefinition
 {
@@ -26,7 +29,7 @@ final class DictionaryTest extends CollectionTestDefinition
                     [
                         'one' => 1,
                         'two' => 2,
-                        'three' => 3
+                        'three' => 3,
                     ]
                 ),
             ],
@@ -40,7 +43,7 @@ final class DictionaryTest extends CollectionTestDefinition
                     [
                         new Byte(1),
                         new Byte(2),
-                        new Byte(3)
+                        new Byte(3),
                     ]
                 ),
             ],
@@ -51,7 +54,7 @@ final class DictionaryTest extends CollectionTestDefinition
                     [
                         'one' => new ByteArray(1),
                         'two' => new ByteArray(2),
-                        'three' => new ByteArray(3)
+                        'three' => new ByteArray(3),
                     ]
                 ),
             ],

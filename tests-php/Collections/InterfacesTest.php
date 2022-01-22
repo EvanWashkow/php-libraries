@@ -8,12 +8,15 @@ use PHP\Collections\ICountable;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests Collection Interfaces
+ * Tests Collection Interfaces.
+ *
+ * @internal
+ * @coversNothing
  */
 class InterfacesTest extends TestCase
 {
     /**
-     * Test inheritance
+     * Test inheritance.
      *
      * @dataProvider getInheritanceTestData
      */
@@ -31,8 +34,8 @@ class InterfacesTest extends TestCase
         return [
             ICountable::class => [
                 ICountable::class,
-                \Countable::class
-            ]
+                \Countable::class,
+            ],
         ];
     }
 }

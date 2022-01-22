@@ -8,7 +8,7 @@ use PHP\Collections\Iteration\IIterable as IterationIIterable;
 
 // 04-2020
 trigger_error(
-    IIterable::class . ' moved to the Collections namespace',
+    IIterable::class.' moved to the Collections namespace',
     E_USER_ERROR
 );
 

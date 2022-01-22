@@ -4,7 +4,7 @@ namespace PHP\Debug;
 
 // Deprecated (04-2020)
 trigger_error(
-    Log::class . ' is deprecated.',
+    Log::class.' is deprecated.',
     E_USER_DEPRECATED
 );
 
@@ -14,7 +14,7 @@ trigger_error(
 class Log
 {
     /**
-     * Writes a message to the system log
+     * Writes a message to the system log.
      *
      * @param mixed $message The message to output
      */

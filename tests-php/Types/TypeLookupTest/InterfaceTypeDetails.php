@@ -16,15 +16,13 @@ class InterfaceTypeDetails extends TypeDetails
         $this->interfaceName = $interfaceName;
     }
 
-
     public function getNames(): array
     {
-        return [ $this->interfaceName ];
+        return [$this->interfaceName];
     }
-
 
     public function getTypeNames(): array
     {
-        return [ InterfaceType::class, Type::class ];
+        return [InterfaceType::class, Type::class];
     }
 }

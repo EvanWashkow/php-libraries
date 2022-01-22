@@ -6,17 +6,16 @@ namespace PHP\Collections\Iterators;
 
 use PHP\Collections\Iteration\ArrayableIterator;
 use PHP\Collections\Sequence;
-use PHP\Collections\Iteration\IndexedIterator;
 
 /**
- * Defines an Iterator to traverse Sequences
+ * Defines an Iterator to traverse Sequences.
  *
  * @method Sequence getArrayable()
  */
 class SequenceIterator extends ArrayableIterator
 {
     /**
-     * Create a new Sequence Iterator
+     * Create a new Sequence Iterator.
      *
      * @param Sequence $sequence The Sequence to traverse
      */
@@ -24,7 +23,6 @@ class SequenceIterator extends ArrayableIterator
     {
         parent::__construct($sequence, $sequence->getFirstKey());
     }
-
 
     protected function toArray(): array
     {

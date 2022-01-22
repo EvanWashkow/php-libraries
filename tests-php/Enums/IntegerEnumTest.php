@@ -11,17 +11,17 @@ use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests IntegerEnum
+ * Tests IntegerEnum.
+ *
+ * @internal
+ * @coversNothing
  */
 class IntegerEnumTest extends TestCase
 {
-    /*******************************************************************************************************************
-    *                                                     INHERITANCE
-    *******************************************************************************************************************/
-
+    // INHERITANCE
 
     /**
-     * Test inheritance
+     * Test inheritance.
      *
      * @dataProvider getInheritanceTestData()
      */
@@ -37,20 +37,15 @@ class IntegerEnumTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            Enum::class         => [ Enum::class ],
-            IIntegerable::class => [ IIntegerable::class ]
+            Enum::class => [Enum::class],
+            IIntegerable::class => [IIntegerable::class],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                     getValue()
-     ******************************************************************************************************************/
+    // getValue()
 
     /**
-     * Test getValue() to ensure that finalizing it did not break the base implementation
+     * Test getValue() to ensure that finalizing it did not break the base implementation.
      */
     public function testGetValue()
     {
@@ -61,16 +56,10 @@ class IntegerEnumTest extends TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                       toInt()
-    *******************************************************************************************************************/
-
+    // toInt()
 
     /**
-     * Test toInt()
+     * Test toInt().
      *
      * @dataProvider getToIntTestData
      */
@@ -86,9 +75,9 @@ class IntegerEnumTest extends TestCase
     public function getToIntTestData(): array
     {
         return [
-            GoodIntegerEnum::ONE  => [ GoodIntegerEnum::ONE ],
-            GoodIntegerEnum::TWO  => [ GoodIntegerEnum::TWO ],
-            GoodIntegerEnum::FOUR => [ GoodIntegerEnum::FOUR ]
+            GoodIntegerEnum::ONE => [GoodIntegerEnum::ONE],
+            GoodIntegerEnum::TWO => [GoodIntegerEnum::TWO],
+            GoodIntegerEnum::FOUR => [GoodIntegerEnum::FOUR],
         ];
     }
 }

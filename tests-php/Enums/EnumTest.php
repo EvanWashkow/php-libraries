@@ -13,25 +13,25 @@ use PHP\Enums\StringEnum;
 use PHP\Hashing\Hasher\Hasher;
 use PHP\ObjectClass;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodBitMapEnum;
+use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodIntegerEnum;
 use PHP\Tests\Enums\TestEnumDefinitions\GoodStringEnum;
-use PHP\Tests\Enums\TestEnumDefinitions\GoodEnum;
 use PHP\Tests\Interfaces\IEquatableTests;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
- * Test Enum class
+ * Test Enum class.
+ *
+ * @internal
+ * @coversNothing
  */
 class EnumTest extends TestCase
 {
-    /*******************************************************************************************************************
-    *                                                     INHERITANCE
-    *******************************************************************************************************************/
-
+    // INHERITANCE
 
     /**
-     * Test the construction of Enums
+     * Test the construction of Enums.
      *
      * @dataProvider getEnumTypeData()
      */
@@ -44,38 +44,31 @@ class EnumTest extends TestCase
         );
     }
 
-
     public function getEnumTypeData(): array
     {
         return [
             'Enum is ObjectClass' => [
                 $this->createMock(Enum::class),
-                ObjectClass::class
+                ObjectClass::class,
             ],
             'BitmapEnum is IntegerEnum' => [
                 $this->createMock(BitMapEnum::class),
-                IntegerEnum::class
+                IntegerEnum::class,
             ],
             'StringEnum is Enum' => [
                 $this->createMock(StringEnum::class),
-                Enum::class
-            ]
+                Enum::class,
+            ],
         ];
     }
 
-
-
-    /*******************************************************************************************************************
-    *                                                 ABSTRACT CLASS TEST
-    *******************************************************************************************************************/
-
+    // ABSTRACT CLASS TEST
 
     /**
-     * Ensure that all base Enum class definitions are abstract
+     * Ensure that all base Enum class definitions are abstract.
      *
      * @dataProvider getEnumClassNames()
-     * @return void
-     **/
+     */
     public function testAbstractClass(string $className)
     {
         $this->assertTrue(
@@ -84,27 +77,20 @@ class EnumTest extends TestCase
         );
     }
 
-
     public function getEnumClassNames(): array
     {
         return [
-            [ Enum::class ],
-            [ IntegerEnum::class ],
-            [ StringEnum::class ],
-            [ BitMapEnum::class ]
+            [Enum::class],
+            [IntegerEnum::class],
+            [StringEnum::class],
+            [BitMapEnum::class],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                    getConstants()
-    *******************************************************************************************************************/
-
+    // getConstants()
 
     /**
-     * Test the results of getConstants()
+     * Test the results of getConstants().
      *
      * @dataProvider getConstantsData()
      */
@@ -117,56 +103,49 @@ class EnumTest extends TestCase
         );
     }
 
-
     public function getConstantsData(): array
     {
         return [
             'GoodEnum' => [
                 GoodEnum::getConstants(),
                 [
-                    'ONE_FLOAT'   => GoodEnum::ONE_FLOAT,
+                    'ONE_FLOAT' => GoodEnum::ONE_FLOAT,
                     'ONE_INTEGER' => GoodEnum::ONE_INTEGER,
-                    'ONE_STRING'  => GoodEnum::ONE_STRING,
-                    'ARRAY'       => GoodEnum::ARRAY
-                ]
+                    'ONE_STRING' => GoodEnum::ONE_STRING,
+                    'ARRAY' => GoodEnum::ARRAY,
+                ],
             ],
             'GoodIntegerEnum' => [
                 GoodIntegerEnum::getConstants(),
                 [
                     'ONE' => GoodIntegerEnum::ONE,
                     'TWO' => GoodIntegerEnum::TWO,
-                    'FOUR' => GoodIntegerEnum::FOUR
-                ]
+                    'FOUR' => GoodIntegerEnum::FOUR,
+                ],
             ],
             'GoodStringEnum' => [
                 GoodStringEnum::getConstants(),
                 [
                     'ONE' => GoodStringEnum::ONE,
                     'TWO' => GoodStringEnum::TWO,
-                    'FOUR' => GoodStringEnum::FOUR
-                ]
+                    'FOUR' => GoodStringEnum::FOUR,
+                ],
             ],
             'GoodBitMapEnum' => [
                 GoodBitMapEnum::getConstants(),
                 [
                     'ONE' => GoodBitMapEnum::ONE,
                     'TWO' => GoodBitMapEnum::TWO,
-                    'FOUR' => GoodBitMapEnum::FOUR
-                ]
-            ]
+                    'FOUR' => GoodBitMapEnum::FOUR,
+                ],
+            ],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                  __construct()
-    *******************************************************************************************************************/
-
+    // __construct()
 
     /**
-     * Test the DomainException when constructing an Enum
+     * Test the DomainException when constructing an Enum.
      *
      * @dataProvider getConstructorDomainExceptionData()
      */
@@ -196,40 +175,14 @@ class EnumTest extends TestCase
             }],
             'new GoodBitMapEnum( 4 | 8 )' => [function () {
                 return new GoodBitMapEnum(4 | 8);
-            }]
+            }],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                   IEquatable Tests
-     ******************************************************************************************************************/
-
-
     /**
-     * Retrieve IEquatable Tests for this Test Case
-     * @return IEquatableTests
-     */
-    private function getIEquatableTests(): IEquatableTests
-    {
-        static $iequatableTests = null;
-        if (null === $iequatableTests) {
-            $iequatableTests = new IEquatableTests($this);
-        }
-        return $iequatableTests;
-    }
-
-
-    /**
-     * Test hash() return value
+     * Test hash() return value.
      *
      * @dataProvider getHashTestData
-     *
-     * @param Enum $enum
-     * @param ByteArray $byteArray
-     * @param bool $expected
      */
     public function testHash(Enum $enum, ByteArray $byteArray, bool $expected): void
     {
@@ -246,44 +199,37 @@ class EnumTest extends TestCase
             'GoodEnum(ONE_FLOAT)' => [
                 new GoodEnum(GoodEnum::ONE_FLOAT),
                 $hasher->hash(GoodEnum::ONE_FLOAT),
-                true
+                true,
             ],
             'GoodEnum(ONE_INTEGER)' => [
                 new GoodEnum(GoodEnum::ONE_INTEGER),
                 $hasher->hash(GoodEnum::ONE_INTEGER),
-                true
+                true,
             ],
             'GoodEnum(ONE_STRING)' => [
                 new GoodEnum(GoodEnum::ONE_STRING),
                 $hasher->hash(GoodEnum::ONE_STRING),
-                true
-            ]
+                true,
+            ],
         ];
     }
 
-
     /**
-     * Test equals() return value
+     * Test equals() return value.
      *
      * @dataProvider getEnumAndPrimitiveComparisonData
      *
-     * @param Enum $enum
      * @param $value
-     * @param bool $expected
      */
     public function testEquals(Enum $enum, $value, bool $expected): void
     {
         $this->getIEquatableTests()->testEquals($enum, $value, $expected);
     }
 
-
     /**
-     * Ensure hash() and equals() are consistent
+     * Ensure hash() and equals() are consistent.
      *
      * @dataProvider getEqualsAndHashConsistencyTestData
-     *
-     * @param Enum $enum1
-     * @param Enum $enum2
      */
     public function testEqualsAndHashConsistency(Enum $enum1, Enum $enum2): void
     {
@@ -293,32 +239,28 @@ class EnumTest extends TestCase
     public function getEqualsAndHashConsistencyTestData(): array
     {
         // Enums
-        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
-        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
-        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumArray = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt = new GoodEnum(GoodEnum::ONE_INTEGER);
         $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
 
         // Test data
         return [
-            'GoodEnum(GoodEnum::ARRAY)'       => [ $enumArray,     clone $enumArray ],
-            'GoodEnum(GoodEnum::ONE_FLOAT)'   => [ $enumOneFloat,  clone $enumOneFloat ],
-            'GoodEnum(GoodEnum::ONE_INTEGER)' => [ $enumOneInt,    clone $enumOneInt ],
-            'GoodEnum(GoodEnum::ONE_STRING)'  => [ $enumOneString, clone $enumOneString ]
+            'GoodEnum(GoodEnum::ARRAY)' => [$enumArray,     clone $enumArray],
+            'GoodEnum(GoodEnum::ONE_FLOAT)' => [$enumOneFloat,  clone $enumOneFloat],
+            'GoodEnum(GoodEnum::ONE_INTEGER)' => [$enumOneInt,    clone $enumOneInt],
+            'GoodEnum(GoodEnum::ONE_STRING)' => [$enumOneString, clone $enumOneString],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                     getValue()
-    *******************************************************************************************************************/
-
+    // getValue()
 
     /**
-     * Test getValue()
+     * Test getValue().
      *
      * @dataProvider getPrimitiveValueComparisonData()
+     *
+     * @param mixed $value
      */
     public function testGetValue(Enum $enum, $value, bool $expected)
     {
@@ -337,25 +279,17 @@ class EnumTest extends TestCase
         }
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                 Comparison Data
-    *******************************************************************************************************************/
-
+    // Comparison Data
 
     /**
-     * Returns Enum comparison data against other Enums and Primitive data types
-     *
-     * @return array
+     * Returns Enum comparison data against other Enums and Primitive data types.
      */
     public function getEnumAndPrimitiveComparisonData(): array
     {
         // Enums
-        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
-        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
-        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumArray = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt = new GoodEnum(GoodEnum::ONE_INTEGER);
         $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
 
         return array_merge(
@@ -364,102 +298,114 @@ class EnumTest extends TestCase
                 'GoodEnum( ARRAY ) === (clone self)' => [
                     $enumArray,
                     clone $enumArray,
-                    true
+                    true,
                 ],
                 'GoodEnum( ARRAY ) === GoodEnum( ONE_INTEGER )' => [
                     $enumArray,
                     $enumOneInt,
-                    false
+                    false,
                 ],
                 'GoodEnum( ONE_FLOAT ) === (clone self)' => [
                     $enumOneFloat,
                     clone $enumOneFloat,
-                    true
+                    true,
                 ],
                 'GoodEnum( ONE_FLOAT ) === GoodEnum( self::self::ONE_INTEGER )' => [
                     $enumOneFloat,
                     $enumOneInt,
-                    false
+                    false,
                 ],
                 'GoodEnum( ONE_INTEGER ) === (clone self)' => [
                     $enumOneInt,
                     clone $enumOneInt,
-                    true
+                    true,
                 ],
                 'GoodEnum( ONE_INTEGER ) === GoodEnum( ONE_STRING )' => [
                     $enumOneInt,
                     $enumOneString,
-                    false
+                    false,
                 ],
                 'GoodEnum( ONE_STRING ) === (clone self)' => [
                     $enumOneString,
                     clone $enumOneString,
-                    true
+                    true,
                 ],
                 'GoodEnum( ONE_STRING ) === GoodEnum( ONE_INTEGER )' => [
                     $enumOneString,
                     $enumOneInt,
-                    false
-                ]
+                    false,
+                ],
             ]
         );
     }
 
-
     /**
-     * Returns Enum comparison data against Primitive data types
-     *
-     * @return array
+     * Returns Enum comparison data against Primitive data types.
      */
     public function getPrimitiveValueComparisonData(): array
     {
         // Enums
-        $enumArray     = new GoodEnum(GoodEnum::ARRAY);
-        $enumOneFloat  = new GoodEnum(GoodEnum::ONE_FLOAT);
-        $enumOneInt    = new GoodEnum(GoodEnum::ONE_INTEGER);
+        $enumArray = new GoodEnum(GoodEnum::ARRAY);
+        $enumOneFloat = new GoodEnum(GoodEnum::ONE_FLOAT);
+        $enumOneInt = new GoodEnum(GoodEnum::ONE_INTEGER);
         $enumOneString = new GoodEnum(GoodEnum::ONE_STRING);
 
         return [
             'GoodEnum( ARRAY ) === self->getValue()' => [
                 $enumArray,
                 GoodEnum::ARRAY,
-                true
+                true,
             ],
             'GoodEnum( ARRAY ) === (string) self->getValue()' => [
                 $enumArray,
                 GoodEnum::GetStringArray(),
-                false
+                false,
             ],
             'GoodEnum( ONE_FLOAT ) === self->getValue()' => [
                 $enumOneFloat,
                 GoodEnum::ONE_FLOAT,
-                true
+                true,
             ],
             'GoodEnum( ONE_FLOAT ) === (string) self->getValue()' => [
                 $enumOneFloat,
                 "{$enumOneFloat->getValue()}",
-                false
+                false,
             ],
             'GoodEnum( ONE_INTEGER ) === self->getValue()' => [
                 $enumOneInt,
                 GoodEnum::ONE_INTEGER,
-                true
+                true,
             ],
             'GoodEnum( ONE_INTEGER ) === GoodEnum::ONE_STRING' => [
                 $enumOneInt,
                 GoodEnum::ONE_STRING,
-                false
+                false,
             ],
             'GoodEnum( ONE_STRING ) === self->getValue()' => [
                 $enumOneString,
                 GoodEnum::ONE_STRING,
-                true
+                true,
             ],
             'GoodEnum( ONE_STRING ) === GoodEnum::ONE_INTEGER' => [
                 $enumOneString,
                 GoodEnum::ONE_INTEGER,
-                false
-            ]
+                false,
+            ],
         ];
+    }
+
+    // IEquatable Tests
+
+    /**
+     * Retrieve IEquatable Tests for this Test Case.
+     */
+    private function getIEquatableTests(): IEquatableTests
+    {
+        static $iequatableTests = null;
+        if (null === $iequatableTests) {
+            $iequatableTests = new IEquatableTests($this);
+        }
+
+        return $iequatableTests;
     }
 }

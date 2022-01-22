@@ -8,12 +8,15 @@ use PHP\Collections\ByteArray;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the PHPSerializer class
+ * Tests the PHPSerializer class.
+ *
+ * @internal
+ * @coversNothing
  */
 class PHPSerializationTest extends TestCase
 {
     /**
-     * Test Inheritance
+     * Test Inheritance.
      *
      * @dataProvider getInheritanceTestData
      */
@@ -26,15 +29,16 @@ class PHPSerializationTest extends TestCase
     {
         return [
             IDeserializer::class => [IDeserializer::class],
-            ISerializer::class   => [ISerializer::class]
+            ISerializer::class => [ISerializer::class],
         ];
     }
 
-
     /**
-     * Test serialize()
+     * Test serialize().
      *
      * @dataProvider getSerializeTestData
+     *
+     * @param mixed $value
      */
     public function testSerialize($value, string $byteArrayString)
     {
@@ -45,11 +49,12 @@ class PHPSerializationTest extends TestCase
         );
     }
 
-
     /**
-     * Test deserialize()
+     * Test deserialize().
      *
      * @dataProvider getSerializeTestData
+     *
+     * @param mixed $value
      */
     public function testDeserialize($value, string $byteArrayString)
     {
@@ -60,19 +65,16 @@ class PHPSerializationTest extends TestCase
         );
     }
 
-
     /**
-     * Serialization test data
-     *
-     * @return array
+     * Serialization test data.
      */
     public function getSerializeTestData(): array
     {
         return [
-            '0'           => [ 0,           serialize(0) ],
-            '1'           => [ 1,           serialize(1) ],
-            '2'           => [ 2,           serialize(2) ],
-            '[ 1, 2, 3 ]' => [ [ 1, 2, 3 ], serialize([ 1, 2, 3 ]) ]
+            '0' => [0,           serialize(0)],
+            '1' => [1,           serialize(1)],
+            '2' => [2,           serialize(2)],
+            '[ 1, 2, 3 ]' => [[1, 2, 3], serialize([1, 2, 3])],
         ];
     }
 }

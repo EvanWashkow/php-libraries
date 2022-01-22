@@ -14,12 +14,15 @@ use PHP\Hashing\HashAlgorithm\SHA512;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the various IHashAlgorithm implementations (MD5, SHA1, SHA256, etc)
+ * Tests the various IHashAlgorithm implementations (MD5, SHA1, SHA256, etc).
+ *
+ * @internal
+ * @coversNothing
  */
 final class HashAlgorithmImplementationTest extends TestCase
 {
     /**
-     * Test the Inheritance of each Hash Algorithm
+     * Test the Inheritance of each Hash Algorithm.
      *
      * @dataProvider getInheritanceTestData
      *
@@ -37,23 +40,18 @@ final class HashAlgorithmImplementationTest extends TestCase
     public function getInheritanceTestData(): array
     {
         return [
-            MD5::class    => [new MD5()],
-            SHA1::class   => [new SHA1()],
+            MD5::class => [new MD5()],
+            SHA1::class => [new SHA1()],
             SHA256::class => [new SHA256()],
             SHA384::class => [new SHA384()],
             SHA512::class => [new SHA512()],
         ];
     }
 
-
     /**
-     * Test each Hash Algorithm's hash() function
+     * Test each Hash Algorithm's hash() function.
      *
      * @dataProvider getHashTestData
-     *
-     * @param IHashAlgorithm $hashAlgorithm
-     * @param ByteArray $value
-     * @param string $expectedHash
      */
     public function testHash(IHashAlgorithm $hashAlgorithm, ByteArray $value, string $expectedHash): void
     {
@@ -71,10 +69,10 @@ final class HashAlgorithmImplementationTest extends TestCase
         };
 
         return [
-            'md5(lorem)'    => [new MD5(),    new ByteArray('lorem'), $hash('md5', 'lorem')],
-            'md5(ipsum)'    => [new MD5(),    new ByteArray('ipsum'), $hash('md5', 'ipsum')],
-            'sha1(lorem)'   => [new SHA1(),   new ByteArray('lorem'), $hash('sha1', 'lorem')],
-            'sha1(ipsum)'   => [new SHA1(),   new ByteArray('ipsum'), $hash('sha1', 'ipsum')],
+            'md5(lorem)' => [new MD5(),    new ByteArray('lorem'), $hash('md5', 'lorem')],
+            'md5(ipsum)' => [new MD5(),    new ByteArray('ipsum'), $hash('md5', 'ipsum')],
+            'sha1(lorem)' => [new SHA1(),   new ByteArray('lorem'), $hash('sha1', 'lorem')],
+            'sha1(ipsum)' => [new SHA1(),   new ByteArray('ipsum'), $hash('sha1', 'ipsum')],
             'sha256(lorem)' => [new SHA256(), new ByteArray('lorem'), $hash('sha256', 'lorem')],
             'sha256(ipsum)' => [new SHA256(), new ByteArray('ipsum'), $hash('sha256', 'ipsum')],
             'sha384(lorem)' => [new SHA384(), new ByteArray('lorem'), $hash('sha384', 'lorem')],

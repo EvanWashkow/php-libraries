@@ -3,26 +3,26 @@
 namespace PHP\Tests\Collections\Dictionary;
 
 use PHP\Collections\Dictionary\DictionaryAnonymousKeyType;
-use PHP\Types\TypeLookupSingleton;
 
 /**
- * Tests DictionaryAnonymousKeyType
+ * Tests DictionaryAnonymousKeyType.
+ *
+ * @internal
+ * @coversNothing
  */
 class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /*******************************************************************************************************************
-     *                                                         is()
-     ******************************************************************************************************************/
-
+    // is()
 
     /**
-     * Ensure is() only returns true for ints and strings
+     * Ensure is() only returns true for ints and strings.
      *
      * @dataProvider getIsData
      *
      * @param string $typeName The type name to test
      * @param bool   $expected The expected result
-     **/
+     * @param mixed  $value
+     */
     public function testIs($value, bool $expected)
     {
         $this->assertEquals(
@@ -32,32 +32,23 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-
     /**
-     * Get data for testing is()
-     *
-     * @return array
+     * Get data for testing is().
      */
     public function getIsData(): array
     {
         return [
-            [ 'int',    true ],
-            [ 'string', true ],
-            [ 'float',  false ]
+            ['int',    true],
+            ['string', true],
+            ['float',  false],
         ];
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                      isClass()
-     ******************************************************************************************************************/
-
+    // isClass()
 
     /**
-     * Ensure isClass() only returns false
-     **/
+     * Ensure isClass() only returns false.
+     */
     public function testIsClass()
     {
         $this->assertFalse(
@@ -66,17 +57,11 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                      isInterface()
-     ******************************************************************************************************************/
-
+    // isInterface()
 
     /**
-     * Ensure isInterface() only returns false
-     **/
+     * Ensure isInterface() only returns false.
+     */
     public function testIsInterface()
     {
         $this->assertFalse(
@@ -85,21 +70,14 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-
-
-
-    /*******************************************************************************************************************
-     *                                                      isValueOfType()
-     ******************************************************************************************************************/
-
+    // isValueOfType()
 
     /**
-     * Tests isValueOfType()
+     * Tests isValueOfType().
      *
      * @dataProvider getIsValueOfTypeTestData
      *
      * @param $value
-     * @param bool $expected
      */
     public function testIsValueOfType($value, bool $expected): void
     {
@@ -113,10 +91,10 @@ class DictionaryAnonymousKeyTypeTest extends \PHPUnit\Framework\TestCase
     public function getIsValueOfTypeTestData(): array
     {
         return [
-            '1'        => [1,        true],
+            '1' => [1,        true],
             '"string"' => ['string', true],
-            '1.5'      => [1.5,      false],
-            'null'     => [null,     false]
+            '1.5' => [1.5,      false],
+            'null' => [null,     false],
         ];
     }
 }

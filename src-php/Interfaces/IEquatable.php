@@ -7,7 +7,7 @@ namespace PHP\Interfaces;
 use PHP\Collections\ByteArray;
 
 /**
- * Describes Object equality comparison
+ * Describes Object equality comparison.
  */
 interface IEquatable
 {
@@ -28,14 +28,11 @@ interface IEquatable
      *
      * Either compute the hash from immutable fields, or, if there are none, return a new Object with the change.
      * See equals().
-     *
-     * @return ByteArray
      */
     public function hash(): ByteArray;
 
-
     /**
-     * Determines if this Object is equal to another value
+     * Determines if this Object is equal to another value.
      *
      * Rules:
      *
@@ -45,7 +42,6 @@ interface IEquatable
      * it's a bad habit).
      *
      * @param mixed $value The value to compare this to
-     * @return bool
      */
     public function equals($value): bool;
 }

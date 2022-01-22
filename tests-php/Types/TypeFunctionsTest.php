@@ -3,17 +3,17 @@
 namespace PHP\Tests;
 
 /**
- * Test custom PHP functions
+ * Test custom PHP functions.
+ *
+ * @internal
+ * @coversNothing
  */
 class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
 {
-    /***************************************************************************
-    *                                   is()
-    ***************************************************************************/
-
+    // is()
 
     /**
-     * Test is() methods
+     * Test is() methods.
      *
      * @dataProvider getIsData
      *
@@ -30,131 +30,122 @@ class TypeFunctionsTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-
     /**
-     * Get test data for is()
-     *
-     * @return array
-     **/
+     * Get test data for is().
+     */
     public function getIsData(): array
     {
         return [
-
-            /**
-             * Basic types
-             */
+            // Basic types
 
             // Array
             "is( [], 'array' )" => [
-                [], 'array', true
+                [], 'array', true,
             ],
 
             // Bool / boolean
             "is( true, 'bool' )" => [
-                true, 'bool', true
+                true, 'bool', true,
             ],
             "is( true, 'boolean' )" => [
-                true, 'bool', true
+                true, 'bool', true,
             ],
             "is( true, 'int' )" => [
-                true, 'int', false
+                true, 'int', false,
             ],
 
             // Float / double
             "is( 1.5, 'float' )" => [
-                1.5, 'float', true
+                1.5, 'float', true,
             ],
             "is( 1.5, 'double' )" => [
-                1.5, 'double', true
+                1.5, 'double', true,
             ],
             "is( 1.5, 'int' )" => [
-                1.5, 'int', false
+                1.5, 'int', false,
             ],
 
             // Function
             "is( 1, 'function' )" => [
-                1, 'function', false
+                1, 'function', false,
             ],
 
             // String
             "is( 1, 'int' )" => [
-                1, 'int', true
+                1, 'int', true,
             ],
             "is( 1, 'integer' )" => [
-                1, 'integer', true
+                1, 'integer', true,
             ],
             "is( 1, 'bool' )" => [
-                1, 'bool', false
+                1, 'bool', false,
             ],
 
             // Null
             "is( NULL, 'null' )" => [
-                null, 'null', true
+                null, 'null', true,
             ],
             "is( null, 'null' )" => [
-                null, 'null', true
+                null, 'null', true,
             ],
             "is( NULL, 'bool' )" => [
-                null, 'bool', false
+                null, 'bool', false,
             ],
             "is( NULL, 'int' )" => [
-                null, 'int', false
+                null, 'int', false,
             ],
 
             // String
             "is( '1', 'string' )" => [
-                '1', 'string', true
+                '1', 'string', true,
             ],
             "is( '1', 'int' )" => [
-                '1', 'int', false
+                '1', 'int', false,
             ],
             "is( '1', 'bool' )" => [
-                '1', 'bool', false
+                '1', 'bool', false,
             ],
 
-
-            /**
-             * Classes and interfaces
-             */
+            // Classes and interfaces
 
             // Classes
             "is( ReflectionFunction, 'ReflectionFunction' )" => [
                 new \ReflectionFunction('substr'),
                 'ReflectionFunction',
-                true
+                true,
             ],
             "is( ReflectionFunction, 'ReflectionFunctionAbstract' )" => [
                 new \ReflectionFunction('substr'),
                 'ReflectionFunctionAbstract',
-                true
+                true,
             ],
             "is( ReflectionFunction, 'ReflectionClass' )" => [
                 new \ReflectionFunction('substr'),
                 'ReflectionClass',
-                false
+                false,
             ],
             "is( ReflectionFunction, 'int' )" => [
                 new \ReflectionFunction('substr'),
                 'int',
-                false
+                false,
             ],
 
             // Interfaces
             "is( ReflectionFunction, 'Reflector' )" => [
                 new \ReflectionFunction('substr'),
                 'Reflector',
-                true
+                true,
             ],
             "is( ReflectionFunction, 'Iterator' )" => [
                 new \ReflectionFunction('substr'),
                 'Iterator',
-                false
+                false,
             ],
             "is( ReflectionFunction, 'int' )" => [
                 new \ReflectionFunction('substr'),
                 'int',
-                false
-            ]
+                false,
+            ],
         ];
     }
 }

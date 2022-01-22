@@ -5,21 +5,23 @@ namespace PHP\Tests\Types\Models;
 use PHP\Types\Models\AnonymousType;
 
 /**
- * Tests AnonymousType
+ * Tests AnonymousType.
+ *
+ * @internal
+ * @coversNothing
  */
 final class AnonymousTypeTest extends TypeTestDefinition
 {
     public function getSerializationTestData(): array
     {
         return [
-            'AnonymousType' => [ new AnonymousType() ],
+            'AnonymousType' => [new AnonymousType()],
         ];
     }
 
-
     /**
-     * Ensure AnonymousType->getName() is an asterisk
-     **/
+     * Ensure AnonymousType->getName() is an asterisk.
+     */
     public function testGetNameIsAsterisk()
     {
         $this->assertEquals(
@@ -29,16 +31,15 @@ final class AnonymousTypeTest extends TypeTestDefinition
         );
     }
 
-
     /**
-     * Ensure AnonymousType->is() is true for anything
-     **/
+     * Ensure AnonymousType->is() is true for anything.
+     */
     public function testIsAlwaysReturnsTrue()
     {
         $typeNames = [
             'int',
             'string',
-            'bool'
+            'bool',
         ];
         $type = new AnonymousType();
         foreach ($typeNames as $typeName) {
@@ -49,29 +50,26 @@ final class AnonymousTypeTest extends TypeTestDefinition
         }
     }
 
-
     /**
-     * Ensure AnonymousType->isClass() throws an exception
-     **/
+     * Ensure AnonymousType->isClass() throws an exception.
+     */
     public function testIsClass()
     {
         $this->expectException(\BadMethodCallException::class);
         ( new AnonymousType() )->isClass();
     }
 
-
     /**
-     * Ensure AnonymousType->isInterface() throws an exception
-     **/
+     * Ensure AnonymousType->isInterface() throws an exception.
+     */
     public function testIsInterface()
     {
         $this->expectException(\BadMethodCallException::class);
         ( new AnonymousType() )->isInterface();
     }
 
-
     /**
-     * Tests isValueOfType()
+     * Tests isValueOfType().
      *
      * @dataProvider getIsValueOfTypeTestData
      *
@@ -89,7 +87,7 @@ final class AnonymousTypeTest extends TypeTestDefinition
     {
         return [
             '1' => [1],
-            'null' => [null]
+            'null' => [null],
         ];
     }
 }

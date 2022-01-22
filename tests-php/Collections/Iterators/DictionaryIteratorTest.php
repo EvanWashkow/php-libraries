@@ -5,19 +5,22 @@ declare(strict_types=1);
 namespace PHP\Tests\Collections\Iterators;
 
 use PHP\Collections\Dictionary;
-use PHP\Collections\Iterators\DictionaryIterator;
-use PHP\Collections\Iterators\DeprecatedKeyValuePair;
 use PHP\Collections\Iteration\IndexedIterator;
+use PHP\Collections\Iterators\DeprecatedKeyValuePair;
+use PHP\Collections\Iterators\DictionaryIterator;
 use PHP\Types\TypeLookupSingleton;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the DictionaryIterator implementation
+ * Tests the DictionaryIterator implementation.
+ *
+ * @internal
+ * @coversNothing
  */
 class DictionaryIteratorTest extends TestCase
 {
     /**
-     * Ensure DictionaryIterator is an instance of a IndexedIterator
+     * Ensure DictionaryIterator is an instance of a IndexedIterator.
      */
     public function testIsIndexedIterator()
     {
@@ -28,9 +31,8 @@ class DictionaryIteratorTest extends TestCase
         );
     }
 
-
     /**
-     * Test __construct() starting index is zero
+     * Test __construct() starting index is zero.
      */
     public function testConstructStartingIndex()
     {
@@ -41,9 +43,8 @@ class DictionaryIteratorTest extends TestCase
         );
     }
 
-
     /**
-     * Test hasCurrent()
+     * Test hasCurrent().
      *
      * @dataProvider getHasCurrentTestData
      */
@@ -61,53 +62,55 @@ class DictionaryIteratorTest extends TestCase
         return [
             'Empty Dictionary' => [
                 new DictionaryIterator(new Dictionary('string', 'string')),
-                false
+                false,
             ],
             'Dictionary with one value' => [
-                new DictionaryIterator(new Dictionary('string', 'string', [ 'foo' => 'bar' ])),
-                true
+                new DictionaryIterator(new Dictionary('string', 'string', ['foo' => 'bar'])),
+                true,
             ],
             'Dictionary with one value => goToNext()' => [
                 (function () {
                     $iterator = new DictionaryIterator(
-                        new Dictionary('string', 'string', [ 'foo' => 'bar' ])
+                        new Dictionary('string', 'string', ['foo' => 'bar'])
                     );
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
-                false
+                false,
             ],
             'Dictionary with two values' => [
-                new DictionaryIterator(new Dictionary('string', 'string', [ 'foo' => 'bar', 'biz' => 'baz' ])),
-                true
+                new DictionaryIterator(new Dictionary('string', 'string', ['foo' => 'bar', 'biz' => 'baz'])),
+                true,
             ],
             'Dictionary with two values => goToNext()' => [
                 (function () {
                     $iterator = new DictionaryIterator(
-                        new Dictionary('string', 'string', [ 'foo' => 'bar', 'biz' => 'baz' ])
+                        new Dictionary('string', 'string', ['foo' => 'bar', 'biz' => 'baz'])
                     );
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
-                true
+                true,
             ],
             'Dictionary with two values => goToNext() => goToNext()' => [
                 (function () {
                     $iterator = new DictionaryIterator(
-                        new Dictionary('string', 'string', [ 'foo' => 'bar', 'biz' => 'baz' ])
+                        new Dictionary('string', 'string', ['foo' => 'bar', 'biz' => 'baz'])
                     );
                     $iterator->goToNext();
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
-                false
-            ]
+                false,
+            ],
         ];
     }
 
-
     /**
-     * Test getValue() returns the expected Key Value Pair
+     * Test getValue() returns the expected Key Value Pair.
      *
      * @dataProvider getValueReturnedKeyValuePairTestData
      */
@@ -125,31 +128,33 @@ class DictionaryIteratorTest extends TestCase
         $dictionary = new Dictionary('string', 'string', [
             'foo' => 'bar',
             'biz' => 'baz',
-            'one' => 'two'
+            'one' => 'two',
         ]);
         $iterator = new DictionaryIterator($dictionary);
 
         return [
             'Unmoved DictionaryIterator' => [
                 clone $iterator,
-                new DeprecatedKeyValuePair('foo', 'bar')
+                new DeprecatedKeyValuePair('foo', 'bar'),
             ],
             'DictionaryIterator => goToNext()' => [
                 (function () use ($iterator) {
                     $iterator = clone $iterator;
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
-                new DeprecatedKeyValuePair('biz', 'baz')
+                new DeprecatedKeyValuePair('biz', 'baz'),
             ],
             'DictionaryIterator => goToNext() => goToNext()' => [
                 (function () use ($iterator) {
                     $iterator = clone $iterator;
                     $iterator->goToNext();
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
-                new DeprecatedKeyValuePair('one', 'two')
+                new DeprecatedKeyValuePair('one', 'two'),
             ],
             'Dictionary => remove(), DictionaryIterator => goToNext()' => [
                 (function () use ($dictionary) {
@@ -157,16 +162,16 @@ class DictionaryIteratorTest extends TestCase
                     $dictionary->remove('biz');
                     $iterator = new DictionaryIterator($dictionary);
                     $iterator->goToNext();
+
                     return $iterator;
                 })(),
-                new DeprecatedKeyValuePair('one', 'two')
-            ]
+                new DeprecatedKeyValuePair('one', 'two'),
+            ],
         ];
     }
 
-
     /**
-     * Test getValue() returns the correct key type
+     * Test getValue() returns the correct key type.
      *
      * @todo Remove when new Collections (that don't rely on PHP arrays for key-value storage of Dictionary entries)
      * are implemented.
@@ -178,7 +183,7 @@ class DictionaryIteratorTest extends TestCase
      */
     public function testGetValueKeyType(Dictionary $dictionary)
     {
-        $typeLookup      = TypeLookupSingleton::getInstance();
+        $typeLookup = TypeLookupSingleton::getInstance();
         $iteratorKeyType = $typeLookup->getByValue($dictionary->getIterator()->getValue()->getKey());
         $this->assertTrue(
             $dictionary->getKeyType()->equals($iteratorKeyType),
@@ -190,29 +195,30 @@ class DictionaryIteratorTest extends TestCase
     {
         return [
             'integer keys' => [
-                new Dictionary('int', 'string', [ 1 => '1' ])
+                new Dictionary('int', 'string', [1 => '1']),
             ],
             'string keys' => [
                 (function () {
                     $dictionary = new Dictionary('string', 'int');
                     $dictionary->set('1', 1);
+
                     return $dictionary;
-                })()
-            ]
+                })(),
+            ],
         ];
     }
 
-
     /**
-     * Test getValue() throws OutOfBoundsException
+     * Test getValue() throws OutOfBoundsException.
      */
     public function testGetValueThrowsOutOfBoundsException()
     {
         // Mock hasCurrent() as returning false
         $iterator = $this->getMockBuilder(DictionaryIterator::class)
             ->disableOriginalConstructor()
-            ->setMethods([ 'hasCurrent' ])
-            ->getMock();
+            ->setMethods(['hasCurrent'])
+            ->getMock()
+        ;
         $iterator->method('hasCurrent')->willReturn(false);
 
         // Test

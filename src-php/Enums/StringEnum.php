@@ -14,16 +14,14 @@ use PHP\Interfaces\IStringable;
  */
 abstract class StringEnum extends Enum implements IStringable
 {
-    /*******************************************************************************************************************
-    *                                                 CONSTRUCTOR METHODS
-    *******************************************************************************************************************/
-
+    // CONSTRUCTOR METHODS
 
     /**
-     * Create a new Enumeration string instance
+     * Create a new Enumeration string instance.
      *
      * @param string $value A value from the set of enumerated constants
-     * @throws \DomainException If the value is not a constant of this class
+     *
+     * @throws \DomainException       If the value is not a constant of this class
      * @throws MalformedEnumException If an Enum constant is not public or not a string
      */
     public function __construct(string $value)
@@ -31,48 +29,38 @@ abstract class StringEnum extends Enum implements IStringable
         parent::__construct($value);
     }
 
-
     /**
-     * Sanitizes the value before it is set by the constructor.
-     *
-     * Returns the value if it is valid. Otherwise, it should throw a DomainException.
-     *
-     * @param mixed $value The value to sanitize before setting.
-     * @return string The value after sanitizing.
-     * @throws \DomainException If the value is not supported
-     * @throws MalformedEnumException If an Enum constant is not public or not a string
+     * Returns the current value of this Enumeration.
      */
-    protected function sanitizeValue($value): string
+    public function __toString(): string
     {
-        return parent::sanitizeValue($value);
+        return $this->getValue();
     }
 
-
-
-
-    /*******************************************************************************************************************
-    *                                                         MAIN
-    *******************************************************************************************************************/
-
+    // MAIN
 
     /**
-     * @internal Final: the value is non-mutable once it is set by the constructor.
-     *
-     * @return string
+     * @internal final: the value is non-mutable once it is set by the constructor
      */
     final public function getValue(): string
     {
         return parent::getValue();
     }
 
-
     /**
-     * Returns the current value of this Enumeration
+     * Sanitizes the value before it is set by the constructor.
      *
-     * @return string
+     * Returns the value if it is valid. Otherwise, it should throw a DomainException.
+     *
+     * @param mixed $value the value to sanitize before setting
+     *
+     * @throws \DomainException       If the value is not supported
+     * @throws MalformedEnumException If an Enum constant is not public or not a string
+     *
+     * @return string the value after sanitizing
      */
-    public function __toString(): string
+    protected function sanitizeValue($value): string
     {
-        return $this->getValue();
+        return parent::sanitizeValue($value);
     }
 }

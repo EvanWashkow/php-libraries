@@ -7,7 +7,7 @@ namespace PHP\Types;
 use PHP\Enums\StringEnum;
 
 /**
- * Defines list of known type names
+ * Defines list of known type names.
  */
 final class TypeNames extends StringEnum
 {

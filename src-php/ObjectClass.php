@@ -8,7 +8,7 @@ use PHP\Collections\ByteArray;
 use PHP\Interfaces\IEquatable;
 
 /**
- * Defines a basic object
+ * Defines a basic object.
  *
  * @internal This does not implement ICloneable since not all Objects can be cloned. For  example, any type of File I/O
  * object should never be cloned since you cannot have two writers at the same time. ICloneable-ity must be determined
@@ -20,7 +20,6 @@ abstract class ObjectClass implements IEquatable
     {
         return new ByteArray(spl_object_hash($this));
     }
-
 
     public function equals($value): bool
     {

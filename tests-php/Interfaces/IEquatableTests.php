@@ -9,7 +9,7 @@ use PHP\Interfaces\IEquatable;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Defines tests for IEquatable implementations
+ * Defines tests for IEquatable implementations.
  *
  * To use this class, define a new test case, and create testX() methods (backed by dataProviders, if you so desire)
  * that call this class's methods.
@@ -19,9 +19,8 @@ final class IEquatableTests
     /** @var TestCase The origining TestCase that is calling these test methods */
     private $testCase;
 
-
     /**
-     * Creates a new instance of IEquatable tests
+     * Creates a new instance of IEquatable tests.
      *
      * @param TestCase $originTestCase The origining TestCase that is calling these test methods
      */
@@ -30,14 +29,12 @@ final class IEquatableTests
         $this->testCase = $originTestCase;
     }
 
-
     /**
-     * Test hash() by comparing its results
+     * Test hash() by comparing its results.
      *
      * @param IEquatable $equatable The IEquatable to test
      * @param ByteArray  $byteArray The ByteArray (hash) to test against
      * @param bool       $expected  The expected result of equatable->hash() === byte_array
-     * @return void
      */
     public function testHash(IEquatable $equatable, ByteArray $byteArray, bool $expected): void
     {
@@ -56,14 +53,12 @@ final class IEquatableTests
         }
     }
 
-
     /**
-     * Test IEquatable->equals() returns the expected result
+     * Test IEquatable->equals() returns the expected result.
      *
      * @param IEquatable $equatable The IEquatable to do the comparison
      * @param mixed      $value     The value to compare to
      * @param bool       $expected  The expected result of equatable->equals()
-     * @return void
      */
     public function testEquals(IEquatable $equatable, $value, bool $expected): void
     {
@@ -74,13 +69,11 @@ final class IEquatableTests
         );
     }
 
-
     /**
-     * Tests the consistency of equals() and hash() as described on IEquatable
+     * Tests the consistency of equals() and hash() as described on IEquatable.
      *
      * @param IEquatable $equatable1 The IEquatable to do the comparison
      * @param IEquatable $equatable2 The IEquatable to compare to
-     * @return void
      */
     public function testEqualsAndHashConsistency(IEquatable $equatable1, IEquatable $equatable2): void
     {
