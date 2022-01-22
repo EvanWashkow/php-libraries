@@ -30,14 +30,14 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
             throw new \DomainException($exception);
         }
 
-        if (!$this->getReflector()->isInterface()) {
+        if (!$this->reflector->isInterface()) {
             throw new \DomainException($exception);
         }
     }
 
     public function equals($value): bool
     {
-        return $value instanceof self && $this->getReflector()->getName() == $value->getReflector()->getName();
+        return $value instanceof self && $this->reflector->getName() == $value->getName();
     }
 
     public function getName(): string
@@ -49,22 +49,14 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
     {
         if ($type instanceof InterfaceType) {
             return
-                $this->getReflector()->getName() == $type->getReflector()->getName() ||
-                $this->getReflector()->isSubclassOf($type->getReflector());
+                $this->reflector->getName() == $type->getName() ||
+                $this->reflector->isSubclassOf($type->reflector);
         }
         return false;
     }
 
     public function isValueOfType($value): bool
     {
-        return is_object($value) && $this->getReflector()->isInstance($value);
-    }
-
-    /**
-     * Retrieve the Reflection of the interface.
-     */
-    public function getReflector(): \ReflectionClass
-    {
-        return $this->reflector;
+        return is_object($value) && $this->reflector->isInstance($value);
     }
 }

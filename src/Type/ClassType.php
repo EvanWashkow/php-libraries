@@ -53,7 +53,7 @@ final class ClassType implements InheritableTypeInterface, NameableTypeInterface
                 $this->reflector->isSubclassOf($type->reflector);
         }
         elseif ($type instanceof InterfaceType) {
-            return $this->reflector->isSubclassOf($type->getReflector());
+            return $this->reflector->isSubclassOf($type->getName());
         }
         return false;
     }
