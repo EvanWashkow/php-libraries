@@ -8,7 +8,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
- * A Interface Type.
+ * An Interface Type.
  */
 final class InterfaceType implements InheritableTypeInterface, NameableTypeInterface
 {
