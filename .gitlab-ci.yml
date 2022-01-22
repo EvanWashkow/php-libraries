@@ -9,4 +9,4 @@ unit-test-job:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
   script:
-    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never --testsuite unit-test
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
