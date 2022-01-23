@@ -1,16 +1,16 @@
 # Types
 
-Each PHP type category is represented as its own Type class, which retrieves information about it. All Type classes implement `TypeInterface`.
+Each PHP type is represented as its own Type class, which retrieves information about it. All Types must implement `TypeInterface`. However, some types are more complex than others, and implement others.
 
-1. `new ArrayType()`
-2. `new BooleanType()`
-3. `new ClassType(string $name)`
-   * `$name` expects the class name.
-4. `new FloatType()`
-5. `new IntegerType()`
-6. `new InterfaceType(string $name)`
-    * `$name` expects the interface name.
-7. `new StringType()`
+1. `new ArrayType()` - Array Type.
+2. `new BooleanType()` - Bool / Boolean Type.
+3. `new ClassType(string $name)` - Class Type.
+   * `$name` - the class name.
+4. `new FloatType()` - Float / Double Type.
+5. `new IntegerType()` - Integer Type.
+6. `new InterfaceType(string $name)` - Interface Type.
+    * `$name` - the interface name.
+7. `new StringType()` - String Type.
 
 ## See also
 * [Type Interfaces](../TypeInterface)
