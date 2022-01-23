@@ -13,5 +13,5 @@ Each PHP type category is represented as its own Type class, which retrieves inf
 7. `new StringType()`
 
 ## See also
-* [Source Code](.)
+* [Source Code](../Type)
 * [Type Interfaces](../TypeInterface/README.md)
