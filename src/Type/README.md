@@ -1,6 +1,6 @@
 # Types
 
-Each PHP type is represented as its own Type class, which retrieves information about it. All Types must implement `TypeInterface`. However, some types are more complex than others, and implement others.
+Each PHP type is represented as its own Type class, which retrieves information about it.
 
 1. `new ArrayType()` - Array Type.
 2. `new BooleanType()` - Bool / Boolean Type.
