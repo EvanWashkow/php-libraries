@@ -7,5 +7,4 @@ Type Interfaces describe different aspects of Types. At its most basic, every Ty
 3. `NameableTypeInterface` - Describes a Type with a name.
 
 ## See also
-* [Source Code](../TypeInterface)
-* [Types](../Type/README.md)
+* [Types](../Type)
