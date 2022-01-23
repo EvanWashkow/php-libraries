@@ -1,6 +1,6 @@
 # Types
 
-Each PHP type category is represented as its own Type class, which gives information about that Type. All Type classes implement `TypeInterface`.
+Each PHP type category is represented as its own Type class, which retrieves information about it. All Type classes implement `TypeInterface`.
 
 1. `new ArrayType()`
 2. `new BooleanType()`
