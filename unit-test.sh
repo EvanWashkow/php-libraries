@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose run --rm php-libraries vendor/phpunit/phpunit/phpunit --testsuite unit-test
+docker-compose run --rm php-libraries vendor/bin/phpunit --testsuite unit-test
