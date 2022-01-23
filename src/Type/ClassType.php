@@ -18,16 +18,16 @@ final class ClassType implements InheritableTypeInterface, NameableTypeInterface
     /**
      * Create a new ClassType.
      *
-     * @param string $class the class name
+     * @param string $name the class name
      *
      * @throws \DomainException
      */
-    public function __construct(string $class)
+    public function __construct(string $name)
     {
-        $exception = "not a class name: \"{$class}\"";
+        $exception = "not a class name: \"{$name}\"";
 
         try {
-            $this->reflector = new \ReflectionClass($class);
+            $this->reflector = new \ReflectionClass($name);
         } catch (\ReflectionException $e) {
             throw new \DomainException($exception);
         }
