@@ -33,5 +33,7 @@ php8.1-unit-test:
 publish:
   stage: release
   image: node
+  before_script:
+    - npm install @semantic-release/gitlab -D
   script:
     - npx semantic-release
