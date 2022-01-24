@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@semantic-release/gitlab": "^7.0.4"
+  }
+}
