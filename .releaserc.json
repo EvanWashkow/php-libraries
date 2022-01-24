@@ -3,8 +3,10 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    ["@semantic-release/gitlab", {
-      "gitlabUrl": "https://epwashkow.gitlab.com"
-    }]
+    [
+      "@semantic-release/gitlab", {
+        "gitlabUrl": "https://epwashkow.gitlab.com"
+      }
+    ]
   ]
 }
