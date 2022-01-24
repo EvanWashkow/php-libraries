@@ -1,28 +1,29 @@
-default:
+stages:
+  - test
+
+.php-test:
+  stage: test
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-stages:
-  - test
-
 # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
 php-cs-fixer:
-  stage: test
+  extends: .php-test
   image: php:7.4-cli-alpine
   script:
     - vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php7.4-unit-test:
-  stage: test
+  extends: .php-test
   image: php:7.4-cli-alpine
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php8.1-unit-test:
-  stage: test
+  extends: .php-test
   image: php:8.1-cli-alpine
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
