@@ -34,6 +34,6 @@ publish:
   stage: release
   image: node
   before_script:
-    - npm install @semantic-release/gitlab -D
+    - npm install -g semantic-release @semantic-release/gitlab
   script:
     - npx semantic-release
