@@ -5,7 +5,7 @@
     "@semantic-release/release-notes-generator",
     [
       "@semantic-release/gitlab", {
-        "gitlabUrl": "https://epwashkow.gitlab.com"
+        "gitlabUrl": "https://gitlab.com"
       }
     ]
   ]
