@@ -8,7 +8,14 @@ stages:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-# Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
+commitlint:
+  image: node
+  before_script:
+    - npm install
+  script:
+    - npx commitlint --from="$(git rev-list ^main $(git branch --show-current) | tail -n 1)" --to="$(git rev-parse HEAD)"
+
+  # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
 php-cs-fixer:
   extends: .php-test
   image: php:7.4-cli-alpine
