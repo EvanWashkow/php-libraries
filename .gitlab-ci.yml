@@ -7,14 +7,6 @@ stages:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-# Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
-php-cs-fixer:
-  extends: .php
-  stage: test
-  image: php:7.4-cli-alpine
-  script:
-    - vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
-
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php7.4-unit-test:
   extends: .php
