@@ -9,6 +9,7 @@ stages:
     - php composer.phar install
 
 commitlint:
+  stage: test
   image: node
   before_script:
     - npm install
