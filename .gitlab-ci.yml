@@ -46,13 +46,11 @@ php8.1-unit-test:
 
 commitlint:
   stage: test
-  only:
-    - merge_requests
   image: node
   before_script:
     - npm install
   script:
-    - npx commitlint --from="$CI_MERGE_REQUEST_DIFF_BASE_SHA" --to="$CI_COMMIT_SHA"
+    - npx commitlint --to="$CI_COMMIT_SHA"
 
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
 semantic-release:
