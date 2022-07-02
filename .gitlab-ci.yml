@@ -36,12 +36,6 @@ php8.1-unit-test:
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
-commitlint:
-  extends: .node
-  stage: test
-  script:
-    - npx commitlint --to="$CI_COMMIT_SHA"
-
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
 semantic-release:
   extends: .node
