@@ -1,5 +1,4 @@
 stages:
-  - debug
   - test
   - release
 
@@ -8,20 +7,6 @@ stages:
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
-
-print-all-env-vars:
-  stage: debug
-  script:
-    - echo "GitLab CI/CD | Print all environment variables"
-    - env
-
-print-all-env-vars-merge-requests:
-  stage: debug
-  only:
-    - merge_requests
-  script:
-    - echo "GitLab CI/CD | Print all environment variables"
-    - env
 
 # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
 php-cs-fixer:
