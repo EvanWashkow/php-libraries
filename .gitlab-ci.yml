@@ -12,8 +12,11 @@ commitlint:
   image: node
   before_script:
     - npm install
+    - git checkout $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - git checkout $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+    - git rev-parse $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
   script:
-    - npx commitlint --from="$CI_MERGE_REQUEST_DIFF_BASE_SHA" --to="$CI_COMMIT_SHA"
+    - npx commitlint --from="$(git rev-parse $CI_MERGE_REQUEST_TARGET_BRANCH_NAME)" --to="$CI_COMMIT_SHA"
 
   # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
 php-cs-fixer:
