@@ -1,35 +1,52 @@
-default:
+stages:
+  - test
+  - release
+
+.node:
+  image: node
+  before_script:
+    - npm install
+
+.php:
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-stages:
-  - test
-
 # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
-php7.4-linter-job:
+php-cs-fixer:
+  extends: .php
   stage: test
   image: php:7.4-cli-alpine
   script:
     - vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
-php7.4-unit-test-job:
+php7.4-unit-test:
+  extends: .php
   stage: test
   image: php:7.4-cli-alpine
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
-# Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
-php8.1-linter-job:
-  stage: test
-  image: php:8.1-cli-alpine
-  script:
-    - vendor/bin/php-cs-fixer fix -v --dry-run --using-cache=no
-
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
-php8.1-unit-test-job:
+php8.1-unit-test:
+  extends: .php
   stage: test
   image: php:8.1-cli-alpine
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+
+commitlint:
+  extends: .node
+  stage: test
+  script:
+    - npx commitlint --to="$CI_COMMIT_SHA"
+
+# Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
+semantic-release:
+  extends: .node
+  stage: release
+  only:
+    - main
+  script:
+    - npx semantic-release

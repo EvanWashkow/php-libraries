@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "husky install && cp -a .husky/. .git/hooks/"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@semantic-release/gitlab": "^9.3.2",
+    "husky": "^8.0.1"
+  }
+}
