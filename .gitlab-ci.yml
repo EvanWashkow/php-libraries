@@ -8,15 +8,7 @@ stages:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-commitlint:
-  stage: test
-  image: node
-  before_script:
-    - npm install
-  script:
-    - npx commitlint --from="$(git rev-parse $CI_MERGE_REQUEST_TARGET_BRANCH_NAME)" --to="$CI_COMMIT_SHA"
-
-  # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
+# Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
 php-cs-fixer:
   extends: .php-test
   image: php:7.4-cli-alpine
@@ -36,6 +28,16 @@ php8.1-unit-test:
   image: php:8.1-cli-alpine
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+
+commitlint:
+  stage: test
+  only:
+    - merge_requests
+  image: node
+  before_script:
+    - npm install
+  script:
+    - npx commitlint --from="$(git rev-parse $CI_MERGE_REQUEST_TARGET_BRANCH_NAME)" --to="$CI_COMMIT_SHA"
 
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
 semantic-release:
