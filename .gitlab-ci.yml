@@ -2,6 +2,11 @@ stages:
   - test
   - release
 
+.node:
+  image: node
+  before_script:
+    - npm install
+
 .php:
   before_script:
     - curl -sS https://getcomposer.org/installer | php
@@ -32,20 +37,16 @@ php8.1-unit-test:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
 commitlint:
+  extends: .node
   stage: test
-  image: node
-  before_script:
-    - npm install
   script:
     - npx commitlint --to="$CI_COMMIT_SHA"
 
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
 semantic-release:
+  extends: .node
   stage: release
   only:
     - main
-  image: node
-  before_script:
-    - npm install
   script:
     - npx semantic-release
