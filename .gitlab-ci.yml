@@ -13,7 +13,7 @@ commitlint:
   before_script:
     - npm install
   script:
-    - npx commitlint --from="$(git rev-parse $CI_DEFAULT_BRANCH)" --to="$CI_COMMIT_SHA"
+    - npx commitlint --from="$(git rev-parse $CI_MERGE_REQUEST_TARGET_BRANCH_NAME)" --to="$CI_COMMIT_SHA"
 
   # Based off https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/usage.rst
 php-cs-fixer:
