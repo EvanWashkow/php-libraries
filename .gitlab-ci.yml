@@ -33,7 +33,6 @@ php8.1-unit-test:
 
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
 semantic-release:
-  extends: .node
   stage: release
   image: node
   only:
