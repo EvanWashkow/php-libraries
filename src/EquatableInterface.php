@@ -16,8 +16,6 @@ interface EquatableInterface
 {
     /**
      * Compare values for equality.
-     *
-     * @param mixed $value the value to compare
      */
     public function equals($value): bool;
 }
