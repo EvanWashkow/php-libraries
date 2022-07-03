@@ -17,7 +17,7 @@ return [
     ],
     'remove' => [
         //  ExampleInsight::class,
-        SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
+        SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class, // No longer needed at PHP 8.0
     ],
     'config' => [
         //  ExampleInsight::class => [
