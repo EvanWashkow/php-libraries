@@ -29,7 +29,7 @@ php8.1-unit-test:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
 # Based off https://phpinsights.com/continuous-integration.html#gitlab-code-quality
-phpinsights-code-quality:
+phpinsights:
   extends:
     - .php7.4
   stage: test
