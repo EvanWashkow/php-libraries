@@ -37,6 +37,9 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function equals($value): bool
     {
         return $value instanceof self && $this->reflector->getName() === $value->getName();
@@ -57,6 +60,9 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isValueOfType($value): bool
     {
         return is_object($value) && $this->reflector->isInstance($value);

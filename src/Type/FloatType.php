@@ -11,11 +11,17 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
  */
 final class FloatType implements TypeInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function equals($value): bool
     {
         return $value instanceof self;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isValueOfType($value): bool
     {
         return is_float($value);
