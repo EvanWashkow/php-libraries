@@ -6,13 +6,18 @@ stages:
   before_script:
     - curl -sS https://getcomposer.org/installer | php
 
-# Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
-php7.4-unit-test:
+.php7.4:
   extends: .composer
-  stage: test
   image: php:7.4-cli-alpine
-  script:
+  before_script:
+    - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
+
+    # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
+php7.4-unit-test:
+  extends: .php7.4
+  stage: test
+  script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
