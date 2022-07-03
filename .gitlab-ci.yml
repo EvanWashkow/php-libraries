@@ -28,6 +28,17 @@ php8.1-unit-test:
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
+# Based off https://phpinsights.com/continuous-integration.html#gitlab-code-quality
+phpinsights-code-quality:
+  extends:
+    - .php7.4
+  stage: test
+  script:
+    - vendor/bin/phpinsights -n --ansi --format=codeclimate > codeclimate-report.json
+  artifacts:
+    reports:
+      codequality: codeclimate-report.json
+
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
 semantic-release:
   stage: release
