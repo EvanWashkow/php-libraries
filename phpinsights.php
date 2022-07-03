@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'preset' => 'default',
     'exclude' => [
+        //  'path/to/directory-or-file'
         'src-php',
         'tests-php',
     ],
