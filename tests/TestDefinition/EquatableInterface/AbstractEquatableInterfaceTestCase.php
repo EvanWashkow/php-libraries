@@ -19,7 +19,7 @@ abstract class AbstractEquatableInterfaceTestCase extends TestCase
      *
      * @param mixed $value
      */
-    final public function testEquals(EquatableInterface $equatable, $value, bool $expected)
+    final public function testEquals(EquatableInterface $equatable, $value, bool $expected): void
     {
         $this->assertSame(
             $expected,

@@ -19,6 +19,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
  * Tests Types' EquatableInterface implementation.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase

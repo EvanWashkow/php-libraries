@@ -65,7 +65,7 @@ final class InheritableTypeTestDataBuilder
      */
     public function build(): array
     {
-        if (0 == count($this->notIs)) {
+        if (count($this->notIs) === 0) {
             throw new \DomainException('insufficient test cases for Type->is()');
         }
 

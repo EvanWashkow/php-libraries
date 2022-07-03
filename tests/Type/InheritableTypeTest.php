@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
  * Tests InheritableTypes.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class InheritableTypeTest extends TestCase

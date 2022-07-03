@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
  * Tests Type interfaces.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class TypeInterfaceTest extends TestCase

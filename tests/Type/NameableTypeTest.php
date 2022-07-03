@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
  * Tests Types that implement NameableTypeInterface.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class NameableTypeTest extends TestCase

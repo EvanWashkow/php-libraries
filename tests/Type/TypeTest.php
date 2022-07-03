@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
  * Tests Types.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class TypeTest extends TestCase
@@ -60,37 +61,37 @@ final class TypeTest extends TestCase
 
         return [
             "{$classType}('')" => [
-                function () {
+                static function (): void {
                     new ClassType('');
                 },
                 \DomainException::class,
             ],
             "{$classType}('foobar')" => [
-                function () {
+                static function (): void {
                     new ClassType('foobar');
                 },
                 \DomainException::class,
             ],
             "{$classType}(StubInterfaceA)" => [
-                function () {
+                static function (): void {
                     new ClassType(StubInterfaceA::class);
                 },
                 \DomainException::class,
             ],
             "{$interfaceType}('')" => [
-                function () {
+                static function (): void {
                     new InterfaceType('');
                 },
                 \DomainException::class,
             ],
             "{$interfaceType}('foobar')" => [
-                function () {
+                static function (): void {
                     new InterfaceType('foobar');
                 },
                 \DomainException::class,
             ],
             "{$interfaceType}(StubClassA)" => [
-                function () {
+                static function (): void {
                     new InterfaceType(StubClassA::class);
                 },
                 \DomainException::class,
