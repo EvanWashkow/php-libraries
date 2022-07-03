@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace EvanWashkow\PHPLibraries\Type;
 
 use EvanWashkow\PHPLibraries\Equatable;
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
 use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * A Class Type.
  */
-final class ClassType implements InheritableType, NameableType
+final class ClassType extends ClassInterfaceType
 {
     private \ReflectionClass $reflector;
 
@@ -25,6 +24,7 @@ final class ClassType implements InheritableType, NameableType
      */
     public function __construct(string $name)
     {
+        parent::__construct($name);
         $exception = "not a class name: \"{$name}\"";
 
         try {
