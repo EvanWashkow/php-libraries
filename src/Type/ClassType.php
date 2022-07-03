@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
+use EvanWashkow\PHPLibraries\EquatableInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
@@ -37,10 +38,7 @@ final class ClassType implements InheritableTypeInterface, NameableTypeInterface
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function equals($value): bool
+    public function equals(EquatableInterface $value): bool
     {
         return $value instanceof self && $this->reflector->getName() === $value->getName();
     }

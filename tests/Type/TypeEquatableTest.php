@@ -67,11 +67,6 @@ final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
         return (new EquatableInterfaceTestBuilder($testHeader, $type))
             ->equals('clone', clone $type)
             ->notEquals('TypeInterface mock', $this->createMock(TypeInterface::class))
-            ->notEquals('integer', 1)
-            ->notEquals('bool', false)
-            ->notEquals('string', 'string')
-            ->notEquals('float', 3.1415)
-            ->notEquals('array', [])
         ;
     }
 }

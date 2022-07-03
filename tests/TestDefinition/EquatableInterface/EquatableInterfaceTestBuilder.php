@@ -74,7 +74,7 @@ final class EquatableInterfaceTestBuilder
      */
     public function build(): array
     {
-        if (count($this->notEquals) <= 1) {
+        if (count($this->notEquals) <= 0) {
             throw new \DomainException('insufficient test cases for EquatableInterface');
         }
 

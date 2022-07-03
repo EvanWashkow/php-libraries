@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
+use EvanWashkow\PHPLibraries\EquatableInterface;
 use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 
 /**
@@ -11,10 +12,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
  */
 final class ArrayType implements TypeInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function equals($value): bool
+    public function equals(EquatableInterface $value): bool
     {
         return $value instanceof self;
     }
