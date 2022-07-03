@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * An Interface Type.
  */
-final class InterfaceType implements InheritableTypeInterface, NameableTypeInterface
+final class InterfaceType implements InheritableType, NameableType
 {
     private \ReflectionClass $reflector;
 
@@ -38,7 +38,7 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
         }
     }
 
-    public function equals(EquatableInterface $value): bool
+    public function equals(Equatable $value): bool
     {
         return $value instanceof self && $this->reflector->getName() === $value->getName();
     }
@@ -48,9 +48,9 @@ final class InterfaceType implements InheritableTypeInterface, NameableTypeInter
         return $this->reflector->getName();
     }
 
-    public function is(TypeInterface $type): bool
+    public function is(Type $type): bool
     {
-        if ($type instanceof NameableTypeInterface) {
+        if ($type instanceof NameableType) {
             return $this->reflector->getName() === $type->getName()
                 || $this->reflector->isSubclassOf($type->getName());
         }

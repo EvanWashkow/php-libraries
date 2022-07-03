@@ -12,7 +12,7 @@ namespace EvanWashkow\PHPLibraries;
  * - Equality must be bidirectional. Calling `equals()` on the opposing object should result in the same value.
  * - Equality must be idempotent. Internal changes should not affect an object's equality; return a new value instead.
  */
-interface EquatableInterface
+interface Equatable
 {
     /**
      * Compare values for equality.

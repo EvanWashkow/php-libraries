@@ -7,7 +7,7 @@ namespace EvanWashkow\PHPLibraries\TypeInterface;
 /**
  * Describes a Type with a name.
  */
-interface NameableTypeInterface extends TypeInterface
+interface NameableType extends Type
 {
     /**
      * Get the Type name.

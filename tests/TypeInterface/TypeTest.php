@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\TypeInterface;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @coversNothing
  */
-final class TypeInterfaceTest extends TestCase
+final class TypeTest extends TestCase
 {
     /**
      * @dataProvider getTestData
@@ -38,9 +38,9 @@ final class TypeInterfaceTest extends TestCase
     public function getTestData(): array
     {
         return [
-            TypeInterface::class => [TypeInterface::class, EquatableInterface::class],
-            InheritableTypeInterface::class => [InheritableTypeInterface::class, TypeInterface::class],
-            NameableTypeInterface::class => [NameableTypeInterface::class, TypeInterface::class],
+            Type::class => [Type::class, Equatable::class],
+            InheritableType::class => [InheritableType::class, Type::class],
+            NameableType::class => [NameableType::class, Type::class],
         ];
     }
 }

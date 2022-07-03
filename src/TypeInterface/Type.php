@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\TypeInterface;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
+use EvanWashkow\PHPLibraries\Equatable;
 
 /**
  * Describes a Type.
  */
-interface TypeInterface extends EquatableInterface
+interface Type extends Equatable
 {
     /**
      * Determines if the given value is of this type.

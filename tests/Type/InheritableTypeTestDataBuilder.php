@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * Builds test data for InheritableTypes.
@@ -16,11 +16,11 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 final class InheritableTypeTestDataBuilder
 {
     private string $testName;
-    private InheritableTypeInterface $type;
+    private InheritableType $type;
     private array $is;
     private array $notIs;
 
-    public function __construct(string $testName, InheritableTypeInterface $type)
+    public function __construct(string $testName, InheritableType $type)
     {
         $this->testName = $testName;
         $this->type = $type;
@@ -36,9 +36,9 @@ final class InheritableTypeTestDataBuilder
      * Add a test for is().
      *
      * @param string        $testedName the name of the Type being tested
-     * @param TypeInterface $type       the Type being tested
+     * @param Type $type       the Type being tested
      */
-    public function is(string $testedName, TypeInterface $type): self
+    public function is(string $testedName, Type $type): self
     {
         $this->is["{$this->testName} IS {$testedName}"] =
             $this->newTestData($type, true);
@@ -50,9 +50,9 @@ final class InheritableTypeTestDataBuilder
      * Add a test for !is().
      *
      * @param string        $testedName the name of the Type being tested
-     * @param TypeInterface $type       the Type being tested
+     * @param Type $type       the Type being tested
      */
-    public function notIs(string $testedName, TypeInterface $type): self
+    public function notIs(string $testedName, Type $type): self
     {
         $this->notIs["{$this->testName} IS NOT {$testedName}"] =
             $this->newTestData($type, false);
@@ -72,7 +72,7 @@ final class InheritableTypeTestDataBuilder
         return array_merge($this->is, $this->notIs);
     }
 
-    private function newTestData(TypeInterface $type, bool $expected): array
+    private function newTestData(Type $type, bool $expected): array
     {
         return [$this->type, $type, $expected];
     }

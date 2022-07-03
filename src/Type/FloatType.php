@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * A Float Type.
  */
-final class FloatType implements TypeInterface
+final class FloatType implements Type
 {
-    public function equals(EquatableInterface $value): bool
+    public function equals(Equatable $value): bool
     {
         return $value instanceof self;
     }

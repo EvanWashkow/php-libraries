@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * Builds test data for Types.
@@ -12,11 +12,11 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
 final class TypeTestDataBuilder
 {
     private string $testName;
-    private TypeInterface $type;
+    private Type $type;
     private array $isValueOfType;
     private array $notIsValueOfType;
 
-    public function __construct(string $testName, TypeInterface $type)
+    public function __construct(string $testName, Type $type)
     {
         $this->testName = $testName;
         $this->type = $type;

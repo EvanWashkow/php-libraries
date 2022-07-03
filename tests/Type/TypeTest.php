@@ -11,7 +11,7 @@ use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,7 +26,7 @@ final class TypeTest extends TestCase
     /**
      * @dataProvider getFinalTestData
      */
-    public function testFinal(TypeInterface $type): void
+    public function testFinal(Type $type): void
     {
         $rc = new \ReflectionClass($type);
         $this->assertTrue($rc->isFinal(), 'Type is not final');
@@ -104,7 +104,7 @@ final class TypeTest extends TestCase
      *
      * @param mixed $value
      */
-    public function testIsValueOfType(TypeInterface $type, $value, bool $expected): void
+    public function testIsValueOfType(Type $type, $value, bool $expected): void
     {
         $this->assertSame($expected, $type->isValueOfType($value));
     }
@@ -216,7 +216,7 @@ final class TypeTest extends TestCase
     /**
      * Creates a new default TypeTestDataBuilder.
      */
-    private function newTestBuilder(string $testName, TypeInterface $type): TypeTestDataBuilder
+    private function newTestBuilder(string $testName, Type $type): TypeTestDataBuilder
     {
         return new TypeTestDataBuilder($testName, $type);
     }

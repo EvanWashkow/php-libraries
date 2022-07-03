@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\AbstractEquatableInterfaceTestCase;
-use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\EquatableInterfaceTestBuilder;
+use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\AbstractEquatableTestCase;
+use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\EquatableTestBuilder;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
@@ -13,7 +13,7 @@ use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * Tests Types' EquatableInterface implementation.
@@ -22,7 +22,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
  *
  * @coversNothing
  */
-final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
+final class TypeEquatableTest extends AbstractEquatableTestCase
 {
     public function getEqualsTestData(): array
     {
@@ -62,11 +62,11 @@ final class TypeEquatableTest extends AbstractEquatableInterfaceTestCase
         );
     }
 
-    private function newTestBuilder(string $testHeader, TypeInterface $type): EquatableInterfaceTestBuilder
+    private function newTestBuilder(string $testHeader, Type $type): EquatableTestBuilder
     {
-        return (new EquatableInterfaceTestBuilder($testHeader, $type))
+        return (new EquatableTestBuilder($testHeader, $type))
             ->equals('clone', clone $type)
-            ->notEquals('TypeInterface mock', $this->createMock(TypeInterface::class))
+            ->notEquals('TypeInterface mock', $this->createMock(Type::class))
         ;
     }
 }

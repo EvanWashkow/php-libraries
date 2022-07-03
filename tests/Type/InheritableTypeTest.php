@@ -6,9 +6,9 @@ namespace EvanWashkow\PHPLibraries\Tests\Type;
 
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +23,7 @@ final class InheritableTypeTest extends TestCase
     /**
      * @dataProvider getIsTestData
      */
-    public function testIs(InheritableTypeInterface $tester, TypeInterface $testee, bool $expected): void
+    public function testIs(InheritableType $tester, Type $testee, bool $expected): void
     {
         $this->assertSame($expected, $tester->is($testee));
     }
@@ -60,7 +60,7 @@ final class InheritableTypeTest extends TestCase
                 ->is(
                     'StubbedNameableType(StubInterfaceA)',
                     (function () {
-                        $mock = $this->createStub(NameableTypeInterface::class);
+                        $mock = $this->createStub(NameableType::class);
                         $mock->method('getName')->willReturn(StubInterfaceA::class);
 
                         return $mock;
@@ -77,10 +77,10 @@ final class InheritableTypeTest extends TestCase
     /**
      * Creates a new default TypeTestDataBuilder.
      */
-    private function newTestBuilder(string $testName, TypeInterface $type): InheritableTypeTestDataBuilder
+    private function newTestBuilder(string $testName, Type $type): InheritableTypeTestDataBuilder
     {
         return (new InheritableTypeTestDataBuilder($testName, $type))
-            ->notIs('Type mock', $this->createMock(TypeInterface::class))
+            ->notIs('Type mock', $this->createMock(Type::class))
         ;
     }
 }

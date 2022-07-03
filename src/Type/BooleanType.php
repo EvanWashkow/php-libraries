@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * A Boolean Type.
  */
-final class BooleanType implements TypeInterface
+final class BooleanType implements Type
 {
-    public function equals(EquatableInterface $value): bool
+    public function equals(Equatable $value): bool
     {
         return $value instanceof self;
     }
