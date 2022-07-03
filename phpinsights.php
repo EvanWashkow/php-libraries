@@ -15,6 +15,7 @@ return [
     ],
     'remove' => [
         //  ExampleInsight::class,
+        SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
     ],
     'config' => [
         //  ExampleInsight::class => [
