@@ -34,7 +34,7 @@ phpinsights:
     - .php7.4
   stage: test
   script:
-    - vendor/bin/phpinsights -n --ansi --format=codeclimate > codeclimate-report.json -- src tests
+    - vendor/bin/phpinsights -n --ansi --format=codeclimate > codeclimate-report.json
   artifacts:
     reports:
       codequality: codeclimate-report.json
