@@ -2,18 +2,19 @@ stages:
   - test
   - release
 
-.composer:
-  before_script:
-    - curl -sS https://getcomposer.org/installer | php
-
 .php7.4:
-  extends: .composer
   image: php:7.4-cli-alpine
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-    # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
+.php8.1:
+  image: php:8.1-cli-alpine
+  before_script:
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar update # Run composer update here to update components to the latest PHP version
+
+# Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php7.4-unit-test:
   extends: .php7.4
   stage: test
@@ -22,11 +23,9 @@ php7.4-unit-test:
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php8.1-unit-test:
-  extends: .composer
+  extends: .php8.1
   stage: test
-  image: php:8.1-cli-alpine
   script:
-    - php composer.phar update # Run composer update here to update components to the latest PHP version
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
 
 # Based off https://github.com/semantic-release/semantic-release/blob/master/docs/recipes/ci-configurations/gitlab-ci.md
