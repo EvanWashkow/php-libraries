@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace EvanWashkow\PHPLibraries\Type;
 
 use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
 use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * An Interface Type.
  */
-final class InterfaceType extends ClassInterfaceType
+final class InterfaceType implements InheritableType, NameableType
 {
     private \ReflectionClass $reflector;
 
@@ -24,7 +25,6 @@ final class InterfaceType extends ClassInterfaceType
      */
     public function __construct(string $name)
     {
-        parent::__construct($name);
         $exception = "not an interface name: \"{$name}\"";
 
         try {
