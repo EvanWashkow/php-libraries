@@ -6,7 +6,6 @@ return [
     'preset' => 'default',
     'exclude' => [
         //  'path/to/directory-or-file'
-        'tests',
         'src-php',
         'tests-php',
     ],
