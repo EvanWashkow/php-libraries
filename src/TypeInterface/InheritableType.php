@@ -7,7 +7,7 @@ namespace EvanWashkow\PHPLibraries\TypeInterface;
 /**
  * Describes a Type that can inherit another Type.
  */
-interface InheritableTypeInterface extends TypeInterface
+interface InheritableType extends Type
 {
     /**
      * Check type inheritance.
@@ -16,7 +16,7 @@ interface InheritableTypeInterface extends TypeInterface
      * - the same as the given type
      * - derived from the given type
      *
-     * @param TypeInterface $type the type to check
+     * @param Type $type the type to check
      */
-    public function is(TypeInterface $type): bool;
+    public function is(Type $type): bool;
 }

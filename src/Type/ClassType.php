@@ -4,62 +4,53 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Type;
 
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
-use EvanWashkow\PHPLibraries\TypeInterface\TypeInterface;
+use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
  * A Class Type.
  */
-final class ClassType implements InheritableTypeInterface, NameableTypeInterface
+final class ClassType implements InheritableType, NameableType
 {
-    private \ReflectionClass $reflector;
+    private ClassInterfaceTypeHelper $helper;
 
     /**
      * Create a new ClassType.
      *
-     * @param string $name the class name
+     * @param string $className the class name
      *
      * @throws \DomainException
      */
-    public function __construct(string $name)
+    public function __construct(string $className)
     {
-        $exception = "not a class name: \"{$name}\"";
-
-        try {
-            $this->reflector = new \ReflectionClass($name);
-        } catch (\ReflectionException $e) {
-            throw new \DomainException($exception);
-        }
-
-        if ($this->reflector->isInterface()) {
-            throw new \DomainException($exception);
+        $this->helper = new ClassInterfaceTypeHelper($className);
+        if ($this->helper->getReflectionClass()->isInterface()) {
+            throw new \DomainException("The type is not a class: {$className}");
         }
     }
 
-    public function equals($value): bool
+    public function equals(Equatable $value): bool
     {
-        return $value instanceof self && $this->reflector->getName() == $value->getName();
+        return $value instanceof self && $this->helper->equals($value);
     }
 
     public function getName(): string
     {
-        return $this->reflector->getName();
+        return $this->helper->getName();
     }
 
-    public function is(TypeInterface $type): bool
+    public function is(Type $type): bool
     {
-        if ($type instanceof NameableTypeInterface) {
-            return
-                $this->reflector->getName() == $type->getName()
-                || $this->reflector->isSubclassOf($type->getName());
-        }
-
-        return false;
+        return $this->helper->is($type);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isValueOfType($value): bool
     {
-        return is_object($value) && $this->reflector->isInstance($value);
+        return $this->helper->isValueOfType($value);
     }
 }

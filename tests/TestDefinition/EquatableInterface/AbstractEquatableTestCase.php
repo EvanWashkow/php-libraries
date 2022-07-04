@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
+use EvanWashkow\PHPLibraries\Equatable;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests EquatableInterface implementations.
  */
-abstract class AbstractEquatableInterfaceTestCase extends TestCase
+abstract class AbstractEquatableTestCase extends TestCase
 {
     /**
      * Tests the EquatableInterface.
@@ -19,7 +19,7 @@ abstract class AbstractEquatableInterfaceTestCase extends TestCase
      *
      * @param mixed $value
      */
-    final public function testEquals(EquatableInterface $equatable, $value, bool $expected)
+    final public function testEquals(Equatable $equatable, $value, bool $expected): void
     {
         $this->assertSame(
             $expected,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface;
 
-use EvanWashkow\PHPLibraries\EquatableInterface;
+use EvanWashkow\PHPLibraries\Equatable;
 
 /**
  * Builds test data for AbstractEquatableInterfaceTestCase.
@@ -12,10 +12,10 @@ use EvanWashkow\PHPLibraries\EquatableInterface;
  * - A test for self equivalence will be added on Builder creation.
  * - A test for bidirectional equality will be added when calling equals().
  */
-final class EquatableInterfaceTestBuilder
+final class EquatableTestBuilder
 {
     private string $testHeader;
-    private EquatableInterface $equatable;
+    private Equatable $equatable;
     private array $equals;
     private array $notEquals;
 
@@ -23,9 +23,9 @@ final class EquatableInterfaceTestBuilder
      * Creates a new EquatableTestDataBuilder.
      *
      * @param string             $testHeader the testHeader description for all tests
-     * @param EquatableInterface $equatable  the EquatableInterface instance
+     * @param Equatable $equatable  the EquatableInterface instance
      */
-    public function __construct(string $testHeader, EquatableInterface $equatable)
+    public function __construct(string $testHeader, Equatable $equatable)
     {
         $this->testHeader = $testHeader;
         $this->equatable = $equatable;
@@ -47,7 +47,7 @@ final class EquatableInterfaceTestBuilder
         $this->equals["{$this->testHeader} equals {$testEntry}"] =
             $this->newTestData($this->equatable, $value, true);
 
-        if ($value instanceof EquatableInterface) {
+        if ($value instanceof Equatable) {
             $this->equals["{$this->testHeader} bidirectionally equals {$testEntry}"] =
                 $this->newTestData($value, $this->equatable, true);
         }
@@ -74,7 +74,7 @@ final class EquatableInterfaceTestBuilder
      */
     public function build(): array
     {
-        if (count($this->notEquals) <= 1) {
+        if (count($this->notEquals) <= 0) {
             throw new \DomainException('insufficient test cases for EquatableInterface');
         }
 
@@ -84,11 +84,11 @@ final class EquatableInterfaceTestBuilder
     /**
      * Creates a new test case.
      *
-     * @param EquatableInterface $equatable the equatable object under test
+     * @param Equatable $equatable the equatable object under test
      * @param mixed              $value     the value to test
      * @param bool               $expected  the expected result
      */
-    private function newTestData(EquatableInterface $equatable, $value, bool $expected): array
+    private function newTestData(Equatable $equatable, $value, bool $expected): array
     {
         return [$equatable, $value, $expected];
     }

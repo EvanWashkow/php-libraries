@@ -6,13 +6,14 @@ namespace EvanWashkow\PHPLibraries\Tests\Type;
 
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableTypeInterface;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Types that implement NameableTypeInterface.
  *
  * @internal
+ *
  * @coversNothing
  */
 final class NameableTypeTest extends TestCase
@@ -20,7 +21,7 @@ final class NameableTypeTest extends TestCase
     /**
      * @dataProvider getNameTestData
      */
-    public function testGetName(NameableTypeInterface $type, string $expected): void
+    public function testGetName(NameableType $type, string $expected): void
     {
         $this->assertSame($expected, $type->getName());
     }
