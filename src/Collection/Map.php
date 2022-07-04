@@ -14,6 +14,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 final class Map
 {
     private Type $keyType;
+    private Type $valueType;
 
     public function __construct(Type $keyType, Type $valueType)
     {
@@ -21,9 +22,14 @@ final class Map
             throw new \InvalidArgumentException('The Map key type must be an integer or string');
         }
         $this->keyType = $keyType;
+        $this->valueType = $valueType;
     }
 
     public function getKeyType(): Type {
         return $this->keyType;
+    }
+
+    public function getValueType(): Type {
+        return $this->valueType;
     }
 }
