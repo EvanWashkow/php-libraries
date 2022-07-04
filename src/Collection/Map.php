@@ -13,10 +13,17 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
  */
 final class Map
 {
+    private Type $keyType;
+
     public function __construct(Type $keyType, Type $valueType)
     {
         if (! ($keyType instanceof IntegerType || $keyType instanceof StringType)) {
             throw new \InvalidArgumentException('The Map key type must be an integer or string');
         }
+        $this->keyType = $keyType;
+    }
+
+    public function getKeyType(): Type {
+        return $this->keyType;
     }
 }
