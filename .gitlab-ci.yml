@@ -34,7 +34,7 @@ phpinsights:
     - .php7.4
   stage: test
   script:
-    - vendor/bin/phpinsights -n --ansi --format=codeclimate > codeclimate-report.json
+    - vendor/bin/phpinsights -n --min-quality=95 --min-complexity=90 --min-architecture=95 --min-style=95 --ansi --format=codeclimate > codeclimate-report.json
   artifacts:
     reports:
       codequality: codeclimate-report.json
