@@ -32,25 +32,25 @@ final class ConstructorExceptionTest extends \PHPUnit\Framework\TestCase
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of BooleanType()' => [
+            'New ' . PrimitiveKeyHashMap::class . ' with keyType of BooleanType' => [
                 static function(): void {
                     new PrimitiveKeyHashMap(new BooleanType(), new BooleanType());
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of ClassType()' => [
+            'New ' . PrimitiveKeyHashMap::class . ' with keyType of ClassType' => [
                 static function(): void {
                     new PrimitiveKeyHashMap(new ClassType(\Exception::class), new ClassType(\Exception::class));
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of FloatType()' => [
+            'New ' . PrimitiveKeyHashMap::class . ' with keyType of FloatType' => [
                 static function(): void {
                     new PrimitiveKeyHashMap(new FloatType(), new FloatType());
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of InterfaceType()' => [
+            'New ' . PrimitiveKeyHashMap::class . ' with keyType of InterfaceType' => [
                 static function(): void {
                     new PrimitiveKeyHashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
                 },
