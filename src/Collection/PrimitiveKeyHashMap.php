@@ -9,9 +9,9 @@ use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
- * Defines a key => value map
+ * Defines an integer/string key => value map
  */
-final class Map
+final class PrimitiveKeyHashMap
 {
     private Type $keyType;
     private Type $valueType;
