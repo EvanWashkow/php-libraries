@@ -74,6 +74,7 @@ final class HashMap implements \Countable
      * @param int|string $key The key
      */
     public function hasKey($key): bool {
+        $this->throwOnInvalidKeyType($key);
         return array_key_exists($key, $this->hashMap);
     }
 

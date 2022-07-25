@@ -78,6 +78,18 @@ final class MethodThrowsExceptionTest extends \PHPUnit\Framework\TestCase
                 },
                 \OutOfBoundsException::class,
             ],
+            HashMap::class . '->hasKey() expects integer key, passed string' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))->hasKey('string');
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . '->hasKey() expects string key, passed integer' => [
+                static  function(): void {
+                    (new HashMap(new StringType(), new StringType()))->hasKey(1);
+                },
+                \InvalidArgumentException::class,
+            ],
             HashMap::class . '->set() expects integer key, passed string' => [
                 static  function(): void {
                     (new HashMap(new IntegerType(), new IntegerType()))->set('string', 1);
