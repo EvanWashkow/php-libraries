@@ -107,4 +107,36 @@ final class HashMapTest extends \PHPUnit\Framework\TestCase
             BooleanType::class => [new HashMap(new StringType(), new BooleanType()), new BooleanType()],
         ];
     }
+
+    /**
+     * @dataProvider getHasKeyTestData
+     */
+    public function testHasKey(HashMap $map, $key, bool $expected): void {
+        $this->assertSame($expected, $map->hasKey($key));
+    }
+
+    public function getHasKeyTestData(): array {
+        return [
+            HashMap::class . '->hasKey() returns true for integer keys' => [
+                (new HashMap(new IntegerType(), new IntegerType()))->set(1, 5),
+                1,
+                true,
+            ],
+            HashMap::class . '->hasKey() returns false for integer keys' => [
+                (new HashMap(new IntegerType(), new IntegerType()))->set(2, 7),
+                1,
+                false,
+            ],
+            HashMap::class . '->hasKey() returns true for string keys' => [
+                (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
+                'foo',
+                true,
+            ],
+            HashMap::class . '->hasKey() returns false for string keys' => [
+                (new HashMap(new StringType(), new StringType()))->set('lorem', 'ipsum'),
+                'foo',
+                false,
+            ],
+        ];
+    }
 }

@@ -48,7 +48,7 @@ final class HashMap implements \Countable
      */
     public function get($key) {
         $this->throwOnInvalidKeyType($key);
-        if (! array_key_exists($key, $this->hashMap)) {
+        if (! $this->hasKey($key)) {
             throw new \OutOfBoundsException('The key does not exist');
         }
         return $this->hashMap[$key];
@@ -66,6 +66,15 @@ final class HashMap implements \Countable
      */
     public function getValueType(): Type {
         return $this->valueType;
+    }
+
+    /**
+     * Determines if the key exists
+     *
+     * @param int|string $key The key
+     */
+    public function hasKey($key): bool {
+        return array_key_exists($key, $this->hashMap);
     }
 
     /**
