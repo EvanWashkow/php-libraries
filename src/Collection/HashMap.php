@@ -40,7 +40,7 @@ final class HashMap implements \Countable
     /**
      * Retrieve the value by with its key
      *
-     * @param mixed $key The key for the value
+     * @param int|string $key The key for the value
      *
      * @return mixed The value
      *
@@ -71,7 +71,7 @@ final class HashMap implements \Countable
     /**
      * Adds a new value with the corresponding key
      *
-     * @param mixed $key The key for the value
+     * @param int|string $key The key for the value
      * @param mixed $value The value
      *
      * @return HashMap The modified HashMap instance
@@ -86,7 +86,7 @@ final class HashMap implements \Countable
     /**
      * Throws an exception on an invalid key type
      *
-     * @param mixed $key The key
+     * @param int|string $key The key
      *
      * @throws \InvalidArgumentException
      */
