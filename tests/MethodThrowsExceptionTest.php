@@ -19,14 +19,14 @@ use EvanWashkow\PHPLibraries\Type\StringType;
 final class MethodThrowsExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @dataProvider getTestData
+     * @dataProvider getExceptionsTestData
      */
-    public function test(\Closure $closure, string $expectedExceptionClassName): void {
+    public function testExceptions(\Closure $closure, string $expectedExceptionClassName): void {
         $this->expectException($expectedExceptionClassName);
         $closure();
     }
 
-    public function getTestData(): array {
+    public function getExceptionsTestData(): array {
         return [
             'New ' . HashMap::class . ' with keyType of ArrayType' => [
                 static function(): void {
