@@ -11,7 +11,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 /**
  * Defines an integer/string key => value map
  */
-final class PrimitiveKeyHashMap
+final class HashMap
 {
     private Type $keyType;
     private Type $valueType;

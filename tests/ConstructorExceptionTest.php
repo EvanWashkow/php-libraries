@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Tests;
 
-use EvanWashkow\PHPLibraries\Collection\PrimitiveKeyHashMap;
+use EvanWashkow\PHPLibraries\Collection\HashMap;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
@@ -26,33 +26,33 @@ final class ConstructorExceptionTest extends \PHPUnit\Framework\TestCase
 
     public function getTestData(): array {
         return [
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of ArrayType' => [
+            'New ' . HashMap::class . ' with keyType of ArrayType' => [
                 static function(): void {
-                    new PrimitiveKeyHashMap(new ArrayType(), new ArrayType());
+                    new HashMap(new ArrayType(), new ArrayType());
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of BooleanType' => [
+            'New ' . HashMap::class . ' with keyType of BooleanType' => [
                 static function(): void {
-                    new PrimitiveKeyHashMap(new BooleanType(), new BooleanType());
+                    new HashMap(new BooleanType(), new BooleanType());
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of ClassType' => [
+            'New ' . HashMap::class . ' with keyType of ClassType' => [
                 static function(): void {
-                    new PrimitiveKeyHashMap(new ClassType(\Exception::class), new ClassType(\Exception::class));
+                    new HashMap(new ClassType(\Exception::class), new ClassType(\Exception::class));
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of FloatType' => [
+            'New ' . HashMap::class . ' with keyType of FloatType' => [
                 static function(): void {
-                    new PrimitiveKeyHashMap(new FloatType(), new FloatType());
+                    new HashMap(new FloatType(), new FloatType());
                 },
                 \InvalidArgumentException::class,
             ],
-            'New ' . PrimitiveKeyHashMap::class . ' with keyType of InterfaceType' => [
+            'New ' . HashMap::class . ' with keyType of InterfaceType' => [
                 static function(): void {
-                    new PrimitiveKeyHashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
+                    new HashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
                 },
                 \InvalidArgumentException::class,
             ],
