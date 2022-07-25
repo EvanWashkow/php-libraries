@@ -13,6 +13,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
  */
 final class HashMap
 {
+    private array $hashMap;
     private Type $keyType;
     private Type $valueType;
 
@@ -29,6 +30,21 @@ final class HashMap
         }
         $this->keyType = $keyType;
         $this->valueType = $valueType;
+    }
+
+    /**
+     * Retrieve the value by with its key
+     *
+     * @param mixed $key The key for the value
+     *
+     * @throws \OutOfBoundsException
+     */
+    public function get($key) {
+        $this->throwOnInvalidKeyType($key);
+        if (! array_key_exists($key, $this->hashMap)) {
+            throw new \OutOfBoundsException('The key does not exist');
+        }
+        return $this->hashMap[$key];
     }
 
     /**
@@ -50,12 +66,38 @@ final class HashMap
      *
      * @param mixed $key The key for the value
      * @param mixed $value The value
+     *
+     * @return HashMap The modified HashMap instance
      */
-    public function set($key, $value) {
-        if (!$this->getKeyType()->isValueOfType($key)) {
-            throw new \InvalidArgumentException('Cannot set key: the key is the wrong type');
+    public function set($key, $value): HashMap {
+        $this->throwOnInvalidKeyType($key);
+        $this->throwOnInvalidValueType($value);
+        $this->hashMap[$key] = $value;
+        return $this;
+    }
+
+    /**
+     * Throws an exception on an invalid key type
+     *
+     * @param mixed $key The key
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function throwOnInvalidKeyType($key): void {
+        if (! $this->getKeyType()->isValueOfType($key)) {
+            throw new \InvalidArgumentException('The key is the wrong type');
         }
-        if (!$this->getValueType()->isValueOfType($value)) {
+    }
+
+    /**
+     * Throws an exception on an invalid value type
+     *
+     * @param mixed $value The value
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function throwOnInvalidValueType($value): void {
+        if (! $this->getValueType()->isValueOfType($value)) {
             throw new \InvalidArgumentException('Cannot set value: the value is the wrong type');
         }
     }

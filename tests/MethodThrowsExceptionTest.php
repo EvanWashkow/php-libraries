@@ -58,25 +58,45 @@ final class MethodThrowsExceptionTest extends \PHPUnit\Framework\TestCase
                 },
                 \InvalidArgumentException::class,
             ],
-            HashMap::class . ' set() expects integer key, passed string' => [
+            HashMap::class . '->get() expects integer key, passed string' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))->get('string');
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . '->get() expects string key, passed integer' => [
+                static  function(): void {
+                    (new HashMap(new StringType(), new StringType()))->get(1);
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . '->get(); key does not exist' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))
+                        ->set(1, 2)
+                        ->get(5);
+                },
+                \OutOfBoundsException::class,
+            ],
+            HashMap::class . '->set() expects integer key, passed string' => [
                 static  function(): void {
                     (new HashMap(new IntegerType(), new IntegerType()))->set('string', 1);
                 },
                 \InvalidArgumentException::class,
             ],
-            HashMap::class . ' set() expects string key, passed integer' => [
+            HashMap::class . '->set() expects string key, passed integer' => [
                 static  function(): void {
                     (new HashMap(new StringType(), new StringType()))->set(1, 'string');
                 },
                 \InvalidArgumentException::class,
             ],
-            HashMap::class . ' set() expects integer value, passed string' => [
+            HashMap::class . '->set() expects integer value, passed string' => [
                 static  function(): void {
                     (new HashMap(new IntegerType(), new IntegerType()))->set(1, 'string');
                 },
                 \InvalidArgumentException::class,
             ],
-            HashMap::class . ' set() expects string value, passed integer' => [
+            HashMap::class . '->set() expects string value, passed integer' => [
                 static  function(): void {
                     (new HashMap(new StringType(), new StringType()))->set('string', 1);
                 },
