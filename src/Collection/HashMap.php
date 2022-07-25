@@ -13,6 +13,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
  */
 final class HashMap
 {
+    /** @var array<int|string, mixed> The hash map */
     private array $hashMap;
     private Type $keyType;
     private Type $valueType;
@@ -36,6 +37,8 @@ final class HashMap
      * Retrieve the value by with its key
      *
      * @param mixed $key The key for the value
+     *
+     * @return mixed The value
      *
      * @throws \OutOfBoundsException
      */
