@@ -15,6 +15,26 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 final class HashMapTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @dataProvider getCountTestData
+     */
+    public function testCount(HashMap $map, int $expected): void {
+        $this->assertSame($expected, $map->count());
+    }
+
+    public function getCountTestData(): array {
+        return [
+            HashMap::class . '->count() should return 0' => [
+                new HashMap(new IntegerType(), new StringType()),
+                0,
+            ],
+            HashMap::class . '->count() should return 2' => [
+                (new HashMap(new IntegerType(), new StringType()))->set(0, 'foobar')->set(5, 'lorem'),
+                2,
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider getGetSetTestData
      */
     public function testGetSet(HashMap $map, $key, $expected): void {

@@ -11,7 +11,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 /**
  * Defines an integer/string key => value map
  */
-final class HashMap
+final class HashMap implements \Countable
 {
     /** @var array<int|string, mixed> The hash map */
     private array $hashMap;
@@ -24,13 +24,17 @@ final class HashMap
      * @param Type $keyType The key type requirement for all keys in the map
      * @param Type $valueType The value type requirement for all values in the map
      */
-    public function __construct(Type $keyType, Type $valueType)
-    {
+    public function __construct(Type $keyType, Type $valueType) {
         if (! ($keyType instanceof IntegerType || $keyType instanceof StringType)) {
             throw new \InvalidArgumentException('The Map key type must be an integer or string');
         }
+        $this->hashMap = [];
         $this->keyType = $keyType;
         $this->valueType = $valueType;
+    }
+
+    public function count(): int {
+        return count($this->hashMap);
     }
 
     /**
