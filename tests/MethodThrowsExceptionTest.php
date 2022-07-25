@@ -9,12 +9,14 @@ use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\FloatType;
+use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
+use EvanWashkow\PHPLibraries\Type\StringType;
 
 /**
  * Tests constructor exceptions
  */
-final class ConstructorExceptionTest extends \PHPUnit\Framework\TestCase
+final class MethodThrowsExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider getTestData
@@ -53,6 +55,30 @@ final class ConstructorExceptionTest extends \PHPUnit\Framework\TestCase
             'New ' . HashMap::class . ' with keyType of InterfaceType' => [
                 static function(): void {
                     new HashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . ' set() expects integer key, passed string' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))->set('string', 1);
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . ' set() expects string key, passed integer' => [
+                static  function(): void {
+                    (new HashMap(new StringType(), new StringType()))->set(1, 'string');
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . ' set() expects integer value, passed string' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))->set(1, 'string');
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . ' set() expects string value, passed integer' => [
+                static  function(): void {
+                    (new HashMap(new StringType(), new StringType()))->set('string', 1);
                 },
                 \InvalidArgumentException::class,
             ],

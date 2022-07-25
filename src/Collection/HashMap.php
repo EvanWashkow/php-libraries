@@ -44,4 +44,19 @@ final class HashMap
     public function getValueType(): Type {
         return $this->valueType;
     }
+
+    /**
+     * Adds a new value with the corresponding key
+     *
+     * @param mixed $key The key for the value
+     * @param mixed $value The value
+     */
+    public function set($key, $value) {
+        if (!$this->getKeyType()->isValueOfType($key)) {
+            throw new \InvalidArgumentException('Cannot set key: the key is the wrong type');
+        }
+        if (!$this->getValueType()->isValueOfType($value)) {
+            throw new \InvalidArgumentException('Cannot set value: the value is the wrong type');
+        }
+    }
 }
