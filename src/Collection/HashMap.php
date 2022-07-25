@@ -48,9 +48,7 @@ final class HashMap implements \Countable
      */
     public function get($key) {
         $this->throwOnInvalidKeyType($key);
-        if (! $this->hasKey($key)) {
-            throw new \OutOfBoundsException('The key does not exist');
-        }
+        $this->throwOnMissingKey($key);
         return $this->hashMap[$key];
     }
 
@@ -76,6 +74,18 @@ final class HashMap implements \Countable
     public function hasKey($key): bool {
         $this->throwOnInvalidKeyType($key);
         return array_key_exists($key, $this->hashMap);
+    }
+
+    /**
+     * Removes a value by its key
+     *
+     * @param int|string $key The key, of the corresponding value, to remove
+     */
+    public function removeKey($key): HashMap {
+        $this->throwOnInvalidKeyType($key);
+        $this->throwOnMissingKey($key);
+        unset($this->hashMap[$key]);
+        return $this;
     }
 
     /**
@@ -116,6 +126,19 @@ final class HashMap implements \Countable
     private function throwOnInvalidValueType($value): void {
         if (! $this->getValueType()->isValueOfType($value)) {
             throw new \InvalidArgumentException('Cannot set value: the value is the wrong type');
+        }
+    }
+
+    /**
+     * Throws an exception on a missing key
+     *
+     * @param int|string $key
+     *
+     * @throws \OutOfBoundsException
+     */
+    private function throwOnMissingKey($key): void {
+        if (! $this->hasKey($key)) {
+            throw new \OutOfBoundsException('The key does not exist');
         }
     }
 }

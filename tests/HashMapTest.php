@@ -43,32 +43,32 @@ final class HashMapTest extends \PHPUnit\Framework\TestCase
 
     public function getGetSetTestData(): array {
         return [
-            HashMap::class . ' get(PHP_INT_MIN) should return PHP_INT_MAX' => [
+            HashMap::class . ' after set(), get(PHP_INT_MIN) should return PHP_INT_MAX' => [
                 (new HashMap(new IntegerType(), new IntegerType()))->set(PHP_INT_MIN, PHP_INT_MAX),
                 PHP_INT_MIN,
                 PHP_INT_MAX,
             ],
-            HashMap::class . ' get(PHP_INT_MAX) should return PHP_INT_MIN' => [
+            HashMap::class . ' after set(), get(PHP_INT_MAX) should return PHP_INT_MIN' => [
                 (new HashMap(new IntegerType(), new IntegerType()))->set(PHP_INT_MAX, PHP_INT_MIN),
                 PHP_INT_MAX,
                 PHP_INT_MIN,
             ],
-            HashMap::class . ' overriding key 0\'s value with 5 should return 5' => [
+            HashMap::class . ' after overriding the value with set(), key 0\'s value should return 5' => [
                 (new HashMap(new IntegerType(), new IntegerType()))->set(0, 0)->set(0, 5),
                 0,
                 5,
             ],
-            HashMap::class . ' get("foo") should return "bar"' => [
+            HashMap::class . ' after set(), get("foo") should return "bar"' => [
                 (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
                 'foo',
                 'bar',
             ],
-            HashMap::class . ' get("bar") should return "foo"' => [
+            HashMap::class . ' after set(), get("bar") should return "foo"' => [
                 (new HashMap(new StringType(), new StringType()))->set('bar', 'foo'),
                 'bar',
                 'foo',
             ],
-            HashMap::class . ' overriding key "lorem"\'s value with "ipsum" should return "ipsum"' => [
+            HashMap::class . ' after overriding the value with set(), key "lorem"\'s value should return "ipsum"' => [
                 (new HashMap(new StringType(), new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
                 'lorem',
                 'ipsum',

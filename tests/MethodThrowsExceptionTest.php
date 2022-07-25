@@ -78,6 +78,15 @@ final class MethodThrowsExceptionTest extends \PHPUnit\Framework\TestCase
                 },
                 \OutOfBoundsException::class,
             ],
+            HashMap::class . '->get() should throw exception after the key was removed' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))
+                        ->set(1, 2)
+                        ->removeKey(1)
+                        ->get(1);
+                },
+                \OutOfBoundsException::class,
+            ],
             HashMap::class . '->hasKey() expects integer key, passed string' => [
                 static  function(): void {
                     (new HashMap(new IntegerType(), new IntegerType()))->hasKey('string');
@@ -89,6 +98,26 @@ final class MethodThrowsExceptionTest extends \PHPUnit\Framework\TestCase
                     (new HashMap(new StringType(), new StringType()))->hasKey(1);
                 },
                 \InvalidArgumentException::class,
+            ],
+            HashMap::class . '->removeKey() expects integer key, passed string' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))->removeKey('string');
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . '->removeKey() expects string key, passed integer' => [
+                static  function(): void {
+                    (new HashMap(new StringType(), new StringType()))->removeKey(1);
+                },
+                \InvalidArgumentException::class,
+            ],
+            HashMap::class . '->removeKey(); key does not exist' => [
+                static  function(): void {
+                    (new HashMap(new IntegerType(), new IntegerType()))
+                        ->set(1, 2)
+                        ->removeKey(5);
+                },
+                \OutOfBoundsException::class,
             ],
             HashMap::class . '->set() expects integer key, passed string' => [
                 static  function(): void {
