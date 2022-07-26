@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\CollectionInterface;
 
-use EvanWashkow\PHPLibraries\Collection\HashMap;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
@@ -45,7 +44,7 @@ interface Mapper extends \Countable
      *
      * @param int|string $key The key, of the corresponding value, to remove
      */
-    public function removeKey($key): HashMap;
+    public function removeKey($key): Mapper;
 
     /**
      * Adds a new value with the corresponding key
@@ -53,7 +52,7 @@ interface Mapper extends \Countable
      * @param int|string $key The key for the value
      * @param mixed $value The value
      *
-     * @return HashMap The modified HashMap instance
+     * @return Mapper The modified map instance
      */
-    public function set($key, $value): HashMap;
+    public function set($key, $value): Mapper;
 }
