@@ -53,7 +53,7 @@ final class IntegerKeyHashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function removeKey($key): IntegerKeyHashMap {
+    public function removeKey($key): self {
         $this->helper->removeKey($key);
         return $this;
     }
@@ -61,7 +61,7 @@ final class IntegerKeyHashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function set($key, $value): IntegerKeyHashMap {
+    public function set($key, $value): self {
         $this->helper->set($key, $value);
         return $this;
     }

@@ -66,7 +66,7 @@ final class HashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function removeKey($key): HashMap {
+    public function removeKey($key): self {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnMissingKey($key);
         unset($this->hashMap[$key]);
@@ -76,7 +76,7 @@ final class HashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function set($key, $value): HashMap {
+    public function set($key, $value): self {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnInvalidValueType($value);
         $this->hashMap[$key] = $value;
