@@ -14,10 +14,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
  */
 final class HashMap implements Mapper
 {
-    /** @var array<int|string, mixed> The hash map */
-    private array $hashMap;
-    private Type $keyType;
-    private Type $valueType;
+    private Mapper $map;
 
     /**
      * Create a new HashMap instance
@@ -26,50 +23,46 @@ final class HashMap implements Mapper
      * @param Type $valueType The value type requirement for all values in the map
      */
     public function __construct(Type $keyType, Type $valueType) {
-        if (! ($keyType instanceof IntegerType || $keyType instanceof StringType)) {
+        if ($keyType instanceof IntegerType) {
+            $this->map = new IntegerKeyHashMap($valueType);
+        } elseif ($keyType instanceof StringType) {
+            $this->map = new StringKeyHashMap($valueType);
+        } else {
             throw new \InvalidArgumentException('The Map key type must be an integer or string');
         }
-        $this->hashMap = [];
-        $this->keyType = $keyType;
-        $this->valueType = $valueType;
     }
 
     public function count(): int {
-        return count($this->hashMap);
+        return $this->map->count();
     }
 
     /**
      * @inheritDoc
      */
     public function get($key) {
-        $this->throwOnInvalidKeyType($key);
-        $this->throwOnMissingKey($key);
-        return $this->hashMap[$key];
+        return $this->map->get($key);
     }
 
     public function getKeyType(): Type {
-        return $this->keyType;
+        return $this->map->getKeyType();
     }
 
     public function getValueType(): Type {
-        return $this->valueType;
+        return $this->map->getValueType();
     }
 
     /**
      * @inheritDoc
      */
     public function hasKey($key): bool {
-        $this->throwOnInvalidKeyType($key);
-        return array_key_exists($key, $this->hashMap);
+        return $this->map->hasKey($key);
     }
 
     /**
      * @inheritDoc
      */
     public function removeKey($key): self {
-        $this->throwOnInvalidKeyType($key);
-        $this->throwOnMissingKey($key);
-        unset($this->hashMap[$key]);
+        $this->map->removeKey($key);
         return $this;
     }
 
@@ -77,48 +70,7 @@ final class HashMap implements Mapper
      * @inheritDoc
      */
     public function set($key, $value): self {
-        $this->throwOnInvalidKeyType($key);
-        $this->throwOnInvalidValueType($value);
-        $this->hashMap[$key] = $value;
+        $this->map->set($key, $value);
         return $this;
-    }
-
-    /**
-     * Throws an exception on an invalid key type
-     *
-     * @param int|string $key The key
-     *
-     * @throws \InvalidArgumentException
-     */
-    private function throwOnInvalidKeyType($key): void {
-        if (! $this->getKeyType()->isValueOfType($key)) {
-            throw new \InvalidArgumentException('The key is the wrong type');
-        }
-    }
-
-    /**
-     * Throws an exception on an invalid value type
-     *
-     * @param mixed $value The value
-     *
-     * @throws \InvalidArgumentException
-     */
-    private function throwOnInvalidValueType($value): void {
-        if (! $this->getValueType()->isValueOfType($value)) {
-            throw new \InvalidArgumentException('Cannot set value: the value is the wrong type');
-        }
-    }
-
-    /**
-     * Throws an exception on a missing key
-     *
-     * @param int|string $key
-     *
-     * @throws \OutOfBoundsException
-     */
-    private function throwOnMissingKey($key): void {
-        if (! $this->hasKey($key)) {
-            throw new \OutOfBoundsException('The key does not exist');
-        }
     }
 }
