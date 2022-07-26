@@ -20,7 +20,7 @@ final class IntegerKeyHashMap implements Mapper
     private Type $valueType;
 
     /**
-     * Create a new Map instance
+     * Create a new IntegerKeyHashMap instance
      *
      * @param Type $valueType The value type requirement for all values in the map
      */

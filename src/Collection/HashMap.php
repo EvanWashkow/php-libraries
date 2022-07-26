@@ -20,7 +20,7 @@ final class HashMap implements Mapper
     private Type $valueType;
 
     /**
-     * Create a new Map instance
+     * Create a new HashMap instance
      *
      * @param Type $keyType The key type requirement for all keys in the map
      * @param Type $valueType The value type requirement for all values in the map
