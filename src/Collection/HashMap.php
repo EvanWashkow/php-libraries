@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PHPLibraries\Collection;
 
+use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
@@ -11,7 +12,7 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 /**
  * Defines an integer/string key => value map
  */
-final class HashMap implements \Countable
+final class HashMap implements Mapper
 {
     /** @var array<int|string, mixed> The hash map */
     private array $hashMap;
@@ -38,13 +39,7 @@ final class HashMap implements \Countable
     }
 
     /**
-     * Retrieve the value by with its key
-     *
-     * @param int|string $key The key for the value
-     *
-     * @return mixed The value
-     *
-     * @throws \OutOfBoundsException
+     * @inheritDoc
      */
     public function get($key) {
         $this->throwOnInvalidKeyType($key);
@@ -52,24 +47,16 @@ final class HashMap implements \Countable
         return $this->hashMap[$key];
     }
 
-    /**
-     * Retrieve the key type
-     */
     public function getKeyType(): Type {
         return $this->keyType;
     }
 
-    /**
-     * Retrieve the value type
-     */
     public function getValueType(): Type {
         return $this->valueType;
     }
 
     /**
-     * Determines if the key exists
-     *
-     * @param int|string $key The key
+     * @inheritDoc
      */
     public function hasKey($key): bool {
         $this->throwOnInvalidKeyType($key);
@@ -77,9 +64,7 @@ final class HashMap implements \Countable
     }
 
     /**
-     * Removes a value by its key
-     *
-     * @param int|string $key The key, of the corresponding value, to remove
+     * @inheritDoc
      */
     public function removeKey($key): HashMap {
         $this->throwOnInvalidKeyType($key);
@@ -89,12 +74,7 @@ final class HashMap implements \Countable
     }
 
     /**
-     * Adds a new value with the corresponding key
-     *
-     * @param int|string $key The key for the value
-     * @param mixed $value The value
-     *
-     * @return HashMap The modified HashMap instance
+     * @inheritDoc
      */
     public function set($key, $value): HashMap {
         $this->throwOnInvalidKeyType($key);
