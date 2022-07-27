@@ -40,13 +40,13 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
 
     public function getTestData(): array {
         return array_merge(
+            // CollectionInterface
+            $this->buildTest(new InterfaceType(Mapper::class), new InterfaceType(\Countable::class)),
+
             // Collection
             $this->buildTest(new ClassType(HashMap::class), new InterfaceType(Mapper::class)),
             $this->buildTest(new ClassType(IntegerKeyHashMap::class), new InterfaceType(Mapper::class)),
             $this->buildTest(new ClassType(StringKeyHashMap::class), new InterfaceType(Mapper::class)),
-
-            // CollectionInterface
-            $this->buildTest(new InterfaceType(Mapper::class), new InterfaceType(\Countable::class)),
 
             // TypeInterface
             $this->buildTest(new InterfaceType(Type::class), new InterfaceType(Equatable::class)),
