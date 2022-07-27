@@ -9,8 +9,13 @@ use EvanWashkow\PHPLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PHPLibraries\Collection\StringKeyHashMap;
 use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
 use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PHPLibraries\Type\ArrayType;
+use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
+use EvanWashkow\PHPLibraries\Type\FloatType;
+use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
+use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
 use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
@@ -47,6 +52,15 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
             $this->buildTest(new InterfaceType(Type::class), new InterfaceType(Equatable::class)),
             $this->buildTest(new InterfaceType(InheritableType::class), new InterfaceType(Type::class)),
             $this->buildTest(new InterfaceType(NameableType::class), new InterfaceType(Type::class)),
+
+            // Type
+            $this->buildTest(new ClassType(ArrayType::class), new InterfaceType(Type::class)),
+            $this->buildTest(new ClassType(BooleanType::class), new InterfaceType(Type::class)),
+            $this->buildTest(new ClassType(ClassType::class), new InterfaceType(InheritableType::class), new InterfaceType(NameableType::class)),
+            $this->buildTest(new ClassType(FloatType::class), new InterfaceType(Type::class)),
+            $this->buildTest(new ClassType(IntegerType::class), new InterfaceType(Type::class)),
+            $this->buildTest(new ClassType(InterfaceType::class), new InterfaceType(InheritableType::class), new InterfaceType(NameableType::class)),
+            $this->buildTest(new ClassType(StringType::class), new InterfaceType(Type::class)),
         );
     }
 
