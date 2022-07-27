@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests;
+namespace EvanWashkow\PHPLibraries\Tests\Collection;
 
 use EvanWashkow\PHPLibraries\Collection\HashMap;
 use EvanWashkow\PHPLibraries\Tests\TestHelper\ThrowsExceptionTestHelper;
