@@ -1,13 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EvanWashkow\PHPLibraries\Tests;
 
 use EvanWashkow\PHPLibraries\Collection\HashMap;
 use EvanWashkow\PHPLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PHPLibraries\Collection\StringKeyHashMap;
 use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
+use EvanWashkow\PHPLibraries\Equatable;
 use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
+use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 /**
@@ -21,7 +26,7 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider getTestData
      */
-    public function test(Type $type, Type $expectedParent) {
+    public function test(Type $type, Type $expectedParent): void {
         $this->assertTrue(
             $type->is($expectedParent),
             "{$type->getName()} does not inherit {$expectedParent->getName()}"
@@ -37,6 +42,11 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
 
             // CollectionInterface
             $this->buildTest(new InterfaceType(Mapper::class), new InterfaceType(\Countable::class)),
+
+            // TypeInterface
+            $this->buildTest(new InterfaceType(Type::class), new InterfaceType(Equatable::class)),
+            $this->buildTest(new InterfaceType(InheritableType::class), new InterfaceType(Type::class)),
+            $this->buildTest(new InterfaceType(NameableType::class), new InterfaceType(Type::class)),
         );
     }
 
