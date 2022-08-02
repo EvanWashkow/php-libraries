@@ -14,22 +14,22 @@ use EvanWashkow\PHPLibraries\Type\StringType;
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @dataProvider getGetSetRemoveKeyTestData
+     * @dataProvider getGetSetTestData
      */
-    public function testGetSetRemoveKey(Mapper $map, $key, $expected): void {
+    public function testGetSet(Mapper $map, $key, $expected): void {
         $this->assertSame($expected, $map->get($key));
     }
 
-    public function getGetSetRemoveKeyTestData(): array {
+    public function getGetSetTestData(): array {
         return array_merge(
-            self::buildGetSetRemoveKeyTestDataForIntKeyIntValue(new IntegerKeyHashMap(new IntegerType())),
-            self::buildGetSetRemoveKeyTestDataForStringKeyStringValue(new StringKeyHashMap(new StringType())),
-            self::buildGetSetRemoveKeyTestDataForIntKeyIntValue(new HashMap(new IntegerType(), new IntegerType())),
-            self::buildGetSetRemoveKeyTestDataForStringKeyStringValue(new HashMap(new StringType(), new StringType()))
+            self::buildGetSetTestDataForIntKeyIntValue(new IntegerKeyHashMap(new IntegerType())),
+            self::buildGetSetTestDataForStringKeyStringValue(new StringKeyHashMap(new StringType())),
+            self::buildGetSetTestDataForIntKeyIntValue(new HashMap(new IntegerType(), new IntegerType())),
+            self::buildGetSetTestDataForStringKeyStringValue(new HashMap(new StringType(), new StringType()))
         );
     }
 
-    private static function buildGetSetRemoveKeyTestDataForIntKeyIntValue(Mapper $map): array {
+    private static function buildGetSetTestDataForIntKeyIntValue(Mapper $map): array {
         $class = get_class($map);
         return [
             "{$class} after set(), get(PHP_INT_MIN) should return PHP_INT_MAX" => [
@@ -50,7 +50,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildGetSetRemoveKeyTestDataForStringKeyStringValue(Mapper $map): array {
+    private static function buildGetSetTestDataForStringKeyStringValue(Mapper $map): array {
         $class = get_class($map);
         return [
             "{$class} after set(), get('foo') should return 'bar'" => [
