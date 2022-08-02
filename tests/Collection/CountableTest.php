@@ -26,9 +26,7 @@ final class CountableTest extends \PHPUnit\Framework\TestCase
             $this->buildTest(new StringKeyHashMap(new IntegerType()), 0),
             $this->buildTest((new StringKeyHashMap(new IntegerType()))->set('lorem', 2)->set('ipsum', 7), 2),
             $this->buildTest(new HashMap(new IntegerType(), new StringType()), 0),
-            $this->buildTest(
-                (new HashMap(new IntegerType(), new StringType()))->set(0, 'foobar')->set(5, 'lorem'), 2
-            ),
+            $this->buildTest((new HashMap(new IntegerType(), new StringType()))->set(0, 'foobar')->set(5, 'lorem'), 2),
         );
     }
 
