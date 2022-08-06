@@ -58,17 +58,17 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         $class = get_class($map);
         return [
             "{$class} after set(), get('foo') should return 'bar'" => [
-                $map->set('foo', 'bar'),
+                (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
                 'foo',
                 'bar',
             ],
             "{$class} after set(), get('bar') should return 'foo'" => [
-                $map->set('bar', 'foo'),
+                (new HashMap(new StringType(), new StringType()))->set('bar', 'foo'),
                 'bar',
                 'foo',
             ],
             "{$class} after overriding the value with set(), key 'lorem' should return value 'ipsum'" => [
-                $map->set('lorem', 'foobar')->set('lorem', 'ipsum'),
+                (new HashMap(new StringType(), new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
                 'lorem',
                 'ipsum',
             ],
@@ -123,6 +123,38 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             ],
             HashMap::class . ' with ' . BooleanType::class . ' value type should return that type' => [
                 new HashMap(new StringType(), new BooleanType()), new BooleanType(),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getHasKeyTests
+     */
+    public function testHasKey(Mapper $map, $key, bool $expected): void {
+        $this->assertSame($expected, $map->hasKey($key));
+    }
+
+    public function getHasKeyTests(): array {
+        return [
+            HashMap::class . '->hasKey() returns true for integer keys' => [
+                (new HashMap(new IntegerType(), new IntegerType()))->set(1, 5),
+                1,
+                true,
+            ],
+            HashMap::class . '->hasKey() returns false for integer keys' => [
+                (new HashMap(new IntegerType(), new IntegerType()))->set(2, 7),
+                1,
+                false,
+            ],
+            HashMap::class . '->hasKey() returns true for string keys' => [
+                (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
+                'foo',
+                true,
+            ],
+            HashMap::class . '->hasKey() returns false for string keys' => [
+                (new HashMap(new StringType(), new StringType()))->set('lorem', 'ipsum'),
+                'foo',
+                false,
             ],
         ];
     }
