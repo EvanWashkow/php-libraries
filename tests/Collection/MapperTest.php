@@ -58,17 +58,17 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         $class = get_class($map);
         return [
             "{$class} after set(), get('foo') should return 'bar'" => [
-                (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
+                $map->set('foo', 'bar'),
                 'foo',
                 'bar',
             ],
             "{$class} after set(), get('bar') should return 'foo'" => [
-                (new HashMap(new StringType(), new StringType()))->set('bar', 'foo'),
+                $map->set('bar', 'foo'),
                 'bar',
                 'foo',
             ],
             "{$class} after overriding the value with set(), key 'lorem' should return value 'ipsum'" => [
-                (new HashMap(new StringType(), new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
+                $map->set('lorem', 'foobar')->set('lorem', 'ipsum'),
                 'lorem',
                 'ipsum',
             ],
