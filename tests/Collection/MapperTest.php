@@ -100,4 +100,30 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider getGetValueTypeTests
+     */
+    public function testGetValueType(Mapper $map, Type $expectedType): void {
+        $mapType = new ClassType(get_class($map->getValueType()));
+        $expectedTypeType = new ClassType(get_class($expectedType));
+        $this->assertTrue($mapType->equals($expectedTypeType), 'Mapper->getValueType() returned the wrong type');
+    }
+
+    public function getGetValueTypeTests(): array {
+        return [
+            IntegerKeyHashMap::class . ' value type should return ' . BooleanType::class => [
+                new IntegerKeyHashMap(new BooleanType()), new BooleanType(),
+            ],
+            StringKeyHashMap::class . ' value type should return ' . IntegerType::class => [
+                new StringKeyHashMap(new IntegerType()), new IntegerType(),
+            ],
+            HashMap::class . ' with ' . ArrayType::class . ' value type should return that type' => [
+                new HashMap(new IntegerType(), new ArrayType()), new ArrayType(),
+            ],
+            HashMap::class . ' with ' . BooleanType::class . ' value type should return that type' => [
+                new HashMap(new StringType(), new BooleanType()), new BooleanType(),
+            ],
+        ];
+    }
 }

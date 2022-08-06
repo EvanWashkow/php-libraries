@@ -13,7 +13,6 @@ use EvanWashkow\PHPLibraries\Type\FloatType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 final class HashMapTest extends \PHPUnit\Framework\TestCase
 {
