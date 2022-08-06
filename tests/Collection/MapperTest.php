@@ -86,6 +86,12 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
 
     public function getGetKeyTypeTestData(): array {
         return [
+            IntegerKeyHashMap::class . ' key type should return ' . IntegerType::class => [
+                new IntegerKeyHashMap(new BooleanType()), new IntegerType(),
+            ],
+            StringKeyHashMap::class . ' key type should return ' . StringType::class => [
+                new StringKeyHashMap(new IntegerType()), new StringType(),
+            ],
             HashMap::class . ' with ' . IntegerType::class . ' key type should return that type' => [
                 new HashMap(new IntegerType(), new ArrayType()), new IntegerType(),
             ],
