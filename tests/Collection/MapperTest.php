@@ -8,8 +8,12 @@ use EvanWashkow\PHPLibraries\Collection\HashMap;
 use EvanWashkow\PHPLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PHPLibraries\Collection\StringKeyHashMap;
 use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
+use EvanWashkow\PHPLibraries\Type\ArrayType;
+use EvanWashkow\PHPLibraries\Type\BooleanType;
+use EvanWashkow\PHPLibraries\Type\ClassType;
 use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\StringType;
+use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
@@ -67,6 +71,26 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 (new HashMap(new StringType(), new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
                 'lorem',
                 'ipsum',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getGetKeyTypeTestData
+     */
+    public function testGetKeyType(Mapper $map, Type $expectedType): void {
+        $mapType = new ClassType(get_class($map->getKeyType()));
+        $expectedTypeType = new ClassType(get_class($expectedType));
+        $this->assertTrue($mapType->equals($expectedTypeType), 'Mapper->getKeyType() returned the wrong type');
+    }
+
+    public function getGetKeyTypeTestData(): array {
+        return [
+            HashMap::class . ' with ' . IntegerType::class . ' key type should return that type' => [
+                new HashMap(new IntegerType(), new ArrayType()), new IntegerType(),
+            ],
+            HashMap::class . ' with ' . StringType::class . ' key type should return that type' => [
+                new HashMap(new StringType(), new BooleanType()), new StringType(),
             ],
         ];
     }
