@@ -14,22 +14,22 @@ use EvanWashkow\PHPLibraries\Type\StringType;
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @dataProvider getGetSetTestData
+     * @dataProvider getGetSetTests
      */
     public function testGetSet(Mapper $map, $key, $expected): void {
         $this->assertSame($expected, $map->get($key));
     }
 
-    public function getGetSetTestData(): array {
+    public function getGetSetTests(): array {
         return array_merge(
-            self::buildGetSetTestDataForIntKeyIntValue(new IntegerKeyHashMap(new IntegerType())),
-            self::buildGetSetTestDataForStringKeyStringValue(new StringKeyHashMap(new StringType())),
-            self::buildGetSetTestDataForIntKeyIntValue(new HashMap(new IntegerType(), new IntegerType())),
-            self::buildGetSetTestDataForStringKeyStringValue(new HashMap(new StringType(), new StringType()))
+            self::buildGetSetIntKeyValueMapperTests(new IntegerKeyHashMap(new IntegerType())),
+            self::buildGetSetStringKeyValueMapperTests(new StringKeyHashMap(new StringType())),
+            self::buildGetSetIntKeyValueMapperTests(new HashMap(new IntegerType(), new IntegerType())),
+            self::buildGetSetStringKeyValueMapperTests(new HashMap(new StringType(), new StringType()))
         );
     }
 
-    private static function buildGetSetTestDataForIntKeyIntValue(Mapper $map): array {
+    private static function buildGetSetIntKeyValueMapperTests(Mapper $map): array {
         $class = get_class($map);
         return [
             "{$class} after set(), get(PHP_INT_MIN) should return PHP_INT_MAX" => [
@@ -50,7 +50,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildGetSetTestDataForStringKeyStringValue(Mapper $map): array {
+    private static function buildGetSetStringKeyValueMapperTests(Mapper $map): array {
         $class = get_class($map);
         return [
             "{$class} after set(), get('foo') should return 'bar'" => [
