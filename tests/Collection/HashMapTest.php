@@ -19,22 +19,6 @@ final class HashMapTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
-     * @dataProvider getGetValueTypeTestData
-     */
-    public function testGetValueType(HashMap $map, Type $expectedType): void {
-        $mapType = new ClassType(get_class($map->getValueType()));
-        $expectedTypeType = new ClassType(get_class($expectedType));
-        $this->assertTrue($mapType->equals($expectedTypeType), 'Map->getValueType() returned the wrong type');
-    }
-
-    public function getGetValueTypeTestData(): array {
-        return [
-            ArrayType::class => [new HashMap(new IntegerType(), new ArrayType()), new ArrayType()],
-            BooleanType::class => [new HashMap(new StringType(), new BooleanType()), new BooleanType()],
-        ];
-    }
-
-    /**
      * @dataProvider getHasKeyTestData
      */
     public function testHasKey(HashMap $map, $key, bool $expected): void {

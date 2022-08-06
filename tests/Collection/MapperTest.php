@@ -76,7 +76,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider getGetKeyTypeTestData
+     * @dataProvider getGetKeyTypeTests
      */
     public function testGetKeyType(Mapper $map, Type $expectedType): void {
         $mapType = new ClassType(get_class($map->getKeyType()));
@@ -84,7 +84,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($mapType->equals($expectedTypeType), 'Mapper->getKeyType() returned the wrong type');
     }
 
-    public function getGetKeyTypeTestData(): array {
+    public function getGetKeyTypeTests(): array {
         return [
             IntegerKeyHashMap::class . ' key type should return ' . IntegerType::class => [
                 new IntegerKeyHashMap(new BooleanType()), new IntegerType(),
