@@ -19,7 +19,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Tests accessor methods, like get(), set(), add(), and etc.
-     * 
+     *
      * @dataProvider getAccessorTests
      */
     public function testAccessors(Mapper $map, $key, $expected): void {
@@ -28,52 +28,83 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
 
     public function getAccessorTests(): array {
         return array_merge(
-            self::buildGetSetIntKeyValueMapperTests(new IntegerKeyHashMap(new IntegerType())),
-            self::buildGetSetStringKeyValueMapperTests(new StringKeyHashMap(new StringType())),
-            self::buildGetSetIntKeyValueMapperTests(new HashMap(new IntegerType(), new IntegerType())),
-            self::buildGetSetStringKeyValueMapperTests(new HashMap(new StringType(), new StringType()))
-        );
-    }
 
-    private static function buildGetSetIntKeyValueMapperTests(Mapper $map): array {
-        $class = get_class($map);
-        return [
-            "{$class} after set(), get(PHP_INT_MIN) should return PHP_INT_MAX" => [
-                $map->set(PHP_INT_MIN, PHP_INT_MAX),
+            // IntegerKeyHashSet
+            self::buildAccessorTest(
+                (new IntegerKeyHashMap(new IntegerType()))->set(PHP_INT_MIN, PHP_INT_MAX),
                 PHP_INT_MIN,
+                PHP_INT_MAX
+            ),
+            self::buildAccessorTest(
+                (new IntegerKeyHashMap(new IntegerType()))->set(PHP_INT_MAX, PHP_INT_MIN),
                 PHP_INT_MAX,
-            ],
-            "{$class} after set(), get(PHP_INT_MAX) should return PHP_INT_MIN" => [
-                $map->set(PHP_INT_MAX, PHP_INT_MIN),
-                PHP_INT_MAX,
-                PHP_INT_MIN,
-            ],
-            "{$class} after overriding the value with set(), key 0 should return value 5"=> [
-                $map->set(0, 0)->set(0, 5),
+                PHP_INT_MIN
+            ),
+            self::buildAccessorTest(
+                (new IntegerKeyHashMap(new IntegerType()))->set(0, 0)->set(0, 5),
                 0,
                 5,
-            ],
-        ];
-    }
+                'After overriding key 0, ' . IntegerKeyHashMap::class . '->get(0) should return 5'
+            ),
 
-    private static function buildGetSetStringKeyValueMapperTests(Mapper $map): array {
-        $class = get_class($map);
-        return [
-            "{$class} after set(), get('foo') should return 'bar'" => [
+            // StringKeyHashSet
+            self::buildAccessorTest(
+                (new StringKeyHashMap(new StringType()))->set('foo', 'bar'),
+                'foo',
+                'bar',
+            ),
+            self::buildAccessorTest(
+                (new StringKeyHashMap(new StringType()))->set('bar', 'foo'),
+                'bar',
+                'foo',
+            ),
+            self::buildAccessorTest(
+                (new StringKeyHashMap(new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
+                'lorem',
+                'ipsum',
+                'After overriding key lorem, ' . StringKeyHashMap::class . '->get(lorem) should return ipsum'
+            ),
+
+            // HashSet
+            self::buildAccessorTest(
+                (new HashMap(new IntegerType(), new IntegerType()))->set(PHP_INT_MIN, PHP_INT_MAX),
+                PHP_INT_MIN,
+                PHP_INT_MAX
+            ),
+            self::buildAccessorTest(
+                (new HashMap(new IntegerType(), new IntegerType()))->set(PHP_INT_MAX, PHP_INT_MIN),
+                PHP_INT_MAX,
+                PHP_INT_MIN
+            ),
+            self::buildAccessorTest(
+                (new HashMap(new IntegerType(), new IntegerType()))->set(0, 0)->set(0, 5),
+                0,
+                5,
+                'After overriding key 0, ' . HashMap::class . '->get(0) should return 5'
+            ),
+            self::buildAccessorTest(
                 (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
                 'foo',
                 'bar',
-            ],
-            "{$class} after set(), get('bar') should return 'foo'" => [
+            ),
+            self::buildAccessorTest(
                 (new HashMap(new StringType(), new StringType()))->set('bar', 'foo'),
                 'bar',
                 'foo',
-            ],
-            "{$class} after overriding the value with set(), key 'lorem' should return value 'ipsum'" => [
+            ),
+            self::buildAccessorTest(
                 (new HashMap(new StringType(), new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
                 'lorem',
                 'ipsum',
-            ],
+                'After overriding key lorem, ' . HashMap::class . '->get(lorem) should return ipsum'
+            ),
+        );
+    }
+
+    private static function buildAccessorTest(Mapper $map, $key, $expected, string $message = ""): array {
+        $message = $message === "" ? get_class($map) . "->get({$key}) should return {$expected}" : $message;
+        return [
+            $message => [ $map, $key, $expected ],
         ];
     }
 
