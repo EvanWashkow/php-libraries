@@ -135,26 +135,60 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     public function getHasKeyTests(): array {
-        return [
-            HashMap::class . '->hasKey() returns true for integer keys' => [
+        return array_merge(
+
+            // IntegerKeyHashMap
+            self::buildHasKeyTest(
+                (new IntegerKeyHashMap(new IntegerType()))->set(1, 5),
+                1,
+                true
+            ),
+            self::buildHasKeyTest(
+                (new IntegerKeyHashMap(new IntegerType()))->set(2, 7),
+                1,
+                false,
+            ),
+
+            // StringKeyHashMap
+            self::buildHasKeyTest(
+                (new StringKeyHashMap(new StringType()))->set('foo', 'bar'),
+                'foo',
+                true,
+            ),
+            self::buildHasKeyTest(
+                (new StringKeyHashMap(new StringType()))->set('lorem', 'ipsum'),
+                'foo',
+                false,
+            ),
+
+            // HashMap
+            self::buildHasKeyTest(
                 (new HashMap(new IntegerType(), new IntegerType()))->set(1, 5),
                 1,
-                true,
-            ],
-            HashMap::class . '->hasKey() returns false for integer keys' => [
+                true
+            ),
+            self::buildHasKeyTest(
                 (new HashMap(new IntegerType(), new IntegerType()))->set(2, 7),
                 1,
                 false,
-            ],
-            HashMap::class . '->hasKey() returns true for string keys' => [
+            ),
+            self::buildHasKeyTest(
                 (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
                 'foo',
                 true,
-            ],
-            HashMap::class . '->hasKey() returns false for string keys' => [
+            ),
+            self::buildHasKeyTest(
                 (new HashMap(new StringType(), new StringType()))->set('lorem', 'ipsum'),
                 'foo',
                 false,
+            ),
+        );
+    }
+
+    public static function buildHasKeyTest(Mapper $map, $key, bool $expected): array {
+        return [
+            get_class($map) . '->hasKey() returns ' . ($expected ? 'true' : 'false') . ' for key ' . $key => [
+                $map, $key, $expected,
             ],
         ];
     }
