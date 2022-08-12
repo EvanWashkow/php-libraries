@@ -18,13 +18,15 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @dataProvider getGetSetTests
+     * Tests accessor methods, like get(), set(), add(), and etc.
+     * 
+     * @dataProvider getAccessorTests
      */
-    public function testGetSet(Mapper $map, $key, $expected): void {
+    public function testAccessors(Mapper $map, $key, $expected): void {
         $this->assertSame($expected, $map->get($key));
     }
 
-    public function getGetSetTests(): array {
+    public function getAccessorTests(): array {
         return array_merge(
             self::buildGetSetIntKeyValueMapperTests(new IntegerKeyHashMap(new IntegerType())),
             self::buildGetSetStringKeyValueMapperTests(new StringKeyHashMap(new StringType())),
