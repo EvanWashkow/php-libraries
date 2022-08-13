@@ -14,6 +14,12 @@ stages:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar update # Run composer update here to update components to the latest PHP version
 
+composer-outdated:
+  extends: .php7.4
+  stage: test
+  script:
+    - php composer.phar outdated --strict
+
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php7.4-unit-test:
   extends: .php7.4
