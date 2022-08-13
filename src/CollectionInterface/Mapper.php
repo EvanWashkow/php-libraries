@@ -12,6 +12,11 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 interface Mapper extends \Countable
 {
     /**
+     * Returns a copy of the object
+     */
+    public function clone(): Mapper;
+
+    /**
      * Retrieve the value by with its key
      *
      * @param int|string $key The key for the value

@@ -24,6 +24,13 @@ final class IntegerKeyHashMap implements Mapper
         $this->helper = new PrimitiveKeyHashMapHelper(new IntegerType(), $valueType);
     }
 
+    public function clone(): IntegerKeyHashMap
+    {
+        $clone = clone $this;
+        $clone->helper = clone $this->helper;
+        return $clone;
+    }
+
     public function count(): int {
         return $this->helper->count();
     }

@@ -32,6 +32,13 @@ final class HashMap implements Mapper
         }
     }
 
+    public function clone(): HashMap
+    {
+        $clone = clone $this;
+        $clone->map = $this->map->clone();
+        return $clone;
+    }
+
     public function count(): int {
         return $this->map->count();
     }

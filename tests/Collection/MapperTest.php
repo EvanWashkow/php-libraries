@@ -112,6 +112,63 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getCloneTests
+     */
+    public function testClone(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue) {
+        // Test fresh clone
+        $clone = $original->clone();
+        $this->assertSame($original->count(), $clone->count(),
+            "Immediately after cloning, the count()'s are different"
+        );
+        $this->assertSame($original->getKeyType(), $clone->getKeyType(),
+            "Immediately after cloning, the key types are different."
+        );
+        $this->assertSame($original->getValueType(), $clone->getValueType(),
+            "Immediately after cloning, the value types are different."
+        );
+
+        // Modify the original and test that it does not modify the clone
+        $original->set($originalNewKey, $originalNewValue);
+        $this->assertFalse(
+            $clone->hasKey($originalNewKey),
+            "Modifying the original instance should not modify the cloned instance"
+        );
+
+        // Modify the clone and test that it does not modify the original
+        $clone->set($cloneNewKey, $cloneNewValue);
+        $this->assertFalse(
+            $original->hasKey($cloneNewKey),
+            "Modifying the cloned instance should not modify the original instance"
+        );
+    }
+
+    public function getCloneTests(): array {
+        return array_merge(
+            // IntegerKeyHashMap
+            self::buildCloneTest(new IntegerKeyHashMap(new IntegerType()),11, 12, 9, 10),
+            self::buildCloneTest(new IntegerKeyHashMap(new StringType()),3, 'lorem', 7, 'ipsum'),
+
+            // StringKeyHashMap
+            self::buildCloneTest(new StringKeyHashMap(new IntegerType()),'lorem', 4, 'ipsum', 8),
+            self::buildCloneTest(new StringKeyHashMap(new StringType()), 'foo', 'bar', 'lorem', 'ipsum'),
+
+            // HashMap
+            self::buildCloneTest(new HashMap(new IntegerType(), new IntegerType()),11, 12, 9, 10),
+            self::buildCloneTest(new HashMap(new IntegerType(), new StringType()),3, 'lorem', 7, 'ipsum'),
+            self::buildCloneTest(new HashMap(new StringType(), new IntegerType()),'lorem', 4, 'ipsum', 8),
+            self::buildCloneTest(new HashMap(new StringType(), new StringType()), 'foo', 'bar', 'lorem', 'ipsum'),
+        );
+    }
+
+    private static function buildCloneTest(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): array {
+        return [
+            get_class($original) . "->clone(); original->set({$originalNewKey}, $originalNewValue); clone->set({$cloneNewKey}, {$cloneNewValue})" => [
+                $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue
+            ]
+        ];
+    }
+
+    /**
      * @dataProvider getGetKeyTypeTests
      */
     public function testGetKeyType(Mapper $map, Type $expectedType): void {

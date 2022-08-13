@@ -24,6 +24,13 @@ final class StringKeyHashMap implements Mapper
         $this->helper = new PrimitiveKeyHashMapHelper(new StringType(), $valueType);
     }
 
+    public function clone(): StringKeyHashMap
+    {
+        $clone = clone $this;
+        $clone->helper = clone $this->helper;
+        return $clone;
+    }
+
     public function count(): int {
         return $this->helper->count();
     }
