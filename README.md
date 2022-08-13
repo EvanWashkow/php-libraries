@@ -15,14 +15,14 @@ This library adheres to PSR-12 standards and best software design practices such
 1. Install
    1. Docker
    2. NPM
-2. In a terminal shell, run `./init`
+2. In a terminal shell, run `bin/init`
 3. While working, periodically run
-    * `./unit-test` 
-    * `./phpinsights fix -- src tests`
+   * `bin/unit-test`
+   * `bin/phpinsights fix -- src tests`
 
 ## Running Analysis Tools Locally
 * PHPInsights
-  * `./phpinsights`: check code quality of `src` (default)
-  * `./phpinsights fix -- src tests`: run code fixer
-  * `./phpinsights analyse -- src tests`: check code quality of `src` and `tests`
-  * `./phpinsights --help`: help docs
+  * `bin/phpinsights`: check code quality of `src` (default)
+  * `bin/phpinsights fix -- src tests`: run code fixer
+  * `bin/phpinsights analyse -- src tests`: check code quality of `src` and `tests`
+  * `bin/phpinsights --help`: help docs
