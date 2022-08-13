@@ -20,7 +20,10 @@ This library adheres to PSR-12 standards and best software design practices such
    * `bin/unit-test`
    * `bin/phpinsights fix -- src tests`
 
-## Running Analysis Tools Locally
+## Local Development
+* Composer
+  * `bin/composer install`: installs packages from the versions specified in the `composer.lock` file
+  * `bin/composer update`: updates packages and updates their version numbers in the `composer.lock` file
 * PHPInsights
   * `bin/phpinsights`: check code quality of `src` (default)
   * `bin/phpinsights fix -- src tests`: run code fixer
