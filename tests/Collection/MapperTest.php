@@ -31,90 +31,69 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
 
     public function getAccessorTests(): array {
         return array_merge(
-
-            // IntegerKeyHashSet
-            self::buildAccessorTest(
-                (new IntegerKeyHashMap(new IntegerType()))->set(PHP_INT_MIN, PHP_INT_MAX),
-                PHP_INT_MIN,
-                PHP_INT_MAX
-            ),
-            self::buildAccessorTest(
-                (new IntegerKeyHashMap(new IntegerType()))->set(PHP_INT_MAX, PHP_INT_MIN),
-                PHP_INT_MAX,
-                PHP_INT_MIN
-            ),
-            self::buildAccessorTest(
-                (new IntegerKeyHashMap(new IntegerType()))->set(0, 0)->set(0, 5),
-                0,
-                5,
-                'After overriding key 0, ' . IntegerKeyHashMap::class . '->get(0) should return 5'
-            ),
-
-            // StringKeyHashSet
-            self::buildAccessorTest(
-                (new StringKeyHashMap(new StringType()))->set('foo', 'bar'),
-                'foo',
-                'bar',
-            ),
-            self::buildAccessorTest(
-                (new StringKeyHashMap(new StringType()))->set('bar', 'foo'),
-                'bar',
-                'foo',
-            ),
-            self::buildAccessorTest(
-                (new StringKeyHashMap(new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
-                'lorem',
-                'ipsum',
-                'After overriding key lorem, ' . StringKeyHashMap::class . '->get(lorem) should return ipsum'
-            ),
-
-            // HashSet
-            self::buildAccessorTest(
-                (new HashMap(new IntegerType(), new IntegerType()))->set(PHP_INT_MIN, PHP_INT_MAX),
-                PHP_INT_MIN,
-                PHP_INT_MAX
-            ),
-            self::buildAccessorTest(
-                (new HashMap(new IntegerType(), new IntegerType()))->set(PHP_INT_MAX, PHP_INT_MIN),
-                PHP_INT_MAX,
-                PHP_INT_MIN
-            ),
-            self::buildAccessorTest(
-                (new HashMap(new IntegerType(), new IntegerType()))->set(0, 0)->set(0, 5),
-                0,
-                5,
-                'After overriding key 0, ' . HashMap::class . '->get(0) should return 5'
-            ),
-            self::buildAccessorTest(
-                (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
-                'foo',
-                'bar',
-            ),
-            self::buildAccessorTest(
-                (new HashMap(new StringType(), new StringType()))->set('bar', 'foo'),
-                'bar',
-                'foo',
-            ),
-            self::buildAccessorTest(
-                (new HashMap(new StringType(), new StringType()))->set('lorem', 'foobar')->set('lorem', 'ipsum'),
-                'lorem',
-                'ipsum',
-                'After overriding key lorem, ' . HashMap::class . '->get(lorem) should return ipsum'
-            ),
+            self::buildAccessorTestsForIntKeyIntValueMap(new IntegerKeyHashMap(new IntegerType())),
+            self::buildAccessorTestsForStringKeyStringValueMap(new StringKeyHashMap(new StringType())),
+            self::buildAccessorTestsForIntKeyIntValueMap(new HashMap(new IntegerType(), new IntegerType())),
+            self::buildAccessorTestsForStringKeyStringValueMap(new HashMap(new StringType(), new StringType())),
         );
     }
 
-    private static function buildAccessorTest(Mapper $map, $key, $expected, string $message = ""): array {
-        $message = $message === "" ? get_class($map) . "->get({$key}) should return {$expected}" : $message;
+    /**
+     * Builds Mapper accessor tests for Maps with integer keys and values
+     *
+     * @param Mapper $map The map
+     */
+    private static function buildAccessorTestsForIntKeyIntValueMap(Mapper $map): array {
+        $className = get_class($map);
         return [
-            $message => [ $map, $key, $expected ],
+            "{$className}->set(PHP_INT_MIN, PHP_INT_MAX)->get(PHP_INT_MIN) should return PHP_INT_MAX" => [
+                $map->clone()->set(PHP_INT_MIN, PHP_INT_MAX),
+                PHP_INT_MIN,
+                PHP_INT_MAX,
+            ],
+            "{$className}->set(PHP_INT_MAX, PHP_INT_MIN)->get(PHP_INT_MAX) should return PHP_INT_MIN" => [
+                $map->clone()->set(PHP_INT_MAX, PHP_INT_MIN),
+                PHP_INT_MAX,
+                PHP_INT_MIN,
+            ],
+            "{$className}->set(0, 0)->set(0, 5)->get(0) should return 5" => [
+                $map->clone()->set(0, 0)->set(0, 5),
+                0,
+                5,
+            ],
+        ];
+    }
+
+    /**
+     * Builds Mapper accessor tests for Maps with string keys and values
+     *
+     * @param Mapper $map The map
+     */
+    private static function buildAccessorTestsForStringKeyStringValueMap(Mapper $map): array {
+        $className = get_class($map);
+        return [
+            "{$className}->set('foo', 'bar')->get('foo') should return 'bar'" => [
+                $map->clone()->set('foo', 'bar'),
+                'foo',
+                'bar',
+            ],
+            "{$className}->set('bar', 'foo')->get('bar') should return 'foo'" => [
+                $map->clone()->set('bar', 'foo'),
+                'bar',
+                'foo',
+            ],
+            "{$className}->set('lorem', 'foobar')->set('lorem', 'ipsum')->get('lorem') should return 'ipsum'" => [
+                $map->clone()->set('lorem', 'foobar')->set('lorem', 'ipsum'),
+                'lorem',
+                'ipsum',
+            ],
         ];
     }
 
     /**
      * @dataProvider getCloneTests
      */
-    public function testClone(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue) {
+    public function testClone(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): void {
         // Test fresh clone
         $clone = $original->clone();
         $this->assertSame($original->count(), $clone->count(),
@@ -145,17 +124,17 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     public function getCloneTests(): array {
         return array_merge(
             // IntegerKeyHashMap
-            self::buildCloneTest(new IntegerKeyHashMap(new IntegerType()),11, 12, 9, 10),
-            self::buildCloneTest(new IntegerKeyHashMap(new StringType()),3, 'lorem', 7, 'ipsum'),
+            self::buildCloneTest(new IntegerKeyHashMap(new IntegerType()), 11, 12, 9, 10),
+            self::buildCloneTest(new IntegerKeyHashMap(new StringType()), 3, 'lorem', 7, 'ipsum'),
 
             // StringKeyHashMap
-            self::buildCloneTest(new StringKeyHashMap(new IntegerType()),'lorem', 4, 'ipsum', 8),
+            self::buildCloneTest(new StringKeyHashMap(new IntegerType()), 'lorem', 4, 'ipsum', 8),
             self::buildCloneTest(new StringKeyHashMap(new StringType()), 'foo', 'bar', 'lorem', 'ipsum'),
 
             // HashMap
-            self::buildCloneTest(new HashMap(new IntegerType(), new IntegerType()),11, 12, 9, 10),
-            self::buildCloneTest(new HashMap(new IntegerType(), new StringType()),3, 'lorem', 7, 'ipsum'),
-            self::buildCloneTest(new HashMap(new StringType(), new IntegerType()),'lorem', 4, 'ipsum', 8),
+            self::buildCloneTest(new HashMap(new IntegerType(), new IntegerType()), 11, 12, 9, 10),
+            self::buildCloneTest(new HashMap(new IntegerType(), new StringType()), 3, 'lorem', 7, 'ipsum'),
+            self::buildCloneTest(new HashMap(new StringType(), new IntegerType()), 'lorem', 4, 'ipsum', 8),
             self::buildCloneTest(new HashMap(new StringType(), new StringType()), 'foo', 'bar', 'lorem', 'ipsum'),
         );
     }
@@ -163,8 +142,8 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     private static function buildCloneTest(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): array {
         return [
             get_class($original) . "->clone(); original->set({$originalNewKey}, $originalNewValue); clone->set({$cloneNewKey}, {$cloneNewValue})" => [
-                $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue
-            ]
+                $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue,
+            ],
         ];
     }
 
