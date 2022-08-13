@@ -16,3 +16,11 @@ This library adheres to PSR-12 standards and best software design practices such
    1. Docker
    2. NPM
 2. In a terminal shell, run `./init.sh`
+3. While working, periodically run `./phpinsights fix -- src tests`
+
+## Running Analysis Tools Locally
+* PHPInsights
+  * `./phpinsights`: check code quality of `src` (default)
+  * `./phpinsights fix -- src tests`: run code fixer
+  * `./phpinsights analyse -- src tests`: check code quality of `src` and `tests`
+  * `./phpinsights --help`: help docs
