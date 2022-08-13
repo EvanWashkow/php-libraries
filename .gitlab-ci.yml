@@ -18,7 +18,7 @@ composer-outdated:
   extends: .php7.4
   stage: test
   script:
-    - php composer.phar outdated --strict
+    - php composer.phar outdated --direct --strict
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php7.4-unit-test:
