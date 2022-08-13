@@ -96,13 +96,19 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     public function testClone(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): void {
         // Test fresh clone
         $clone = $original->clone();
-        $this->assertSame($original->count(), $clone->count(),
+        $this->assertSame(
+            $original->count(),
+            $clone->count(),
             "Immediately after cloning, the count()'s are different"
         );
-        $this->assertSame($original->getKeyType(), $clone->getKeyType(),
+        $this->assertSame(
+            $original->getKeyType(),
+            $clone->getKeyType(),
             "Immediately after cloning, the key types are different."
         );
-        $this->assertSame($original->getValueType(), $clone->getValueType(),
+        $this->assertSame(
+            $original->getValueType(),
+            $clone->getValueType(),
             "Immediately after cloning, the value types are different."
         );
 
@@ -140,8 +146,10 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     private static function buildCloneTest(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): array {
+        $cloneDescription = "clone->set({$cloneNewKey}, {$cloneNewValue})";
+        $originalDescription = "original->set({$originalNewKey}, {$originalNewValue})";
         return [
-            get_class($original) . "->clone(); original->set({$originalNewKey}, $originalNewValue); clone->set({$cloneNewKey}, {$cloneNewValue})" => [
+            get_class($original) . "->clone(); {$originalDescription}; {$cloneDescription}" => [
                 $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue,
             ],
         ];
