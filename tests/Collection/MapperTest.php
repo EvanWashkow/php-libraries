@@ -20,24 +20,116 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
+
     /**
-     * Tests accessor methods, like get(), set(), add(), and etc.
+     * @dataProvider getSetTests
      *
-     * @dataProvider getAccessorTests
+     * @param Mapper $map
+     * @param $key
+     * @param $value
+     * @param string|null $wantException
+     * @return void
      */
-    public function testAccessors(Mapper $map, $key, $expected): void
-    {
-        $this->assertSame($expected, $map->get($key));
+    public function testSet(Mapper $map, $key, $value, ?string $wantException) : void {
+        if ($wantException != null) {
+            $this->expectException($wantException);
+        }
+        $this->assertSame($value, $map->set($key, $value)->get($key), 'Map did not set the value');
     }
 
-    public function getAccessorTests(): array
-    {
+    public function getSetTests(): array {
         return array_merge(
-            self::buildAccessorTestsForIntKeyIntValueMap(new IntegerKeyHashMap(new IntegerType())),
-            self::buildAccessorTestsForStringKeyStringValueMap(new StringKeyHashMap(new StringType())),
-            self::buildAccessorTestsForIntKeyIntValueMap(new HashMap(new IntegerType(), new IntegerType())),
-            self::buildAccessorTestsForStringKeyStringValueMap(new HashMap(new StringType(), new StringType())),
+            self::buildIntegerKeySetTests(
+                function (Type $type) { return new IntegerKeyHashMap($type); },
+                IntegerKeyHashMap::class
+            ),
+            self::buildStringKeySetTests(
+                function (Type $type) { return new StringKeyHashMap($type); },
+                StringKeyHashMap::class
+            ),
+
+            // HashMap
+            self::buildIntegerKeySetTests(
+                function (Type $type) { return new HashMap(new IntegerType(), $type); },
+                HashMap::class
+            ),
+            self::buildStringKeySetTests(
+                function (Type $type) { return new HashMap(new StringType(), $type); },
+                HashMap::class
+            ),
         );
+    }
+
+    private static function buildIntegerKeySetTests(\Closure $new, string $className): array {
+        $prefix = 'Integer key set tests';
+        return [
+            "{$prefix} - {$className} set 1 to 2" => [
+                $new(new IntegerType()), 1, 2, null
+            ],
+            "{$prefix} - {$className} set 1 to two" => [
+                $new(new StringType()), 1, 'two', null
+            ],
+            "{$prefix} - {$className} set 2 to 1" => [
+                $new(new IntegerType()), 2, 1, null
+            ],
+            "{$prefix} - {$className} set 2 to one" => [
+                $new(new StringType()), 2, 'one', null
+            ],
+            "{$prefix} - {$className} set expects integer key, float given" => [
+                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects integer key, string given" => [
+                $new(new IntegerType()), 'one', 1, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects integer value, float given" => [
+                $new(new IntegerType()), 1, .5, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects integer value, string given" => [
+                $new(new IntegerType()), 1, 'two', \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects string value, float given" => [
+                $new(new StringType()), 1, 1.9, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects string value, integer given" => [
+                $new(new StringType()), 1, 2, \InvalidArgumentException::class
+            ],
+        ];
+    }
+
+    private static function buildStringKeySetTests(\Closure $new, string $className): array {
+        $prefix = 'String key set tests';
+        return [
+            "{$prefix} - {$className} set one to 2" => [
+                $new(new IntegerType()), 'one', 2, null
+            ],
+            "{$prefix} - {$className} set one to two" => [
+                $new(new StringType()), 'one', 'two', null
+            ],
+            "{$prefix} - {$className} set two to 1" => [
+                $new(new IntegerType()), 'two', 1, null
+            ],
+            "{$prefix} - {$className} set two to one" => [
+                $new(new StringType()), 'two', 'one', null
+            ],
+            "{$prefix} - {$className} set expects string key, float given" => [
+                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects string key, integer given" => [
+                $new(new IntegerType()), 1, 1, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects integer value, float given" => [
+                $new(new IntegerType()), 'one', .5, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects integer value, string given" => [
+                $new(new IntegerType()), 'one', 'one', \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects string value, float given" => [
+                $new(new StringType()), 'one', 1.9, \InvalidArgumentException::class
+            ],
+            "{$prefix} - {$className} set expects string value, integer given" => [
+                $new(new StringType()), 'one', 2, \InvalidArgumentException::class
+            ],
+        ];
     }
 
     /**
@@ -346,32 +438,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 },
                 \OutOfBoundsException::class,
             ],
-
-            // HashMap->set()
-            HashMap::class . '->set() expects integer key, passed string' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))->set('string', 1);
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->set() expects string key, passed integer' => [
-                static function (): void {
-                    (new HashMap(new StringType(), new StringType()))->set(1, 'string');
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->set() expects integer value, passed string' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))->set(1, 'string');
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->set() expects string value, passed integer' => [
-                static function (): void {
-                    (new HashMap(new StringType(), new StringType()))->set('string', 1);
-                },
-                \InvalidArgumentException::class,
-            ],
         ];
     }
 
@@ -379,60 +445,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     {
         return [
             get_class($countable) . "->count() should return {$expected}" => [$countable, $expected],
-        ];
-    }
-
-    /**
-     * Builds Mapper accessor tests for Maps with integer keys and values
-     *
-     * @param Mapper $map The map
-     */
-    private static function buildAccessorTestsForIntKeyIntValueMap(Mapper $map): array
-    {
-        $className = get_class($map);
-        return [
-            "{$className}->set(PHP_INT_MIN, PHP_INT_MAX)->get(PHP_INT_MIN) should return PHP_INT_MAX" => [
-                $map->clone()->set(PHP_INT_MIN, PHP_INT_MAX),
-                PHP_INT_MIN,
-                PHP_INT_MAX,
-            ],
-            "{$className}->set(PHP_INT_MAX, PHP_INT_MIN)->get(PHP_INT_MAX) should return PHP_INT_MIN" => [
-                $map->clone()->set(PHP_INT_MAX, PHP_INT_MIN),
-                PHP_INT_MAX,
-                PHP_INT_MIN,
-            ],
-            "{$className}->set(0, 0)->set(0, 5)->get(0) should return 5" => [
-                $map->clone()->set(0, 0)->set(0, 5),
-                0,
-                5,
-            ],
-        ];
-    }
-
-    /**
-     * Builds Mapper accessor tests for Maps with string keys and values
-     *
-     * @param Mapper $map The map
-     */
-    private static function buildAccessorTestsForStringKeyStringValueMap(Mapper $map): array
-    {
-        $className = get_class($map);
-        return [
-            "{$className}->set('foo', 'bar')->get('foo') should return 'bar'" => [
-                $map->clone()->set('foo', 'bar'),
-                'foo',
-                'bar',
-            ],
-            "{$className}->set('bar', 'foo')->get('bar') should return 'foo'" => [
-                $map->clone()->set('bar', 'foo'),
-                'bar',
-                'foo',
-            ],
-            "{$className}->set('lorem', 'foobar')->set('lorem', 'ipsum')->get('lorem') should return 'ipsum'" => [
-                $map->clone()->set('lorem', 'foobar')->set('lorem', 'ipsum'),
-                'lorem',
-                'ipsum',
-            ],
         ];
     }
 
