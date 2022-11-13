@@ -20,118 +20,6 @@ use EvanWashkow\PHPLibraries\TypeInterface\Type;
 
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
-
-    /**
-     * @dataProvider getSetTests
-     *
-     * @param Mapper $map
-     * @param $key
-     * @param $value
-     * @param string|null $wantException
-     * @return void
-     */
-    public function testSet(Mapper $map, $key, $value, ?string $wantException) : void {
-        if ($wantException != null) {
-            $this->expectException($wantException);
-        }
-        $this->assertSame($value, $map->set($key, $value)->get($key), 'Map did not set the value');
-    }
-
-    public function getSetTests(): array {
-        return array_merge(
-            self::buildIntegerKeySetTests(
-                function (Type $type) { return new IntegerKeyHashMap($type); },
-                IntegerKeyHashMap::class
-            ),
-            self::buildStringKeySetTests(
-                function (Type $type) { return new StringKeyHashMap($type); },
-                StringKeyHashMap::class
-            ),
-
-            // HashMap
-            self::buildIntegerKeySetTests(
-                function (Type $type) { return new HashMap(new IntegerType(), $type); },
-                HashMap::class
-            ),
-            self::buildStringKeySetTests(
-                function (Type $type) { return new HashMap(new StringType(), $type); },
-                HashMap::class
-            ),
-        );
-    }
-
-    private static function buildIntegerKeySetTests(\Closure $new, string $className): array {
-        $prefix = 'Integer key set tests';
-        return [
-            "{$prefix} - {$className} set 1 to 2" => [
-                $new(new IntegerType()), 1, 2, null
-            ],
-            "{$prefix} - {$className} set 1 to two" => [
-                $new(new StringType()), 1, 'two', null
-            ],
-            "{$prefix} - {$className} set 2 to 1" => [
-                $new(new IntegerType()), 2, 1, null
-            ],
-            "{$prefix} - {$className} set 2 to one" => [
-                $new(new StringType()), 2, 'one', null
-            ],
-            "{$prefix} - {$className} set expects integer key, float given" => [
-                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects integer key, string given" => [
-                $new(new IntegerType()), 'one', 1, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects integer value, float given" => [
-                $new(new IntegerType()), 1, .5, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects integer value, string given" => [
-                $new(new IntegerType()), 1, 'two', \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects string value, float given" => [
-                $new(new StringType()), 1, 1.9, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects string value, integer given" => [
-                $new(new StringType()), 1, 2, \InvalidArgumentException::class
-            ],
-        ];
-    }
-
-    private static function buildStringKeySetTests(\Closure $new, string $className): array {
-        $prefix = 'String key set tests';
-        return [
-            "{$prefix} - {$className} set one to 2" => [
-                $new(new IntegerType()), 'one', 2, null
-            ],
-            "{$prefix} - {$className} set one to two" => [
-                $new(new StringType()), 'one', 'two', null
-            ],
-            "{$prefix} - {$className} set two to 1" => [
-                $new(new IntegerType()), 'two', 1, null
-            ],
-            "{$prefix} - {$className} set two to one" => [
-                $new(new StringType()), 'two', 'one', null
-            ],
-            "{$prefix} - {$className} set expects string key, float given" => [
-                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects string key, integer given" => [
-                $new(new IntegerType()), 1, 1, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects integer value, float given" => [
-                $new(new IntegerType()), 'one', .5, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects integer value, string given" => [
-                $new(new IntegerType()), 'one', 'one', \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects string value, float given" => [
-                $new(new StringType()), 'one', 1.9, \InvalidArgumentException::class
-            ],
-            "{$prefix} - {$className} set expects string value, integer given" => [
-                $new(new StringType()), 'one', 2, \InvalidArgumentException::class
-            ],
-        ];
-    }
-
     /**
      * @dataProvider getCloneTests
      */
@@ -329,6 +217,55 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getSetTests
+     *
+     * @param Mapper $map
+     * @param $key
+     * @param $value
+     * @param string|null $wantException
+     * @return void
+     */
+    public function testSet(Mapper $map, $key, $value, ?string $wantException): void
+    {
+        if ($wantException !== null) {
+            $this->expectException($wantException);
+        }
+        $this->assertSame($value, $map->set($key, $value)->get($key), 'Map did not set the value');
+    }
+
+    public function getSetTests(): array
+    {
+        return array_merge(
+            self::buildIntegerKeySetTests(
+                static function (Type $type) {
+                    return new IntegerKeyHashMap($type);
+                },
+                IntegerKeyHashMap::class
+            ),
+            self::buildStringKeySetTests(
+                static function (Type $type) {
+                    return new StringKeyHashMap($type);
+                },
+                StringKeyHashMap::class
+            ),
+
+            // HashMap
+            self::buildIntegerKeySetTests(
+                static function (Type $type) {
+                    return new HashMap(new IntegerType(), $type);
+                },
+                HashMap::class
+            ),
+            self::buildStringKeySetTests(
+                static function (Type $type) {
+                    return new HashMap(new StringType(), $type);
+                },
+                HashMap::class
+            ),
+        );
+    }
+
+    /**
      * @dataProvider getThrowsExceptionTestData
      */
     public function testThrowsException(\Closure $closure, string $expectedExceptionClassName): void
@@ -437,6 +374,80 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                         ->removeKey(5);
                 },
                 \OutOfBoundsException::class,
+            ],
+        ];
+    }
+
+    private static function buildIntegerKeySetTests(\Closure $new, string $className): array
+    {
+        $prefix = 'Integer key set tests';
+        return [
+            "{$prefix} - {$className} set 1 to 2" => [
+                $new(new IntegerType()), 1, 2, null,
+            ],
+            "{$prefix} - {$className} set 1 to two" => [
+                $new(new StringType()), 1, 'two', null,
+            ],
+            "{$prefix} - {$className} set 2 to 1" => [
+                $new(new IntegerType()), 2, 1, null,
+            ],
+            "{$prefix} - {$className} set 2 to one" => [
+                $new(new StringType()), 2, 'one', null,
+            ],
+            "{$prefix} - {$className} set expects integer key, float given" => [
+                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects integer key, string given" => [
+                $new(new IntegerType()), 'one', 1, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects integer value, float given" => [
+                $new(new IntegerType()), 1, .5, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects integer value, string given" => [
+                $new(new IntegerType()), 1, 'two', \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects string value, float given" => [
+                $new(new StringType()), 1, 1.9, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects string value, integer given" => [
+                $new(new StringType()), 1, 2, \InvalidArgumentException::class,
+            ],
+        ];
+    }
+
+    private static function buildStringKeySetTests(\Closure $new, string $className): array
+    {
+        $prefix = 'String key set tests';
+        return [
+            "{$prefix} - {$className} set one to 2" => [
+                $new(new IntegerType()), 'one', 2, null,
+            ],
+            "{$prefix} - {$className} set one to two" => [
+                $new(new StringType()), 'one', 'two', null,
+            ],
+            "{$prefix} - {$className} set two to 1" => [
+                $new(new IntegerType()), 'two', 1, null,
+            ],
+            "{$prefix} - {$className} set two to one" => [
+                $new(new StringType()), 'two', 'one', null,
+            ],
+            "{$prefix} - {$className} set expects string key, float given" => [
+                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects string key, integer given" => [
+                $new(new IntegerType()), 1, 1, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects integer value, float given" => [
+                $new(new IntegerType()), 'one', .5, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects integer value, string given" => [
+                $new(new IntegerType()), 'one', 'one', \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects string value, float given" => [
+                $new(new StringType()), 'one', 1.9, \InvalidArgumentException::class,
+            ],
+            "{$prefix} - {$className} set expects string value, integer given" => [
+                $new(new StringType()), 'one', 2, \InvalidArgumentException::class,
             ],
         ];
     }
