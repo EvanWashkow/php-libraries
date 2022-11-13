@@ -22,7 +22,8 @@ final class PrimitiveKeyHashMapHelper
      * @param Type $keyType The key type requirement for all keys in the map
      * @param Type $valueType The value type requirement for all values in the map
      */
-    public function __construct(Type $keyType, Type $valueType) {
+    public function __construct(Type $keyType, Type $valueType)
+    {
         $this->hashMap = [];
         $this->keyType = $keyType;
         $this->valueType = $valueType;
@@ -31,7 +32,8 @@ final class PrimitiveKeyHashMapHelper
     /**
      * Retrieve the number of items in the hash map
      */
-    public function count(): int {
+    public function count(): int
+    {
         return count($this->hashMap);
     }
 
@@ -44,7 +46,8 @@ final class PrimitiveKeyHashMapHelper
      *
      * @throws \OutOfBoundsException
      */
-    public function get($key) {
+    public function get($key)
+    {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnMissingKey($key);
         return $this->hashMap[$key];
@@ -53,14 +56,16 @@ final class PrimitiveKeyHashMapHelper
     /**
      * Retrieve the key type
      */
-    public function getKeyType(): Type {
+    public function getKeyType(): Type
+    {
         return $this->keyType;
     }
 
     /**
      * Retrieve the value type
      */
-    public function getValueType(): Type {
+    public function getValueType(): Type
+    {
         return $this->valueType;
     }
 
@@ -69,7 +74,8 @@ final class PrimitiveKeyHashMapHelper
      *
      * @param int|string $key The key
      */
-    public function hasKey($key): bool {
+    public function hasKey($key): bool
+    {
         $this->throwOnInvalidKeyType($key);
         return array_key_exists($key, $this->hashMap);
     }
@@ -79,7 +85,8 @@ final class PrimitiveKeyHashMapHelper
      *
      * @param int|string $key The key, of the corresponding value, to remove
      */
-    public function removeKey($key): void {
+    public function removeKey($key): void
+    {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnMissingKey($key);
         unset($this->hashMap[$key]);
@@ -91,7 +98,8 @@ final class PrimitiveKeyHashMapHelper
      * @param int|string $key The key for the value
      * @param mixed $value The value
      */
-    public function set($key, $value): void {
+    public function set($key, $value): void
+    {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnInvalidValueType($value);
         $this->hashMap[$key] = $value;
@@ -104,7 +112,8 @@ final class PrimitiveKeyHashMapHelper
      *
      * @throws \InvalidArgumentException
      */
-    private function throwOnInvalidKeyType($key): void {
+    private function throwOnInvalidKeyType($key): void
+    {
         if (! $this->getKeyType()->isValueOfType($key)) {
             throw new \InvalidArgumentException('The key is the wrong type');
         }
@@ -117,7 +126,8 @@ final class PrimitiveKeyHashMapHelper
      *
      * @throws \InvalidArgumentException
      */
-    private function throwOnInvalidValueType($value): void {
+    private function throwOnInvalidValueType($value): void
+    {
         if (! $this->getValueType()->isValueOfType($value)) {
             throw new \InvalidArgumentException('Cannot set value: the value is the wrong type');
         }
@@ -130,7 +140,8 @@ final class PrimitiveKeyHashMapHelper
      *
      * @throws \OutOfBoundsException
      */
-    private function throwOnMissingKey($key): void {
+    private function throwOnMissingKey($key): void
+    {
         if (! $this->hasKey($key)) {
             throw new \OutOfBoundsException('The key does not exist');
         }

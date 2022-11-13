@@ -31,14 +31,16 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
      *
      * @dataProvider getTestData
      */
-    public function test(Type $type, Type $expectedParent): void {
+    public function test(Type $type, Type $expectedParent): void
+    {
         $this->assertTrue(
             $type->is($expectedParent),
             "{$type->getName()} does not inherit {$expectedParent->getName()}"
         );
     }
 
-    public function getTestData(): array {
+    public function getTestData(): array
+    {
         return array_merge(
             // CollectionInterface
             $this->buildTest(new InterfaceType(Mapper::class), new InterfaceType(\Countable::class)),
@@ -70,7 +72,8 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
      * @param ClassType|InterfaceType $type The type
      * @param ClassType|InterfaceType ...$expectedParents The type's expected parents
      */
-    private function buildTest(Type $type, Type ...$expectedParents): array {
+    private function buildTest(Type $type, Type ...$expectedParents): array
+    {
         $tests = [];
         foreach ($expectedParents as $expectedParent) {
             $tests["{$type->getName()} implements {$expectedParent->getName()}"] = [$type, $expectedParent];

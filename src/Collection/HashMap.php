@@ -22,7 +22,8 @@ final class HashMap implements Mapper
      * @param Type $keyType The key type requirement for all keys in the map
      * @param Type $valueType The value type requirement for all values in the map
      */
-    public function __construct(Type $keyType, Type $valueType) {
+    public function __construct(Type $keyType, Type $valueType)
+    {
         if ($keyType instanceof IntegerType) {
             $this->map = new IntegerKeyHashMap($valueType);
         } elseif ($keyType instanceof StringType) {
@@ -39,36 +40,42 @@ final class HashMap implements Mapper
         return $clone;
     }
 
-    public function count(): int {
+    public function count(): int
+    {
         return $this->map->count();
     }
 
     /**
      * @inheritDoc
      */
-    public function get($key) {
+    public function get($key)
+    {
         return $this->map->get($key);
     }
 
-    public function getKeyType(): Type {
+    public function getKeyType(): Type
+    {
         return $this->map->getKeyType();
     }
 
-    public function getValueType(): Type {
+    public function getValueType(): Type
+    {
         return $this->map->getValueType();
     }
 
     /**
      * @inheritDoc
      */
-    public function hasKey($key): bool {
+    public function hasKey($key): bool
+    {
         return $this->map->hasKey($key);
     }
 
     /**
      * @inheritDoc
      */
-    public function removeKey($key): self {
+    public function removeKey($key): self
+    {
         $this->map->removeKey($key);
         return $this;
     }
@@ -76,7 +83,8 @@ final class HashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function set($key, $value): self {
+    public function set($key, $value): self
+    {
         $this->map->set($key, $value);
         return $this;
     }

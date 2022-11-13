@@ -13,11 +13,13 @@ final class ThrowsExceptionTestHelper
 {
     private TestCase $tester;
 
-    public function __construct(TestCase $tester) {
+    public function __construct(TestCase $tester)
+    {
         $this->tester = $tester;
     }
 
-    public function test(\Closure $closure, string $expectedExceptionClassName): void {
+    public function test(\Closure $closure, string $expectedExceptionClassName): void
+    {
         $this->tester->expectException($expectedExceptionClassName);
         $closure();
     }
