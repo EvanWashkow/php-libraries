@@ -96,6 +96,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     public function testClone(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): void {
         // Test fresh clone
         $clone = $original->clone();
+        $this->assertNotSame($original, $clone, 'Map clone should be a new instance');
         $this->assertSame(
             $original->count(),
             $clone->count(),
