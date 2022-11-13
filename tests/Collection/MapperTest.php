@@ -92,6 +92,26 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getCountTestData
+     */
+    public function testCount(\Countable $countable, int $expected): void
+    {
+        $this->assertSame($expected, $countable->count());
+    }
+
+    public function getCountTestData(): array
+    {
+        return array_merge(
+            self::buildCountTest(new IntegerKeyHashMap(new StringType()), 0),
+            self::buildCountTest((new IntegerKeyHashMap(new StringType()))->set(0, 'foobar')->set(5, 'lorem'), 2),
+            self::buildCountTest(new StringKeyHashMap(new IntegerType()), 0),
+            self::buildCountTest((new StringKeyHashMap(new IntegerType()))->set('lorem', 2)->set('ipsum', 7), 2),
+            self::buildCountTest(new HashMap(new IntegerType(), new StringType()), 0),
+            self::buildCountTest((new HashMap(new IntegerType(), new StringType()))->set(0, 'foobar')->set(5, 'lorem'), 2),
+        );
+    }
+
+    /**
      * @dataProvider getGetKeyTypeTests
      */
     public function testGetKeyType(Mapper $map, Type $expectedType): void
@@ -352,6 +372,13 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 },
                 \InvalidArgumentException::class,
             ],
+        ];
+    }
+
+    private static function buildCountTest(\Countable $countable, int $expected): array
+    {
+        return [
+            get_class($countable) . "->count() should return {$expected}" => [$countable, $expected],
         ];
     }
 
