@@ -43,38 +43,31 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getCloneTests
      */
-    public function testClone(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): void
+    public function testClone(Mapper $map, $cloneNewKey, $cloneNewValue): void
     {
         // Test fresh clone
-        $clone = $original->clone();
-        $this->assertNotSame($original, $clone, 'Map clone should be a new instance');
+        $clone = $map->clone();
+        $this->assertNotSame($map, $clone, 'Map clone should be a new instance');
         $this->assertSame(
-            $original->count(),
+            $map->count(),
             $clone->count(),
             "Immediately after cloning, the count()'s are different"
         );
         $this->assertSame(
-            $original->getKeyType(),
+            $map->getKeyType(),
             $clone->getKeyType(),
             'Immediately after cloning, the key types are different.'
         );
         $this->assertSame(
-            $original->getValueType(),
+            $map->getValueType(),
             $clone->getValueType(),
             'Immediately after cloning, the value types are different.'
         );
 
-        // Modify the original and test that it does not modify the clone
-        $original->set($originalNewKey, $originalNewValue);
-        $this->assertFalse(
-            $clone->hasKey($originalNewKey),
-            'Modifying the original instance should not modify the cloned instance'
-        );
-
-        // Modify the clone and test that it does not modify the original
+        // Modifying the clone should not modify the original
         $clone->set($cloneNewKey, $cloneNewValue);
         $this->assertFalse(
-            $original->hasKey($cloneNewKey),
+            $map->hasKey($cloneNewKey),
             'Modifying the cloned instance should not modify the original instance'
         );
     }
@@ -83,18 +76,18 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     {
         return array_merge(
             // IntegerKeyHashMap
-            self::buildCloneTest(new IntegerKeyHashMap(new IntegerType()), 11, 12, 9, 10),
-            self::buildCloneTest(new IntegerKeyHashMap(new StringType()), 3, 'lorem', 7, 'ipsum'),
+            self::buildCloneTest(new IntegerKeyHashMap(new IntegerType()), 9, 10),
+            self::buildCloneTest(new IntegerKeyHashMap(new StringType()), 7, 'ipsum'),
 
             // StringKeyHashMap
-            self::buildCloneTest(new StringKeyHashMap(new IntegerType()), 'lorem', 4, 'ipsum', 8),
-            self::buildCloneTest(new StringKeyHashMap(new StringType()), 'foo', 'bar', 'lorem', 'ipsum'),
+            self::buildCloneTest(new StringKeyHashMap(new IntegerType()), 'ipsum', 8),
+            self::buildCloneTest(new StringKeyHashMap(new StringType()), 'lorem', 'ipsum'),
 
             // HashMap
-            self::buildCloneTest(new HashMap(new IntegerType(), new IntegerType()), 11, 12, 9, 10),
-            self::buildCloneTest(new HashMap(new IntegerType(), new StringType()), 3, 'lorem', 7, 'ipsum'),
-            self::buildCloneTest(new HashMap(new StringType(), new IntegerType()), 'lorem', 4, 'ipsum', 8),
-            self::buildCloneTest(new HashMap(new StringType(), new StringType()), 'foo', 'bar', 'lorem', 'ipsum'),
+            self::buildCloneTest(new HashMap(new IntegerType(), new IntegerType()), 9, 10),
+            self::buildCloneTest(new HashMap(new IntegerType(), new StringType()), 7, 'ipsum'),
+            self::buildCloneTest(new HashMap(new StringType(), new IntegerType()), 'ipsum', 8),
+            self::buildCloneTest(new HashMap(new StringType(), new StringType()), 'lorem', 'ipsum'),
         );
     }
 
@@ -416,13 +409,12 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildCloneTest(Mapper $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue): array
+    private static function buildCloneTest(Mapper $map, $cloneNewKey, $cloneNewValue): array
     {
         $cloneDescription = "clone->set({$cloneNewKey}, {$cloneNewValue})";
-        $originalDescription = "original->set({$originalNewKey}, {$originalNewValue})";
         return [
-            get_class($original) . "->clone(); {$originalDescription}; {$cloneDescription}" => [
-                $original, $originalNewKey, $originalNewValue, $cloneNewKey, $cloneNewValue,
+            get_class($map) . "->clone(); {$cloneDescription}" => [
+                $map, $cloneNewKey, $cloneNewValue,
             ],
         ];
     }
