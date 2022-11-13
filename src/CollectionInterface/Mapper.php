@@ -14,7 +14,7 @@ interface Mapper extends \Countable
     /**
      * Returns a copy of the object
      */
-    public function clone(): Mapper;
+    public function clone(): self;
 
     /**
      * Retrieve the value by with its key
@@ -49,7 +49,7 @@ interface Mapper extends \Countable
      *
      * @param int|string $key The key, of the corresponding value, to remove
      */
-    public function removeKey($key): Mapper;
+    public function removeKey($key): self;
 
     /**
      * Adds a new value with the corresponding key
@@ -57,7 +57,7 @@ interface Mapper extends \Countable
      * @param int|string $key The key for the value
      * @param mixed $value The value
      *
-     * @return Mapper The modified map instance
+     * @return self The modified map instance
      */
-    public function set($key, $value): Mapper;
+    public function set($key, $value): self;
 }
