@@ -161,14 +161,26 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             IntegerKeyHashMap::class . ' value type should return ' . BooleanType::class => [
                 new IntegerKeyHashMap(new BooleanType()), new BooleanType(),
             ],
+            IntegerKeyHashMap::class . ' value type should return ' . StringType::class => [
+                new IntegerKeyHashMap(new StringType()), new StringType(),
+            ],
             StringKeyHashMap::class . ' value type should return ' . IntegerType::class => [
                 new StringKeyHashMap(new IntegerType()), new IntegerType(),
+            ],
+            StringKeyHashMap::class . ' value type should return ' . FloatType::class => [
+                new StringKeyHashMap(new FloatType()), new FloatType(),
             ],
             HashMap::class . ' with ' . ArrayType::class . ' value type should return that type' => [
                 new HashMap(new IntegerType(), new ArrayType()), new ArrayType(),
             ],
+            HashMap::class . ' with ' . IntegerType::class . ' value type should return that type' => [
+                new HashMap(new IntegerType(), new IntegerType()), new IntegerType(),
+            ],
             HashMap::class . ' with ' . BooleanType::class . ' value type should return that type' => [
                 new HashMap(new StringType(), new BooleanType()), new BooleanType(),
+            ],
+            HashMap::class . ' with ' . StringType::class . ' value type should return that type' => [
+                new HashMap(new StringType(), new StringType()), new StringType(),
             ],
         ];
     }
