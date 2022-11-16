@@ -80,14 +80,14 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider getCountTestData
+     * @dataProvider getCountTests
      */
     public function testCount(\Countable $countable, int $expected): void
     {
         $this->assertSame($expected, $countable->count());
     }
 
-    public function getCountTestData(): array
+    public function getCountTests(): array
     {
         return array_merge(
             self::buildCountTestForIntegerKey(
