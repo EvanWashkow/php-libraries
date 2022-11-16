@@ -23,7 +23,7 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getCloneTests
      */
-    public function testClone(Mapper $map, $cloneNewKey, $cloneNewValue): void
+    public function testClone(Mapper $map, $key, $value): void
     {
         // Test fresh clone
         $clone = $map->clone();
@@ -44,11 +44,19 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             'Immediately after cloning, the value types are different.'
         );
 
-        // Modifying the clone should not modify the original
-        $clone->set($cloneNewKey, $cloneNewValue);
+        // Modifying the original should not modify the clone
+        $map->set($key, $value);
         $this->assertFalse(
-            $map->hasKey($cloneNewKey),
-            'Modifying the cloned instance should not modify the original instance'
+            $clone->hasKey($key),
+            'Modifying the original should not modify the clone'
+        );
+        $map->removeKey($key);
+
+        // Modifying the clone should not modify the original
+        $clone->set($key, $value);
+        $this->assertFalse(
+            $map->hasKey($key),
+            'Modifying the clone should not modify the original'
         );
     }
 
@@ -459,12 +467,12 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildCloneTest(Mapper $map, $cloneNewKey, $cloneNewValue): array
+    private static function buildCloneTest(Mapper $map, $key, $value): array
     {
-        $cloneDescription = "clone->set({$cloneNewKey}, {$cloneNewValue})";
+        $cloneDescription = "clone->set({$key}, {$value})";
         return [
             get_class($map) . "->clone(); {$cloneDescription}" => [
-                $map, $cloneNewKey, $cloneNewValue,
+                $map, $key, $value,
             ],
         ];
     }
