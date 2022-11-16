@@ -17,6 +17,7 @@ use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use function Symfony\Component\String\s;
 
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
@@ -188,70 +189,51 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getHasKeyTests
      */
-    public function testHasKey(Mapper $map, $key, bool $expected): void
+    public function testHasKey(Mapper $map, $key, bool $want, ?string $wantException = null): void
     {
-        $this->assertSame($expected, $map->hasKey($key));
+        if ($wantException === null) {
+            $this->assertSame($want, $map->hasKey($key));
+        } else {
+            $this->assertThrows(
+                $wantException,
+                static function () use ($map, $key): void {
+                    $map->hasKey($key);
+                },
+                'hasKey() should throw an exception'
+            );
+        }
     }
 
     public function getHasKeyTests(): array
     {
         return array_merge(
-
-            // IntegerKeyHashMap
-            self::buildHasKeyTest(
-                (new IntegerKeyHashMap(new IntegerType()))->set(1, 5),
-                1,
-                true
+            self::buildHasKeyTestForIntegerKey(
+                static function (Type $valueType) {
+                    return new IntegerKeyHashMap($valueType);
+                },
+                IntegerKeyHashMap::class
             ),
-            self::buildHasKeyTest(
-                (new IntegerKeyHashMap(new IntegerType()))->set(2, 7),
-                1,
-                false,
-            ),
-
-            // StringKeyHashMap
-            self::buildHasKeyTest(
-                (new StringKeyHashMap(new StringType()))->set('foo', 'bar'),
-                'foo',
-                true,
-            ),
-            self::buildHasKeyTest(
-                (new StringKeyHashMap(new StringType()))->set('lorem', 'ipsum'),
-                'foo',
-                false,
+            self::buildHasKeyTestForStringKey(
+                static function (Type $valueType) {
+                    return new StringKeyHashMap($valueType);
+                },
+                StringKeyHashMap::class
             ),
 
             // HashMap
-            self::buildHasKeyTest(
-                (new HashMap(new IntegerType(), new IntegerType()))->set(1, 5),
-                1,
-                true
+            self::buildHasKeyTestForIntegerKey(
+                static function (Type $valueType) {
+                    return new HashMap(new IntegerType(), $valueType);
+                },
+                HashMap::class
             ),
-            self::buildHasKeyTest(
-                (new HashMap(new IntegerType(), new IntegerType()))->set(2, 7),
-                1,
-                false,
-            ),
-            self::buildHasKeyTest(
-                (new HashMap(new StringType(), new StringType()))->set('foo', 'bar'),
-                'foo',
-                true,
-            ),
-            self::buildHasKeyTest(
-                (new HashMap(new StringType(), new StringType()))->set('lorem', 'ipsum'),
-                'foo',
-                false,
+            self::buildHasKeyTestForStringKey(
+                static function (Type $valueType) {
+                    return new HashMap(new StringType(), $valueType);
+                },
+                HashMap::class
             ),
         );
-    }
-
-    public static function buildHasKeyTest(Mapper $map, $key, bool $expected): array
-    {
-        return [
-            get_class($map) . '->hasKey() returns ' . ($expected ? 'true' : 'false') . ' for key ' . $key => [
-                $map, $key, $expected,
-            ],
-        ];
     }
 
     /**
@@ -378,20 +360,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 \OutOfBoundsException::class,
             ],
 
-            // HashMap->hasKey()
-            HashMap::class . '->hasKey() expects integer key, passed string' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))->hasKey('string');
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->hasKey() expects string key, passed integer' => [
-                static function (): void {
-                    (new HashMap(new StringType(), new StringType()))->hasKey(1);
-                },
-                \InvalidArgumentException::class,
-            ],
-
             // HashMap->removeKey()
             HashMap::class . '->removeKey() expects integer key, passed string' => [
                 static function (): void {
@@ -414,6 +382,35 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 \OutOfBoundsException::class,
             ],
         ];
+    }
+
+    private static function buildHasKeyTest(
+        string $description,
+        Mapper $map,
+        $key,
+        bool $want,
+        ?string $wantException = null
+    ): array {
+        return [
+            $description => [
+                $map, $key, $want, $wantException,
+            ],
+        ];
+    }
+
+    private function assertThrows(string $wantException, \Closure $func, ?string $message = null): void
+    {
+        $gotException = null;
+        try {
+            $func();
+        } catch(\Throwable $t) {
+            $gotException = $t;
+        }
+        if ($gotException === null) {
+            $this->fail($message ?? 'no exception thrown');
+        } else {
+            $this->assertInstanceOf($wantException, $gotException, $message);
+        }
     }
 
     private static function buildIntegerKeySetTests(\Closure $new, string $className): array
@@ -488,6 +485,82 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 $new(new StringType()), 'one', 2, \InvalidArgumentException::class,
             ],
         ];
+    }
+
+    private static function buildHasKeyTestForIntegerKey(\Closure $new, string $className): array
+    {
+        $prefix = 'Integer key test';
+        return array_merge(
+            self::buildHasKeyTest(
+                "{$prefix} {$className} - Empty should return false",
+                $new(new StringType()),
+                0,
+                false
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
+                0,
+                true
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className}->set()->set() - an non-existent key should return false",
+                $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
+                6,
+                false
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className}->set()->set()->set->remove() a removed key should return false",
+                $new(new IntegerType())->set(0, 2)->set(5, 7)->set(10, 8)->removeKey(5),
+                5,
+                false
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className} Throws exception for wrong type",
+                $new(new StringType()),
+                1.57,
+                false,
+                \InvalidArgumentException::class
+            ),
+        );
+    }
+
+    private static function buildHasKeyTestForStringKey(\Closure $new, string $className): array
+    {
+        $prefix = 'String key test';
+        return array_merge(
+            self::buildHasKeyTest(
+                "{$prefix} {$className} - Empty should return false",
+                $new(new StringType()),
+                'foobar',
+                false
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set('lorem', 'ipsum')->set('foo', 'bar'),
+                'lorem',
+                true
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className}->set()->set() - an non-existent key should return false",
+                $new(new StringType())->set('lorem', 'ipsum')->set('foo', 'bar'),
+                'dolor',
+                false
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className}->set()->set()->set->remove() a removed key should return false",
+                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 7)->set('foobar', 8)->removeKey('ipsum'),
+                'ipsum',
+                false
+            ),
+            self::buildHasKeyTest(
+                "{$prefix} {$className} Throws exception for wrong type",
+                $new(new StringType()),
+                1.57,
+                false,
+                \InvalidArgumentException::class
+            ),
+        );
     }
 
     private static function buildCountTestForIntegerKey(\Closure $new, string $className): array
