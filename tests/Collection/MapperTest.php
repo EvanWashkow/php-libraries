@@ -90,12 +90,30 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     public function getCountTestData(): array
     {
         return array_merge(
-            self::buildCountTest(new IntegerKeyHashMap(new StringType()), 0),
-            self::buildCountTest((new IntegerKeyHashMap(new StringType()))->set(0, 'foobar')->set(5, 'lorem'), 2),
-            self::buildCountTest(new StringKeyHashMap(new IntegerType()), 0),
-            self::buildCountTest((new StringKeyHashMap(new IntegerType()))->set('lorem', 2)->set('ipsum', 7), 2),
-            self::buildCountTest(new HashMap(new IntegerType(), new StringType()), 0),
-            self::buildCountTest((new HashMap(new IntegerType(), new StringType()))->set(0, 'foobar')->set(5, 'lorem'), 2),
+            self::buildCountTestForIntegerKey(
+                static function (Type $valueType) {
+                    return new IntegerKeyHashMap($valueType);
+                },
+                IntegerKeyHashMap::class
+            ),
+            self::buildCountTestForStringKey(
+                static function (Type $valueType) {
+                    return new StringKeyHashMap($valueType);
+                },
+                StringKeyHashMap::class
+            ),
+            self::buildCountTestForIntegerKey(
+                static function (Type $valueType) {
+                    return new HashMap(new IntegerType(), $valueType);
+                },
+                HashMap::class
+            ),
+            self::buildCountTestForStringKey(
+                static function (Type $valueType) {
+                    return new HashMap(new StringType(), $valueType);
+                },
+                HashMap::class
+            ),
         );
     }
 
@@ -460,10 +478,54 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildCountTest(\Countable $countable, int $expected): array
+    private static function buildCountTestForIntegerKey(\Closure $new, string $className): array
+    {
+        $prefix = 'Integer key test';
+        return array_merge(
+            self::buildCountTest(
+                "{$prefix} {$className} - Empty should return 0",
+                $new(new StringType()),
+                0
+            ),
+            self::buildCountTest(
+                "{$prefix} {$className}->set()->set() should return 2",
+                $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
+                2
+            ),
+            self::buildCountTest(
+                "{$prefix} {$className}->set()->set()->set->remove() should return 2",
+                $new(new IntegerType())->set(0, 2)->set(5, 7)->set(10, 8)->removeKey(5),
+                2
+            ),
+        );
+    }
+
+    private static function buildCountTestForStringKey(\Closure $new, string $className): array
+    {
+        $prefix = 'String key test';
+        return array_merge(
+            self::buildCountTest(
+                "{$prefix} {$className} - Empty should return 0",
+                $new(new StringType()),
+                0
+            ),
+            self::buildCountTest(
+                "{$prefix} {$className}->set()->set() should return 2",
+                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 5),
+                2
+            ),
+            self::buildCountTest(
+                "{$prefix} {$className}->set()->set()->set->remove() should return 2",
+                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 7)->set('dolor', 8)->removeKey('ipsum'),
+                2
+            ),
+        );
+    }
+
+    private static function buildCountTest(string $description, \Countable $countable, int $expected): array
     {
         return [
-            get_class($countable) . "->count() should return {$expected}" => [$countable, $expected],
+            $description => [$countable, $expected],
         ];
     }
 
