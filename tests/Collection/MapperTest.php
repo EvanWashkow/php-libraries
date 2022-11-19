@@ -187,23 +187,23 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider getHasKeyTests
+     * @dataProvider getAccessorTests
      */
-    public function testHasKey(Mapper $map, $key, bool $want): void
+    public function testHasKey(Mapper $map, $key, $value, bool $hasKey): void
     {
-        $this->assertSame($want, $map->hasKey($key));
+        $this->assertSame($hasKey, $map->hasKey($key));
     }
 
-    public function getHasKeyTests(): array
+    public function getAccessorTests(): array
     {
         return array_merge(
-            self::buildHasKeyTestForIntegerKey(
+            self::buildAccessorTestForIntegerKey(
                 static function (Type $valueType) {
                     return new IntegerKeyHashMap($valueType);
                 },
                 IntegerKeyHashMap::class
             ),
-            self::buildHasKeyTestForStringKey(
+            self::buildAccessorTestForStringKey(
                 static function (Type $valueType) {
                     return new StringKeyHashMap($valueType);
                 },
@@ -211,13 +211,13 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             ),
 
             // HashMap
-            self::buildHasKeyTestForIntegerKey(
+            self::buildAccessorTestForIntegerKey(
                 static function (Type $valueType) {
                     return new HashMap(new IntegerType(), $valueType);
                 },
                 HashMap::class
             ),
-            self::buildHasKeyTestForStringKey(
+            self::buildAccessorTestForStringKey(
                 static function (Type $valueType) {
                     return new HashMap(new StringType(), $valueType);
                 },
@@ -374,16 +374,15 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildHasKeyTest(
+    private static function buildAccessorTest(
         string $description,
         Mapper $map,
         $key,
-        bool $want,
-        ?string $wantException = null
+        $value
     ): array {
         return [
             $description => [
-                $map, $key, $want, $wantException,
+                $map, $key, $value, $value !== null,
             ],
         ];
     }
@@ -477,64 +476,64 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildHasKeyTestForIntegerKey(\Closure $new, string $className): array
+    private static function buildAccessorTestForIntegerKey(\Closure $new, string $className): array
     {
         $prefix = 'Integer key test';
         return array_merge(
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className} - Empty should return false",
                 $new(new StringType()),
                 0,
-                false
+                null,
             ),
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className}->set()->set() - an existing key should return true",
                 $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
                 0,
-                true
+                'lorem',
             ),
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className}->set()->set() - an non-existent key should return false",
                 $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
                 6,
-                false
+                null
             ),
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className}->set()->set()->set->remove() a removed key should return false",
                 $new(new IntegerType())->set(0, 2)->set(5, 7)->set(10, 8)->removeKey(5),
                 5,
-                false
+                null
             ),
         );
     }
 
-    private static function buildHasKeyTestForStringKey(\Closure $new, string $className): array
+    private static function buildAccessorTestForStringKey(\Closure $new, string $className): array
     {
         $prefix = 'String key test';
         return array_merge(
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className} - Empty should return false",
                 $new(new StringType()),
                 'foobar',
-                false
+                null
             ),
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className}->set()->set() - an existing key should return true",
                 $new(new StringType())->set('lorem', 'ipsum')->set('foo', 'bar'),
                 'lorem',
-                true
+                'ipsum'
             ),
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className}->set()->set() - an non-existent key should return false",
                 $new(new StringType())->set('lorem', 'ipsum')->set('foo', 'bar'),
                 'dolor',
-                false
+                null
             ),
-            self::buildHasKeyTest(
+            self::buildAccessorTest(
                 "{$prefix} {$className}->set()->set()->set->remove() a removed key should return false",
                 $new(new IntegerType())->set('lorem', 2)->set('ipsum', 7)->set('foobar', 8)->removeKey('ipsum'),
                 'ipsum',
-                false
+                null
             ),
         );
     }
