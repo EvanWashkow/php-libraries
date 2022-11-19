@@ -189,19 +189,9 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getHasKeyTests
      */
-    public function testHasKey(Mapper $map, $key, bool $want, ?string $wantException = null): void
+    public function testHasKey(Mapper $map, $key, bool $want): void
     {
-        if ($wantException === null) {
-            $this->assertSame($want, $map->hasKey($key));
-        } else {
-            $this->assertThrows(
-                $wantException,
-                static function () use ($map, $key): void {
-                    $map->hasKey($key);
-                },
-                'hasKey() should throw an exception'
-            );
-        }
+        $this->assertSame($want, $map->hasKey($key));
     }
 
     public function getHasKeyTests(): array
@@ -515,13 +505,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 5,
                 false
             ),
-            self::buildHasKeyTest(
-                "{$prefix} {$className} Throws exception for wrong type",
-                $new(new StringType()),
-                1.57,
-                false,
-                \InvalidArgumentException::class
-            ),
         );
     }
 
@@ -552,13 +535,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 $new(new IntegerType())->set('lorem', 2)->set('ipsum', 7)->set('foobar', 8)->removeKey('ipsum'),
                 'ipsum',
                 false
-            ),
-            self::buildHasKeyTest(
-                "{$prefix} {$className} Throws exception for wrong type",
-                $new(new StringType()),
-                1.57,
-                false,
-                \InvalidArgumentException::class
             ),
         );
     }
