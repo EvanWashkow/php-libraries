@@ -189,6 +189,22 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getKeyAccessTests
      */
+    public function testGet(Mapper $map, $key, $value, bool $hasKey): void
+    {
+        if ($hasKey) {
+            $this->assertSame($value, $map->get($key), 'get() did not return the correct value');
+        } else {
+            $this->assertThrows(
+                \OutOfBoundsException::class,
+                function () use ($map, $key) { $map->get($key); },
+                'get() did not throw an OutOfBoundsException'
+            );
+        }
+    }
+
+    /**
+     * @dataProvider getKeyAccessTests
+     */
     public function testHasKey(Mapper $map, $key, $value, bool $hasKey): void
     {
         $this->assertSame($hasKey, $map->hasKey($key));
