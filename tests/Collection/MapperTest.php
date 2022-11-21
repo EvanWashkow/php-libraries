@@ -506,9 +506,27 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             ),
             self::buildKeyAccessTest(
                 "{$prefix} {$className}->set()->set() - an existing key should return true",
-                $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
-                0,
+                $new(new StringType())->set(1, 'lorem')->set(5, 'ipsum'),
+                1,
                 'lorem',
+            ),
+            self::buildKeyAccessTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set(1, 'lorem')->set(5, 'ipsum'),
+                5,
+                'ipsum',
+            ),
+            self::buildKeyAccessTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set(1, 'foo')->set(5, 'bar'),
+                1,
+                'foo',
+            ),
+            self::buildKeyAccessTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set(1, 'foo')->set(5, 'bar'),
+                5,
+                'bar',
             ),
             self::buildKeyAccessTest(
                 "{$prefix} {$className}->set()->set() - an non-existent key should return false",
@@ -539,6 +557,24 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 "{$prefix} {$className}->set()->set() - an existing key should return true",
                 $new(new StringType())->set('lorem', 'ipsum')->set('foo', 'bar'),
                 'lorem',
+                'ipsum'
+            ),
+            self::buildKeyAccessTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set('lorem', 'ipsum')->set('foo', 'bar'),
+                'foo',
+                'bar'
+            ),
+            self::buildKeyAccessTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set('lorem', 'foo')->set('bar', 'ipsum'),
+                'lorem',
+                'foo'
+            ),
+            self::buildKeyAccessTest(
+                "{$prefix} {$className}->set()->set() - an existing key should return true",
+                $new(new StringType())->set('lorem', 'foo')->set('bar', 'ipsum'),
+                'bar',
                 'ipsum'
             ),
             self::buildKeyAccessTest(
