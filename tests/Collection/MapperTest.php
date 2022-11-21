@@ -196,7 +196,9 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         } else {
             $this->assertThrows(
                 \OutOfBoundsException::class,
-                function () use ($map, $key) { $map->get($key); },
+                static function () use ($map, $key): void {
+                    $map->get($key);
+                },
                 'get() did not throw an OutOfBoundsException'
             );
         }
