@@ -392,19 +392,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private static function buildKeyAccessTest(
-        string $description,
-        Mapper $map,
-        $key,
-        $value
-    ): array {
-        return [
-            $description => [
-                $map, $key, $value, $value !== null,
-            ],
-        ];
-    }
-
     private function assertThrows(string $wantException, \Closure $func, ?string $message = null): void
     {
         $gotException = null;
@@ -590,6 +577,19 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 null
             ),
         );
+    }
+
+    private static function buildKeyAccessTest(
+        string $description,
+        Mapper $map,
+               $key,
+               $value
+    ): array {
+        return [
+            $description => [
+                $map, $key, $value, $value !== null,
+            ],
+        ];
     }
 
     private static function buildCountTestForIntegerKey(\Closure $new, string $className): array
