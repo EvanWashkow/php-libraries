@@ -342,14 +342,15 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider getThrowsExceptionTestData
+     * @dataProvider getConstructorExceptionTests
      */
-    public function testThrowsException(\Closure $closure, string $expectedExceptionClassName): void
+    public function testConstructorException(\Closure $closure): void
     {
-        (new ThrowsExceptionTestHelper($this))->test($closure, $expectedExceptionClassName);
+        $this->expectException(\InvalidArgumentException::class);
+        $closure();
     }
 
-    public function getThrowsExceptionTestData(): array
+    public function getConstructorExceptionTests(): array
     {
         return [
 
@@ -358,31 +359,26 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 static function (): void {
                     new HashMap(new ArrayType(), new ArrayType());
                 },
-                \InvalidArgumentException::class,
             ],
             'New ' . HashMap::class . ' with keyType of BooleanType' => [
                 static function (): void {
                     new HashMap(new BooleanType(), new BooleanType());
                 },
-                \InvalidArgumentException::class,
             ],
             'New ' . HashMap::class . ' with keyType of ClassType' => [
                 static function (): void {
                     new HashMap(new ClassType(\Exception::class), new ClassType(\Exception::class));
                 },
-                \InvalidArgumentException::class,
             ],
             'New ' . HashMap::class . ' with keyType of FloatType' => [
                 static function (): void {
                     new HashMap(new FloatType(), new FloatType());
                 },
-                \InvalidArgumentException::class,
             ],
             'New ' . HashMap::class . ' with keyType of InterfaceType' => [
                 static function (): void {
                     new HashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
                 },
-                \InvalidArgumentException::class,
             ],
         ];
     }
