@@ -231,6 +231,15 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getInvalidKeyTypeTests
+     */
+    public function testRemoveKeyInvalidKeyType(Mapper $map, $key): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $map->removeKey($key);
+    }
+
+    /**
      * @dataProvider getSetTests
      *
      * @param Mapper $map
