@@ -9,6 +9,7 @@ This library adheres to PSR-12 standards and best software design practices such
 ## Components
 
 1. [Collections](./src/Collection)
+1. [Collection Interfaces](./src/CollectionInterface)
 2. [Types](./src/Type)
 2. [Type Interfaces](./src/TypeInterface)
 
