@@ -340,28 +340,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 },
                 \InvalidArgumentException::class,
             ],
-
-            // HashMap->removeKey()
-            HashMap::class . '->removeKey() expects integer key, passed string' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))->removeKey('string');
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->removeKey() expects string key, passed integer' => [
-                static function (): void {
-                    (new HashMap(new StringType(), new StringType()))->removeKey(1);
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->removeKey(); key does not exist' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))
-                        ->set(1, 2)
-                        ->removeKey(5);
-                },
-                \OutOfBoundsException::class,
-            ],
         ];
     }
 
