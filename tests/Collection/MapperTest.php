@@ -280,6 +280,15 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getInvalidKeyTypeTests
+     */
+    public function testSetInvalidKeyType(Mapper $map, $key, $value): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $map->set($key, $value);
+    }
+
+    /**
      * @dataProvider getThrowsExceptionTestData
      */
     public function testThrowsException(\Closure $closure, string $expectedExceptionClassName): void
@@ -321,37 +330,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                     new HashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
                 },
                 \InvalidArgumentException::class,
-            ],
-
-            // HashMap->get()
-            HashMap::class . '->get() expects integer key, passed string' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))->get('string');
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->get() expects string key, passed integer' => [
-                static function (): void {
-                    (new HashMap(new StringType(), new StringType()))->get(1);
-                },
-                \InvalidArgumentException::class,
-            ],
-            HashMap::class . '->get(); key does not exist' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))
-                        ->set(1, 2)
-                        ->get(5);
-                },
-                \OutOfBoundsException::class,
-            ],
-            HashMap::class . '->get() should throw exception after the key was removed' => [
-                static function (): void {
-                    (new HashMap(new IntegerType(), new IntegerType()))
-                        ->set(1, 2)
-                        ->removeKey(1)
-                        ->get(1);
-                },
-                \OutOfBoundsException::class,
             ],
 
             // HashMap->removeKey()
@@ -450,13 +428,11 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     {
         $prefix = 'Integer key test';
         return [
-            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [] ],
-            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true ],
-            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
-            },
-            ],
-            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2 ],
-            "{$prefix} {$className} invalid key type - string" => [ $new(new IntegerType()), 'foobar' ],
+            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [], 1 ],
+            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1 ],
+            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {}, 1 ],
+            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
+            "{$prefix} {$className} invalid key type - string" => [ $new(new IntegerType()), 'foobar', 1 ],
         ];
     }
 
@@ -464,13 +440,13 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     {
         $prefix = 'String key test';
         return [
-            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [] ],
-            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true ],
-            "{$prefix} {$className} invalid key type - integer" => [ $new(new IntegerType()), 2 ],
+            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [], 1 ],
+            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1],
+            "{$prefix} {$className} invalid key type - integer" => [ $new(new IntegerType()), 2, 1 ],
             "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
-            },
+            }, 1,
             ],
-            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2 ],
+            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
         ];
     }
 
