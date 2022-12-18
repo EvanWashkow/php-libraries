@@ -205,6 +205,45 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getInvalidKeyTypeTests
+     */
+    public function testGetInvalidKeyType(Mapper $map, $key): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $map->get($key);
+    }
+
+    public function getInvalidKeyTypeTests(): array
+    {
+        return array_merge(
+            self::buildInvalidKeyTypeTestsForIntegerKey(
+                static function (Type $valueType) {
+                    return new IntegerKeyHashMap($valueType);
+                },
+                IntegerKeyHashMap::class
+            ),
+            self::buildInvalidKeyTypeTestsForStringKey(
+                static function (Type $valueType) {
+                    return new StringKeyHashMap($valueType);
+                },
+                StringKeyHashMap::class
+            ),
+            self::buildInvalidKeyTypeTestsForIntegerKey(
+                static function (Type $valueType) {
+                    return new HashMap(new IntegerType(), $valueType);
+                },
+                HashMap::class
+            ),
+            self::buildInvalidKeyTypeTestsForStringKey(
+                static function (Type $valueType) {
+                    return new HashMap(new StringType(), $valueType);
+                },
+                HashMap::class
+            ),
+        );
+    }
+
+    /**
      * @dataProvider getKeyAccessTests
      */
     public function testHasKey(Mapper $map, $key, $value, bool $hasKey): void
@@ -389,6 +428,34 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 },
                 \OutOfBoundsException::class,
             ],
+        ];
+    }
+
+    private static function buildInvalidKeyTypeTestsForIntegerKey(\Closure $new, string $className): array
+    {
+        $prefix = 'Integer key test';
+        return [
+            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [] ],
+            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true ],
+            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
+            },
+            ],
+            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2 ],
+            "{$prefix} {$className} invalid key type - string" => [ $new(new IntegerType()), 'foobar' ],
+        ];
+    }
+
+    private static function buildInvalidKeyTypeTestsForStringKey(\Closure $new, string $className): array
+    {
+        $prefix = 'String key test';
+        return [
+            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [] ],
+            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true ],
+            "{$prefix} {$className} invalid key type - integer" => [ $new(new IntegerType()), 2 ],
+            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
+            },
+            ],
+            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2 ],
         ];
     }
 
@@ -582,8 +649,8 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     private static function buildKeyAccessTest(
         string $description,
         Mapper $map,
-               $key,
-               $value
+        $key,
+        $value
     ): array {
         return [
             $description => [
