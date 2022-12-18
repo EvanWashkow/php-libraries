@@ -17,7 +17,7 @@ This library adheres to PSR-12 standards and best software design practices such
    2. NPM
 2. In a terminal shell, run `bin/init`
 3. While working, periodically run
-   * `bin/unit-test`
+   * `bin/unitTest`
    * `bin/phpinsights fix -- src tests`
 
 ## Local Development

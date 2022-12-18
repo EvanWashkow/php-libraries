@@ -25,14 +25,14 @@ php7.4-unit-test:
   extends: .php7.4
   stage: test
   script:
-    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unitTest
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php8.1-unit-test:
   extends: .php8.1
   stage: test
   script:
-    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unitTest
 
 # Based off https://phpinsights.com/continuous-integration.html#gitlab-code-quality
 phpinsights:
