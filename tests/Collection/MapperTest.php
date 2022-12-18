@@ -298,6 +298,50 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider getInvalidValueTypeTests
+     *
+     * @param Mapper $map
+     * @param $key
+     * @param $value
+     * @return void
+     */
+    public function testSetInvalidValueType(Mapper $map, $key, $value): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $map->set($key, $value);
+    }
+
+    public function getInvalidValueTypeTests(): array
+    {
+        return array_merge(
+            self::buildInvalidValueTypeTestsForIntegerKey(
+                static function (Type $type) {
+                    return new IntegerKeyHashMap($type);
+                },
+                IntegerKeyHashMap::class,
+            ),
+            self::buildInvalidValueTypeTestsForStringKey(
+                static function (Type $type) {
+                    return new StringKeyHashMap($type);
+                },
+                StringKeyHashMap::class,
+            ),
+            self::buildInvalidValueTypeTestsForIntegerKey(
+                static function (Type $type) {
+                    return new HashMap(new IntegerType(), $type);
+                },
+                HashMap::class,
+            ),
+            self::buildInvalidValueTypeTestsForStringKey(
+                static function (Type $type) {
+                    return new HashMap(new StringType(), $type);
+                },
+                HashMap::class,
+            ),
+        );
+    }
+
+    /**
      * @dataProvider getThrowsExceptionTestData
      */
     public function testThrowsException(\Closure $closure, string $expectedExceptionClassName): void
@@ -409,6 +453,43 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 HashMap::class
             ),
         );
+    }
+
+    private function buildInvalidValueTypeTestsForIntegerKey(\Closure $new, string $className): array
+    {
+        return $this->buildInvalidValueTypeTests('Integer key', static function () {
+            return 1;
+        }, $new, $className);
+    }
+
+    private function buildInvalidValueTypeTestsForStringKey(\Closure $new, string $className): array
+    {
+        return $this->buildInvalidValueTypeTests('String key', static function () {
+            return 'foobar';
+        }, $new, $className);
+    }
+
+    private function buildInvalidValueTypeTests(string $prefix, \Closure $getKey, \Closure $new, string $className): array
+    {
+        return [
+            // Want integer value
+            "{$prefix} {$className} invalid value type - want integer, got array" => [ $new(new IntegerType()), $getKey(), [] ],
+            "{$prefix} {$className} invalid value type - want integer, got boolean" => [ $new(new IntegerType()), $getKey(), true ],
+            "{$prefix} {$className} invalid value type - want integer, got object" => [ $new(new IntegerType()), $getKey(), new class() {
+            },
+            ],
+            "{$prefix} {$className} invalid value type - want integer, got float" => [ $new(new IntegerType()), $getKey(), 1.2 ],
+            "{$prefix} {$className} invalid value type - want integer, got string" => [ $new(new IntegerType()), $getKey(), 'string' ],
+
+            // Want string value
+            "{$prefix} {$className} invalid value type - want string, got array" => [ $new(new StringType()), $getKey(), [] ],
+            "{$prefix} {$className} invalid value type - want string, got boolean" => [ $new(new StringType()), $getKey(), true ],
+            "{$prefix} {$className} invalid value type - want string, got object" => [ $new(new StringType()), $getKey(), new class() {
+            },
+            ],
+            "{$prefix} {$className} invalid value type - want string, got float" => [ $new(new StringType()), $getKey(), 1.2 ],
+            "{$prefix} {$className} invalid value type - want string, got integer" => [ $new(new StringType()), $getKey(), 1 ],
+        ];
     }
 
     private static function buildInvalidKeyTypeTestsForIntegerKey(\Closure $new, string $className): array
