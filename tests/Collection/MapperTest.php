@@ -719,51 +719,38 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
     private static function buildCountTestForIntegerKey(\Closure $new, string $className): array
     {
         $prefix = 'Integer key test';
-        return array_merge(
-            self::buildCountTest(
-                "{$prefix} {$className} - Empty should return 0",
+        return [
+            "{$prefix} {$className} - Empty should return 0" => [
                 $new(new StringType()),
-                0
-            ),
-            self::buildCountTest(
-                "{$prefix} {$className}->set()->set() should return 2",
+                0,
+            ],
+            "{$prefix} {$className}->set()->set() should return 2" => [
                 $new(new StringType())->set(0, 'lorem')->set(5, 'ipsum'),
-                2
-            ),
-            self::buildCountTest(
-                "{$prefix} {$className}->set()->set()->set->remove() should return 2",
+                2,
+            ],
+            "{$prefix} {$className}->set()->set()->set->remove() should return 2" => [
                 $new(new IntegerType())->set(0, 2)->set(5, 7)->set(10, 8)->removeKey(5),
-                2
-            ),
-        );
+                2,
+            ],
+        ];
     }
 
     private static function buildCountTestForStringKey(\Closure $new, string $className): array
     {
         $prefix = 'String key test';
-        return array_merge(
-            self::buildCountTest(
-                "{$prefix} {$className} - Empty should return 0",
-                $new(new StringType()),
-                0
-            ),
-            self::buildCountTest(
-                "{$prefix} {$className}->set()->set() should return 2",
-                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 5),
-                2
-            ),
-            self::buildCountTest(
-                "{$prefix} {$className}->set()->set()->set->remove() should return 2",
-                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 7)->set('dolor', 8)->removeKey('ipsum'),
-                2
-            ),
-        );
-    }
-
-    private static function buildCountTest(string $description, \Countable $countable, int $expected): array
-    {
         return [
-            $description => [$countable, $expected],
+            "{$prefix} {$className} - Empty should return 0" => [
+                $new(new StringType()),
+                0,
+            ],
+            "{$prefix} {$className}->set()->set() should return 2" => [
+                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 5),
+                2,
+            ],
+            "{$prefix} {$className}->set()->set()->set->remove() should return 2" => [
+                $new(new IntegerType())->set('lorem', 2)->set('ipsum', 7)->set('dolor', 8)->removeKey('ipsum'),
+                2,
+            ],
         ];
     }
 
