@@ -22,6 +22,7 @@ This library adheres to PSR-12 standards and best software design practices such
    * `bin/phpinsights fix -- src tests`
 
 ## Local Development
+* [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) - All commits must follow this standard. By following it, release tags will automatically be created when merging into `main`.
 * Composer
   * `bin/composer install`: installs packages from the versions specified in the `composer.lock` file
   * `bin/composer update`: updates packages and updates their version numbers in the `composer.lock` file
