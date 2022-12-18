@@ -9,7 +9,6 @@ use EvanWashkow\PHPLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PHPLibraries\Collection\StringKeyHashMap;
 use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
 use EvanWashkow\PHPLibraries\Tests\TestCase;
-use EvanWashkow\PHPLibraries\Tests\TestHelper\ThrowsExceptionTestHelper;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
 use EvanWashkow\PHPLibraries\Type\ClassType;
@@ -18,7 +17,6 @@ use EvanWashkow\PHPLibraries\Type\IntegerType;
 use EvanWashkow\PHPLibraries\Type\InterfaceType;
 use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
-use function Symfony\Component\String\s;
 
 final class MapperTest extends TestCase
 {
