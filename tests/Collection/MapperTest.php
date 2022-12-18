@@ -221,38 +221,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($hasKey, $map->hasKey($key));
     }
 
-    public function getKeyAccessTests(): array
-    {
-        return array_merge(
-            self::buildKeyAccessTestForIntegerKey(
-                static function (Type $valueType) {
-                    return new IntegerKeyHashMap($valueType);
-                },
-                IntegerKeyHashMap::class
-            ),
-            self::buildKeyAccessTestForStringKey(
-                static function (Type $valueType) {
-                    return new StringKeyHashMap($valueType);
-                },
-                StringKeyHashMap::class
-            ),
-
-            // HashMap
-            self::buildKeyAccessTestForIntegerKey(
-                static function (Type $valueType) {
-                    return new HashMap(new IntegerType(), $valueType);
-                },
-                HashMap::class
-            ),
-            self::buildKeyAccessTestForStringKey(
-                static function (Type $valueType) {
-                    return new HashMap(new StringType(), $valueType);
-                },
-                HashMap::class
-            ),
-        );
-    }
-
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
@@ -435,6 +403,41 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 HashMap::class
             ),
             self::buildInvalidKeyTypeTestsForStringKey(
+                static function (Type $valueType) {
+                    return new HashMap(new StringType(), $valueType);
+                },
+                HashMap::class
+            ),
+        );
+    }
+
+    /**
+     * Retrieves maps with key => value pairs to test key access
+     */
+    public function getKeyAccessTests(): array
+    {
+        return array_merge(
+            self::buildKeyAccessTestForIntegerKey(
+                static function (Type $valueType) {
+                    return new IntegerKeyHashMap($valueType);
+                },
+                IntegerKeyHashMap::class
+            ),
+            self::buildKeyAccessTestForStringKey(
+                static function (Type $valueType) {
+                    return new StringKeyHashMap($valueType);
+                },
+                StringKeyHashMap::class
+            ),
+
+            // HashMap
+            self::buildKeyAccessTestForIntegerKey(
+                static function (Type $valueType) {
+                    return new HashMap(new IntegerType(), $valueType);
+                },
+                HashMap::class
+            ),
+            self::buildKeyAccessTestForStringKey(
                 static function (Type $valueType) {
                     return new HashMap(new StringType(), $valueType);
                 },
