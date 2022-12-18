@@ -8,6 +8,7 @@ use EvanWashkow\PHPLibraries\Collection\HashMap;
 use EvanWashkow\PHPLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PHPLibraries\Collection\StringKeyHashMap;
 use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
+use EvanWashkow\PHPLibraries\Tests\TestCase;
 use EvanWashkow\PHPLibraries\Tests\TestHelper\ThrowsExceptionTestHelper;
 use EvanWashkow\PHPLibraries\Type\ArrayType;
 use EvanWashkow\PHPLibraries\Type\BooleanType;
@@ -19,7 +20,7 @@ use EvanWashkow\PHPLibraries\Type\StringType;
 use EvanWashkow\PHPLibraries\TypeInterface\Type;
 use function Symfony\Component\String\s;
 
-final class MapperTest extends \PHPUnit\Framework\TestCase
+final class MapperTest extends TestCase
 {
     /**
      * @dataProvider getConstructorExceptionTests
@@ -514,21 +515,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
             ],
             "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
         ];
-    }
-
-    private function assertThrows(string $wantException, \Closure $func, ?string $message = null): void
-    {
-        $gotException = null;
-        try {
-            $func();
-        } catch(\Throwable $t) {
-            $gotException = $t;
-        }
-        if ($gotException === null) {
-            $this->fail($message ?? 'no exception thrown');
-        } else {
-            $this->assertInstanceOf($wantException, $gotException, $message);
-        }
     }
 
     private static function buildIntegerKeySetTests(\Closure $new, string $className): array
