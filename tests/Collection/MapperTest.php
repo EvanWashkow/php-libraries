@@ -22,6 +22,48 @@ use function Symfony\Component\String\s;
 final class MapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @dataProvider getConstructorExceptionTests
+     */
+    public function testConstructorException(\Closure $closure): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $closure();
+    }
+
+    public function getConstructorExceptionTests(): array
+    {
+        return [
+
+            // HashMap->__construct() with invalid key type
+            'New ' . HashMap::class . ' with keyType of ArrayType' => [
+                static function (): void {
+                    new HashMap(new ArrayType(), new ArrayType());
+                },
+            ],
+            'New ' . HashMap::class . ' with keyType of BooleanType' => [
+                static function (): void {
+                    new HashMap(new BooleanType(), new BooleanType());
+                },
+            ],
+            'New ' . HashMap::class . ' with keyType of ClassType' => [
+                static function (): void {
+                    new HashMap(new ClassType(\Exception::class), new ClassType(\Exception::class));
+                },
+            ],
+            'New ' . HashMap::class . ' with keyType of FloatType' => [
+                static function (): void {
+                    new HashMap(new FloatType(), new FloatType());
+                },
+            ],
+            'New ' . HashMap::class . ' with keyType of InterfaceType' => [
+                static function (): void {
+                    new HashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
+                },
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider getCloneTests
      */
     public function testClone(Mapper $map, $key, $value): void
@@ -339,48 +381,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 HashMap::class,
             ),
         );
-    }
-
-    /**
-     * @dataProvider getConstructorExceptionTests
-     */
-    public function testConstructorException(\Closure $closure): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $closure();
-    }
-
-    public function getConstructorExceptionTests(): array
-    {
-        return [
-
-            // HashMap->__construct() with invalid key type
-            'New ' . HashMap::class . ' with keyType of ArrayType' => [
-                static function (): void {
-                    new HashMap(new ArrayType(), new ArrayType());
-                },
-            ],
-            'New ' . HashMap::class . ' with keyType of BooleanType' => [
-                static function (): void {
-                    new HashMap(new BooleanType(), new BooleanType());
-                },
-            ],
-            'New ' . HashMap::class . ' with keyType of ClassType' => [
-                static function (): void {
-                    new HashMap(new ClassType(\Exception::class), new ClassType(\Exception::class));
-                },
-            ],
-            'New ' . HashMap::class . ' with keyType of FloatType' => [
-                static function (): void {
-                    new HashMap(new FloatType(), new FloatType());
-                },
-            ],
-            'New ' . HashMap::class . ' with keyType of InterfaceType' => [
-                static function (): void {
-                    new HashMap(new InterfaceType(\Throwable::class), new InterfaceType(\Throwable::class));
-                },
-            ],
-        ];
     }
 
     /**
