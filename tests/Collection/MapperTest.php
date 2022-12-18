@@ -213,36 +213,6 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         $map->get($key);
     }
 
-    public function getInvalidKeyTypeTests(): array
-    {
-        return array_merge(
-            self::buildInvalidKeyTypeTestsForIntegerKey(
-                static function (Type $valueType) {
-                    return new IntegerKeyHashMap($valueType);
-                },
-                IntegerKeyHashMap::class
-            ),
-            self::buildInvalidKeyTypeTestsForStringKey(
-                static function (Type $valueType) {
-                    return new StringKeyHashMap($valueType);
-                },
-                StringKeyHashMap::class
-            ),
-            self::buildInvalidKeyTypeTestsForIntegerKey(
-                static function (Type $valueType) {
-                    return new HashMap(new IntegerType(), $valueType);
-                },
-                HashMap::class
-            ),
-            self::buildInvalidKeyTypeTestsForStringKey(
-                static function (Type $valueType) {
-                    return new HashMap(new StringType(), $valueType);
-                },
-                HashMap::class
-            ),
-        );
-    }
-
     /**
      * @dataProvider getKeyAccessTests
      */
@@ -281,6 +251,15 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 HashMap::class
             ),
         );
+    }
+
+    /**
+     * @dataProvider getInvalidKeyTypeTests
+     */
+    public function testHasKeyInvalidKeyType(Mapper $map, $key): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $map->hasKey($key);
     }
 
     /**
@@ -429,6 +408,39 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
                 \OutOfBoundsException::class,
             ],
         ];
+    }
+
+    /**
+     * Retrieve invalid key type tests
+     */
+    public function getInvalidKeyTypeTests(): array
+    {
+        return array_merge(
+            self::buildInvalidKeyTypeTestsForIntegerKey(
+                static function (Type $valueType) {
+                    return new IntegerKeyHashMap($valueType);
+                },
+                IntegerKeyHashMap::class
+            ),
+            self::buildInvalidKeyTypeTestsForStringKey(
+                static function (Type $valueType) {
+                    return new StringKeyHashMap($valueType);
+                },
+                StringKeyHashMap::class
+            ),
+            self::buildInvalidKeyTypeTestsForIntegerKey(
+                static function (Type $valueType) {
+                    return new HashMap(new IntegerType(), $valueType);
+                },
+                HashMap::class
+            ),
+            self::buildInvalidKeyTypeTestsForStringKey(
+                static function (Type $valueType) {
+                    return new HashMap(new StringType(), $valueType);
+                },
+                HashMap::class
+            ),
+        );
     }
 
     private static function buildInvalidKeyTypeTestsForIntegerKey(\Closure $new, string $className): array
