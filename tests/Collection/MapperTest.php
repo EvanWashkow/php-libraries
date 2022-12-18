@@ -417,7 +417,9 @@ final class MapperTest extends \PHPUnit\Framework\TestCase
         return [
             "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [], 1 ],
             "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1 ],
-            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {}, 1 ],
+            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
+            }, 1,
+            ],
             "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
             "{$prefix} {$className} invalid key type - string" => [ $new(new IntegerType()), 'foobar', 1 ],
         ];
