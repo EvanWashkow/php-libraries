@@ -49,7 +49,7 @@ final class InterfaceType implements InheritableType, NameableType
     /**
      * @inheritDoc
      */
-    public function isValueOfType($value): bool
+    public function isValueOfType(mixed $value): bool
     {
         return $this->helper->isValueOfType($value);
     }

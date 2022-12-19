@@ -20,7 +20,7 @@ final class StringType implements Type
     /**
      * @inheritDoc
      */
-    public function isValueOfType($value): bool
+    public function isValueOfType(mixed $value): bool
     {
         return is_string($value);
     }
