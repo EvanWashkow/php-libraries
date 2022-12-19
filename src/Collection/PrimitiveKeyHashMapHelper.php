@@ -13,8 +13,6 @@ final class PrimitiveKeyHashMapHelper
 {
     /** @var array<int|string, mixed> The hash map */
     private array $hashMap;
-    private Type $keyType;
-    private Type $valueType;
 
     /**
      * Create a new PrimitiveKeyHashMap instance
@@ -22,11 +20,9 @@ final class PrimitiveKeyHashMapHelper
      * @param Type $keyType The key type requirement for all keys in the map
      * @param Type $valueType The value type requirement for all values in the map
      */
-    public function __construct(Type $keyType, Type $valueType)
+    public function __construct(private Type $keyType, private Type $valueType)
     {
         $this->hashMap = [];
-        $this->keyType = $keyType;
-        $this->valueType = $valueType;
     }
 
     /**
