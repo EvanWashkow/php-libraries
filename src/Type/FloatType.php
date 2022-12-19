@@ -17,9 +17,6 @@ final class FloatType implements Type
         return $value instanceof self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function isValueOfType(mixed $value): bool
     {
         return is_float($value);
