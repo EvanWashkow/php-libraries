@@ -16,10 +16,8 @@ abstract class AbstractEquatableTestCase extends TestCase
      * Tests the EquatableInterface.
      *
      * @dataProvider getEqualsTestData
-     *
-     * @param mixed $value
      */
-    final public function testEquals(Equatable $equatable, $value, bool $expected): void
+    final public function testEquals(Equatable $equatable, mixed $value, bool $expected): void
     {
         $this->assertSame(
             $expected,

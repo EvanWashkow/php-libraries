@@ -25,7 +25,7 @@ interface Mapper extends \Countable
      *
      * @throws \OutOfBoundsException
      */
-    public function get($key);
+    public function get(int|string $key): mixed;
 
     /**
      * Retrieve the key type
@@ -42,14 +42,14 @@ interface Mapper extends \Countable
      *
      * @param int|string $key The key
      */
-    public function hasKey($key): bool;
+    public function hasKey(int|string $key): bool;
 
     /**
      * Removes a value by its key
      *
      * @param int|string $key The key, of the corresponding value, to remove
      */
-    public function removeKey($key): self;
+    public function removeKey(int|string $key): self;
 
     /**
      * Adds a new value with the corresponding key
@@ -59,5 +59,5 @@ interface Mapper extends \Countable
      *
      * @return self The modified map instance
      */
-    public function set($key, $value): self;
+    public function set(int|string $key, mixed $value): self;
 }

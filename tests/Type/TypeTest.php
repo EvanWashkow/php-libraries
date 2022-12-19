@@ -101,10 +101,8 @@ final class TypeTest extends TestCase
 
     /**
      * @dataProvider getIsValueOfTypeTestData
-     *
-     * @param mixed $value
      */
-    public function testIsValueOfType(Type $type, $value, bool $expected): void
+    public function testIsValueOfType(Type $type, mixed $value, bool $expected): void
     {
         $this->assertSame($expected, $type->isValueOfType($value));
     }

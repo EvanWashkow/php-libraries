@@ -73,7 +73,7 @@ final class ClassInterfaceTypeHelper
      *
      * @param mixed $value the value to check
      */
-    public function isValueOfType($value): bool
+    public function isValueOfType(mixed $value): bool
     {
         return is_object($value) && $this->reflectionClass->isInstance($value);
     }

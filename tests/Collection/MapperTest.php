@@ -165,7 +165,7 @@ final class MapperTest extends TestCase
     public function testGetKeyType(Mapper $map, Type $expectedType): void
     {
         $mapType = new ClassType(get_class($map->getKeyType()));
-        $expectedTypeType = new ClassType(get_class($expectedType));
+        $expectedTypeType = new ClassType($expectedType::class);
         $this->assertTrue($mapType->equals($expectedTypeType), 'Mapper->getKeyType() returned the wrong type');
     }
 
@@ -193,7 +193,7 @@ final class MapperTest extends TestCase
     public function testGetValueType(Mapper $map, Type $expectedType): void
     {
         $mapType = new ClassType(get_class($map->getValueType()));
-        $expectedTypeType = new ClassType(get_class($expectedType));
+        $expectedTypeType = new ClassType($expectedType::class);
         $this->assertTrue($mapType->equals($expectedTypeType), 'Mapper->getValueType() returned the wrong type');
     }
 
@@ -742,7 +742,7 @@ final class MapperTest extends TestCase
     {
         $cloneDescription = "clone->set({$key}, {$value})";
         return [
-            get_class($map) . "->clone(); {$cloneDescription}" => [
+            $map::class . "->clone(); {$cloneDescription}" => [
                 $map, $key, $value,
             ],
         ];
