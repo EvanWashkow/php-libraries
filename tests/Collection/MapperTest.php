@@ -248,7 +248,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testGetInvalidKeyType(Mapper $map, $key): void
+    public function testGetInvalidKeyType(Mapper $map, int|string $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->get($key);
@@ -265,7 +265,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testHasKeyInvalidKeyType(Mapper $map, $key): void
+    public function testHasKeyInvalidKeyType(Mapper $map, int|string $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->hasKey($key);
@@ -274,7 +274,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testRemoveKeyInvalidKeyType(Mapper $map, $key): void
+    public function testRemoveKeyInvalidKeyType(Mapper $map, int|string $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->removeKey($key);
@@ -282,14 +282,8 @@ final class MapperTest extends TestCase
 
     /**
      * @dataProvider getSetTests
-     *
-     * @param Mapper $map
-     * @param $key
-     * @param $value
-     * @param string|null $wantException
-     * @return void
      */
-    public function testSet(Mapper $map, $key, $value, ?string $wantException): void
+    public function testSet(Mapper $map, int|string $key, $value, ?string $wantException): void
     {
         if ($wantException !== null) {
             $this->expectException($wantException);
@@ -332,7 +326,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testSetInvalidKeyType(Mapper $map, $key, $value): void
+    public function testSetInvalidKeyType(Mapper $map, int|string $key, $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->set($key, $value);
@@ -340,11 +334,6 @@ final class MapperTest extends TestCase
 
     /**
      * @dataProvider getInvalidValueTypeTests
-     *
-     * @param Mapper $map
-     * @param $key
-     * @param $value
-     * @return void
      */
     public function testSetInvalidValueType(Mapper $map, $key, $value): void
     {
@@ -491,12 +480,6 @@ final class MapperTest extends TestCase
     {
         $prefix = 'Integer key test';
         return [
-            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [], 1 ],
-            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1 ],
-            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
-            }, 1,
-            ],
-            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
             "{$prefix} {$className} invalid key type - string" => [ $new(new IntegerType()), 'foobar', 1 ],
         ];
     }
@@ -505,13 +488,7 @@ final class MapperTest extends TestCase
     {
         $prefix = 'String key test';
         return [
-            "{$prefix} {$className} invalid key type - array" => [ $new(new IntegerType()), [], 1 ],
-            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1],
             "{$prefix} {$className} invalid key type - integer" => [ $new(new IntegerType()), 2, 1 ],
-            "{$prefix} {$className} invalid key type - object" => [ $new(new IntegerType()), new class() {
-            }, 1,
-            ],
-            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
         ];
     }
 
@@ -530,9 +507,6 @@ final class MapperTest extends TestCase
             ],
             "{$prefix} - {$className} set 2 to one" => [
                 $new(new StringType()), 2, 'one', null,
-            ],
-            "{$prefix} - {$className} set expects integer key, float given" => [
-                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class,
             ],
             "{$prefix} - {$className} set expects integer key, string given" => [
                 $new(new IntegerType()), 'one', 1, \InvalidArgumentException::class,
@@ -567,9 +541,6 @@ final class MapperTest extends TestCase
             ],
             "{$prefix} - {$className} set two to one" => [
                 $new(new StringType()), 'two', 'one', null,
-            ],
-            "{$prefix} - {$className} set expects string key, float given" => [
-                $new(new IntegerType()), .5, 1, \InvalidArgumentException::class,
             ],
             "{$prefix} - {$className} set expects string key, integer given" => [
                 $new(new IntegerType()), 1, 1, \InvalidArgumentException::class,
