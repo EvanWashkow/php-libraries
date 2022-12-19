@@ -28,7 +28,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $this->assertInstanceOf(
                 $wantException,
                 $gotException,
-                $message ?? "Wanted {$wantException}, got {$gotException} instead."
+                $message ?? "Wanted exception {$wantException}, got exception {$gotException} instead."
             );
         }
     }
