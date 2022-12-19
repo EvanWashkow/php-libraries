@@ -2,8 +2,8 @@ version: "3.0"
 services:
   php-libraries:
     build: .
-    image: php-libraries:7.3
-    container_name: php-libraries-7.3
+    image: php-libraries
+    container_name: php-libraries
     command: composer install
     volumes:
     - .:/usr/src/php-libraries
