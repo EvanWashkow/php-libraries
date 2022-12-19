@@ -12,7 +12,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param string $wantException The expected exception
      * @param \Closure $func Function callback that throws the exception
      * @param string|null $message Message to output on failure
-     * @return void
      */
     public function assertThrows(string $wantException, \Closure $func, ?string $message = null): void
     {

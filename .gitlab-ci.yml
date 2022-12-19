@@ -2,34 +2,34 @@ stages:
   - test
   - release
 
-.php7.4:
-  image: php:7.4-cli-alpine
+.php8.0:
+  image: php:8.0-cli-alpine
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install
 
-.php8.1:
-  image: php:8.1-cli-alpine
+.php8.2:
+  image: php:8.2-cli-alpine
   before_script:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar update # Run composer update here to update components to the latest PHP version
 
 composer-outdated:
-  extends: .php7.4
+  extends: .php8.0
   stage: test
   script:
     - php composer.phar outdated --direct --strict
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
-php7.4-unit-test:
-  extends: .php7.4
+php8.0-unit-test:
+  extends: .php8.0
   stage: test
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unitTest
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
-php8.1-unit-test:
-  extends: .php8.1
+php8.2-unit-test:
+  extends: .php8.2
   stage: test
   script:
     - vendor/bin/phpunit --coverage-text --colors=never --testsuite unitTest
@@ -37,7 +37,7 @@ php8.1-unit-test:
 # Based off https://phpinsights.com/continuous-integration.html#gitlab-code-quality
 phpinsights:
   extends:
-    - .php7.4
+    - .php8.0
   stage: test
   script:
     - vendor/bin/phpinsights -n --min-quality=95 --min-complexity=90 --min-architecture=95 --min-style=95 --ansi --format=codeclimate > codeclimate-report.json

@@ -46,10 +46,7 @@ final class ClassType implements InheritableType, NameableType
         return $this->helper->is($type);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function isValueOfType($value): bool
+    public function isValueOfType(mixed $value): bool
     {
         return $this->helper->isValueOfType($value);
     }

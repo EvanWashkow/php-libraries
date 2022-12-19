@@ -30,7 +30,7 @@ final class TypeTestDataBuilder
      * @param string $testedName the name of the value being tested
      * @param mixed  $value      the value being tested
      */
-    public function isValueOfType(string $testedName, $value): self
+    public function isValueOfType(string $testedName, mixed $value): self
     {
         $this->isValueOfType["{$this->testName} IS VALUE OF TYPE {$testedName}"] =
             $this->newTestData($value, true);
@@ -44,7 +44,7 @@ final class TypeTestDataBuilder
      * @param string $testedName the name of the value being tested
      * @param mixed  $value      the value being tested
      */
-    public function notIsValueOfType(string $testedName, $value): self
+    public function notIsValueOfType(string $testedName, mixed $value): self
     {
         $this->notIsValueOfType["{$this->testName} IS NOT VALUE OF TYPE {$testedName}"] =
             $this->newTestData($value, false);

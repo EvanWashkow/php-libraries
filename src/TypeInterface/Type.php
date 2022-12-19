@@ -16,5 +16,5 @@ interface Type extends Equatable
      *
      * @param mixed $value the value to check
      */
-    public function isValueOfType($value): bool;
+    public function isValueOfType(mixed $value): bool;
 }

@@ -37,10 +37,7 @@ final class StringKeyHashMap implements Mapper
         return $this->helper->count();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function get($key)
+    public function get(int|string $key): mixed
     {
         return $this->helper->get($key);
     }
@@ -55,18 +52,12 @@ final class StringKeyHashMap implements Mapper
         return $this->helper->getValueType();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function hasKey($key): bool
+    public function hasKey(int|string $key): bool
     {
         return $this->helper->hasKey($key);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function removeKey($key): self
+    public function removeKey(int|string $key): self
     {
         $this->helper->removeKey($key);
         return $this;
@@ -75,7 +66,7 @@ final class StringKeyHashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function set($key, $value): self
+    public function set(int|string $key, $value): self
     {
         $this->helper->set($key, $value);
         return $this;

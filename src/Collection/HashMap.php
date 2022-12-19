@@ -45,10 +45,7 @@ final class HashMap implements Mapper
         return $this->map->count();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function get($key)
+    public function get(int|string $key): mixed
     {
         return $this->map->get($key);
     }
@@ -63,18 +60,12 @@ final class HashMap implements Mapper
         return $this->map->getValueType();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function hasKey($key): bool
+    public function hasKey(int|string $key): bool
     {
         return $this->map->hasKey($key);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function removeKey($key): self
+    public function removeKey(int|string $key): self
     {
         $this->map->removeKey($key);
         return $this;
@@ -83,7 +74,7 @@ final class HashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function set($key, $value): self
+    public function set(int|string $key, $value): self
     {
         $this->map->set($key, $value);
         return $this;

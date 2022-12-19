@@ -42,7 +42,7 @@ final class EquatableTestBuilder
      * @param string $testEntry the test entry description
      * @param mixed  $value     the value to test
      */
-    public function equals(string $testEntry, $value): self
+    public function equals(string $testEntry, mixed $value): self
     {
         $this->equals["{$this->testHeader} equals {$testEntry}"] =
             $this->newTestData($this->equatable, $value, true);
@@ -61,7 +61,7 @@ final class EquatableTestBuilder
      * @param string $testEntry the test entry description
      * @param mixed  $value     the value to test
      */
-    public function notEquals(string $testEntry, $value): self
+    public function notEquals(string $testEntry, mixed $value): self
     {
         $this->notEquals["{$this->testHeader} should not equal {$testEntry}"] =
             $this->newTestData($this->equatable, $value, false);
@@ -88,7 +88,7 @@ final class EquatableTestBuilder
      * @param mixed              $value     the value to test
      * @param bool               $expected  the expected result
      */
-    private function newTestData(Equatable $equatable, $value, bool $expected): array
+    private function newTestData(Equatable $equatable, mixed $value, bool $expected): array
     {
         return [$equatable, $value, $expected];
     }

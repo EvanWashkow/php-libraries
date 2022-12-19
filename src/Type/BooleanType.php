@@ -17,10 +17,7 @@ final class BooleanType implements Type
         return $value instanceof self;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function isValueOfType($value): bool
+    public function isValueOfType(mixed $value): bool
     {
         return is_bool($value);
     }
