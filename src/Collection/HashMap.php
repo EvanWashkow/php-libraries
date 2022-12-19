@@ -48,7 +48,7 @@ final class HashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function get($key)
+    public function get(int|string $key): mixed
     {
         return $this->map->get($key);
     }

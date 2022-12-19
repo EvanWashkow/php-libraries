@@ -40,7 +40,7 @@ final class StringKeyHashMap implements Mapper
     /**
      * @inheritDoc
      */
-    public function get($key)
+    public function get(int|string $key): mixed
     {
         return $this->helper->get($key);
     }
