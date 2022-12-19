@@ -8,11 +8,27 @@ This library adheres to PSR-12 standards and best software design practices such
 
 ## Components
 
-1. [Types](./src/Type)
+1. [Collections](./src/Collection)
+1. [Collection Interfaces](./src/CollectionInterface)
+2. [Types](./src/Type)
 2. [Type Interfaces](./src/TypeInterface)
 
 ## Local Development Setup
 1. Install
    1. Docker
    2. NPM
-2. In a terminal shell, run `./init.sh`
+2. In a terminal shell, run `bin/init`
+3. While working, periodically run
+   * `bin/unitTest`
+   * `bin/phpinsights fix -- src tests`
+
+## Local Development
+* [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) - All commits must follow this standard. By following it, release tags will automatically be created when merging into `main`.
+* Composer
+  * `bin/composer install`: installs packages from the versions specified in the `composer.lock` file
+  * `bin/composer update`: updates packages and updates their version numbers in the `composer.lock` file
+* PHPInsights
+  * `bin/phpinsights`: check code quality of `src` (default)
+  * `bin/phpinsights fix -- src tests`: run code fixer
+  * `bin/phpinsights analyse -- src tests`: check code quality of `src` and `tests`
+  * `bin/phpinsights --help`: help docs

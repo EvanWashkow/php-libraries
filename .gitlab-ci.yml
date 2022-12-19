@@ -14,19 +14,25 @@ stages:
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar update # Run composer update here to update components to the latest PHP version
 
+composer-outdated:
+  extends: .php7.4
+  stage: test
+  script:
+    - php composer.phar outdated --direct --strict
+
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php7.4-unit-test:
   extends: .php7.4
   stage: test
   script:
-    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unitTest
 
 # Based off https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/PHP.gitlab-ci.yml
 php8.1-unit-test:
   extends: .php8.1
   stage: test
   script:
-    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unit-test
+    - vendor/bin/phpunit --coverage-text --colors=never --testsuite unitTest
 
 # Based off https://phpinsights.com/continuous-integration.html#gitlab-code-quality
 phpinsights:
@@ -34,7 +40,7 @@ phpinsights:
     - .php7.4
   stage: test
   script:
-    - vendor/bin/phpinsights -n --min-quality=95 --min-complexity=89 --min-architecture=95 --min-style=95 --ansi --format=codeclimate > codeclimate-report.json
+    - vendor/bin/phpinsights -n --min-quality=95 --min-complexity=90 --min-architecture=95 --min-style=95 --ansi --format=codeclimate > codeclimate-report.json
   artifacts:
     reports:
       codequality: codeclimate-report.json

@@ -35,14 +35,16 @@ final class ClassInterfaceTypeHelper
      *
      * @param NameableType $type the value to compare
      */
-    public function equals(NameableType $type): bool {
+    public function equals(NameableType $type): bool
+    {
         return $this->getName() === $type->getName();
     }
 
     /**
      * Get the Type name.
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->reflectionClass->getName();
     }
 
@@ -59,7 +61,8 @@ final class ClassInterfaceTypeHelper
      *
      * @param Type $type the type to check
      */
-    public function is(Type $type): bool {
+    public function is(Type $type): bool
+    {
         return ($type instanceof NameableType) &&
             ($this->reflectionClass->getName() === $type->getName() ||
                 $this->reflectionClass->isSubclassOf($type->getName()));
@@ -70,7 +73,8 @@ final class ClassInterfaceTypeHelper
      *
      * @param mixed $value the value to check
      */
-    public function isValueOfType($value): bool {
+    public function isValueOfType($value): bool
+    {
         return is_object($value) && $this->reflectionClass->isInstance($value);
     }
 }
