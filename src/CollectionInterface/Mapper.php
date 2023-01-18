@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\CollectionInterface;
+namespace EvanWashkow\PhpLibraries\CollectionInterface;
 
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Describes a Collection with key => value mapping

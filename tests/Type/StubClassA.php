@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Type;
+namespace EvanWashkow\PhpLibraries\Tests\Type;
 
 class StubClassA implements StubInterfaceA
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Type;
+namespace EvanWashkow\PhpLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Type\ClassType;
-use EvanWashkow\PHPLibraries\Type\InterfaceType;
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\Type\ClassType;
+use EvanWashkow\PhpLibraries\Type\InterfaceType;
+use EvanWashkow\PhpLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PhpLibraries\TypeInterface\NameableType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 use PHPUnit\Framework\TestCase;
 
 /**

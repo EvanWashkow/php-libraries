@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface;
+namespace EvanWashkow\PhpLibraries\Tests\TestDefinition\EquatableInterface;
 
-use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PhpLibraries\Equatable;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Type;
+namespace EvanWashkow\PhpLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\AbstractEquatableTestCase;
-use EvanWashkow\PHPLibraries\Tests\TestDefinition\EquatableInterface\EquatableTestBuilder;
-use EvanWashkow\PHPLibraries\Type\ArrayType;
-use EvanWashkow\PHPLibraries\Type\BooleanType;
-use EvanWashkow\PHPLibraries\Type\ClassType;
-use EvanWashkow\PHPLibraries\Type\FloatType;
-use EvanWashkow\PHPLibraries\Type\IntegerType;
-use EvanWashkow\PHPLibraries\Type\InterfaceType;
-use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\Tests\TestDefinition\EquatableInterface\AbstractEquatableTestCase;
+use EvanWashkow\PhpLibraries\Tests\TestDefinition\EquatableInterface\EquatableTestBuilder;
+use EvanWashkow\PhpLibraries\Type\ArrayType;
+use EvanWashkow\PhpLibraries\Type\BooleanType;
+use EvanWashkow\PhpLibraries\Type\ClassType;
+use EvanWashkow\PhpLibraries\Type\FloatType;
+use EvanWashkow\PhpLibraries\Type\IntegerType;
+use EvanWashkow\PhpLibraries\Type\InterfaceType;
+use EvanWashkow\PhpLibraries\Type\StringType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Tests Types' EquatableInterface implementation.

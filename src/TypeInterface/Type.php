@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\TypeInterface;
+namespace EvanWashkow\PhpLibraries\TypeInterface;
 
-use EvanWashkow\PHPLibraries\Equatable;
+use EvanWashkow\PhpLibraries\Equatable;
 
 /**
  * Describes a Type.
