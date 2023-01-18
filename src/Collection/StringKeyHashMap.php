@@ -63,10 +63,7 @@ final class StringKeyHashMap implements Mapper
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function set(int|string $key, $value): self
+    public function set(int|string $key, mixed $value): self
     {
         $this->helper->set($key, $value);
         return $this;

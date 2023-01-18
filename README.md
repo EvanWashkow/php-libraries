@@ -33,5 +33,5 @@ This library adheres to PSR-12 standards and best software design practices such
 * PHPInsights
   * `bin/phpinsights`: check code quality of `src` (default)
   * `bin/phpinsights fix -- src tests`: run code fixer
-  * `bin/phpinsights analyse -- src tests`: check code quality of `src` and `tests`
+  * `bin/phpinsights analyse -- src`: check code quality of `src` and `tests`
   * `bin/phpinsights --help`: help docs

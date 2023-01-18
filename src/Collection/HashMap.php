@@ -71,10 +71,7 @@ final class HashMap implements Mapper
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function set(int|string $key, $value): self
+    public function set(int|string $key, mixed $value): self
     {
         $this->map->set($key, $value);
         return $this;
