@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PhpLibraries\CollectionInterface;
 
+use EvanWashkow\PhpLibraries\Cloneable;
 use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Describes a Collection with key => value mapping
  */
-interface Mapper extends \Countable
+interface Mapper extends \Countable, Cloneable
 {
-    /**
-     * Returns a copy of the object
-     */
-    public function clone(): self;
-
     /**
      * Retrieve the value by with its key
      *
