@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries;
+namespace EvanWashkow\PhpLibraries;
 
 /**
  * Describes Object equality comparison.

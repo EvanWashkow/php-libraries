@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Type;
+namespace EvanWashkow\PhpLibraries\Tests\Type;
 
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Builds test data for InheritableTypes.

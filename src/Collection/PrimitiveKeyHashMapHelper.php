@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Collection;
+namespace EvanWashkow\PhpLibraries\Collection;
 
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Helper class for hash maps with primitive (string / integer) keys

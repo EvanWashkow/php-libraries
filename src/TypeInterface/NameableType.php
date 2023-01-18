@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\TypeInterface;
+namespace EvanWashkow\PhpLibraries\TypeInterface;
 
 /**
  * Describes a Type with a name.

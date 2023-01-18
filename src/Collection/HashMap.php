@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Collection;
+namespace EvanWashkow\PhpLibraries\Collection;
 
-use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
-use EvanWashkow\PHPLibraries\Type\IntegerType;
-use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\CollectionInterface\Mapper;
+use EvanWashkow\PhpLibraries\Type\IntegerType;
+use EvanWashkow\PhpLibraries\Type\StringType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Defines an integer/string key => value map

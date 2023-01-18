@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests;
+namespace EvanWashkow\PhpLibraries\Tests;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {

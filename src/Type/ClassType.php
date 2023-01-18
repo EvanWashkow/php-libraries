@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Type;
+namespace EvanWashkow\PhpLibraries\Type;
 
-use EvanWashkow\PHPLibraries\Equatable;
-use EvanWashkow\PHPLibraries\TypeInterface\InheritableType;
-use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\Equatable;
+use EvanWashkow\PhpLibraries\TypeInterface\InheritableType;
+use EvanWashkow\PhpLibraries\TypeInterface\NameableType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * A Class Type.

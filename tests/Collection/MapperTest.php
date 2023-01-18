@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Tests\Collection;
+namespace EvanWashkow\PhpLibraries\Tests\Collection;
 
-use EvanWashkow\PHPLibraries\Collection\HashMap;
-use EvanWashkow\PHPLibraries\Collection\IntegerKeyHashMap;
-use EvanWashkow\PHPLibraries\Collection\StringKeyHashMap;
-use EvanWashkow\PHPLibraries\CollectionInterface\Mapper;
-use EvanWashkow\PHPLibraries\Tests\TestCase;
-use EvanWashkow\PHPLibraries\Type\ArrayType;
-use EvanWashkow\PHPLibraries\Type\BooleanType;
-use EvanWashkow\PHPLibraries\Type\ClassType;
-use EvanWashkow\PHPLibraries\Type\FloatType;
-use EvanWashkow\PHPLibraries\Type\IntegerType;
-use EvanWashkow\PHPLibraries\Type\InterfaceType;
-use EvanWashkow\PHPLibraries\Type\StringType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\Collection\HashMap;
+use EvanWashkow\PhpLibraries\Collection\IntegerKeyHashMap;
+use EvanWashkow\PhpLibraries\Collection\StringKeyHashMap;
+use EvanWashkow\PhpLibraries\CollectionInterface\Mapper;
+use EvanWashkow\PhpLibraries\Tests\TestCase;
+use EvanWashkow\PhpLibraries\Type\ArrayType;
+use EvanWashkow\PhpLibraries\Type\BooleanType;
+use EvanWashkow\PhpLibraries\Type\ClassType;
+use EvanWashkow\PhpLibraries\Type\FloatType;
+use EvanWashkow\PhpLibraries\Type\IntegerType;
+use EvanWashkow\PhpLibraries\Type\InterfaceType;
+use EvanWashkow\PhpLibraries\Type\StringType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 final class MapperTest extends TestCase
 {

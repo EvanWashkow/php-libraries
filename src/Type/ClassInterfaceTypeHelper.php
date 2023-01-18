@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace EvanWashkow\PHPLibraries\Type;
+namespace EvanWashkow\PhpLibraries\Type;
 
-use EvanWashkow\PHPLibraries\TypeInterface\NameableType;
-use EvanWashkow\PHPLibraries\TypeInterface\Type;
+use EvanWashkow\PhpLibraries\TypeInterface\NameableType;
+use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Helper class for the ClassType and InterfaceType classes
