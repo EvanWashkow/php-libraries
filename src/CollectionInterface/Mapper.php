@@ -13,7 +13,7 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 interface Mapper extends \Countable, Cloneable
 {
     /**
-     * Retrieve the value by with its key
+     * Retrieve the value by its key
      *
      * @param int|string $key The key for the value
      *
