@@ -10,8 +10,9 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Defines an integer key => value map
- * 
+ *
  * @template TValue
+ *
  * @extends Mapper<int, TValue>
  */
 final class IntegerKeyHashMap implements Mapper
