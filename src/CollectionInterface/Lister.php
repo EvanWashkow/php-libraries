@@ -19,17 +19,6 @@ interface Lister extends KeyedCollector
     public function add(mixed $value): self;
 
     /**
-     * Retrieve the value by its index
-     *
-     * @param int $index The index for the value
-     *
-     * @return mixed The value
-     *
-     * @throws \OutOfBoundsException
-     */
-    public function get(int $index): mixed;
-
-    /**
      * Removes a value by its index
      *
      * @param int $index The index to remove

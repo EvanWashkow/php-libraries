@@ -12,6 +12,17 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 interface KeyedCollector extends Collector
 {
     /**
+     * Retrieve the value by its key
+     *
+     * @param int $key The key for the value
+     *
+     * @return mixed The value
+     *
+     * @throws \OutOfBoundsException
+     */
+    public function get(int $key): mixed;
+
+    /**
      * Retrieve the key type
      */
     public function getKeyType(): Type;

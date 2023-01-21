@@ -10,13 +10,7 @@ namespace EvanWashkow\PhpLibraries\CollectionInterface;
 interface Mapper extends KeyedCollector
 {
     /**
-     * Retrieve the value by its key
-     *
-     * @param int|string $key The key for the value
-     *
-     * @return mixed The value
-     *
-     * @throws \OutOfBoundsException
+     * @param int|string $key The key
      */
     public function get(int|string $key): mixed;
 
