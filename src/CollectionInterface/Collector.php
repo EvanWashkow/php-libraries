@@ -6,7 +6,7 @@ namespace EvanWashkow\PhpLibraries\CollectionInterface;
 
 use EvanWashkow\PhpLibraries\Cloneable;
 
-interface Collector extends Cloneable
+interface Collector extends \Countable, Cloneable
 {
     /**
      * Retrieve the value type

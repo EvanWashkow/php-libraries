@@ -47,7 +47,8 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
             // CollectionInterface
             $this->buildTest(
                 new InterfaceType(Collector::class),
-                new InterfaceType(Cloneable::class)
+                new InterfaceType(\Countable::class),
+                new InterfaceType(Cloneable::class),
             ),
             $this->buildTest(
                 new InterfaceType(Mapper::class),
