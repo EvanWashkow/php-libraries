@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace EvanWashkow\PhpLibraries\CollectionInterface;
 
 /**
- * Describes a Collection with key => value mapping
+ * Describes a collection with key => value mapping
  */
 interface Mapper extends KeyedCollector
 {

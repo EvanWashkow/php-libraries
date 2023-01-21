@@ -7,7 +7,7 @@ namespace EvanWashkow\PhpLibraries\CollectionInterface;
 use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
- * Describes a collection of key => value pairs
+ * Describes a collection with key => value mapping
  */
 interface KeyedCollector extends Collector
 {
