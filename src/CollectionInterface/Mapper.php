@@ -14,19 +14,19 @@ interface Mapper extends KeyedCollector
      *
      * @return mixed The value
      */
-    public function get(int|string $key): mixed;
+    public function get(mixed $key): mixed;
 
     /**
      * @param int|string $key The key
      */
-    public function hasKey(int|string $key): bool;
+    public function hasKey(mixed $key): bool;
 
     /**
      * @param int|string $key The key to remove
      *
      * @return self The modified collection
      */
-    public function removeKey(int|string $key): self;
+    public function removeKey(mixed $key): self;
 
     /**
      * @param int|string $key The key for the value
@@ -34,5 +34,5 @@ interface Mapper extends KeyedCollector
      *
      * @return self The modified collection
      */
-    public function set(int|string $key, mixed $value): self;
+    public function set(mixed $key, mixed $value): self;
 }

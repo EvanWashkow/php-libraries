@@ -37,7 +37,7 @@ final class IntegerKeyHashMap implements Mapper
         return $this->helper->count();
     }
 
-    public function get(int|string $key): mixed
+    public function get(mixed $key): mixed
     {
         return $this->helper->get($key);
     }
@@ -52,18 +52,18 @@ final class IntegerKeyHashMap implements Mapper
         return $this->helper->getValueType();
     }
 
-    public function hasKey(int|string $key): bool
+    public function hasKey(mixed $key): bool
     {
         return $this->helper->hasKey($key);
     }
 
-    public function removeKey(int|string $key): self
+    public function removeKey(mixed $key): self
     {
         $this->helper->removeKey($key);
         return $this;
     }
 
-    public function set(int|string $key, mixed $value): self
+    public function set(mixed $key, mixed $value): self
     {
         $this->helper->set($key, $value);
         return $this;
