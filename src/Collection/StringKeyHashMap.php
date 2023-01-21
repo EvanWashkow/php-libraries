@@ -10,6 +10,9 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Defines an string key => value map
+ * 
+ * @template TValue
+ * @extends Mapper<int, TValue>
  */
 final class StringKeyHashMap implements Mapper
 {
