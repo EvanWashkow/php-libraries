@@ -40,6 +40,8 @@ interface KeyedCollector extends Collector
      * @param mixed $key The key to remove
      *
      * @return self The modified collection
+     *
+     * @throws \OutOfBoundsException
      */
     public function removeKey(mixed $key): self;
 
