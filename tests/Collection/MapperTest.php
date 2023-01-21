@@ -480,6 +480,8 @@ final class MapperTest extends TestCase
     {
         $prefix = 'Integer key test';
         return [
+            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1 ],
+            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
             "{$prefix} {$className} invalid key type - string" => [ $new(new IntegerType()), 'foobar', 1 ],
         ];
     }
@@ -488,6 +490,8 @@ final class MapperTest extends TestCase
     {
         $prefix = 'String key test';
         return [
+            "{$prefix} {$className} invalid key type - boolean" => [ $new(new IntegerType()), true, 1 ],
+            "{$prefix} {$className} invalid key type - float" => [ $new(new IntegerType()), 1.2, 1 ],
             "{$prefix} {$className} invalid key type - integer" => [ $new(new IntegerType()), 2, 1 ],
         ];
     }

@@ -42,7 +42,7 @@ final class PrimitiveKeyHashMapHelper
      *
      * @throws \OutOfBoundsException
      */
-    public function get(int|string $key): mixed
+    public function get(mixed $key): mixed
     {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnMissingKey($key);
@@ -70,7 +70,7 @@ final class PrimitiveKeyHashMapHelper
      *
      * @param int|string $key The key
      */
-    public function hasKey(int|string $key): bool
+    public function hasKey(mixed $key): bool
     {
         $this->throwOnInvalidKeyType($key);
         return array_key_exists($key, $this->hashMap);
@@ -81,7 +81,7 @@ final class PrimitiveKeyHashMapHelper
      *
      * @param int|string $key The key, of the corresponding value, to remove
      */
-    public function removeKey(int|string $key): void
+    public function removeKey(mixed $key): void
     {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnMissingKey($key);
@@ -94,7 +94,7 @@ final class PrimitiveKeyHashMapHelper
      * @param int|string $key The key for the value
      * @param mixed $value The value
      */
-    public function set(int|string $key, mixed $value): void
+    public function set(mixed $key, mixed $value): void
     {
         $this->throwOnInvalidKeyType($key);
         $this->throwOnInvalidValueType($value);
@@ -104,11 +104,11 @@ final class PrimitiveKeyHashMapHelper
     /**
      * Throws an exception on an invalid key type
      *
-     * @param int|string $key The key
+     * @param mixed $key The key
      *
      * @throws \InvalidArgumentException
      */
-    private function throwOnInvalidKeyType(int|string $key): void
+    private function throwOnInvalidKeyType(mixed $key): void
     {
         if (! $this->getKeyType()->isValueOfType($key)) {
             throw new \InvalidArgumentException('The key is the wrong type');
@@ -134,7 +134,7 @@ final class PrimitiveKeyHashMapHelper
      *
      * @throws \OutOfBoundsException
      */
-    private function throwOnMissingKey(int|string $key): void
+    private function throwOnMissingKey(mixed $key): void
     {
         if (! $this->hasKey($key)) {
             throw new \OutOfBoundsException('The key does not exist');
