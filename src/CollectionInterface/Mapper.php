@@ -7,8 +7,8 @@ namespace EvanWashkow\PhpLibraries\CollectionInterface;
 /**
  * Describes a collection with key => value mapping
  * 
- * @template KeyType
- * @template ValueType
- * @extends KeyedCollector<KeyType, ValueType>
+ * @template TKey
+ * @template TValue
+ * @extends KeyedCollector<TKey, TValue>
  */
 interface Mapper extends KeyedCollector { }

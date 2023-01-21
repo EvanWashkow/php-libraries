@@ -9,17 +9,17 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 /**
  * Describes a collection with key => value mapping
  * 
- * @template KeyType
- * @template ValueType
+ * @template TKey
+ * @template TValue
  */
 interface KeyedCollector extends Collector
 {
     /**
      * Retrieve the value by its key
      *
-     * @param KeyType $key The key for the value
+     * @param TKey $key The key for the value
      *
-     * @return ValueType The value
+     * @return TValue The value
      *
      * @throws \OutOfBoundsException
      */
@@ -33,14 +33,14 @@ interface KeyedCollector extends Collector
     /**
      * Determines if the key exists
      *
-     * @param KeyType $key The key
+     * @param TKey $key The key
      */
     public function hasKey(mixed $key): bool;
 
     /**
      * Removes a value by its key
      *
-     * @param KeyType $key The key to remove
+     * @param TKey $key The key to remove
      *
      * @return self The modified collection
      *
@@ -51,8 +51,8 @@ interface KeyedCollector extends Collector
     /**
      * Inserts a new value at the corresponding key
      *
-     * @param KeyType $key The key for the value
-     * @param ValueType $value The value
+     * @param TKey $key The key for the value
+     * @param TValue $value The value
      *
      * @return self The modified collection
      */
