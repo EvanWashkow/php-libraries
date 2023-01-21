@@ -30,7 +30,7 @@ interface Mapper extends KeyedCollector
     /**
      * Removes a value by its key
      *
-     * @param int|string $key The key, of the corresponding value, to remove
+     * @param int|string $key The key to remove
      */
     public function removeKey(int|string $key): self;
 
