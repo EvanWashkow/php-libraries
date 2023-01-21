@@ -15,8 +15,6 @@ interface Mapper extends KeyedCollector
     public function get(int|string $key): mixed;
 
     /**
-     * Determines if the key exists
-     *
      * @param int|string $key The key
      */
     public function hasKey(int|string $key): bool;

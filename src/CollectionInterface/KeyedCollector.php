@@ -26,4 +26,11 @@ interface KeyedCollector extends Collector
      * Retrieve the key type
      */
     public function getKeyType(): Type;
+
+    /**
+     * Determines if the key exists
+     *
+     * @param int $key The key
+     */
+    public function hasKey(int $key): bool;
 }
