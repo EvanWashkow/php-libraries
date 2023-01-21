@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PhpLibraries\CollectionInterface;
 
-use EvanWashkow\PhpLibraries\Cloneable;
-use EvanWashkow\PhpLibraries\TypeInterface\Type;
-
 /**
  * Describes a Collection with key => value mapping
  */
-interface Mapper extends \Countable, Cloneable
+interface Mapper extends KeyedCollector
 {
     /**
      * Retrieve the value by its key
@@ -22,16 +19,6 @@ interface Mapper extends \Countable, Cloneable
      * @throws \OutOfBoundsException
      */
     public function get(int|string $key): mixed;
-
-    /**
-     * Retrieve the key type
-     */
-    public function getKeyType(): Type;
-
-    /**
-     * Retrieve the value type
-     */
-    public function getValueType(): Type;
 
     /**
      * Determines if the key exists
