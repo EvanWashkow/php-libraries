@@ -11,6 +11,8 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Defines an integer/string key => value map
+ * 
+ * @implements Mapper<int|string, mixed>
  */
 final class HashMap implements Mapper
 {
