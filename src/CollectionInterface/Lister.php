@@ -17,11 +17,4 @@ interface Lister extends KeyedCollector
      * @return self The modified list
      */
     public function add(mixed $value): self;
-
-    /**
-     * Removes a value by its index
-     *
-     * @param int $index The index to remove
-     */
-    public function removeKey(int $index): self;
 }

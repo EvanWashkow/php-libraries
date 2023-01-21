@@ -33,4 +33,11 @@ interface KeyedCollector extends Collector
      * @param int $key The key
      */
     public function hasKey(int $key): bool;
+
+    /**
+     * Removes a value by its key
+     *
+     * @param int $key The key to remove
+     */
+    public function removeKey(int $key): self;
 }

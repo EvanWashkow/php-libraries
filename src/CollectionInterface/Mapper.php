@@ -20,8 +20,6 @@ interface Mapper extends KeyedCollector
     public function hasKey(int|string $key): bool;
 
     /**
-     * Removes a value by its key
-     *
      * @param int|string $key The key to remove
      */
     public function removeKey(int|string $key): self;
