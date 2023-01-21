@@ -9,6 +9,7 @@ use EvanWashkow\PhpLibraries\Collection\HashMap;
 use EvanWashkow\PhpLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PhpLibraries\Collection\StringKeyHashMap;
 use EvanWashkow\PhpLibraries\CollectionInterface\Collector;
+use EvanWashkow\PhpLibraries\CollectionInterface\KeyedCollector;
 use EvanWashkow\PhpLibraries\CollectionInterface\Mapper;
 use EvanWashkow\PhpLibraries\Equatable;
 use EvanWashkow\PhpLibraries\Type\ArrayType;
@@ -49,6 +50,10 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
                 new InterfaceType(Collector::class),
                 new InterfaceType(\Countable::class),
                 new InterfaceType(Cloneable::class),
+            ),
+            $this->buildTest(
+                new InterfaceType(KeyedCollector::class),
+                new InterfaceType(Collector::class),
             ),
             $this->buildTest(
                 new InterfaceType(Mapper::class),
