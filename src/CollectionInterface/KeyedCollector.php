@@ -38,6 +38,8 @@ interface KeyedCollector extends Collector
      * Removes a value by its key
      *
      * @param int $key The key to remove
+     *
+     * @return self The modified collection
      */
     public function removeKey(int $key): self;
 
