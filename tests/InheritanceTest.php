@@ -8,6 +8,7 @@ use EvanWashkow\PhpLibraries\Cloneable;
 use EvanWashkow\PhpLibraries\Collection\HashMap;
 use EvanWashkow\PhpLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PhpLibraries\Collection\StringKeyHashMap;
+use EvanWashkow\PhpLibraries\CollectionInterface\Collector;
 use EvanWashkow\PhpLibraries\CollectionInterface\Mapper;
 use EvanWashkow\PhpLibraries\Equatable;
 use EvanWashkow\PhpLibraries\Type\ArrayType;
@@ -44,6 +45,10 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
     {
         return array_merge(
             // CollectionInterface
+            $this->buildTest(
+                new InterfaceType(Collector::class),
+                new InterfaceType(Cloneable::class)
+            ),
             $this->buildTest(
                 new InterfaceType(Mapper::class),
                 new InterfaceType(\Countable::class),

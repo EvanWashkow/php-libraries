@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PhpLibraries\CollectionInterface;
 
-interface Collector
+use EvanWashkow\PhpLibraries\Cloneable;
+
+interface Collector extends Cloneable
 {
     /**
      * Retrieve the value type
