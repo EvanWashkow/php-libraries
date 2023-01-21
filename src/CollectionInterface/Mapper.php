@@ -25,12 +25,8 @@ interface Mapper extends KeyedCollector
     public function removeKey(int|string $key): self;
 
     /**
-     * Adds a new value with the corresponding key
-     *
      * @param int|string $key The key for the value
      * @param mixed $value The value
-     *
-     * @return self The modified map instance
      */
     public function set(int|string $key, mixed $value): self;
 }

@@ -40,4 +40,14 @@ interface KeyedCollector extends Collector
      * @param int $key The key to remove
      */
     public function removeKey(int $key): self;
+
+    /**
+     * Inserts a new value at the corresponding key
+     *
+     * @param int $key The key for the value
+     * @param mixed $value The value
+     *
+     * @return self The modified collection
+     */
+    public function set(int $key, mixed $value): self;
 }
