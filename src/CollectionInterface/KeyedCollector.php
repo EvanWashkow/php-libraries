@@ -8,7 +8,7 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Describes a collection with key => value mapping
- * 
+ *
  * @template TKey
  * @template TValue
  */

@@ -11,9 +11,10 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * Defines an integer/string key => value map
- * 
+ *
  * @template TKey of int|string
  * @template TValue
+ *
  * @extends Mapper<TKey, TValue>
  */
 final class HashMap implements Mapper
