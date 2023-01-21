@@ -9,4 +9,12 @@ namespace EvanWashkow\PhpLibraries\CollectionInterface;
  */
 interface Lister extends KeyedCollector
 {
+    /**
+     * Add a new value to the list
+     *
+     * @param mixed $value The value
+     *
+     * @return self The modified list
+     */
+    public function add(mixed $value): self;
 }
