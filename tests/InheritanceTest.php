@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EvanWashkow\PhpLibraries\Tests;
 
+use EvanWashkow\PhpLibraries\Cloneable;
 use EvanWashkow\PhpLibraries\Collection\HashMap;
 use EvanWashkow\PhpLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PhpLibraries\Collection\StringKeyHashMap;
@@ -43,7 +44,11 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
     {
         return array_merge(
             // CollectionInterface
-            $this->buildTest(new InterfaceType(Mapper::class), new InterfaceType(\Countable::class)),
+            $this->buildTest(
+                new InterfaceType(Mapper::class),
+                new InterfaceType(\Countable::class),
+                new InterfaceType(Cloneable::class),
+            ),
 
             // Collection
             $this->buildTest(new ClassType(HashMap::class), new InterfaceType(Mapper::class)),
