@@ -28,4 +28,11 @@ interface Lister extends KeyedCollector
      * @throws \OutOfBoundsException
      */
     public function get(int $index): mixed;
+
+    /**
+     * Removes a value by its index
+     *
+     * @param int $index The index to remove
+     */
+    public function removeKey(int $index): self;
 }
