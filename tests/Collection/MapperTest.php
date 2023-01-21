@@ -248,7 +248,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testGetInvalidKeyType(Mapper $map, int|string $key): void
+    public function testGetInvalidKeyType(Mapper $map, mixed $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->get($key);
@@ -265,7 +265,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testHasKeyInvalidKeyType(Mapper $map, int|string $key): void
+    public function testHasKeyInvalidKeyType(Mapper $map, mixed $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->hasKey($key);
@@ -274,7 +274,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testRemoveKeyInvalidKeyType(Mapper $map, int|string $key): void
+    public function testRemoveKeyInvalidKeyType(Mapper $map, mixed $key): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->removeKey($key);
@@ -326,7 +326,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testSetInvalidKeyType(Mapper $map, int|string $key, $value): void
+    public function testSetInvalidKeyType(Mapper $map, mixed $key, $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->set($key, $value);
