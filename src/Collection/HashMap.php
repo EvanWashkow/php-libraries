@@ -12,7 +12,9 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 /**
  * Defines an integer/string key => value map
  * 
- * @implements Mapper<int|string, mixed>
+ * @template KeyType of int|string
+ * @template ValueType
+ * @extends Mapper<KeyType, ValueType>
  */
 final class HashMap implements Mapper
 {
