@@ -29,7 +29,7 @@ final class StringKeyHashMap implements Mapper
         $this->helper = new PrimitiveKeyHashMapHelper(new StringType(), $valueType);
     }
 
-    public function clone(): StringKeyHashMap
+    public function clone(): self
     {
         $clone = clone $this;
         $clone->helper = clone $this->helper;

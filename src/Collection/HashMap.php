@@ -38,10 +38,10 @@ final class HashMap implements Mapper
         }
     }
 
-    public function clone(): HashMap
+    public function clone(): self
     {
         $clone = clone $this;
-        $clone->map = $this->map->clone();
+        $this->map = $this->map->clone();
         return $clone;
     }
 

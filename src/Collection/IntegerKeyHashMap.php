@@ -29,7 +29,7 @@ final class IntegerKeyHashMap implements Mapper
         $this->helper = new PrimitiveKeyHashMapHelper(new IntegerType(), $valueType);
     }
 
-    public function clone(): IntegerKeyHashMap
+    public function clone(): self
     {
         $clone = clone $this;
         $clone->helper = clone $this->helper;

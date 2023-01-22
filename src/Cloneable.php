@@ -9,5 +9,5 @@ interface Cloneable
     /**
      * Returns a copy of the object
      */
-    public function clone(): self;
+    public function clone(): static;
 }
