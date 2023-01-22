@@ -42,11 +42,11 @@ interface KeyedCollector extends Collector
      *
      * @param TKey $key The key to remove
      *
-     * @return self The modified collection
+     * @return static The modified collection
      *
      * @throws \OutOfBoundsException
      */
-    public function removeKey(mixed $key): self;
+    public function removeKey(mixed $key): static;
 
     /**
      * Inserts a new value at the corresponding key
@@ -54,7 +54,7 @@ interface KeyedCollector extends Collector
      * @param TKey $key The key for the value
      * @param TValue $value The value
      *
-     * @return self The modified collection
+     * @return static The modified collection
      */
-    public function set(mixed $key, mixed $value): self;
+    public function set(mixed $key, mixed $value): static;
 }
