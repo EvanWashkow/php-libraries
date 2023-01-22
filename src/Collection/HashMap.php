@@ -38,7 +38,7 @@ final class HashMap implements Mapper
         }
     }
 
-    public function clone(): self
+    public function clone(): static
     {
         $clone = clone $this;
         $this->map = $this->map->clone();
@@ -70,13 +70,13 @@ final class HashMap implements Mapper
         return $this->map->hasKey($key);
     }
 
-    public function removeKey(mixed $key): self
+    public function removeKey(mixed $key): static
     {
         $this->map->removeKey($key);
         return $this;
     }
 
-    public function set(mixed $key, mixed $value): self
+    public function set(mixed $key, mixed $value): static
     {
         $this->map->set($key, $value);
         return $this;

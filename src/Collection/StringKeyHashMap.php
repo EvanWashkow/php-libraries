@@ -29,7 +29,7 @@ final class StringKeyHashMap implements Mapper
         $this->helper = new PrimitiveKeyHashMapHelper(new StringType(), $valueType);
     }
 
-    public function clone(): self
+    public function clone(): static
     {
         $clone = clone $this;
         $clone->helper = clone $this->helper;
@@ -61,13 +61,13 @@ final class StringKeyHashMap implements Mapper
         return $this->helper->hasKey($key);
     }
 
-    public function removeKey(mixed $key): self
+    public function removeKey(mixed $key): static
     {
         $this->helper->removeKey($key);
         return $this;
     }
 
-    public function set(mixed $key, mixed $value): self
+    public function set(mixed $key, mixed $value): static
     {
         $this->helper->set($key, $value);
         return $this;
