@@ -11,6 +11,6 @@ namespace EvanWashkow\PhpLibraries\CollectionInterface;
  *
  * @extends KeyedCollector<int, TValue>
  */
-interface Lister extends KeyedCollector
+interface Lister extends AddableCollector, KeyedCollector
 {
 }
