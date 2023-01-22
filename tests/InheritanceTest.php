@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EvanWashkow\PhpLibraries\Tests;
 
 use EvanWashkow\PhpLibraries\Cloneable;
+use EvanWashkow\PhpLibraries\Collection\ArrayList;
 use EvanWashkow\PhpLibraries\Collection\HashMap;
 use EvanWashkow\PhpLibraries\Collection\IntegerKeyHashMap;
 use EvanWashkow\PhpLibraries\Collection\StringKeyHashMap;
@@ -69,6 +70,7 @@ final class InheritanceTest extends \PHPUnit\Framework\TestCase
             $this->buildTest(new InterfaceType(Mapper::class), new InterfaceType(KeyedCollector::class)),
 
             // Collection
+            $this->buildTest(new ClassType(ArrayList::class), new InterfaceType(Lister::class)),
             $this->buildTest(new ClassType(HashMap::class), new InterfaceType(Mapper::class)),
             $this->buildTest(new ClassType(IntegerKeyHashMap::class), new InterfaceType(Mapper::class)),
             $this->buildTest(new ClassType(StringKeyHashMap::class), new InterfaceType(Mapper::class)),
