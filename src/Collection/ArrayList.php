@@ -10,6 +10,10 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
 
 /**
  * An array implementation of a list
+ *
+ * @template TValue
+ *
+ * @extends Lister<TValue>
  */
 final class ArrayList implements Lister
 {
