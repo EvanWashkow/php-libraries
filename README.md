@@ -18,12 +18,12 @@ This library adheres to PSR-12 standards and best software design practices such
    1. Docker
    2. NPM
 2. In a terminal shell, run `bin/init`
-3. While working, periodically run
-   * `bin/unitTest`
-   * `bin/phpinsights fix -- src tests`
-4. Install VS Code Extensions
+3. Install VS Code Extensions
    1. [PHP](https://marketplace.visualstudio.com/items?itemName=DEVSENSE.phptools-vscode)
    2. [PHP Create Class](https://marketplace.visualstudio.com/items?itemName=jaguadoromero.vscode-php-create-class)
+4. While working, periodically run
+   * `bin/unitTest`
+   * `bin/phpinsights fix -- src tests`
 
 ## Local Development
 * [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) - All commits must follow this standard. By following it, release tags will automatically be created when merging into `main`.
