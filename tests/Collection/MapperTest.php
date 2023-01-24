@@ -345,28 +345,28 @@ final class MapperTest extends TestCase
     {
         return array_merge(
             self::buildInvalidValueTypeTestsForIntegerKey(
+                IntegerKeyHashMap::class,
                 static function (Type $type) {
                     return new IntegerKeyHashMap($type);
                 },
-                IntegerKeyHashMap::class,
             ),
             self::buildInvalidValueTypeTestsForStringKey(
+                StringKeyHashMap::class,
                 static function (Type $type) {
                     return new StringKeyHashMap($type);
                 },
-                StringKeyHashMap::class,
             ),
             self::buildInvalidValueTypeTestsForIntegerKey(
+                HashMap::class,
                 static function (Type $type) {
                     return new HashMap(new IntegerType(), $type);
                 },
-                HashMap::class,
             ),
             self::buildInvalidValueTypeTestsForStringKey(
+                HashMap::class,
                 static function (Type $type) {
                     return new HashMap(new StringType(), $type);
                 },
-                HashMap::class,
             ),
         );
     }
@@ -439,41 +439,14 @@ final class MapperTest extends TestCase
         );
     }
 
-    private function buildInvalidValueTypeTestsForIntegerKey(\Closure $new, string $className): array
+    private function buildInvalidValueTypeTestsForIntegerKey(string $className, \Closure $new): array
     {
-        return $this->buildInvalidValueTypeTests('Integer key', static function () {
-            return 1;
-        }, $new, $className);
+        return InvalidValueTypes::createWithKey('Integer key', $className, $new, 1);
     }
 
-    private function buildInvalidValueTypeTestsForStringKey(\Closure $new, string $className): array
+    private function buildInvalidValueTypeTestsForStringKey(string $className, \Closure $new): array
     {
-        return $this->buildInvalidValueTypeTests('String key', static function () {
-            return 'foobar';
-        }, $new, $className);
-    }
-
-    private function buildInvalidValueTypeTests(string $prefix, \Closure $getKey, \Closure $new, string $className): array
-    {
-        return [
-            // Want integer value
-            "{$prefix} {$className} invalid value type - want integer, got array" => [ $new(new IntegerType()), $getKey(), [] ],
-            "{$prefix} {$className} invalid value type - want integer, got boolean" => [ $new(new IntegerType()), $getKey(), true ],
-            "{$prefix} {$className} invalid value type - want integer, got object" => [ $new(new IntegerType()), $getKey(), new class() {
-            },
-            ],
-            "{$prefix} {$className} invalid value type - want integer, got float" => [ $new(new IntegerType()), $getKey(), 1.2 ],
-            "{$prefix} {$className} invalid value type - want integer, got string" => [ $new(new IntegerType()), $getKey(), 'string' ],
-
-            // Want string value
-            "{$prefix} {$className} invalid value type - want string, got array" => [ $new(new StringType()), $getKey(), [] ],
-            "{$prefix} {$className} invalid value type - want string, got boolean" => [ $new(new StringType()), $getKey(), true ],
-            "{$prefix} {$className} invalid value type - want string, got object" => [ $new(new StringType()), $getKey(), new class() {
-            },
-            ],
-            "{$prefix} {$className} invalid value type - want string, got float" => [ $new(new StringType()), $getKey(), 1.2 ],
-            "{$prefix} {$className} invalid value type - want string, got integer" => [ $new(new StringType()), $getKey(), 1 ],
-        ];
+        return InvalidValueTypes::createWithKey('String key', $className, $new, 'foobar');
     }
 
     private static function buildInvalidKeyTypeTestsForIntegerKey(\Closure $new, string $className): array
