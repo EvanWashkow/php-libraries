@@ -65,7 +65,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getCloneTests
      */
-    public function testClone(Mapper $map, $key, $value): void
+    public function testClone(Mapper $map, mixed $key, mixed $value): void
     {
         // Test fresh clone
         $clone = $map->clone();
@@ -230,7 +230,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getKeyAccessTests
      */
-    public function testGet(Mapper $map, $key, $value, bool $hasKey): void
+    public function testGet(Mapper $map, mixed $key, mixed $value, bool $hasKey): void
     {
         if ($hasKey) {
             $this->assertSame($value, $map->get($key), 'get() did not return the correct value');
@@ -257,7 +257,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getKeyAccessTests
      */
-    public function testHasKey(Mapper $map, $key, $value, bool $hasKey): void
+    public function testHasKey(Mapper $map, mixed $key, mixed $value, bool $hasKey): void
     {
         $this->assertSame($hasKey, $map->hasKey($key));
     }
@@ -283,7 +283,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getSetTests
      */
-    public function testSet(Mapper $map, int|string $key, $value, ?string $wantException): void
+    public function testSet(Mapper $map, mixed $key, mixed $value, ?string $wantException): void
     {
         if ($wantException !== null) {
             $this->expectException($wantException);
@@ -326,7 +326,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidKeyTypeTests
      */
-    public function testSetInvalidKeyType(Mapper $map, mixed $key, $value): void
+    public function testSetInvalidKeyType(Mapper $map, mixed $key, mixed $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->set($key, $value);
@@ -335,7 +335,7 @@ final class MapperTest extends TestCase
     /**
      * @dataProvider getInvalidValueTypeTests
      */
-    public function testSetInvalidValueType(Mapper $map, $key, $value): void
+    public function testSetInvalidValueType(Mapper $map, mixed $key, mixed $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $map->set($key, $value);
