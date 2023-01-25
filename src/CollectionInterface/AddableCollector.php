@@ -15,6 +15,8 @@ interface AddableCollector extends Collector
      * @param mixed $value The value
      *
      * @return static The modified collection
+     * 
+     * @throws \TypeError
      */
     public function add(mixed $value): static;
 }

@@ -17,9 +17,20 @@ use EvanWashkow\PhpLibraries\TypeInterface\Type;
  */
 final class ArrayList implements Lister
 {
+    private Type $valueType;
+
+    /**
+     * Creates a new ArrayList instance
+     * 
+     * @param Type $valueType The value type requirement for all values in the array list
+     */
+    public function __construct(Type $valueType) {
+        $this->valueType = $valueType;
+    }
+
     public function add(mixed $value): static
     {
-        return $this;
+        throw new \TypeError('The value is the wrong type');
     }
 
     public function clone(): static
